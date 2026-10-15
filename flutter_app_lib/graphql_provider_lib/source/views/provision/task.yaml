@@ -257,7 +257,6 @@ TaskResourcePageEdit:
   kind: edit
   from: mstr_task_location
   requiredWhere:
-    - mstr_task_id
     - mstr_task_location_id
   generateRfe: true
   columns:

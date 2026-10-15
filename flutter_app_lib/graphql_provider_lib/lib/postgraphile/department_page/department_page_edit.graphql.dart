@@ -47,16 +47,16 @@ class Variables$Mutation$DepartmentPageEdit {
     required String officeAddress2NicknameSharedDictionaryId,
     required String officeAddress2NicknameJa,
     required String officeAddress2NicknameEn,
-    required String officeBillSharedAppellationsId,
-    required String officeBillNameSharedDictionaryId,
-    required String officeBillNameJa,
-    required String officeBillNameEn,
-    required String officeBillPronunciationSharedDictionaryId,
-    required String officeBillPronunciationJa,
-    required String officeBillPronunciationEn,
-    required String officeBillNicknameSharedDictionaryId,
-    required String officeBillNicknameJa,
-    required String officeBillNicknameEn,
+    required String officeBuildingSharedAppellationsId,
+    required String officeBuildingNameSharedDictionaryId,
+    required String officeBuildingNameJa,
+    required String officeBuildingNameEn,
+    required String officeBuildingPronunciationSharedDictionaryId,
+    required String officeBuildingPronunciationJa,
+    required String officeBuildingPronunciationEn,
+    required String officeBuildingNicknameSharedDictionaryId,
+    required String officeBuildingNicknameJa,
+    required String officeBuildingNicknameEn,
     String? officeRemarks,
     String? code,
     required String sharedAppellationsId,
@@ -96,16 +96,16 @@ class Variables$Mutation$DepartmentPageEdit {
     required String address2NicknameSharedDictionaryId,
     required String address2NicknameJa,
     required String address2NicknameEn,
-    required String billSharedAppellationsId,
-    required String billNameSharedDictionaryId,
-    required String billNameJa,
-    required String billNameEn,
-    required String billPronunciationSharedDictionaryId,
-    required String billPronunciationJa,
-    required String billPronunciationEn,
-    required String billNicknameSharedDictionaryId,
-    required String billNicknameJa,
-    required String billNicknameEn,
+    required String buildingSharedAppellationsId,
+    required String buildingNameSharedDictionaryId,
+    required String buildingNameJa,
+    required String buildingNameEn,
+    required String buildingPronunciationSharedDictionaryId,
+    required String buildingPronunciationJa,
+    required String buildingPronunciationEn,
+    required String buildingNicknameSharedDictionaryId,
+    required String buildingNicknameJa,
+    required String buildingNicknameEn,
     List<
       Input$InfoDepartmentKindValueOnInfoDepartmentKindValueForInfoDepartmentKindValueFk1UsingInfoDepartmentKindValuePkcUpdate
     >?
@@ -165,18 +165,19 @@ class Variables$Mutation$DepartmentPageEdit {
         officeAddress2NicknameSharedDictionaryId,
     r'officeAddress2NicknameJa': officeAddress2NicknameJa,
     r'officeAddress2NicknameEn': officeAddress2NicknameEn,
-    r'officeBillSharedAppellationsId': officeBillSharedAppellationsId,
-    r'officeBillNameSharedDictionaryId': officeBillNameSharedDictionaryId,
-    r'officeBillNameJa': officeBillNameJa,
-    r'officeBillNameEn': officeBillNameEn,
-    r'officeBillPronunciationSharedDictionaryId':
-        officeBillPronunciationSharedDictionaryId,
-    r'officeBillPronunciationJa': officeBillPronunciationJa,
-    r'officeBillPronunciationEn': officeBillPronunciationEn,
-    r'officeBillNicknameSharedDictionaryId':
-        officeBillNicknameSharedDictionaryId,
-    r'officeBillNicknameJa': officeBillNicknameJa,
-    r'officeBillNicknameEn': officeBillNicknameEn,
+    r'officeBuildingSharedAppellationsId': officeBuildingSharedAppellationsId,
+    r'officeBuildingNameSharedDictionaryId':
+        officeBuildingNameSharedDictionaryId,
+    r'officeBuildingNameJa': officeBuildingNameJa,
+    r'officeBuildingNameEn': officeBuildingNameEn,
+    r'officeBuildingPronunciationSharedDictionaryId':
+        officeBuildingPronunciationSharedDictionaryId,
+    r'officeBuildingPronunciationJa': officeBuildingPronunciationJa,
+    r'officeBuildingPronunciationEn': officeBuildingPronunciationEn,
+    r'officeBuildingNicknameSharedDictionaryId':
+        officeBuildingNicknameSharedDictionaryId,
+    r'officeBuildingNicknameJa': officeBuildingNicknameJa,
+    r'officeBuildingNicknameEn': officeBuildingNicknameEn,
     if (officeRemarks != null) r'officeRemarks': officeRemarks,
     if (code != null) r'code': code,
     r'sharedAppellationsId': sharedAppellationsId,
@@ -218,16 +219,17 @@ class Variables$Mutation$DepartmentPageEdit {
     r'address2NicknameSharedDictionaryId': address2NicknameSharedDictionaryId,
     r'address2NicknameJa': address2NicknameJa,
     r'address2NicknameEn': address2NicknameEn,
-    r'billSharedAppellationsId': billSharedAppellationsId,
-    r'billNameSharedDictionaryId': billNameSharedDictionaryId,
-    r'billNameJa': billNameJa,
-    r'billNameEn': billNameEn,
-    r'billPronunciationSharedDictionaryId': billPronunciationSharedDictionaryId,
-    r'billPronunciationJa': billPronunciationJa,
-    r'billPronunciationEn': billPronunciationEn,
-    r'billNicknameSharedDictionaryId': billNicknameSharedDictionaryId,
-    r'billNicknameJa': billNicknameJa,
-    r'billNicknameEn': billNicknameEn,
+    r'buildingSharedAppellationsId': buildingSharedAppellationsId,
+    r'buildingNameSharedDictionaryId': buildingNameSharedDictionaryId,
+    r'buildingNameJa': buildingNameJa,
+    r'buildingNameEn': buildingNameEn,
+    r'buildingPronunciationSharedDictionaryId':
+        buildingPronunciationSharedDictionaryId,
+    r'buildingPronunciationJa': buildingPronunciationJa,
+    r'buildingPronunciationEn': buildingPronunciationEn,
+    r'buildingNicknameSharedDictionaryId': buildingNicknameSharedDictionaryId,
+    r'buildingNicknameJa': buildingNicknameJa,
+    r'buildingNicknameEn': buildingNicknameEn,
     if (kindsValueUpdate != null) r'kindsValueUpdate': kindsValueUpdate,
     if (kindsValueCreate != null) r'kindsValueCreate': kindsValueCreate,
     if (kindsValueDelete != null) r'kindsValueDelete': kindsValueDelete,
@@ -370,36 +372,40 @@ class Variables$Mutation$DepartmentPageEdit {
     final l$officeAddress2NicknameEn = data['officeAddress2NicknameEn'];
     result$data['officeAddress2NicknameEn'] =
         (l$officeAddress2NicknameEn as String);
-    final l$officeBillSharedAppellationsId =
-        data['officeBillSharedAppellationsId'];
-    result$data['officeBillSharedAppellationsId'] =
-        (l$officeBillSharedAppellationsId as String);
-    final l$officeBillNameSharedDictionaryId =
-        data['officeBillNameSharedDictionaryId'];
-    result$data['officeBillNameSharedDictionaryId'] =
-        (l$officeBillNameSharedDictionaryId as String);
-    final l$officeBillNameJa = data['officeBillNameJa'];
-    result$data['officeBillNameJa'] = (l$officeBillNameJa as String);
-    final l$officeBillNameEn = data['officeBillNameEn'];
-    result$data['officeBillNameEn'] = (l$officeBillNameEn as String);
-    final l$officeBillPronunciationSharedDictionaryId =
-        data['officeBillPronunciationSharedDictionaryId'];
-    result$data['officeBillPronunciationSharedDictionaryId'] =
-        (l$officeBillPronunciationSharedDictionaryId as String);
-    final l$officeBillPronunciationJa = data['officeBillPronunciationJa'];
-    result$data['officeBillPronunciationJa'] =
-        (l$officeBillPronunciationJa as String);
-    final l$officeBillPronunciationEn = data['officeBillPronunciationEn'];
-    result$data['officeBillPronunciationEn'] =
-        (l$officeBillPronunciationEn as String);
-    final l$officeBillNicknameSharedDictionaryId =
-        data['officeBillNicknameSharedDictionaryId'];
-    result$data['officeBillNicknameSharedDictionaryId'] =
-        (l$officeBillNicknameSharedDictionaryId as String);
-    final l$officeBillNicknameJa = data['officeBillNicknameJa'];
-    result$data['officeBillNicknameJa'] = (l$officeBillNicknameJa as String);
-    final l$officeBillNicknameEn = data['officeBillNicknameEn'];
-    result$data['officeBillNicknameEn'] = (l$officeBillNicknameEn as String);
+    final l$officeBuildingSharedAppellationsId =
+        data['officeBuildingSharedAppellationsId'];
+    result$data['officeBuildingSharedAppellationsId'] =
+        (l$officeBuildingSharedAppellationsId as String);
+    final l$officeBuildingNameSharedDictionaryId =
+        data['officeBuildingNameSharedDictionaryId'];
+    result$data['officeBuildingNameSharedDictionaryId'] =
+        (l$officeBuildingNameSharedDictionaryId as String);
+    final l$officeBuildingNameJa = data['officeBuildingNameJa'];
+    result$data['officeBuildingNameJa'] = (l$officeBuildingNameJa as String);
+    final l$officeBuildingNameEn = data['officeBuildingNameEn'];
+    result$data['officeBuildingNameEn'] = (l$officeBuildingNameEn as String);
+    final l$officeBuildingPronunciationSharedDictionaryId =
+        data['officeBuildingPronunciationSharedDictionaryId'];
+    result$data['officeBuildingPronunciationSharedDictionaryId'] =
+        (l$officeBuildingPronunciationSharedDictionaryId as String);
+    final l$officeBuildingPronunciationJa =
+        data['officeBuildingPronunciationJa'];
+    result$data['officeBuildingPronunciationJa'] =
+        (l$officeBuildingPronunciationJa as String);
+    final l$officeBuildingPronunciationEn =
+        data['officeBuildingPronunciationEn'];
+    result$data['officeBuildingPronunciationEn'] =
+        (l$officeBuildingPronunciationEn as String);
+    final l$officeBuildingNicknameSharedDictionaryId =
+        data['officeBuildingNicknameSharedDictionaryId'];
+    result$data['officeBuildingNicknameSharedDictionaryId'] =
+        (l$officeBuildingNicknameSharedDictionaryId as String);
+    final l$officeBuildingNicknameJa = data['officeBuildingNicknameJa'];
+    result$data['officeBuildingNicknameJa'] =
+        (l$officeBuildingNicknameJa as String);
+    final l$officeBuildingNicknameEn = data['officeBuildingNicknameEn'];
+    result$data['officeBuildingNicknameEn'] =
+        (l$officeBuildingNicknameEn as String);
     if (data.containsKey('officeRemarks')) {
       final l$officeRemarks = data['officeRemarks'];
       result$data['officeRemarks'] = (l$officeRemarks as String?);
@@ -512,32 +518,35 @@ class Variables$Mutation$DepartmentPageEdit {
     result$data['address2NicknameJa'] = (l$address2NicknameJa as String);
     final l$address2NicknameEn = data['address2NicknameEn'];
     result$data['address2NicknameEn'] = (l$address2NicknameEn as String);
-    final l$billSharedAppellationsId = data['billSharedAppellationsId'];
-    result$data['billSharedAppellationsId'] =
-        (l$billSharedAppellationsId as String);
-    final l$billNameSharedDictionaryId = data['billNameSharedDictionaryId'];
-    result$data['billNameSharedDictionaryId'] =
-        (l$billNameSharedDictionaryId as String);
-    final l$billNameJa = data['billNameJa'];
-    result$data['billNameJa'] = (l$billNameJa as String);
-    final l$billNameEn = data['billNameEn'];
-    result$data['billNameEn'] = (l$billNameEn as String);
-    final l$billPronunciationSharedDictionaryId =
-        data['billPronunciationSharedDictionaryId'];
-    result$data['billPronunciationSharedDictionaryId'] =
-        (l$billPronunciationSharedDictionaryId as String);
-    final l$billPronunciationJa = data['billPronunciationJa'];
-    result$data['billPronunciationJa'] = (l$billPronunciationJa as String);
-    final l$billPronunciationEn = data['billPronunciationEn'];
-    result$data['billPronunciationEn'] = (l$billPronunciationEn as String);
-    final l$billNicknameSharedDictionaryId =
-        data['billNicknameSharedDictionaryId'];
-    result$data['billNicknameSharedDictionaryId'] =
-        (l$billNicknameSharedDictionaryId as String);
-    final l$billNicknameJa = data['billNicknameJa'];
-    result$data['billNicknameJa'] = (l$billNicknameJa as String);
-    final l$billNicknameEn = data['billNicknameEn'];
-    result$data['billNicknameEn'] = (l$billNicknameEn as String);
+    final l$buildingSharedAppellationsId = data['buildingSharedAppellationsId'];
+    result$data['buildingSharedAppellationsId'] =
+        (l$buildingSharedAppellationsId as String);
+    final l$buildingNameSharedDictionaryId =
+        data['buildingNameSharedDictionaryId'];
+    result$data['buildingNameSharedDictionaryId'] =
+        (l$buildingNameSharedDictionaryId as String);
+    final l$buildingNameJa = data['buildingNameJa'];
+    result$data['buildingNameJa'] = (l$buildingNameJa as String);
+    final l$buildingNameEn = data['buildingNameEn'];
+    result$data['buildingNameEn'] = (l$buildingNameEn as String);
+    final l$buildingPronunciationSharedDictionaryId =
+        data['buildingPronunciationSharedDictionaryId'];
+    result$data['buildingPronunciationSharedDictionaryId'] =
+        (l$buildingPronunciationSharedDictionaryId as String);
+    final l$buildingPronunciationJa = data['buildingPronunciationJa'];
+    result$data['buildingPronunciationJa'] =
+        (l$buildingPronunciationJa as String);
+    final l$buildingPronunciationEn = data['buildingPronunciationEn'];
+    result$data['buildingPronunciationEn'] =
+        (l$buildingPronunciationEn as String);
+    final l$buildingNicknameSharedDictionaryId =
+        data['buildingNicknameSharedDictionaryId'];
+    result$data['buildingNicknameSharedDictionaryId'] =
+        (l$buildingNicknameSharedDictionaryId as String);
+    final l$buildingNicknameJa = data['buildingNicknameJa'];
+    result$data['buildingNicknameJa'] = (l$buildingNicknameJa as String);
+    final l$buildingNicknameEn = data['buildingNicknameEn'];
+    result$data['buildingNicknameEn'] = (l$buildingNicknameEn as String);
     if (data.containsKey('kindsValueUpdate')) {
       final l$kindsValueUpdate = data['kindsValueUpdate'];
       result$data['kindsValueUpdate'] = (l$kindsValueUpdate as List<dynamic>?)
@@ -687,31 +696,33 @@ class Variables$Mutation$DepartmentPageEdit {
   String get officeAddress2NicknameEn =>
       (_$data['officeAddress2NicknameEn'] as String);
 
-  String get officeBillSharedAppellationsId =>
-      (_$data['officeBillSharedAppellationsId'] as String);
+  String get officeBuildingSharedAppellationsId =>
+      (_$data['officeBuildingSharedAppellationsId'] as String);
 
-  String get officeBillNameSharedDictionaryId =>
-      (_$data['officeBillNameSharedDictionaryId'] as String);
+  String get officeBuildingNameSharedDictionaryId =>
+      (_$data['officeBuildingNameSharedDictionaryId'] as String);
 
-  String get officeBillNameJa => (_$data['officeBillNameJa'] as String);
+  String get officeBuildingNameJa => (_$data['officeBuildingNameJa'] as String);
 
-  String get officeBillNameEn => (_$data['officeBillNameEn'] as String);
+  String get officeBuildingNameEn => (_$data['officeBuildingNameEn'] as String);
 
-  String get officeBillPronunciationSharedDictionaryId =>
-      (_$data['officeBillPronunciationSharedDictionaryId'] as String);
+  String get officeBuildingPronunciationSharedDictionaryId =>
+      (_$data['officeBuildingPronunciationSharedDictionaryId'] as String);
 
-  String get officeBillPronunciationJa =>
-      (_$data['officeBillPronunciationJa'] as String);
+  String get officeBuildingPronunciationJa =>
+      (_$data['officeBuildingPronunciationJa'] as String);
 
-  String get officeBillPronunciationEn =>
-      (_$data['officeBillPronunciationEn'] as String);
+  String get officeBuildingPronunciationEn =>
+      (_$data['officeBuildingPronunciationEn'] as String);
 
-  String get officeBillNicknameSharedDictionaryId =>
-      (_$data['officeBillNicknameSharedDictionaryId'] as String);
+  String get officeBuildingNicknameSharedDictionaryId =>
+      (_$data['officeBuildingNicknameSharedDictionaryId'] as String);
 
-  String get officeBillNicknameJa => (_$data['officeBillNicknameJa'] as String);
+  String get officeBuildingNicknameJa =>
+      (_$data['officeBuildingNicknameJa'] as String);
 
-  String get officeBillNicknameEn => (_$data['officeBillNicknameEn'] as String);
+  String get officeBuildingNicknameEn =>
+      (_$data['officeBuildingNicknameEn'] as String);
 
   String? get officeRemarks => (_$data['officeRemarks'] as String?);
 
@@ -806,29 +817,31 @@ class Variables$Mutation$DepartmentPageEdit {
 
   String get address2NicknameEn => (_$data['address2NicknameEn'] as String);
 
-  String get billSharedAppellationsId =>
-      (_$data['billSharedAppellationsId'] as String);
+  String get buildingSharedAppellationsId =>
+      (_$data['buildingSharedAppellationsId'] as String);
 
-  String get billNameSharedDictionaryId =>
-      (_$data['billNameSharedDictionaryId'] as String);
+  String get buildingNameSharedDictionaryId =>
+      (_$data['buildingNameSharedDictionaryId'] as String);
 
-  String get billNameJa => (_$data['billNameJa'] as String);
+  String get buildingNameJa => (_$data['buildingNameJa'] as String);
 
-  String get billNameEn => (_$data['billNameEn'] as String);
+  String get buildingNameEn => (_$data['buildingNameEn'] as String);
 
-  String get billPronunciationSharedDictionaryId =>
-      (_$data['billPronunciationSharedDictionaryId'] as String);
+  String get buildingPronunciationSharedDictionaryId =>
+      (_$data['buildingPronunciationSharedDictionaryId'] as String);
 
-  String get billPronunciationJa => (_$data['billPronunciationJa'] as String);
+  String get buildingPronunciationJa =>
+      (_$data['buildingPronunciationJa'] as String);
 
-  String get billPronunciationEn => (_$data['billPronunciationEn'] as String);
+  String get buildingPronunciationEn =>
+      (_$data['buildingPronunciationEn'] as String);
 
-  String get billNicknameSharedDictionaryId =>
-      (_$data['billNicknameSharedDictionaryId'] as String);
+  String get buildingNicknameSharedDictionaryId =>
+      (_$data['buildingNicknameSharedDictionaryId'] as String);
 
-  String get billNicknameJa => (_$data['billNicknameJa'] as String);
+  String get buildingNicknameJa => (_$data['buildingNicknameJa'] as String);
 
-  String get billNicknameEn => (_$data['billNicknameEn'] as String);
+  String get buildingNicknameEn => (_$data['buildingNicknameEn'] as String);
 
   List<
     Input$InfoDepartmentKindValueOnInfoDepartmentKindValueForInfoDepartmentKindValueFk1UsingInfoDepartmentKindValuePkcUpdate
@@ -977,32 +990,36 @@ class Variables$Mutation$DepartmentPageEdit {
     result$data['officeAddress2NicknameJa'] = l$officeAddress2NicknameJa;
     final l$officeAddress2NicknameEn = officeAddress2NicknameEn;
     result$data['officeAddress2NicknameEn'] = l$officeAddress2NicknameEn;
-    final l$officeBillSharedAppellationsId = officeBillSharedAppellationsId;
-    result$data['officeBillSharedAppellationsId'] =
-        l$officeBillSharedAppellationsId;
-    final l$officeBillNameSharedDictionaryId = officeBillNameSharedDictionaryId;
-    result$data['officeBillNameSharedDictionaryId'] =
-        l$officeBillNameSharedDictionaryId;
-    final l$officeBillNameJa = officeBillNameJa;
-    result$data['officeBillNameJa'] = l$officeBillNameJa;
-    final l$officeBillNameEn = officeBillNameEn;
-    result$data['officeBillNameEn'] = l$officeBillNameEn;
-    final l$officeBillPronunciationSharedDictionaryId =
-        officeBillPronunciationSharedDictionaryId;
-    result$data['officeBillPronunciationSharedDictionaryId'] =
-        l$officeBillPronunciationSharedDictionaryId;
-    final l$officeBillPronunciationJa = officeBillPronunciationJa;
-    result$data['officeBillPronunciationJa'] = l$officeBillPronunciationJa;
-    final l$officeBillPronunciationEn = officeBillPronunciationEn;
-    result$data['officeBillPronunciationEn'] = l$officeBillPronunciationEn;
-    final l$officeBillNicknameSharedDictionaryId =
-        officeBillNicknameSharedDictionaryId;
-    result$data['officeBillNicknameSharedDictionaryId'] =
-        l$officeBillNicknameSharedDictionaryId;
-    final l$officeBillNicknameJa = officeBillNicknameJa;
-    result$data['officeBillNicknameJa'] = l$officeBillNicknameJa;
-    final l$officeBillNicknameEn = officeBillNicknameEn;
-    result$data['officeBillNicknameEn'] = l$officeBillNicknameEn;
+    final l$officeBuildingSharedAppellationsId =
+        officeBuildingSharedAppellationsId;
+    result$data['officeBuildingSharedAppellationsId'] =
+        l$officeBuildingSharedAppellationsId;
+    final l$officeBuildingNameSharedDictionaryId =
+        officeBuildingNameSharedDictionaryId;
+    result$data['officeBuildingNameSharedDictionaryId'] =
+        l$officeBuildingNameSharedDictionaryId;
+    final l$officeBuildingNameJa = officeBuildingNameJa;
+    result$data['officeBuildingNameJa'] = l$officeBuildingNameJa;
+    final l$officeBuildingNameEn = officeBuildingNameEn;
+    result$data['officeBuildingNameEn'] = l$officeBuildingNameEn;
+    final l$officeBuildingPronunciationSharedDictionaryId =
+        officeBuildingPronunciationSharedDictionaryId;
+    result$data['officeBuildingPronunciationSharedDictionaryId'] =
+        l$officeBuildingPronunciationSharedDictionaryId;
+    final l$officeBuildingPronunciationJa = officeBuildingPronunciationJa;
+    result$data['officeBuildingPronunciationJa'] =
+        l$officeBuildingPronunciationJa;
+    final l$officeBuildingPronunciationEn = officeBuildingPronunciationEn;
+    result$data['officeBuildingPronunciationEn'] =
+        l$officeBuildingPronunciationEn;
+    final l$officeBuildingNicknameSharedDictionaryId =
+        officeBuildingNicknameSharedDictionaryId;
+    result$data['officeBuildingNicknameSharedDictionaryId'] =
+        l$officeBuildingNicknameSharedDictionaryId;
+    final l$officeBuildingNicknameJa = officeBuildingNicknameJa;
+    result$data['officeBuildingNicknameJa'] = l$officeBuildingNicknameJa;
+    final l$officeBuildingNicknameEn = officeBuildingNicknameEn;
+    result$data['officeBuildingNicknameEn'] = l$officeBuildingNicknameEn;
     if (_$data.containsKey('officeRemarks')) {
       final l$officeRemarks = officeRemarks;
       result$data['officeRemarks'] = l$officeRemarks;
@@ -1106,29 +1123,32 @@ class Variables$Mutation$DepartmentPageEdit {
     result$data['address2NicknameJa'] = l$address2NicknameJa;
     final l$address2NicknameEn = address2NicknameEn;
     result$data['address2NicknameEn'] = l$address2NicknameEn;
-    final l$billSharedAppellationsId = billSharedAppellationsId;
-    result$data['billSharedAppellationsId'] = l$billSharedAppellationsId;
-    final l$billNameSharedDictionaryId = billNameSharedDictionaryId;
-    result$data['billNameSharedDictionaryId'] = l$billNameSharedDictionaryId;
-    final l$billNameJa = billNameJa;
-    result$data['billNameJa'] = l$billNameJa;
-    final l$billNameEn = billNameEn;
-    result$data['billNameEn'] = l$billNameEn;
-    final l$billPronunciationSharedDictionaryId =
-        billPronunciationSharedDictionaryId;
-    result$data['billPronunciationSharedDictionaryId'] =
-        l$billPronunciationSharedDictionaryId;
-    final l$billPronunciationJa = billPronunciationJa;
-    result$data['billPronunciationJa'] = l$billPronunciationJa;
-    final l$billPronunciationEn = billPronunciationEn;
-    result$data['billPronunciationEn'] = l$billPronunciationEn;
-    final l$billNicknameSharedDictionaryId = billNicknameSharedDictionaryId;
-    result$data['billNicknameSharedDictionaryId'] =
-        l$billNicknameSharedDictionaryId;
-    final l$billNicknameJa = billNicknameJa;
-    result$data['billNicknameJa'] = l$billNicknameJa;
-    final l$billNicknameEn = billNicknameEn;
-    result$data['billNicknameEn'] = l$billNicknameEn;
+    final l$buildingSharedAppellationsId = buildingSharedAppellationsId;
+    result$data['buildingSharedAppellationsId'] =
+        l$buildingSharedAppellationsId;
+    final l$buildingNameSharedDictionaryId = buildingNameSharedDictionaryId;
+    result$data['buildingNameSharedDictionaryId'] =
+        l$buildingNameSharedDictionaryId;
+    final l$buildingNameJa = buildingNameJa;
+    result$data['buildingNameJa'] = l$buildingNameJa;
+    final l$buildingNameEn = buildingNameEn;
+    result$data['buildingNameEn'] = l$buildingNameEn;
+    final l$buildingPronunciationSharedDictionaryId =
+        buildingPronunciationSharedDictionaryId;
+    result$data['buildingPronunciationSharedDictionaryId'] =
+        l$buildingPronunciationSharedDictionaryId;
+    final l$buildingPronunciationJa = buildingPronunciationJa;
+    result$data['buildingPronunciationJa'] = l$buildingPronunciationJa;
+    final l$buildingPronunciationEn = buildingPronunciationEn;
+    result$data['buildingPronunciationEn'] = l$buildingPronunciationEn;
+    final l$buildingNicknameSharedDictionaryId =
+        buildingNicknameSharedDictionaryId;
+    result$data['buildingNicknameSharedDictionaryId'] =
+        l$buildingNicknameSharedDictionaryId;
+    final l$buildingNicknameJa = buildingNicknameJa;
+    result$data['buildingNicknameJa'] = l$buildingNicknameJa;
+    final l$buildingNicknameEn = buildingNicknameEn;
+    result$data['buildingNicknameEn'] = l$buildingNicknameEn;
     if (_$data.containsKey('kindsValueUpdate')) {
       final l$kindsValueUpdate = kindsValueUpdate;
       result$data['kindsValueUpdate'] = l$kindsValueUpdate
@@ -1439,64 +1459,70 @@ class Variables$Mutation$DepartmentPageEdit {
     if (l$officeAddress2NicknameEn != lOther$officeAddress2NicknameEn) {
       return false;
     }
-    final l$officeBillSharedAppellationsId = officeBillSharedAppellationsId;
-    final lOther$officeBillSharedAppellationsId =
-        other.officeBillSharedAppellationsId;
-    if (l$officeBillSharedAppellationsId !=
-        lOther$officeBillSharedAppellationsId) {
+    final l$officeBuildingSharedAppellationsId =
+        officeBuildingSharedAppellationsId;
+    final lOther$officeBuildingSharedAppellationsId =
+        other.officeBuildingSharedAppellationsId;
+    if (l$officeBuildingSharedAppellationsId !=
+        lOther$officeBuildingSharedAppellationsId) {
       return false;
     }
-    final l$officeBillNameSharedDictionaryId = officeBillNameSharedDictionaryId;
-    final lOther$officeBillNameSharedDictionaryId =
-        other.officeBillNameSharedDictionaryId;
-    if (l$officeBillNameSharedDictionaryId !=
-        lOther$officeBillNameSharedDictionaryId) {
+    final l$officeBuildingNameSharedDictionaryId =
+        officeBuildingNameSharedDictionaryId;
+    final lOther$officeBuildingNameSharedDictionaryId =
+        other.officeBuildingNameSharedDictionaryId;
+    if (l$officeBuildingNameSharedDictionaryId !=
+        lOther$officeBuildingNameSharedDictionaryId) {
       return false;
     }
-    final l$officeBillNameJa = officeBillNameJa;
-    final lOther$officeBillNameJa = other.officeBillNameJa;
-    if (l$officeBillNameJa != lOther$officeBillNameJa) {
+    final l$officeBuildingNameJa = officeBuildingNameJa;
+    final lOther$officeBuildingNameJa = other.officeBuildingNameJa;
+    if (l$officeBuildingNameJa != lOther$officeBuildingNameJa) {
       return false;
     }
-    final l$officeBillNameEn = officeBillNameEn;
-    final lOther$officeBillNameEn = other.officeBillNameEn;
-    if (l$officeBillNameEn != lOther$officeBillNameEn) {
+    final l$officeBuildingNameEn = officeBuildingNameEn;
+    final lOther$officeBuildingNameEn = other.officeBuildingNameEn;
+    if (l$officeBuildingNameEn != lOther$officeBuildingNameEn) {
       return false;
     }
-    final l$officeBillPronunciationSharedDictionaryId =
-        officeBillPronunciationSharedDictionaryId;
-    final lOther$officeBillPronunciationSharedDictionaryId =
-        other.officeBillPronunciationSharedDictionaryId;
-    if (l$officeBillPronunciationSharedDictionaryId !=
-        lOther$officeBillPronunciationSharedDictionaryId) {
+    final l$officeBuildingPronunciationSharedDictionaryId =
+        officeBuildingPronunciationSharedDictionaryId;
+    final lOther$officeBuildingPronunciationSharedDictionaryId =
+        other.officeBuildingPronunciationSharedDictionaryId;
+    if (l$officeBuildingPronunciationSharedDictionaryId !=
+        lOther$officeBuildingPronunciationSharedDictionaryId) {
       return false;
     }
-    final l$officeBillPronunciationJa = officeBillPronunciationJa;
-    final lOther$officeBillPronunciationJa = other.officeBillPronunciationJa;
-    if (l$officeBillPronunciationJa != lOther$officeBillPronunciationJa) {
+    final l$officeBuildingPronunciationJa = officeBuildingPronunciationJa;
+    final lOther$officeBuildingPronunciationJa =
+        other.officeBuildingPronunciationJa;
+    if (l$officeBuildingPronunciationJa !=
+        lOther$officeBuildingPronunciationJa) {
       return false;
     }
-    final l$officeBillPronunciationEn = officeBillPronunciationEn;
-    final lOther$officeBillPronunciationEn = other.officeBillPronunciationEn;
-    if (l$officeBillPronunciationEn != lOther$officeBillPronunciationEn) {
+    final l$officeBuildingPronunciationEn = officeBuildingPronunciationEn;
+    final lOther$officeBuildingPronunciationEn =
+        other.officeBuildingPronunciationEn;
+    if (l$officeBuildingPronunciationEn !=
+        lOther$officeBuildingPronunciationEn) {
       return false;
     }
-    final l$officeBillNicknameSharedDictionaryId =
-        officeBillNicknameSharedDictionaryId;
-    final lOther$officeBillNicknameSharedDictionaryId =
-        other.officeBillNicknameSharedDictionaryId;
-    if (l$officeBillNicknameSharedDictionaryId !=
-        lOther$officeBillNicknameSharedDictionaryId) {
+    final l$officeBuildingNicknameSharedDictionaryId =
+        officeBuildingNicknameSharedDictionaryId;
+    final lOther$officeBuildingNicknameSharedDictionaryId =
+        other.officeBuildingNicknameSharedDictionaryId;
+    if (l$officeBuildingNicknameSharedDictionaryId !=
+        lOther$officeBuildingNicknameSharedDictionaryId) {
       return false;
     }
-    final l$officeBillNicknameJa = officeBillNicknameJa;
-    final lOther$officeBillNicknameJa = other.officeBillNicknameJa;
-    if (l$officeBillNicknameJa != lOther$officeBillNicknameJa) {
+    final l$officeBuildingNicknameJa = officeBuildingNicknameJa;
+    final lOther$officeBuildingNicknameJa = other.officeBuildingNicknameJa;
+    if (l$officeBuildingNicknameJa != lOther$officeBuildingNicknameJa) {
       return false;
     }
-    final l$officeBillNicknameEn = officeBillNicknameEn;
-    final lOther$officeBillNicknameEn = other.officeBillNicknameEn;
-    if (l$officeBillNicknameEn != lOther$officeBillNicknameEn) {
+    final l$officeBuildingNicknameEn = officeBuildingNicknameEn;
+    final lOther$officeBuildingNicknameEn = other.officeBuildingNicknameEn;
+    if (l$officeBuildingNicknameEn != lOther$officeBuildingNicknameEn) {
       return false;
     }
     final l$officeRemarks = officeRemarks;
@@ -1735,59 +1761,63 @@ class Variables$Mutation$DepartmentPageEdit {
     if (l$address2NicknameEn != lOther$address2NicknameEn) {
       return false;
     }
-    final l$billSharedAppellationsId = billSharedAppellationsId;
-    final lOther$billSharedAppellationsId = other.billSharedAppellationsId;
-    if (l$billSharedAppellationsId != lOther$billSharedAppellationsId) {
+    final l$buildingSharedAppellationsId = buildingSharedAppellationsId;
+    final lOther$buildingSharedAppellationsId =
+        other.buildingSharedAppellationsId;
+    if (l$buildingSharedAppellationsId != lOther$buildingSharedAppellationsId) {
       return false;
     }
-    final l$billNameSharedDictionaryId = billNameSharedDictionaryId;
-    final lOther$billNameSharedDictionaryId = other.billNameSharedDictionaryId;
-    if (l$billNameSharedDictionaryId != lOther$billNameSharedDictionaryId) {
+    final l$buildingNameSharedDictionaryId = buildingNameSharedDictionaryId;
+    final lOther$buildingNameSharedDictionaryId =
+        other.buildingNameSharedDictionaryId;
+    if (l$buildingNameSharedDictionaryId !=
+        lOther$buildingNameSharedDictionaryId) {
       return false;
     }
-    final l$billNameJa = billNameJa;
-    final lOther$billNameJa = other.billNameJa;
-    if (l$billNameJa != lOther$billNameJa) {
+    final l$buildingNameJa = buildingNameJa;
+    final lOther$buildingNameJa = other.buildingNameJa;
+    if (l$buildingNameJa != lOther$buildingNameJa) {
       return false;
     }
-    final l$billNameEn = billNameEn;
-    final lOther$billNameEn = other.billNameEn;
-    if (l$billNameEn != lOther$billNameEn) {
+    final l$buildingNameEn = buildingNameEn;
+    final lOther$buildingNameEn = other.buildingNameEn;
+    if (l$buildingNameEn != lOther$buildingNameEn) {
       return false;
     }
-    final l$billPronunciationSharedDictionaryId =
-        billPronunciationSharedDictionaryId;
-    final lOther$billPronunciationSharedDictionaryId =
-        other.billPronunciationSharedDictionaryId;
-    if (l$billPronunciationSharedDictionaryId !=
-        lOther$billPronunciationSharedDictionaryId) {
+    final l$buildingPronunciationSharedDictionaryId =
+        buildingPronunciationSharedDictionaryId;
+    final lOther$buildingPronunciationSharedDictionaryId =
+        other.buildingPronunciationSharedDictionaryId;
+    if (l$buildingPronunciationSharedDictionaryId !=
+        lOther$buildingPronunciationSharedDictionaryId) {
       return false;
     }
-    final l$billPronunciationJa = billPronunciationJa;
-    final lOther$billPronunciationJa = other.billPronunciationJa;
-    if (l$billPronunciationJa != lOther$billPronunciationJa) {
+    final l$buildingPronunciationJa = buildingPronunciationJa;
+    final lOther$buildingPronunciationJa = other.buildingPronunciationJa;
+    if (l$buildingPronunciationJa != lOther$buildingPronunciationJa) {
       return false;
     }
-    final l$billPronunciationEn = billPronunciationEn;
-    final lOther$billPronunciationEn = other.billPronunciationEn;
-    if (l$billPronunciationEn != lOther$billPronunciationEn) {
+    final l$buildingPronunciationEn = buildingPronunciationEn;
+    final lOther$buildingPronunciationEn = other.buildingPronunciationEn;
+    if (l$buildingPronunciationEn != lOther$buildingPronunciationEn) {
       return false;
     }
-    final l$billNicknameSharedDictionaryId = billNicknameSharedDictionaryId;
-    final lOther$billNicknameSharedDictionaryId =
-        other.billNicknameSharedDictionaryId;
-    if (l$billNicknameSharedDictionaryId !=
-        lOther$billNicknameSharedDictionaryId) {
+    final l$buildingNicknameSharedDictionaryId =
+        buildingNicknameSharedDictionaryId;
+    final lOther$buildingNicknameSharedDictionaryId =
+        other.buildingNicknameSharedDictionaryId;
+    if (l$buildingNicknameSharedDictionaryId !=
+        lOther$buildingNicknameSharedDictionaryId) {
       return false;
     }
-    final l$billNicknameJa = billNicknameJa;
-    final lOther$billNicknameJa = other.billNicknameJa;
-    if (l$billNicknameJa != lOther$billNicknameJa) {
+    final l$buildingNicknameJa = buildingNicknameJa;
+    final lOther$buildingNicknameJa = other.buildingNicknameJa;
+    if (l$buildingNicknameJa != lOther$buildingNicknameJa) {
       return false;
     }
-    final l$billNicknameEn = billNicknameEn;
-    final lOther$billNicknameEn = other.billNicknameEn;
-    if (l$billNicknameEn != lOther$billNicknameEn) {
+    final l$buildingNicknameEn = buildingNicknameEn;
+    final lOther$buildingNicknameEn = other.buildingNicknameEn;
+    if (l$buildingNicknameEn != lOther$buildingNicknameEn) {
       return false;
     }
     final l$kindsValueUpdate = kindsValueUpdate;
@@ -1921,18 +1951,20 @@ class Variables$Mutation$DepartmentPageEdit {
         officeAddress2NicknameSharedDictionaryId;
     final l$officeAddress2NicknameJa = officeAddress2NicknameJa;
     final l$officeAddress2NicknameEn = officeAddress2NicknameEn;
-    final l$officeBillSharedAppellationsId = officeBillSharedAppellationsId;
-    final l$officeBillNameSharedDictionaryId = officeBillNameSharedDictionaryId;
-    final l$officeBillNameJa = officeBillNameJa;
-    final l$officeBillNameEn = officeBillNameEn;
-    final l$officeBillPronunciationSharedDictionaryId =
-        officeBillPronunciationSharedDictionaryId;
-    final l$officeBillPronunciationJa = officeBillPronunciationJa;
-    final l$officeBillPronunciationEn = officeBillPronunciationEn;
-    final l$officeBillNicknameSharedDictionaryId =
-        officeBillNicknameSharedDictionaryId;
-    final l$officeBillNicknameJa = officeBillNicknameJa;
-    final l$officeBillNicknameEn = officeBillNicknameEn;
+    final l$officeBuildingSharedAppellationsId =
+        officeBuildingSharedAppellationsId;
+    final l$officeBuildingNameSharedDictionaryId =
+        officeBuildingNameSharedDictionaryId;
+    final l$officeBuildingNameJa = officeBuildingNameJa;
+    final l$officeBuildingNameEn = officeBuildingNameEn;
+    final l$officeBuildingPronunciationSharedDictionaryId =
+        officeBuildingPronunciationSharedDictionaryId;
+    final l$officeBuildingPronunciationJa = officeBuildingPronunciationJa;
+    final l$officeBuildingPronunciationEn = officeBuildingPronunciationEn;
+    final l$officeBuildingNicknameSharedDictionaryId =
+        officeBuildingNicknameSharedDictionaryId;
+    final l$officeBuildingNicknameJa = officeBuildingNicknameJa;
+    final l$officeBuildingNicknameEn = officeBuildingNicknameEn;
     final l$officeRemarks = officeRemarks;
     final l$code = code;
     final l$sharedAppellationsId = sharedAppellationsId;
@@ -1976,17 +2008,18 @@ class Variables$Mutation$DepartmentPageEdit {
         address2NicknameSharedDictionaryId;
     final l$address2NicknameJa = address2NicknameJa;
     final l$address2NicknameEn = address2NicknameEn;
-    final l$billSharedAppellationsId = billSharedAppellationsId;
-    final l$billNameSharedDictionaryId = billNameSharedDictionaryId;
-    final l$billNameJa = billNameJa;
-    final l$billNameEn = billNameEn;
-    final l$billPronunciationSharedDictionaryId =
-        billPronunciationSharedDictionaryId;
-    final l$billPronunciationJa = billPronunciationJa;
-    final l$billPronunciationEn = billPronunciationEn;
-    final l$billNicknameSharedDictionaryId = billNicknameSharedDictionaryId;
-    final l$billNicknameJa = billNicknameJa;
-    final l$billNicknameEn = billNicknameEn;
+    final l$buildingSharedAppellationsId = buildingSharedAppellationsId;
+    final l$buildingNameSharedDictionaryId = buildingNameSharedDictionaryId;
+    final l$buildingNameJa = buildingNameJa;
+    final l$buildingNameEn = buildingNameEn;
+    final l$buildingPronunciationSharedDictionaryId =
+        buildingPronunciationSharedDictionaryId;
+    final l$buildingPronunciationJa = buildingPronunciationJa;
+    final l$buildingPronunciationEn = buildingPronunciationEn;
+    final l$buildingNicknameSharedDictionaryId =
+        buildingNicknameSharedDictionaryId;
+    final l$buildingNicknameJa = buildingNicknameJa;
+    final l$buildingNicknameEn = buildingNicknameEn;
     final l$kindsValueUpdate = kindsValueUpdate;
     final l$kindsValueCreate = kindsValueCreate;
     final l$kindsValueDelete = kindsValueDelete;
@@ -2035,16 +2068,16 @@ class Variables$Mutation$DepartmentPageEdit {
       l$officeAddress2NicknameSharedDictionaryId,
       l$officeAddress2NicknameJa,
       l$officeAddress2NicknameEn,
-      l$officeBillSharedAppellationsId,
-      l$officeBillNameSharedDictionaryId,
-      l$officeBillNameJa,
-      l$officeBillNameEn,
-      l$officeBillPronunciationSharedDictionaryId,
-      l$officeBillPronunciationJa,
-      l$officeBillPronunciationEn,
-      l$officeBillNicknameSharedDictionaryId,
-      l$officeBillNicknameJa,
-      l$officeBillNicknameEn,
+      l$officeBuildingSharedAppellationsId,
+      l$officeBuildingNameSharedDictionaryId,
+      l$officeBuildingNameJa,
+      l$officeBuildingNameEn,
+      l$officeBuildingPronunciationSharedDictionaryId,
+      l$officeBuildingPronunciationJa,
+      l$officeBuildingPronunciationEn,
+      l$officeBuildingNicknameSharedDictionaryId,
+      l$officeBuildingNicknameJa,
+      l$officeBuildingNicknameEn,
       _$data.containsKey('officeRemarks') ? l$officeRemarks : const {},
       _$data.containsKey('code') ? l$code : const {},
       l$sharedAppellationsId,
@@ -2084,16 +2117,16 @@ class Variables$Mutation$DepartmentPageEdit {
       l$address2NicknameSharedDictionaryId,
       l$address2NicknameJa,
       l$address2NicknameEn,
-      l$billSharedAppellationsId,
-      l$billNameSharedDictionaryId,
-      l$billNameJa,
-      l$billNameEn,
-      l$billPronunciationSharedDictionaryId,
-      l$billPronunciationJa,
-      l$billPronunciationEn,
-      l$billNicknameSharedDictionaryId,
-      l$billNicknameJa,
-      l$billNicknameEn,
+      l$buildingSharedAppellationsId,
+      l$buildingNameSharedDictionaryId,
+      l$buildingNameJa,
+      l$buildingNameEn,
+      l$buildingPronunciationSharedDictionaryId,
+      l$buildingPronunciationJa,
+      l$buildingPronunciationEn,
+      l$buildingNicknameSharedDictionaryId,
+      l$buildingNicknameJa,
+      l$buildingNicknameEn,
       _$data.containsKey('kindsValueUpdate')
           ? l$kindsValueUpdate == null
                 ? null
@@ -2165,16 +2198,16 @@ abstract class CopyWith$Variables$Mutation$DepartmentPageEdit<TRes> {
     String? officeAddress2NicknameSharedDictionaryId,
     String? officeAddress2NicknameJa,
     String? officeAddress2NicknameEn,
-    String? officeBillSharedAppellationsId,
-    String? officeBillNameSharedDictionaryId,
-    String? officeBillNameJa,
-    String? officeBillNameEn,
-    String? officeBillPronunciationSharedDictionaryId,
-    String? officeBillPronunciationJa,
-    String? officeBillPronunciationEn,
-    String? officeBillNicknameSharedDictionaryId,
-    String? officeBillNicknameJa,
-    String? officeBillNicknameEn,
+    String? officeBuildingSharedAppellationsId,
+    String? officeBuildingNameSharedDictionaryId,
+    String? officeBuildingNameJa,
+    String? officeBuildingNameEn,
+    String? officeBuildingPronunciationSharedDictionaryId,
+    String? officeBuildingPronunciationJa,
+    String? officeBuildingPronunciationEn,
+    String? officeBuildingNicknameSharedDictionaryId,
+    String? officeBuildingNicknameJa,
+    String? officeBuildingNicknameEn,
     String? officeRemarks,
     String? code,
     String? sharedAppellationsId,
@@ -2214,16 +2247,16 @@ abstract class CopyWith$Variables$Mutation$DepartmentPageEdit<TRes> {
     String? address2NicknameSharedDictionaryId,
     String? address2NicknameJa,
     String? address2NicknameEn,
-    String? billSharedAppellationsId,
-    String? billNameSharedDictionaryId,
-    String? billNameJa,
-    String? billNameEn,
-    String? billPronunciationSharedDictionaryId,
-    String? billPronunciationJa,
-    String? billPronunciationEn,
-    String? billNicknameSharedDictionaryId,
-    String? billNicknameJa,
-    String? billNicknameEn,
+    String? buildingSharedAppellationsId,
+    String? buildingNameSharedDictionaryId,
+    String? buildingNameJa,
+    String? buildingNameEn,
+    String? buildingPronunciationSharedDictionaryId,
+    String? buildingPronunciationJa,
+    String? buildingPronunciationEn,
+    String? buildingNicknameSharedDictionaryId,
+    String? buildingNicknameJa,
+    String? buildingNicknameEn,
     List<
       Input$InfoDepartmentKindValueOnInfoDepartmentKindValueForInfoDepartmentKindValueFk1UsingInfoDepartmentKindValuePkcUpdate
     >?
@@ -2291,16 +2324,16 @@ class _CopyWithImpl$Variables$Mutation$DepartmentPageEdit<TRes>
     Object? officeAddress2NicknameSharedDictionaryId = _undefined,
     Object? officeAddress2NicknameJa = _undefined,
     Object? officeAddress2NicknameEn = _undefined,
-    Object? officeBillSharedAppellationsId = _undefined,
-    Object? officeBillNameSharedDictionaryId = _undefined,
-    Object? officeBillNameJa = _undefined,
-    Object? officeBillNameEn = _undefined,
-    Object? officeBillPronunciationSharedDictionaryId = _undefined,
-    Object? officeBillPronunciationJa = _undefined,
-    Object? officeBillPronunciationEn = _undefined,
-    Object? officeBillNicknameSharedDictionaryId = _undefined,
-    Object? officeBillNicknameJa = _undefined,
-    Object? officeBillNicknameEn = _undefined,
+    Object? officeBuildingSharedAppellationsId = _undefined,
+    Object? officeBuildingNameSharedDictionaryId = _undefined,
+    Object? officeBuildingNameJa = _undefined,
+    Object? officeBuildingNameEn = _undefined,
+    Object? officeBuildingPronunciationSharedDictionaryId = _undefined,
+    Object? officeBuildingPronunciationJa = _undefined,
+    Object? officeBuildingPronunciationEn = _undefined,
+    Object? officeBuildingNicknameSharedDictionaryId = _undefined,
+    Object? officeBuildingNicknameJa = _undefined,
+    Object? officeBuildingNicknameEn = _undefined,
     Object? officeRemarks = _undefined,
     Object? code = _undefined,
     Object? sharedAppellationsId = _undefined,
@@ -2340,16 +2373,16 @@ class _CopyWithImpl$Variables$Mutation$DepartmentPageEdit<TRes>
     Object? address2NicknameSharedDictionaryId = _undefined,
     Object? address2NicknameJa = _undefined,
     Object? address2NicknameEn = _undefined,
-    Object? billSharedAppellationsId = _undefined,
-    Object? billNameSharedDictionaryId = _undefined,
-    Object? billNameJa = _undefined,
-    Object? billNameEn = _undefined,
-    Object? billPronunciationSharedDictionaryId = _undefined,
-    Object? billPronunciationJa = _undefined,
-    Object? billPronunciationEn = _undefined,
-    Object? billNicknameSharedDictionaryId = _undefined,
-    Object? billNicknameJa = _undefined,
-    Object? billNicknameEn = _undefined,
+    Object? buildingSharedAppellationsId = _undefined,
+    Object? buildingNameSharedDictionaryId = _undefined,
+    Object? buildingNameJa = _undefined,
+    Object? buildingNameEn = _undefined,
+    Object? buildingPronunciationSharedDictionaryId = _undefined,
+    Object? buildingPronunciationJa = _undefined,
+    Object? buildingPronunciationEn = _undefined,
+    Object? buildingNicknameSharedDictionaryId = _undefined,
+    Object? buildingNicknameJa = _undefined,
+    Object? buildingNicknameEn = _undefined,
     Object? kindsValueUpdate = _undefined,
     Object? kindsValueCreate = _undefined,
     Object? kindsValueDelete = _undefined,
@@ -2471,36 +2504,40 @@ class _CopyWithImpl$Variables$Mutation$DepartmentPageEdit<TRes>
       if (officeAddress2NicknameEn != _undefined &&
           officeAddress2NicknameEn != null)
         'officeAddress2NicknameEn': (officeAddress2NicknameEn as String),
-      if (officeBillSharedAppellationsId != _undefined &&
-          officeBillSharedAppellationsId != null)
-        'officeBillSharedAppellationsId':
-            (officeBillSharedAppellationsId as String),
-      if (officeBillNameSharedDictionaryId != _undefined &&
-          officeBillNameSharedDictionaryId != null)
-        'officeBillNameSharedDictionaryId':
-            (officeBillNameSharedDictionaryId as String),
-      if (officeBillNameJa != _undefined && officeBillNameJa != null)
-        'officeBillNameJa': (officeBillNameJa as String),
-      if (officeBillNameEn != _undefined && officeBillNameEn != null)
-        'officeBillNameEn': (officeBillNameEn as String),
-      if (officeBillPronunciationSharedDictionaryId != _undefined &&
-          officeBillPronunciationSharedDictionaryId != null)
-        'officeBillPronunciationSharedDictionaryId':
-            (officeBillPronunciationSharedDictionaryId as String),
-      if (officeBillPronunciationJa != _undefined &&
-          officeBillPronunciationJa != null)
-        'officeBillPronunciationJa': (officeBillPronunciationJa as String),
-      if (officeBillPronunciationEn != _undefined &&
-          officeBillPronunciationEn != null)
-        'officeBillPronunciationEn': (officeBillPronunciationEn as String),
-      if (officeBillNicknameSharedDictionaryId != _undefined &&
-          officeBillNicknameSharedDictionaryId != null)
-        'officeBillNicknameSharedDictionaryId':
-            (officeBillNicknameSharedDictionaryId as String),
-      if (officeBillNicknameJa != _undefined && officeBillNicknameJa != null)
-        'officeBillNicknameJa': (officeBillNicknameJa as String),
-      if (officeBillNicknameEn != _undefined && officeBillNicknameEn != null)
-        'officeBillNicknameEn': (officeBillNicknameEn as String),
+      if (officeBuildingSharedAppellationsId != _undefined &&
+          officeBuildingSharedAppellationsId != null)
+        'officeBuildingSharedAppellationsId':
+            (officeBuildingSharedAppellationsId as String),
+      if (officeBuildingNameSharedDictionaryId != _undefined &&
+          officeBuildingNameSharedDictionaryId != null)
+        'officeBuildingNameSharedDictionaryId':
+            (officeBuildingNameSharedDictionaryId as String),
+      if (officeBuildingNameJa != _undefined && officeBuildingNameJa != null)
+        'officeBuildingNameJa': (officeBuildingNameJa as String),
+      if (officeBuildingNameEn != _undefined && officeBuildingNameEn != null)
+        'officeBuildingNameEn': (officeBuildingNameEn as String),
+      if (officeBuildingPronunciationSharedDictionaryId != _undefined &&
+          officeBuildingPronunciationSharedDictionaryId != null)
+        'officeBuildingPronunciationSharedDictionaryId':
+            (officeBuildingPronunciationSharedDictionaryId as String),
+      if (officeBuildingPronunciationJa != _undefined &&
+          officeBuildingPronunciationJa != null)
+        'officeBuildingPronunciationJa':
+            (officeBuildingPronunciationJa as String),
+      if (officeBuildingPronunciationEn != _undefined &&
+          officeBuildingPronunciationEn != null)
+        'officeBuildingPronunciationEn':
+            (officeBuildingPronunciationEn as String),
+      if (officeBuildingNicknameSharedDictionaryId != _undefined &&
+          officeBuildingNicknameSharedDictionaryId != null)
+        'officeBuildingNicknameSharedDictionaryId':
+            (officeBuildingNicknameSharedDictionaryId as String),
+      if (officeBuildingNicknameJa != _undefined &&
+          officeBuildingNicknameJa != null)
+        'officeBuildingNicknameJa': (officeBuildingNicknameJa as String),
+      if (officeBuildingNicknameEn != _undefined &&
+          officeBuildingNicknameEn != null)
+        'officeBuildingNicknameEn': (officeBuildingNicknameEn as String),
       if (officeRemarks != _undefined)
         'officeRemarks': (officeRemarks as String?),
       if (code != _undefined) 'code': (code as String?),
@@ -2596,32 +2633,36 @@ class _CopyWithImpl$Variables$Mutation$DepartmentPageEdit<TRes>
         'address2NicknameJa': (address2NicknameJa as String),
       if (address2NicknameEn != _undefined && address2NicknameEn != null)
         'address2NicknameEn': (address2NicknameEn as String),
-      if (billSharedAppellationsId != _undefined &&
-          billSharedAppellationsId != null)
-        'billSharedAppellationsId': (billSharedAppellationsId as String),
-      if (billNameSharedDictionaryId != _undefined &&
-          billNameSharedDictionaryId != null)
-        'billNameSharedDictionaryId': (billNameSharedDictionaryId as String),
-      if (billNameJa != _undefined && billNameJa != null)
-        'billNameJa': (billNameJa as String),
-      if (billNameEn != _undefined && billNameEn != null)
-        'billNameEn': (billNameEn as String),
-      if (billPronunciationSharedDictionaryId != _undefined &&
-          billPronunciationSharedDictionaryId != null)
-        'billPronunciationSharedDictionaryId':
-            (billPronunciationSharedDictionaryId as String),
-      if (billPronunciationJa != _undefined && billPronunciationJa != null)
-        'billPronunciationJa': (billPronunciationJa as String),
-      if (billPronunciationEn != _undefined && billPronunciationEn != null)
-        'billPronunciationEn': (billPronunciationEn as String),
-      if (billNicknameSharedDictionaryId != _undefined &&
-          billNicknameSharedDictionaryId != null)
-        'billNicknameSharedDictionaryId':
-            (billNicknameSharedDictionaryId as String),
-      if (billNicknameJa != _undefined && billNicknameJa != null)
-        'billNicknameJa': (billNicknameJa as String),
-      if (billNicknameEn != _undefined && billNicknameEn != null)
-        'billNicknameEn': (billNicknameEn as String),
+      if (buildingSharedAppellationsId != _undefined &&
+          buildingSharedAppellationsId != null)
+        'buildingSharedAppellationsId':
+            (buildingSharedAppellationsId as String),
+      if (buildingNameSharedDictionaryId != _undefined &&
+          buildingNameSharedDictionaryId != null)
+        'buildingNameSharedDictionaryId':
+            (buildingNameSharedDictionaryId as String),
+      if (buildingNameJa != _undefined && buildingNameJa != null)
+        'buildingNameJa': (buildingNameJa as String),
+      if (buildingNameEn != _undefined && buildingNameEn != null)
+        'buildingNameEn': (buildingNameEn as String),
+      if (buildingPronunciationSharedDictionaryId != _undefined &&
+          buildingPronunciationSharedDictionaryId != null)
+        'buildingPronunciationSharedDictionaryId':
+            (buildingPronunciationSharedDictionaryId as String),
+      if (buildingPronunciationJa != _undefined &&
+          buildingPronunciationJa != null)
+        'buildingPronunciationJa': (buildingPronunciationJa as String),
+      if (buildingPronunciationEn != _undefined &&
+          buildingPronunciationEn != null)
+        'buildingPronunciationEn': (buildingPronunciationEn as String),
+      if (buildingNicknameSharedDictionaryId != _undefined &&
+          buildingNicknameSharedDictionaryId != null)
+        'buildingNicknameSharedDictionaryId':
+            (buildingNicknameSharedDictionaryId as String),
+      if (buildingNicknameJa != _undefined && buildingNicknameJa != null)
+        'buildingNicknameJa': (buildingNicknameJa as String),
+      if (buildingNicknameEn != _undefined && buildingNicknameEn != null)
+        'buildingNicknameEn': (buildingNicknameEn as String),
       if (kindsValueUpdate != _undefined)
         'kindsValueUpdate':
             (kindsValueUpdate
@@ -2693,16 +2734,16 @@ class _CopyWithStubImpl$Variables$Mutation$DepartmentPageEdit<TRes>
     String? officeAddress2NicknameSharedDictionaryId,
     String? officeAddress2NicknameJa,
     String? officeAddress2NicknameEn,
-    String? officeBillSharedAppellationsId,
-    String? officeBillNameSharedDictionaryId,
-    String? officeBillNameJa,
-    String? officeBillNameEn,
-    String? officeBillPronunciationSharedDictionaryId,
-    String? officeBillPronunciationJa,
-    String? officeBillPronunciationEn,
-    String? officeBillNicknameSharedDictionaryId,
-    String? officeBillNicknameJa,
-    String? officeBillNicknameEn,
+    String? officeBuildingSharedAppellationsId,
+    String? officeBuildingNameSharedDictionaryId,
+    String? officeBuildingNameJa,
+    String? officeBuildingNameEn,
+    String? officeBuildingPronunciationSharedDictionaryId,
+    String? officeBuildingPronunciationJa,
+    String? officeBuildingPronunciationEn,
+    String? officeBuildingNicknameSharedDictionaryId,
+    String? officeBuildingNicknameJa,
+    String? officeBuildingNicknameEn,
     String? officeRemarks,
     String? code,
     String? sharedAppellationsId,
@@ -2742,16 +2783,16 @@ class _CopyWithStubImpl$Variables$Mutation$DepartmentPageEdit<TRes>
     String? address2NicknameSharedDictionaryId,
     String? address2NicknameJa,
     String? address2NicknameEn,
-    String? billSharedAppellationsId,
-    String? billNameSharedDictionaryId,
-    String? billNameJa,
-    String? billNameEn,
-    String? billPronunciationSharedDictionaryId,
-    String? billPronunciationJa,
-    String? billPronunciationEn,
-    String? billNicknameSharedDictionaryId,
-    String? billNicknameJa,
-    String? billNicknameEn,
+    String? buildingSharedAppellationsId,
+    String? buildingNameSharedDictionaryId,
+    String? buildingNameJa,
+    String? buildingNameEn,
+    String? buildingPronunciationSharedDictionaryId,
+    String? buildingPronunciationJa,
+    String? buildingPronunciationEn,
+    String? buildingNicknameSharedDictionaryId,
+    String? buildingNicknameJa,
+    String? buildingNicknameEn,
     List<
       Input$InfoDepartmentKindValueOnInfoDepartmentKindValueForInfoDepartmentKindValueFk1UsingInfoDepartmentKindValuePkcUpdate
     >?
@@ -3243,7 +3284,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(
-            name: NameNode(value: 'officeBillSharedAppellationsId'),
+            name: NameNode(value: 'officeBuildingSharedAppellationsId'),
           ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -3251,27 +3292,29 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(
-            name: NameNode(value: 'officeBillNameSharedDictionaryId'),
+            name: NameNode(value: 'officeBuildingNameSharedDictionaryId'),
           ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'officeBillNameJa')),
+          variable: VariableNode(name: NameNode(value: 'officeBuildingNameJa')),
           type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'officeBillNameEn')),
+          variable: VariableNode(name: NameNode(value: 'officeBuildingNameEn')),
           type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
           variable: VariableNode(
-            name: NameNode(value: 'officeBillPronunciationSharedDictionaryId'),
+            name: NameNode(
+              value: 'officeBuildingPronunciationSharedDictionaryId',
+            ),
           ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -3279,7 +3322,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(
-            name: NameNode(value: 'officeBillPronunciationJa'),
+            name: NameNode(value: 'officeBuildingPronunciationJa'),
           ),
           type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -3287,7 +3330,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(
-            name: NameNode(value: 'officeBillPronunciationEn'),
+            name: NameNode(value: 'officeBuildingPronunciationEn'),
           ),
           type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -3295,20 +3338,24 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(
-            name: NameNode(value: 'officeBillNicknameSharedDictionaryId'),
+            name: NameNode(value: 'officeBuildingNicknameSharedDictionaryId'),
           ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'officeBillNicknameJa')),
+          variable: VariableNode(
+            name: NameNode(value: 'officeBuildingNicknameJa'),
+          ),
           type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'officeBillNicknameEn')),
+          variable: VariableNode(
+            name: NameNode(value: 'officeBuildingNicknameEn'),
+          ),
           type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
@@ -3597,7 +3644,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(
-            name: NameNode(value: 'billSharedAppellationsId'),
+            name: NameNode(value: 'buildingSharedAppellationsId'),
           ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -3605,60 +3652,64 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(
-            name: NameNode(value: 'billNameSharedDictionaryId'),
+            name: NameNode(value: 'buildingNameSharedDictionaryId'),
           ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'billNameJa')),
+          variable: VariableNode(name: NameNode(value: 'buildingNameJa')),
           type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'billNameEn')),
+          variable: VariableNode(name: NameNode(value: 'buildingNameEn')),
           type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
           variable: VariableNode(
-            name: NameNode(value: 'billPronunciationSharedDictionaryId'),
+            name: NameNode(value: 'buildingPronunciationSharedDictionaryId'),
           ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'billPronunciationJa')),
-          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'billPronunciationEn')),
+          variable: VariableNode(
+            name: NameNode(value: 'buildingPronunciationJa'),
+          ),
           type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
           variable: VariableNode(
-            name: NameNode(value: 'billNicknameSharedDictionaryId'),
+            name: NameNode(value: 'buildingPronunciationEn'),
+          ),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(
+            name: NameNode(value: 'buildingNicknameSharedDictionaryId'),
           ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'billNicknameJa')),
+          variable: VariableNode(name: NameNode(value: 'buildingNicknameJa')),
           type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'billNicknameEn')),
+          variable: VariableNode(name: NameNode(value: 'buildingNicknameEn')),
           type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
@@ -5044,7 +5095,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                               ObjectFieldNode(
                                                                 name: NameNode(
                                                                   value:
-                                                                      'sharedAppellationToBill',
+                                                                      'sharedAppellationToBuilding',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
@@ -5061,7 +5112,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                             ),
                                                                             value: VariableNode(
                                                                               name: NameNode(
-                                                                                value: 'officeBillSharedAppellationsId',
+                                                                                value: 'officeBuildingSharedAppellationsId',
                                                                               ),
                                                                             ),
                                                                           ),
@@ -5089,7 +5140,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                                               ),
                                                                                               value: VariableNode(
                                                                                                 name: NameNode(
-                                                                                                  value: 'officeBillNameSharedDictionaryId',
+                                                                                                  value: 'officeBuildingNameSharedDictionaryId',
                                                                                                 ),
                                                                                               ),
                                                                                             ),
@@ -5137,7 +5188,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                                                                     ),
                                                                                                                     value: VariableNode(
                                                                                                                       name: NameNode(
-                                                                                                                        value: 'officeBillNameJa',
+                                                                                                                        value: 'officeBuildingNameJa',
                                                                                                                       ),
                                                                                                                     ),
                                                                                                                   ),
@@ -5161,7 +5212,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                                                                     ),
                                                                                                                     value: VariableNode(
                                                                                                                       name: NameNode(
-                                                                                                                        value: 'officeBillNameEn',
+                                                                                                                        value: 'officeBuildingNameEn',
                                                                                                                       ),
                                                                                                                     ),
                                                                                                                   ),
@@ -5200,7 +5251,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                                               ),
                                                                                               value: VariableNode(
                                                                                                 name: NameNode(
-                                                                                                  value: 'officeBillPronunciationSharedDictionaryId',
+                                                                                                  value: 'officeBuildingPronunciationSharedDictionaryId',
                                                                                                 ),
                                                                                               ),
                                                                                             ),
@@ -5248,7 +5299,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                                                                     ),
                                                                                                                     value: VariableNode(
                                                                                                                       name: NameNode(
-                                                                                                                        value: 'officeBillPronunciationJa',
+                                                                                                                        value: 'officeBuildingPronunciationJa',
                                                                                                                       ),
                                                                                                                     ),
                                                                                                                   ),
@@ -5272,7 +5323,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                                                                     ),
                                                                                                                     value: VariableNode(
                                                                                                                       name: NameNode(
-                                                                                                                        value: 'officeBillPronunciationEn',
+                                                                                                                        value: 'officeBuildingPronunciationEn',
                                                                                                                       ),
                                                                                                                     ),
                                                                                                                   ),
@@ -5311,7 +5362,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                                               ),
                                                                                               value: VariableNode(
                                                                                                 name: NameNode(
-                                                                                                  value: 'officeBillNicknameSharedDictionaryId',
+                                                                                                  value: 'officeBuildingNicknameSharedDictionaryId',
                                                                                                 ),
                                                                                               ),
                                                                                             ),
@@ -5359,7 +5410,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                                                                     ),
                                                                                                                     value: VariableNode(
                                                                                                                       name: NameNode(
-                                                                                                                        value: 'officeBillNicknameJa',
+                                                                                                                        value: 'officeBuildingNicknameJa',
                                                                                                                       ),
                                                                                                                     ),
                                                                                                                   ),
@@ -5383,7 +5434,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                                                                     ),
                                                                                                                     value: VariableNode(
                                                                                                                       name: NameNode(
-                                                                                                                        value: 'officeBillNicknameEn',
+                                                                                                                        value: 'officeBuildingNicknameEn',
                                                                                                                       ),
                                                                                                                     ),
                                                                                                                   ),
@@ -6647,7 +6698,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                             ObjectFieldNode(
                                               name: NameNode(
                                                 value:
-                                                    'sharedAppellationToBill',
+                                                    'sharedAppellationToBuilding',
                                               ),
                                               value: ObjectValueNode(
                                                 fields: [
@@ -6666,7 +6717,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                           value: VariableNode(
                                                             name: NameNode(
                                                               value:
-                                                                  'billSharedAppellationsId',
+                                                                  'buildingSharedAppellationsId',
                                                             ),
                                                           ),
                                                         ),
@@ -6697,7 +6748,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                             ),
                                                                             value: VariableNode(
                                                                               name: NameNode(
-                                                                                value: 'billNameSharedDictionaryId',
+                                                                                value: 'buildingNameSharedDictionaryId',
                                                                               ),
                                                                             ),
                                                                           ),
@@ -6745,7 +6796,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                                                   ),
                                                                                                   value: VariableNode(
                                                                                                     name: NameNode(
-                                                                                                      value: 'billNameJa',
+                                                                                                      value: 'buildingNameJa',
                                                                                                     ),
                                                                                                   ),
                                                                                                 ),
@@ -6769,7 +6820,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                                                   ),
                                                                                                   value: VariableNode(
                                                                                                     name: NameNode(
-                                                                                                      value: 'billNameEn',
+                                                                                                      value: 'buildingNameEn',
                                                                                                     ),
                                                                                                   ),
                                                                                                 ),
@@ -6810,7 +6861,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                             ),
                                                                             value: VariableNode(
                                                                               name: NameNode(
-                                                                                value: 'billPronunciationSharedDictionaryId',
+                                                                                value: 'buildingPronunciationSharedDictionaryId',
                                                                               ),
                                                                             ),
                                                                           ),
@@ -6858,7 +6909,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                                                   ),
                                                                                                   value: VariableNode(
                                                                                                     name: NameNode(
-                                                                                                      value: 'billPronunciationJa',
+                                                                                                      value: 'buildingPronunciationJa',
                                                                                                     ),
                                                                                                   ),
                                                                                                 ),
@@ -6882,7 +6933,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                                                   ),
                                                                                                   value: VariableNode(
                                                                                                     name: NameNode(
-                                                                                                      value: 'billPronunciationEn',
+                                                                                                      value: 'buildingPronunciationEn',
                                                                                                     ),
                                                                                                   ),
                                                                                                 ),
@@ -6923,7 +6974,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                             ),
                                                                             value: VariableNode(
                                                                               name: NameNode(
-                                                                                value: 'billNicknameSharedDictionaryId',
+                                                                                value: 'buildingNicknameSharedDictionaryId',
                                                                               ),
                                                                             ),
                                                                           ),
@@ -6971,7 +7022,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                                                   ),
                                                                                                   value: VariableNode(
                                                                                                     name: NameNode(
-                                                                                                      value: 'billNicknameJa',
+                                                                                                      value: 'buildingNicknameJa',
                                                                                                     ),
                                                                                                   ),
                                                                                                 ),
@@ -6995,7 +7046,7 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                                                                                   ),
                                                                                                   value: VariableNode(
                                                                                                     name: NameNode(
-                                                                                                      value: 'billNicknameEn',
+                                                                                                      value: 'buildingNicknameEn',
                                                                                                     ),
                                                                                                   ),
                                                                                                 ),
@@ -8885,8 +8936,10 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                               ),
                             ),
                             FieldNode(
-                              name: NameNode(value: 'sharedAppellationByBill'),
-                              alias: NameNode(value: 'billName'),
+                              name: NameNode(
+                                value: 'sharedAppellationByBuilding',
+                              ),
+                              alias: NameNode(value: 'building'),
                               arguments: [],
                               directives: [],
                               selectionSet: SelectionSetNode(
@@ -11231,9 +11284,9 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value: 'sharedAppellationByBill',
+                                      value: 'sharedAppellationByBuilding',
                                     ),
-                                    alias: NameNode(value: 'billName'),
+                                    alias: NameNode(value: 'building'),
                                     arguments: [],
                                     directives: [],
                                     selectionSet: SelectionSetNode(
@@ -17219,7 +17272,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
     this.faxNumber,
     this.address1,
     this.address2,
-    this.billName,
+    this.building,
     this.$__typename = 'InfoAddress',
   });
 
@@ -17233,7 +17286,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
     final l$faxNumber = json['faxNumber'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
-    final l$billName = json['billName'];
+    final l$building = json['building'];
     final l$$__typename = json['__typename'];
     return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address(
       infoAddressId: (l$infoAddressId as String),
@@ -17251,10 +17304,10 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
           : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$address2.fromJson(
               (l$address2 as Map<String, dynamic>),
             ),
-      billName: l$billName == null
+      building: l$building == null
           ? null
-          : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName.fromJson(
-              (l$billName as Map<String, dynamic>),
+          : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building.fromJson(
+              (l$building as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
     );
@@ -17276,8 +17329,8 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$address2?
   address2;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName?
-  billName;
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building?
+  building;
 
   final String $__typename;
 
@@ -17297,8 +17350,8 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
     _resultData['address1'] = l$address1?.toJson();
     final l$address2 = address2;
     _resultData['address2'] = l$address2?.toJson();
-    final l$billName = billName;
-    _resultData['billName'] = l$billName?.toJson();
+    final l$building = building;
+    _resultData['building'] = l$building?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -17313,7 +17366,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
     final l$faxNumber = faxNumber;
     final l$address1 = address1;
     final l$address2 = address2;
-    final l$billName = billName;
+    final l$building = building;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
@@ -17323,7 +17376,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       l$faxNumber,
       l$address1,
       l$address2,
-      l$billName,
+      l$building,
       l$$__typename,
     ]);
   }
@@ -17373,9 +17426,9 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
     if (l$address2 != lOther$address2) {
       return false;
     }
-    final l$billName = billName;
-    final lOther$billName = other.billName;
-    if (l$billName != lOther$billName) {
+    final l$building = building;
+    final lOther$building = other.building;
+    if (l$building != lOther$building) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -17426,8 +17479,8 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
     address1,
     Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$address2?
     address2,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName?
-    billName,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building?
+    building,
     String? $__typename,
   });
   CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$address1<
@@ -17438,10 +17491,10 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
     TRes
   >
   get address2;
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building<
     TRes
   >
-  get billName;
+  get building;
 }
 
 class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address<
@@ -17474,7 +17527,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? faxNumber = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
-    Object? billName = _undefined,
+    Object? building = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address(
@@ -17497,10 +17550,10 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
           ? _instance.address2
           : (address2
                 as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$address2?),
-      billName: billName == _undefined
-          ? _instance.billName
-          : (billName
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName?),
+      building: building == _undefined
+          ? _instance.building
+          : (building
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -17537,18 +17590,18 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
           );
   }
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building<
     TRes
   >
-  get billName {
-    final local$billName = _instance.billName;
-    return local$billName == null
-        ? CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName.stub(
+  get building {
+    final local$building = _instance.building;
+    return local$building == null
+        ? CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName(
-            local$billName,
-            (e) => call(billName: e),
+        : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building(
+            local$building,
+            (e) => call(building: e),
           );
   }
 }
@@ -17576,8 +17629,8 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
     address1,
     Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$address2?
     address2,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName?
-    billName,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building?
+    building,
     String? $__typename,
   }) => _res;
 
@@ -17597,11 +17650,11 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
         _res,
       );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building<
     TRes
   >
-  get billName =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName.stub(
+  get building =>
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building.stub(
         _res,
       );
 }
@@ -24224,8 +24277,8 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -24233,7 +24286,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -24244,26 +24297,26 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -24273,13 +24326,13 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
 
   final String sharedAppellationsId;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId?
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -24330,7 +24383,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -24372,76 +24425,76 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building;
 
   TRes call({
     String? sharedAppellationsId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building,
   )
   _then;
 
@@ -24454,7 +24507,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -24463,80 +24516,80 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId?),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building(
     this._res,
   );
 
@@ -24544,61 +24597,61 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     String? sharedAppellationsId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+      ja: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+      en: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -24607,10 +24660,10 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
 
   final String sharedDictionaryId;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja
   ja;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en
   en;
 
   final String $__typename;
@@ -24643,7 +24696,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -24671,70 +24724,70 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja?
     ja,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -24746,7 +24799,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -24754,48 +24807,48 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -24803,47 +24856,47 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     String? sharedDictionaryId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja?
     ja,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en.stub(
         _res,
       );
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -24853,7 +24906,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 
   final List<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
   >
   nodes;
 
@@ -24884,7 +24937,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -24909,50 +24962,50 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja;
 
   TRes call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
         >?
       >,
     )
@@ -24960,23 +25013,23 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja,
   )
   _then;
 
@@ -24986,12 +25039,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -25001,12 +25054,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
         >?
       >,
     )
@@ -25016,7 +25069,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -25025,14 +25078,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
     this._res,
   );
 
@@ -25040,7 +25093,7 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -25049,18 +25102,18 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -25092,7 +25145,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -25110,55 +25163,55 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
   )
   _then;
 
@@ -25168,7 +25221,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -25179,14 +25232,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
     this._res,
   );
 
@@ -25195,23 +25248,23 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -25221,7 +25274,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 
   final List<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
   >
   nodes;
 
@@ -25252,7 +25305,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -25277,50 +25330,50 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en;
 
   TRes call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
         >?
       >,
     )
@@ -25328,23 +25381,23 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en,
   )
   _then;
 
@@ -25354,12 +25407,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -25369,12 +25422,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
         >?
       >,
     )
@@ -25384,7 +25437,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -25393,14 +25446,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en(
     this._res,
   );
 
@@ -25408,7 +25461,7 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -25417,18 +25470,18 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -25460,7 +25513,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -25478,55 +25531,55 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes,
   )
   _then;
 
@@ -25536,7 +25589,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -25547,14 +25600,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
     this._res,
   );
 
@@ -25563,27 +25616,27 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+      ja: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+      en: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -25592,10 +25645,10 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
 
   final String sharedDictionaryId;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
   ja;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
   en;
 
   final String $__typename;
@@ -25628,7 +25681,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -25656,70 +25709,70 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja?
     ja,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -25731,7 +25784,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -25739,48 +25792,48 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -25788,47 +25841,47 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     String? sharedDictionaryId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja?
     ja,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
         _res,
       );
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -25838,7 +25891,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 
   final List<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
   >
   nodes;
 
@@ -25869,7 +25922,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -25894,50 +25947,50 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja;
 
   TRes call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
         >?
       >,
     )
@@ -25945,23 +25998,23 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja,
   )
   _then;
 
@@ -25971,12 +26024,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -25986,12 +26039,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
         >?
       >,
     )
@@ -26001,7 +26054,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -26010,14 +26063,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
     this._res,
   );
 
@@ -26025,7 +26078,7 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -26034,18 +26087,18 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -26077,7 +26130,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -26095,55 +26148,55 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
   )
   _then;
 
@@ -26153,7 +26206,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -26164,14 +26217,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
     this._res,
   );
 
@@ -26180,23 +26233,23 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -26206,7 +26259,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 
   final List<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
   >
   nodes;
 
@@ -26237,7 +26290,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -26262,50 +26315,50 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en;
 
   TRes call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
         >?
       >,
     )
@@ -26313,23 +26366,23 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en,
   )
   _then;
 
@@ -26339,12 +26392,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -26354,12 +26407,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
         >?
       >,
     )
@@ -26369,7 +26422,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -26378,14 +26431,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
     this._res,
   );
 
@@ -26393,7 +26446,7 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -26402,18 +26455,18 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -26445,7 +26498,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -26463,55 +26516,55 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
   )
   _then;
 
@@ -26521,7 +26574,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -26532,14 +26585,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
     this._res,
   );
 
@@ -26548,27 +26601,27 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+      ja: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+      en: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -26577,10 +26630,10 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
 
   final String sharedDictionaryId;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
   ja;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
   en;
 
   final String $__typename;
@@ -26613,7 +26666,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -26641,70 +26694,70 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja?
     ja,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -26716,7 +26769,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -26724,48 +26777,48 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -26773,47 +26826,47 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     String? sharedDictionaryId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja?
     ja,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
         _res,
       );
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -26823,7 +26876,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 
   final List<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
   >
   nodes;
 
@@ -26854,7 +26907,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -26879,50 +26932,50 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja;
 
   TRes call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
         >?
       >,
     )
@@ -26930,23 +26983,23 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja,
   )
   _then;
 
@@ -26956,12 +27009,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -26971,12 +27024,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
         >?
       >,
     )
@@ -26986,7 +27039,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -26995,14 +27048,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
     this._res,
   );
 
@@ -27010,7 +27063,7 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -27019,18 +27072,18 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -27062,7 +27115,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -27080,55 +27133,55 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
   )
   _then;
 
@@ -27138,7 +27191,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -27149,14 +27202,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
     this._res,
   );
 
@@ -27165,23 +27218,23 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -27191,7 +27244,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 
   final List<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
   >
   nodes;
 
@@ -27222,7 +27275,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -27247,50 +27300,50 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en;
 
   TRes call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
         >?
       >,
     )
@@ -27298,23 +27351,23 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en,
   )
   _then;
 
@@ -27324,12 +27377,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -27339,12 +27392,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
         >?
       >,
     )
@@ -27354,7 +27407,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -27363,14 +27416,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
     this._res,
   );
 
@@ -27378,7 +27431,7 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -27387,18 +27440,18 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -27430,7 +27483,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -27448,55 +27501,55 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
   )
   _then;
 
@@ -27506,7 +27559,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -27517,14 +27570,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
     this._res,
   );
 
@@ -31174,7 +31227,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
     this.faxNumber,
     this.address1,
     this.address2,
-    this.billName,
+    this.building,
     this.$__typename = 'InfoAddress',
   });
 
@@ -31188,7 +31241,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
     final l$faxNumber = json['faxNumber'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
-    final l$billName = json['billName'];
+    final l$building = json['building'];
     final l$$__typename = json['__typename'];
     return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address(
       infoAddressId: (l$infoAddressId as String),
@@ -31206,10 +31259,10 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
           : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$address2.fromJson(
               (l$address2 as Map<String, dynamic>),
             ),
-      billName: l$billName == null
+      building: l$building == null
           ? null
-          : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName.fromJson(
-              (l$billName as Map<String, dynamic>),
+          : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building.fromJson(
+              (l$building as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
     );
@@ -31231,8 +31284,8 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$address2?
   address2;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName?
-  billName;
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building?
+  building;
 
   final String $__typename;
 
@@ -31252,8 +31305,8 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
     _resultData['address1'] = l$address1?.toJson();
     final l$address2 = address2;
     _resultData['address2'] = l$address2?.toJson();
-    final l$billName = billName;
-    _resultData['billName'] = l$billName?.toJson();
+    final l$building = building;
+    _resultData['building'] = l$building?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -31268,7 +31321,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
     final l$faxNumber = faxNumber;
     final l$address1 = address1;
     final l$address2 = address2;
-    final l$billName = billName;
+    final l$building = building;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
@@ -31278,7 +31331,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       l$faxNumber,
       l$address1,
       l$address2,
-      l$billName,
+      l$building,
       l$$__typename,
     ]);
   }
@@ -31328,9 +31381,9 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
     if (l$address2 != lOther$address2) {
       return false;
     }
-    final l$billName = billName;
-    final lOther$billName = other.billName;
-    if (l$billName != lOther$billName) {
+    final l$building = building;
+    final lOther$building = other.building;
+    if (l$building != lOther$building) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -31381,8 +31434,8 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
     address1,
     Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$address2?
     address2,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName?
-    billName,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building?
+    building,
     String? $__typename,
   });
   CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$address1<
@@ -31393,10 +31446,10 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
     TRes
   >
   get address2;
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building<
     TRes
   >
-  get billName;
+  get building;
 }
 
 class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address<
@@ -31429,7 +31482,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? faxNumber = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
-    Object? billName = _undefined,
+    Object? building = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address(
@@ -31452,10 +31505,10 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
           ? _instance.address2
           : (address2
                 as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$address2?),
-      billName: billName == _undefined
-          ? _instance.billName
-          : (billName
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName?),
+      building: building == _undefined
+          ? _instance.building
+          : (building
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -31492,18 +31545,18 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
           );
   }
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building<
     TRes
   >
-  get billName {
-    final local$billName = _instance.billName;
-    return local$billName == null
-        ? CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName.stub(
+  get building {
+    final local$building = _instance.building;
+    return local$building == null
+        ? CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName(
-            local$billName,
-            (e) => call(billName: e),
+        : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building(
+            local$building,
+            (e) => call(building: e),
           );
   }
 }
@@ -31531,8 +31584,8 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
     address1,
     Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$address2?
     address2,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName?
-    billName,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building?
+    building,
     String? $__typename,
   }) => _res;
 
@@ -31552,11 +31605,11 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
         _res,
       );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building<
     TRes
   >
-  get billName =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName.stub(
+  get building =>
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building.stub(
         _res,
       );
 }
@@ -38179,8 +38232,8 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -38188,7 +38241,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -38199,26 +38252,26 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -38228,13 +38281,13 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
 
   final String sharedAppellationsId;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId?
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -38285,7 +38338,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -38327,76 +38380,76 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building;
 
   TRes call({
     String? sharedAppellationsId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building,
   )
   _then;
 
@@ -38409,7 +38462,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -38418,80 +38471,80 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId?),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building(
     this._res,
   );
 
@@ -38499,61 +38552,61 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     String? sharedAppellationsId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+      ja: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+      en: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -38562,10 +38615,10 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
 
   final String sharedDictionaryId;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja
   ja;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en
   en;
 
   final String $__typename;
@@ -38598,7 +38651,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -38626,70 +38679,70 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja?
     ja,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -38701,7 +38754,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -38709,48 +38762,48 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -38758,47 +38811,47 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     String? sharedDictionaryId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja?
     ja,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en.stub(
         _res,
       );
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -38808,7 +38861,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 
   final List<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
   >
   nodes;
 
@@ -38839,7 +38892,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -38864,50 +38917,50 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja;
 
   TRes call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
         >?
       >,
     )
@@ -38915,23 +38968,23 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja,
   )
   _then;
 
@@ -38941,12 +38994,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -38956,12 +39009,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
         >?
       >,
     )
@@ -38971,7 +39024,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -38980,14 +39033,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
     this._res,
   );
 
@@ -38995,7 +39048,7 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -39004,18 +39057,18 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -39047,7 +39100,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -39065,55 +39118,55 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
   )
   _then;
 
@@ -39123,7 +39176,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -39134,14 +39187,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
     this._res,
   );
 
@@ -39150,23 +39203,23 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -39176,7 +39229,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 
   final List<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
   >
   nodes;
 
@@ -39207,7 +39260,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -39232,50 +39285,50 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en;
 
   TRes call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
         >?
       >,
     )
@@ -39283,23 +39336,23 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en,
   )
   _then;
 
@@ -39309,12 +39362,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -39324,12 +39377,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
         >?
       >,
     )
@@ -39339,7 +39392,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -39348,14 +39401,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en(
     this._res,
   );
 
@@ -39363,7 +39416,7 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -39372,18 +39425,18 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -39415,7 +39468,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -39433,55 +39486,55 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes,
   )
   _then;
 
@@ -39491,7 +39544,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -39502,14 +39555,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
     this._res,
   );
 
@@ -39518,27 +39571,27 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+      ja: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+      en: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -39547,10 +39600,10 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
 
   final String sharedDictionaryId;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
   ja;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
   en;
 
   final String $__typename;
@@ -39583,7 +39636,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -39611,70 +39664,70 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja?
     ja,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -39686,7 +39739,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -39694,48 +39747,48 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -39743,47 +39796,47 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     String? sharedDictionaryId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja?
     ja,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
         _res,
       );
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -39793,7 +39846,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 
   final List<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
   >
   nodes;
 
@@ -39824,7 +39877,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -39849,50 +39902,50 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja;
 
   TRes call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
         >?
       >,
     )
@@ -39900,23 +39953,23 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja,
   )
   _then;
 
@@ -39926,12 +39979,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -39941,12 +39994,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
         >?
       >,
     )
@@ -39956,7 +40009,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -39965,14 +40018,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
     this._res,
   );
 
@@ -39980,7 +40033,7 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -39989,18 +40042,18 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -40032,7 +40085,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -40050,55 +40103,55 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
   )
   _then;
 
@@ -40108,7 +40161,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -40119,14 +40172,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
     this._res,
   );
 
@@ -40135,23 +40188,23 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -40161,7 +40214,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 
   final List<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
   >
   nodes;
 
@@ -40192,7 +40245,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -40217,50 +40270,50 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en;
 
   TRes call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
         >?
       >,
     )
@@ -40268,23 +40321,23 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en,
   )
   _then;
 
@@ -40294,12 +40347,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -40309,12 +40362,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
         >?
       >,
     )
@@ -40324,7 +40377,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -40333,14 +40386,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
     this._res,
   );
 
@@ -40348,7 +40401,7 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -40357,18 +40410,18 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -40400,7 +40453,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -40418,55 +40471,55 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
   )
   _then;
 
@@ -40476,7 +40529,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -40487,14 +40540,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
     this._res,
   );
 
@@ -40503,27 +40556,27 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+      ja: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+      en: Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -40532,10 +40585,10 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
 
   final String sharedDictionaryId;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
   ja;
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
   en;
 
   final String $__typename;
@@ -40568,7 +40621,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -40596,70 +40649,70 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja?
     ja,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -40671,7 +40724,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -40679,48 +40732,48 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en),
+                as Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+    return CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -40728,47 +40781,47 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     String? sharedDictionaryId,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja?
     ja,
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
         _res,
       );
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -40778,7 +40831,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 
   final List<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
   >
   nodes;
 
@@ -40809,7 +40862,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -40834,50 +40887,50 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja;
 
   TRes call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
         >?
       >,
     )
@@ -40885,23 +40938,23 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja,
   )
   _then;
 
@@ -40911,12 +40964,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -40926,12 +40979,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
         >?
       >,
     )
@@ -40941,7 +40994,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -40950,14 +41003,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
     this._res,
   );
 
@@ -40965,7 +41018,7 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -40974,18 +41027,18 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -41017,7 +41070,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -41035,55 +41088,55 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
   )
   _then;
 
@@ -41093,7 +41146,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -41104,14 +41157,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
     this._res,
   );
 
@@ -41120,23 +41173,23 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+                : Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -41146,7 +41199,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 
   final List<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
   >
   nodes;
 
@@ -41177,7 +41230,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -41202,50 +41255,50 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en;
 
   TRes call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
         >?
       >,
     )
@@ -41253,23 +41306,23 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en,
   )
   _then;
 
@@ -41279,12 +41332,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+                  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -41294,12 +41347,12 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
         >?
       >,
     )
@@ -41309,7 +41362,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+            : CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -41318,14 +41371,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
     this._res,
   );
 
@@ -41333,7 +41386,7 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
 
   call({
     List<
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -41342,18 +41395,18 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
-  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
+class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+  factory Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -41385,7 +41438,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
       return true;
     }
     if (other
-            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
+            is! Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -41403,55 +41456,55 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+extension UtilityExtension$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
     on
-        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
-  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+      CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+      Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
 
-  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
+  factory CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+  _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
   )
   _then;
 
@@ -41461,7 +41514,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -41472,14 +41525,14 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+        CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
     this._res,
   );
 

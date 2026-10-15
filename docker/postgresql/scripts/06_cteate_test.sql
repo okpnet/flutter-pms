@@ -66,7 +66,38 @@ END;
 $BODY$
 LANGUAGE plpgsql;
 
---231.create tables
+--233.create tables
+create table tests.history_mstr_item_operation (
+    history_id uuid default gen_random_uuid(),
+    mstr_item_operation_id uuid not null,
+    mstr_operation_id uuid not null,
+    mstr_item_id uuid not null,
+    control_code varchar(255) default null,
+    names uuid not null,
+    details uuid default null,
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.mstr_item_operation (
+    mstr_item_operation_id uuid default gen_random_uuid(),
+    mstr_operation_id uuid not null,
+    mstr_item_id uuid not null,
+    control_code varchar(255) default null,
+    names uuid not null,
+    details uuid default null,
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
 create table tests.trans_text (
     trans_text_id uuid default gen_random_uuid(),
     symbol varchar(16) default '',
@@ -3355,7 +3386,36 @@ create table tests.info_office (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
---231.add table comments
+--233.add table comments
+comment on table tests.history_mstr_item_operation is '品目工程運用マスタ履歴';
+comment on column tests.history_mstr_item_operation.history_id is '履歴ID';
+comment on column tests.history_mstr_item_operation.mstr_item_operation_id is '品目工程運用ID';
+comment on column tests.history_mstr_item_operation.mstr_operation_id is '工程運用ID';
+comment on column tests.history_mstr_item_operation.mstr_item_id is '品目ID';
+comment on column tests.history_mstr_item_operation.control_code is '管理コード';
+comment on column tests.history_mstr_item_operation.names is '運用名称';
+comment on column tests.history_mstr_item_operation.details is '詳細';
+comment on column tests.history_mstr_item_operation.revision is 'レビジョン';
+comment on column tests.history_mstr_item_operation.symbol is 'リニアシンボル';
+comment on column tests.history_mstr_item_operation.remarks is '備考';
+comment on column tests.history_mstr_item_operation.update_at is '更新日時';
+comment on column tests.history_mstr_item_operation.update_user_id is '更新者ID';
+comment on column tests.history_mstr_item_operation.update_user_history_id is '更新者履歴ID';
+comment on column tests.history_mstr_item_operation.remove is '削除';
+comment on table tests.mstr_item_operation is '品目工程運用マスタ';
+comment on column tests.mstr_item_operation.mstr_item_operation_id is '品目工程運用ID';
+comment on column tests.mstr_item_operation.mstr_operation_id is '工程運用ID';
+comment on column tests.mstr_item_operation.mstr_item_id is '品目ID';
+comment on column tests.mstr_item_operation.control_code is '管理コード';
+comment on column tests.mstr_item_operation.names is '運用名称';
+comment on column tests.mstr_item_operation.details is '詳細';
+comment on column tests.mstr_item_operation.revision is 'レビジョン';
+comment on column tests.mstr_item_operation.symbol is 'リニアシンボル';
+comment on column tests.mstr_item_operation.remarks is '備考';
+comment on column tests.mstr_item_operation.update_at is '更新日時';
+comment on column tests.mstr_item_operation.update_user_id is '更新者ID';
+comment on column tests.mstr_item_operation.update_user_history_id is '更新者履歴ID';
+comment on column tests.mstr_item_operation.remove is '削除';
 comment on table tests.trans_text is 'テキスト';
 comment on column tests.trans_text.trans_text_id is 'テキストID';
 comment on column tests.trans_text.symbol is 'リニアシンボル';
@@ -6413,7 +6473,19 @@ comment on column tests.info_office.update_at is '更新日時';
 comment on column tests.info_office.update_user_id is '更新者ID';
 comment on column tests.info_office.update_user_history_id is '更新者履歴ID';
 comment on column tests.info_office.remove is '削除';
---231.add table primary key and index
+--233.add table primary key and index
+create unique index history_mstr_item_operation_PKI
+    on tests.history_mstr_item_operation(history_id,mstr_item_operation_id);
+alter table tests.history_mstr_item_operation
+    add constraint history_mstr_item_operation_PKC primary key (history_id,mstr_item_operation_id);
+alter table tests.history_mstr_item_operation
+     add constraint history_mstr_item_operation_IX1 unique (symbol);
+create unique index mstr_item_operation_PKI
+    on tests.mstr_item_operation(mstr_item_operation_id);
+alter table tests.mstr_item_operation
+    add constraint mstr_item_operation_PKC primary key (mstr_item_operation_id);
+alter table tests.mstr_item_operation
+     add constraint mstr_item_operation_IX1 unique (symbol);
 create unique index trans_text_PKI
     on tests.trans_text(trans_text_id);
 alter table tests.trans_text
@@ -7825,7 +7897,14 @@ alter table tests.info_office
     add constraint info_office_PKC primary key (info_office_id);
 alter table tests.info_office
      add constraint info_office_IX1 unique (symbol);
---231.add table foreign key
+--233.add table foreign key
+alter table tests.history_mstr_item_operation add constraint history_mstr_item_operation_FK1 foreign key (mstr_item_operation_id) references tests.mstr_item_operation (mstr_item_operation_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_item_operation add constraint history_mstr_item_operation_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_operation add constraint mstr_item_operation_FK1 foreign key (details) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_operation add constraint mstr_item_operation_FK2 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_operation add constraint mstr_item_operation_FK3 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_operation add constraint mstr_item_operation_FK4 foreign key (mstr_operation_id) references tests.mstr_operation (mstr_operation_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_operation add constraint mstr_item_operation_FK5 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_text add constraint trans_text_FK1 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_text_value add constraint trans_text_value_FK1 foreign key (trans_text_id) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_text_value add constraint trans_text_value_FK2 foreign key (shared_language_code_id) references tests.shared_language_code (shared_language_code_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8470,7 +8549,134 @@ alter table tests.info_office add constraint info_office_FK1 foreign key (names)
 alter table tests.info_office add constraint info_office_FK2 foreign key (info_company_id) references tests.info_company (info_company_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK3 foreign key (info_address_id) references tests.info_address (info_address_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
---231.add table trigger
+--233.add table trigger
+-- history_mstr_item_operation update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item_operation() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.history_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_history_mstr_item_operation BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_item_operation FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_history_mstr_item_operation();
+
+
+CREATE TRIGGER trg_04_symbol_history_mstr_item_operation BEFORE INSERT ON tests.history_mstr_item_operation FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_item_operation update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_item_operation() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.mstr_item_operation_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_mstr_item_operation BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_item_operation FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_mstr_item_operation();
+
+
+CREATE TRIGGER trg_04_symbol_mstr_item_operation BEFORE INSERT ON tests.mstr_item_operation FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_item_operation history trigger
+CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_item_operation() RETURNS trigger AS
+$BODY$
+DECLARE
+    revisions int;
+BEGIN
+    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
+        SELECT Max(revision) INTO revisions FROM tests.history_mstr_item_operation WHERE mstr_item_operation_id=NEW.mstr_item_operation_id;
+        IF (revisions >= 0) THEN
+            IF (
+                NEW.mstr_item_operation_id,
+                NEW.mstr_operation_id,
+                NEW.mstr_item_id,
+                NEW.control_code,
+                NEW.names,
+                NEW.details,
+                NEW.symbol,
+                NEW.remarks,
+                NEW.remove
+            ) IS NOT DISTINCT FROM (
+                OLD.mstr_item_operation_id,
+                OLD.mstr_operation_id,
+                OLD.mstr_item_id,
+                OLD.control_code,
+                OLD.names,
+                OLD.details,
+                OLD.symbol,
+                OLD.remarks,
+                OLD.remove
+            )
+            THEN
+                RETURN NULL;
+            END IF;
+            NEW.revision := revisions + 1;
+        ELSE
+            NEW.revision := 1;
+        END IF;
+        INSERT INTO tests.history_mstr_item_operation (
+            mstr_item_operation_id,
+            mstr_operation_id,
+            mstr_item_id,
+            control_code,
+            names,
+            details,
+            revision,
+            symbol,
+            remarks,
+            update_at,
+            update_user_id,
+            update_user_history_id,
+            remove
+        )
+        VALUES
+        (
+            NEW.mstr_item_operation_id,
+            NEW.mstr_operation_id,
+            NEW.mstr_item_id,
+            NEW.control_code,
+            NEW.names,
+            NEW.details,
+            NEW.revision,
+            NEW.symbol,
+            NEW.remarks,
+            NEW.update_at,
+            NEW.update_user_id,
+            NEW.update_user_history_id,
+            NEW.remove
+        );
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_02_history_mstr_item_operation BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_item_operation FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_02_history_mstr_item_operation();
+
+
 -- trans_text update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_text() RETURNS trigger AS
 $BODY$

@@ -44,16 +44,16 @@ mutation OfficePageEdit(
   $address2NicknameSharedDictionaryId: UUID!
   $address2NicknameJa: String!
   $address2NicknameEn: String!
-  $billSharedAppellationsId: UUID!
-  $billNameSharedDictionaryId: UUID!
-  $billNameJa: String!
-  $billNameEn: String!
-  $billPronunciationSharedDictionaryId: UUID!
-  $billPronunciationJa: String!
-  $billPronunciationEn: String!
-  $billNicknameSharedDictionaryId: UUID!
-  $billNicknameJa: String!
-  $billNicknameEn: String!
+  $buildingSharedAppellationsId: UUID!
+  $buildingNameSharedDictionaryId: UUID!
+  $buildingNameJa: String!
+  $buildingNameEn: String!
+  $buildingPronunciationSharedDictionaryId: UUID!
+  $buildingPronunciationJa: String!
+  $buildingPronunciationEn: String!
+  $buildingNicknameSharedDictionaryId: UUID!
+  $buildingNicknameJa: String!
+  $buildingNicknameEn: String!
 ) {
   updateInfoOfficeByInfoOfficeId(
     input: {
@@ -220,19 +220,19 @@ mutation OfficePageEdit(
                 }
               }
 
-              sharedAppellationToBill: {
+              sharedAppellationToBuilding: {
                 updateBySharedAppellationsId: {
-                  sharedAppellationsId: $billSharedAppellationsId
+                  sharedAppellationsId: $buildingSharedAppellationsId
                   sharedAppellationPatch: {
                     sharedDictionaryToSharedDictionaryNameId: {
                       updateBySharedDictionaryId: {
-                        sharedDictionaryId: $billNameSharedDictionaryId
+                        sharedDictionaryId: $buildingNameSharedDictionaryId
                         sharedDictionaryPatch: {
                           sharedDictionaryValuesUsingSharedDictionaryId: {
                             deleteOthers: true
                             create: [
-                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $billNameJa }
-                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $billNameEn }
+                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $buildingNameJa }
+                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $buildingNameEn }
                             ]
                           }
                         }
@@ -240,13 +240,13 @@ mutation OfficePageEdit(
                     }
                     sharedDictionaryToSharedDictionaryPronunciationId: {
                       updateBySharedDictionaryId: {
-                        sharedDictionaryId: $billPronunciationSharedDictionaryId
+                        sharedDictionaryId: $buildingPronunciationSharedDictionaryId
                         sharedDictionaryPatch: {
                           sharedDictionaryValuesUsingSharedDictionaryId: {
                             deleteOthers: true
                             create: [
-                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $billPronunciationJa }
-                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $billPronunciationEn }
+                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $buildingPronunciationJa }
+                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $buildingPronunciationEn }
                             ]
                           }
                         }
@@ -254,13 +254,13 @@ mutation OfficePageEdit(
                     }
                     sharedDictionaryToSharedDictionaryNicknameId: {
                       updateBySharedDictionaryId: {
-                        sharedDictionaryId: $billNicknameSharedDictionaryId
+                        sharedDictionaryId: $buildingNicknameSharedDictionaryId
                         sharedDictionaryPatch: {
                           sharedDictionaryValuesUsingSharedDictionaryId: {
                             deleteOthers: true
                             create: [
-                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $billNicknameJa }
-                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $billNicknameEn }
+                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $buildingNicknameJa }
+                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $buildingNicknameEn }
                             ]
                           }
                         }
@@ -448,7 +448,7 @@ mutation OfficePageEdit(
             }
           }
         }
-        billName: sharedAppellationByBill {
+        building: sharedAppellationByBuilding {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId

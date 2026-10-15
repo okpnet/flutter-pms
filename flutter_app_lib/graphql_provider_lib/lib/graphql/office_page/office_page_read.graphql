@@ -4,7 +4,7 @@
 # 命名規則: CLAUDE.md 画面仕様命名規則(要件0033)により`office_page`をファイル名にする。
 #
 # 言語解決はcompany_page_read.graphqlと同じ方式(要件0036、$languageCodeId: UUID!)。
-# addressFields(address1/address2/bill、shared_appellations経由)はcompany_page_read.graphqlの
+# addressFields(address1/address2/building、shared_appellations経由)はcompany_page_read.graphqlの
 # 住所ブロックと同型。
 
 query OfficePageRead(
@@ -142,7 +142,7 @@ query OfficePageRead(
           }
         }
 
-        billName: sharedAppellationByBill {
+        building: sharedAppellationByBuilding {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId

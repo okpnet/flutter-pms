@@ -324,7 +324,7 @@ mutation ApprovalOperationPageEdit(
                     }
                   }
                 }
-                billName: sharedAppellationByBill {
+                building: sharedAppellationByBuilding {
                   sharedAppellationsId
                   sharedDictionaryBySharedDictionaryNameId {
                     sharedDictionaryId
@@ -510,7 +510,7 @@ mutation ApprovalOperationPageEdit(
                       }
                     }
                   }
-                  billName: sharedAppellationByBill {
+                  building: sharedAppellationByBuilding {
                     sharedAppellationsId
                     sharedDictionaryBySharedDictionaryNameId {
                       sharedDictionaryId

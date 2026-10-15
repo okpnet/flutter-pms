@@ -191,7 +191,7 @@ query OfficePageRfe(
         }
       }
 
-      billName: sharedAppellationByBill {
+      building: sharedAppellationByBuilding {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId

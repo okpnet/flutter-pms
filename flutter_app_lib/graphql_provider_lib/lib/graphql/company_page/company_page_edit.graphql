@@ -7,10 +7,10 @@
 #   `company_page`へ統一・リネームした。旧`lib/graphql/info_company/`は廃止)。
 #
 # 要件0026(2026-09-25、schema.graphql再取得)により、`InfoCompany.ceo`・
-# `InfoAddress.address1`/`address2`/`bill`が単純な`String`から`shared_appellations`への
+# `InfoAddress.address1`/`address2`/`building`が単純な`String`から`shared_appellations`への
 # 直接FK(UUID)へ変更された。会社名(`sharedAppellationToNames`)と同じ
 # 入れ子ミューテーション構造(`sharedAppellationToCeoNames`/`sharedAppellationToAddress1`/
-# `sharedAppellationToAddress2`/`sharedAppellationToBill`)で、name/pronunciation/nickname
+# `sharedAppellationToAddress2`/`sharedAppellationToBuilding`)で、name/pronunciation/nickname
 # それぞれのshared_dictionary(と配下のshared_dictionary_value)を更新する
 # (docs/0034_view_yaml_graphql_evaluation_log.md参照)。
 #
@@ -93,16 +93,16 @@ mutation CompanyPageEdit(
   $address2NicknameSharedDictionaryId: UUID!
   $address2NicknameJa: String!
   $address2NicknameEn: String!
-  $billSharedAppellationsId: UUID!
-  $billNameSharedDictionaryId: UUID!
-  $billNameJa: String!
-  $billNameEn: String!
-  $billPronunciationSharedDictionaryId: UUID!
-  $billPronunciationJa: String!
-  $billPronunciationEn: String!
-  $billNicknameSharedDictionaryId: UUID!
-  $billNicknameJa: String!
-  $billNicknameEn: String!
+  $buildingSharedAppellationsId: UUID!
+  $buildingNameSharedDictionaryId: UUID!
+  $buildingNameJa: String!
+  $buildingNameEn: String!
+  $buildingPronunciationSharedDictionaryId: UUID!
+  $buildingPronunciationJa: String!
+  $buildingPronunciationEn: String!
+  $buildingNicknameSharedDictionaryId: UUID!
+  $buildingNicknameJa: String!
+  $buildingNicknameEn: String!
   $provisionsUpdate: [InfoProvisionOnInfoProvisionForInfoProvisionFk2UsingInfoProvisionPkcUpdate!]
   $provisionsCreate: [InfoProvisionFk2InfoProvisionCreateInput!]
   $provisionsDelete: [InfoProvisionInfoProvisionPkcDelete!]
@@ -217,7 +217,7 @@ mutation CompanyPageEdit(
           }
         }
 
-        # --- 住所(要件0026でaddress1/address2/billがshared_appellations経由のFKに変更) ---
+        # --- 住所(要件0026でaddress1/address2/buildingがshared_appellations経由のFKに変更) ---
         infoAddressToInfoAddressId: {
           updateByInfoAddressId: {
             infoAddressId: $infoAddressId
@@ -327,19 +327,19 @@ mutation CompanyPageEdit(
                 }
               }
 
-              sharedAppellationToBill: {
+              sharedAppellationToBuilding: {
                 updateBySharedAppellationsId: {
-                  sharedAppellationsId: $billSharedAppellationsId
+                  sharedAppellationsId: $buildingSharedAppellationsId
                   sharedAppellationPatch: {
                     sharedDictionaryToSharedDictionaryNameId: {
                       updateBySharedDictionaryId: {
-                        sharedDictionaryId: $billNameSharedDictionaryId
+                        sharedDictionaryId: $buildingNameSharedDictionaryId
                         sharedDictionaryPatch: {
                           sharedDictionaryValuesUsingSharedDictionaryId: {
                             deleteOthers: true
                             create: [
-                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $billNameJa }
-                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $billNameEn }
+                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $buildingNameJa }
+                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $buildingNameEn }
                             ]
                           }
                         }
@@ -347,13 +347,13 @@ mutation CompanyPageEdit(
                     }
                     sharedDictionaryToSharedDictionaryPronunciationId: {
                       updateBySharedDictionaryId: {
-                        sharedDictionaryId: $billPronunciationSharedDictionaryId
+                        sharedDictionaryId: $buildingPronunciationSharedDictionaryId
                         sharedDictionaryPatch: {
                           sharedDictionaryValuesUsingSharedDictionaryId: {
                             deleteOthers: true
                             create: [
-                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $billPronunciationJa }
-                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $billPronunciationEn }
+                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $buildingPronunciationJa }
+                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $buildingPronunciationEn }
                             ]
                           }
                         }
@@ -361,13 +361,13 @@ mutation CompanyPageEdit(
                     }
                     sharedDictionaryToSharedDictionaryNicknameId: {
                       updateBySharedDictionaryId: {
-                        sharedDictionaryId: $billNicknameSharedDictionaryId
+                        sharedDictionaryId: $buildingNicknameSharedDictionaryId
                         sharedDictionaryPatch: {
                           sharedDictionaryValuesUsingSharedDictionaryId: {
                             deleteOthers: true
                             create: [
-                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $billNicknameJa }
-                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $billNicknameEn }
+                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $buildingNicknameJa }
+                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $buildingNicknameEn }
                             ]
                           }
                         }
@@ -616,7 +616,7 @@ mutation CompanyPageEdit(
             }
           }
         }
-        billName: sharedAppellationByBill {
+        building: sharedAppellationByBuilding {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId

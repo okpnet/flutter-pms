@@ -1669,8 +1669,10 @@ const documentNodeQueryDepartmentPageRead = DocumentNode(
                               ),
                             ),
                             FieldNode(
-                              name: NameNode(value: 'sharedAppellationByBill'),
-                              alias: NameNode(value: 'billName'),
+                              name: NameNode(
+                                value: 'sharedAppellationByBuilding',
+                              ),
+                              alias: NameNode(value: 'building'),
                               arguments: [],
                               directives: [],
                               selectionSet: SelectionSetNode(
@@ -3157,9 +3159,9 @@ const documentNodeQueryDepartmentPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value: 'sharedAppellationByBill',
+                                      value: 'sharedAppellationByBuilding',
                                     ),
-                                    alias: NameNode(value: 'billName'),
+                                    alias: NameNode(value: 'building'),
                                     arguments: [],
                                     directives: [],
                                     selectionSet: SelectionSetNode(
@@ -8883,7 +8885,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address {
     this.zipCode,
     this.address1,
     this.address2,
-    this.billName,
+    this.building,
     this.phone,
     this.faxNumber,
     this.remarks,
@@ -8900,7 +8902,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address {
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
-    final l$billName = json['billName'];
+    final l$building = json['building'];
     final l$phone = json['phone'];
     final l$faxNumber = json['faxNumber'];
     final l$remarks = json['remarks'];
@@ -8921,10 +8923,10 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address {
           : Query$DepartmentPageRead$allInfoDepartments$nodes$address$address2.fromJson(
               (l$address2 as Map<String, dynamic>),
             ),
-      billName: l$billName == null
+      building: l$building == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName.fromJson(
-              (l$billName as Map<String, dynamic>),
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$address$building.fromJson(
+              (l$building as Map<String, dynamic>),
             ),
       phone: (l$phone as String?),
       faxNumber: (l$faxNumber as String?),
@@ -8947,8 +8949,8 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address {
   final Query$DepartmentPageRead$allInfoDepartments$nodes$address$address2?
   address2;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName?
-  billName;
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building?
+  building;
 
   final String? phone;
 
@@ -8974,8 +8976,8 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address {
     _resultData['address1'] = l$address1?.toJson();
     final l$address2 = address2;
     _resultData['address2'] = l$address2?.toJson();
-    final l$billName = billName;
-    _resultData['billName'] = l$billName?.toJson();
+    final l$building = building;
+    _resultData['building'] = l$building?.toJson();
     final l$phone = phone;
     _resultData['phone'] = l$phone;
     final l$faxNumber = faxNumber;
@@ -8998,7 +9000,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address {
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
-    final l$billName = billName;
+    final l$building = building;
     final l$phone = phone;
     final l$faxNumber = faxNumber;
     final l$remarks = remarks;
@@ -9011,7 +9013,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address {
       l$zipCode,
       l$address1,
       l$address2,
-      l$billName,
+      l$building,
       l$phone,
       l$faxNumber,
       l$remarks,
@@ -9055,9 +9057,9 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address {
     if (l$address2 != lOther$address2) {
       return false;
     }
-    final l$billName = billName;
-    final lOther$billName = other.billName;
-    if (l$billName != lOther$billName) {
+    final l$building = building;
+    final lOther$building = other.building;
+    if (l$building != lOther$building) {
       return false;
     }
     final l$phone = phone;
@@ -9127,8 +9129,8 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
     address1,
     Query$DepartmentPageRead$allInfoDepartments$nodes$address$address2?
     address2,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName?
-    billName,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building?
+    building,
     String? phone,
     String? faxNumber,
     String? remarks,
@@ -9144,10 +9146,10 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
     TRes
   >
   get address2;
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building<
     TRes
   >
-  get billName;
+  get building;
 }
 
 class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address<
@@ -9175,7 +9177,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address<
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
-    Object? billName = _undefined,
+    Object? building = _undefined,
     Object? phone = _undefined,
     Object? faxNumber = _undefined,
     Object? remarks = _undefined,
@@ -9199,10 +9201,10 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address<
           ? _instance.address2
           : (address2
                 as Query$DepartmentPageRead$allInfoDepartments$nodes$address$address2?),
-      billName: billName == _undefined
-          ? _instance.billName
-          : (billName
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName?),
+      building: building == _undefined
+          ? _instance.building
+          : (building
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$address$building?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       faxNumber: faxNumber == _undefined
           ? _instance.faxNumber
@@ -9248,18 +9250,18 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address<
           );
   }
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building<
     TRes
   >
-  get billName {
-    final local$billName = _instance.billName;
-    return local$billName == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName.stub(
+  get building {
+    final local$building = _instance.building;
+    return local$building == null
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName(
-            local$billName,
-            (e) => call(billName: e),
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building(
+            local$building,
+            (e) => call(building: e),
           );
   }
 }
@@ -9285,8 +9287,8 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
     address1,
     Query$DepartmentPageRead$allInfoDepartments$nodes$address$address2?
     address2,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName?
-    billName,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building?
+    building,
     String? phone,
     String? faxNumber,
     String? remarks,
@@ -9311,11 +9313,11 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
         _res,
       );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building<
     TRes
   >
-  get billName =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName.stub(
+  get building =>
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building.stub(
         _res,
       );
 }
@@ -13444,8 +13446,8 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$address$building {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$address$building({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -13453,7 +13455,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName {
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$building.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -13464,26 +13466,26 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName {
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$building(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -13493,13 +13495,13 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName {
 
   final String sharedAppellationsId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId?
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -13550,7 +13552,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName {
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$building ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -13592,74 +13594,74 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName {
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName
-    on Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building
+    on Query$DepartmentPageRead$allInfoDepartments$nodes$address$building {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName instance,
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building;
 
   TRes call({
     String? sharedAppellationsId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building,
   )
   _then;
 
@@ -13672,7 +13674,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -13681,80 +13683,80 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId?),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building(
     this._res,
   );
 
@@ -13762,57 +13764,57 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
 
   call({
     String? sharedAppellationsId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+          Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -13821,7 +13823,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
 
   final String sharedDictionaryId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value
   value;
 
   final String $__typename;
@@ -13851,7 +13853,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -13874,64 +13876,64 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId
+        Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -13942,7 +13944,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -13950,33 +13952,33 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -13984,37 +13986,37 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
 
   call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                : Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -14024,7 +14026,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
   }
 
   final List<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes?
   >
   nodes;
 
@@ -14055,7 +14057,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -14080,50 +14082,50 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value
+        Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value;
 
   TRes call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -14131,23 +14133,23 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
   );
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value,
   )
   _then;
 
@@ -14157,12 +14159,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                  Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -14172,12 +14174,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
 
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -14187,7 +14189,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -14196,14 +14198,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value(
     this._res,
   );
 
@@ -14211,7 +14213,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
 
   call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -14220,18 +14222,18 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
   nodes(_fn) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -14263,7 +14265,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -14281,55 +14283,55 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes,
   )
   _then;
 
@@ -14339,7 +14341,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -14350,14 +14352,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._res,
   );
 
@@ -14366,23 +14368,23 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+          Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -14391,7 +14393,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
 
   final String sharedDictionaryId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value
   value;
 
   final String $__typename;
@@ -14421,7 +14423,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -14444,64 +14446,64 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+        Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -14512,7 +14514,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -14520,33 +14522,33 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -14554,37 +14556,37 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
 
   call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                : Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -14594,7 +14596,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
   }
 
   final List<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
   >
   nodes;
 
@@ -14625,7 +14627,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -14650,50 +14652,50 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value
+        Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
   TRes call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -14701,23 +14703,23 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
   );
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value,
   )
   _then;
 
@@ -14727,12 +14729,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                  Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -14742,12 +14744,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
 
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -14757,7 +14759,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -14766,14 +14768,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._res,
   );
 
@@ -14781,7 +14783,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
 
   call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -14790,18 +14792,18 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
   nodes(_fn) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -14833,7 +14835,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -14851,55 +14853,55 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
   )
   _then;
 
@@ -14909,7 +14911,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -14920,14 +14922,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._res,
   );
 
@@ -14936,23 +14938,23 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+          Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -14961,7 +14963,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
 
   final String sharedDictionaryId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value
   value;
 
   final String $__typename;
@@ -14991,7 +14993,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -15014,64 +15016,64 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+        Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -15082,7 +15084,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -15090,33 +15092,33 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -15124,37 +15126,37 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
 
   call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                : Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -15164,7 +15166,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
   }
 
   final List<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
   >
   nodes;
 
@@ -15195,7 +15197,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -15220,50 +15222,50 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value
+        Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value;
 
   TRes call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -15271,23 +15273,23 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
   );
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value,
   )
   _then;
 
@@ -15297,12 +15299,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                  Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -15312,12 +15314,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
 
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -15327,7 +15329,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -15336,14 +15338,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._res,
   );
 
@@ -15351,7 +15353,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
 
   call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -15360,18 +15362,18 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$addres
   nodes(_fn) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -15403,7 +15405,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -15421,55 +15423,55 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedD
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
   )
   _then;
 
@@ -15479,7 +15481,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -15490,14 +15492,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$bi
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._res,
   );
 
@@ -17990,7 +17992,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address {
     this.zipCode,
     this.address1,
     this.address2,
-    this.billName,
+    this.building,
     this.phone,
     this.faxNumber,
     this.remarks,
@@ -18007,7 +18009,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address {
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
-    final l$billName = json['billName'];
+    final l$building = json['building'];
     final l$phone = json['phone'];
     final l$faxNumber = json['faxNumber'];
     final l$remarks = json['remarks'];
@@ -18028,10 +18030,10 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address {
           : Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$address2.fromJson(
               (l$address2 as Map<String, dynamic>),
             ),
-      billName: l$billName == null
+      building: l$building == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName.fromJson(
-              (l$billName as Map<String, dynamic>),
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building.fromJson(
+              (l$building as Map<String, dynamic>),
             ),
       phone: (l$phone as String?),
       faxNumber: (l$faxNumber as String?),
@@ -18054,8 +18056,8 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address {
   final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$address2?
   address2;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName?
-  billName;
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building?
+  building;
 
   final String? phone;
 
@@ -18081,8 +18083,8 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address {
     _resultData['address1'] = l$address1?.toJson();
     final l$address2 = address2;
     _resultData['address2'] = l$address2?.toJson();
-    final l$billName = billName;
-    _resultData['billName'] = l$billName?.toJson();
+    final l$building = building;
+    _resultData['building'] = l$building?.toJson();
     final l$phone = phone;
     _resultData['phone'] = l$phone;
     final l$faxNumber = faxNumber;
@@ -18105,7 +18107,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address {
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
-    final l$billName = billName;
+    final l$building = building;
     final l$phone = phone;
     final l$faxNumber = faxNumber;
     final l$remarks = remarks;
@@ -18118,7 +18120,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address {
       l$zipCode,
       l$address1,
       l$address2,
-      l$billName,
+      l$building,
       l$phone,
       l$faxNumber,
       l$remarks,
@@ -18163,9 +18165,9 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address {
     if (l$address2 != lOther$address2) {
       return false;
     }
-    final l$billName = billName;
-    final lOther$billName = other.billName;
-    if (l$billName != lOther$billName) {
+    final l$building = building;
+    final lOther$building = other.building;
+    if (l$building != lOther$building) {
       return false;
     }
     final l$phone = phone;
@@ -18237,8 +18239,8 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office
     address1,
     Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$address2?
     address2,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName?
-    billName,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building?
+    building,
     String? phone,
     String? faxNumber,
     String? remarks,
@@ -18254,10 +18256,10 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office
     TRes
   >
   get address2;
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building<
     TRes
   >
-  get billName;
+  get building;
 }
 
 class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address<
@@ -18288,7 +18290,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
-    Object? billName = _undefined,
+    Object? building = _undefined,
     Object? phone = _undefined,
     Object? faxNumber = _undefined,
     Object? remarks = _undefined,
@@ -18312,10 +18314,10 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
           ? _instance.address2
           : (address2
                 as Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$address2?),
-      billName: billName == _undefined
-          ? _instance.billName
-          : (billName
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName?),
+      building: building == _undefined
+          ? _instance.building
+          : (building
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       faxNumber: faxNumber == _undefined
           ? _instance.faxNumber
@@ -18361,18 +18363,18 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
           );
   }
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building<
     TRes
   >
-  get billName {
-    final local$billName = _instance.billName;
-    return local$billName == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName.stub(
+  get building {
+    final local$building = _instance.building;
+    return local$building == null
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName(
-            local$billName,
-            (e) => call(billName: e),
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building(
+            local$building,
+            (e) => call(building: e),
           );
   }
 }
@@ -18398,8 +18400,8 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office
     address1,
     Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$address2?
     address2,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName?
-    billName,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building?
+    building,
     String? phone,
     String? faxNumber,
     String? remarks,
@@ -18424,11 +18426,11 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office
         _res,
       );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building<
     TRes
   >
-  get billName =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName.stub(
+  get building =>
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building.stub(
         _res,
       );
 }
@@ -22559,8 +22561,8 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -22568,7 +22570,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName 
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -22579,26 +22581,26 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName 
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -22608,13 +22610,13 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName 
 
   final String sharedAppellationsId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId?
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -22665,7 +22667,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName 
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -22707,75 +22709,75 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName 
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName
-    on Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building
+    on Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building;
 
   TRes call({
     String? sharedAppellationsId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building,
   )
   _then;
 
@@ -22788,7 +22790,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -22797,80 +22799,80 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId?),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building(
     this._res,
   );
 
@@ -22878,57 +22880,57 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office
 
   call({
     String? sharedAppellationsId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -22937,7 +22939,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
 
   final String sharedDictionaryId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value
   value;
 
   final String $__typename;
@@ -22967,7 +22969,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -22990,64 +22992,64 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId
+        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -23058,7 +23060,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -23066,33 +23068,33 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -23100,37 +23102,37 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office
 
   call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                : Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -23140,7 +23142,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
   }
 
   final List<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes?
   >
   nodes;
 
@@ -23171,7 +23173,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -23196,50 +23198,50 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value
+        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value;
 
   TRes call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -23247,23 +23249,23 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office
   );
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value,
   )
   _then;
 
@@ -23273,12 +23275,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -23288,12 +23290,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
 
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -23303,7 +23305,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -23312,14 +23314,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value(
     this._res,
   );
 
@@ -23327,7 +23329,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office
 
   call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -23336,18 +23338,18 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office
   nodes(_fn) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -23379,7 +23381,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -23397,55 +23399,55 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes,
   )
   _then;
 
@@ -23455,7 +23457,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -23466,14 +23468,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._res,
   );
 
@@ -23482,23 +23484,23 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -23507,7 +23509,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
 
   final String sharedDictionaryId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value
   value;
 
   final String $__typename;
@@ -23537,7 +23539,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -23560,64 +23562,64 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -23628,7 +23630,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -23636,33 +23638,33 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -23670,37 +23672,37 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office
 
   call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                : Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -23710,7 +23712,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
   }
 
   final List<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
   >
   nodes;
 
@@ -23741,7 +23743,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -23766,50 +23768,50 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value
+        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
   TRes call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -23817,23 +23819,23 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office
   );
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value,
   )
   _then;
 
@@ -23843,12 +23845,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -23858,12 +23860,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
 
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -23873,7 +23875,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -23882,14 +23884,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._res,
   );
 
@@ -23897,7 +23899,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office
 
   call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -23906,18 +23908,18 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office
   nodes(_fn) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -23949,7 +23951,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -23967,55 +23969,55 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
   )
   _then;
 
@@ -24025,7 +24027,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -24036,14 +24038,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._res,
   );
 
@@ -24052,23 +24054,23 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -24077,7 +24079,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
 
   final String sharedDictionaryId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value
   value;
 
   final String $__typename;
@@ -24107,7 +24109,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -24130,64 +24132,64 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -24198,7 +24200,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -24206,33 +24208,33 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -24240,37 +24242,37 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office
 
   call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                : Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -24280,7 +24282,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
   }
 
   final List<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
   >
   nodes;
 
@@ -24311,7 +24313,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -24336,50 +24338,50 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value
+        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value;
 
   TRes call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -24387,23 +24389,23 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office
   );
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value,
   )
   _then;
 
@@ -24413,12 +24415,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -24428,12 +24430,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
 
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -24443,7 +24445,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -24452,14 +24454,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._res,
   );
 
@@ -24467,7 +24469,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office
 
   call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -24476,18 +24478,18 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office
   nodes(_fn) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -24519,7 +24521,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -24537,55 +24539,55 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
   )
   _then;
 
@@ -24595,7 +24597,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -24606,14 +24608,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$add
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._res,
   );
 

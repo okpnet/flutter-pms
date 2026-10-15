@@ -79,7 +79,7 @@ abstract class DepartmentPageKeyName {
         GraphQLTypeKind.string,
       );
 
-  // --- 住所(address1/bill、shared_appellations経由) --------------------------
+  // --- 住所(address1/building、shared_appellations経由) --------------------------
   static const ContentVariable address_infoAddressId = ContentVariable(
     'address||infoAddressId',
     GraphQLTypeKind.uuid,
@@ -93,9 +93,9 @@ abstract class DepartmentPageKeyName {
       );
 
   static const ContentVariable
-  address_billName_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue =
+  address_building_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue =
       ContentVariable(
-        'address||billName||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue',
+        'address||building||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue',
         GraphQLTypeKind.string,
       );
 

@@ -11,10 +11,10 @@
 // 対象画面: source/view.yaml #CompanyPage / #CompanyPageEdit / #CompanyPageRFE
 // (要件0033で試作、要件0035で本実装・命名規則どおり`company_page`へリネーム)。
 //
-// 要件0026(2026-09-25)のスキーマ変更により、`ceo`・`address1`/`address2`/`bill`は
+// 要件0026(2026-09-25)のスキーマ変更により、`ceo`・`address1`/`address2`/`building`は
 // 単純な文字列列から`shared_appellations`経由(呼称セット、name/pronunciation/nickname)
 // のFKへ変更された。会社名(`sharedAppellationByNames`)と同型の
-// キー構成を4系統(ceo・address1・address2・bill)追加している。
+// キー構成を4系統(ceo・address1・address2・building)追加している。
 //
 // 要件0047(view.yaml修正に伴う再生成): GraphQLの出力名をview.yamlのas/nameに揃えたため、
 // 会社名`sharedAppellationByNames`→`labels`、住所`infoAddressByInfoAddressId`→`address`、
@@ -506,94 +506,94 @@ abstract class CompanyPageKeyName {
         GraphQLTypeKind.string,
       );
 
-  // --- 建物名(bill、出力名はview.yamlの`as: bill_name`によりbillName) -----------
+  // --- 建物名(building、出力名はview.yamlの`as: building`によりbuilding) -----------
   static const ContentVariable
-  address_billName_sharedAppellationsId = ContentVariable(
-    'address||billName||sharedAppellationsId',
+  address_building_sharedAppellationsId = ContentVariable(
+    'address||building||sharedAppellationsId',
     GraphQLTypeKind.uuid,
   );
 
   static const ContentVariable
-  address_billName_sharedDictionaryBySharedDictionaryNameId_sharedDictionaryId =
+  address_building_sharedDictionaryBySharedDictionaryNameId_sharedDictionaryId =
       ContentVariable(
-        'address||billName||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId',
+        'address||building||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId',
         GraphQLTypeKind.uuid,
       );
 
   static const ContentVariable
-  address_billName_sharedDictionaryBySharedDictionaryNameId_ja_dictionaryValue =
+  address_building_sharedDictionaryBySharedDictionaryNameId_ja_dictionaryValue =
       ContentVariable(
-        'address||billName||sharedDictionaryBySharedDictionaryNameId||ja||dictionaryValue',
+        'address||building||sharedDictionaryBySharedDictionaryNameId||ja||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  address_billName_sharedDictionaryBySharedDictionaryNameId_en_dictionaryValue =
+  address_building_sharedDictionaryBySharedDictionaryNameId_en_dictionaryValue =
       ContentVariable(
-        'address||billName||sharedDictionaryBySharedDictionaryNameId||en||dictionaryValue',
+        'address||building||sharedDictionaryBySharedDictionaryNameId||en||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  address_billName_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue =
+  address_building_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue =
       ContentVariable(
-        'address||billName||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue',
+        'address||building||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  address_billName_sharedDictionaryBySharedDictionaryPronunciationId_sharedDictionaryId =
+  address_building_sharedDictionaryBySharedDictionaryPronunciationId_sharedDictionaryId =
       ContentVariable(
-        'address||billName||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId',
+        'address||building||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId',
         GraphQLTypeKind.uuid,
       );
 
   static const ContentVariable
-  address_billName_sharedDictionaryBySharedDictionaryPronunciationId_ja_dictionaryValue =
+  address_building_sharedDictionaryBySharedDictionaryPronunciationId_ja_dictionaryValue =
       ContentVariable(
-        'address||billName||sharedDictionaryBySharedDictionaryPronunciationId||ja||dictionaryValue',
+        'address||building||sharedDictionaryBySharedDictionaryPronunciationId||ja||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  address_billName_sharedDictionaryBySharedDictionaryPronunciationId_en_dictionaryValue =
+  address_building_sharedDictionaryBySharedDictionaryPronunciationId_en_dictionaryValue =
       ContentVariable(
-        'address||billName||sharedDictionaryBySharedDictionaryPronunciationId||en||dictionaryValue',
+        'address||building||sharedDictionaryBySharedDictionaryPronunciationId||en||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  address_billName_sharedDictionaryBySharedDictionaryPronunciationId_value_dictionaryValue =
+  address_building_sharedDictionaryBySharedDictionaryPronunciationId_value_dictionaryValue =
       ContentVariable(
-        'address||billName||sharedDictionaryBySharedDictionaryPronunciationId||value||dictionaryValue',
+        'address||building||sharedDictionaryBySharedDictionaryPronunciationId||value||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  address_billName_sharedDictionaryBySharedDictionaryNicknameId_sharedDictionaryId =
+  address_building_sharedDictionaryBySharedDictionaryNicknameId_sharedDictionaryId =
       ContentVariable(
-        'address||billName||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId',
+        'address||building||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId',
         GraphQLTypeKind.uuid,
       );
 
   static const ContentVariable
-  address_billName_sharedDictionaryBySharedDictionaryNicknameId_ja_dictionaryValue =
+  address_building_sharedDictionaryBySharedDictionaryNicknameId_ja_dictionaryValue =
       ContentVariable(
-        'address||billName||sharedDictionaryBySharedDictionaryNicknameId||ja||dictionaryValue',
+        'address||building||sharedDictionaryBySharedDictionaryNicknameId||ja||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  address_billName_sharedDictionaryBySharedDictionaryNicknameId_en_dictionaryValue =
+  address_building_sharedDictionaryBySharedDictionaryNicknameId_en_dictionaryValue =
       ContentVariable(
-        'address||billName||sharedDictionaryBySharedDictionaryNicknameId||en||dictionaryValue',
+        'address||building||sharedDictionaryBySharedDictionaryNicknameId||en||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  address_billName_sharedDictionaryBySharedDictionaryNicknameId_value_dictionaryValue =
+  address_building_sharedDictionaryBySharedDictionaryNicknameId_value_dictionaryValue =
       ContentVariable(
-        'address||billName||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue',
+        'address||building||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue',
         GraphQLTypeKind.string,
       );
 

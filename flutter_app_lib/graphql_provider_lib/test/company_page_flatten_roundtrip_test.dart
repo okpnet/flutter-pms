@@ -1,6 +1,6 @@
 // 要件0035: company_page画面(source/view.yaml #CompanyPage/#CompanyPageEdit/#CompanyPageRFE)
 // のGraphQLから build_runner で生成されたモデルの nested_map_flattener.dart 往復変換を
-// 検証する。要件0033の暫定実装(info_company_*、ceo/address1/address2/billをプレーンな
+// 検証する。要件0033の暫定実装(info_company_*、ceo/address1/address2/buildingをプレーンな
 // String列として扱っていた)を、要件0026のスキーマ変更(shared_appellations経由のFKに
 // 変更)・要件0034の評価・命名規則(トップノード基準の`company_page`)にあわせて
 // 全面的に書き直したもの。結果はdocs/0035_company_page_generation_log.md に記録する。
@@ -44,7 +44,7 @@ Map<String, dynamic> _sharedDictionaryValueOnlyJson(
 
 /// name/pronunciation/nicknameの3本(いずれもshared_dictionary経由)を持つ
 /// shared_appellationsのread用JSON(要件0036、`value`単一エイリアス形状)。
-/// 会社名・ceo・address1・address2・billの5箇所で同型のため共通化する。
+/// 会社名・ceo・address1・address2・buildingの5箇所で同型のため共通化する。
 Map<String, dynamic> _sharedAppellationReadJson({
   required String appellationsId,
   required String nameDictionaryId,
@@ -103,7 +103,7 @@ Map<String, dynamic> _address2ReadJson() => _sharedAppellationReadJson(
   nicknameDictionaryId: 'dcccccc2-cccc-cccc-cccc-cccccccccccc',
 );
 
-Map<String, dynamic> _billReadJson() => _sharedAppellationReadJson(
+Map<String, dynamic> _buildingReadJson() => _sharedAppellationReadJson(
   appellationsId: 'adddddd1-dddd-dddd-dddd-dddddddddddd',
   nameDictionaryId: 'deeeeee1-eeee-eeee-eeee-eeeeeeeeeeee',
   nameValue: 'テストビル',
@@ -117,7 +117,7 @@ Map<String, dynamic> _infoAddressReadJson() => {
   'zipCode': '100-0001',
   'address1': _address1ReadJson(),
   'address2': _address2ReadJson(),
-  'billName': _billReadJson(),
+  'building': _buildingReadJson(),
   'phone': '03-1234-5678',
   'faxNumber': '03-1234-5679',
   'remarks': null,
@@ -313,7 +313,7 @@ Map<String, dynamic> _address2Json() => _sharedAppellationJson(
   nicknameDictionaryId: 'dcccccc2-cccc-cccc-cccc-cccccccccccc',
 );
 
-Map<String, dynamic> _billJson() => _sharedAppellationJson(
+Map<String, dynamic> _buildingJson() => _sharedAppellationJson(
   appellationsId: 'adddddd1-dddd-dddd-dddd-dddddddddddd',
   nameDictionaryId: 'deeeeee1-eeee-eeee-eeee-eeeeeeeeeeee',
   nameJa: 'テストビル',
@@ -327,7 +327,7 @@ Map<String, dynamic> _infoAddressJson() => {
   'zipCode': '100-0001',
   'address1': _address1Json(),
   'address2': _address2Json(),
-  'billName': _billJson(),
+  'building': _buildingJson(),
   'phone': '03-1234-5678',
   'faxNumber': '03-1234-5679',
   'remarks': null,
@@ -453,8 +453,8 @@ void main() {
           .ceo_labels_sharedDictionaryBySharedDictionaryNicknameId_value_dictionaryValue;
       const address1NameValue = CompanyPageKeyName
           .address_address1_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
-      const billNameValue = CompanyPageKeyName
-          .address_billName_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
+      const buildingValue = CompanyPageKeyName
+          .address_building_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
 
       const collapsePaths = {
         'labels||sharedDictionaryBySharedDictionaryNameId||value',
@@ -462,7 +462,7 @@ void main() {
         'ceo_labels||sharedDictionaryBySharedDictionaryNameId||value',
         'ceo_labels||sharedDictionaryBySharedDictionaryNicknameId||value',
         'address||address1||sharedDictionaryBySharedDictionaryNameId||value',
-        'address||billName||sharedDictionaryBySharedDictionaryNameId||value',
+        'address||building||sharedDictionaryBySharedDictionaryNameId||value',
       };
 
       final flatColumns = nodeMap.flattenForColumns([
@@ -471,7 +471,7 @@ void main() {
         ceoNameValue.name,
         ceoNicknameValue.name,
         address1NameValue.name,
-        billNameValue.name,
+        buildingValue.name,
       ], collapseSingleRecordPaths: collapsePaths);
 
       expect(flatColumns[nameValue.name], '株式会社テスト');
@@ -480,7 +480,7 @@ void main() {
       // ceoのnicknameは値を与えていない(0件)ため null になる。
       expect(flatColumns[ceoNicknameValue.name], isNull);
       expect(flatColumns[address1NameValue.name], '東京都千代田区千代田1-1');
-      expect(flatColumns[billNameValue.name], 'テストビル');
+      expect(flatColumns[buildingValue.name], 'テストビル');
     },
   );
 

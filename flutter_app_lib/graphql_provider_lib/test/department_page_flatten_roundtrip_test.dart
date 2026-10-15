@@ -84,7 +84,7 @@ Map<String, dynamic> _addressJsonJaEn() => {
   'faxNumber': '03-1111-2223',
   'address1': _appellationValueJaEn('a2222222-2222-2222-2222-222222222222', '東京都千代田区1-1'),
   'address2': _appellationValueJaEn('a3333333-3333-3333-3333-333333333333', '3F'),
-  'billName': _appellationValueJaEn('a4444444-4444-4444-4444-444444444444', 'テストビル'),
+  'building': _appellationValueJaEn('a4444444-4444-4444-4444-444444444444', 'テストビル'),
   '__typename': 'InfoAddress',
 };
 
@@ -129,7 +129,7 @@ Map<String, dynamic> _addressJson() => {
   'zipCode': '100-0001',
   'address1': _appellationValue('a2222222-2222-2222-2222-222222222222', '東京都千代田区1-1'),
   'address2': _appellationValue('a3333333-3333-3333-3333-333333333333', '3F'),
-  'billName': _appellationValue('a4444444-4444-4444-4444-444444444444', 'テストビル'),
+  'building': _appellationValue('a4444444-4444-4444-4444-444444444444', 'テストビル'),
   'phone': '03-1111-2222',
   'faxNumber': '03-1111-2223',
   'remarks': null,

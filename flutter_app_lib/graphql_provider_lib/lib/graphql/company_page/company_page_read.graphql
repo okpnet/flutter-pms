@@ -7,7 +7,7 @@
 #   `company_page`へ統一・リネームした。旧`lib/graphql/info_company/`は廃止)。
 #
 # 要件0026(2026-09-25、schema.graphql再取得)により、`InfoCompany.ceo`・
-# `InfoAddress.address1`/`address2`/`bill`が単純な`String`から`shared_appellations`への
+# `InfoAddress.address1`/`address2`/`building`が単純な`String`から`shared_appellations`への
 # 直接FK(UUID)へ変更された。view.yamlが元々想定していた設計(`using: ceo`等で
 # `appellationLabels`へマージ)がそのまま実現できるようになったため、要件0033時点の
 # 暫定対応(プレーンな文字列として取得)を廃止し、会社名・事業所名と同じ
@@ -40,7 +40,7 @@
 # name/pronunciation/nicknameすべてを取得する(要件0035で現行view.yamlの記述どおりに修正)。
 #
 # 要件0035再実行(view.yamlがofficesを`<<: *OfficePage`(共有アーム)へ変更): OfficePage
-# 自身が持つ`address`(shared_appellations経由のaddress1/address2/bill)・`update_user`
+# 自身が持つ`address`(shared_appellations経由のaddress1/address2/building)・`update_user`
 # (history_info_staff経由)を、office_page_read.graphqlと同型で追加した。
 #
 # 要件0047(view.yaml修正に伴う再生成): view.yamlの`CompanyPage`に会社名`labels`・`update_at`・
@@ -148,7 +148,7 @@ query CompanyPageRead(
         }
       }
 
-      # --- 住所(要件0026でaddress1/address2/billがshared_appellations経由のFKに変更) ---
+      # --- 住所(要件0026でaddress1/address2/buildingがshared_appellations経由のFKに変更) ---
       address: infoAddressByInfoAddressId {
         infoAddressId
         iso31663
@@ -222,7 +222,7 @@ query CompanyPageRead(
           }
         }
 
-        billName: sharedAppellationByBill {
+        building: sharedAppellationByBuilding {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId
@@ -392,7 +392,7 @@ query CompanyPageRead(
               }
             }
 
-            billName: sharedAppellationByBill {
+            building: sharedAppellationByBuilding {
               sharedAppellationsId
               sharedDictionaryBySharedDictionaryNameId {
                 sharedDictionaryId

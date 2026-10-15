@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -9597,7 +9597,7 @@ Fields2=update_user_history_id,update_user_id
 Cardinarity1=
 Cardinarity2=
 Position="インフォメーションー人",0,4002,5998,4035,R,R,""
-Position="マスタ工程",0,500,9500,935,R,R,""
+Position="マスタ工程",0,500,9500,9060,R,R,""
 Dependence=0
 Caption=auto create.
 PName=
@@ -20577,9 +20577,9 @@ Caption=
 PName=
 ModifiedDateTime=20261015073552
 LineMode=0
-Bar1=462
-Bar2=538
-Bar3=481
+Bar1=231
+Bar2=769
+Bar3=185
 TermPos1=R
 TermPos2=R
 ZOrder=1285
@@ -20625,7 +20625,7 @@ ModifiedDateTime=20261015091418
 LineMode=0
 Bar1=198
 Bar2=802
-Bar3=350
+Bar3=185
 TermPos1=R
 TermPos2=R
 ZOrder=1287
@@ -20648,7 +20648,7 @@ ModifiedDateTime=20261015091514
 LineMode=0
 Bar1=308
 Bar2=692
-Bar3=130
+Bar3=209
 TermPos1=R
 TermPos2=R
 ZOrder=1288
@@ -20694,7 +20694,7 @@ ModifiedDateTime=20261015091657
 LineMode=0
 Bar1=242
 Bar2=758
-Bar3=698
+Bar3=185
 TermPos1=R
 TermPos2=R
 ZOrder=1290
@@ -20737,9 +20737,9 @@ Caption=
 PName=
 ModifiedDateTime=20261015091930
 LineMode=0
-Bar1=50
-Bar2=950
-Bar3=347
+Bar1=301
+Bar2=699
+Bar3=531
 TermPos1=R
 TermPos2=R
 ZOrder=1292
@@ -20753,6 +20753,7 @@ Fields1=shared_text_id
 Fields2=contents
 Cardinarity1=
 Cardinarity2=
+Position="共有",0,500,9500,3703,R,R,""
 Position="文書",0,4884,5116,3866,R,L,""
 Dependence=0
 Caption=
@@ -20765,3 +20766,207 @@ Bar3=387
 TermPos1=R
 TermPos2=L
 ZOrder=1294
+
+[Entity]
+PName=mstr_item_operation
+LName=品目工程運用マスタ
+Comment=
+TableInnerOption=
+TableOption=
+Page=マスタ工程
+Left=2350
+Top=350
+Field="品目工程運用ID","mstr_item_operation_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="工程運用ID","mstr_operation_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="品目ID","mstr_item_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
+Field="運用名称","names","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="詳細","details","*@UUID",,,"","",$FFFFFFFF,""
+Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
+EffectMode=None
+Tag=3.Resource
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20261015221730
+Position="マスタ工程",2350,350
+ZOrder=1296
+
+[Relation]
+Entity1=mstr_operation
+Entity2=mstr_item_operation
+RelationType1=1
+RelationType2=3
+Fields1=mstr_operation_id
+Fields2=mstr_operation_id
+Cardinarity1=
+Cardinarity2=
+Position="マスタ工程",0,1958,4484,2564,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=196
+Bar2=448
+Bar3=256
+TermPos1=R
+TermPos2=R
+ZOrder=1297
+
+[Relation]
+Entity1=mstr_item
+Entity2=mstr_item_operation
+RelationType1=2
+RelationType2=4
+Fields1=mstr_item_id
+Fields2=mstr_item_id
+Cardinarity1=
+Cardinarity2=
+Position="マスタ工程",0,3326,6674,3631,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20261015221029
+LineMode=0
+Bar1=333
+Bar2=667
+Bar3=363
+TermPos1=R
+TermPos2=R
+ZOrder=1298
+
+[Relation]
+Entity1=shared_appellations
+Entity2=mstr_item_operation
+RelationType1=2
+RelationType2=4
+Fields1=shared_appellations_id
+Fields2=names
+Cardinarity1=
+Cardinarity2=
+Position="共有",0,3449,6551,2034,R,R,""
+Position="マスタ工程",0,3449,6551,2246,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20261015221019
+LineMode=0
+Bar1=345
+Bar2=655
+Bar3=225
+TermPos1=R
+TermPos2=R
+ZOrder=1299
+
+[Relation]
+Entity1=shared_text
+Entity2=mstr_item_operation
+RelationType1=1
+RelationType2=3
+Fields1=shared_text_id
+Fields2=details
+Cardinarity1=
+Cardinarity2=
+Position="マスタ工程",0,3449,6551,5131,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20261015221510
+LineMode=0
+Bar1=345
+Bar2=655
+Bar3=513
+TermPos1=R
+TermPos2=R
+ZOrder=1300
+
+[Relation]
+Entity1=history_info_staff
+Entity2=mstr_item_operation
+RelationType1=1
+RelationType2=3
+Fields1=history_id,info_staff_id
+Fields2=update_user_history_id,update_user_id
+Cardinarity1=
+Cardinarity2=
+Position="マスタ工程",0,1118,8882,1381,R,R,""
+Dependence=0
+Caption=auto create.
+PName=
+LineMode=0
+Bar1=112
+Bar2=888
+Bar3=138
+TermPos1=R
+TermPos2=R
+ZOrder=-534
+
+[Entity]
+PName=history_mstr_item_operation
+LName=品目工程運用マスタ履歴
+Comment=
+TableInnerOption=
+TableOption=
+Page=マスタ工程
+Left=3750
+Top=150
+Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="品目工程運用ID","mstr_item_operation_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
+Field="工程運用ID","mstr_operation_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="品目ID","mstr_item_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
+Field="運用名称","names","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="詳細","details","*@UUID",,,"","",$FFFFFFFF,""
+Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
+EffectMode=None
+Tag=3.Resource
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20261015222139
+Position="マスタ工程",3750,150
+ZOrder=1301
+
+[Relation]
+Entity1=mstr_item_operation
+Entity2=history_mstr_item_operation
+RelationType1=2
+RelationType2=3
+Fields1=mstr_item_operation_id
+Fields2=mstr_item_operation_id
+Cardinarity1=
+Cardinarity2=
+Position="マスタ工程",0,798,5313,1118,R,R,""
+Dependence=1
+Caption=
+PName=
+LineMode=0
+Bar1=80
+Bar2=531
+Bar3=112
+TermPos1=R
+TermPos2=R
+ZOrder=1302
+
+[Relation]
+Entity1=history_info_staff
+Entity2=history_mstr_item_operation
+RelationType1=1
+RelationType2=3
+Fields1=history_id,info_staff_id
+Fields2=update_user_history_id,update_user_id
+Cardinarity1=
+Cardinarity2=
+Position="マスタ工程",0,798,9202,500,R,R,""
+Dependence=0
+Caption=auto create.
+PName=
+LineMode=0
+Bar1=80
+Bar2=920
+Bar3=50
+TermPos1=R
+TermPos2=R
+ZOrder=-535

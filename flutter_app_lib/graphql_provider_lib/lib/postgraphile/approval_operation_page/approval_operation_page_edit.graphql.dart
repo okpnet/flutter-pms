@@ -4252,10 +4252,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     FieldNode(
                                                       name: NameNode(
                                                         value:
-                                                            'sharedAppellationByBill',
+                                                            'sharedAppellationByBuilding',
                                                       ),
                                                       alias: NameNode(
-                                                        value: 'billName',
+                                                        value: 'building',
                                                       ),
                                                       arguments: [],
                                                       directives: [],
@@ -7002,10 +7002,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           FieldNode(
                                                             name: NameNode(
                                                               value:
-                                                                  'sharedAppellationByBill',
+                                                                  'sharedAppellationByBuilding',
                                                             ),
                                                             alias: NameNode(
-                                                              value: 'billName',
+                                                              value: 'building',
                                                             ),
                                                             arguments: [],
                                                             directives: [],
@@ -22355,7 +22355,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
     this.zipCode,
     this.address1,
     this.address2,
-    this.billName,
+    this.building,
     this.phone,
     this.faxNumber,
     this.remarks,
@@ -22372,7 +22372,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
-    final l$billName = json['billName'];
+    final l$building = json['building'];
     final l$phone = json['phone'];
     final l$faxNumber = json['faxNumber'];
     final l$remarks = json['remarks'];
@@ -22393,10 +22393,10 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
           : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2.fromJson(
               (l$address2 as Map<String, dynamic>),
             ),
-      billName: l$billName == null
+      building: l$building == null
           ? null
-          : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName.fromJson(
-              (l$billName as Map<String, dynamic>),
+          : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building.fromJson(
+              (l$building as Map<String, dynamic>),
             ),
       phone: (l$phone as String?),
       faxNumber: (l$faxNumber as String?),
@@ -22419,8 +22419,8 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2?
   address2;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName?
-  billName;
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building?
+  building;
 
   final String? phone;
 
@@ -22446,8 +22446,8 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
     _resultData['address1'] = l$address1?.toJson();
     final l$address2 = address2;
     _resultData['address2'] = l$address2?.toJson();
-    final l$billName = billName;
-    _resultData['billName'] = l$billName?.toJson();
+    final l$building = building;
+    _resultData['building'] = l$building?.toJson();
     final l$phone = phone;
     _resultData['phone'] = l$phone;
     final l$faxNumber = faxNumber;
@@ -22470,7 +22470,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
-    final l$billName = billName;
+    final l$building = building;
     final l$phone = phone;
     final l$faxNumber = faxNumber;
     final l$remarks = remarks;
@@ -22483,7 +22483,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       l$zipCode,
       l$address1,
       l$address2,
-      l$billName,
+      l$building,
       l$phone,
       l$faxNumber,
       l$remarks,
@@ -22528,9 +22528,9 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
     if (l$address2 != lOther$address2) {
       return false;
     }
-    final l$billName = billName;
-    final lOther$billName = other.billName;
-    if (l$billName != lOther$billName) {
+    final l$building = building;
+    final lOther$building = other.building;
+    if (l$building != lOther$building) {
       return false;
     }
     final l$phone = phone;
@@ -22604,8 +22604,8 @@ abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
     address1,
     Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2?
     address2,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName?
-    billName,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building?
+    building,
     String? phone,
     String? faxNumber,
     String? remarks,
@@ -22621,10 +22621,10 @@ abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
     TRes
   >
   get address2;
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building<
     TRes
   >
-  get billName;
+  get building;
 }
 
 class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address<
@@ -22655,7 +22655,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
-    Object? billName = _undefined,
+    Object? building = _undefined,
     Object? phone = _undefined,
     Object? faxNumber = _undefined,
     Object? remarks = _undefined,
@@ -22679,10 +22679,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           ? _instance.address2
           : (address2
                 as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2?),
-      billName: billName == _undefined
-          ? _instance.billName
-          : (billName
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName?),
+      building: building == _undefined
+          ? _instance.building
+          : (building
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       faxNumber: faxNumber == _undefined
           ? _instance.faxNumber
@@ -22728,18 +22728,18 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           );
   }
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building<
     TRes
   >
-  get billName {
-    final local$billName = _instance.billName;
-    return local$billName == null
-        ? CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName.stub(
+  get building {
+    final local$building = _instance.building;
+    return local$building == null
+        ? CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName(
-            local$billName,
-            (e) => call(billName: e),
+        : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building(
+            local$building,
+            (e) => call(building: e),
           );
   }
 }
@@ -22765,8 +22765,8 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
     address1,
     Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2?
     address2,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName?
-    billName,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building?
+    building,
     String? phone,
     String? faxNumber,
     String? remarks,
@@ -22791,11 +22791,11 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
         _res,
       );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building<
     TRes
   >
-  get billName =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName.stub(
+  get building =>
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building.stub(
         _res,
       );
 }
@@ -29418,8 +29418,8 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -29427,7 +29427,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -29438,26 +29438,26 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -29467,13 +29467,13 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
 
   final String sharedAppellationsId;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId?
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -29524,7 +29524,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -29566,76 +29566,76 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building;
 
   TRes call({
     String? sharedAppellationsId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building,
   )
   _then;
 
@@ -29648,7 +29648,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -29657,80 +29657,80 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId?),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building(
     this._res,
   );
 
@@ -29738,61 +29738,61 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     String? sharedAppellationsId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+      ja: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+      en: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -29801,10 +29801,10 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
 
   final String sharedDictionaryId;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja
   ja;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en
   en;
 
   final String $__typename;
@@ -29837,7 +29837,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -29865,70 +29865,70 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja?
     ja,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -29940,7 +29940,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -29948,48 +29948,48 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -29997,47 +29997,47 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     String? sharedDictionaryId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja?
     ja,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en.stub(
         _res,
       );
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -30047,7 +30047,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 
   final List<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
   >
   nodes;
 
@@ -30078,7 +30078,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -30103,50 +30103,50 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja;
 
   TRes call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
         >?
       >,
     )
@@ -30154,23 +30154,23 @@ abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   );
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja,
   )
   _then;
 
@@ -30180,12 +30180,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -30195,12 +30195,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
 
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
         >?
       >,
     )
@@ -30210,7 +30210,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -30219,14 +30219,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
     this._res,
   );
 
@@ -30234,7 +30234,7 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -30243,18 +30243,18 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   nodes(_fn) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -30286,7 +30286,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -30304,55 +30304,55 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
   )
   _then;
 
@@ -30362,7 +30362,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -30373,14 +30373,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
     this._res,
   );
 
@@ -30389,23 +30389,23 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -30415,7 +30415,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 
   final List<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
   >
   nodes;
 
@@ -30446,7 +30446,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -30471,50 +30471,50 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en;
 
   TRes call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
         >?
       >,
     )
@@ -30522,23 +30522,23 @@ abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   );
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en,
   )
   _then;
 
@@ -30548,12 +30548,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -30563,12 +30563,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
 
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
         >?
       >,
     )
@@ -30578,7 +30578,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -30587,14 +30587,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en(
     this._res,
   );
 
@@ -30602,7 +30602,7 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -30611,18 +30611,18 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   nodes(_fn) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -30654,7 +30654,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -30672,55 +30672,55 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes,
   )
   _then;
 
@@ -30730,7 +30730,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -30741,14 +30741,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
     this._res,
   );
 
@@ -30757,27 +30757,27 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+      ja: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+      en: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -30786,10 +30786,10 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
 
   final String sharedDictionaryId;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
   ja;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
   en;
 
   final String $__typename;
@@ -30822,7 +30822,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -30850,70 +30850,70 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja?
     ja,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -30925,7 +30925,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -30933,48 +30933,48 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -30982,47 +30982,47 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     String? sharedDictionaryId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja?
     ja,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
         _res,
       );
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -31032,7 +31032,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 
   final List<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
   >
   nodes;
 
@@ -31063,7 +31063,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -31088,50 +31088,50 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja;
 
   TRes call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
         >?
       >,
     )
@@ -31139,23 +31139,23 @@ abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   );
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja,
   )
   _then;
 
@@ -31165,12 +31165,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -31180,12 +31180,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
 
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
         >?
       >,
     )
@@ -31195,7 +31195,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -31204,14 +31204,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
     this._res,
   );
 
@@ -31219,7 +31219,7 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -31228,18 +31228,18 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   nodes(_fn) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -31271,7 +31271,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -31289,55 +31289,55 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
   )
   _then;
 
@@ -31347,7 +31347,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -31358,14 +31358,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
     this._res,
   );
 
@@ -31374,23 +31374,23 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -31400,7 +31400,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 
   final List<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
   >
   nodes;
 
@@ -31431,7 +31431,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -31456,50 +31456,50 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en;
 
   TRes call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
         >?
       >,
     )
@@ -31507,23 +31507,23 @@ abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   );
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en,
   )
   _then;
 
@@ -31533,12 +31533,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -31548,12 +31548,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
 
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
         >?
       >,
     )
@@ -31563,7 +31563,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -31572,14 +31572,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
     this._res,
   );
 
@@ -31587,7 +31587,7 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -31596,18 +31596,18 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   nodes(_fn) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -31639,7 +31639,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -31657,55 +31657,55 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
   )
   _then;
 
@@ -31715,7 +31715,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -31726,14 +31726,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
     this._res,
   );
 
@@ -31742,27 +31742,27 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+      ja: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+      en: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -31771,10 +31771,10 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
 
   final String sharedDictionaryId;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
   ja;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
   en;
 
   final String $__typename;
@@ -31807,7 +31807,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -31835,70 +31835,70 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja?
     ja,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -31910,7 +31910,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -31918,48 +31918,48 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -31967,47 +31967,47 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     String? sharedDictionaryId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja?
     ja,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
         _res,
       );
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -32017,7 +32017,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 
   final List<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
   >
   nodes;
 
@@ -32048,7 +32048,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -32073,50 +32073,50 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja;
 
   TRes call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
         >?
       >,
     )
@@ -32124,23 +32124,23 @@ abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   );
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja,
   )
   _then;
 
@@ -32150,12 +32150,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -32165,12 +32165,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
 
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
         >?
       >,
     )
@@ -32180,7 +32180,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -32189,14 +32189,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
     this._res,
   );
 
@@ -32204,7 +32204,7 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -32213,18 +32213,18 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   nodes(_fn) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -32256,7 +32256,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -32274,55 +32274,55 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
   )
   _then;
 
@@ -32332,7 +32332,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -32343,14 +32343,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
     this._res,
   );
 
@@ -32359,23 +32359,23 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -32385,7 +32385,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 
   final List<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
   >
   nodes;
 
@@ -32416,7 +32416,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -32441,50 +32441,50 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en;
 
   TRes call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
         >?
       >,
     )
@@ -32492,23 +32492,23 @@ abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   );
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en,
   )
   _then;
 
@@ -32518,12 +32518,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -32533,12 +32533,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
 
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
         >?
       >,
     )
@@ -32548,7 +32548,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -32557,14 +32557,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
     this._res,
   );
 
@@ -32572,7 +32572,7 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -32581,18 +32581,18 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   nodes(_fn) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -32624,7 +32624,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -32642,55 +32642,55 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
   )
   _then;
 
@@ -32700,7 +32700,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -32711,14 +32711,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
     this._res,
   );
 
@@ -36477,7 +36477,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
     this.zipCode,
     this.address1,
     this.address2,
-    this.billName,
+    this.building,
     this.phone,
     this.faxNumber,
     this.remarks,
@@ -36494,7 +36494,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
-    final l$billName = json['billName'];
+    final l$building = json['building'];
     final l$phone = json['phone'];
     final l$faxNumber = json['faxNumber'];
     final l$remarks = json['remarks'];
@@ -36515,10 +36515,10 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
           : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$address2.fromJson(
               (l$address2 as Map<String, dynamic>),
             ),
-      billName: l$billName == null
+      building: l$building == null
           ? null
-          : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName.fromJson(
-              (l$billName as Map<String, dynamic>),
+          : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building.fromJson(
+              (l$building as Map<String, dynamic>),
             ),
       phone: (l$phone as String?),
       faxNumber: (l$faxNumber as String?),
@@ -36541,8 +36541,8 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$address2?
   address2;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName?
-  billName;
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building?
+  building;
 
   final String? phone;
 
@@ -36568,8 +36568,8 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
     _resultData['address1'] = l$address1?.toJson();
     final l$address2 = address2;
     _resultData['address2'] = l$address2?.toJson();
-    final l$billName = billName;
-    _resultData['billName'] = l$billName?.toJson();
+    final l$building = building;
+    _resultData['building'] = l$building?.toJson();
     final l$phone = phone;
     _resultData['phone'] = l$phone;
     final l$faxNumber = faxNumber;
@@ -36592,7 +36592,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
-    final l$billName = billName;
+    final l$building = building;
     final l$phone = phone;
     final l$faxNumber = faxNumber;
     final l$remarks = remarks;
@@ -36605,7 +36605,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       l$zipCode,
       l$address1,
       l$address2,
-      l$billName,
+      l$building,
       l$phone,
       l$faxNumber,
       l$remarks,
@@ -36650,9 +36650,9 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
     if (l$address2 != lOther$address2) {
       return false;
     }
-    final l$billName = billName;
-    final lOther$billName = other.billName;
-    if (l$billName != lOther$billName) {
+    final l$building = building;
+    final lOther$building = other.building;
+    if (l$building != lOther$building) {
       return false;
     }
     final l$phone = phone;
@@ -36726,8 +36726,8 @@ abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
     address1,
     Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$address2?
     address2,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName?
-    billName,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building?
+    building,
     String? phone,
     String? faxNumber,
     String? remarks,
@@ -36743,10 +36743,10 @@ abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
     TRes
   >
   get address2;
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building<
     TRes
   >
-  get billName;
+  get building;
 }
 
 class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address<
@@ -36777,7 +36777,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
-    Object? billName = _undefined,
+    Object? building = _undefined,
     Object? phone = _undefined,
     Object? faxNumber = _undefined,
     Object? remarks = _undefined,
@@ -36801,10 +36801,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           ? _instance.address2
           : (address2
                 as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$address2?),
-      billName: billName == _undefined
-          ? _instance.billName
-          : (billName
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName?),
+      building: building == _undefined
+          ? _instance.building
+          : (building
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       faxNumber: faxNumber == _undefined
           ? _instance.faxNumber
@@ -36850,18 +36850,18 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           );
   }
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building<
     TRes
   >
-  get billName {
-    final local$billName = _instance.billName;
-    return local$billName == null
-        ? CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName.stub(
+  get building {
+    final local$building = _instance.building;
+    return local$building == null
+        ? CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName(
-            local$billName,
-            (e) => call(billName: e),
+        : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building(
+            local$building,
+            (e) => call(building: e),
           );
   }
 }
@@ -36887,8 +36887,8 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
     address1,
     Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$address2?
     address2,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName?
-    billName,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building?
+    building,
     String? phone,
     String? faxNumber,
     String? remarks,
@@ -36913,11 +36913,11 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
         _res,
       );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building<
     TRes
   >
-  get billName =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName.stub(
+  get building =>
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building.stub(
         _res,
       );
 }
@@ -43540,8 +43540,8 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -43549,7 +43549,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -43560,26 +43560,26 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -43589,13 +43589,13 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
 
   final String sharedAppellationsId;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId?
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -43646,7 +43646,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -43688,76 +43688,76 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building;
 
   TRes call({
     String? sharedAppellationsId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building,
   )
   _then;
 
@@ -43770,7 +43770,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -43779,80 +43779,80 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId?),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building(
     this._res,
   );
 
@@ -43860,61 +43860,61 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     String? sharedAppellationsId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+      ja: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+      en: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -43923,10 +43923,10 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
 
   final String sharedDictionaryId;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja
   ja;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en
   en;
 
   final String $__typename;
@@ -43959,7 +43959,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -43987,70 +43987,70 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja?
     ja,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -44062,7 +44062,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -44070,48 +44070,48 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -44119,47 +44119,47 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     String? sharedDictionaryId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja?
     ja,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en.stub(
         _res,
       );
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -44169,7 +44169,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 
   final List<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
   >
   nodes;
 
@@ -44200,7 +44200,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -44225,50 +44225,50 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja;
 
   TRes call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
         >?
       >,
     )
@@ -44276,23 +44276,23 @@ abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   );
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja,
   )
   _then;
 
@@ -44302,12 +44302,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -44317,12 +44317,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
 
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
         >?
       >,
     )
@@ -44332,7 +44332,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -44341,14 +44341,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja(
     this._res,
   );
 
@@ -44356,7 +44356,7 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -44365,18 +44365,18 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   nodes(_fn) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -44408,7 +44408,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -44426,55 +44426,55 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
   )
   _then;
 
@@ -44484,7 +44484,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -44495,14 +44495,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
     this._res,
   );
 
@@ -44511,23 +44511,23 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -44537,7 +44537,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 
   final List<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
   >
   nodes;
 
@@ -44568,7 +44568,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -44593,50 +44593,50 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en;
 
   TRes call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
         >?
       >,
     )
@@ -44644,23 +44644,23 @@ abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   );
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en,
   )
   _then;
 
@@ -44670,12 +44670,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -44685,12 +44685,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
 
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
         >?
       >,
     )
@@ -44700,7 +44700,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -44709,14 +44709,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en(
     this._res,
   );
 
@@ -44724,7 +44724,7 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -44733,18 +44733,18 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   nodes(_fn) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -44776,7 +44776,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -44794,55 +44794,55 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes,
   )
   _then;
 
@@ -44852,7 +44852,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -44863,14 +44863,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNameId$en$nodes(
     this._res,
   );
 
@@ -44879,27 +44879,27 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+      ja: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+      en: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -44908,10 +44908,10 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
 
   final String sharedDictionaryId;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
   ja;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
   en;
 
   final String $__typename;
@@ -44944,7 +44944,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -44972,70 +44972,70 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja?
     ja,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -45047,7 +45047,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -45055,48 +45055,48 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -45104,47 +45104,47 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     String? sharedDictionaryId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja?
     ja,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
         _res,
       );
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -45154,7 +45154,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 
   final List<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
   >
   nodes;
 
@@ -45185,7 +45185,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -45210,50 +45210,50 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja;
 
   TRes call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
         >?
       >,
     )
@@ -45261,23 +45261,23 @@ abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   );
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja,
   )
   _then;
 
@@ -45287,12 +45287,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -45302,12 +45302,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
 
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
         >?
       >,
     )
@@ -45317,7 +45317,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -45326,14 +45326,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja(
     this._res,
   );
 
@@ -45341,7 +45341,7 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -45350,18 +45350,18 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   nodes(_fn) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -45393,7 +45393,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -45411,55 +45411,55 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
   )
   _then;
 
@@ -45469,7 +45469,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -45480,14 +45480,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
     this._res,
   );
 
@@ -45496,23 +45496,23 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -45522,7 +45522,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 
   final List<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
   >
   nodes;
 
@@ -45553,7 +45553,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -45578,50 +45578,50 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en;
 
   TRes call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
         >?
       >,
     )
@@ -45629,23 +45629,23 @@ abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   );
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en,
   )
   _then;
 
@@ -45655,12 +45655,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -45670,12 +45670,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
 
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
         >?
       >,
     )
@@ -45685,7 +45685,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -45694,14 +45694,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en(
     this._res,
   );
 
@@ -45709,7 +45709,7 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -45718,18 +45718,18 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   nodes(_fn) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -45761,7 +45761,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -45779,55 +45779,55 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
   )
   _then;
 
@@ -45837,7 +45837,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -45848,14 +45848,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
     this._res,
   );
 
@@ -45864,27 +45864,27 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+      ja: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+      en: Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -45893,10 +45893,10 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
 
   final String sharedDictionaryId;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
   ja;
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
   en;
 
   final String $__typename;
@@ -45929,7 +45929,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -45957,70 +45957,70 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja?
     ja,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -46032,7 +46032,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -46040,48 +46040,48 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en),
+                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+    return CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -46089,47 +46089,47 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     String? sharedDictionaryId,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja?
     ja,
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
         _res,
       );
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -46139,7 +46139,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 
   final List<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
   >
   nodes;
 
@@ -46170,7 +46170,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -46195,50 +46195,50 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja;
 
   TRes call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
         >?
       >,
     )
@@ -46246,23 +46246,23 @@ abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   );
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja,
   )
   _then;
 
@@ -46272,12 +46272,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -46287,12 +46287,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
 
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
         >?
       >,
     )
@@ -46302,7 +46302,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -46311,14 +46311,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja(
     this._res,
   );
 
@@ -46326,7 +46326,7 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -46335,18 +46335,18 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   nodes(_fn) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -46378,7 +46378,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -46396,55 +46396,55 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
   )
   _then;
 
@@ -46454,7 +46454,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -46465,14 +46465,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
     this._res,
   );
 
@@ -46481,23 +46481,23 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+                : Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -46507,7 +46507,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 
   final List<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
   >
   nodes;
 
@@ -46538,7 +46538,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -46563,50 +46563,50 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en;
 
   TRes call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
         >?
       >,
     )
@@ -46614,23 +46614,23 @@ abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   );
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en,
   )
   _then;
 
@@ -46640,12 +46640,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+                  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -46655,12 +46655,12 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
 
   TRes nodes(
     Iterable<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
         >?
       >,
     )
@@ -46670,7 +46670,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+            : CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -46679,14 +46679,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en(
     this._res,
   );
 
@@ -46694,7 +46694,7 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
 
   call({
     List<
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -46703,18 +46703,18 @@ class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPat
   nodes(_fn) => _res;
 }
 
-class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
-  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
+class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+  factory Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    return Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -46746,7 +46746,7 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
       return true;
     }
     if (other
-            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
+            is! Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -46764,55 +46764,55 @@ class Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApproval
   }
 }
 
-extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+extension UtilityExtension$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
     on
-        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
-  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+      CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+abstract class CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
     instance,
     TRes Function(
-      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+      Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+  ) = _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
 
-  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
+  factory CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+  _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  final Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
   )
   _then;
 
@@ -46822,7 +46822,7 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -46833,14 +46833,14 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
   );
 }
 
-class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+class _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+        CopyWith$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$billName$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+  _CopyWithStubImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
     this._res,
   );
 

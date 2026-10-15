@@ -26,9 +26,9 @@ AddressReadFields: &AddressReadFields
         - pronunciation
         - nickname
       <<: *AppellationLabelsReadFields
-    - name: bill
-      as: bill_name
-      using: bill
+    - name: building
+      as: building
+      using: building
       arrayType: toFirstOne
       pick:
         - name
@@ -53,9 +53,9 @@ AddressEditFields: &AddressEditFields
       using: address2
       arrayType: toFirstOne
       <<: *AppellationLabelsEditFields
-    - name: bill
-      as: bill_name
-      using: bill
+    - name: building
+      as: building
+      using: building
       arrayType: toFirstOne
       <<: *AppellationLabelsEditFields
     - phone

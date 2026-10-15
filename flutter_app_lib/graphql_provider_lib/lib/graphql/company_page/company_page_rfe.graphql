@@ -11,7 +11,7 @@
 # 手書きしていない(27_yaml_to_graphql_conversion_rules.md 8章参照)。
 #
 # `company_page_edit.graphql`のミューテーションを組み立てるために必要な
-# id一式(会社自身・ceo・address1/address2/billそれぞれのshared_appellations_id、
+# id一式(会社自身・ceo・address1/address2/buildingそれぞれのshared_appellations_id、
 # および各name/pronunciation/nicknameのshared_dictionary_id)を、先頭列(要件0027)の
 # `info_company_id`を必須引数として1件取得する。
 #
@@ -156,7 +156,7 @@ query CompanyPageRfe(
       }
     }
 
-    # --- 住所(要件0026でaddress1/address2/billがshared_appellations経由のFKに変更) ---
+    # --- 住所(要件0026でaddress1/address2/buildingがshared_appellations経由のFKに変更) ---
     address: infoAddressByInfoAddressId {
       infoAddressId
       iso31663
@@ -274,7 +274,7 @@ query CompanyPageRfe(
         }
       }
 
-      billName: sharedAppellationByBill {
+      building: sharedAppellationByBuilding {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId

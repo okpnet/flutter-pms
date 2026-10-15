@@ -201,7 +201,7 @@ query DepartmentPageRfe(
           }
         }
       }
-      billName: sharedAppellationByBill {
+      building: sharedAppellationByBuilding {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
@@ -430,7 +430,7 @@ query DepartmentPageRfe(
             }
           }
         }
-        billName: sharedAppellationByBill {
+        building: sharedAppellationByBuilding {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId

@@ -117,17 +117,17 @@ abstract class OfficePageKeyName {
         GraphQLTypeKind.string,
       );
 
-  // --- 建物名(bill、出力名はbillName) -----------------------------------------
-  static const ContentVariable address_billName_sharedAppellationsId =
+  // --- 建物名(building、出力名はbuilding) -----------------------------------------
+  static const ContentVariable address_building_sharedAppellationsId =
       ContentVariable(
-        'address||billName||sharedAppellationsId',
+        'address||building||sharedAppellationsId',
         GraphQLTypeKind.uuid,
       );
 
   static const ContentVariable
-  address_billName_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue =
+  address_building_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue =
       ContentVariable(
-        'address||billName||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue',
+        'address||building||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue',
         GraphQLTypeKind.string,
       );
 

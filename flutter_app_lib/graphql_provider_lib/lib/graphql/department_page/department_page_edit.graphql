@@ -65,16 +65,16 @@ mutation DepartmentPageEdit(
   $officeAddress2NicknameSharedDictionaryId: UUID!
   $officeAddress2NicknameJa: String!
   $officeAddress2NicknameEn: String!
-  $officeBillSharedAppellationsId: UUID!
-  $officeBillNameSharedDictionaryId: UUID!
-  $officeBillNameJa: String!
-  $officeBillNameEn: String!
-  $officeBillPronunciationSharedDictionaryId: UUID!
-  $officeBillPronunciationJa: String!
-  $officeBillPronunciationEn: String!
-  $officeBillNicknameSharedDictionaryId: UUID!
-  $officeBillNicknameJa: String!
-  $officeBillNicknameEn: String!
+  $officeBuildingSharedAppellationsId: UUID!
+  $officeBuildingNameSharedDictionaryId: UUID!
+  $officeBuildingNameJa: String!
+  $officeBuildingNameEn: String!
+  $officeBuildingPronunciationSharedDictionaryId: UUID!
+  $officeBuildingPronunciationJa: String!
+  $officeBuildingPronunciationEn: String!
+  $officeBuildingNicknameSharedDictionaryId: UUID!
+  $officeBuildingNicknameJa: String!
+  $officeBuildingNicknameEn: String!
   $officeRemarks: String
   $code: String
   $sharedAppellationsId: UUID!
@@ -114,16 +114,16 @@ mutation DepartmentPageEdit(
   $address2NicknameSharedDictionaryId: UUID!
   $address2NicknameJa: String!
   $address2NicknameEn: String!
-  $billSharedAppellationsId: UUID!
-  $billNameSharedDictionaryId: UUID!
-  $billNameJa: String!
-  $billNameEn: String!
-  $billPronunciationSharedDictionaryId: UUID!
-  $billPronunciationJa: String!
-  $billPronunciationEn: String!
-  $billNicknameSharedDictionaryId: UUID!
-  $billNicknameJa: String!
-  $billNicknameEn: String!
+  $buildingSharedAppellationsId: UUID!
+  $buildingNameSharedDictionaryId: UUID!
+  $buildingNameJa: String!
+  $buildingNameEn: String!
+  $buildingPronunciationSharedDictionaryId: UUID!
+  $buildingPronunciationJa: String!
+  $buildingPronunciationEn: String!
+  $buildingNicknameSharedDictionaryId: UUID!
+  $buildingNicknameJa: String!
+  $buildingNicknameEn: String!
   $kindsValueUpdate: [InfoDepartmentKindValueOnInfoDepartmentKindValueForInfoDepartmentKindValueFk1UsingInfoDepartmentKindValuePkcUpdate!]
   $kindsValueCreate: [InfoDepartmentKindValueFk1InfoDepartmentKindValueCreateInput!]
   $kindsValueDelete: [InfoDepartmentKindValueInfoDepartmentKindValuePkcDelete!]
@@ -309,19 +309,19 @@ mutation DepartmentPageEdit(
                       }
                     }
 
-                    sharedAppellationToBill: {
+                    sharedAppellationToBuilding: {
                       updateBySharedAppellationsId: {
-                        sharedAppellationsId: $officeBillSharedAppellationsId
+                        sharedAppellationsId: $officeBuildingSharedAppellationsId
                         sharedAppellationPatch: {
                           sharedDictionaryToSharedDictionaryNameId: {
                             updateBySharedDictionaryId: {
-                              sharedDictionaryId: $officeBillNameSharedDictionaryId
+                              sharedDictionaryId: $officeBuildingNameSharedDictionaryId
                               sharedDictionaryPatch: {
                                 sharedDictionaryValuesUsingSharedDictionaryId: {
                                   deleteOthers: true
                                   create: [
-                                    { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $officeBillNameJa }
-                                    { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $officeBillNameEn }
+                                    { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $officeBuildingNameJa }
+                                    { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $officeBuildingNameEn }
                                   ]
                                 }
                               }
@@ -329,13 +329,13 @@ mutation DepartmentPageEdit(
                           }
                           sharedDictionaryToSharedDictionaryPronunciationId: {
                             updateBySharedDictionaryId: {
-                              sharedDictionaryId: $officeBillPronunciationSharedDictionaryId
+                              sharedDictionaryId: $officeBuildingPronunciationSharedDictionaryId
                               sharedDictionaryPatch: {
                                 sharedDictionaryValuesUsingSharedDictionaryId: {
                                   deleteOthers: true
                                   create: [
-                                    { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $officeBillPronunciationJa }
-                                    { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $officeBillPronunciationEn }
+                                    { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $officeBuildingPronunciationJa }
+                                    { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $officeBuildingPronunciationEn }
                                   ]
                                 }
                               }
@@ -343,13 +343,13 @@ mutation DepartmentPageEdit(
                           }
                           sharedDictionaryToSharedDictionaryNicknameId: {
                             updateBySharedDictionaryId: {
-                              sharedDictionaryId: $officeBillNicknameSharedDictionaryId
+                              sharedDictionaryId: $officeBuildingNicknameSharedDictionaryId
                               sharedDictionaryPatch: {
                                 sharedDictionaryValuesUsingSharedDictionaryId: {
                                   deleteOthers: true
                                   create: [
-                                    { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $officeBillNicknameJa }
-                                    { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $officeBillNicknameEn }
+                                    { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $officeBuildingNicknameJa }
+                                    { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $officeBuildingNicknameEn }
                                   ]
                                 }
                               }
@@ -524,19 +524,19 @@ mutation DepartmentPageEdit(
                 }
               }
 
-              sharedAppellationToBill: {
+              sharedAppellationToBuilding: {
                 updateBySharedAppellationsId: {
-                  sharedAppellationsId: $billSharedAppellationsId
+                  sharedAppellationsId: $buildingSharedAppellationsId
                   sharedAppellationPatch: {
                     sharedDictionaryToSharedDictionaryNameId: {
                       updateBySharedDictionaryId: {
-                        sharedDictionaryId: $billNameSharedDictionaryId
+                        sharedDictionaryId: $buildingNameSharedDictionaryId
                         sharedDictionaryPatch: {
                           sharedDictionaryValuesUsingSharedDictionaryId: {
                             deleteOthers: true
                             create: [
-                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $billNameJa }
-                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $billNameEn }
+                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $buildingNameJa }
+                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $buildingNameEn }
                             ]
                           }
                         }
@@ -544,13 +544,13 @@ mutation DepartmentPageEdit(
                     }
                     sharedDictionaryToSharedDictionaryPronunciationId: {
                       updateBySharedDictionaryId: {
-                        sharedDictionaryId: $billPronunciationSharedDictionaryId
+                        sharedDictionaryId: $buildingPronunciationSharedDictionaryId
                         sharedDictionaryPatch: {
                           sharedDictionaryValuesUsingSharedDictionaryId: {
                             deleteOthers: true
                             create: [
-                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $billPronunciationJa }
-                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $billPronunciationEn }
+                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $buildingPronunciationJa }
+                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $buildingPronunciationEn }
                             ]
                           }
                         }
@@ -558,13 +558,13 @@ mutation DepartmentPageEdit(
                     }
                     sharedDictionaryToSharedDictionaryNicknameId: {
                       updateBySharedDictionaryId: {
-                        sharedDictionaryId: $billNicknameSharedDictionaryId
+                        sharedDictionaryId: $buildingNicknameSharedDictionaryId
                         sharedDictionaryPatch: {
                           sharedDictionaryValuesUsingSharedDictionaryId: {
                             deleteOthers: true
                             create: [
-                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $billNicknameJa }
-                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $billNicknameEn }
+                              { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $buildingNicknameJa }
+                              { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $buildingNicknameEn }
                             ]
                           }
                         }
@@ -776,7 +776,7 @@ mutation DepartmentPageEdit(
             }
           }
         }
-        billName: sharedAppellationByBill {
+        building: sharedAppellationByBuilding {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId
@@ -1005,7 +1005,7 @@ mutation DepartmentPageEdit(
               }
             }
           }
-          billName: sharedAppellationByBill {
+          building: sharedAppellationByBuilding {
             sharedAppellationsId
             sharedDictionaryBySharedDictionaryNameId {
               sharedDictionaryId

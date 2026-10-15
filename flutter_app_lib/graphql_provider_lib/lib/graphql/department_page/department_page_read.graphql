@@ -91,7 +91,7 @@ query DepartmentPageRead(
         }
       }
 
-      # --- 住所(shared_appellations経由のaddress1/address2/bill) ------------------
+      # --- 住所(shared_appellations経由のaddress1/address2/building) ------------------
       address: infoAddressByInfoAddressId {
         infoAddressId
         iso31663
@@ -165,7 +165,7 @@ query DepartmentPageRead(
           }
         }
 
-        billName: sharedAppellationByBill {
+        building: sharedAppellationByBuilding {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId
@@ -323,7 +323,7 @@ query DepartmentPageRead(
             }
           }
 
-          billName: sharedAppellationByBill {
+          building: sharedAppellationByBuilding {
             sharedAppellationsId
             sharedDictionaryBySharedDictionaryNameId {
               sharedDictionaryId
