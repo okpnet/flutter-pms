@@ -256,7 +256,8 @@ mutation LicenseHoldersPageEdit(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
             nodes {
-              textValue
+              charCount
+              leadText
             }
           }
 
@@ -264,7 +265,8 @@ mutation LicenseHoldersPageEdit(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
             nodes {
-              textValue
+              charCount
+              leadText
             }
           }
         }

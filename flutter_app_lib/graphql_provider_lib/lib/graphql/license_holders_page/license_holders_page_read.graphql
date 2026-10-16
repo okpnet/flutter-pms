@@ -69,7 +69,8 @@ query LicenseHoldersPageRead(
           condition: { sharedLanguageCodeId: $languageCodeId }
         ) {
           nodes {
-            textValue
+            charCount
+            leadText
           }
         }
       }
@@ -245,7 +246,8 @@ query LicenseHoldersPageRead(
                 condition: { sharedLanguageCodeId: $languageCodeId }
               ) {
                 nodes {
-                  textValue
+                  charCount
+                  leadText
                 }
               }
             }

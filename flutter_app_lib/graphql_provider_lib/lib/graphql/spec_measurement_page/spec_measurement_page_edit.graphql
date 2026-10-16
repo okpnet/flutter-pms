@@ -1,21 +1,15 @@
-# spec_measurement画面 - Edit(ミューテーション)
+# spec_measurement_page画面 - Edit(ミューテーション)
 #
-# 画面仕様: source/view.yaml #SpecMeasurementEdit(梱包サイズ、mstr_spec_measurement)
-#
-# `shared_unit_id`(生のFK列、既存のshared_unit行への直接の付け替え)をPatch対象とし、
-# `unit`(Unit共有アーム経由の呼称セット)はコメント「IDの取得のみ」のとおり結果選択でのみ
-# 使う(書き込みはしない)。監査列(update_user_id/update_user_history_id/remove)は
-# 要件0045の方針により変数・Patch・出力から除外する。
-
-# 要件0047: 読み込みノード名の統一(SpecMeasurementPage)にあわせ、フォルダ・ファイル名・オペレーション名を
-# spec_measurement_page / SpecMeasurementPageEditへ改名した(参照元のeditノード名はSpecMeasurementEditのまま)。
+# 画面仕様: source/views/ #SpecMeasurementPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 mutation SpecMeasurementPageEdit(
   $mstrSpecMeasurementId: UUID!
   $measurementValue: BigFloat
   $sharedUnitId: UUID
   $remarks: String
-  $languageCodeId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
 ) {
   updateMstrSpecMeasurementByMstrSpecMeasurementId(
     input: {
@@ -31,36 +25,62 @@ mutation SpecMeasurementPageEdit(
       mstrSpecMeasurementId
       measurementValue
       sharedUnitId
-      remarks
 
       unit: sharedUnitBySharedUnitId {
         sharedUnitId
+
         labels: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId
-            value: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $languageCodeId }
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
               nodes {
                 dictionaryValue
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
-            value: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $languageCodeId }
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
               nodes {
                 dictionaryValue
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
-            value: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $languageCodeId }
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
               nodes {
                 dictionaryValue
@@ -69,6 +89,8 @@ mutation SpecMeasurementPageEdit(
           }
         }
       }
+
+      remarks
     }
   }
 }

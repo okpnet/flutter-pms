@@ -10,13 +10,15 @@ class Variables$Mutation$SpecMeasurementPageEdit {
     String? measurementValue,
     String? sharedUnitId,
     String? remarks,
-    required String languageCodeId,
+    required String jaLanguageCodeId,
+    required String enLanguageCodeId,
   }) => Variables$Mutation$SpecMeasurementPageEdit._({
     r'mstrSpecMeasurementId': mstrSpecMeasurementId,
     if (measurementValue != null) r'measurementValue': measurementValue,
     if (sharedUnitId != null) r'sharedUnitId': sharedUnitId,
     if (remarks != null) r'remarks': remarks,
-    r'languageCodeId': languageCodeId,
+    r'jaLanguageCodeId': jaLanguageCodeId,
+    r'enLanguageCodeId': enLanguageCodeId,
   });
 
   Variables$Mutation$SpecMeasurementPageEdit._(this._$data);
@@ -39,8 +41,10 @@ class Variables$Mutation$SpecMeasurementPageEdit {
       final l$remarks = data['remarks'];
       result$data['remarks'] = (l$remarks as String?);
     }
-    final l$languageCodeId = data['languageCodeId'];
-    result$data['languageCodeId'] = (l$languageCodeId as String);
+    final l$jaLanguageCodeId = data['jaLanguageCodeId'];
+    result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String);
+    final l$enLanguageCodeId = data['enLanguageCodeId'];
+    result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String);
     return Variables$Mutation$SpecMeasurementPageEdit._(result$data);
   }
 
@@ -55,7 +59,9 @@ class Variables$Mutation$SpecMeasurementPageEdit {
 
   String? get remarks => (_$data['remarks'] as String?);
 
-  String get languageCodeId => (_$data['languageCodeId'] as String);
+  String get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String);
+
+  String get enLanguageCodeId => (_$data['enLanguageCodeId'] as String);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
@@ -73,8 +79,10 @@ class Variables$Mutation$SpecMeasurementPageEdit {
       final l$remarks = remarks;
       result$data['remarks'] = l$remarks;
     }
-    final l$languageCodeId = languageCodeId;
-    result$data['languageCodeId'] = l$languageCodeId;
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
+    final l$enLanguageCodeId = enLanguageCodeId;
+    result$data['enLanguageCodeId'] = l$enLanguageCodeId;
     return result$data;
   }
 
@@ -124,9 +132,14 @@ class Variables$Mutation$SpecMeasurementPageEdit {
     if (l$remarks != lOther$remarks) {
       return false;
     }
-    final l$languageCodeId = languageCodeId;
-    final lOther$languageCodeId = other.languageCodeId;
-    if (l$languageCodeId != lOther$languageCodeId) {
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    final lOther$jaLanguageCodeId = other.jaLanguageCodeId;
+    if (l$jaLanguageCodeId != lOther$jaLanguageCodeId) {
+      return false;
+    }
+    final l$enLanguageCodeId = enLanguageCodeId;
+    final lOther$enLanguageCodeId = other.enLanguageCodeId;
+    if (l$enLanguageCodeId != lOther$enLanguageCodeId) {
       return false;
     }
     return true;
@@ -138,13 +151,15 @@ class Variables$Mutation$SpecMeasurementPageEdit {
     final l$measurementValue = measurementValue;
     final l$sharedUnitId = sharedUnitId;
     final l$remarks = remarks;
-    final l$languageCodeId = languageCodeId;
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    final l$enLanguageCodeId = enLanguageCodeId;
     return Object.hashAll([
       l$mstrSpecMeasurementId,
       _$data.containsKey('measurementValue') ? l$measurementValue : const {},
       _$data.containsKey('sharedUnitId') ? l$sharedUnitId : const {},
       _$data.containsKey('remarks') ? l$remarks : const {},
-      l$languageCodeId,
+      l$jaLanguageCodeId,
+      l$enLanguageCodeId,
     ]);
   }
 }
@@ -163,7 +178,8 @@ abstract class CopyWith$Variables$Mutation$SpecMeasurementPageEdit<TRes> {
     String? measurementValue,
     String? sharedUnitId,
     String? remarks,
-    String? languageCodeId,
+    String? jaLanguageCodeId,
+    String? enLanguageCodeId,
   });
 }
 
@@ -185,7 +201,8 @@ class _CopyWithImpl$Variables$Mutation$SpecMeasurementPageEdit<TRes>
     Object? measurementValue = _undefined,
     Object? sharedUnitId = _undefined,
     Object? remarks = _undefined,
-    Object? languageCodeId = _undefined,
+    Object? jaLanguageCodeId = _undefined,
+    Object? enLanguageCodeId = _undefined,
   }) => _then(
     Variables$Mutation$SpecMeasurementPageEdit._({
       ..._instance._$data,
@@ -195,8 +212,10 @@ class _CopyWithImpl$Variables$Mutation$SpecMeasurementPageEdit<TRes>
         'measurementValue': (measurementValue as String?),
       if (sharedUnitId != _undefined) 'sharedUnitId': (sharedUnitId as String?),
       if (remarks != _undefined) 'remarks': (remarks as String?),
-      if (languageCodeId != _undefined && languageCodeId != null)
-        'languageCodeId': (languageCodeId as String),
+      if (jaLanguageCodeId != _undefined && jaLanguageCodeId != null)
+        'jaLanguageCodeId': (jaLanguageCodeId as String),
+      if (enLanguageCodeId != _undefined && enLanguageCodeId != null)
+        'enLanguageCodeId': (enLanguageCodeId as String),
     }),
   );
 }
@@ -212,7 +231,8 @@ class _CopyWithStubImpl$Variables$Mutation$SpecMeasurementPageEdit<TRes>
     String? measurementValue,
     String? sharedUnitId,
     String? remarks,
-    String? languageCodeId,
+    String? jaLanguageCodeId,
+    String? enLanguageCodeId,
   }) => _res;
 }
 
@@ -420,7 +440,13 @@ const documentNodeMutationSpecMeasurementPageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'languageCodeId')),
+          variable: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
@@ -506,13 +532,6 @@ const documentNodeMutationSpecMeasurementPageEdit = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
-                        name: NameNode(value: 'remarks'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
                         name: NameNode(value: 'sharedUnitBySharedUnitId'),
                         alias: NameNode(value: 'unit'),
                         arguments: [],
@@ -566,7 +585,7 @@ const documentNodeMutationSpecMeasurementPageEdit = DocumentNode(
                                             value:
                                                 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
-                                          alias: NameNode(value: 'value'),
+                                          alias: NameNode(value: 'ja'),
                                           arguments: [
                                             ArgumentNode(
                                               name: NameNode(
@@ -581,7 +600,81 @@ const documentNodeMutationSpecMeasurementPageEdit = DocumentNode(
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
-                                                        value: 'languageCodeId',
+                                                        value:
+                                                            'jaLanguageCodeId',
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(value: 'nodes'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'dictionaryValue',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value:
+                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                          ),
+                                          alias: NameNode(value: 'en'),
+                                          arguments: [
+                                            ArgumentNode(
+                                              name: NameNode(
+                                                value: 'condition',
+                                              ),
+                                              value: ObjectValueNode(
+                                                fields: [
+                                                  ObjectFieldNode(
+                                                    name: NameNode(
+                                                      value:
+                                                          'sharedLanguageCodeId',
+                                                    ),
+                                                    value: VariableNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'enLanguageCodeId',
                                                       ),
                                                     ),
                                                   ),
@@ -667,7 +760,7 @@ const documentNodeMutationSpecMeasurementPageEdit = DocumentNode(
                                             value:
                                                 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
-                                          alias: NameNode(value: 'value'),
+                                          alias: NameNode(value: 'ja'),
                                           arguments: [
                                             ArgumentNode(
                                               name: NameNode(
@@ -682,7 +775,81 @@ const documentNodeMutationSpecMeasurementPageEdit = DocumentNode(
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
-                                                        value: 'languageCodeId',
+                                                        value:
+                                                            'jaLanguageCodeId',
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(value: 'nodes'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'dictionaryValue',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value:
+                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                          ),
+                                          alias: NameNode(value: 'en'),
+                                          arguments: [
+                                            ArgumentNode(
+                                              name: NameNode(
+                                                value: 'condition',
+                                              ),
+                                              value: ObjectValueNode(
+                                                fields: [
+                                                  ObjectFieldNode(
+                                                    name: NameNode(
+                                                      value:
+                                                          'sharedLanguageCodeId',
+                                                    ),
+                                                    value: VariableNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'enLanguageCodeId',
                                                       ),
                                                     ),
                                                   ),
@@ -768,7 +935,7 @@ const documentNodeMutationSpecMeasurementPageEdit = DocumentNode(
                                             value:
                                                 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
-                                          alias: NameNode(value: 'value'),
+                                          alias: NameNode(value: 'ja'),
                                           arguments: [
                                             ArgumentNode(
                                               name: NameNode(
@@ -783,7 +950,81 @@ const documentNodeMutationSpecMeasurementPageEdit = DocumentNode(
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
-                                                        value: 'languageCodeId',
+                                                        value:
+                                                            'jaLanguageCodeId',
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(value: 'nodes'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'dictionaryValue',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value:
+                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                          ),
+                                          alias: NameNode(value: 'en'),
+                                          arguments: [
+                                            ArgumentNode(
+                                              name: NameNode(
+                                                value: 'condition',
+                                              ),
+                                              value: ObjectValueNode(
+                                                fields: [
+                                                  ObjectFieldNode(
+                                                    name: NameNode(
+                                                      value:
+                                                          'sharedLanguageCodeId',
+                                                    ),
+                                                    value: VariableNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'enLanguageCodeId',
                                                       ),
                                                     ),
                                                   ),
@@ -864,6 +1105,13 @@ const documentNodeMutationSpecMeasurementPageEdit = DocumentNode(
                             ),
                           ],
                         ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
                       ),
                       FieldNode(
                         name: NameNode(value: '__typename'),
@@ -1301,8 +1549,8 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
     required this.mstrSpecMeasurementId,
     required this.measurementValue,
     required this.sharedUnitId,
-    this.remarks,
     this.unit,
+    this.remarks,
     this.$__typename = 'MstrSpecMeasurement',
   });
 
@@ -1312,19 +1560,19 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
     final l$mstrSpecMeasurementId = json['mstrSpecMeasurementId'];
     final l$measurementValue = json['measurementValue'];
     final l$sharedUnitId = json['sharedUnitId'];
-    final l$remarks = json['remarks'];
     final l$unit = json['unit'];
+    final l$remarks = json['remarks'];
     final l$$__typename = json['__typename'];
     return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement(
       mstrSpecMeasurementId: (l$mstrSpecMeasurementId as String),
       measurementValue: (l$measurementValue as String),
       sharedUnitId: (l$sharedUnitId as String),
-      remarks: (l$remarks as String?),
       unit: l$unit == null
           ? null
           : Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit.fromJson(
               (l$unit as Map<String, dynamic>),
             ),
+      remarks: (l$remarks as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -1335,10 +1583,10 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
 
   final String sharedUnitId;
 
-  final String? remarks;
-
   final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit?
   unit;
+
+  final String? remarks;
 
   final String $__typename;
 
@@ -1350,10 +1598,10 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
     _resultData['measurementValue'] = l$measurementValue;
     final l$sharedUnitId = sharedUnitId;
     _resultData['sharedUnitId'] = l$sharedUnitId;
-    final l$remarks = remarks;
-    _resultData['remarks'] = l$remarks;
     final l$unit = unit;
     _resultData['unit'] = l$unit?.toJson();
+    final l$remarks = remarks;
+    _resultData['remarks'] = l$remarks;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -1364,15 +1612,15 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
     final l$mstrSpecMeasurementId = mstrSpecMeasurementId;
     final l$measurementValue = measurementValue;
     final l$sharedUnitId = sharedUnitId;
-    final l$remarks = remarks;
     final l$unit = unit;
+    final l$remarks = remarks;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrSpecMeasurementId,
       l$measurementValue,
       l$sharedUnitId,
-      l$remarks,
       l$unit,
+      l$remarks,
       l$$__typename,
     ]);
   }
@@ -1402,14 +1650,14 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
     if (l$sharedUnitId != lOther$sharedUnitId) {
       return false;
     }
-    final l$remarks = remarks;
-    final lOther$remarks = other.remarks;
-    if (l$remarks != lOther$remarks) {
-      return false;
-    }
     final l$unit = unit;
     final lOther$unit = other.unit;
     if (l$unit != lOther$unit) {
+      return false;
+    }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (l$remarks != lOther$remarks) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -1454,9 +1702,9 @@ abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
     String? mstrSpecMeasurementId,
     String? measurementValue,
     String? sharedUnitId,
-    String? remarks,
     Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit?
     unit,
+    String? remarks,
     String? $__typename,
   });
   CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit<
@@ -1491,8 +1739,8 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
     Object? mstrSpecMeasurementId = _undefined,
     Object? measurementValue = _undefined,
     Object? sharedUnitId = _undefined,
-    Object? remarks = _undefined,
     Object? unit = _undefined,
+    Object? remarks = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement(
@@ -1507,11 +1755,11 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
       sharedUnitId: sharedUnitId == _undefined || sharedUnitId == null
           ? _instance.sharedUnitId
           : (sharedUnitId as String),
-      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       unit: unit == _undefined
           ? _instance.unit
           : (unit
                 as Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit?),
+      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -1551,9 +1799,9 @@ class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
     String? mstrSpecMeasurementId,
     String? measurementValue,
     String? sharedUnitId,
-    String? remarks,
     Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit?
     unit,
+    String? remarks,
     String? $__typename,
   }) => _res;
 
@@ -2129,7 +2377,8 @@ class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
 class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId {
   Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
-    required this.value,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -2137,22 +2386,28 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
-    final l$value = json['value'];
+    final l$ja = json['ja'];
+    final l$en = json['en'];
     final l$$__typename = json['__typename'];
     return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      value:
-          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
-            (l$value as Map<String, dynamic>),
-          ),
+      ja: Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value
-  value;
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja
+  ja;
+
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en
+  en;
 
   final String $__typename;
 
@@ -2160,8 +2415,10 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
     final _resultData = <String, dynamic>{};
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
-    final l$value = value;
-    _resultData['value'] = l$value.toJson();
+    final l$ja = ja;
+    _resultData['ja'] = l$ja.toJson();
+    final l$en = en;
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2170,9 +2427,10 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
   @override
   int get hashCode {
     final l$sharedDictionaryId = sharedDictionaryId;
-    final l$value = value;
+    final l$ja = ja;
+    final l$en = en;
     final l$$__typename = $__typename;
-    return Object.hashAll([l$sharedDictionaryId, l$value, l$$__typename]);
+    return Object.hashAll([l$sharedDictionaryId, l$ja, l$en, l$$__typename]);
   }
 
   @override
@@ -2190,9 +2448,14 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
     if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
       return false;
     }
-    final l$value = value;
-    final lOther$value = other.value;
-    if (l$value != lOther$value) {
+    final l$ja = ja;
+    final lOther$ja = other.ja;
+    if (l$ja != lOther$ja) {
+      return false;
+    }
+    final l$en = en;
+    final lOther$en = other.en;
+    if (l$en != lOther$en) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -2235,14 +2498,20 @@ abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value?
-    value,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja?
+    ja,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en?
+    en,
     String? $__typename,
   });
-  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
-  get value;
+  get ja;
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en<
+    TRes
+  >
+  get en;
 }
 
 class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId<
@@ -2269,7 +2538,8 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
 
   TRes call({
     Object? sharedDictionaryId = _undefined,
-    Object? value = _undefined,
+    Object? ja = _undefined,
+    Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId(
@@ -2277,24 +2547,39 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      value: value == _undefined || value == null
-          ? _instance.value
-          : (value
-                as Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja
+                as Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en
+                as Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
-  get value {
-    final local$value = _instance.value;
-    return CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
-      local$value,
-      (e) => call(value: e),
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en(
+      local$en,
+      (e) => call(en: e),
     );
   }
 }
@@ -2314,37 +2599,47 @@ class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
 
   call({
     String? sharedDictionaryId,
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value?
-    value,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja?
+    ja,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en?
+    en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
-  get value =>
-      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
+  get ja =>
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en.stub(
         _res,
       );
 }
 
-class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value {
-  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value({
+class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja {
+  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                : Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -2354,7 +2649,7 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
   }
 
   final List<
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
   >
   nodes;
 
@@ -2385,7 +2680,7 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
       return true;
     }
     if (other
-            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value ||
+            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -2410,50 +2705,50 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
   }
 }
 
-extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value
+extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja
     on
-        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value {
-  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value
+        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja {
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja<
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja
     instance,
     TRes Function(
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value,
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja;
 
-  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja;
 
   TRes call({
     List<
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
         >?
       >,
     )
@@ -2461,23 +2756,23 @@ abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
   );
 }
 
-class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja
   _instance;
 
   final TRes Function(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja,
   )
   _then;
 
@@ -2487,12 +2782,12 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -2502,12 +2797,12 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
 
   TRes nodes(
     Iterable<
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
         >?
       >,
     )
@@ -2517,7 +2812,7 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+            : CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -2526,14 +2821,14 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
   );
 }
 
-class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja(
     this._res,
   );
 
@@ -2541,7 +2836,7 @@ class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
 
   call({
     List<
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -2550,18 +2845,18 @@ class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
   nodes(_fn) => _res;
 }
 
-class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -2593,7 +2888,7 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
       return true;
     }
     if (other
-            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -2611,55 +2906,55 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
   }
 }
 
-extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
     on
-        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
     instance,
     TRes Function(
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
 
-  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
   )
   _then;
 
@@ -2669,7 +2964,7 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -2680,14 +2975,382 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
   );
 }
 
-class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en {
+  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en
+    on
+        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en {
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en<
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en
+  >
+  get copyWith =>
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en<
+  TRes
+> {
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en
+    instance,
+    TRes Function(
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en;
+
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en;
+
+  TRes call({
+    List<
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en
+  _instance;
+
+  final TRes Function(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
+    on
+        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
+    instance,
+    TRes Function(
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
     this._res,
   );
 
@@ -2699,7 +3362,8 @@ class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
 class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId {
   Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
-    required this.value,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -2707,22 +3371,28 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
-    final l$value = json['value'];
+    final l$ja = json['ja'];
+    final l$en = json['en'];
     final l$$__typename = json['__typename'];
     return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      value:
-          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
-            (l$value as Map<String, dynamic>),
-          ),
+      ja: Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
-  value;
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  ja;
+
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
+  en;
 
   final String $__typename;
 
@@ -2730,8 +3400,10 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
     final _resultData = <String, dynamic>{};
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
-    final l$value = value;
-    _resultData['value'] = l$value.toJson();
+    final l$ja = ja;
+    _resultData['ja'] = l$ja.toJson();
+    final l$en = en;
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2740,9 +3412,10 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
   @override
   int get hashCode {
     final l$sharedDictionaryId = sharedDictionaryId;
-    final l$value = value;
+    final l$ja = ja;
+    final l$en = en;
     final l$$__typename = $__typename;
-    return Object.hashAll([l$sharedDictionaryId, l$value, l$$__typename]);
+    return Object.hashAll([l$sharedDictionaryId, l$ja, l$en, l$$__typename]);
   }
 
   @override
@@ -2760,9 +3433,14 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
     if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
       return false;
     }
-    final l$value = value;
-    final lOther$value = other.value;
-    if (l$value != lOther$value) {
+    final l$ja = ja;
+    final lOther$ja = other.ja;
+    if (l$ja != lOther$ja) {
+      return false;
+    }
+    final l$en = en;
+    final lOther$en = other.en;
+    if (l$en != lOther$en) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -2805,14 +3483,20 @@ abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
-    value,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    ja,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    en,
     String? $__typename,
   });
-  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
-  get value;
+  get ja;
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    TRes
+  >
+  get en;
 }
 
 class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
@@ -2839,7 +3523,8 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
 
   TRes call({
     Object? sharedDictionaryId = _undefined,
-    Object? value = _undefined,
+    Object? ja = _undefined,
+    Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId(
@@ -2847,24 +3532,39 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      value: value == _undefined || value == null
-          ? _instance.value
-          : (value
-                as Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja
+                as Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en
+                as Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
-  get value {
-    final local$value = _instance.value;
-    return CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
-      local$value,
-      (e) => call(value: e),
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      local$en,
+      (e) => call(en: e),
     );
   }
 }
@@ -2884,37 +3584,47 @@ class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
 
   call({
     String? sharedDictionaryId,
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
-    value,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    ja,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
-  get value =>
-      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+  get ja =>
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
         _res,
       );
 }
 
-class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value({
+class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                : Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -2924,7 +3634,7 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
   }
 
   final List<
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
   >
   nodes;
 
@@ -2955,7 +3665,7 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
       return true;
     }
     if (other
-            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -2980,50 +3690,50 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
   }
 }
 
-extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
     on
-        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
     instance,
     TRes Function(
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja;
 
-  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja;
 
   TRes call({
     List<
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
         >?
       >,
     )
@@ -3031,23 +3741,23 @@ abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
   );
 }
 
-class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
   _instance;
 
   final TRes Function(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja,
   )
   _then;
 
@@ -3057,12 +3767,12 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -3072,12 +3782,12 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
 
   TRes nodes(
     Iterable<
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
         >?
       >,
     )
@@ -3087,7 +3797,7 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+            : CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -3096,14 +3806,14 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
   );
 }
 
-class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
     this._res,
   );
 
@@ -3111,7 +3821,7 @@ class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
 
   call({
     List<
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -3120,18 +3830,18 @@ class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
   nodes(_fn) => _res;
 }
 
-class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -3163,7 +3873,7 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
       return true;
     }
     if (other
-            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3181,55 +3891,55 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
   }
 }
 
-extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
     on
-        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
     instance,
     TRes Function(
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
 
-  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
   )
   _then;
 
@@ -3239,7 +3949,7 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -3250,14 +3960,382 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
   );
 }
 
-class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
+    on
+        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
+  >
+  get copyWith =>
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  TRes
+> {
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
+    instance,
+    TRes Function(
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en;
+
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en;
+
+  TRes call({
+    List<
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
+  _instance;
+
+  final TRes Function(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+    on
+        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+    instance,
+    TRes Function(
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
     this._res,
   );
 
@@ -3269,7 +4347,8 @@ class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
 class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId {
   Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
-    required this.value,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -3277,22 +4356,28 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
-    final l$value = json['value'];
+    final l$ja = json['ja'];
+    final l$en = json['en'];
     final l$$__typename = json['__typename'];
     return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      value:
-          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
-            (l$value as Map<String, dynamic>),
-          ),
+      ja: Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value
-  value;
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
+  ja;
+
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en
+  en;
 
   final String $__typename;
 
@@ -3300,8 +4385,10 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
     final _resultData = <String, dynamic>{};
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
-    final l$value = value;
-    _resultData['value'] = l$value.toJson();
+    final l$ja = ja;
+    _resultData['ja'] = l$ja.toJson();
+    final l$en = en;
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -3310,9 +4397,10 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
   @override
   int get hashCode {
     final l$sharedDictionaryId = sharedDictionaryId;
-    final l$value = value;
+    final l$ja = ja;
+    final l$en = en;
     final l$$__typename = $__typename;
-    return Object.hashAll([l$sharedDictionaryId, l$value, l$$__typename]);
+    return Object.hashAll([l$sharedDictionaryId, l$ja, l$en, l$$__typename]);
   }
 
   @override
@@ -3330,9 +4418,14 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
     if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
       return false;
     }
-    final l$value = value;
-    final lOther$value = other.value;
-    if (l$value != lOther$value) {
+    final l$ja = ja;
+    final lOther$ja = other.ja;
+    if (l$ja != lOther$ja) {
+      return false;
+    }
+    final l$en = en;
+    final lOther$en = other.en;
+    if (l$en != lOther$en) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -3375,14 +4468,20 @@ abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
-    value,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    ja,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en?
+    en,
     String? $__typename,
   });
-  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
-  get value;
+  get ja;
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+    TRes
+  >
+  get en;
 }
 
 class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
@@ -3409,7 +4508,8 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
 
   TRes call({
     Object? sharedDictionaryId = _undefined,
-    Object? value = _undefined,
+    Object? ja = _undefined,
+    Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId(
@@ -3417,24 +4517,39 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      value: value == _undefined || value == null
-          ? _instance.value
-          : (value
-                as Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja
+                as Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en
+                as Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
-  get value {
-    final local$value = _instance.value;
-    return CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
-      local$value,
-      (e) => call(value: e),
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+      local$en,
+      (e) => call(en: e),
     );
   }
 }
@@ -3454,37 +4569,47 @@ class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
 
   call({
     String? sharedDictionaryId,
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
-    value,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    ja,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en?
+    en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
-  get value =>
-      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+  get ja =>
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
         _res,
       );
 }
 
-class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
-  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value({
+class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                : Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -3494,7 +4619,7 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
   }
 
   final List<
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
   >
   nodes;
 
@@ -3525,7 +4650,7 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
       return true;
     }
     if (other
-            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value ||
+            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3550,50 +4675,50 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
   }
 }
 
-extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
     on
-        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
-  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
     instance,
     TRes Function(
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja;
 
-  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja;
 
   TRes call({
     List<
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
         >?
       >,
     )
@@ -3601,23 +4726,23 @@ abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
   );
 }
 
-class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
   _instance;
 
   final TRes Function(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja,
   )
   _then;
 
@@ -3627,12 +4752,12 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -3642,12 +4767,12 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
 
   TRes nodes(
     Iterable<
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
         >?
       >,
     )
@@ -3657,7 +4782,7 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+            : CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -3666,14 +4791,14 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
   );
 }
 
-class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
     this._res,
   );
 
@@ -3681,7 +4806,7 @@ class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
 
   call({
     List<
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -3690,18 +4815,18 @@ class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasureme
   nodes(_fn) => _res;
 }
 
-class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -3733,7 +4858,7 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
       return true;
     }
     if (other
-            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3751,55 +4876,55 @@ class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasur
   }
 }
 
-extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
     on
-        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
     instance,
     TRes Function(
-      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
 
-  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
   )
   _then;
 
@@ -3809,7 +4934,7 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -3820,14 +4945,382 @@ class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementBy
   );
 }
 
-class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en {
+  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en
+    on
+        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en {
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en
+  >
+  get copyWith =>
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+  TRes
+> {
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en
+    instance,
+    TRes Function(
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en;
+
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en;
+
+  TRes call({
+    List<
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en
+  _instance;
+
+  final TRes Function(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+    on
+        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+    instance,
+    TRes Function(
+      Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+
+  factory CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
     this._res,
   );
 

@@ -120,6 +120,7 @@ class ReadGenerator {
 
     final filterParts = <String>[
       if (defaultRemove) '{ remove: { equalTo: \$removed } }',
+      ...fixedConditions(node, path, type),
       ...rootAnd,
       if (hasFilter) '\$filter',
     ];
@@ -388,8 +389,14 @@ class ReadGenerator {
             args.add('orderBy: \$${base}OrderBy');
             vars.declare('${base}OrderBy', '[$orderByType!]${def == null ? '' : ' = [$def]'}');
           }
-          if (_hasRemoveGuard(e)) {
-            args.add('filter: { remove: { equalTo: false } }');
+          final fixed = <String>[
+            if (_hasRemoveGuard(e)) '{ remove: { equalTo: false } }',
+            ...fixedConditions(e, path, nodeType),
+          ];
+          if (fixed.length == 1) {
+            args.add('filter: ${fixed.single}');
+          } else if (fixed.length > 1) {
+            args.add('filter: { and: [${fixed.join(', ')}] }');
           }
         } else if (conds.isEmpty) {
           args.add('first: 1');
@@ -557,6 +564,41 @@ class ReadGenerator {
         vars.declare(v, w.$2 ? 'UUID!' : 'UUID');
         out.add('$fk: \$$v');
       }
+    }
+    return out;
+  }
+
+  /// `defaultWhere`のうち`remove`以外の固定条件(例: is_customer = true)を、connection-filterの条件にする。
+  /// 演算子は `=` `!=` `>` `>=` `<` `<=`。値(value)が無い、列が型に無い、演算子が不明な場合はエラー。
+  List<String> fixedConditions(Map<String, dynamic> node, String path, String type) {
+    const ops = {
+      '=': 'equalTo',
+      '!=': 'notEqualTo',
+      '>': 'greaterThan',
+      '>=': 'greaterThanOrEqualTo',
+      '<': 'lessThan',
+      '<=': 'lessThanOrEqualTo',
+    };
+    final out = <String>[];
+    for (final d in (node['defaultWhere'] as List?) ?? const []) {
+      if (d is! Map || d['column'] == 'remove') continue;
+      final col = d['column'] as String?;
+      final op = ops[d['operator']];
+      if (col == null || op == null) {
+        log.error(path, 'defaultWhereの演算子が不明です(${d['operator']})。使えるのは ${ops.keys.join(' ')}');
+        continue;
+      }
+      if (!d.containsKey('value')) {
+        log.error(path, 'defaultWhere($col)にvalueがありません(キー名の誤記の疑い: ${d.keys.join(', ')})');
+        continue;
+      }
+      if (schema.field(type, camel(col)) == null) {
+        log.error(path, 'defaultWhereの列$col(${camel(col)})が型$typeにありません');
+        continue;
+      }
+      final v = d['value'];
+      final lit = v is String ? '"${v.replaceAll('"', '\\"')}"' : '$v';
+      out.add('{ ${camel(col)}: { $op: $lit } }');
     }
     return out;
   }

@@ -1,16 +1,16 @@
 # office_page画面 - Edit(ミューテーション)
 #
-# 画面仕様: source/view.yaml #OfficePageEdit
-# requiredWhereはinfo_office_idのみ(要件0035再評価: info_company_idは実スキーマの
-# updateInfoOfficeByInfoOfficeIdミューテーションの識別引数として使えないため除外した)。
+# 画面仕様: source/views/ #OfficePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 mutation OfficePageEdit(
   $infoOfficeId: UUID!
-  $remarks: String
+  $infoCompanyId: UUID
+  $code: String
   $sharedAppellationsId: UUID!
+  $nameSharedDictionaryId: UUID!
   $jaLanguageCodeId: UUID!
   $enLanguageCodeId: UUID!
-  $nameSharedDictionaryId: UUID!
   $nameJa: String!
   $nameEn: String!
   $pronunciationSharedDictionaryId: UUID!
@@ -22,8 +22,6 @@ mutation OfficePageEdit(
   $infoAddressId: UUID!
   $iso31663: String
   $zipCode: String
-  $phone: String
-  $faxNumber: String
   $address1SharedAppellationsId: UUID!
   $address1NameSharedDictionaryId: UUID!
   $address1NameJa: String!
@@ -54,12 +52,16 @@ mutation OfficePageEdit(
   $buildingNicknameSharedDictionaryId: UUID!
   $buildingNicknameJa: String!
   $buildingNicknameEn: String!
+  $phone: String
+  $faxNumber: String
+  $remarks: String
 ) {
   updateInfoOfficeByInfoOfficeId(
     input: {
       infoOfficeId: $infoOfficeId
       infoOfficePatch: {
-        remarks: $remarks
+        infoCompanyId: $infoCompanyId
+        code: $code
 
         sharedAppellationToNames: {
           updateBySharedAppellationsId: {
@@ -79,6 +81,7 @@ mutation OfficePageEdit(
                   }
                 }
               }
+
               sharedDictionaryToSharedDictionaryPronunciationId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $pronunciationSharedDictionaryId
@@ -93,6 +96,7 @@ mutation OfficePageEdit(
                   }
                 }
               }
+
               sharedDictionaryToSharedDictionaryNicknameId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $nicknameSharedDictionaryId
@@ -117,8 +121,6 @@ mutation OfficePageEdit(
             infoAddressPatch: {
               iso31663: $iso31663
               zipCode: $zipCode
-              phone: $phone
-              faxNumber: $faxNumber
 
               sharedAppellationToAddress1: {
                 updateBySharedAppellationsId: {
@@ -138,6 +140,7 @@ mutation OfficePageEdit(
                         }
                       }
                     }
+
                     sharedDictionaryToSharedDictionaryPronunciationId: {
                       updateBySharedDictionaryId: {
                         sharedDictionaryId: $address1PronunciationSharedDictionaryId
@@ -152,6 +155,7 @@ mutation OfficePageEdit(
                         }
                       }
                     }
+
                     sharedDictionaryToSharedDictionaryNicknameId: {
                       updateBySharedDictionaryId: {
                         sharedDictionaryId: $address1NicknameSharedDictionaryId
@@ -188,6 +192,7 @@ mutation OfficePageEdit(
                         }
                       }
                     }
+
                     sharedDictionaryToSharedDictionaryPronunciationId: {
                       updateBySharedDictionaryId: {
                         sharedDictionaryId: $address2PronunciationSharedDictionaryId
@@ -202,6 +207,7 @@ mutation OfficePageEdit(
                         }
                       }
                     }
+
                     sharedDictionaryToSharedDictionaryNicknameId: {
                       updateBySharedDictionaryId: {
                         sharedDictionaryId: $address2NicknameSharedDictionaryId
@@ -238,6 +244,7 @@ mutation OfficePageEdit(
                         }
                       }
                     }
+
                     sharedDictionaryToSharedDictionaryPronunciationId: {
                       updateBySharedDictionaryId: {
                         sharedDictionaryId: $buildingPronunciationSharedDictionaryId
@@ -252,6 +259,7 @@ mutation OfficePageEdit(
                         }
                       }
                     }
+
                     sharedDictionaryToSharedDictionaryNicknameId: {
                       updateBySharedDictionaryId: {
                         sharedDictionaryId: $buildingNicknameSharedDictionaryId
@@ -269,9 +277,15 @@ mutation OfficePageEdit(
                   }
                 }
               }
+
+              phone: $phone
+              faxNumber: $faxNumber
+              remarks: $remarks
             }
           }
         }
+
+        remarks: $remarks
       }
     }
   ) {
@@ -279,11 +293,12 @@ mutation OfficePageEdit(
       infoOfficeId
       infoCompanyId
       code
-      remarks
+
       labels: sharedAppellationByNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -291,6 +306,7 @@ mutation OfficePageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -299,8 +315,10 @@ mutation OfficePageEdit(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -308,6 +326,7 @@ mutation OfficePageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -316,8 +335,10 @@ mutation OfficePageEdit(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -325,6 +346,7 @@ mutation OfficePageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -334,16 +356,17 @@ mutation OfficePageEdit(
           }
         }
       }
+
       address: infoAddressByInfoAddressId {
         infoAddressId
         iso31663
         zipCode
-        phone
-        faxNumber
+
         address1: sharedAppellationByAddress1 {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId
+
             ja: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $jaLanguageCodeId }
             ) {
@@ -351,6 +374,7 @@ mutation OfficePageEdit(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -359,8 +383,10 @@ mutation OfficePageEdit(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
+
             ja: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $jaLanguageCodeId }
             ) {
@@ -368,6 +394,7 @@ mutation OfficePageEdit(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -376,8 +403,10 @@ mutation OfficePageEdit(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
+
             ja: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $jaLanguageCodeId }
             ) {
@@ -385,6 +414,7 @@ mutation OfficePageEdit(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -394,10 +424,12 @@ mutation OfficePageEdit(
             }
           }
         }
+
         address2: sharedAppellationByAddress2 {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId
+
             ja: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $jaLanguageCodeId }
             ) {
@@ -405,6 +437,7 @@ mutation OfficePageEdit(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -413,8 +446,10 @@ mutation OfficePageEdit(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
+
             ja: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $jaLanguageCodeId }
             ) {
@@ -422,6 +457,7 @@ mutation OfficePageEdit(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -430,8 +466,10 @@ mutation OfficePageEdit(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
+
             ja: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $jaLanguageCodeId }
             ) {
@@ -439,6 +477,7 @@ mutation OfficePageEdit(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -448,10 +487,12 @@ mutation OfficePageEdit(
             }
           }
         }
+
         building: sharedAppellationByBuilding {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId
+
             ja: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $jaLanguageCodeId }
             ) {
@@ -459,6 +500,7 @@ mutation OfficePageEdit(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -467,8 +509,10 @@ mutation OfficePageEdit(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
+
             ja: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $jaLanguageCodeId }
             ) {
@@ -476,6 +520,7 @@ mutation OfficePageEdit(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -484,8 +529,10 @@ mutation OfficePageEdit(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
+
             ja: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $jaLanguageCodeId }
             ) {
@@ -493,6 +540,7 @@ mutation OfficePageEdit(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -502,7 +550,13 @@ mutation OfficePageEdit(
             }
           }
         }
+
+        phone
+        faxNumber
+        remarks
       }
+
+      remarks
     }
   }
 }

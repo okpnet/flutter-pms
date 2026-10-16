@@ -13,4 +13,10 @@ CustomerPage:
       value: false
     - column: is_customer
       operator: =
-      valuer: true;
+      value: true
+
+# 顧客の書き込み(0055追加: page.mdの顧客情報)
+CustomerPageEdit:
+  kind: edit
+  <<: *StakeholderEditFields
+  generateRfe: true

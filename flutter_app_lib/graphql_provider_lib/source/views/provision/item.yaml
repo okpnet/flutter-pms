@@ -107,7 +107,7 @@ HsCodeReadEditFields: &HsCodeReadEditFields
   kind: edit
   from: mstr_item_hcdcs
   requiredWhere: 
-    - mstr_manufacturer_id
+    - mstr_item_hcdcs_id
   defaultWhere:
     - column: remove
       operator: =

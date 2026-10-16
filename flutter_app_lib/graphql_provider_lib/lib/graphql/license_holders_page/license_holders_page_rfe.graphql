@@ -229,7 +229,8 @@ query LicenseHoldersPageRfe(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
         ) {
           nodes {
-            textValue
+            charCount
+            leadText
           }
         }
 
@@ -237,7 +238,8 @@ query LicenseHoldersPageRfe(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
         ) {
           nodes {
-            textValue
+            charCount
+            leadText
           }
         }
       }

@@ -1,0 +1,113 @@
+# yaml-language-server: $schema=../../schema.json
+
+# trans_orderの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+OrderPage: &OrderPage
+  kind: read
+  from: trans_order
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_order_id
+    - order_number
+    - customer_order_number
+    - stakeholder_history_id
+    - stakeholder_id
+    - stakeholder_contact_history_id
+    - stakeholder_contact_id
+    - control_code1
+    - control_code2
+    - control_code3
+    - order_processing_date
+    - delivery_date
+    - deadline
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_orderの書き込み
+OrderPageEdit:
+  kind: edit
+  from: trans_order
+  requiredWhere:
+    - trans_order_id
+  generateRfe: true
+  columns:
+    - trans_order_id
+    - order_number
+    - customer_order_number
+    - stakeholder_history_id
+    - stakeholder_id
+    - stakeholder_contact_history_id
+    - stakeholder_contact_id
+    - control_code1
+    - control_code2
+    - control_code3
+    - order_processing_date
+    - delivery_date
+    - deadline
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_order_detailの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+OrderDetailPage: &OrderDetailPage
+  kind: read
+  from: trans_order_detail
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_order_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_order_detail_id
+    - trans_order_id
+    - item_history_id
+    - item_id
+    - quantity
+    - cost
+    - delivery_date
+    - deadline
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_order_detailの書き込み
+OrderDetailPageEdit:
+  kind: edit
+  from: trans_order_detail
+  requiredWhere:
+    - trans_order_detail_id
+  generateRfe: true
+  columns:
+    - trans_order_detail_id
+    - trans_order_id
+    - item_history_id
+    - item_id
+    - quantity
+    - cost
+    - delivery_date
+    - deadline
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+

@@ -44,7 +44,7 @@ lib/
   gqlmdlib.dart           ライブラリのバレルファイル
 source/
   views/                  画面仕様(GraphQL生成の入力)。view.yamlを機能単位に分割したもの(5-9節)
-    <分野>/<機能>.yaml      page.mdの分野・機能に沿ったファイル(common/・system/・company/・resource/・provision/・sales/・purchase/)
+    <分野>/<機能>.yaml      page.mdの分野・機能に沿ったファイル(common/・system/・company/・resource/・provision/・sales/・purchase/・production/・work/・quality/)
   page.md                 ページの定義(サフィックス・機能の構成)。viewsの分割の基準
   schema.json             view.yaml(viewsの各ファイル)のJSON Schema
   27_yaml_to_graphql_conversion_rules.md  view.yaml→GraphQLの変換規則
@@ -54,6 +54,7 @@ tool/
   prune_schema.dart       生成用スキーマの絞り込み(4-2節)
   gen_filter_spec.dart    検索条件の対応表の生成(4-5節)
   gen_view_graphql.dart   view.yaml→GraphQLの生成(CLI、5-8節)
+  scaffold_view.dart      テーブルからviewsの雛形(~Pageと~PageEdit)を出力する(要件0055)
   view_graphql/           view.yaml→GraphQLの生成ライブラリとbuild_runnerのBuilder(5-8節)
     view_sources.dart       分割したviewsの結合(5-9節)
 test/                     モデルごとの往復変換テスト、RFE/Edit相互変換テスト
@@ -206,7 +207,7 @@ docs/                     要件ごとの実施ログ。生成ツールの詳細
 
 - view.yamlは`source/views/`以下に、機能単位のファイルとして分割した。元の`source/view.yaml`は廃止した。
   - 分け方は`source/page.md`の分野(##)・機能(1.)に従う。`<分野>/<機能>.yaml`とし、ディレクトリ名・ファイル名はスネークケースとする。
-  - 分野: `common/`(全共通・マスタ共通・トランザクション共通)、`system/`、`company/`、`resource/`、`provision/`、`sales/`、`purchase/`。
+  - 分野: `common/`(全共通・マスタ共通・トランザクション共通)、`system/`、`company/`、`resource/`、`provision/`、`sales/`、`purchase/`、`production/`(生産計画)、`work/`(作業実績)、`quality/`(品質管理)。
   - 機能に該当する共通定義(`~ReadFields`・`~EditFields`、例: `TaskReadFields`)は、その機能のファイルに置く。複数の機能から使う共通定義だけを`common/`に置く(page.mdの「共通」)。
   - 各ファイルの先頭に`# yaml-language-server: $schema=<schema.jsonへの相対パス>`を書く。
 - YAMLのアンカー(`&名前`)とエイリアス(`*名前`)は1つのドキュメントの中でしか使えないため、`tool/view_graphql/view_sources.dart`が結合してから解析する。既存の`<<: *名前`はそのまま使える。
@@ -227,6 +228,7 @@ docs/                     要件ごとの実施ログ。生成ツールの詳細
 | RFE/Edit相互変換(0046・0048) | `test/rfe_edit_interconversion_test.dart`で全画面を検証する。RFE→Editの結果モデル・引数モデル、Editの結果モデル→RFEのいずれも変換できること。変換できない場合は、view.yamlの修正案をログに出力する。監査列がRFEにのみあるのは方針どおり(A1)とし、条件付き取得の混入は失敗(F6)とする |
 | nested_map_flattener.dartの扱い(0044) | 相互変換できないときだけ見直す。根本的な見直しが必要なら提案し、それ以外は対応できるよう修正する |
 | 生成ツール(0051・0052) | `test/view_graphql_generator_test.dart`で、名前の規則・YAMLのマージ・分割したviewsの結合(依存順・重複・未定義・循環・エラー位置)・既存の画面との一致(回帰)を検証する |
+| page.mdとviewsの整合(0055) | `test/page_views_consistency_test.dart`で、page.mdの参照がviewsに存在すること、viewsの全トップノードがpage.mdから参照されていること、サフィックスと参照先のkindの一致、参照の無い項目が`<!--DB要-->`の項目に限ること、viewsからのGraphQL生成(共通定義の検証を含む)のエラーが0件であることを検証する |
 | 検索条件(0050) | `test/flat_filter_converter_test.dart`で、コンバーター単体の挙動、全画面の対応表のすべてのキーが生成モデル`Input$<テーブル>Filter`のfromJson/toJsonで欠落なく往復できること、OfficePageの実例を検証する |
 
 ## 7. 作業の進め方
@@ -245,6 +247,8 @@ docs/                     要件ごとの実施ログ。生成ツールの詳細
 - 0050は完了した(docs/0050ログ)。全量スキーマの再取得・GraphQLの再生成・コンバーター・build_runner・テストの見直しまで実施済み。
   - `schema.full.graphql`は、コンテナの作り直し後に再取得した(関連フィルタが有効)。イントロスペクションは約45秒で、タイムアウト(5分)は問題にならなかった。
 - 言語の引数の一般化(ISO 639-1準拠、言語の数を限定しない、ja/enの固定の廃止)と5-5節の見直し: 0050の対象外とし、別の要件として扱う。
+- 0055で保留した項目: 会社の統計情報(集計のビューが無い。確認のため一時停止)。`page.md`の`<!--DB要-->`と、`docs/0055_page_views_review_log.md`の3章を参照する。
+- 0055で雛形から追加したページ(約52ページ)は、`lib/graphql`へ未採用。画面を使う段階で、列・参照・明細のタグを見直してから採用する(`docs/0055`の5章)。
 
 ## 要件(0050以降)
 
@@ -386,3 +390,12 @@ docs/                     要件ごとの実施ログ。生成ツールの詳細
 6. 利用側の注意: 自分の子孫の下への移動(循環)は、アプリ側で`v_*_descendants`を使って防ぐ。DB側の制約は無い。ツリー表の`symbol`のユニーク制約(`*_tree_IX1`)にも注意する。
 7. 残りの内向きの入れ子(別原因)も、同じ方針で編集から外した: `DepartmentPageEdit.kinds`(区分は`info_department_kind`の1対1の内向き。値の編集は`DepartmentCategoryPageEdit`、取得は`DepartmentPage`)、`ItemPageEdit.descendants`(読み取り専用のビュー。取得は`ItemPage`)。これでGraphQLの生成エラーは0件になった。
 8. 詳細: `docs/0054_tree_parent_update_log.md`。
+
+2026/10/16_0055:`page.md`と`views`、`shema.graphql`と関連を学習、傾向から`page.md`と`views`の追加、レビューを行い評価する。
+
+0055の実施(2026/10/16):
+1. 4章を実行(スキーマ再取得 → 生成 → 絞り込み → 対応表 → build_runner → テスト)。部署と区分の構造変更(`info_department_kind`が紐付けの1対多)に`department.yaml`とテストを追従した。
+2. viewsを評価し、スキーマとの不整合を修正した(`document.yaml`、`FlexibleTextEditFields`、`HsCodeReadEditFields`、`InspectionFormulaEditFields`、`ContactReadFields`/`ContactEditFields`、顧客・サプライヤーの`defaultWhere`の誤記)。
+3. page.mdの項目のうち、スキーマに対応するテーブルがあるもの(約50ページ)を、`tool/scaffold_view.dart`の雛形からviewsへ追加した。page.mdの誤記・矛盾・未参照を修正し、定義(「項目」、`[ノード名]`、`取込:`、`<!--DB要-->`、命名の対応)を追記した。
+4. 生成ツールを拡張した: `defaultWhere`の固定条件(remove以外)の反映、共通定義(~ReadFields/~EditFields)の検証。
+5. 完了条件を満たした(page.mdの項目が矛盾なく埋まり、全量スキーマとの不整合0件。`test/page_views_consistency_test.dart`)。DBの変更・要件の確定が必要な項目はスキップし、`docs/0055_page_views_review_log.md`の3・4章に残した。

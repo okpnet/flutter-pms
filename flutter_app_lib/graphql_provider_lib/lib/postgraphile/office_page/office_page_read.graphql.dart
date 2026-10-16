@@ -419,11 +419,7 @@ const documentNodeQueryOfficePageRead = DocumentNode(
             ),
             isNonNull: false,
           ),
-          defaultValue: DefaultValueNode(
-            value: ListValueNode(
-              values: [EnumValueNode(name: NameNode(value: 'PRIMARY_KEY_ASC'))],
-            ),
-          ),
+          defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
@@ -558,34 +554,6 @@ const documentNodeQueryOfficePageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'code'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'symbol'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'updateAt'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remove'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1930,27 +1898,6 @@ const documentNodeQueryOfficePageRead = DocumentNode(
                               selectionSet: null,
                             ),
                             FieldNode(
-                              name: NameNode(value: 'remarks'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'updateAt'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'remove'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
                               name: NameNode(value: '__typename'),
                               alias: null,
                               arguments: [],
@@ -1959,6 +1906,34 @@ const documentNodeQueryOfficePageRead = DocumentNode(
                             ),
                           ],
                         ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'updateAt'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remove'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
                       ),
                       FieldNode(
                         name: NameNode(
@@ -1993,34 +1968,6 @@ const documentNodeQueryOfficePageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(value: 'code'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'sex'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'phone'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'symbol'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'privatePhone'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -2354,6 +2301,34 @@ const documentNodeQueryOfficePageRead = DocumentNode(
                                   ),
                                 ],
                               ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'sex'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'phone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'symbol'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'privatePhone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
                             ),
                             FieldNode(
                               name: NameNode(value: '__typename'),
@@ -2908,12 +2883,12 @@ class Query$OfficePageRead$allInfoOffices$nodes {
     required this.infoOfficeId,
     required this.infoCompanyId,
     required this.code,
+    this.labels,
+    this.address,
     this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
-    this.labels,
-    this.address,
     this.update_user,
     this.$__typename = 'InfoOffice',
   });
@@ -2924,22 +2899,18 @@ class Query$OfficePageRead$allInfoOffices$nodes {
     final l$infoOfficeId = json['infoOfficeId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$labels = json['labels'];
+    final l$address = json['address'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
-    final l$address = json['address'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$OfficePageRead$allInfoOffices$nodes(
       infoOfficeId: (l$infoOfficeId as String),
       infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String),
-      symbol: (l$symbol as String?),
-      remarks: (l$remarks as String?),
-      updateAt: (l$updateAt as String?),
-      remove: (l$remove as bool?),
       labels: l$labels == null
           ? null
           : Query$OfficePageRead$allInfoOffices$nodes$labels.fromJson(
@@ -2950,6 +2921,10 @@ class Query$OfficePageRead$allInfoOffices$nodes {
           : Query$OfficePageRead$allInfoOffices$nodes$address.fromJson(
               (l$address as Map<String, dynamic>),
             ),
+      symbol: (l$symbol as String?),
+      remarks: (l$remarks as String?),
+      updateAt: (l$updateAt as String?),
+      remove: (l$remove as bool?),
       update_user: l$update_user == null
           ? null
           : Query$OfficePageRead$allInfoOffices$nodes$update_user.fromJson(
@@ -2965,6 +2940,10 @@ class Query$OfficePageRead$allInfoOffices$nodes {
 
   final String code;
 
+  final Query$OfficePageRead$allInfoOffices$nodes$labels? labels;
+
+  final Query$OfficePageRead$allInfoOffices$nodes$address? address;
+
   final String? symbol;
 
   final String? remarks;
@@ -2972,10 +2951,6 @@ class Query$OfficePageRead$allInfoOffices$nodes {
   final String? updateAt;
 
   final bool? remove;
-
-  final Query$OfficePageRead$allInfoOffices$nodes$labels? labels;
-
-  final Query$OfficePageRead$allInfoOffices$nodes$address? address;
 
   final Query$OfficePageRead$allInfoOffices$nodes$update_user? update_user;
 
@@ -2989,6 +2964,10 @@ class Query$OfficePageRead$allInfoOffices$nodes {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
+    final l$address = address;
+    _resultData['address'] = l$address?.toJson();
     final l$symbol = symbol;
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
@@ -2997,10 +2976,6 @@ class Query$OfficePageRead$allInfoOffices$nodes {
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
-    final l$address = address;
-    _resultData['address'] = l$address?.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -3013,24 +2988,24 @@ class Query$OfficePageRead$allInfoOffices$nodes {
     final l$infoOfficeId = infoOfficeId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$labels = labels;
+    final l$address = address;
     final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$labels = labels;
-    final l$address = address;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoOfficeId,
       l$infoCompanyId,
       l$code,
+      l$labels,
+      l$address,
       l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
-      l$labels,
-      l$address,
       l$update_user,
       l$$__typename,
     ]);
@@ -3060,6 +3035,16 @@ class Query$OfficePageRead$allInfoOffices$nodes {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$address = address;
+    final lOther$address = other.address;
+    if (l$address != lOther$address) {
+      return false;
+    }
     final l$symbol = symbol;
     final lOther$symbol = other.symbol;
     if (l$symbol != lOther$symbol) {
@@ -3078,16 +3063,6 @@ class Query$OfficePageRead$allInfoOffices$nodes {
     final l$remove = remove;
     final lOther$remove = other.remove;
     if (l$remove != lOther$remove) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
-      return false;
-    }
-    final l$address = address;
-    final lOther$address = other.address;
-    if (l$address != lOther$address) {
       return false;
     }
     final l$update_user = update_user;
@@ -3126,12 +3101,12 @@ abstract class CopyWith$Query$OfficePageRead$allInfoOffices$nodes<TRes> {
     String? infoOfficeId,
     String? infoCompanyId,
     String? code,
+    Query$OfficePageRead$allInfoOffices$nodes$labels? labels,
+    Query$OfficePageRead$allInfoOffices$nodes$address? address,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$OfficePageRead$allInfoOffices$nodes$labels? labels,
-    Query$OfficePageRead$allInfoOffices$nodes$address? address,
     Query$OfficePageRead$allInfoOffices$nodes$update_user? update_user,
     String? $__typename,
   });
@@ -3158,12 +3133,12 @@ class _CopyWithImpl$Query$OfficePageRead$allInfoOffices$nodes<TRes>
     Object? infoOfficeId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? labels = _undefined,
+    Object? address = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
-    Object? address = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -3177,18 +3152,18 @@ class _CopyWithImpl$Query$OfficePageRead$allInfoOffices$nodes<TRes>
       code: code == _undefined || code == null
           ? _instance.code
           : (code as String),
-      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
-      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
-      updateAt: updateAt == _undefined
-          ? _instance.updateAt
-          : (updateAt as String?),
-      remove: remove == _undefined ? _instance.remove : (remove as bool?),
       labels: labels == _undefined
           ? _instance.labels
           : (labels as Query$OfficePageRead$allInfoOffices$nodes$labels?),
       address: address == _undefined
           ? _instance.address
           : (address as Query$OfficePageRead$allInfoOffices$nodes$address?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
+      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      updateAt: updateAt == _undefined
+          ? _instance.updateAt
+          : (updateAt as String?),
+      remove: remove == _undefined ? _instance.remove : (remove as bool?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -3247,12 +3222,12 @@ class _CopyWithStubImpl$Query$OfficePageRead$allInfoOffices$nodes<TRes>
     String? infoOfficeId,
     String? infoCompanyId,
     String? code,
+    Query$OfficePageRead$allInfoOffices$nodes$labels? labels,
+    Query$OfficePageRead$allInfoOffices$nodes$address? address,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$OfficePageRead$allInfoOffices$nodes$labels? labels,
-    Query$OfficePageRead$allInfoOffices$nodes$address? address,
     Query$OfficePageRead$allInfoOffices$nodes$update_user? update_user,
     String? $__typename,
   }) => _res;
@@ -5316,9 +5291,6 @@ class Query$OfficePageRead$allInfoOffices$nodes$address {
     this.building,
     this.phone,
     this.faxNumber,
-    this.remarks,
-    this.updateAt,
-    this.remove,
     this.$__typename = 'InfoAddress',
   });
 
@@ -5333,9 +5305,6 @@ class Query$OfficePageRead$allInfoOffices$nodes$address {
     final l$building = json['building'];
     final l$phone = json['phone'];
     final l$faxNumber = json['faxNumber'];
-    final l$remarks = json['remarks'];
-    final l$updateAt = json['updateAt'];
-    final l$remove = json['remove'];
     final l$$__typename = json['__typename'];
     return Query$OfficePageRead$allInfoOffices$nodes$address(
       infoAddressId: (l$infoAddressId as String),
@@ -5358,9 +5327,6 @@ class Query$OfficePageRead$allInfoOffices$nodes$address {
             ),
       phone: (l$phone as String?),
       faxNumber: (l$faxNumber as String?),
-      remarks: (l$remarks as String?),
-      updateAt: (l$updateAt as String?),
-      remove: (l$remove as bool?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -5380,12 +5346,6 @@ class Query$OfficePageRead$allInfoOffices$nodes$address {
   final String? phone;
 
   final String? faxNumber;
-
-  final String? remarks;
-
-  final String? updateAt;
-
-  final bool? remove;
 
   final String $__typename;
 
@@ -5407,12 +5367,6 @@ class Query$OfficePageRead$allInfoOffices$nodes$address {
     _resultData['phone'] = l$phone;
     final l$faxNumber = faxNumber;
     _resultData['faxNumber'] = l$faxNumber;
-    final l$remarks = remarks;
-    _resultData['remarks'] = l$remarks;
-    final l$updateAt = updateAt;
-    _resultData['updateAt'] = l$updateAt;
-    final l$remove = remove;
-    _resultData['remove'] = l$remove;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -5428,9 +5382,6 @@ class Query$OfficePageRead$allInfoOffices$nodes$address {
     final l$building = building;
     final l$phone = phone;
     final l$faxNumber = faxNumber;
-    final l$remarks = remarks;
-    final l$updateAt = updateAt;
-    final l$remove = remove;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
@@ -5441,9 +5392,6 @@ class Query$OfficePageRead$allInfoOffices$nodes$address {
       l$building,
       l$phone,
       l$faxNumber,
-      l$remarks,
-      l$updateAt,
-      l$remove,
       l$$__typename,
     ]);
   }
@@ -5497,21 +5445,6 @@ class Query$OfficePageRead$allInfoOffices$nodes$address {
     if (l$faxNumber != lOther$faxNumber) {
       return false;
     }
-    final l$remarks = remarks;
-    final lOther$remarks = other.remarks;
-    if (l$remarks != lOther$remarks) {
-      return false;
-    }
-    final l$updateAt = updateAt;
-    final lOther$updateAt = other.updateAt;
-    if (l$updateAt != lOther$updateAt) {
-      return false;
-    }
-    final l$remove = remove;
-    final lOther$remove = other.remove;
-    if (l$remove != lOther$remove) {
-      return false;
-    }
     final l$$__typename = $__typename;
     final lOther$$__typename = other.$__typename;
     if (l$$__typename != lOther$$__typename) {
@@ -5553,9 +5486,6 @@ abstract class CopyWith$Query$OfficePageRead$allInfoOffices$nodes$address<
     Query$OfficePageRead$allInfoOffices$nodes$address$building? building,
     String? phone,
     String? faxNumber,
-    String? remarks,
-    String? updateAt,
-    bool? remove,
     String? $__typename,
   });
   CopyWith$Query$OfficePageRead$allInfoOffices$nodes$address$address1<TRes>
@@ -5589,9 +5519,6 @@ class _CopyWithImpl$Query$OfficePageRead$allInfoOffices$nodes$address<TRes>
     Object? building = _undefined,
     Object? phone = _undefined,
     Object? faxNumber = _undefined,
-    Object? remarks = _undefined,
-    Object? updateAt = _undefined,
-    Object? remove = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$OfficePageRead$allInfoOffices$nodes$address(
@@ -5618,11 +5545,6 @@ class _CopyWithImpl$Query$OfficePageRead$allInfoOffices$nodes$address<TRes>
       faxNumber: faxNumber == _undefined
           ? _instance.faxNumber
           : (faxNumber as String?),
-      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
-      updateAt: updateAt == _undefined
-          ? _instance.updateAt
-          : (updateAt as String?),
-      remove: remove == _undefined ? _instance.remove : (remove as bool?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -5687,9 +5609,6 @@ class _CopyWithStubImpl$Query$OfficePageRead$allInfoOffices$nodes$address<TRes>
     Query$OfficePageRead$allInfoOffices$nodes$address$building? building,
     String? phone,
     String? faxNumber,
-    String? remarks,
-    String? updateAt,
-    bool? remove,
     String? $__typename,
   }) => _res;
 
@@ -11892,11 +11811,11 @@ class Query$OfficePageRead$allInfoOffices$nodes$update_user {
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -11907,26 +11826,26 @@ class Query$OfficePageRead$allInfoOffices$nodes$update_user {
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$OfficePageRead$allInfoOffices$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$OfficePageRead$allInfoOffices$nodes$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -11939,6 +11858,8 @@ class Query$OfficePageRead$allInfoOffices$nodes$update_user {
 
   final String? code;
 
+  final Query$OfficePageRead$allInfoOffices$nodes$update_user$name? name;
+
   final String? sex;
 
   final String? phone;
@@ -11946,8 +11867,6 @@ class Query$OfficePageRead$allInfoOffices$nodes$update_user {
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$OfficePageRead$allInfoOffices$nodes$update_user$name? name;
 
   final String $__typename;
 
@@ -11961,6 +11880,8 @@ class Query$OfficePageRead$allInfoOffices$nodes$update_user {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -11969,8 +11890,6 @@ class Query$OfficePageRead$allInfoOffices$nodes$update_user {
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -11982,22 +11901,22 @@ class Query$OfficePageRead$allInfoOffices$nodes$update_user {
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -12031,6 +11950,11 @@ class Query$OfficePageRead$allInfoOffices$nodes$update_user {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -12049,11 +11973,6 @@ class Query$OfficePageRead$allInfoOffices$nodes$update_user {
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -12094,11 +12013,11 @@ abstract class CopyWith$Query$OfficePageRead$allInfoOffices$nodes$update_user<
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$OfficePageRead$allInfoOffices$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$OfficePageRead$allInfoOffices$nodes$update_user$name? name,
     String? $__typename,
   });
   CopyWith$Query$OfficePageRead$allInfoOffices$nodes$update_user$name<TRes>
@@ -12125,11 +12044,11 @@ class _CopyWithImpl$Query$OfficePageRead$allInfoOffices$nodes$update_user<TRes>
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$OfficePageRead$allInfoOffices$nodes$update_user(
@@ -12143,16 +12062,16 @@ class _CopyWithImpl$Query$OfficePageRead$allInfoOffices$nodes$update_user<TRes>
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$OfficePageRead$allInfoOffices$nodes$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name
-                as Query$OfficePageRead$allInfoOffices$nodes$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -12189,11 +12108,11 @@ class _CopyWithStubImpl$Query$OfficePageRead$allInfoOffices$nodes$update_user<
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$OfficePageRead$allInfoOffices$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$OfficePageRead$allInfoOffices$nodes$update_user$name? name,
     String? $__typename,
   }) => _res;
 

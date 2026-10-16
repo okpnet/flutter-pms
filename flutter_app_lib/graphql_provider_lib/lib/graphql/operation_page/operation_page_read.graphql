@@ -68,7 +68,8 @@ query OperationPageRead(
           condition: { sharedLanguageCodeId: $languageCodeId }
         ) {
           nodes {
-            textValue
+            charCount
+            leadText
           }
         }
       }

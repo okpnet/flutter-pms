@@ -68,7 +68,8 @@ query LicensePageRead(
           condition: { sharedLanguageCodeId: $languageCodeId }
         ) {
           nodes {
-            textValue
+            charCount
+            leadText
           }
         }
       }

@@ -1,32 +1,23 @@
-# approval_operation_page画面 - RFE(read for editing、要件0037:
-#   ApprovalOperationPageEditのgenerateRfe: trueから導出)
+# approval_operation_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
 #
-# 要件0045で確立した最新方式(department_page_rfe.graphql参照)にあわせ、
-# $jaLanguageCodeId/$enLanguageCodeIdをUUID!(必須)として両言語を常時取得する。
-
-# 要件0047(view.yaml修正に伴う再生成): ApprovalEdit.department/position(editable: false、ID割り当てのみ)を、
-# 表示用としてDepartmentPage/PositionPageと同型の全列で追加した(staff_capability_page_edit.graphqlと同じ方針)。
-# RFE側はview.yamlに無いsymbol(ルート・pattern_detail・approval)を削除した。
+# 画面仕様: source/views/ #ApprovalOperationPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query ApprovalOperationPageRfe(
   $mstrApprovalPatternId: UUID!
   $jaLanguageCodeId: UUID!
   $enLanguageCodeId: UUID!
+  $patternDetailFirst: Int = 30
+  $patternDetailOrderBy: [MstrApprovalPatternDetailsOrderBy!]
 ) {
-  mstrApprovalPatternByMstrApprovalPatternId(
-    mstrApprovalPatternId: $mstrApprovalPatternId
-  ) {
+  mstrApprovalPatternByMstrApprovalPatternId(mstrApprovalPatternId: $mstrApprovalPatternId) {
     mstrApprovalPatternId
-    remarks
-    updateAt
-    updateUserId
-    updateUserHistoryId
-    remove
 
     labels: sharedAppellationByNames {
       sharedAppellationsId
       sharedDictionaryBySharedDictionaryNameId {
         sharedDictionaryId
+
         ja: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
         ) {
@@ -34,6 +25,7 @@ query ApprovalOperationPageRfe(
             dictionaryValue
           }
         }
+
         en: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
         ) {
@@ -42,8 +34,10 @@ query ApprovalOperationPageRfe(
           }
         }
       }
+
       sharedDictionaryBySharedDictionaryPronunciationId {
         sharedDictionaryId
+
         ja: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
         ) {
@@ -51,6 +45,7 @@ query ApprovalOperationPageRfe(
             dictionaryValue
           }
         }
+
         en: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
         ) {
@@ -59,8 +54,10 @@ query ApprovalOperationPageRfe(
           }
         }
       }
+
       sharedDictionaryBySharedDictionaryNicknameId {
         sharedDictionaryId
+
         ja: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
         ) {
@@ -68,6 +65,7 @@ query ApprovalOperationPageRfe(
             dictionaryValue
           }
         }
+
         en: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
         ) {
@@ -78,7 +76,10 @@ query ApprovalOperationPageRfe(
       }
     }
 
-    pattern_detail: mstrApprovalPatternDetailsByMstrApprovalPatternId {
+    pattern_detail: mstrApprovalPatternDetailsByMstrApprovalPatternId(
+      first: $patternDetailFirst
+      orderBy: $patternDetailOrderBy
+    ) {
       totalCount
       pageInfo {
         hasNextPage
@@ -87,726 +88,494 @@ query ApprovalOperationPageRfe(
       nodes {
         mstrApprovalPatternDetailId
         mstrApprovalId
-        mstrApprovalPatternId
-        remarks
-        updateAt
-        remove
 
-        approval: mstrApprovalByMstrApprovalId {
+        approvals: mstrApprovalByMstrApprovalId {
           mstrApprovalId
           infoDepartmentId
-          infoPositionId
 
-          # --- 要件0047: ID割り当てのみ(editable: false)の部署・役職。表示用にDepartmentPage/PositionPageと同型の全列を返す ---
           department: infoDepartmentByInfoDepartmentId {
             infoDepartmentId
             infoCompanyId
-            infoOfficeId
             code
-            symbol
-            remarks
-            updateAt
-            remove
-            parent: infoDepartmentTreesByInfoDepartmentId(first: 1) {
-              nodes {
-                infoDepartmentTreeId
-                parentInfoDepartmentId
-              }
-            }
+
             labels: sharedAppellationByNames {
               sharedAppellationsId
               sharedDictionaryBySharedDictionaryNameId {
                 sharedDictionaryId
-                ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
                   nodes {
                     dictionaryValue
                   }
                 }
-                en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
+
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
                   nodes {
                     dictionaryValue
                   }
                 }
               }
+
               sharedDictionaryBySharedDictionaryPronunciationId {
                 sharedDictionaryId
-                ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
                   nodes {
                     dictionaryValue
                   }
                 }
-                en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
+
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
                   nodes {
                     dictionaryValue
                   }
                 }
               }
+
               sharedDictionaryBySharedDictionaryNicknameId {
                 sharedDictionaryId
-                ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
                   nodes {
                     dictionaryValue
                   }
                 }
-                en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
+
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
                   nodes {
                     dictionaryValue
                   }
                 }
               }
             }
+
             address: infoAddressByInfoAddressId {
               infoAddressId
               iso31663
               zipCode
+
               address1: sharedAppellationByAddress1 {
                 sharedAppellationsId
                 sharedDictionaryBySharedDictionaryNameId {
                   sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
                 }
+
                 sharedDictionaryBySharedDictionaryPronunciationId {
                   sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
                 }
+
                 sharedDictionaryBySharedDictionaryNicknameId {
                   sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
                 }
               }
+
               address2: sharedAppellationByAddress2 {
                 sharedAppellationsId
                 sharedDictionaryBySharedDictionaryNameId {
                   sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
                 }
+
                 sharedDictionaryBySharedDictionaryPronunciationId {
                   sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
                 }
+
                 sharedDictionaryBySharedDictionaryNicknameId {
                   sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
                 }
               }
+
               building: sharedAppellationByBuilding {
                 sharedAppellationsId
                 sharedDictionaryBySharedDictionaryNameId {
                   sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
                 }
+
                 sharedDictionaryBySharedDictionaryPronunciationId {
                   sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
                 }
+
                 sharedDictionaryBySharedDictionaryNicknameId {
                   sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
                 }
               }
+
               phone
               faxNumber
-              remarks
-              updateAt
-              remove
             }
-            office: infoOfficeByInfoOfficeId {
-              infoOfficeId
-              infoCompanyId
-              code
-              symbol
-              remarks
-              updateAt
-              remove
-              labels: sharedAppellationByNames {
-                sharedAppellationsId
-                sharedDictionaryBySharedDictionaryNameId {
-                  sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                    nodes {
-                      dictionaryValue
-                    }
-                  }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                    nodes {
-                      dictionaryValue
-                    }
-                  }
-                }
-                sharedDictionaryBySharedDictionaryPronunciationId {
-                  sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                    nodes {
-                      dictionaryValue
-                    }
-                  }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                    nodes {
-                      dictionaryValue
-                    }
-                  }
-                }
-                sharedDictionaryBySharedDictionaryNicknameId {
-                  sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                    nodes {
-                      dictionaryValue
-                    }
-                  }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                    nodes {
-                      dictionaryValue
-                    }
-                  }
-                }
-              }
-              address: infoAddressByInfoAddressId {
-                infoAddressId
-                iso31663
-                zipCode
-                address1: sharedAppellationByAddress1 {
-                  sharedAppellationsId
-                  sharedDictionaryBySharedDictionaryNameId {
-                    sharedDictionaryId
-                    ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                    en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                  }
-                  sharedDictionaryBySharedDictionaryPronunciationId {
-                    sharedDictionaryId
-                    ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                    en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                  }
-                  sharedDictionaryBySharedDictionaryNicknameId {
-                    sharedDictionaryId
-                    ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                    en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                  }
-                }
-                address2: sharedAppellationByAddress2 {
-                  sharedAppellationsId
-                  sharedDictionaryBySharedDictionaryNameId {
-                    sharedDictionaryId
-                    ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                    en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                  }
-                  sharedDictionaryBySharedDictionaryPronunciationId {
-                    sharedDictionaryId
-                    ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                    en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                  }
-                  sharedDictionaryBySharedDictionaryNicknameId {
-                    sharedDictionaryId
-                    ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                    en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                  }
-                }
-                building: sharedAppellationByBuilding {
-                  sharedAppellationsId
-                  sharedDictionaryBySharedDictionaryNameId {
-                    sharedDictionaryId
-                    ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                    en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                  }
-                  sharedDictionaryBySharedDictionaryPronunciationId {
-                    sharedDictionaryId
-                    ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                    en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                  }
-                  sharedDictionaryBySharedDictionaryNicknameId {
-                    sharedDictionaryId
-                    ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                    en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                  }
-                }
-                phone
-                faxNumber
-                remarks
-                updateAt
-                remove
-              }
-              update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
-                historyId
-                infoStaffId
-                infoCompanyId
-                code
-                sex
-                phone
-                symbol
-                privatePhone
-                name: sharedAppellationByNames {
-                  sharedAppellationsId
-                  sharedDictionaryBySharedDictionaryNameId {
-                    sharedDictionaryId
-                    ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                    en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                  }
-                  sharedDictionaryBySharedDictionaryPronunciationId {
-                    sharedDictionaryId
-                    ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                    en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                  }
-                  sharedDictionaryBySharedDictionaryNicknameId {
-                    sharedDictionaryId
-                    ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                    en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            kinds: infoDepartmentKindByInfoDepartmentId {
-              infoDepartmentKindId
-              infoDepartmentId
-              symbol
-              remarks
-              updateAt
-              remove
-              value: infoDepartmentKindValuesByInfoDepartmentKindId {
-                totalCount
-                pageInfo {
-                  hasNextPage
-                  endCursor
-                }
-                nodes {
-                  infoDepartmentKindValueId
-                  labels: sharedAppellationByNames {
-                    sharedAppellationsId
-                    sharedDictionaryBySharedDictionaryNameId {
-                      sharedDictionaryId
-                      ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                        nodes {
-                          dictionaryValue
-                        }
-                      }
-                      en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                        nodes {
-                          dictionaryValue
-                        }
-                      }
-                    }
-                    sharedDictionaryBySharedDictionaryPronunciationId {
-                      sharedDictionaryId
-                      ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                        nodes {
-                          dictionaryValue
-                        }
-                      }
-                      en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                        nodes {
-                          dictionaryValue
-                        }
-                      }
-                    }
-                    sharedDictionaryBySharedDictionaryNicknameId {
-                      sharedDictionaryId
-                      ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                        nodes {
-                          dictionaryValue
-                        }
-                      }
-                      en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                        nodes {
-                          dictionaryValue
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-              update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
-                historyId
-                infoStaffId
-                infoCompanyId
-                code
-                sex
-                phone
-                symbol
-                privatePhone
-                name: sharedAppellationByNames {
-                  sharedAppellationsId
-                  sharedDictionaryBySharedDictionaryNameId {
-                    sharedDictionaryId
-                    ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                    en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                  }
-                  sharedDictionaryBySharedDictionaryPronunciationId {
-                    sharedDictionaryId
-                    ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                    en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                  }
-                  sharedDictionaryBySharedDictionaryNicknameId {
-                    sharedDictionaryId
-                    ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                    en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                      nodes {
-                        dictionaryValue
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
-              historyId
-              infoStaffId
-              infoCompanyId
-              code
-              sex
-              phone
-              symbol
-              privatePhone
-              name: sharedAppellationByNames {
-                sharedAppellationsId
-                sharedDictionaryBySharedDictionaryNameId {
-                  sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                    nodes {
-                      dictionaryValue
-                    }
-                  }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                    nodes {
-                      dictionaryValue
-                    }
-                  }
-                }
-                sharedDictionaryBySharedDictionaryPronunciationId {
-                  sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                    nodes {
-                      dictionaryValue
-                    }
-                  }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                    nodes {
-                      dictionaryValue
-                    }
-                  }
-                }
-                sharedDictionaryBySharedDictionaryNicknameId {
-                  sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                    nodes {
-                      dictionaryValue
-                    }
-                  }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                    nodes {
-                      dictionaryValue
-                    }
-                  }
-                }
-              }
-            }
-          }
 
-          position: infoPositionByInfoPositionId {
-            infoPositionId
-            priority
             symbol
             remarks
             updateAt
             remove
-            labels: sharedAppellationByNames {
-              sharedAppellationsId
-              sharedDictionaryBySharedDictionaryNameId {
-                sharedDictionaryId
-                ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                  nodes {
-                    dictionaryValue
-                  }
-                }
-                en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                  nodes {
-                    dictionaryValue
-                  }
-                }
-              }
-              sharedDictionaryBySharedDictionaryPronunciationId {
-                sharedDictionaryId
-                ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                  nodes {
-                    dictionaryValue
-                  }
-                }
-                en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                  nodes {
-                    dictionaryValue
-                  }
-                }
-              }
-              sharedDictionaryBySharedDictionaryNicknameId {
-                sharedDictionaryId
-                ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
-                  nodes {
-                    dictionaryValue
-                  }
-                }
-                en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
-                  nodes {
-                    dictionaryValue
-                  }
-                }
-              }
-            }
+
             update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
               historyId
               infoStaffId
               infoCompanyId
               code
-              sex
-              phone
-              symbol
-              privatePhone
+
               name: sharedAppellationByNames {
                 sharedAppellationsId
                 sharedDictionaryBySharedDictionaryNameId {
                   sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
                 }
+
                 sharedDictionaryBySharedDictionaryPronunciationId {
                   sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
                 }
+
                 sharedDictionaryBySharedDictionaryNicknameId {
                   sharedDictionaryId
-                  ja: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $jaLanguageCodeId}) {
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
-                  en: sharedDictionaryValuesBySharedDictionaryId(condition: {sharedLanguageCodeId: $enLanguageCodeId}) {
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
                     nodes {
                       dictionaryValue
                     }
                   }
                 }
               }
+
+              sex
+              phone
+              symbol
+              privatePhone
             }
           }
+
+          infoPositionId
+
+          position: infoPositionByInfoPositionId {
+            infoPositionId
+            priority
+
+            labels: sharedAppellationByNames {
+              sharedAppellationsId
+              sharedDictionaryBySharedDictionaryNameId {
+                sharedDictionaryId
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+
+              sharedDictionaryBySharedDictionaryPronunciationId {
+                sharedDictionaryId
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+
+              sharedDictionaryBySharedDictionaryNicknameId {
+                sharedDictionaryId
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+            }
+
+            symbol
+            remarks
+            updateAt
+            remove
+
+            update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+              historyId
+              infoStaffId
+              infoCompanyId
+              code
+
+              name: sharedAppellationByNames {
+                sharedAppellationsId
+                sharedDictionaryBySharedDictionaryNameId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+
+                sharedDictionaryBySharedDictionaryPronunciationId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+
+                sharedDictionaryBySharedDictionaryNicknameId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+              }
+
+              sex
+              phone
+              symbol
+              privatePhone
+            }
+          }
+
           priority
-          remarks
-          updateAt
-          remove
 
           labels: sharedAppellationByNames {
             sharedAppellationsId
             sharedDictionaryBySharedDictionaryNameId {
               sharedDictionaryId
+
               ja: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $jaLanguageCodeId }
               ) {
@@ -814,6 +583,7 @@ query ApprovalOperationPageRfe(
                   dictionaryValue
                 }
               }
+
               en: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $enLanguageCodeId }
               ) {
@@ -822,8 +592,10 @@ query ApprovalOperationPageRfe(
                 }
               }
             }
+
             sharedDictionaryBySharedDictionaryPronunciationId {
               sharedDictionaryId
+
               ja: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $jaLanguageCodeId }
               ) {
@@ -831,6 +603,7 @@ query ApprovalOperationPageRfe(
                   dictionaryValue
                 }
               }
+
               en: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $enLanguageCodeId }
               ) {
@@ -839,8 +612,10 @@ query ApprovalOperationPageRfe(
                 }
               }
             }
+
             sharedDictionaryBySharedDictionaryNicknameId {
               sharedDictionaryId
+
               ja: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $jaLanguageCodeId }
               ) {
@@ -848,6 +623,7 @@ query ApprovalOperationPageRfe(
                   dictionaryValue
                 }
               }
+
               en: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $enLanguageCodeId }
               ) {
@@ -857,8 +633,567 @@ query ApprovalOperationPageRfe(
               }
             }
           }
+
+          remarks
         }
+
+        approval: mstrApprovalByMstrApprovalId {
+          mstrApprovalId
+          infoDepartmentId
+
+          department: infoDepartmentByInfoDepartmentId {
+            infoDepartmentId
+            infoCompanyId
+            code
+
+            labels: sharedAppellationByNames {
+              sharedAppellationsId
+              sharedDictionaryBySharedDictionaryNameId {
+                sharedDictionaryId
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+
+              sharedDictionaryBySharedDictionaryPronunciationId {
+                sharedDictionaryId
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+
+              sharedDictionaryBySharedDictionaryNicknameId {
+                sharedDictionaryId
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+            }
+
+            address: infoAddressByInfoAddressId {
+              infoAddressId
+              iso31663
+              zipCode
+
+              address1: sharedAppellationByAddress1 {
+                sharedAppellationsId
+                sharedDictionaryBySharedDictionaryNameId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+
+                sharedDictionaryBySharedDictionaryPronunciationId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+
+                sharedDictionaryBySharedDictionaryNicknameId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+              }
+
+              address2: sharedAppellationByAddress2 {
+                sharedAppellationsId
+                sharedDictionaryBySharedDictionaryNameId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+
+                sharedDictionaryBySharedDictionaryPronunciationId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+
+                sharedDictionaryBySharedDictionaryNicknameId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+              }
+
+              building: sharedAppellationByBuilding {
+                sharedAppellationsId
+                sharedDictionaryBySharedDictionaryNameId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+
+                sharedDictionaryBySharedDictionaryPronunciationId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+
+                sharedDictionaryBySharedDictionaryNicknameId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+              }
+
+              phone
+              faxNumber
+            }
+
+            symbol
+            remarks
+            updateAt
+            remove
+
+            update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+              historyId
+              infoStaffId
+              infoCompanyId
+              code
+
+              name: sharedAppellationByNames {
+                sharedAppellationsId
+                sharedDictionaryBySharedDictionaryNameId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+
+                sharedDictionaryBySharedDictionaryPronunciationId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+
+                sharedDictionaryBySharedDictionaryNicknameId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+              }
+
+              sex
+              phone
+              symbol
+              privatePhone
+            }
+          }
+
+          infoPositionId
+
+          position: infoPositionByInfoPositionId {
+            infoPositionId
+            priority
+
+            labels: sharedAppellationByNames {
+              sharedAppellationsId
+              sharedDictionaryBySharedDictionaryNameId {
+                sharedDictionaryId
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+
+              sharedDictionaryBySharedDictionaryPronunciationId {
+                sharedDictionaryId
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+
+              sharedDictionaryBySharedDictionaryNicknameId {
+                sharedDictionaryId
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+            }
+
+            symbol
+            remarks
+            updateAt
+            remove
+
+            update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+              historyId
+              infoStaffId
+              infoCompanyId
+              code
+
+              name: sharedAppellationByNames {
+                sharedAppellationsId
+                sharedDictionaryBySharedDictionaryNameId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+
+                sharedDictionaryBySharedDictionaryPronunciationId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+
+                sharedDictionaryBySharedDictionaryNicknameId {
+                  sharedDictionaryId
+                  ja: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+
+                  en: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+              }
+
+              sex
+              phone
+              symbol
+              privatePhone
+            }
+          }
+
+          priority
+
+          labels: sharedAppellationByNames {
+            sharedAppellationsId
+            sharedDictionaryBySharedDictionaryNameId {
+              sharedDictionaryId
+
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+
+            sharedDictionaryBySharedDictionaryPronunciationId {
+              sharedDictionaryId
+
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+
+            sharedDictionaryBySharedDictionaryNicknameId {
+              sharedDictionaryId
+
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+          }
+
+          remarks
+        }
+
+        mstrApprovalPatternId
+        remarks
       }
     }
+
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
   }
 }

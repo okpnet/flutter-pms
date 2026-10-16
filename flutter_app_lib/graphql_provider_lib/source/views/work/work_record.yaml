@@ -1,0 +1,362 @@
+# yaml-language-server: $schema=../../schema.json
+
+# trans_containerの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ContainerPage: &ContainerPage
+  kind: read
+  from: trans_container
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_container_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *FlexibleLabelReadFields
+    - mstr_location_id
+    - name: location
+      as: location
+      arrayType: toFirstOne
+      using: mstr_location_id
+      <<: *LocationReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_containerの書き込み
+ContainerPageEdit:
+  kind: edit
+  from: trans_container
+  requiredWhere:
+    - trans_container_id
+  generateRfe: true
+  columns:
+    - trans_container_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *FlexibleLabelEditFields
+    - mstr_location_id
+    - name: location
+      as: location
+      arrayType: toFirstOne
+      using: mstr_location_id
+      editable: false
+      <<: *LocationReadFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_certificateの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+CertificatePage: &CertificatePage
+  kind: read
+  from: trans_certificate
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_certificate_id
+    - serial
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelReadFields
+    - class
+    - trans_file_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_certificateの書き込み
+CertificatePageEdit:
+  kind: edit
+  from: trans_certificate
+  requiredWhere:
+    - trans_certificate_id
+  generateRfe: true
+  columns:
+    - trans_certificate_id
+    - serial
+    - name: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelEditFields
+    - class
+    - trans_file_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_purchase_certificationの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+PurchaseCertificationPage: &PurchaseCertificationPage
+  kind: read
+  from: trans_purchase_certification
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_purchase_rec_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_purchase_certification_id
+    - trans_purchase_rec_id
+    - trans_certificate_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_purchase_certificationの書き込み
+PurchaseCertificationPageEdit:
+  kind: edit
+  from: trans_purchase_certification
+  requiredWhere:
+    - trans_purchase_certification_id
+  generateRfe: true
+  columns:
+    - trans_purchase_certification_id
+    - trans_purchase_rec_id
+    - trans_certificate_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_work_recordの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+WorkRecordPage: &WorkRecordPage
+  kind: read
+  from: trans_work_record
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_work_plan_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_work_record_id
+    - trans_work_plan_id
+    - nth_time
+    - start_at
+    - stop_at
+    - qty
+    - staff_history_id
+    - staff_id
+    - equipment_history_id
+    - equipment_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_work_recordの書き込み
+WorkRecordPageEdit:
+  kind: edit
+  from: trans_work_record
+  requiredWhere:
+    - trans_work_record_id
+  generateRfe: true
+  columns:
+    - trans_work_record_id
+    - trans_work_plan_id
+    - nth_time
+    - start_at
+    - stop_at
+    - qty
+    - staff_history_id
+    - staff_id
+    - equipment_history_id
+    - equipment_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_work_record_certificateの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+WorkRecordCertificatePage: &WorkRecordCertificatePage
+  kind: read
+  from: trans_work_record_certificate
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_work_record_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_work_record_certificate_id
+    - trans_certificate_id
+    - trans_work_record_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_work_record_certificateの書き込み
+WorkRecordCertificatePageEdit:
+  kind: edit
+  from: trans_work_record_certificate
+  requiredWhere:
+    - trans_work_record_certificate_id
+  generateRfe: true
+  columns:
+    - trans_work_record_certificate_id
+    - trans_certificate_id
+    - trans_work_record_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_inventory_requestの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+InventoryRequestPage: &InventoryRequestPage
+  kind: read
+  from: trans_inventory_request
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_inventory_request_id
+    - register_at
+    - register_plan_at
+    - trans_purchase_rez_id
+    - trans_product_rez_id
+    - quantity
+    - staff_history_id
+    - staff_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_inventory_requestの書き込み
+InventoryRequestPageEdit:
+  kind: edit
+  from: trans_inventory_request
+  requiredWhere:
+    - trans_inventory_request_id
+  generateRfe: true
+  columns:
+    - trans_inventory_request_id
+    - register_at
+    - register_plan_at
+    - trans_purchase_rez_id
+    - trans_product_rez_id
+    - quantity
+    - staff_history_id
+    - staff_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_inventory_applyの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+InventoryApplyPage: &InventoryApplyPage
+  kind: read
+  from: trans_inventory_apply
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_inventory_request_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_inventory_apply_id
+    - register_at
+    - trans_inventory_request_id
+    - convey_id
+    - staff_history_id
+    - staff_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_inventory_applyの書き込み
+InventoryApplyPageEdit:
+  kind: edit
+  from: trans_inventory_apply
+  requiredWhere:
+    - trans_inventory_apply_id
+  generateRfe: true
+  columns:
+    - trans_inventory_apply_id
+    - register_at
+    - trans_inventory_request_id
+    - convey_id
+    - staff_history_id
+    - staff_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+
+# コンテナ体系の書き込み(親の付け替え。要件0054案A)
+ContainerTreePageEdit:
+  kind: edit
+  from: trans_container_tree
+  requiredWhere:
+    - trans_container_tree_id
+  generateRfe: true
+  columns:
+    - trans_container_tree_id
+    - parent_trans_container_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

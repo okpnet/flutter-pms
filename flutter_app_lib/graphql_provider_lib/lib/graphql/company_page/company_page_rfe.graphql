@@ -1,54 +1,23 @@
-# company_page画面 - read for editing(旧RFE、編集画面遷移用の読み込みクエリ)
+# company_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
 #
-# 画面仕様: source/view.yaml #CompanyPageEdit(generateRfe: trueにより自動導出)
-# 命名規則: CLAUDE.md 画面仕様命名規則により、view.yamlのトップノード名
-#   `CompanyPageEdit`のスネークケース(`company_page`)+"_rfe"をファイル名にする。
-#
-# 要件0037: 独立した`kind: RFE`は廃止した(0034ログで発覚した「RFEノードが対応する
-# edit定義と無関係な定義を誤参照する」事故を構造的に防ぐため)。本ファイルは
-# `view.yaml`の`CompanyPageEdit`(`generateRfe: true`)と全く同じ`columns`ツリーを
-# SELECT用に解釈して自動導出したものであり、`CompanyPageEdit`とは別のYAMLノードを
-# 手書きしていない(27_yaml_to_graphql_conversion_rules.md 8章参照)。
-#
-# `company_page_edit.graphql`のミューテーションを組み立てるために必要な
-# id一式(会社自身・ceo・address1/address2/buildingそれぞれのshared_appellations_id、
-# および各name/pronunciation/nicknameのshared_dictionary_id)を、先頭列(要件0027)の
-# `info_company_id`を必須引数として1件取得する。
-#
-# 要件0036(2026-09-26): company_page_read.graphqlと異なり、RFEは編集フォームへ
-# ja/en両方の値を同時にプリセットする必要があるため(編集ミューテーションは
-# deleteOthers+createで毎回ja/en2件を丸ごと置き換える方式のため、常に両方の値が
-# 必要)、「1回の呼び出しで言語1つのみ」という読み込み側の設計は適用しない。
-# ただし旧`$ja: Boolean!`/`$en: Boolean!`によるトグルは、RFEでは常にtrueで
-# 呼び出されるだけの無意味な変数だったため撤廃し、`$jaLanguageCodeId`/
-# `$enLanguageCodeId`を`UUID!`(必須)にしたうえで両方のフィールドを
-# 常時(`@include`無しで)取得するよう単純化した。値は呼び出し側が`SharedLanguageCode`を
-# `code`で解決して渡す(company_page_read.graphql / edit.graphqlと同じ方式)。
-#
-# 要件0047(view.yaml修正に伴う再生成): 要件0046で相互変換不可と判定された`provisions`欠落を
-# 解消するため、現行の`CompanyPageEdit`から再導出した(`provisions`を追加、出力名を`labels`・
-# `address`に揃え、view.yamlに無い`symbol`を削除)。
+# 画面仕様: source/views/ #CompanyPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query CompanyPageRfe(
   $infoCompanyId: UUID!
   $jaLanguageCodeId: UUID!
   $enLanguageCodeId: UUID!
+  $provisionsFirst: Int = 30
+  $provisionsOrderBy: [InfoProvisionsOrderBy!]
 ) {
   infoCompanyByInfoCompanyId(infoCompanyId: $infoCompanyId) {
     infoCompanyId
-    webPage
-    symbol # 要件0048: view.yamlのCompanyPageEditにsymbolを追加(修正モレ)
-    remarks
-    updateAt
-    updateUserId
-    updateUserHistoryId
-    remove
 
-    # --- 会社名(共通名前仕様、shared_appellations経由) ------------------------
     labels: sharedAppellationByNames {
       sharedAppellationsId
       sharedDictionaryBySharedDictionaryNameId {
         sharedDictionaryId
+
         ja: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
         ) {
@@ -56,6 +25,7 @@ query CompanyPageRfe(
             dictionaryValue
           }
         }
+
         en: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
         ) {
@@ -64,8 +34,10 @@ query CompanyPageRfe(
           }
         }
       }
+
       sharedDictionaryBySharedDictionaryPronunciationId {
         sharedDictionaryId
+
         ja: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
         ) {
@@ -73,6 +45,7 @@ query CompanyPageRfe(
             dictionaryValue
           }
         }
+
         en: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
         ) {
@@ -81,8 +54,10 @@ query CompanyPageRfe(
           }
         }
       }
+
       sharedDictionaryBySharedDictionaryNicknameId {
         sharedDictionaryId
+
         ja: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
         ) {
@@ -90,6 +65,7 @@ query CompanyPageRfe(
             dictionaryValue
           }
         }
+
         en: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
         ) {
@@ -100,74 +76,16 @@ query CompanyPageRfe(
       }
     }
 
-    # --- 代表(ceo、要件0026でshared_appellations経由のFKに変更) -----------------
-    ceo: sharedAppellationByCeoNames {
-      sharedAppellationsId
-      sharedDictionaryBySharedDictionaryNameId {
-        sharedDictionaryId
-        ja: sharedDictionaryValuesBySharedDictionaryId(
-          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-        ) {
-          nodes {
-            dictionaryValue
-          }
-        }
-        en: sharedDictionaryValuesBySharedDictionaryId(
-          condition: { sharedLanguageCodeId: $enLanguageCodeId }
-        ) {
-          nodes {
-            dictionaryValue
-          }
-        }
-      }
-      sharedDictionaryBySharedDictionaryPronunciationId {
-        sharedDictionaryId
-        ja: sharedDictionaryValuesBySharedDictionaryId(
-          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-        ) {
-          nodes {
-            dictionaryValue
-          }
-        }
-        en: sharedDictionaryValuesBySharedDictionaryId(
-          condition: { sharedLanguageCodeId: $enLanguageCodeId }
-        ) {
-          nodes {
-            dictionaryValue
-          }
-        }
-      }
-      sharedDictionaryBySharedDictionaryNicknameId {
-        sharedDictionaryId
-        ja: sharedDictionaryValuesBySharedDictionaryId(
-          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-        ) {
-          nodes {
-            dictionaryValue
-          }
-        }
-        en: sharedDictionaryValuesBySharedDictionaryId(
-          condition: { sharedLanguageCodeId: $enLanguageCodeId }
-        ) {
-          nodes {
-            dictionaryValue
-          }
-        }
-      }
-    }
-
-    # --- 住所(要件0026でaddress1/address2/buildingがshared_appellations経由のFKに変更) ---
     address: infoAddressByInfoAddressId {
       infoAddressId
       iso31663
       zipCode
-      phone
-      faxNumber
 
       address1: sharedAppellationByAddress1 {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -175,6 +93,7 @@ query CompanyPageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -183,8 +102,10 @@ query CompanyPageRfe(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -192,6 +113,7 @@ query CompanyPageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -200,8 +122,10 @@ query CompanyPageRfe(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -209,6 +133,7 @@ query CompanyPageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -223,6 +148,7 @@ query CompanyPageRfe(
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -230,6 +156,7 @@ query CompanyPageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -238,8 +165,10 @@ query CompanyPageRfe(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -247,6 +176,7 @@ query CompanyPageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -255,8 +185,10 @@ query CompanyPageRfe(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -264,6 +196,7 @@ query CompanyPageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -278,6 +211,7 @@ query CompanyPageRfe(
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -285,6 +219,7 @@ query CompanyPageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -293,8 +228,10 @@ query CompanyPageRfe(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -302,6 +239,7 @@ query CompanyPageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -310,8 +248,10 @@ query CompanyPageRfe(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -319,6 +259,7 @@ query CompanyPageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -328,10 +269,81 @@ query CompanyPageRfe(
           }
         }
       }
+
+      phone
+      faxNumber
+      remarks
     }
 
-    # --- 提供一覧(要件0047再生成: CompanyPageEdit.provisionsをSELECTとして導出。company_page_edit.graphqlの結果モデルと同型) ---
-    provisions: infoProvisionsByInfoCompanyId {
+    webPage
+
+    ceo: sharedAppellationByCeoNames {
+      sharedAppellationsId
+      sharedDictionaryBySharedDictionaryNameId {
+        sharedDictionaryId
+
+        ja: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            dictionaryValue
+          }
+        }
+
+        en: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            dictionaryValue
+          }
+        }
+      }
+
+      sharedDictionaryBySharedDictionaryPronunciationId {
+        sharedDictionaryId
+
+        ja: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            dictionaryValue
+          }
+        }
+
+        en: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            dictionaryValue
+          }
+        }
+      }
+
+      sharedDictionaryBySharedDictionaryNicknameId {
+        sharedDictionaryId
+
+        ja: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            dictionaryValue
+          }
+        }
+
+        en: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            dictionaryValue
+          }
+        }
+      }
+    }
+
+    provisions: infoProvisionsByInfoCompanyId(
+      first: $provisionsFirst
+      orderBy: $provisionsOrderBy
+    ) {
       totalCount
       pageInfo {
         hasNextPage
@@ -341,12 +353,12 @@ query CompanyPageRfe(
         infoProvisionId
         infoCompanyId
         code
-        details
-        remarks
+
         labels: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId
+
             ja: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $jaLanguageCodeId }
             ) {
@@ -354,6 +366,7 @@ query CompanyPageRfe(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -362,8 +375,10 @@ query CompanyPageRfe(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
+
             ja: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $jaLanguageCodeId }
             ) {
@@ -371,6 +386,7 @@ query CompanyPageRfe(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -379,8 +395,10 @@ query CompanyPageRfe(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
+
             ja: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $jaLanguageCodeId }
             ) {
@@ -388,6 +406,7 @@ query CompanyPageRfe(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -397,7 +416,35 @@ query CompanyPageRfe(
             }
           }
         }
+
+        detailTexts: sharedTextByDetails {
+          sharedTextId
+
+          ja: sharedTextValuesBySharedTextId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              textValue
+            }
+          }
+
+          en: sharedTextValuesBySharedTextId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              textValue
+            }
+          }
+        }
+
+        remarks
       }
     }
+
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
   }
 }

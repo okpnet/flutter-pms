@@ -1,0 +1,59 @@
+# yaml-language-server: $schema=../../schema.json
+
+# mstr_reportの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ReportPage: &ReportPage
+  kind: read
+  from: mstr_report
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_report_id
+    - trans_file_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - code
+    - is_default
+    - info_access_path_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# mstr_reportの書き込み
+ReportPageEdit:
+  kind: edit
+  from: mstr_report
+  requiredWhere:
+    - mstr_report_id
+  generateRfe: true
+  columns:
+    - mstr_report_id
+    - trans_file_id
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - code
+    - is_default
+    - info_access_path_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+

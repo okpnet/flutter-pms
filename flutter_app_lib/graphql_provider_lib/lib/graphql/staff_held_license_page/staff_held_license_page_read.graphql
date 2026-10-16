@@ -128,7 +128,8 @@ query StaffHeldLicensePageRead(
                 condition: { sharedLanguageCodeId: $languageCodeId }
               ) {
                 nodes {
-                  textValue
+                  charCount
+                  leadText
                 }
               }
             }

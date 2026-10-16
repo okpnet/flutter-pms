@@ -319,13 +319,6 @@ const documentNodeQueryAssignPageRfe = DocumentNode(
                   selectionSet: null,
                 ),
                 FieldNode(
-                  name: NameNode(value: 'updateAt'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
                   name: NameNode(value: 'updateUserId'),
                   alias: null,
                   arguments: [],
@@ -341,6 +334,13 @@ const documentNodeQueryAssignPageRfe = DocumentNode(
                 ),
                 FieldNode(
                   name: NameNode(value: 'remove'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateAt'),
                   alias: null,
                   arguments: [],
                   directives: [],
@@ -525,10 +525,10 @@ class Query$AssignPageRfe$infoAssignByInfoAssignId {
     this.enable,
     this.priority,
     this.remarks,
-    this.updateAt,
     this.updateUserId,
     this.updateUserHistoryId,
     this.remove,
+    this.updateAt,
     this.$__typename = 'InfoAssign',
   });
 
@@ -543,10 +543,10 @@ class Query$AssignPageRfe$infoAssignByInfoAssignId {
     final l$enable = json['enable'];
     final l$priority = json['priority'];
     final l$remarks = json['remarks'];
-    final l$updateAt = json['updateAt'];
     final l$updateUserId = json['updateUserId'];
     final l$updateUserHistoryId = json['updateUserHistoryId'];
     final l$remove = json['remove'];
+    final l$updateAt = json['updateAt'];
     final l$$__typename = json['__typename'];
     return Query$AssignPageRfe$infoAssignByInfoAssignId(
       infoAssignId: (l$infoAssignId as String),
@@ -557,10 +557,10 @@ class Query$AssignPageRfe$infoAssignByInfoAssignId {
       enable: (l$enable as bool?),
       priority: (l$priority as int?),
       remarks: (l$remarks as String?),
-      updateAt: (l$updateAt as String?),
       updateUserId: (l$updateUserId as String?),
       updateUserHistoryId: (l$updateUserHistoryId as String?),
       remove: (l$remove as bool?),
+      updateAt: (l$updateAt as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -581,13 +581,13 @@ class Query$AssignPageRfe$infoAssignByInfoAssignId {
 
   final String? remarks;
 
-  final String? updateAt;
-
   final String? updateUserId;
 
   final String? updateUserHistoryId;
 
   final bool? remove;
+
+  final String? updateAt;
 
   final String $__typename;
 
@@ -609,14 +609,14 @@ class Query$AssignPageRfe$infoAssignByInfoAssignId {
     _resultData['priority'] = l$priority;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
-    final l$updateAt = updateAt;
-    _resultData['updateAt'] = l$updateAt;
     final l$updateUserId = updateUserId;
     _resultData['updateUserId'] = l$updateUserId;
     final l$updateUserHistoryId = updateUserHistoryId;
     _resultData['updateUserHistoryId'] = l$updateUserHistoryId;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
+    final l$updateAt = updateAt;
+    _resultData['updateAt'] = l$updateAt;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -632,10 +632,10 @@ class Query$AssignPageRfe$infoAssignByInfoAssignId {
     final l$enable = enable;
     final l$priority = priority;
     final l$remarks = remarks;
-    final l$updateAt = updateAt;
     final l$updateUserId = updateUserId;
     final l$updateUserHistoryId = updateUserHistoryId;
     final l$remove = remove;
+    final l$updateAt = updateAt;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAssignId,
@@ -646,10 +646,10 @@ class Query$AssignPageRfe$infoAssignByInfoAssignId {
       l$enable,
       l$priority,
       l$remarks,
-      l$updateAt,
       l$updateUserId,
       l$updateUserHistoryId,
       l$remove,
+      l$updateAt,
       l$$__typename,
     ]);
   }
@@ -703,11 +703,6 @@ class Query$AssignPageRfe$infoAssignByInfoAssignId {
     if (l$remarks != lOther$remarks) {
       return false;
     }
-    final l$updateAt = updateAt;
-    final lOther$updateAt = other.updateAt;
-    if (l$updateAt != lOther$updateAt) {
-      return false;
-    }
     final l$updateUserId = updateUserId;
     final lOther$updateUserId = other.updateUserId;
     if (l$updateUserId != lOther$updateUserId) {
@@ -721,6 +716,11 @@ class Query$AssignPageRfe$infoAssignByInfoAssignId {
     final l$remove = remove;
     final lOther$remove = other.remove;
     if (l$remove != lOther$remove) {
+      return false;
+    }
+    final l$updateAt = updateAt;
+    final lOther$updateAt = other.updateAt;
+    if (l$updateAt != lOther$updateAt) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -759,10 +759,10 @@ abstract class CopyWith$Query$AssignPageRfe$infoAssignByInfoAssignId<TRes> {
     bool? enable,
     int? priority,
     String? remarks,
-    String? updateAt,
     String? updateUserId,
     String? updateUserHistoryId,
     bool? remove,
+    String? updateAt,
     String? $__typename,
   });
 }
@@ -789,10 +789,10 @@ class _CopyWithImpl$Query$AssignPageRfe$infoAssignByInfoAssignId<TRes>
     Object? enable = _undefined,
     Object? priority = _undefined,
     Object? remarks = _undefined,
-    Object? updateAt = _undefined,
     Object? updateUserId = _undefined,
     Object? updateUserHistoryId = _undefined,
     Object? remove = _undefined,
+    Object? updateAt = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$AssignPageRfe$infoAssignByInfoAssignId(
@@ -816,9 +816,6 @@ class _CopyWithImpl$Query$AssignPageRfe$infoAssignByInfoAssignId<TRes>
           ? _instance.priority
           : (priority as int?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
-      updateAt: updateAt == _undefined
-          ? _instance.updateAt
-          : (updateAt as String?),
       updateUserId: updateUserId == _undefined
           ? _instance.updateUserId
           : (updateUserId as String?),
@@ -826,6 +823,9 @@ class _CopyWithImpl$Query$AssignPageRfe$infoAssignByInfoAssignId<TRes>
           ? _instance.updateUserHistoryId
           : (updateUserHistoryId as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
+      updateAt: updateAt == _undefined
+          ? _instance.updateAt
+          : (updateAt as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -848,10 +848,10 @@ class _CopyWithStubImpl$Query$AssignPageRfe$infoAssignByInfoAssignId<TRes>
     bool? enable,
     int? priority,
     String? remarks,
-    String? updateAt,
     String? updateUserId,
     String? updateUserHistoryId,
     bool? remove,
+    String? updateAt,
     String? $__typename,
   }) => _res;
 }

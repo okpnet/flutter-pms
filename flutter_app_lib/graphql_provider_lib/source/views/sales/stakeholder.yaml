@@ -100,28 +100,28 @@ ContactReadFields:  &ContactReadFields
     - mstr_stakeholder_contact_id
     - mstr_stakeholder_id
     - code
-    - name: labels
-      as: officeLbels
+    - name: officeLabels
+      as: officeLabels
       arrayType: toFirstOne
-      using: office_appellations_id
+      using: office_names
       pick: 
         - name
         - pronunciation
         - nickname
       <<: *AppellationLabelsReadFields
-    - name: labels
+    - name: departmentLabels
       as: departmentLabels
       arrayType: toFirstOne
-      using: department_appellations_id
+      using: department_names
       pick: 
         - name
         - pronunciation
         - nickname
       <<: *AppellationLabelsReadFields
-    - name: labels
-      as: contacterLabels
+    - name: contactPersonLabels
+      as: contactPersonLabels
       arrayType: toFirstOne
-      using: contact_person_appellations_id
+      using: contact_person_names
       pick: 
         - name
         - pronunciation
@@ -151,7 +151,6 @@ ContactEditFields: &ContactEditFields
   kind: edit
   from: mstr_stakeholder_contact
   requiredWhere: 
-    - mstr_stakeholder_id
     - mstr_stakeholder_contact_id
   defaultWhere:
     - column: remove
@@ -161,20 +160,20 @@ ContactEditFields: &ContactEditFields
     - mstr_stakeholder_contact_id
     - mstr_stakeholder_id
     - code
-    - name: labels
-      as: officeLbels
+    - name: officeLabels
+      as: officeLabels
       arrayType: toFirstOne
-      using: office_appellations_id
+      using: office_names
       <<: *AppellationLabelsEditFields
-    - name: labels
+    - name: departmentLabels
       as: departmentLabels
       arrayType: toFirstOne
-      using: department_appellations_id
+      using: department_names
       <<: *AppellationLabelsEditFields
-    - name: labels
-      as: contacterLabels
+    - name: contactPersonLabels
+      as: contactPersonLabels
       arrayType: toFirstOne
-      using: contact_person_appellations_id
+      using: contact_person_names
       <<: *AppellationLabelsEditFields
     - mail
     - name: address

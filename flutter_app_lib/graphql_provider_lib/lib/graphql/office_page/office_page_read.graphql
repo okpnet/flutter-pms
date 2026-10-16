@@ -1,17 +1,13 @@
 # office_page画面 - Read(一覧取得クエリ)
 #
-# 画面仕様: source/view.yaml #OfficePage
-# 命名規則: CLAUDE.md 画面仕様命名規則(要件0033)により`office_page`をファイル名にする。
-#
-# 言語解決はcompany_page_read.graphqlと同じ方式(要件0036、$languageCodeId: UUID!)。
-# addressFields(address1/address2/building、shared_appellations経由)はcompany_page_read.graphqlの
-# 住所ブロックと同型。
+# 画面仕様: source/views/ #OfficePage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query OfficePageRead(
   $first: Int!
   $offset: Int
   $filter: InfoOfficeFilter = {}
-  $orderBy: [InfoOfficesOrderBy!] = [PRIMARY_KEY_ASC]
+  $orderBy: [InfoOfficesOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false
 ) {
@@ -30,10 +26,6 @@ query OfficePageRead(
       infoOfficeId
       infoCompanyId
       code
-      symbol
-      remarks
-      updateAt
-      remove
 
       labels: sharedAppellationByNames {
         sharedAppellationsId
@@ -47,6 +39,7 @@ query OfficePageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -57,6 +50,7 @@ query OfficePageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -86,6 +80,7 @@ query OfficePageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -96,6 +91,7 @@ query OfficePageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -120,6 +116,7 @@ query OfficePageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -130,6 +127,7 @@ query OfficePageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -154,6 +152,7 @@ query OfficePageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -164,6 +163,7 @@ query OfficePageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -178,20 +178,19 @@ query OfficePageRead(
 
         phone
         faxNumber
-        remarks
-        updateAt
-        remove
       }
+
+      symbol
+      remarks
+      updateAt
+      remove
 
       update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
         historyId
         infoStaffId
         infoCompanyId
         code
-        sex
-        phone
-        symbol
-        privatePhone
+
         name: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
@@ -204,6 +203,7 @@ query OfficePageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -214,6 +214,7 @@ query OfficePageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -225,6 +226,11 @@ query OfficePageRead(
             }
           }
         }
+
+        sex
+        phone
+        symbol
+        privatePhone
       }
     }
   }

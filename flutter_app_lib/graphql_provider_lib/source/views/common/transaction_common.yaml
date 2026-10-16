@@ -98,9 +98,9 @@ FlexibleTextEditFields: &FlexibleTextEditFields
     - name: value
       arrayType: toMany
       using:  trans_text_id
-      from: trans_label_value
+      from: trans_text_value
       columns:
-        - ttrans_text_value_id
+        - trans_text_value_id
         - trans_text_id
         - shared_language_code_id
         - text_value
@@ -112,3 +112,33 @@ FlexibleTextEditFields: &FlexibleTextEditFields
     - update_user_id
     - update_user_history_id
     - remove
+
+# 承認パターンの実施(文書等に紐づく承認パターンの写し。trans_approval_pattern)の読み込み
+# 0055: 文書(mstr_document.trans_approval_pattern_id)等が参照する。承認パターン(マスタ)は`pattern`で取得する。
+TransApprovalPatternReadFields: &TransApprovalPatternReadFields
+  kind: read
+  from: trans_approval_pattern
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_approval_pattern_id
+    - mstr_approval_pattern_id
+    - name: pattern
+      as: pattern
+      arrayType: toFirstOne
+      using: mstr_approval_pattern_id
+      <<: *ApprovalOperationReadFields
+    - status
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields

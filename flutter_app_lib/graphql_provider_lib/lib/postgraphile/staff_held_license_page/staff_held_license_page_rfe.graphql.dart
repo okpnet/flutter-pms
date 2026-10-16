@@ -2167,7 +2167,14 @@ const documentNodeQueryStaffHeldLicensePageRfe = DocumentNode(
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
-                                          name: NameNode(value: 'textValue'),
+                                          name: NameNode(value: 'charCount'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'leadText'),
                                           alias: null,
                                           arguments: [],
                                           directives: [],
@@ -2228,7 +2235,14 @@ const documentNodeQueryStaffHeldLicensePageRfe = DocumentNode(
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
-                                          name: NameNode(value: 'textValue'),
+                                          name: NameNode(value: 'charCount'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'leadText'),
                                           alias: null,
                                           arguments: [],
                                           directives: [],
@@ -15491,29 +15505,36 @@ class _CopyWithStubImpl$Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaf
 
 class Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$ja$nodes {
   Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$ja$nodes({
-    this.textValue,
+    this.charCount,
+    this.leadText,
     this.$__typename = 'SharedTextValue',
   });
 
   factory Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
-    final l$textValue = json['textValue'];
+    final l$charCount = json['charCount'];
+    final l$leadText = json['leadText'];
     final l$$__typename = json['__typename'];
     return Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$ja$nodes(
-      textValue: (l$textValue as String?),
+      charCount: (l$charCount as int?),
+      leadText: (l$leadText as String?),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final String? textValue;
+  final int? charCount;
+
+  final String? leadText;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
-    final l$textValue = textValue;
-    _resultData['textValue'] = l$textValue;
+    final l$charCount = charCount;
+    _resultData['charCount'] = l$charCount;
+    final l$leadText = leadText;
+    _resultData['leadText'] = l$leadText;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -15521,9 +15542,10 @@ class Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license
 
   @override
   int get hashCode {
-    final l$textValue = textValue;
+    final l$charCount = charCount;
+    final l$leadText = leadText;
     final l$$__typename = $__typename;
-    return Object.hashAll([l$textValue, l$$__typename]);
+    return Object.hashAll([l$charCount, l$leadText, l$$__typename]);
   }
 
   @override
@@ -15536,9 +15558,14 @@ class Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license
         runtimeType != other.runtimeType) {
       return false;
     }
-    final l$textValue = textValue;
-    final lOther$textValue = other.textValue;
-    if (l$textValue != lOther$textValue) {
+    final l$charCount = charCount;
+    final lOther$charCount = other.charCount;
+    if (l$charCount != lOther$charCount) {
+      return false;
+    }
+    final l$leadText = leadText;
+    final lOther$leadText = other.leadText;
+    if (l$leadText != lOther$leadText) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -15579,7 +15606,7 @@ abstract class CopyWith$Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaf
     TRes res,
   ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$ja$nodes;
 
-  TRes call({String? textValue, String? $__typename});
+  TRes call({int? charCount, String? leadText, String? $__typename});
 }
 
 class _CopyWithImpl$Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$ja$nodes<
@@ -15605,13 +15632,17 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLic
   static const _undefined = <dynamic, dynamic>{};
 
   TRes call({
-    Object? textValue = _undefined,
+    Object? charCount = _undefined,
+    Object? leadText = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$ja$nodes(
-      textValue: textValue == _undefined
-          ? _instance.textValue
-          : (textValue as String?),
+      charCount: charCount == _undefined
+          ? _instance.charCount
+          : (charCount as int?),
+      leadText: leadText == _undefined
+          ? _instance.leadText
+          : (leadText as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -15632,7 +15663,7 @@ class _CopyWithStubImpl$Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaf
 
   TRes _res;
 
-  call({String? textValue, String? $__typename}) => _res;
+  call({int? charCount, String? leadText, String? $__typename}) => _res;
 }
 
 class Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$en {
@@ -15859,29 +15890,36 @@ class _CopyWithStubImpl$Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaf
 
 class Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$en$nodes {
   Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$en$nodes({
-    this.textValue,
+    this.charCount,
+    this.leadText,
     this.$__typename = 'SharedTextValue',
   });
 
   factory Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
-    final l$textValue = json['textValue'];
+    final l$charCount = json['charCount'];
+    final l$leadText = json['leadText'];
     final l$$__typename = json['__typename'];
     return Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$en$nodes(
-      textValue: (l$textValue as String?),
+      charCount: (l$charCount as int?),
+      leadText: (l$leadText as String?),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final String? textValue;
+  final int? charCount;
+
+  final String? leadText;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
-    final l$textValue = textValue;
-    _resultData['textValue'] = l$textValue;
+    final l$charCount = charCount;
+    _resultData['charCount'] = l$charCount;
+    final l$leadText = leadText;
+    _resultData['leadText'] = l$leadText;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -15889,9 +15927,10 @@ class Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license
 
   @override
   int get hashCode {
-    final l$textValue = textValue;
+    final l$charCount = charCount;
+    final l$leadText = leadText;
     final l$$__typename = $__typename;
-    return Object.hashAll([l$textValue, l$$__typename]);
+    return Object.hashAll([l$charCount, l$leadText, l$$__typename]);
   }
 
   @override
@@ -15904,9 +15943,14 @@ class Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license
         runtimeType != other.runtimeType) {
       return false;
     }
-    final l$textValue = textValue;
-    final lOther$textValue = other.textValue;
-    if (l$textValue != lOther$textValue) {
+    final l$charCount = charCount;
+    final lOther$charCount = other.charCount;
+    if (l$charCount != lOther$charCount) {
+      return false;
+    }
+    final l$leadText = leadText;
+    final lOther$leadText = other.leadText;
+    if (l$leadText != lOther$leadText) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -15947,7 +15991,7 @@ abstract class CopyWith$Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaf
     TRes res,
   ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$en$nodes;
 
-  TRes call({String? textValue, String? $__typename});
+  TRes call({int? charCount, String? leadText, String? $__typename});
 }
 
 class _CopyWithImpl$Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$en$nodes<
@@ -15973,13 +16017,17 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLic
   static const _undefined = <dynamic, dynamic>{};
 
   TRes call({
-    Object? textValue = _undefined,
+    Object? charCount = _undefined,
+    Object? leadText = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$en$nodes(
-      textValue: textValue == _undefined
-          ? _instance.textValue
-          : (textValue as String?),
+      charCount: charCount == _undefined
+          ? _instance.charCount
+          : (charCount as int?),
+      leadText: leadText == _undefined
+          ? _instance.leadText
+          : (leadText as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -16000,7 +16048,7 @@ class _CopyWithStubImpl$Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaf
 
   TRes _res;
 
-  call({String? textValue, String? $__typename}) => _res;
+  call({int? charCount, String? leadText, String? $__typename}) => _res;
 }
 
 class Query$StaffHeldLicensePageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$updateInterval {

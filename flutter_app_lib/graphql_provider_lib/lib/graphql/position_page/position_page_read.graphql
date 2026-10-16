@@ -1,15 +1,12 @@
 # position_page画面 - Read(一覧取得クエリ)
 #
-# 画面仕様: source/view.yaml #PositionPage(役割、info_position)
-# 命名規則: CLAUDE.md 画面仕様命名規則(要件0033)により`position_page`をファイル名にする。
-#
-# 言語解決はcompany_page_read.graphqlと同じ方式(要件0036、$languageCodeId: UUID!)。
+# 画面仕様: source/views/ #PositionPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query PositionPageRead(
   $first: Int!
   $offset: Int
-  $filter: InfoPositionFilter = {}
-  $orderBy: [InfoPositionsOrderBy!] = [PRIMARY_KEY_ASC]
+  $orderBy: [InfoPositionsOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false
 ) {
@@ -17,7 +14,7 @@ query PositionPageRead(
     first: $first
     offset: $offset
     orderBy: $orderBy
-    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+    filter: { remove: { equalTo: $removed } }
   ) {
     totalCount
     pageInfo {
@@ -27,10 +24,6 @@ query PositionPageRead(
     nodes {
       infoPositionId
       priority
-      symbol
-      remarks
-      updateAt
-      remove
 
       labels: sharedAppellationByNames {
         sharedAppellationsId
@@ -44,6 +37,7 @@ query PositionPageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -54,6 +48,7 @@ query PositionPageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -66,15 +61,17 @@ query PositionPageRead(
         }
       }
 
+      symbol
+      remarks
+      updateAt
+      remove
+
       update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
         historyId
         infoStaffId
         infoCompanyId
         code
-        sex
-        phone
-        symbol
-        privatePhone
+
         name: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
@@ -87,6 +84,7 @@ query PositionPageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -97,6 +95,7 @@ query PositionPageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -108,6 +107,11 @@ query PositionPageRead(
             }
           }
         }
+
+        sex
+        phone
+        symbol
+        privatePhone
       }
     }
   }

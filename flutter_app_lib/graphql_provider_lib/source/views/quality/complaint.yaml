@@ -1,0 +1,349 @@
+# yaml-language-server: $schema=../../schema.json
+
+# trans_complaintの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ComplaintPage: &ComplaintPage
+  kind: read
+  from: trans_complaint
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_complaint_id
+    - occurent_at
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelReadFields
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FlexibleTextReadFields
+    - reporter_staff_history_id
+    - reporter_staff_id
+    - approvals
+    - name: approvals
+      as: approvals
+      arrayType: toFirstOne
+      using: approvals
+      <<: *TransApprovalPatternReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_complaintの書き込み
+ComplaintPageEdit:
+  kind: edit
+  from: trans_complaint
+  requiredWhere:
+    - trans_complaint_id
+  generateRfe: true
+  columns:
+    - trans_complaint_id
+    - occurent_at
+    - name: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelEditFields
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FlexibleTextEditFields
+    - reporter_staff_history_id
+    - reporter_staff_id
+    - approvals
+    - name: approvals
+      as: approvals
+      arrayType: toFirstOne
+      using: approvals
+      editable: false
+      <<: *TransApprovalPatternReadFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_complaint_orderの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ComplaintOrderPage: &ComplaintOrderPage
+  kind: read
+  from: trans_complaint_order
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_complaint_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_complaint_order_id
+    - trans_complaint_id
+    - trans_order_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_complaint_orderの書き込み
+ComplaintOrderPageEdit:
+  kind: edit
+  from: trans_complaint_order
+  requiredWhere:
+    - trans_complaint_order_id
+  generateRfe: true
+  columns:
+    - trans_complaint_order_id
+    - trans_complaint_id
+    - trans_order_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_complaint_processの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ComplaintProcessPage: &ComplaintProcessPage
+  kind: read
+  from: trans_complaint_process
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_complaint_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_complaint_process_id
+    - trans_complaint_id
+    - mstr_task_id
+    - name: task
+      as: task
+      arrayType: toFirstOne
+      using: mstr_task_id
+      <<: *TaskReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_complaint_processの書き込み
+ComplaintProcessPageEdit:
+  kind: edit
+  from: trans_complaint_process
+  requiredWhere:
+    - trans_complaint_process_id
+  generateRfe: true
+  columns:
+    - trans_complaint_process_id
+    - trans_complaint_id
+    - mstr_task_id
+    - name: task
+      as: task
+      arrayType: toFirstOne
+      using: mstr_task_id
+      editable: false
+      <<: *TaskReadFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_complaint_equipmentの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ComplaintEquipmentPage: &ComplaintEquipmentPage
+  kind: read
+  from: trans_complaint_equipment
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_complaint_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_complaint_equipment_id
+    - trans_complaint_id
+    - equipment_history_id
+    - equipment_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_complaint_equipmentの書き込み
+ComplaintEquipmentPageEdit:
+  kind: edit
+  from: trans_complaint_equipment
+  requiredWhere:
+    - trans_complaint_equipment_id
+  generateRfe: true
+  columns:
+    - trans_complaint_equipment_id
+    - trans_complaint_id
+    - equipment_history_id
+    - equipment_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_complaint_receiveの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ComplaintReceivePage: &ComplaintReceivePage
+  kind: read
+  from: trans_complaint_receive
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_complaint_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_complaint_receive_id
+    - trans_complaint_id
+    - receive_at
+    - receive_staff_history_id
+    - receive_staff_id
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FlexibleTextReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_complaint_receiveの書き込み
+ComplaintReceivePageEdit:
+  kind: edit
+  from: trans_complaint_receive
+  requiredWhere:
+    - trans_complaint_receive_id
+  generateRfe: true
+  columns:
+    - trans_complaint_receive_id
+    - trans_complaint_id
+    - receive_at
+    - receive_staff_history_id
+    - receive_staff_id
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FlexibleTextEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_complaint_stakeholderの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ComplaintStakeholderPage: &ComplaintStakeholderPage
+  kind: read
+  from: trans_complaint_stakeholder
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_complaint_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_complaint_stakeholder_id
+    - trans_complaint_id
+    - stakeholder_history_id
+    - stakeholder_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_complaint_stakeholderの書き込み
+ComplaintStakeholderPageEdit:
+  kind: edit
+  from: trans_complaint_stakeholder
+  requiredWhere:
+    - trans_complaint_stakeholder_id
+  generateRfe: true
+  columns:
+    - trans_complaint_stakeholder_id
+    - trans_complaint_id
+    - stakeholder_history_id
+    - stakeholder_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_complaint_fileの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ComplaintFilePage: &ComplaintFilePage
+  kind: read
+  from: trans_complaint_file
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_complaint_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_complaint_file_id
+    - trans_complaint_id
+    - trans_file_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_complaint_fileの書き込み
+ComplaintFilePageEdit:
+  kind: edit
+  from: trans_complaint_file
+  requiredWhere:
+    - trans_complaint_file_id
+  generateRfe: true
+  columns:
+    - trans_complaint_file_id
+    - trans_complaint_id
+    - trans_file_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+

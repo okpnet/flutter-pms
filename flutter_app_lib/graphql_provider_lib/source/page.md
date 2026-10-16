@@ -4,8 +4,9 @@
 1.  台帳(別名:項目)
     +   一覧、目録、便覧。表示のみ。操作:R。view.yaml:~Page
     +   区分・種類・設定の台帳に限り「項目」とも呼ぶ。「項目」は台帳の別名で、画面の型・view.yamlは台帳と同じ
+    +   共通定義(~ReadFields)の読み込み側も「項目」と呼ぶ(例: 住所項目[AddressReadFields])。書き込み側(~EditFields)は「情報」と呼ぶ(例: 住所情報[AddressEditFields])
 1.  体系
-    +   木構造。表示のみ。操作:R。view.yaml:~Page
+    +   木構造。表示のみ。操作:R。view.yaml:~Page。親の付け替え(ドラッグ&ドロップ)は、ツリー行を直接更新する「体系情報」(~TreePageEdit、要件0054)で行う
 1.  情報
     +   変更可能な定義、詳細。操作:E(RFE含む)。view.yaml:~PageEdit
 1.  明細
@@ -37,12 +38,22 @@
 見出し(#)   大分類
 1.  小分類名、または参照。無い場合もあり得る
 +   ページ
++   `[ノード名,...]`: 対応するviews(`source/views/`)のトップノード。複数のときはカンマで区切る(例: `[ItemKindPage,ItemKindReadFields]`)。同じノードを複数の場所に書くときは共有
++   `取込:<名前>`: 他の項目を取り込む(view.yamlの`<<`による子としての流用)
++   `<!--DB要: ...-->`: DBの変更が必要、または要件が未確定で、viewsを未定義(スキップ)の項目。理由は`docs/0055_page_views_review_log.md`
+### 命名の対応(要件0055)
++   サフィックスと、viewsのノードの種類を対応させる: 台帳・体系・項目・明細 → ~Page / ~ReadFields(kind: read)、情報・登録 → ~PageEdit / ~EditFields(kind: edit)
++   ページIDは`<名詞>Page`/`<名詞>PageEdit`。名詞はテーブル名の単数形をPascalCaseにしたものを基本とする(例: trans_inspect_sch_detail → InspectSchDetail)
++   雛形は`dart run tool/scaffold_view.dart <テーブル>:<名前>[:<親を指す列>]`で出力し、レビューして直す
 ##  共通
 ### 全共通
-+  更新者情報[UpdateStaffReadFields]<!--更新した担当者のスナップショット-->  
++  更新者項目[UpdateStaffReadFields]<!--更新した担当者のスナップショット-->  
 +  住所項目[AddressReadFields]
     +   住所情報[AddressEditFields]
-+  単位[UnitReadFields]<!--単位の選択-->
++  単位項目[UnitReadFields]<!--単位の選択-->
++  ファイル項目[FileReadFields]
+    +  ファイル台帳[FilePage]
+        +  ファイル情報[FilePageEdit]
 ### マスタ・インフォメーション共通
 +   呼称セット項目[AppellationLabelsReadFields]
     +  呼称セット情報[AppellationLabelsEditFields]<!--名前、読み、略称のセット-->
@@ -52,12 +63,17 @@
             +  読み辞書情報[FixLabelEditFields]
         +  略称辞書項目[FixLabelReadFields]
             +  略称辞書情報[FixLabelEditFields]
++   共有テキスト項目[FixTextReadFields]
+    +   共有テキスト情報[FixTextEditFields]
++   言語コード情報[LanguageCodeEditFields]
 
 ### トラザクション共通
-+  ラベル情報[FlexibleLabelReadFields]
++  ラベル項目[FlexibleLabelReadFields]
     +   言語別ラベル情報[FlexibleLabelEditFields]
-+  テキスト情報[FlexibleTextReadFields]
++  テキスト項目[FlexibleTextReadFields]
     +   言語別テキスト情報[FlexibleTextEditFields]
++  承認経路実施項目[TransApprovalPatternReadFields]<!--文書・異常報告等が参照する承認パターンの写し(trans_approval_pattern)-->
++  承認経路項目[ApprovalOperationReadFields]
 +  承認経路台帳[ApprovalOperationPage]
     +   承認経路情報[ApprovalOperationPageEdit]
         +   承認明細[ApprovalDetailReadFields]
@@ -70,12 +86,11 @@
         +   単位情報[UnitPageEdit]
 ##  会社情報
 1. 会社
-    +   統計情報[CompanyPage,]<!--不足-->
+    +   会社台帳[CompanyPage]<!--統計情報(集計の表示)は、集計のビュー・テーブルが無いため未定義。DB要: docs/0055 参照-->
         +   会社情報[CompanyPageEdit]
             +   提供項目[ProvisionPage]
                 +   提供情報[ProvisionPageEdit]
     +   役職台帳[PositionPage]
-        +   役職明細
         +   役職情報[PositionPageEdit]
         +   役職割当明細[AssignPage]
             +   役職割当情報[AssignPageEdit]
@@ -86,20 +101,23 @@
     +   部署区分台帳[DepartmentCategoryPage]
         +   部署区分情報[DepartmentCategoryPageEdit]
     +   部署体系[DepartmentPage]
+        +   部署項目[DepartmentReadFields]
         +   部署情報[DepartmentPageEdit]
+            +   部署区分明細[DepartmentKindReadFields]
+                +   部署区分割当情報[DepartmentKindEditFields]
         +   部署体系情報[DepartmentTreePageEdit]<!--親の付け替え(ドラッグ&ドロップ)-->
 1.  作業者
     +   作業者台帳[StaffPage]
         +   作業者情報[StaffPageEdit]
             +   作業者力量明細[StaffCapabilityPage]
-                +   作業者力量情報[StaffCapabilityPageEdit]
+                +   作業者力量情報[StaffCapabilityPageEdit,StaffCapabilityEditFields]
             +   作業者資格明細[StaffHeldLicensePage]
-                +   作業者資格情報[StaffHeldLicensePageEdit]
+                +   作業者資格情報[StaffHeldLicensePageEdit,StaffLicenseEditFields]
 1.  承認
     +   承認パターン台帳[ApprovalOperationPage]
         +   承認パターン情報[ApprovalOperationPageEdit]
-            +   承認範囲明細[X]
-                +   承認範囲情報[X]
+            +   承認範囲明細[ApprovalScopePage]
+                +   承認範囲情報[ApprovalScopePageEdit]
             +   承認者明細[ApprovalReadFields]
                 +   承認権限情報[ApprovalEditFields]
 ##  資源
@@ -114,6 +132,7 @@
                 +   資格保持者情報[LicenseHoldersPageEdit]
 1.  場所
     +   場所台帳[LocationPage]
+        +   場所項目[LocationReadFields]
         +   場所情報[LocationPageEdit]
         +   場所体系情報[LocationTreePageEdit]<!--親の付け替え(ドラッグ&ドロップ)-->
 1.  設備
@@ -121,180 +140,217 @@
         +   設備分類情報[EquipmentCategoryPageEdit]
     +   設備台帳[EquipmentPage]
         +   設備情報[EquipmentPageEdit]
-            +   設備点検運用情報
-            1.  点検実績明細
-                +   点検実績情報
+            +   設備点検運用明細[InspectionOperationPage]<!--保全の設備点検整備運用台帳と共有-->
+            +   点検実績明細[InspectRecordPage]<!--保全の点検整備実施明細と共有-->
+                +   点検実績情報[InspectRecordPageEdit]
 1.  保全
     +   点検整備区分台帳[InspectionKindPage]
         +   点検整備区分情報[InspectionKindPageEdit]
+    +   点検整備算式項目[InspectionFormulaReadFields]
+        +   点検整備算式情報[InspectionFormulaEditFields]
     +   点検整備項目台帳[InspectionItemPage]
         +   点検整備項目情報[InspectionItemPageEdit]
     +   設備点検整備運用台帳[InspectionOperationPage]
         +   設備点検整備運用情報[InspectionOperationPageEdit]
             +   点検整備運用明細[InspectionEquipentPage]
-                +   点検整備項目情報[InspectionEquipentPageEdit]
-    +   設備点検整備予定台帳
-        +   設備点検整備予定情報
-            +   設備点検整備予定明細
-                +   設備点検整備予定明細情報
-    +   点検整備実施明細
-        +   点検整備実施情報
-            +   点検結果ファイル明細
+                +   点検整備運用明細情報[InspectionEquipentPageEdit]
+    +   設備点検整備予定台帳[InspectSchPage]
+        +   設備点検整備予定情報[InspectSchPageEdit]
+            +   設備点検整備予定明細[InspectSchDetailPage]
+                +   設備点検整備予定明細情報[InspectSchDetailPageEdit]
+                    +   点検整備実施明細[InspectRecordPage]
+                        +   点検整備実施情報[InspectRecordPageEdit]
+                            +   点検結果ファイル明細[InspectImpFilePage]
+                                +   点検結果ファイル情報[InspectImpFilePageEdit]
 ##  提供
 1.  品目
     +   品目区分項目[ItemKindPage,ItemKindReadFields]
         +   品目区分情報[ItemKindPageEdit]
     +   品目体系[ItemPage]
         +   品目項目[ItemReadFields]
-        +   品目情報[ItemPageEdit]
+        +   品目情報[ItemPageEdit,ItemEditFields]
         +   品目体系情報[ItemTreePageEdit]<!--親の付け替え(ドラッグ&ドロップ)-->
-            +   HSコード情報[HsCodeReadEditFields]
+            +   HSコード項目[HsCodeReadFields]
+                +   HSコード情報[HsCodeReadEditFields]
             +   大きさ明細[ItemSizePage]
                 +   大きさ情報[ItemSizePageEdit]
             +   梱包サイズ明細[SpecMeasurementPage]
                 +   梱包サイズ情報[SpecMeasurementPageEdit]
-            +   品目工程計画情報
+            +   品目工程計画明細[ItemOperationPage]
+                +   品目工程計画情報[ItemOperationPageEdit]
         +   製造元項目[ManufacturePage]
             +   製造元情報[ManufacturePageEdit]
+    +   大きさ区分台帳[ItemSizeKindPage]
+        +   大きさ区分情報[ItemSizeKindPageEdit]
 <!--1.  ##購買品目-->
 1.  工程
     +   工程項目[TaskReadFields]
-    +   工程体系[TaskPag]
+    +   工程体系[TaskPage]
         +   工程情報[TaskPageEdit]
         +   工程体系情報[TaskTreePageEdit]<!--親の付け替え(ドラッグ&ドロップ)-->
-            +   工程場所明細
-                +   工程場所情報
+            +   工程場所明細[TaskResourcePage]
+                +   工程場所情報[TaskResourcePageEdit]
     +   工程グループ項目[TaskGroupPage]
         +   工程グループ情報[TaskGroupPageEdit]
-    +   工程明細台帳[OperationPage]
-        +   工程明細情報[OperationPageEdit:]
-        +   品目工程計画情報
+    +   工程運用台帳[OperationPage]
+        +   工程運用情報[OperationPageEdit]
+        +   品目工程計画情報[ItemOperationPageEdit]<!--品目の品目工程計画情報と共有-->
 ##  営業
 1.  配送区分
     +   配送区分項目[ShippingKindReadFields]
         +   配送区分情報[ShippingKindEditFields]
 1.  顧客台帳[CustomerPage]
-    +   顧客情報[StakeholderEditFields]
+    +   顧客項目[StakeholderReadFields]
+    +   顧客情報[CustomerPageEdit,StakeholderEditFields]
         +   担当者明細[ContactReadFields]
         +   担当者情報[ContactEditFields]
 1.  受注
+    +   受注台帳[OrderPage]
+        +   受注情報[OrderPageEdit]
+            +   受注明細[OrderDetailPage]
+                +   受注明細情報[OrderDetailPageEdit]
 ##  購買
 1.  配送区分
     +   配送区分項目[ShippingKindReadFields]
         +   配送区分情報[ShippingKindEditFields]
 1.  外部供給者台帳[SupplierPage]
-    +   外部供給者情報[StakeholderEditFields]
+    +   外部供給者情報[SupplierPageEdit,StakeholderEditFields]
         +   担当者明細[ContactReadFields]
         +   担当者情報[ContactEditFields]
 1.  発注
-    +   非計上発注台帳
-        +   非計上発注明細
-            +   非計上発注明細情報
-    +   発注台帳
-        +   発注明細
-            +   発注明細情報
-            +   クレーム登録
+    +   非計上発注台帳[UnrecognizedPage]<!--「非計上」はユーザーが選択する。テーブルは非計上発注(trans_unrecognized)と明細(trans_unrecognized_detail)-->
+        +   非計上発注情報[UnrecognizedPageEdit]
+            +   非計上発注明細[UnrecognizedDetailPage]
+                +   非計上発注明細情報[UnrecognizedDetailPageEdit]
+    +   発注台帳[PurchasePage]
+        +   発注情報[PurchasePageEdit]
+            +   発注明細[PurchaseDetailPage]
+                +   発注明細情報[PurchaseDetailPageEdit]
+                +   クレーム登録[ComplaintPageEdit]<!--異常報告と共有-->
 1.  検品
-    +   受入登録
+    +   受入登録[PurchaseRecPageEdit]<!--作業実績の購入受入と共有-->
+        +   受入明細[PurchaseRecPage]
 
 ##  生産計画
 1.  資材所要量計画
-    +   資材計画台帳
-        +   資材計画情報
-            +   生産計画明細
-    +   生産計画台帳
-        +   生産計画明細
+    +   資材計画台帳[ResourcePlanPage]
+        +   資材計画情報[ResourcePlanPageEdit]
+    +   生産計画台帳[OperationsPlanPage]
+        +   生産計画情報[OperationsPlanPageEdit]
+            +   生産計画明細[WorkPlanPage]
+                +   生産計画明細情報[WorkPlanPageEdit]
 1.  充当計画
-    +   引当予約台帳
-        +   生産引当予約情報
-        +   購買引当予約情報
+    +   引当予約台帳[ProductRezPage,PurchaseRezPage]
+        +   生産引当予約情報[ProductRezPageEdit]
+        +   購買引当予約情報[PurchaseRezPageEdit]
 1.  工程計画
-    +   品目工程台帳
-        +   品目工程明細
+    +   品目工程台帳[ItemOperationPage]<!--品目の品目工程計画明細と共有-->
+        +   品目工程情報[ItemOperationPageEdit]
+        +   品目工程明細[ItemOperationTaskPage]
+            +   品目工程明細情報[ItemOperationTaskPageEdit]
 
 ##  作業実績
 1.  コンテナ
-    +   コンテナ体系
-        +   コンテナ情報
+    +   コンテナ体系[ContainerPage]
+        +   コンテナ情報[ContainerPageEdit]
+        +   コンテナ体系情報[ContainerTreePageEdit]<!--親の付け替え(ドラッグ&ドロップ)-->
 1.  購入受入
-    +   受入登録
-        +   成績書登録
-    +   投入登録
-    +   成績書台帳
-        +   成績書情報
+    +   受入登録[PurchaseRecPageEdit]<!--検品の受入登録と共有-->
+        +   成績書明細[PurchaseCertificationPage]
+            +   成績書登録[PurchaseCertificationPageEdit]
+    +   投入台帳[InventoryApplyPage]
+        +   投入登録[InventoryApplyPageEdit]<!--推定: 投入=在庫の払出実施(trans_inventory_apply)。docs/0055 参照-->
+    +   成績書台帳[CertificatePage]
+        +   成績書情報[CertificatePageEdit]
 1.  引当実績
-    +   引当実績登録
-    +   投入登録
+    +   引当実績台帳[InventoryRequestPage]
+        +   引当実績登録[InventoryRequestPageEdit]<!--推定: 引当=在庫の払出要求(trans_inventory_request)。docs/0055 参照-->
+    +   投入台帳[InventoryApplyPage]<!--購入受入と共有-->
 1.  作業実績
-    +   作業実績登録
-        +   成績書登録
-    +   投入登録
-    +   成績書台帳
-        +   成績書情報
+    +   作業実績台帳[WorkRecordPage]
+        +   作業実績登録[WorkRecordPageEdit]
+        +   成績書明細[WorkRecordCertificatePage]
+            +   成績書登録[WorkRecordCertificatePageEdit]
+    +   投入台帳[InventoryApplyPage]<!--購入受入と共有-->
+    +   成績書台帳[CertificatePage]
+        +   成績書情報[CertificatePageEdit]
 ##  品質管理
 ### 品質共通
 1.  修正処置
-    +   修正処置明細
-        +   修正処置情報
+    +   修正処置明細[DisposalPage]
+        +   修正処置情報[DisposalPageEdit]
 1.  再発防止
-    +   再発防止明細
-        +   再発防止情報
+    +   再発防止明細[RecurrencePreventionPage]
+        +   再発防止情報[RecurrencePreventionPageEdit]
 1.  処置再発防止監視
-    +   処置再発監視明細
-        +   処置再発監視情報
+    +   処置再発監視明細[ObserverPreventivePage,ObserverDisposalPage]
+        +   処置再発監視情報[ObserverPreventivePageEdit,ObserverDisposalPageEdit]
 1.  リスク
-    +   リスク台帳
-        +   リスク情報
-            +   未然防止明細
-                +   未然防止情報
-                +   未然防止処置明細
-                    +   未然防止処置上納
+    +   リスク台帳[RiskPage]
+        +   リスク情報[RiskPageEdit]
+            +   未然防止明細[PreventionPage]
+                +   未然防止情報[PreventionPageEdit]
+                +   未然防止処置明細[PreventionDetailPage]
+                    +   未然防止処置登録[PreventionDetailPageEdit]<!--0055: 上納 → 登録(「上納」は定義に無いため)-->
 1.  監査標準項目
-    +   監査標準項目台帳
-        +   監査標準項目情報
+    +   監査標準項目台帳[AuditStdCheckitemPage]
+        +   監査標準項目情報[AuditStdCheckitemPageEdit]
 ### メイン
 1.  文書
     +   文書レベル台帳[DocumentTierPage]
         +   文書レベル情報[DocumentTierPageEdit]
-    +   文書体系[DocumnetPage]
+    +   文書体系[DocumentPage]
         +   文書情報[DocumentPageEdit]
-            +   文書コンテンツ体系
-                +   文書コンテンツ情報
+        +   文書体系情報[DocumentTreePageEdit]<!--親の付け替え(ドラッグ&ドロップ)-->
+            +   文書コンテンツ体系[DocumentContentPage]
+                +   文書コンテンツ情報[DocumentContentPageEdit]
+                +   文書コンテンツ体系情報[DocumentContentTreePageEdit]<!--親の付け替え(ドラッグ&ドロップ)-->
 1.  レポート
-    +   レポートひな形台帳
-        +   レポートひな形情報
+    +   レポートひな形台帳[ReportPage]
+        +   レポートひな形情報[ReportPageEdit]
 1.  異常報告
-    +   異常報告台帳
-    +   顧客クレーム台帳
-        +   顧客クレーム情報
+    +   異常報告台帳[ComplaintPage]
+        +   異常報告情報[ComplaintPageEdit]
+            +   異常受付明細[ComplaintReceivePage]
+                +   異常受付情報[ComplaintReceivePageEdit]
+            +   異常報告利害関係者明細[ComplaintStakeholderPage]
+                +   異常報告利害関係者情報[ComplaintStakeholderPageEdit]
+            +   異常報告ファイル明細[ComplaintFilePage]
+                +   異常報告ファイル情報[ComplaintFilePageEdit]
+    +   顧客クレーム台帳[ComplaintOrderPage]
+        +   顧客クレーム情報[ComplaintOrderPageEdit]
             1.   取込:修正処置
             1.   取込:再発防止
             1.   取込:処置再発監視
-
-    +   工程異常報告台帳
-        +   工程異常報告情報
+    +   工程異常報告台帳[ComplaintProcessPage]
+        +   工程異常報告情報[ComplaintProcessPageEdit]
             1.   取込:修正処置
             1.   取込:再発防止
             1.   取込:処置再発監視
-    +   設備異常報告台帳
-        +   設備異常報告情報
+    +   設備異常報告台帳[ComplaintEquipmentPage]
+        +   設備異常報告情報[ComplaintEquipmentPageEdit]
             1.   取込:修正処置
             1.   取込:再発防止
             1.   取込:処置再発監視
 1.  リスク
-    +   受注リスク台帳
-        +   受注明細リスク明細
+    +   受注リスク台帳[OrderRiskPage]
+        +   受注リスク情報[OrderRiskPageEdit]
+    +   受注明細リスク台帳[OrderDetailRiskPage]
+        +   受注明細リスク情報[OrderDetailRiskPageEdit]
             1.  取込:リスク
-    +   工程リスク台帳
-        +   工程リスク明細
+    +   工程リスク台帳[TaskRiskPage]
+        +   工程リスク情報[TaskRiskPageEdit]
             1.  取込:リスク
 1.  監査
-    +   監査標準台帳
-        +   監査標準情報
+    +   監査標準台帳[AuditStdPage]
+        +   監査標準情報[AuditStdPageEdit]
             1.  取込:監査標準項目
-    +   監査チーム台帳
-        +   監査チーム情報
-    +   監査計画台帳
-        +   監査計画情報
-            +   監査チーム明細
-            +   監査参加者明細
+    +   監査チーム台帳[AuditTeamPage]
+        +   監査チーム情報[AuditTeamPageEdit]
+            +   監査員明細[AuditorPage]
+                +   監査員情報[AuditorPageEdit]
+    +   監査計画台帳[AuditPage]
+        +   監査計画情報[AuditPageEdit]
+            +   監査チーム明細[AuditTeamPage]
+            +   監査参加者明細[AuditMemberPage]
+                +   監査参加者情報[AuditMemberPageEdit]

@@ -8,13 +8,10 @@ import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 class Variables$Mutation$CompanyPageEdit {
   factory Variables$Mutation$CompanyPageEdit({
     required String infoCompanyId,
-    String? webPage,
-    String? symbol,
-    String? remarks,
     required String sharedAppellationsId,
+    required String nameSharedDictionaryId,
     required String jaLanguageCodeId,
     required String enLanguageCodeId,
-    required String nameSharedDictionaryId,
     required String nameJa,
     required String nameEn,
     required String pronunciationSharedDictionaryId,
@@ -23,21 +20,9 @@ class Variables$Mutation$CompanyPageEdit {
     required String nicknameSharedDictionaryId,
     required String nicknameJa,
     required String nicknameEn,
-    required String ceoSharedAppellationsId,
-    required String ceoNameSharedDictionaryId,
-    required String ceoNameJa,
-    required String ceoNameEn,
-    required String ceoPronunciationSharedDictionaryId,
-    required String ceoPronunciationJa,
-    required String ceoPronunciationEn,
-    required String ceoNicknameSharedDictionaryId,
-    required String ceoNicknameJa,
-    required String ceoNicknameEn,
     required String infoAddressId,
     String? iso31663,
     String? zipCode,
-    String? phone,
-    String? faxNumber,
     required String address1SharedAppellationsId,
     required String address1NameSharedDictionaryId,
     required String address1NameJa,
@@ -68,21 +53,34 @@ class Variables$Mutation$CompanyPageEdit {
     required String buildingNicknameSharedDictionaryId,
     required String buildingNicknameJa,
     required String buildingNicknameEn,
+    String? phone,
+    String? faxNumber,
+    String? remarks,
+    String? webPage,
+    required String ceoSharedAppellationsId,
+    required String ceoNameSharedDictionaryId,
+    required String ceoNameJa,
+    required String ceoNameEn,
+    required String ceoPronunciationSharedDictionaryId,
+    required String ceoPronunciationJa,
+    required String ceoPronunciationEn,
+    required String ceoNicknameSharedDictionaryId,
+    required String ceoNicknameJa,
+    required String ceoNicknameEn,
     List<
-      Input$InfoProvisionOnInfoProvisionForInfoProvisionFk2UsingInfoProvisionPkcUpdate
+      Input$InfoProvisionOnInfoProvisionForInfoProvisionFk3UsingInfoProvisionPkcUpdate
     >?
-    provisionsUpdate,
-    List<Input$InfoProvisionFk2InfoProvisionCreateInput>? provisionsCreate,
-    List<Input$InfoProvisionInfoProvisionPkcDelete>? provisionsDelete,
+    provisionUpdate,
+    List<Input$InfoProvisionFk3InfoProvisionCreateInput>? provisionCreate,
+    List<Input$InfoProvisionInfoProvisionPkcDelete>? provisionDelete,
+    int? provisionsFirst,
+    List<Enum$InfoProvisionsOrderBy>? provisionsOrderBy,
   }) => Variables$Mutation$CompanyPageEdit._({
     r'infoCompanyId': infoCompanyId,
-    if (webPage != null) r'webPage': webPage,
-    if (symbol != null) r'symbol': symbol,
-    if (remarks != null) r'remarks': remarks,
     r'sharedAppellationsId': sharedAppellationsId,
+    r'nameSharedDictionaryId': nameSharedDictionaryId,
     r'jaLanguageCodeId': jaLanguageCodeId,
     r'enLanguageCodeId': enLanguageCodeId,
-    r'nameSharedDictionaryId': nameSharedDictionaryId,
     r'nameJa': nameJa,
     r'nameEn': nameEn,
     r'pronunciationSharedDictionaryId': pronunciationSharedDictionaryId,
@@ -91,21 +89,9 @@ class Variables$Mutation$CompanyPageEdit {
     r'nicknameSharedDictionaryId': nicknameSharedDictionaryId,
     r'nicknameJa': nicknameJa,
     r'nicknameEn': nicknameEn,
-    r'ceoSharedAppellationsId': ceoSharedAppellationsId,
-    r'ceoNameSharedDictionaryId': ceoNameSharedDictionaryId,
-    r'ceoNameJa': ceoNameJa,
-    r'ceoNameEn': ceoNameEn,
-    r'ceoPronunciationSharedDictionaryId': ceoPronunciationSharedDictionaryId,
-    r'ceoPronunciationJa': ceoPronunciationJa,
-    r'ceoPronunciationEn': ceoPronunciationEn,
-    r'ceoNicknameSharedDictionaryId': ceoNicknameSharedDictionaryId,
-    r'ceoNicknameJa': ceoNicknameJa,
-    r'ceoNicknameEn': ceoNicknameEn,
     r'infoAddressId': infoAddressId,
     if (iso31663 != null) r'iso31663': iso31663,
     if (zipCode != null) r'zipCode': zipCode,
-    if (phone != null) r'phone': phone,
-    if (faxNumber != null) r'faxNumber': faxNumber,
     r'address1SharedAppellationsId': address1SharedAppellationsId,
     r'address1NameSharedDictionaryId': address1NameSharedDictionaryId,
     r'address1NameJa': address1NameJa,
@@ -139,9 +125,25 @@ class Variables$Mutation$CompanyPageEdit {
     r'buildingNicknameSharedDictionaryId': buildingNicknameSharedDictionaryId,
     r'buildingNicknameJa': buildingNicknameJa,
     r'buildingNicknameEn': buildingNicknameEn,
-    if (provisionsUpdate != null) r'provisionsUpdate': provisionsUpdate,
-    if (provisionsCreate != null) r'provisionsCreate': provisionsCreate,
-    if (provisionsDelete != null) r'provisionsDelete': provisionsDelete,
+    if (phone != null) r'phone': phone,
+    if (faxNumber != null) r'faxNumber': faxNumber,
+    if (remarks != null) r'remarks': remarks,
+    if (webPage != null) r'webPage': webPage,
+    r'ceoSharedAppellationsId': ceoSharedAppellationsId,
+    r'ceoNameSharedDictionaryId': ceoNameSharedDictionaryId,
+    r'ceoNameJa': ceoNameJa,
+    r'ceoNameEn': ceoNameEn,
+    r'ceoPronunciationSharedDictionaryId': ceoPronunciationSharedDictionaryId,
+    r'ceoPronunciationJa': ceoPronunciationJa,
+    r'ceoPronunciationEn': ceoPronunciationEn,
+    r'ceoNicknameSharedDictionaryId': ceoNicknameSharedDictionaryId,
+    r'ceoNicknameJa': ceoNicknameJa,
+    r'ceoNicknameEn': ceoNicknameEn,
+    if (provisionUpdate != null) r'provisionUpdate': provisionUpdate,
+    if (provisionCreate != null) r'provisionCreate': provisionCreate,
+    if (provisionDelete != null) r'provisionDelete': provisionDelete,
+    if (provisionsFirst != null) r'provisionsFirst': provisionsFirst,
+    if (provisionsOrderBy != null) r'provisionsOrderBy': provisionsOrderBy,
   });
 
   Variables$Mutation$CompanyPageEdit._(this._$data);
@@ -152,27 +154,15 @@ class Variables$Mutation$CompanyPageEdit {
     final result$data = <String, dynamic>{};
     final l$infoCompanyId = data['infoCompanyId'];
     result$data['infoCompanyId'] = (l$infoCompanyId as String);
-    if (data.containsKey('webPage')) {
-      final l$webPage = data['webPage'];
-      result$data['webPage'] = (l$webPage as String?);
-    }
-    if (data.containsKey('symbol')) {
-      final l$symbol = data['symbol'];
-      result$data['symbol'] = (l$symbol as String?);
-    }
-    if (data.containsKey('remarks')) {
-      final l$remarks = data['remarks'];
-      result$data['remarks'] = (l$remarks as String?);
-    }
     final l$sharedAppellationsId = data['sharedAppellationsId'];
     result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
+    final l$nameSharedDictionaryId = data['nameSharedDictionaryId'];
+    result$data['nameSharedDictionaryId'] =
+        (l$nameSharedDictionaryId as String);
     final l$jaLanguageCodeId = data['jaLanguageCodeId'];
     result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String);
     final l$enLanguageCodeId = data['enLanguageCodeId'];
     result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String);
-    final l$nameSharedDictionaryId = data['nameSharedDictionaryId'];
-    result$data['nameSharedDictionaryId'] =
-        (l$nameSharedDictionaryId as String);
     final l$nameJa = data['nameJa'];
     result$data['nameJa'] = (l$nameJa as String);
     final l$nameEn = data['nameEn'];
@@ -192,32 +182,6 @@ class Variables$Mutation$CompanyPageEdit {
     result$data['nicknameJa'] = (l$nicknameJa as String);
     final l$nicknameEn = data['nicknameEn'];
     result$data['nicknameEn'] = (l$nicknameEn as String);
-    final l$ceoSharedAppellationsId = data['ceoSharedAppellationsId'];
-    result$data['ceoSharedAppellationsId'] =
-        (l$ceoSharedAppellationsId as String);
-    final l$ceoNameSharedDictionaryId = data['ceoNameSharedDictionaryId'];
-    result$data['ceoNameSharedDictionaryId'] =
-        (l$ceoNameSharedDictionaryId as String);
-    final l$ceoNameJa = data['ceoNameJa'];
-    result$data['ceoNameJa'] = (l$ceoNameJa as String);
-    final l$ceoNameEn = data['ceoNameEn'];
-    result$data['ceoNameEn'] = (l$ceoNameEn as String);
-    final l$ceoPronunciationSharedDictionaryId =
-        data['ceoPronunciationSharedDictionaryId'];
-    result$data['ceoPronunciationSharedDictionaryId'] =
-        (l$ceoPronunciationSharedDictionaryId as String);
-    final l$ceoPronunciationJa = data['ceoPronunciationJa'];
-    result$data['ceoPronunciationJa'] = (l$ceoPronunciationJa as String);
-    final l$ceoPronunciationEn = data['ceoPronunciationEn'];
-    result$data['ceoPronunciationEn'] = (l$ceoPronunciationEn as String);
-    final l$ceoNicknameSharedDictionaryId =
-        data['ceoNicknameSharedDictionaryId'];
-    result$data['ceoNicknameSharedDictionaryId'] =
-        (l$ceoNicknameSharedDictionaryId as String);
-    final l$ceoNicknameJa = data['ceoNicknameJa'];
-    result$data['ceoNicknameJa'] = (l$ceoNicknameJa as String);
-    final l$ceoNicknameEn = data['ceoNicknameEn'];
-    result$data['ceoNicknameEn'] = (l$ceoNicknameEn as String);
     final l$infoAddressId = data['infoAddressId'];
     result$data['infoAddressId'] = (l$infoAddressId as String);
     if (data.containsKey('iso31663')) {
@@ -227,14 +191,6 @@ class Variables$Mutation$CompanyPageEdit {
     if (data.containsKey('zipCode')) {
       final l$zipCode = data['zipCode'];
       result$data['zipCode'] = (l$zipCode as String?);
-    }
-    if (data.containsKey('phone')) {
-      final l$phone = data['phone'];
-      result$data['phone'] = (l$phone as String?);
-    }
-    if (data.containsKey('faxNumber')) {
-      final l$faxNumber = data['faxNumber'];
-      result$data['faxNumber'] = (l$faxNumber as String?);
     }
     final l$address1SharedAppellationsId = data['address1SharedAppellationsId'];
     result$data['address1SharedAppellationsId'] =
@@ -323,35 +279,87 @@ class Variables$Mutation$CompanyPageEdit {
     result$data['buildingNicknameJa'] = (l$buildingNicknameJa as String);
     final l$buildingNicknameEn = data['buildingNicknameEn'];
     result$data['buildingNicknameEn'] = (l$buildingNicknameEn as String);
-    if (data.containsKey('provisionsUpdate')) {
-      final l$provisionsUpdate = data['provisionsUpdate'];
-      result$data['provisionsUpdate'] = (l$provisionsUpdate as List<dynamic>?)
+    if (data.containsKey('phone')) {
+      final l$phone = data['phone'];
+      result$data['phone'] = (l$phone as String?);
+    }
+    if (data.containsKey('faxNumber')) {
+      final l$faxNumber = data['faxNumber'];
+      result$data['faxNumber'] = (l$faxNumber as String?);
+    }
+    if (data.containsKey('remarks')) {
+      final l$remarks = data['remarks'];
+      result$data['remarks'] = (l$remarks as String?);
+    }
+    if (data.containsKey('webPage')) {
+      final l$webPage = data['webPage'];
+      result$data['webPage'] = (l$webPage as String?);
+    }
+    final l$ceoSharedAppellationsId = data['ceoSharedAppellationsId'];
+    result$data['ceoSharedAppellationsId'] =
+        (l$ceoSharedAppellationsId as String);
+    final l$ceoNameSharedDictionaryId = data['ceoNameSharedDictionaryId'];
+    result$data['ceoNameSharedDictionaryId'] =
+        (l$ceoNameSharedDictionaryId as String);
+    final l$ceoNameJa = data['ceoNameJa'];
+    result$data['ceoNameJa'] = (l$ceoNameJa as String);
+    final l$ceoNameEn = data['ceoNameEn'];
+    result$data['ceoNameEn'] = (l$ceoNameEn as String);
+    final l$ceoPronunciationSharedDictionaryId =
+        data['ceoPronunciationSharedDictionaryId'];
+    result$data['ceoPronunciationSharedDictionaryId'] =
+        (l$ceoPronunciationSharedDictionaryId as String);
+    final l$ceoPronunciationJa = data['ceoPronunciationJa'];
+    result$data['ceoPronunciationJa'] = (l$ceoPronunciationJa as String);
+    final l$ceoPronunciationEn = data['ceoPronunciationEn'];
+    result$data['ceoPronunciationEn'] = (l$ceoPronunciationEn as String);
+    final l$ceoNicknameSharedDictionaryId =
+        data['ceoNicknameSharedDictionaryId'];
+    result$data['ceoNicknameSharedDictionaryId'] =
+        (l$ceoNicknameSharedDictionaryId as String);
+    final l$ceoNicknameJa = data['ceoNicknameJa'];
+    result$data['ceoNicknameJa'] = (l$ceoNicknameJa as String);
+    final l$ceoNicknameEn = data['ceoNicknameEn'];
+    result$data['ceoNicknameEn'] = (l$ceoNicknameEn as String);
+    if (data.containsKey('provisionUpdate')) {
+      final l$provisionUpdate = data['provisionUpdate'];
+      result$data['provisionUpdate'] = (l$provisionUpdate as List<dynamic>?)
           ?.map(
             (e) =>
-                Input$InfoProvisionOnInfoProvisionForInfoProvisionFk2UsingInfoProvisionPkcUpdate.fromJson(
+                Input$InfoProvisionOnInfoProvisionForInfoProvisionFk3UsingInfoProvisionPkcUpdate.fromJson(
                   (e as Map<String, dynamic>),
                 ),
           )
           .toList();
     }
-    if (data.containsKey('provisionsCreate')) {
-      final l$provisionsCreate = data['provisionsCreate'];
-      result$data['provisionsCreate'] = (l$provisionsCreate as List<dynamic>?)
+    if (data.containsKey('provisionCreate')) {
+      final l$provisionCreate = data['provisionCreate'];
+      result$data['provisionCreate'] = (l$provisionCreate as List<dynamic>?)
           ?.map(
-            (e) => Input$InfoProvisionFk2InfoProvisionCreateInput.fromJson(
+            (e) => Input$InfoProvisionFk3InfoProvisionCreateInput.fromJson(
               (e as Map<String, dynamic>),
             ),
           )
           .toList();
     }
-    if (data.containsKey('provisionsDelete')) {
-      final l$provisionsDelete = data['provisionsDelete'];
-      result$data['provisionsDelete'] = (l$provisionsDelete as List<dynamic>?)
+    if (data.containsKey('provisionDelete')) {
+      final l$provisionDelete = data['provisionDelete'];
+      result$data['provisionDelete'] = (l$provisionDelete as List<dynamic>?)
           ?.map(
             (e) => Input$InfoProvisionInfoProvisionPkcDelete.fromJson(
               (e as Map<String, dynamic>),
             ),
           )
+          .toList();
+    }
+    if (data.containsKey('provisionsFirst')) {
+      final l$provisionsFirst = data['provisionsFirst'];
+      result$data['provisionsFirst'] = (l$provisionsFirst as int?);
+    }
+    if (data.containsKey('provisionsOrderBy')) {
+      final l$provisionsOrderBy = data['provisionsOrderBy'];
+      result$data['provisionsOrderBy'] = (l$provisionsOrderBy as List<dynamic>?)
+          ?.map((e) => fromJson$Enum$InfoProvisionsOrderBy((e as String)))
           .toList();
     }
     return Variables$Mutation$CompanyPageEdit._(result$data);
@@ -361,20 +369,14 @@ class Variables$Mutation$CompanyPageEdit {
 
   String get infoCompanyId => (_$data['infoCompanyId'] as String);
 
-  String? get webPage => (_$data['webPage'] as String?);
-
-  String? get symbol => (_$data['symbol'] as String?);
-
-  String? get remarks => (_$data['remarks'] as String?);
-
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
+
+  String get nameSharedDictionaryId =>
+      (_$data['nameSharedDictionaryId'] as String);
 
   String get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String);
 
   String get enLanguageCodeId => (_$data['enLanguageCodeId'] as String);
-
-  String get nameSharedDictionaryId =>
-      (_$data['nameSharedDictionaryId'] as String);
 
   String get nameJa => (_$data['nameJa'] as String);
 
@@ -394,39 +396,11 @@ class Variables$Mutation$CompanyPageEdit {
 
   String get nicknameEn => (_$data['nicknameEn'] as String);
 
-  String get ceoSharedAppellationsId =>
-      (_$data['ceoSharedAppellationsId'] as String);
-
-  String get ceoNameSharedDictionaryId =>
-      (_$data['ceoNameSharedDictionaryId'] as String);
-
-  String get ceoNameJa => (_$data['ceoNameJa'] as String);
-
-  String get ceoNameEn => (_$data['ceoNameEn'] as String);
-
-  String get ceoPronunciationSharedDictionaryId =>
-      (_$data['ceoPronunciationSharedDictionaryId'] as String);
-
-  String get ceoPronunciationJa => (_$data['ceoPronunciationJa'] as String);
-
-  String get ceoPronunciationEn => (_$data['ceoPronunciationEn'] as String);
-
-  String get ceoNicknameSharedDictionaryId =>
-      (_$data['ceoNicknameSharedDictionaryId'] as String);
-
-  String get ceoNicknameJa => (_$data['ceoNicknameJa'] as String);
-
-  String get ceoNicknameEn => (_$data['ceoNicknameEn'] as String);
-
   String get infoAddressId => (_$data['infoAddressId'] as String);
 
   String? get iso31663 => (_$data['iso31663'] as String?);
 
   String? get zipCode => (_$data['zipCode'] as String?);
-
-  String? get phone => (_$data['phone'] as String?);
-
-  String? get faxNumber => (_$data['faxNumber'] as String?);
 
   String get address1SharedAppellationsId =>
       (_$data['address1SharedAppellationsId'] as String);
@@ -506,47 +480,72 @@ class Variables$Mutation$CompanyPageEdit {
 
   String get buildingNicknameEn => (_$data['buildingNicknameEn'] as String);
 
+  String? get phone => (_$data['phone'] as String?);
+
+  String? get faxNumber => (_$data['faxNumber'] as String?);
+
+  String? get remarks => (_$data['remarks'] as String?);
+
+  String? get webPage => (_$data['webPage'] as String?);
+
+  String get ceoSharedAppellationsId =>
+      (_$data['ceoSharedAppellationsId'] as String);
+
+  String get ceoNameSharedDictionaryId =>
+      (_$data['ceoNameSharedDictionaryId'] as String);
+
+  String get ceoNameJa => (_$data['ceoNameJa'] as String);
+
+  String get ceoNameEn => (_$data['ceoNameEn'] as String);
+
+  String get ceoPronunciationSharedDictionaryId =>
+      (_$data['ceoPronunciationSharedDictionaryId'] as String);
+
+  String get ceoPronunciationJa => (_$data['ceoPronunciationJa'] as String);
+
+  String get ceoPronunciationEn => (_$data['ceoPronunciationEn'] as String);
+
+  String get ceoNicknameSharedDictionaryId =>
+      (_$data['ceoNicknameSharedDictionaryId'] as String);
+
+  String get ceoNicknameJa => (_$data['ceoNicknameJa'] as String);
+
+  String get ceoNicknameEn => (_$data['ceoNicknameEn'] as String);
+
   List<
-    Input$InfoProvisionOnInfoProvisionForInfoProvisionFk2UsingInfoProvisionPkcUpdate
+    Input$InfoProvisionOnInfoProvisionForInfoProvisionFk3UsingInfoProvisionPkcUpdate
   >?
-  get provisionsUpdate =>
-      (_$data['provisionsUpdate']
+  get provisionUpdate =>
+      (_$data['provisionUpdate']
           as List<
-            Input$InfoProvisionOnInfoProvisionForInfoProvisionFk2UsingInfoProvisionPkcUpdate
+            Input$InfoProvisionOnInfoProvisionForInfoProvisionFk3UsingInfoProvisionPkcUpdate
           >?);
 
-  List<Input$InfoProvisionFk2InfoProvisionCreateInput>? get provisionsCreate =>
-      (_$data['provisionsCreate']
-          as List<Input$InfoProvisionFk2InfoProvisionCreateInput>?);
+  List<Input$InfoProvisionFk3InfoProvisionCreateInput>? get provisionCreate =>
+      (_$data['provisionCreate']
+          as List<Input$InfoProvisionFk3InfoProvisionCreateInput>?);
 
-  List<Input$InfoProvisionInfoProvisionPkcDelete>? get provisionsDelete =>
-      (_$data['provisionsDelete']
+  List<Input$InfoProvisionInfoProvisionPkcDelete>? get provisionDelete =>
+      (_$data['provisionDelete']
           as List<Input$InfoProvisionInfoProvisionPkcDelete>?);
+
+  int? get provisionsFirst => (_$data['provisionsFirst'] as int?);
+
+  List<Enum$InfoProvisionsOrderBy>? get provisionsOrderBy =>
+      (_$data['provisionsOrderBy'] as List<Enum$InfoProvisionsOrderBy>?);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     final l$infoCompanyId = infoCompanyId;
     result$data['infoCompanyId'] = l$infoCompanyId;
-    if (_$data.containsKey('webPage')) {
-      final l$webPage = webPage;
-      result$data['webPage'] = l$webPage;
-    }
-    if (_$data.containsKey('symbol')) {
-      final l$symbol = symbol;
-      result$data['symbol'] = l$symbol;
-    }
-    if (_$data.containsKey('remarks')) {
-      final l$remarks = remarks;
-      result$data['remarks'] = l$remarks;
-    }
     final l$sharedAppellationsId = sharedAppellationsId;
     result$data['sharedAppellationsId'] = l$sharedAppellationsId;
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
+    result$data['nameSharedDictionaryId'] = l$nameSharedDictionaryId;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
     result$data['enLanguageCodeId'] = l$enLanguageCodeId;
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
-    result$data['nameSharedDictionaryId'] = l$nameSharedDictionaryId;
     final l$nameJa = nameJa;
     result$data['nameJa'] = l$nameJa;
     final l$nameEn = nameEn;
@@ -564,29 +563,6 @@ class Variables$Mutation$CompanyPageEdit {
     result$data['nicknameJa'] = l$nicknameJa;
     final l$nicknameEn = nicknameEn;
     result$data['nicknameEn'] = l$nicknameEn;
-    final l$ceoSharedAppellationsId = ceoSharedAppellationsId;
-    result$data['ceoSharedAppellationsId'] = l$ceoSharedAppellationsId;
-    final l$ceoNameSharedDictionaryId = ceoNameSharedDictionaryId;
-    result$data['ceoNameSharedDictionaryId'] = l$ceoNameSharedDictionaryId;
-    final l$ceoNameJa = ceoNameJa;
-    result$data['ceoNameJa'] = l$ceoNameJa;
-    final l$ceoNameEn = ceoNameEn;
-    result$data['ceoNameEn'] = l$ceoNameEn;
-    final l$ceoPronunciationSharedDictionaryId =
-        ceoPronunciationSharedDictionaryId;
-    result$data['ceoPronunciationSharedDictionaryId'] =
-        l$ceoPronunciationSharedDictionaryId;
-    final l$ceoPronunciationJa = ceoPronunciationJa;
-    result$data['ceoPronunciationJa'] = l$ceoPronunciationJa;
-    final l$ceoPronunciationEn = ceoPronunciationEn;
-    result$data['ceoPronunciationEn'] = l$ceoPronunciationEn;
-    final l$ceoNicknameSharedDictionaryId = ceoNicknameSharedDictionaryId;
-    result$data['ceoNicknameSharedDictionaryId'] =
-        l$ceoNicknameSharedDictionaryId;
-    final l$ceoNicknameJa = ceoNicknameJa;
-    result$data['ceoNicknameJa'] = l$ceoNicknameJa;
-    final l$ceoNicknameEn = ceoNicknameEn;
-    result$data['ceoNicknameEn'] = l$ceoNicknameEn;
     final l$infoAddressId = infoAddressId;
     result$data['infoAddressId'] = l$infoAddressId;
     if (_$data.containsKey('iso31663')) {
@@ -596,14 +572,6 @@ class Variables$Mutation$CompanyPageEdit {
     if (_$data.containsKey('zipCode')) {
       final l$zipCode = zipCode;
       result$data['zipCode'] = l$zipCode;
-    }
-    if (_$data.containsKey('phone')) {
-      final l$phone = phone;
-      result$data['phone'] = l$phone;
-    }
-    if (_$data.containsKey('faxNumber')) {
-      final l$faxNumber = faxNumber;
-      result$data['faxNumber'] = l$faxNumber;
     }
     final l$address1SharedAppellationsId = address1SharedAppellationsId;
     result$data['address1SharedAppellationsId'] =
@@ -683,22 +651,71 @@ class Variables$Mutation$CompanyPageEdit {
     result$data['buildingNicknameJa'] = l$buildingNicknameJa;
     final l$buildingNicknameEn = buildingNicknameEn;
     result$data['buildingNicknameEn'] = l$buildingNicknameEn;
-    if (_$data.containsKey('provisionsUpdate')) {
-      final l$provisionsUpdate = provisionsUpdate;
-      result$data['provisionsUpdate'] = l$provisionsUpdate
+    if (_$data.containsKey('phone')) {
+      final l$phone = phone;
+      result$data['phone'] = l$phone;
+    }
+    if (_$data.containsKey('faxNumber')) {
+      final l$faxNumber = faxNumber;
+      result$data['faxNumber'] = l$faxNumber;
+    }
+    if (_$data.containsKey('remarks')) {
+      final l$remarks = remarks;
+      result$data['remarks'] = l$remarks;
+    }
+    if (_$data.containsKey('webPage')) {
+      final l$webPage = webPage;
+      result$data['webPage'] = l$webPage;
+    }
+    final l$ceoSharedAppellationsId = ceoSharedAppellationsId;
+    result$data['ceoSharedAppellationsId'] = l$ceoSharedAppellationsId;
+    final l$ceoNameSharedDictionaryId = ceoNameSharedDictionaryId;
+    result$data['ceoNameSharedDictionaryId'] = l$ceoNameSharedDictionaryId;
+    final l$ceoNameJa = ceoNameJa;
+    result$data['ceoNameJa'] = l$ceoNameJa;
+    final l$ceoNameEn = ceoNameEn;
+    result$data['ceoNameEn'] = l$ceoNameEn;
+    final l$ceoPronunciationSharedDictionaryId =
+        ceoPronunciationSharedDictionaryId;
+    result$data['ceoPronunciationSharedDictionaryId'] =
+        l$ceoPronunciationSharedDictionaryId;
+    final l$ceoPronunciationJa = ceoPronunciationJa;
+    result$data['ceoPronunciationJa'] = l$ceoPronunciationJa;
+    final l$ceoPronunciationEn = ceoPronunciationEn;
+    result$data['ceoPronunciationEn'] = l$ceoPronunciationEn;
+    final l$ceoNicknameSharedDictionaryId = ceoNicknameSharedDictionaryId;
+    result$data['ceoNicknameSharedDictionaryId'] =
+        l$ceoNicknameSharedDictionaryId;
+    final l$ceoNicknameJa = ceoNicknameJa;
+    result$data['ceoNicknameJa'] = l$ceoNicknameJa;
+    final l$ceoNicknameEn = ceoNicknameEn;
+    result$data['ceoNicknameEn'] = l$ceoNicknameEn;
+    if (_$data.containsKey('provisionUpdate')) {
+      final l$provisionUpdate = provisionUpdate;
+      result$data['provisionUpdate'] = l$provisionUpdate
           ?.map((e) => e.toJson())
           .toList();
     }
-    if (_$data.containsKey('provisionsCreate')) {
-      final l$provisionsCreate = provisionsCreate;
-      result$data['provisionsCreate'] = l$provisionsCreate
+    if (_$data.containsKey('provisionCreate')) {
+      final l$provisionCreate = provisionCreate;
+      result$data['provisionCreate'] = l$provisionCreate
           ?.map((e) => e.toJson())
           .toList();
     }
-    if (_$data.containsKey('provisionsDelete')) {
-      final l$provisionsDelete = provisionsDelete;
-      result$data['provisionsDelete'] = l$provisionsDelete
+    if (_$data.containsKey('provisionDelete')) {
+      final l$provisionDelete = provisionDelete;
+      result$data['provisionDelete'] = l$provisionDelete
           ?.map((e) => e.toJson())
+          .toList();
+    }
+    if (_$data.containsKey('provisionsFirst')) {
+      final l$provisionsFirst = provisionsFirst;
+      result$data['provisionsFirst'] = l$provisionsFirst;
+    }
+    if (_$data.containsKey('provisionsOrderBy')) {
+      final l$provisionsOrderBy = provisionsOrderBy;
+      result$data['provisionsOrderBy'] = l$provisionsOrderBy
+          ?.map((e) => toJson$Enum$InfoProvisionsOrderBy(e))
           .toList();
     }
     return result$data;
@@ -723,33 +740,14 @@ class Variables$Mutation$CompanyPageEdit {
     if (l$infoCompanyId != lOther$infoCompanyId) {
       return false;
     }
-    final l$webPage = webPage;
-    final lOther$webPage = other.webPage;
-    if (_$data.containsKey('webPage') != other._$data.containsKey('webPage')) {
-      return false;
-    }
-    if (l$webPage != lOther$webPage) {
-      return false;
-    }
-    final l$symbol = symbol;
-    final lOther$symbol = other.symbol;
-    if (_$data.containsKey('symbol') != other._$data.containsKey('symbol')) {
-      return false;
-    }
-    if (l$symbol != lOther$symbol) {
-      return false;
-    }
-    final l$remarks = remarks;
-    final lOther$remarks = other.remarks;
-    if (_$data.containsKey('remarks') != other._$data.containsKey('remarks')) {
-      return false;
-    }
-    if (l$remarks != lOther$remarks) {
-      return false;
-    }
     final l$sharedAppellationsId = sharedAppellationsId;
     final lOther$sharedAppellationsId = other.sharedAppellationsId;
     if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
+      return false;
+    }
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
+    final lOther$nameSharedDictionaryId = other.nameSharedDictionaryId;
+    if (l$nameSharedDictionaryId != lOther$nameSharedDictionaryId) {
       return false;
     }
     final l$jaLanguageCodeId = jaLanguageCodeId;
@@ -760,11 +758,6 @@ class Variables$Mutation$CompanyPageEdit {
     final l$enLanguageCodeId = enLanguageCodeId;
     final lOther$enLanguageCodeId = other.enLanguageCodeId;
     if (l$enLanguageCodeId != lOther$enLanguageCodeId) {
-      return false;
-    }
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
-    final lOther$nameSharedDictionaryId = other.nameSharedDictionaryId;
-    if (l$nameSharedDictionaryId != lOther$nameSharedDictionaryId) {
       return false;
     }
     final l$nameJa = nameJa;
@@ -809,61 +802,6 @@ class Variables$Mutation$CompanyPageEdit {
     if (l$nicknameEn != lOther$nicknameEn) {
       return false;
     }
-    final l$ceoSharedAppellationsId = ceoSharedAppellationsId;
-    final lOther$ceoSharedAppellationsId = other.ceoSharedAppellationsId;
-    if (l$ceoSharedAppellationsId != lOther$ceoSharedAppellationsId) {
-      return false;
-    }
-    final l$ceoNameSharedDictionaryId = ceoNameSharedDictionaryId;
-    final lOther$ceoNameSharedDictionaryId = other.ceoNameSharedDictionaryId;
-    if (l$ceoNameSharedDictionaryId != lOther$ceoNameSharedDictionaryId) {
-      return false;
-    }
-    final l$ceoNameJa = ceoNameJa;
-    final lOther$ceoNameJa = other.ceoNameJa;
-    if (l$ceoNameJa != lOther$ceoNameJa) {
-      return false;
-    }
-    final l$ceoNameEn = ceoNameEn;
-    final lOther$ceoNameEn = other.ceoNameEn;
-    if (l$ceoNameEn != lOther$ceoNameEn) {
-      return false;
-    }
-    final l$ceoPronunciationSharedDictionaryId =
-        ceoPronunciationSharedDictionaryId;
-    final lOther$ceoPronunciationSharedDictionaryId =
-        other.ceoPronunciationSharedDictionaryId;
-    if (l$ceoPronunciationSharedDictionaryId !=
-        lOther$ceoPronunciationSharedDictionaryId) {
-      return false;
-    }
-    final l$ceoPronunciationJa = ceoPronunciationJa;
-    final lOther$ceoPronunciationJa = other.ceoPronunciationJa;
-    if (l$ceoPronunciationJa != lOther$ceoPronunciationJa) {
-      return false;
-    }
-    final l$ceoPronunciationEn = ceoPronunciationEn;
-    final lOther$ceoPronunciationEn = other.ceoPronunciationEn;
-    if (l$ceoPronunciationEn != lOther$ceoPronunciationEn) {
-      return false;
-    }
-    final l$ceoNicknameSharedDictionaryId = ceoNicknameSharedDictionaryId;
-    final lOther$ceoNicknameSharedDictionaryId =
-        other.ceoNicknameSharedDictionaryId;
-    if (l$ceoNicknameSharedDictionaryId !=
-        lOther$ceoNicknameSharedDictionaryId) {
-      return false;
-    }
-    final l$ceoNicknameJa = ceoNicknameJa;
-    final lOther$ceoNicknameJa = other.ceoNicknameJa;
-    if (l$ceoNicknameJa != lOther$ceoNicknameJa) {
-      return false;
-    }
-    final l$ceoNicknameEn = ceoNicknameEn;
-    final lOther$ceoNicknameEn = other.ceoNicknameEn;
-    if (l$ceoNicknameEn != lOther$ceoNicknameEn) {
-      return false;
-    }
     final l$infoAddressId = infoAddressId;
     final lOther$infoAddressId = other.infoAddressId;
     if (l$infoAddressId != lOther$infoAddressId) {
@@ -884,23 +822,6 @@ class Variables$Mutation$CompanyPageEdit {
       return false;
     }
     if (l$zipCode != lOther$zipCode) {
-      return false;
-    }
-    final l$phone = phone;
-    final lOther$phone = other.phone;
-    if (_$data.containsKey('phone') != other._$data.containsKey('phone')) {
-      return false;
-    }
-    if (l$phone != lOther$phone) {
-      return false;
-    }
-    final l$faxNumber = faxNumber;
-    final lOther$faxNumber = other.faxNumber;
-    if (_$data.containsKey('faxNumber') !=
-        other._$data.containsKey('faxNumber')) {
-      return false;
-    }
-    if (l$faxNumber != lOther$faxNumber) {
       return false;
     }
     final l$address1SharedAppellationsId = address1SharedAppellationsId;
@@ -1080,64 +1001,181 @@ class Variables$Mutation$CompanyPageEdit {
     if (l$buildingNicknameEn != lOther$buildingNicknameEn) {
       return false;
     }
-    final l$provisionsUpdate = provisionsUpdate;
-    final lOther$provisionsUpdate = other.provisionsUpdate;
-    if (_$data.containsKey('provisionsUpdate') !=
-        other._$data.containsKey('provisionsUpdate')) {
+    final l$phone = phone;
+    final lOther$phone = other.phone;
+    if (_$data.containsKey('phone') != other._$data.containsKey('phone')) {
       return false;
     }
-    if (l$provisionsUpdate != null && lOther$provisionsUpdate != null) {
-      if (l$provisionsUpdate.length != lOther$provisionsUpdate.length) {
+    if (l$phone != lOther$phone) {
+      return false;
+    }
+    final l$faxNumber = faxNumber;
+    final lOther$faxNumber = other.faxNumber;
+    if (_$data.containsKey('faxNumber') !=
+        other._$data.containsKey('faxNumber')) {
+      return false;
+    }
+    if (l$faxNumber != lOther$faxNumber) {
+      return false;
+    }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (_$data.containsKey('remarks') != other._$data.containsKey('remarks')) {
+      return false;
+    }
+    if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$webPage = webPage;
+    final lOther$webPage = other.webPage;
+    if (_$data.containsKey('webPage') != other._$data.containsKey('webPage')) {
+      return false;
+    }
+    if (l$webPage != lOther$webPage) {
+      return false;
+    }
+    final l$ceoSharedAppellationsId = ceoSharedAppellationsId;
+    final lOther$ceoSharedAppellationsId = other.ceoSharedAppellationsId;
+    if (l$ceoSharedAppellationsId != lOther$ceoSharedAppellationsId) {
+      return false;
+    }
+    final l$ceoNameSharedDictionaryId = ceoNameSharedDictionaryId;
+    final lOther$ceoNameSharedDictionaryId = other.ceoNameSharedDictionaryId;
+    if (l$ceoNameSharedDictionaryId != lOther$ceoNameSharedDictionaryId) {
+      return false;
+    }
+    final l$ceoNameJa = ceoNameJa;
+    final lOther$ceoNameJa = other.ceoNameJa;
+    if (l$ceoNameJa != lOther$ceoNameJa) {
+      return false;
+    }
+    final l$ceoNameEn = ceoNameEn;
+    final lOther$ceoNameEn = other.ceoNameEn;
+    if (l$ceoNameEn != lOther$ceoNameEn) {
+      return false;
+    }
+    final l$ceoPronunciationSharedDictionaryId =
+        ceoPronunciationSharedDictionaryId;
+    final lOther$ceoPronunciationSharedDictionaryId =
+        other.ceoPronunciationSharedDictionaryId;
+    if (l$ceoPronunciationSharedDictionaryId !=
+        lOther$ceoPronunciationSharedDictionaryId) {
+      return false;
+    }
+    final l$ceoPronunciationJa = ceoPronunciationJa;
+    final lOther$ceoPronunciationJa = other.ceoPronunciationJa;
+    if (l$ceoPronunciationJa != lOther$ceoPronunciationJa) {
+      return false;
+    }
+    final l$ceoPronunciationEn = ceoPronunciationEn;
+    final lOther$ceoPronunciationEn = other.ceoPronunciationEn;
+    if (l$ceoPronunciationEn != lOther$ceoPronunciationEn) {
+      return false;
+    }
+    final l$ceoNicknameSharedDictionaryId = ceoNicknameSharedDictionaryId;
+    final lOther$ceoNicknameSharedDictionaryId =
+        other.ceoNicknameSharedDictionaryId;
+    if (l$ceoNicknameSharedDictionaryId !=
+        lOther$ceoNicknameSharedDictionaryId) {
+      return false;
+    }
+    final l$ceoNicknameJa = ceoNicknameJa;
+    final lOther$ceoNicknameJa = other.ceoNicknameJa;
+    if (l$ceoNicknameJa != lOther$ceoNicknameJa) {
+      return false;
+    }
+    final l$ceoNicknameEn = ceoNicknameEn;
+    final lOther$ceoNicknameEn = other.ceoNicknameEn;
+    if (l$ceoNicknameEn != lOther$ceoNicknameEn) {
+      return false;
+    }
+    final l$provisionUpdate = provisionUpdate;
+    final lOther$provisionUpdate = other.provisionUpdate;
+    if (_$data.containsKey('provisionUpdate') !=
+        other._$data.containsKey('provisionUpdate')) {
+      return false;
+    }
+    if (l$provisionUpdate != null && lOther$provisionUpdate != null) {
+      if (l$provisionUpdate.length != lOther$provisionUpdate.length) {
         return false;
       }
-      for (int i = 0; i < l$provisionsUpdate.length; i++) {
-        final l$provisionsUpdate$entry = l$provisionsUpdate[i];
-        final lOther$provisionsUpdate$entry = lOther$provisionsUpdate[i];
-        if (l$provisionsUpdate$entry != lOther$provisionsUpdate$entry) {
+      for (int i = 0; i < l$provisionUpdate.length; i++) {
+        final l$provisionUpdate$entry = l$provisionUpdate[i];
+        final lOther$provisionUpdate$entry = lOther$provisionUpdate[i];
+        if (l$provisionUpdate$entry != lOther$provisionUpdate$entry) {
           return false;
         }
       }
-    } else if (l$provisionsUpdate != lOther$provisionsUpdate) {
+    } else if (l$provisionUpdate != lOther$provisionUpdate) {
       return false;
     }
-    final l$provisionsCreate = provisionsCreate;
-    final lOther$provisionsCreate = other.provisionsCreate;
-    if (_$data.containsKey('provisionsCreate') !=
-        other._$data.containsKey('provisionsCreate')) {
+    final l$provisionCreate = provisionCreate;
+    final lOther$provisionCreate = other.provisionCreate;
+    if (_$data.containsKey('provisionCreate') !=
+        other._$data.containsKey('provisionCreate')) {
       return false;
     }
-    if (l$provisionsCreate != null && lOther$provisionsCreate != null) {
-      if (l$provisionsCreate.length != lOther$provisionsCreate.length) {
+    if (l$provisionCreate != null && lOther$provisionCreate != null) {
+      if (l$provisionCreate.length != lOther$provisionCreate.length) {
         return false;
       }
-      for (int i = 0; i < l$provisionsCreate.length; i++) {
-        final l$provisionsCreate$entry = l$provisionsCreate[i];
-        final lOther$provisionsCreate$entry = lOther$provisionsCreate[i];
-        if (l$provisionsCreate$entry != lOther$provisionsCreate$entry) {
+      for (int i = 0; i < l$provisionCreate.length; i++) {
+        final l$provisionCreate$entry = l$provisionCreate[i];
+        final lOther$provisionCreate$entry = lOther$provisionCreate[i];
+        if (l$provisionCreate$entry != lOther$provisionCreate$entry) {
           return false;
         }
       }
-    } else if (l$provisionsCreate != lOther$provisionsCreate) {
+    } else if (l$provisionCreate != lOther$provisionCreate) {
       return false;
     }
-    final l$provisionsDelete = provisionsDelete;
-    final lOther$provisionsDelete = other.provisionsDelete;
-    if (_$data.containsKey('provisionsDelete') !=
-        other._$data.containsKey('provisionsDelete')) {
+    final l$provisionDelete = provisionDelete;
+    final lOther$provisionDelete = other.provisionDelete;
+    if (_$data.containsKey('provisionDelete') !=
+        other._$data.containsKey('provisionDelete')) {
       return false;
     }
-    if (l$provisionsDelete != null && lOther$provisionsDelete != null) {
-      if (l$provisionsDelete.length != lOther$provisionsDelete.length) {
+    if (l$provisionDelete != null && lOther$provisionDelete != null) {
+      if (l$provisionDelete.length != lOther$provisionDelete.length) {
         return false;
       }
-      for (int i = 0; i < l$provisionsDelete.length; i++) {
-        final l$provisionsDelete$entry = l$provisionsDelete[i];
-        final lOther$provisionsDelete$entry = lOther$provisionsDelete[i];
-        if (l$provisionsDelete$entry != lOther$provisionsDelete$entry) {
+      for (int i = 0; i < l$provisionDelete.length; i++) {
+        final l$provisionDelete$entry = l$provisionDelete[i];
+        final lOther$provisionDelete$entry = lOther$provisionDelete[i];
+        if (l$provisionDelete$entry != lOther$provisionDelete$entry) {
           return false;
         }
       }
-    } else if (l$provisionsDelete != lOther$provisionsDelete) {
+    } else if (l$provisionDelete != lOther$provisionDelete) {
+      return false;
+    }
+    final l$provisionsFirst = provisionsFirst;
+    final lOther$provisionsFirst = other.provisionsFirst;
+    if (_$data.containsKey('provisionsFirst') !=
+        other._$data.containsKey('provisionsFirst')) {
+      return false;
+    }
+    if (l$provisionsFirst != lOther$provisionsFirst) {
+      return false;
+    }
+    final l$provisionsOrderBy = provisionsOrderBy;
+    final lOther$provisionsOrderBy = other.provisionsOrderBy;
+    if (_$data.containsKey('provisionsOrderBy') !=
+        other._$data.containsKey('provisionsOrderBy')) {
+      return false;
+    }
+    if (l$provisionsOrderBy != null && lOther$provisionsOrderBy != null) {
+      if (l$provisionsOrderBy.length != lOther$provisionsOrderBy.length) {
+        return false;
+      }
+      for (int i = 0; i < l$provisionsOrderBy.length; i++) {
+        final l$provisionsOrderBy$entry = l$provisionsOrderBy[i];
+        final lOther$provisionsOrderBy$entry = lOther$provisionsOrderBy[i];
+        if (l$provisionsOrderBy$entry != lOther$provisionsOrderBy$entry) {
+          return false;
+        }
+      }
+    } else if (l$provisionsOrderBy != lOther$provisionsOrderBy) {
       return false;
     }
     return true;
@@ -1146,13 +1184,10 @@ class Variables$Mutation$CompanyPageEdit {
   @override
   int get hashCode {
     final l$infoCompanyId = infoCompanyId;
-    final l$webPage = webPage;
-    final l$symbol = symbol;
-    final l$remarks = remarks;
     final l$sharedAppellationsId = sharedAppellationsId;
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$nameJa = nameJa;
     final l$nameEn = nameEn;
     final l$pronunciationSharedDictionaryId = pronunciationSharedDictionaryId;
@@ -1161,22 +1196,9 @@ class Variables$Mutation$CompanyPageEdit {
     final l$nicknameSharedDictionaryId = nicknameSharedDictionaryId;
     final l$nicknameJa = nicknameJa;
     final l$nicknameEn = nicknameEn;
-    final l$ceoSharedAppellationsId = ceoSharedAppellationsId;
-    final l$ceoNameSharedDictionaryId = ceoNameSharedDictionaryId;
-    final l$ceoNameJa = ceoNameJa;
-    final l$ceoNameEn = ceoNameEn;
-    final l$ceoPronunciationSharedDictionaryId =
-        ceoPronunciationSharedDictionaryId;
-    final l$ceoPronunciationJa = ceoPronunciationJa;
-    final l$ceoPronunciationEn = ceoPronunciationEn;
-    final l$ceoNicknameSharedDictionaryId = ceoNicknameSharedDictionaryId;
-    final l$ceoNicknameJa = ceoNicknameJa;
-    final l$ceoNicknameEn = ceoNicknameEn;
     final l$infoAddressId = infoAddressId;
     final l$iso31663 = iso31663;
     final l$zipCode = zipCode;
-    final l$phone = phone;
-    final l$faxNumber = faxNumber;
     final l$address1SharedAppellationsId = address1SharedAppellationsId;
     final l$address1NameSharedDictionaryId = address1NameSharedDictionaryId;
     final l$address1NameJa = address1NameJa;
@@ -1213,18 +1235,32 @@ class Variables$Mutation$CompanyPageEdit {
         buildingNicknameSharedDictionaryId;
     final l$buildingNicknameJa = buildingNicknameJa;
     final l$buildingNicknameEn = buildingNicknameEn;
-    final l$provisionsUpdate = provisionsUpdate;
-    final l$provisionsCreate = provisionsCreate;
-    final l$provisionsDelete = provisionsDelete;
+    final l$phone = phone;
+    final l$faxNumber = faxNumber;
+    final l$remarks = remarks;
+    final l$webPage = webPage;
+    final l$ceoSharedAppellationsId = ceoSharedAppellationsId;
+    final l$ceoNameSharedDictionaryId = ceoNameSharedDictionaryId;
+    final l$ceoNameJa = ceoNameJa;
+    final l$ceoNameEn = ceoNameEn;
+    final l$ceoPronunciationSharedDictionaryId =
+        ceoPronunciationSharedDictionaryId;
+    final l$ceoPronunciationJa = ceoPronunciationJa;
+    final l$ceoPronunciationEn = ceoPronunciationEn;
+    final l$ceoNicknameSharedDictionaryId = ceoNicknameSharedDictionaryId;
+    final l$ceoNicknameJa = ceoNicknameJa;
+    final l$ceoNicknameEn = ceoNicknameEn;
+    final l$provisionUpdate = provisionUpdate;
+    final l$provisionCreate = provisionCreate;
+    final l$provisionDelete = provisionDelete;
+    final l$provisionsFirst = provisionsFirst;
+    final l$provisionsOrderBy = provisionsOrderBy;
     return Object.hashAll([
       l$infoCompanyId,
-      _$data.containsKey('webPage') ? l$webPage : const {},
-      _$data.containsKey('symbol') ? l$symbol : const {},
-      _$data.containsKey('remarks') ? l$remarks : const {},
       l$sharedAppellationsId,
+      l$nameSharedDictionaryId,
       l$jaLanguageCodeId,
       l$enLanguageCodeId,
-      l$nameSharedDictionaryId,
       l$nameJa,
       l$nameEn,
       l$pronunciationSharedDictionaryId,
@@ -1233,21 +1269,9 @@ class Variables$Mutation$CompanyPageEdit {
       l$nicknameSharedDictionaryId,
       l$nicknameJa,
       l$nicknameEn,
-      l$ceoSharedAppellationsId,
-      l$ceoNameSharedDictionaryId,
-      l$ceoNameJa,
-      l$ceoNameEn,
-      l$ceoPronunciationSharedDictionaryId,
-      l$ceoPronunciationJa,
-      l$ceoPronunciationEn,
-      l$ceoNicknameSharedDictionaryId,
-      l$ceoNicknameJa,
-      l$ceoNicknameEn,
       l$infoAddressId,
       _$data.containsKey('iso31663') ? l$iso31663 : const {},
       _$data.containsKey('zipCode') ? l$zipCode : const {},
-      _$data.containsKey('phone') ? l$phone : const {},
-      _$data.containsKey('faxNumber') ? l$faxNumber : const {},
       l$address1SharedAppellationsId,
       l$address1NameSharedDictionaryId,
       l$address1NameJa,
@@ -1278,20 +1302,40 @@ class Variables$Mutation$CompanyPageEdit {
       l$buildingNicknameSharedDictionaryId,
       l$buildingNicknameJa,
       l$buildingNicknameEn,
-      _$data.containsKey('provisionsUpdate')
-          ? l$provisionsUpdate == null
+      _$data.containsKey('phone') ? l$phone : const {},
+      _$data.containsKey('faxNumber') ? l$faxNumber : const {},
+      _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('webPage') ? l$webPage : const {},
+      l$ceoSharedAppellationsId,
+      l$ceoNameSharedDictionaryId,
+      l$ceoNameJa,
+      l$ceoNameEn,
+      l$ceoPronunciationSharedDictionaryId,
+      l$ceoPronunciationJa,
+      l$ceoPronunciationEn,
+      l$ceoNicknameSharedDictionaryId,
+      l$ceoNicknameJa,
+      l$ceoNicknameEn,
+      _$data.containsKey('provisionUpdate')
+          ? l$provisionUpdate == null
                 ? null
-                : Object.hashAll(l$provisionsUpdate.map((v) => v))
+                : Object.hashAll(l$provisionUpdate.map((v) => v))
           : const {},
-      _$data.containsKey('provisionsCreate')
-          ? l$provisionsCreate == null
+      _$data.containsKey('provisionCreate')
+          ? l$provisionCreate == null
                 ? null
-                : Object.hashAll(l$provisionsCreate.map((v) => v))
+                : Object.hashAll(l$provisionCreate.map((v) => v))
           : const {},
-      _$data.containsKey('provisionsDelete')
-          ? l$provisionsDelete == null
+      _$data.containsKey('provisionDelete')
+          ? l$provisionDelete == null
                 ? null
-                : Object.hashAll(l$provisionsDelete.map((v) => v))
+                : Object.hashAll(l$provisionDelete.map((v) => v))
+          : const {},
+      _$data.containsKey('provisionsFirst') ? l$provisionsFirst : const {},
+      _$data.containsKey('provisionsOrderBy')
+          ? l$provisionsOrderBy == null
+                ? null
+                : Object.hashAll(l$provisionsOrderBy.map((v) => v))
           : const {},
     ]);
   }
@@ -1308,13 +1352,10 @@ abstract class CopyWith$Variables$Mutation$CompanyPageEdit<TRes> {
 
   TRes call({
     String? infoCompanyId,
-    String? webPage,
-    String? symbol,
-    String? remarks,
     String? sharedAppellationsId,
+    String? nameSharedDictionaryId,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
-    String? nameSharedDictionaryId,
     String? nameJa,
     String? nameEn,
     String? pronunciationSharedDictionaryId,
@@ -1323,21 +1364,9 @@ abstract class CopyWith$Variables$Mutation$CompanyPageEdit<TRes> {
     String? nicknameSharedDictionaryId,
     String? nicknameJa,
     String? nicknameEn,
-    String? ceoSharedAppellationsId,
-    String? ceoNameSharedDictionaryId,
-    String? ceoNameJa,
-    String? ceoNameEn,
-    String? ceoPronunciationSharedDictionaryId,
-    String? ceoPronunciationJa,
-    String? ceoPronunciationEn,
-    String? ceoNicknameSharedDictionaryId,
-    String? ceoNicknameJa,
-    String? ceoNicknameEn,
     String? infoAddressId,
     String? iso31663,
     String? zipCode,
-    String? phone,
-    String? faxNumber,
     String? address1SharedAppellationsId,
     String? address1NameSharedDictionaryId,
     String? address1NameJa,
@@ -1368,12 +1397,28 @@ abstract class CopyWith$Variables$Mutation$CompanyPageEdit<TRes> {
     String? buildingNicknameSharedDictionaryId,
     String? buildingNicknameJa,
     String? buildingNicknameEn,
+    String? phone,
+    String? faxNumber,
+    String? remarks,
+    String? webPage,
+    String? ceoSharedAppellationsId,
+    String? ceoNameSharedDictionaryId,
+    String? ceoNameJa,
+    String? ceoNameEn,
+    String? ceoPronunciationSharedDictionaryId,
+    String? ceoPronunciationJa,
+    String? ceoPronunciationEn,
+    String? ceoNicknameSharedDictionaryId,
+    String? ceoNicknameJa,
+    String? ceoNicknameEn,
     List<
-      Input$InfoProvisionOnInfoProvisionForInfoProvisionFk2UsingInfoProvisionPkcUpdate
+      Input$InfoProvisionOnInfoProvisionForInfoProvisionFk3UsingInfoProvisionPkcUpdate
     >?
-    provisionsUpdate,
-    List<Input$InfoProvisionFk2InfoProvisionCreateInput>? provisionsCreate,
-    List<Input$InfoProvisionInfoProvisionPkcDelete>? provisionsDelete,
+    provisionUpdate,
+    List<Input$InfoProvisionFk3InfoProvisionCreateInput>? provisionCreate,
+    List<Input$InfoProvisionInfoProvisionPkcDelete>? provisionDelete,
+    int? provisionsFirst,
+    List<Enum$InfoProvisionsOrderBy>? provisionsOrderBy,
   });
 }
 
@@ -1389,13 +1434,10 @@ class _CopyWithImpl$Variables$Mutation$CompanyPageEdit<TRes>
 
   TRes call({
     Object? infoCompanyId = _undefined,
-    Object? webPage = _undefined,
-    Object? symbol = _undefined,
-    Object? remarks = _undefined,
     Object? sharedAppellationsId = _undefined,
+    Object? nameSharedDictionaryId = _undefined,
     Object? jaLanguageCodeId = _undefined,
     Object? enLanguageCodeId = _undefined,
-    Object? nameSharedDictionaryId = _undefined,
     Object? nameJa = _undefined,
     Object? nameEn = _undefined,
     Object? pronunciationSharedDictionaryId = _undefined,
@@ -1404,21 +1446,9 @@ class _CopyWithImpl$Variables$Mutation$CompanyPageEdit<TRes>
     Object? nicknameSharedDictionaryId = _undefined,
     Object? nicknameJa = _undefined,
     Object? nicknameEn = _undefined,
-    Object? ceoSharedAppellationsId = _undefined,
-    Object? ceoNameSharedDictionaryId = _undefined,
-    Object? ceoNameJa = _undefined,
-    Object? ceoNameEn = _undefined,
-    Object? ceoPronunciationSharedDictionaryId = _undefined,
-    Object? ceoPronunciationJa = _undefined,
-    Object? ceoPronunciationEn = _undefined,
-    Object? ceoNicknameSharedDictionaryId = _undefined,
-    Object? ceoNicknameJa = _undefined,
-    Object? ceoNicknameEn = _undefined,
     Object? infoAddressId = _undefined,
     Object? iso31663 = _undefined,
     Object? zipCode = _undefined,
-    Object? phone = _undefined,
-    Object? faxNumber = _undefined,
     Object? address1SharedAppellationsId = _undefined,
     Object? address1NameSharedDictionaryId = _undefined,
     Object? address1NameJa = _undefined,
@@ -1449,26 +1479,39 @@ class _CopyWithImpl$Variables$Mutation$CompanyPageEdit<TRes>
     Object? buildingNicknameSharedDictionaryId = _undefined,
     Object? buildingNicknameJa = _undefined,
     Object? buildingNicknameEn = _undefined,
-    Object? provisionsUpdate = _undefined,
-    Object? provisionsCreate = _undefined,
-    Object? provisionsDelete = _undefined,
+    Object? phone = _undefined,
+    Object? faxNumber = _undefined,
+    Object? remarks = _undefined,
+    Object? webPage = _undefined,
+    Object? ceoSharedAppellationsId = _undefined,
+    Object? ceoNameSharedDictionaryId = _undefined,
+    Object? ceoNameJa = _undefined,
+    Object? ceoNameEn = _undefined,
+    Object? ceoPronunciationSharedDictionaryId = _undefined,
+    Object? ceoPronunciationJa = _undefined,
+    Object? ceoPronunciationEn = _undefined,
+    Object? ceoNicknameSharedDictionaryId = _undefined,
+    Object? ceoNicknameJa = _undefined,
+    Object? ceoNicknameEn = _undefined,
+    Object? provisionUpdate = _undefined,
+    Object? provisionCreate = _undefined,
+    Object? provisionDelete = _undefined,
+    Object? provisionsFirst = _undefined,
+    Object? provisionsOrderBy = _undefined,
   }) => _then(
     Variables$Mutation$CompanyPageEdit._({
       ..._instance._$data,
       if (infoCompanyId != _undefined && infoCompanyId != null)
         'infoCompanyId': (infoCompanyId as String),
-      if (webPage != _undefined) 'webPage': (webPage as String?),
-      if (symbol != _undefined) 'symbol': (symbol as String?),
-      if (remarks != _undefined) 'remarks': (remarks as String?),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
         'sharedAppellationsId': (sharedAppellationsId as String),
+      if (nameSharedDictionaryId != _undefined &&
+          nameSharedDictionaryId != null)
+        'nameSharedDictionaryId': (nameSharedDictionaryId as String),
       if (jaLanguageCodeId != _undefined && jaLanguageCodeId != null)
         'jaLanguageCodeId': (jaLanguageCodeId as String),
       if (enLanguageCodeId != _undefined && enLanguageCodeId != null)
         'enLanguageCodeId': (enLanguageCodeId as String),
-      if (nameSharedDictionaryId != _undefined &&
-          nameSharedDictionaryId != null)
-        'nameSharedDictionaryId': (nameSharedDictionaryId as String),
       if (nameJa != _undefined && nameJa != null) 'nameJa': (nameJa as String),
       if (nameEn != _undefined && nameEn != null) 'nameEn': (nameEn as String),
       if (pronunciationSharedDictionaryId != _undefined &&
@@ -1486,38 +1529,10 @@ class _CopyWithImpl$Variables$Mutation$CompanyPageEdit<TRes>
         'nicknameJa': (nicknameJa as String),
       if (nicknameEn != _undefined && nicknameEn != null)
         'nicknameEn': (nicknameEn as String),
-      if (ceoSharedAppellationsId != _undefined &&
-          ceoSharedAppellationsId != null)
-        'ceoSharedAppellationsId': (ceoSharedAppellationsId as String),
-      if (ceoNameSharedDictionaryId != _undefined &&
-          ceoNameSharedDictionaryId != null)
-        'ceoNameSharedDictionaryId': (ceoNameSharedDictionaryId as String),
-      if (ceoNameJa != _undefined && ceoNameJa != null)
-        'ceoNameJa': (ceoNameJa as String),
-      if (ceoNameEn != _undefined && ceoNameEn != null)
-        'ceoNameEn': (ceoNameEn as String),
-      if (ceoPronunciationSharedDictionaryId != _undefined &&
-          ceoPronunciationSharedDictionaryId != null)
-        'ceoPronunciationSharedDictionaryId':
-            (ceoPronunciationSharedDictionaryId as String),
-      if (ceoPronunciationJa != _undefined && ceoPronunciationJa != null)
-        'ceoPronunciationJa': (ceoPronunciationJa as String),
-      if (ceoPronunciationEn != _undefined && ceoPronunciationEn != null)
-        'ceoPronunciationEn': (ceoPronunciationEn as String),
-      if (ceoNicknameSharedDictionaryId != _undefined &&
-          ceoNicknameSharedDictionaryId != null)
-        'ceoNicknameSharedDictionaryId':
-            (ceoNicknameSharedDictionaryId as String),
-      if (ceoNicknameJa != _undefined && ceoNicknameJa != null)
-        'ceoNicknameJa': (ceoNicknameJa as String),
-      if (ceoNicknameEn != _undefined && ceoNicknameEn != null)
-        'ceoNicknameEn': (ceoNicknameEn as String),
       if (infoAddressId != _undefined && infoAddressId != null)
         'infoAddressId': (infoAddressId as String),
       if (iso31663 != _undefined) 'iso31663': (iso31663 as String?),
       if (zipCode != _undefined) 'zipCode': (zipCode as String?),
-      if (phone != _undefined) 'phone': (phone as String?),
-      if (faxNumber != _undefined) 'faxNumber': (faxNumber as String?),
       if (address1SharedAppellationsId != _undefined &&
           address1SharedAppellationsId != null)
         'address1SharedAppellationsId':
@@ -1608,20 +1623,55 @@ class _CopyWithImpl$Variables$Mutation$CompanyPageEdit<TRes>
         'buildingNicknameJa': (buildingNicknameJa as String),
       if (buildingNicknameEn != _undefined && buildingNicknameEn != null)
         'buildingNicknameEn': (buildingNicknameEn as String),
-      if (provisionsUpdate != _undefined)
-        'provisionsUpdate':
-            (provisionsUpdate
+      if (phone != _undefined) 'phone': (phone as String?),
+      if (faxNumber != _undefined) 'faxNumber': (faxNumber as String?),
+      if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (webPage != _undefined) 'webPage': (webPage as String?),
+      if (ceoSharedAppellationsId != _undefined &&
+          ceoSharedAppellationsId != null)
+        'ceoSharedAppellationsId': (ceoSharedAppellationsId as String),
+      if (ceoNameSharedDictionaryId != _undefined &&
+          ceoNameSharedDictionaryId != null)
+        'ceoNameSharedDictionaryId': (ceoNameSharedDictionaryId as String),
+      if (ceoNameJa != _undefined && ceoNameJa != null)
+        'ceoNameJa': (ceoNameJa as String),
+      if (ceoNameEn != _undefined && ceoNameEn != null)
+        'ceoNameEn': (ceoNameEn as String),
+      if (ceoPronunciationSharedDictionaryId != _undefined &&
+          ceoPronunciationSharedDictionaryId != null)
+        'ceoPronunciationSharedDictionaryId':
+            (ceoPronunciationSharedDictionaryId as String),
+      if (ceoPronunciationJa != _undefined && ceoPronunciationJa != null)
+        'ceoPronunciationJa': (ceoPronunciationJa as String),
+      if (ceoPronunciationEn != _undefined && ceoPronunciationEn != null)
+        'ceoPronunciationEn': (ceoPronunciationEn as String),
+      if (ceoNicknameSharedDictionaryId != _undefined &&
+          ceoNicknameSharedDictionaryId != null)
+        'ceoNicknameSharedDictionaryId':
+            (ceoNicknameSharedDictionaryId as String),
+      if (ceoNicknameJa != _undefined && ceoNicknameJa != null)
+        'ceoNicknameJa': (ceoNicknameJa as String),
+      if (ceoNicknameEn != _undefined && ceoNicknameEn != null)
+        'ceoNicknameEn': (ceoNicknameEn as String),
+      if (provisionUpdate != _undefined)
+        'provisionUpdate':
+            (provisionUpdate
                 as List<
-                  Input$InfoProvisionOnInfoProvisionForInfoProvisionFk2UsingInfoProvisionPkcUpdate
+                  Input$InfoProvisionOnInfoProvisionForInfoProvisionFk3UsingInfoProvisionPkcUpdate
                 >?),
-      if (provisionsCreate != _undefined)
-        'provisionsCreate':
-            (provisionsCreate
-                as List<Input$InfoProvisionFk2InfoProvisionCreateInput>?),
-      if (provisionsDelete != _undefined)
-        'provisionsDelete':
-            (provisionsDelete
+      if (provisionCreate != _undefined)
+        'provisionCreate':
+            (provisionCreate
+                as List<Input$InfoProvisionFk3InfoProvisionCreateInput>?),
+      if (provisionDelete != _undefined)
+        'provisionDelete':
+            (provisionDelete
                 as List<Input$InfoProvisionInfoProvisionPkcDelete>?),
+      if (provisionsFirst != _undefined)
+        'provisionsFirst': (provisionsFirst as int?),
+      if (provisionsOrderBy != _undefined)
+        'provisionsOrderBy':
+            (provisionsOrderBy as List<Enum$InfoProvisionsOrderBy>?),
     }),
   );
 }
@@ -1634,13 +1684,10 @@ class _CopyWithStubImpl$Variables$Mutation$CompanyPageEdit<TRes>
 
   call({
     String? infoCompanyId,
-    String? webPage,
-    String? symbol,
-    String? remarks,
     String? sharedAppellationsId,
+    String? nameSharedDictionaryId,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
-    String? nameSharedDictionaryId,
     String? nameJa,
     String? nameEn,
     String? pronunciationSharedDictionaryId,
@@ -1649,21 +1696,9 @@ class _CopyWithStubImpl$Variables$Mutation$CompanyPageEdit<TRes>
     String? nicknameSharedDictionaryId,
     String? nicknameJa,
     String? nicknameEn,
-    String? ceoSharedAppellationsId,
-    String? ceoNameSharedDictionaryId,
-    String? ceoNameJa,
-    String? ceoNameEn,
-    String? ceoPronunciationSharedDictionaryId,
-    String? ceoPronunciationJa,
-    String? ceoPronunciationEn,
-    String? ceoNicknameSharedDictionaryId,
-    String? ceoNicknameJa,
-    String? ceoNicknameEn,
     String? infoAddressId,
     String? iso31663,
     String? zipCode,
-    String? phone,
-    String? faxNumber,
     String? address1SharedAppellationsId,
     String? address1NameSharedDictionaryId,
     String? address1NameJa,
@@ -1694,12 +1729,28 @@ class _CopyWithStubImpl$Variables$Mutation$CompanyPageEdit<TRes>
     String? buildingNicknameSharedDictionaryId,
     String? buildingNicknameJa,
     String? buildingNicknameEn,
+    String? phone,
+    String? faxNumber,
+    String? remarks,
+    String? webPage,
+    String? ceoSharedAppellationsId,
+    String? ceoNameSharedDictionaryId,
+    String? ceoNameJa,
+    String? ceoNameEn,
+    String? ceoPronunciationSharedDictionaryId,
+    String? ceoPronunciationJa,
+    String? ceoPronunciationEn,
+    String? ceoNicknameSharedDictionaryId,
+    String? ceoNicknameJa,
+    String? ceoNicknameEn,
     List<
-      Input$InfoProvisionOnInfoProvisionForInfoProvisionFk2UsingInfoProvisionPkcUpdate
+      Input$InfoProvisionOnInfoProvisionForInfoProvisionFk3UsingInfoProvisionPkcUpdate
     >?
-    provisionsUpdate,
-    List<Input$InfoProvisionFk2InfoProvisionCreateInput>? provisionsCreate,
-    List<Input$InfoProvisionInfoProvisionPkcDelete>? provisionsDelete,
+    provisionUpdate,
+    List<Input$InfoProvisionFk3InfoProvisionCreateInput>? provisionCreate,
+    List<Input$InfoProvisionInfoProvisionPkcDelete>? provisionDelete,
+    int? provisionsFirst,
+    List<Enum$InfoProvisionsOrderBy>? provisionsOrderBy,
   }) => _res;
 }
 
@@ -1868,34 +1919,15 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'webPage')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'symbol')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'remarks')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'sharedAppellationsId')),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(
+            name: NameNode(value: 'nameSharedDictionaryId'),
+          ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
@@ -1908,14 +1940,6 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(
-            name: NameNode(value: 'nameSharedDictionaryId'),
-          ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
@@ -1973,74 +1997,6 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(
-            name: NameNode(value: 'ceoSharedAppellationsId'),
-          ),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(
-            name: NameNode(value: 'ceoNameSharedDictionaryId'),
-          ),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'ceoNameJa')),
-          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'ceoNameEn')),
-          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(
-            name: NameNode(value: 'ceoPronunciationSharedDictionaryId'),
-          ),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'ceoPronunciationJa')),
-          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'ceoPronunciationEn')),
-          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(
-            name: NameNode(value: 'ceoNicknameSharedDictionaryId'),
-          ),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'ceoNicknameJa')),
-          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'ceoNicknameEn')),
-          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'infoAddressId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -2057,24 +2013,6 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'zipCode')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'phone')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'faxNumber')),
           type: NamedTypeNode(
             name: NameNode(value: 'String'),
             isNonNull: false,
@@ -2299,12 +2237,116 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'provisionsUpdate')),
+          variable: VariableNode(name: NameNode(value: 'phone')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'faxNumber')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'remarks')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'webPage')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(
+            name: NameNode(value: 'ceoSharedAppellationsId'),
+          ),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(
+            name: NameNode(value: 'ceoNameSharedDictionaryId'),
+          ),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'ceoNameJa')),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'ceoNameEn')),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(
+            name: NameNode(value: 'ceoPronunciationSharedDictionaryId'),
+          ),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'ceoPronunciationJa')),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'ceoPronunciationEn')),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(
+            name: NameNode(value: 'ceoNicknameSharedDictionaryId'),
+          ),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'ceoNicknameJa')),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'ceoNicknameEn')),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'provisionUpdate')),
           type: ListTypeNode(
             type: NamedTypeNode(
               name: NameNode(
                 value:
-                    'InfoProvisionOnInfoProvisionForInfoProvisionFk2UsingInfoProvisionPkcUpdate',
+                    'InfoProvisionOnInfoProvisionForInfoProvisionFk3UsingInfoProvisionPkcUpdate',
               ),
               isNonNull: true,
             ),
@@ -2314,10 +2356,10 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'provisionsCreate')),
+          variable: VariableNode(name: NameNode(value: 'provisionCreate')),
           type: ListTypeNode(
             type: NamedTypeNode(
-              name: NameNode(value: 'InfoProvisionFk2InfoProvisionCreateInput'),
+              name: NameNode(value: 'InfoProvisionFk3InfoProvisionCreateInput'),
               isNonNull: true,
             ),
             isNonNull: false,
@@ -2326,10 +2368,28 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'provisionsDelete')),
+          variable: VariableNode(name: NameNode(value: 'provisionDelete')),
           type: ListTypeNode(
             type: NamedTypeNode(
               name: NameNode(value: 'InfoProvisionInfoProvisionPkcDelete'),
+              isNonNull: true,
+            ),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'provisionsFirst')),
+          type: NamedTypeNode(name: NameNode(value: 'Int'), isNonNull: false),
+          defaultValue: DefaultValueNode(value: IntValueNode(value: '30')),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'provisionsOrderBy')),
+          type: ListTypeNode(
+            type: NamedTypeNode(
+              name: NameNode(value: 'InfoProvisionsOrderBy'),
               isNonNull: true,
             ),
             isNonNull: false,
@@ -2359,24 +2419,6 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                       name: NameNode(value: 'infoCompanyPatch'),
                       value: ObjectValueNode(
                         fields: [
-                          ObjectFieldNode(
-                            name: NameNode(value: 'webPage'),
-                            value: VariableNode(
-                              name: NameNode(value: 'webPage'),
-                            ),
-                          ),
-                          ObjectFieldNode(
-                            name: NameNode(value: 'symbol'),
-                            value: VariableNode(
-                              name: NameNode(value: 'symbol'),
-                            ),
-                          ),
-                          ObjectFieldNode(
-                            name: NameNode(value: 'remarks'),
-                            value: VariableNode(
-                              name: NameNode(value: 'remarks'),
-                            ),
-                          ),
                           ObjectFieldNode(
                             name: NameNode(value: 'sharedAppellationToNames'),
                             value: ObjectValueNode(
@@ -2773,403 +2815,6 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                             ),
                           ),
                           ObjectFieldNode(
-                            name: NameNode(
-                              value: 'sharedAppellationToCeoNames',
-                            ),
-                            value: ObjectValueNode(
-                              fields: [
-                                ObjectFieldNode(
-                                  name: NameNode(
-                                    value: 'updateBySharedAppellationsId',
-                                  ),
-                                  value: ObjectValueNode(
-                                    fields: [
-                                      ObjectFieldNode(
-                                        name: NameNode(
-                                          value: 'sharedAppellationsId',
-                                        ),
-                                        value: VariableNode(
-                                          name: NameNode(
-                                            value: 'ceoSharedAppellationsId',
-                                          ),
-                                        ),
-                                      ),
-                                      ObjectFieldNode(
-                                        name: NameNode(
-                                          value: 'sharedAppellationPatch',
-                                        ),
-                                        value: ObjectValueNode(
-                                          fields: [
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value:
-                                                    'sharedDictionaryToSharedDictionaryNameId',
-                                              ),
-                                              value: ObjectValueNode(
-                                                fields: [
-                                                  ObjectFieldNode(
-                                                    name: NameNode(
-                                                      value:
-                                                          'updateBySharedDictionaryId',
-                                                    ),
-                                                    value: ObjectValueNode(
-                                                      fields: [
-                                                        ObjectFieldNode(
-                                                          name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryId',
-                                                          ),
-                                                          value: VariableNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'ceoNameSharedDictionaryId',
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        ObjectFieldNode(
-                                                          name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryPatch',
-                                                          ),
-                                                          value: ObjectValueNode(
-                                                            fields: [
-                                                              ObjectFieldNode(
-                                                                name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryValuesUsingSharedDictionaryId',
-                                                                ),
-                                                                value: ObjectValueNode(
-                                                                  fields: [
-                                                                    ObjectFieldNode(
-                                                                      name: NameNode(
-                                                                        value:
-                                                                            'deleteOthers',
-                                                                      ),
-                                                                      value: BooleanValueNode(
-                                                                        value:
-                                                                            true,
-                                                                      ),
-                                                                    ),
-                                                                    ObjectFieldNode(
-                                                                      name: NameNode(
-                                                                        value:
-                                                                            'create',
-                                                                      ),
-                                                                      value: ListValueNode(
-                                                                        values: [
-                                                                          ObjectValueNode(
-                                                                            fields: [
-                                                                              ObjectFieldNode(
-                                                                                name: NameNode(
-                                                                                  value: 'sharedLanguageCodeId',
-                                                                                ),
-                                                                                value: VariableNode(
-                                                                                  name: NameNode(
-                                                                                    value: 'jaLanguageCodeId',
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                              ObjectFieldNode(
-                                                                                name: NameNode(
-                                                                                  value: 'dictionaryValue',
-                                                                                ),
-                                                                                value: VariableNode(
-                                                                                  name: NameNode(
-                                                                                    value: 'ceoNameJa',
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          ObjectValueNode(
-                                                                            fields: [
-                                                                              ObjectFieldNode(
-                                                                                name: NameNode(
-                                                                                  value: 'sharedLanguageCodeId',
-                                                                                ),
-                                                                                value: VariableNode(
-                                                                                  name: NameNode(
-                                                                                    value: 'enLanguageCodeId',
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                              ObjectFieldNode(
-                                                                                name: NameNode(
-                                                                                  value: 'dictionaryValue',
-                                                                                ),
-                                                                                value: VariableNode(
-                                                                                  name: NameNode(
-                                                                                    value: 'ceoNameEn',
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value:
-                                                    'sharedDictionaryToSharedDictionaryPronunciationId',
-                                              ),
-                                              value: ObjectValueNode(
-                                                fields: [
-                                                  ObjectFieldNode(
-                                                    name: NameNode(
-                                                      value:
-                                                          'updateBySharedDictionaryId',
-                                                    ),
-                                                    value: ObjectValueNode(
-                                                      fields: [
-                                                        ObjectFieldNode(
-                                                          name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryId',
-                                                          ),
-                                                          value: VariableNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'ceoPronunciationSharedDictionaryId',
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        ObjectFieldNode(
-                                                          name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryPatch',
-                                                          ),
-                                                          value: ObjectValueNode(
-                                                            fields: [
-                                                              ObjectFieldNode(
-                                                                name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryValuesUsingSharedDictionaryId',
-                                                                ),
-                                                                value: ObjectValueNode(
-                                                                  fields: [
-                                                                    ObjectFieldNode(
-                                                                      name: NameNode(
-                                                                        value:
-                                                                            'deleteOthers',
-                                                                      ),
-                                                                      value: BooleanValueNode(
-                                                                        value:
-                                                                            true,
-                                                                      ),
-                                                                    ),
-                                                                    ObjectFieldNode(
-                                                                      name: NameNode(
-                                                                        value:
-                                                                            'create',
-                                                                      ),
-                                                                      value: ListValueNode(
-                                                                        values: [
-                                                                          ObjectValueNode(
-                                                                            fields: [
-                                                                              ObjectFieldNode(
-                                                                                name: NameNode(
-                                                                                  value: 'sharedLanguageCodeId',
-                                                                                ),
-                                                                                value: VariableNode(
-                                                                                  name: NameNode(
-                                                                                    value: 'jaLanguageCodeId',
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                              ObjectFieldNode(
-                                                                                name: NameNode(
-                                                                                  value: 'dictionaryValue',
-                                                                                ),
-                                                                                value: VariableNode(
-                                                                                  name: NameNode(
-                                                                                    value: 'ceoPronunciationJa',
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          ObjectValueNode(
-                                                                            fields: [
-                                                                              ObjectFieldNode(
-                                                                                name: NameNode(
-                                                                                  value: 'sharedLanguageCodeId',
-                                                                                ),
-                                                                                value: VariableNode(
-                                                                                  name: NameNode(
-                                                                                    value: 'enLanguageCodeId',
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                              ObjectFieldNode(
-                                                                                name: NameNode(
-                                                                                  value: 'dictionaryValue',
-                                                                                ),
-                                                                                value: VariableNode(
-                                                                                  name: NameNode(
-                                                                                    value: 'ceoPronunciationEn',
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value:
-                                                    'sharedDictionaryToSharedDictionaryNicknameId',
-                                              ),
-                                              value: ObjectValueNode(
-                                                fields: [
-                                                  ObjectFieldNode(
-                                                    name: NameNode(
-                                                      value:
-                                                          'updateBySharedDictionaryId',
-                                                    ),
-                                                    value: ObjectValueNode(
-                                                      fields: [
-                                                        ObjectFieldNode(
-                                                          name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryId',
-                                                          ),
-                                                          value: VariableNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'ceoNicknameSharedDictionaryId',
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        ObjectFieldNode(
-                                                          name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryPatch',
-                                                          ),
-                                                          value: ObjectValueNode(
-                                                            fields: [
-                                                              ObjectFieldNode(
-                                                                name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryValuesUsingSharedDictionaryId',
-                                                                ),
-                                                                value: ObjectValueNode(
-                                                                  fields: [
-                                                                    ObjectFieldNode(
-                                                                      name: NameNode(
-                                                                        value:
-                                                                            'deleteOthers',
-                                                                      ),
-                                                                      value: BooleanValueNode(
-                                                                        value:
-                                                                            true,
-                                                                      ),
-                                                                    ),
-                                                                    ObjectFieldNode(
-                                                                      name: NameNode(
-                                                                        value:
-                                                                            'create',
-                                                                      ),
-                                                                      value: ListValueNode(
-                                                                        values: [
-                                                                          ObjectValueNode(
-                                                                            fields: [
-                                                                              ObjectFieldNode(
-                                                                                name: NameNode(
-                                                                                  value: 'sharedLanguageCodeId',
-                                                                                ),
-                                                                                value: VariableNode(
-                                                                                  name: NameNode(
-                                                                                    value: 'jaLanguageCodeId',
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                              ObjectFieldNode(
-                                                                                name: NameNode(
-                                                                                  value: 'dictionaryValue',
-                                                                                ),
-                                                                                value: VariableNode(
-                                                                                  name: NameNode(
-                                                                                    value: 'ceoNicknameJa',
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          ObjectValueNode(
-                                                                            fields: [
-                                                                              ObjectFieldNode(
-                                                                                name: NameNode(
-                                                                                  value: 'sharedLanguageCodeId',
-                                                                                ),
-                                                                                value: VariableNode(
-                                                                                  name: NameNode(
-                                                                                    value: 'enLanguageCodeId',
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                              ObjectFieldNode(
-                                                                                name: NameNode(
-                                                                                  value: 'dictionaryValue',
-                                                                                ),
-                                                                                value: VariableNode(
-                                                                                  name: NameNode(
-                                                                                    value: 'ceoNicknameEn',
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          ObjectFieldNode(
                             name: NameNode(value: 'infoAddressToInfoAddressId'),
                             value: ObjectValueNode(
                               fields: [
@@ -3206,22 +2851,6 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                                               value: VariableNode(
                                                 name: NameNode(
                                                   value: 'zipCode',
-                                                ),
-                                              ),
-                                            ),
-                                            ObjectFieldNode(
-                                              name: NameNode(value: 'phone'),
-                                              value: VariableNode(
-                                                name: NameNode(value: 'phone'),
-                                              ),
-                                            ),
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value: 'faxNumber',
-                                              ),
-                                              value: VariableNode(
-                                                name: NameNode(
-                                                  value: 'faxNumber',
                                                 ),
                                               ),
                                             ),
@@ -4368,6 +3997,433 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                                                 ],
                                               ),
                                             ),
+                                            ObjectFieldNode(
+                                              name: NameNode(value: 'phone'),
+                                              value: VariableNode(
+                                                name: NameNode(value: 'phone'),
+                                              ),
+                                            ),
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'faxNumber',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'faxNumber',
+                                                ),
+                                              ),
+                                            ),
+                                            ObjectFieldNode(
+                                              name: NameNode(value: 'remarks'),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'remarks',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'webPage'),
+                            value: VariableNode(
+                              name: NameNode(value: 'webPage'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(
+                              value: 'sharedAppellationToCeoNames',
+                            ),
+                            value: ObjectValueNode(
+                              fields: [
+                                ObjectFieldNode(
+                                  name: NameNode(
+                                    value: 'updateBySharedAppellationsId',
+                                  ),
+                                  value: ObjectValueNode(
+                                    fields: [
+                                      ObjectFieldNode(
+                                        name: NameNode(
+                                          value: 'sharedAppellationsId',
+                                        ),
+                                        value: VariableNode(
+                                          name: NameNode(
+                                            value: 'ceoSharedAppellationsId',
+                                          ),
+                                        ),
+                                      ),
+                                      ObjectFieldNode(
+                                        name: NameNode(
+                                          value: 'sharedAppellationPatch',
+                                        ),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value:
+                                                    'sharedDictionaryToSharedDictionaryNameId',
+                                              ),
+                                              value: ObjectValueNode(
+                                                fields: [
+                                                  ObjectFieldNode(
+                                                    name: NameNode(
+                                                      value:
+                                                          'updateBySharedDictionaryId',
+                                                    ),
+                                                    value: ObjectValueNode(
+                                                      fields: [
+                                                        ObjectFieldNode(
+                                                          name: NameNode(
+                                                            value:
+                                                                'sharedDictionaryId',
+                                                          ),
+                                                          value: VariableNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  'ceoNameSharedDictionaryId',
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        ObjectFieldNode(
+                                                          name: NameNode(
+                                                            value:
+                                                                'sharedDictionaryPatch',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedDictionaryValuesUsingSharedDictionaryId',
+                                                                ),
+                                                                value: ObjectValueNode(
+                                                                  fields: [
+                                                                    ObjectFieldNode(
+                                                                      name: NameNode(
+                                                                        value:
+                                                                            'deleteOthers',
+                                                                      ),
+                                                                      value: BooleanValueNode(
+                                                                        value:
+                                                                            true,
+                                                                      ),
+                                                                    ),
+                                                                    ObjectFieldNode(
+                                                                      name: NameNode(
+                                                                        value:
+                                                                            'create',
+                                                                      ),
+                                                                      value: ListValueNode(
+                                                                        values: [
+                                                                          ObjectValueNode(
+                                                                            fields: [
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'sharedLanguageCodeId',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'jaLanguageCodeId',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'dictionaryValue',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'ceoNameJa',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                          ObjectValueNode(
+                                                                            fields: [
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'sharedLanguageCodeId',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'enLanguageCodeId',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'dictionaryValue',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'ceoNameEn',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value:
+                                                    'sharedDictionaryToSharedDictionaryPronunciationId',
+                                              ),
+                                              value: ObjectValueNode(
+                                                fields: [
+                                                  ObjectFieldNode(
+                                                    name: NameNode(
+                                                      value:
+                                                          'updateBySharedDictionaryId',
+                                                    ),
+                                                    value: ObjectValueNode(
+                                                      fields: [
+                                                        ObjectFieldNode(
+                                                          name: NameNode(
+                                                            value:
+                                                                'sharedDictionaryId',
+                                                          ),
+                                                          value: VariableNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  'ceoPronunciationSharedDictionaryId',
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        ObjectFieldNode(
+                                                          name: NameNode(
+                                                            value:
+                                                                'sharedDictionaryPatch',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedDictionaryValuesUsingSharedDictionaryId',
+                                                                ),
+                                                                value: ObjectValueNode(
+                                                                  fields: [
+                                                                    ObjectFieldNode(
+                                                                      name: NameNode(
+                                                                        value:
+                                                                            'deleteOthers',
+                                                                      ),
+                                                                      value: BooleanValueNode(
+                                                                        value:
+                                                                            true,
+                                                                      ),
+                                                                    ),
+                                                                    ObjectFieldNode(
+                                                                      name: NameNode(
+                                                                        value:
+                                                                            'create',
+                                                                      ),
+                                                                      value: ListValueNode(
+                                                                        values: [
+                                                                          ObjectValueNode(
+                                                                            fields: [
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'sharedLanguageCodeId',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'jaLanguageCodeId',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'dictionaryValue',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'ceoPronunciationJa',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                          ObjectValueNode(
+                                                                            fields: [
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'sharedLanguageCodeId',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'enLanguageCodeId',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'dictionaryValue',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'ceoPronunciationEn',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value:
+                                                    'sharedDictionaryToSharedDictionaryNicknameId',
+                                              ),
+                                              value: ObjectValueNode(
+                                                fields: [
+                                                  ObjectFieldNode(
+                                                    name: NameNode(
+                                                      value:
+                                                          'updateBySharedDictionaryId',
+                                                    ),
+                                                    value: ObjectValueNode(
+                                                      fields: [
+                                                        ObjectFieldNode(
+                                                          name: NameNode(
+                                                            value:
+                                                                'sharedDictionaryId',
+                                                          ),
+                                                          value: VariableNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  'ceoNicknameSharedDictionaryId',
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        ObjectFieldNode(
+                                                          name: NameNode(
+                                                            value:
+                                                                'sharedDictionaryPatch',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedDictionaryValuesUsingSharedDictionaryId',
+                                                                ),
+                                                                value: ObjectValueNode(
+                                                                  fields: [
+                                                                    ObjectFieldNode(
+                                                                      name: NameNode(
+                                                                        value:
+                                                                            'deleteOthers',
+                                                                      ),
+                                                                      value: BooleanValueNode(
+                                                                        value:
+                                                                            true,
+                                                                      ),
+                                                                    ),
+                                                                    ObjectFieldNode(
+                                                                      name: NameNode(
+                                                                        value:
+                                                                            'create',
+                                                                      ),
+                                                                      value: ListValueNode(
+                                                                        values: [
+                                                                          ObjectValueNode(
+                                                                            fields: [
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'sharedLanguageCodeId',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'jaLanguageCodeId',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'dictionaryValue',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'ceoNicknameJa',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                          ObjectValueNode(
+                                                                            fields: [
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'sharedLanguageCodeId',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'enLanguageCodeId',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'dictionaryValue',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'ceoNicknameEn',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -4388,13 +4444,13 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                                     value: 'updateByInfoProvisionId',
                                   ),
                                   value: VariableNode(
-                                    name: NameNode(value: 'provisionsUpdate'),
+                                    name: NameNode(value: 'provisionUpdate'),
                                   ),
                                 ),
                                 ObjectFieldNode(
                                   name: NameNode(value: 'create'),
                                   value: VariableNode(
-                                    name: NameNode(value: 'provisionsCreate'),
+                                    name: NameNode(value: 'provisionCreate'),
                                   ),
                                 ),
                                 ObjectFieldNode(
@@ -4402,10 +4458,16 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                                     value: 'deleteByInfoProvisionId',
                                   ),
                                   value: VariableNode(
-                                    name: NameNode(value: 'provisionsDelete'),
+                                    name: NameNode(value: 'provisionDelete'),
                                   ),
                                 ),
                               ],
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'remarks'),
+                            value: VariableNode(
+                              name: NameNode(value: 'remarks'),
                             ),
                           ),
                         ],
@@ -4433,530 +4495,8 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
-                        name: NameNode(value: 'webPage'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'symbol'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
                         name: NameNode(value: 'sharedAppellationByNames'),
                         alias: NameNode(value: 'labels'),
-                        arguments: [],
-                        directives: [],
-                        selectionSet: SelectionSetNode(
-                          selections: [
-                            FieldNode(
-                              name: NameNode(value: 'sharedAppellationsId'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNameId',
-                              ),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: SelectionSetNode(
-                                selections: [
-                                  FieldNode(
-                                    name: NameNode(value: 'sharedDictionaryId'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
-                                    ),
-                                    alias: NameNode(value: 'ja'),
-                                    arguments: [
-                                      ArgumentNode(
-                                        name: NameNode(value: 'condition'),
-                                        value: ObjectValueNode(
-                                          fields: [
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value: 'sharedLanguageCodeId',
-                                              ),
-                                              value: VariableNode(
-                                                name: NameNode(
-                                                  value: 'jaLanguageCodeId',
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                    directives: [],
-                                    selectionSet: SelectionSetNode(
-                                      selections: [
-                                        FieldNode(
-                                          name: NameNode(value: 'nodes'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'dictionaryValue',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: '__typename'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
-                                    ),
-                                    alias: NameNode(value: 'en'),
-                                    arguments: [
-                                      ArgumentNode(
-                                        name: NameNode(value: 'condition'),
-                                        value: ObjectValueNode(
-                                          fields: [
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value: 'sharedLanguageCodeId',
-                                              ),
-                                              value: VariableNode(
-                                                name: NameNode(
-                                                  value: 'enLanguageCodeId',
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                    directives: [],
-                                    selectionSet: SelectionSetNode(
-                                      selections: [
-                                        FieldNode(
-                                          name: NameNode(value: 'nodes'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'dictionaryValue',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: '__typename'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: '__typename'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            FieldNode(
-                              name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
-                              ),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: SelectionSetNode(
-                                selections: [
-                                  FieldNode(
-                                    name: NameNode(value: 'sharedDictionaryId'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
-                                    ),
-                                    alias: NameNode(value: 'ja'),
-                                    arguments: [
-                                      ArgumentNode(
-                                        name: NameNode(value: 'condition'),
-                                        value: ObjectValueNode(
-                                          fields: [
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value: 'sharedLanguageCodeId',
-                                              ),
-                                              value: VariableNode(
-                                                name: NameNode(
-                                                  value: 'jaLanguageCodeId',
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                    directives: [],
-                                    selectionSet: SelectionSetNode(
-                                      selections: [
-                                        FieldNode(
-                                          name: NameNode(value: 'nodes'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'dictionaryValue',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: '__typename'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
-                                    ),
-                                    alias: NameNode(value: 'en'),
-                                    arguments: [
-                                      ArgumentNode(
-                                        name: NameNode(value: 'condition'),
-                                        value: ObjectValueNode(
-                                          fields: [
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value: 'sharedLanguageCodeId',
-                                              ),
-                                              value: VariableNode(
-                                                name: NameNode(
-                                                  value: 'enLanguageCodeId',
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                    directives: [],
-                                    selectionSet: SelectionSetNode(
-                                      selections: [
-                                        FieldNode(
-                                          name: NameNode(value: 'nodes'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'dictionaryValue',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: '__typename'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: '__typename'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            FieldNode(
-                              name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
-                              ),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: SelectionSetNode(
-                                selections: [
-                                  FieldNode(
-                                    name: NameNode(value: 'sharedDictionaryId'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
-                                    ),
-                                    alias: NameNode(value: 'ja'),
-                                    arguments: [
-                                      ArgumentNode(
-                                        name: NameNode(value: 'condition'),
-                                        value: ObjectValueNode(
-                                          fields: [
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value: 'sharedLanguageCodeId',
-                                              ),
-                                              value: VariableNode(
-                                                name: NameNode(
-                                                  value: 'jaLanguageCodeId',
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                    directives: [],
-                                    selectionSet: SelectionSetNode(
-                                      selections: [
-                                        FieldNode(
-                                          name: NameNode(value: 'nodes'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'dictionaryValue',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: '__typename'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
-                                    ),
-                                    alias: NameNode(value: 'en'),
-                                    arguments: [
-                                      ArgumentNode(
-                                        name: NameNode(value: 'condition'),
-                                        value: ObjectValueNode(
-                                          fields: [
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value: 'sharedLanguageCodeId',
-                                              ),
-                                              value: VariableNode(
-                                                name: NameNode(
-                                                  value: 'enLanguageCodeId',
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                    directives: [],
-                                    selectionSet: SelectionSetNode(
-                                      selections: [
-                                        FieldNode(
-                                          name: NameNode(value: 'nodes'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'dictionaryValue',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: '__typename'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: '__typename'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            FieldNode(
-                              name: NameNode(value: '__typename'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                          ],
-                        ),
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'sharedAppellationByCeoNames'),
-                        alias: NameNode(value: 'ceo'),
                         arguments: [],
                         directives: [],
                         selectionSet: SelectionSetNode(
@@ -5478,20 +5018,6 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(value: 'zipCode'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'phone'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'faxNumber'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -7157,6 +6683,535 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                               ),
                             ),
                             FieldNode(
+                              name: NameNode(value: 'phone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'faxNumber'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'remarks'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'webPage'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'sharedAppellationByCeoNames'),
+                        alias: NameNode(value: 'ceo'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'sharedAppellationsId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value:
+                                    'sharedDictionaryBySharedDictionaryNameId',
+                              ),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'sharedDictionaryId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'ja'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'jaLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'en'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'enLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value:
+                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                              ),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'sharedDictionaryId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'ja'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'jaLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'en'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'enLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value:
+                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                              ),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'sharedDictionaryId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'ja'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'jaLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'en'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'enLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
                               name: NameNode(value: '__typename'),
                               alias: null,
                               arguments: [],
@@ -7169,7 +7224,20 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                       FieldNode(
                         name: NameNode(value: 'infoProvisionsByInfoCompanyId'),
                         alias: NameNode(value: 'provisions'),
-                        arguments: [],
+                        arguments: [
+                          ArgumentNode(
+                            name: NameNode(value: 'first'),
+                            value: VariableNode(
+                              name: NameNode(value: 'provisionsFirst'),
+                            ),
+                          ),
+                          ArgumentNode(
+                            name: NameNode(value: 'orderBy'),
+                            value: VariableNode(
+                              name: NameNode(value: 'provisionsOrderBy'),
+                            ),
+                          ),
+                        ],
                         directives: [],
                         selectionSet: SelectionSetNode(
                           selections: [
@@ -7234,20 +7302,6 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(value: 'code'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'details'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'remarks'),
                                     alias: null,
                                     arguments: [],
                                     directives: [],
@@ -7831,6 +7885,183 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                                     ),
                                   ),
                                   FieldNode(
+                                    name: NameNode(
+                                      value: 'sharedTextByDetails',
+                                    ),
+                                    alias: NameNode(value: 'detailTexts'),
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'sharedTextId'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value:
+                                                'sharedTextValuesBySharedTextId',
+                                          ),
+                                          alias: NameNode(value: 'ja'),
+                                          arguments: [
+                                            ArgumentNode(
+                                              name: NameNode(
+                                                value: 'condition',
+                                              ),
+                                              value: ObjectValueNode(
+                                                fields: [
+                                                  ObjectFieldNode(
+                                                    name: NameNode(
+                                                      value:
+                                                          'sharedLanguageCodeId',
+                                                    ),
+                                                    value: VariableNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'jaLanguageCodeId',
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(value: 'nodes'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: 'textValue',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value:
+                                                'sharedTextValuesBySharedTextId',
+                                          ),
+                                          alias: NameNode(value: 'en'),
+                                          arguments: [
+                                            ArgumentNode(
+                                              name: NameNode(
+                                                value: 'condition',
+                                              ),
+                                              value: ObjectValueNode(
+                                                fields: [
+                                                  ObjectFieldNode(
+                                                    name: NameNode(
+                                                      value:
+                                                          'sharedLanguageCodeId',
+                                                    ),
+                                                    value: VariableNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'enLanguageCodeId',
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(value: 'nodes'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: 'textValue',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'remarks'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
                                     name: NameNode(value: '__typename'),
                                     alias: null,
                                     arguments: [],
@@ -7849,6 +8080,13 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                             ),
                           ],
                         ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
                       ),
                       FieldNode(
                         name: NameNode(value: '__typename'),
@@ -8264,13 +8502,12 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
 class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
   Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany({
     required this.infoCompanyId,
-    this.webPage,
-    this.symbol,
-    this.remarks,
     this.labels,
-    this.ceo,
     this.address,
+    this.webPage,
+    this.ceo,
     required this.provisions,
+    this.remarks,
     this.$__typename = 'InfoCompany',
   });
 
@@ -8278,61 +8515,57 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
     Map<String, dynamic> json,
   ) {
     final l$infoCompanyId = json['infoCompanyId'];
-    final l$webPage = json['webPage'];
-    final l$symbol = json['symbol'];
-    final l$remarks = json['remarks'];
     final l$labels = json['labels'];
-    final l$ceo = json['ceo'];
     final l$address = json['address'];
+    final l$webPage = json['webPage'];
+    final l$ceo = json['ceo'];
     final l$provisions = json['provisions'];
+    final l$remarks = json['remarks'];
     final l$$__typename = json['__typename'];
     return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany(
       infoCompanyId: (l$infoCompanyId as String),
-      webPage: (l$webPage as String?),
-      symbol: (l$symbol as String?),
-      remarks: (l$remarks as String?),
       labels: l$labels == null
           ? null
           : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$labels.fromJson(
               (l$labels as Map<String, dynamic>),
-            ),
-      ceo: l$ceo == null
-          ? null
-          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo.fromJson(
-              (l$ceo as Map<String, dynamic>),
             ),
       address: l$address == null
           ? null
           : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address.fromJson(
               (l$address as Map<String, dynamic>),
             ),
+      webPage: (l$webPage as String?),
+      ceo: l$ceo == null
+          ? null
+          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo.fromJson(
+              (l$ceo as Map<String, dynamic>),
+            ),
       provisions:
           Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions.fromJson(
             (l$provisions as Map<String, dynamic>),
           ),
+      remarks: (l$remarks as String?),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String infoCompanyId;
 
-  final String? webPage;
-
-  final String? symbol;
-
-  final String? remarks;
-
   final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$labels?
   labels;
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo?
-  ceo;
 
   final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address?
   address;
 
+  final String? webPage;
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo?
+  ceo;
+
   final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions
   provisions;
+
+  final String? remarks;
 
   final String $__typename;
 
@@ -8340,20 +8573,18 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
     final _resultData = <String, dynamic>{};
     final l$infoCompanyId = infoCompanyId;
     _resultData['infoCompanyId'] = l$infoCompanyId;
-    final l$webPage = webPage;
-    _resultData['webPage'] = l$webPage;
-    final l$symbol = symbol;
-    _resultData['symbol'] = l$symbol;
-    final l$remarks = remarks;
-    _resultData['remarks'] = l$remarks;
     final l$labels = labels;
     _resultData['labels'] = l$labels?.toJson();
-    final l$ceo = ceo;
-    _resultData['ceo'] = l$ceo?.toJson();
     final l$address = address;
     _resultData['address'] = l$address?.toJson();
+    final l$webPage = webPage;
+    _resultData['webPage'] = l$webPage;
+    final l$ceo = ceo;
+    _resultData['ceo'] = l$ceo?.toJson();
     final l$provisions = provisions;
     _resultData['provisions'] = l$provisions.toJson();
+    final l$remarks = remarks;
+    _resultData['remarks'] = l$remarks;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -8362,23 +8593,21 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
   @override
   int get hashCode {
     final l$infoCompanyId = infoCompanyId;
-    final l$webPage = webPage;
-    final l$symbol = symbol;
-    final l$remarks = remarks;
     final l$labels = labels;
-    final l$ceo = ceo;
     final l$address = address;
+    final l$webPage = webPage;
+    final l$ceo = ceo;
     final l$provisions = provisions;
+    final l$remarks = remarks;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoCompanyId,
-      l$webPage,
-      l$symbol,
-      l$remarks,
       l$labels,
-      l$ceo,
       l$address,
+      l$webPage,
+      l$ceo,
       l$provisions,
+      l$remarks,
       l$$__typename,
     ]);
   }
@@ -8398,29 +8627,9 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
     if (l$infoCompanyId != lOther$infoCompanyId) {
       return false;
     }
-    final l$webPage = webPage;
-    final lOther$webPage = other.webPage;
-    if (l$webPage != lOther$webPage) {
-      return false;
-    }
-    final l$symbol = symbol;
-    final lOther$symbol = other.symbol;
-    if (l$symbol != lOther$symbol) {
-      return false;
-    }
-    final l$remarks = remarks;
-    final lOther$remarks = other.remarks;
-    if (l$remarks != lOther$remarks) {
-      return false;
-    }
     final l$labels = labels;
     final lOther$labels = other.labels;
     if (l$labels != lOther$labels) {
-      return false;
-    }
-    final l$ceo = ceo;
-    final lOther$ceo = other.ceo;
-    if (l$ceo != lOther$ceo) {
       return false;
     }
     final l$address = address;
@@ -8428,9 +8637,24 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
     if (l$address != lOther$address) {
       return false;
     }
+    final l$webPage = webPage;
+    final lOther$webPage = other.webPage;
+    if (l$webPage != lOther$webPage) {
+      return false;
+    }
+    final l$ceo = ceo;
+    final lOther$ceo = other.ceo;
+    if (l$ceo != lOther$ceo) {
+      return false;
+    }
     final l$provisions = provisions;
     final lOther$provisions = other.provisions;
     if (l$provisions != lOther$provisions) {
+      return false;
+    }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (l$remarks != lOther$remarks) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -8472,31 +8696,30 @@ abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
 
   TRes call({
     String? infoCompanyId,
-    String? webPage,
-    String? symbol,
-    String? remarks,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$labels?
     labels,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo?
-    ceo,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address?
     address,
+    String? webPage,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo?
+    ceo,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions?
     provisions,
+    String? remarks,
     String? $__typename,
   });
   CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$labels<
     TRes
   >
   get labels;
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
-    TRes
-  >
-  get ceo;
   CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address<
     TRes
   >
   get address;
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
+    TRes
+  >
+  get ceo;
   CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions<
     TRes
   >
@@ -8527,38 +8750,36 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
 
   TRes call({
     Object? infoCompanyId = _undefined,
-    Object? webPage = _undefined,
-    Object? symbol = _undefined,
-    Object? remarks = _undefined,
     Object? labels = _undefined,
-    Object? ceo = _undefined,
     Object? address = _undefined,
+    Object? webPage = _undefined,
+    Object? ceo = _undefined,
     Object? provisions = _undefined,
+    Object? remarks = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany(
       infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
           : (infoCompanyId as String),
-      webPage: webPage == _undefined ? _instance.webPage : (webPage as String?),
-      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
-      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       labels: labels == _undefined
           ? _instance.labels
           : (labels
                 as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$labels?),
-      ceo: ceo == _undefined
-          ? _instance.ceo
-          : (ceo
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo?),
       address: address == _undefined
           ? _instance.address
           : (address
                 as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address?),
+      webPage: webPage == _undefined ? _instance.webPage : (webPage as String?),
+      ceo: ceo == _undefined
+          ? _instance.ceo
+          : (ceo
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo?),
       provisions: provisions == _undefined || provisions == null
           ? _instance.provisions
           : (provisions
                 as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions),
+      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -8580,21 +8801,6 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
           );
   }
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
-    TRes
-  >
-  get ceo {
-    final local$ceo = _instance.ceo;
-    return local$ceo == null
-        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo.stub(
-            _then(_instance),
-          )
-        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo(
-            local$ceo,
-            (e) => call(ceo: e),
-          );
-  }
-
   CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address<
     TRes
   >
@@ -8607,6 +8813,21 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
         : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address(
             local$address,
             (e) => call(address: e),
+          );
+  }
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
+    TRes
+  >
+  get ceo {
+    final local$ceo = _instance.ceo;
+    return local$ceo == null
+        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo.stub(
+            _then(_instance),
+          )
+        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo(
+            local$ceo,
+            (e) => call(ceo: e),
           );
   }
 
@@ -8637,17 +8858,16 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
 
   call({
     String? infoCompanyId,
-    String? webPage,
-    String? symbol,
-    String? remarks,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$labels?
     labels,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo?
-    ceo,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address?
     address,
+    String? webPage,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo?
+    ceo,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions?
     provisions,
+    String? remarks,
     String? $__typename,
   }) => _res;
 
@@ -8659,19 +8879,19 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
         _res,
       );
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
-    TRes
-  >
-  get ceo =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo.stub(
-        _res,
-      );
-
   CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address<
     TRes
   >
   get address =>
       CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
+    TRes
+  >
+  get ceo =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo.stub(
         _res,
       );
 
@@ -11992,3324 +12212,17 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo({
-    required this.sharedAppellationsId,
-    this.sharedDictionaryBySharedDictionaryNameId,
-    this.sharedDictionaryBySharedDictionaryPronunciationId,
-    this.sharedDictionaryBySharedDictionaryNicknameId,
-    this.$__typename = 'SharedAppellation',
-  });
-
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$sharedAppellationsId = json['sharedAppellationsId'];
-    final l$sharedDictionaryBySharedDictionaryNameId =
-        json['sharedDictionaryBySharedDictionaryNameId'];
-    final l$sharedDictionaryBySharedDictionaryPronunciationId =
-        json['sharedDictionaryBySharedDictionaryPronunciationId'];
-    final l$sharedDictionaryBySharedDictionaryNicknameId =
-        json['sharedDictionaryBySharedDictionaryNicknameId'];
-    final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo(
-      sharedAppellationsId: (l$sharedAppellationsId as String),
-      sharedDictionaryBySharedDictionaryNameId:
-          l$sharedDictionaryBySharedDictionaryNameId == null
-          ? null
-          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId.fromJson(
-              (l$sharedDictionaryBySharedDictionaryNameId
-                  as Map<String, dynamic>),
-            ),
-      sharedDictionaryBySharedDictionaryPronunciationId:
-          l$sharedDictionaryBySharedDictionaryPronunciationId == null
-          ? null
-          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
-              (l$sharedDictionaryBySharedDictionaryPronunciationId
-                  as Map<String, dynamic>),
-            ),
-      sharedDictionaryBySharedDictionaryNicknameId:
-          l$sharedDictionaryBySharedDictionaryNicknameId == null
-          ? null
-          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
-              (l$sharedDictionaryBySharedDictionaryNicknameId
-                  as Map<String, dynamic>),
-            ),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final String sharedAppellationsId;
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId?
-  sharedDictionaryBySharedDictionaryNameId;
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId?
-  sharedDictionaryBySharedDictionaryPronunciationId;
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId?
-  sharedDictionaryBySharedDictionaryNicknameId;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$sharedAppellationsId = sharedAppellationsId;
-    _resultData['sharedAppellationsId'] = l$sharedAppellationsId;
-    final l$sharedDictionaryBySharedDictionaryNameId =
-        sharedDictionaryBySharedDictionaryNameId;
-    _resultData['sharedDictionaryBySharedDictionaryNameId'] =
-        l$sharedDictionaryBySharedDictionaryNameId?.toJson();
-    final l$sharedDictionaryBySharedDictionaryPronunciationId =
-        sharedDictionaryBySharedDictionaryPronunciationId;
-    _resultData['sharedDictionaryBySharedDictionaryPronunciationId'] =
-        l$sharedDictionaryBySharedDictionaryPronunciationId?.toJson();
-    final l$sharedDictionaryBySharedDictionaryNicknameId =
-        sharedDictionaryBySharedDictionaryNicknameId;
-    _resultData['sharedDictionaryBySharedDictionaryNicknameId'] =
-        l$sharedDictionaryBySharedDictionaryNicknameId?.toJson();
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$sharedAppellationsId = sharedAppellationsId;
-    final l$sharedDictionaryBySharedDictionaryNameId =
-        sharedDictionaryBySharedDictionaryNameId;
-    final l$sharedDictionaryBySharedDictionaryPronunciationId =
-        sharedDictionaryBySharedDictionaryPronunciationId;
-    final l$sharedDictionaryBySharedDictionaryNicknameId =
-        sharedDictionaryBySharedDictionaryNicknameId;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      l$sharedAppellationsId,
-      l$sharedDictionaryBySharedDictionaryNameId,
-      l$sharedDictionaryBySharedDictionaryPronunciationId,
-      l$sharedDictionaryBySharedDictionaryNicknameId,
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$sharedAppellationsId = sharedAppellationsId;
-    final lOther$sharedAppellationsId = other.sharedAppellationsId;
-    if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
-      return false;
-    }
-    final l$sharedDictionaryBySharedDictionaryNameId =
-        sharedDictionaryBySharedDictionaryNameId;
-    final lOther$sharedDictionaryBySharedDictionaryNameId =
-        other.sharedDictionaryBySharedDictionaryNameId;
-    if (l$sharedDictionaryBySharedDictionaryNameId !=
-        lOther$sharedDictionaryBySharedDictionaryNameId) {
-      return false;
-    }
-    final l$sharedDictionaryBySharedDictionaryPronunciationId =
-        sharedDictionaryBySharedDictionaryPronunciationId;
-    final lOther$sharedDictionaryBySharedDictionaryPronunciationId =
-        other.sharedDictionaryBySharedDictionaryPronunciationId;
-    if (l$sharedDictionaryBySharedDictionaryPronunciationId !=
-        lOther$sharedDictionaryBySharedDictionaryPronunciationId) {
-      return false;
-    }
-    final l$sharedDictionaryBySharedDictionaryNicknameId =
-        sharedDictionaryBySharedDictionaryNicknameId;
-    final lOther$sharedDictionaryBySharedDictionaryNicknameId =
-        other.sharedDictionaryBySharedDictionaryNicknameId;
-    if (l$sharedDictionaryBySharedDictionaryNicknameId !=
-        lOther$sharedDictionaryBySharedDictionaryNicknameId) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo
-    on Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo
-  >
-  get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
-  TRes
-> {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo
-    instance,
-    TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo;
-
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo;
-
-  TRes call({
-    String? sharedAppellationsId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId?
-    sharedDictionaryBySharedDictionaryNameId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId?
-    sharedDictionaryBySharedDictionaryPronunciationId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId?
-    sharedDictionaryBySharedDictionaryNicknameId,
-    String? $__typename,
-  });
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
-    TRes
-  >
-  get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
-    TRes
-  >
-  get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
-    TRes
-  >
-  get sharedDictionaryBySharedDictionaryNicknameId;
-}
-
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo
-  _instance;
-
-  final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? sharedAppellationsId = _undefined,
-    Object? sharedDictionaryBySharedDictionaryNameId = _undefined,
-    Object? sharedDictionaryBySharedDictionaryPronunciationId = _undefined,
-    Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo(
-      sharedAppellationsId:
-          sharedAppellationsId == _undefined || sharedAppellationsId == null
-          ? _instance.sharedAppellationsId
-          : (sharedAppellationsId as String),
-      sharedDictionaryBySharedDictionaryNameId:
-          sharedDictionaryBySharedDictionaryNameId == _undefined
-          ? _instance.sharedDictionaryBySharedDictionaryNameId
-          : (sharedDictionaryBySharedDictionaryNameId
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId?),
-      sharedDictionaryBySharedDictionaryPronunciationId:
-          sharedDictionaryBySharedDictionaryPronunciationId == _undefined
-          ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
-          : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId?),
-      sharedDictionaryBySharedDictionaryNicknameId:
-          sharedDictionaryBySharedDictionaryNicknameId == _undefined
-          ? _instance.sharedDictionaryBySharedDictionaryNicknameId
-          : (sharedDictionaryBySharedDictionaryNicknameId
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId?),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
-    TRes
-  >
-  get sharedDictionaryBySharedDictionaryNameId {
-    final local$sharedDictionaryBySharedDictionaryNameId =
-        _instance.sharedDictionaryBySharedDictionaryNameId;
-    return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId.stub(
-            _then(_instance),
-          )
-        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId(
-            local$sharedDictionaryBySharedDictionaryNameId,
-            (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
-          );
-  }
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
-    TRes
-  >
-  get sharedDictionaryBySharedDictionaryPronunciationId {
-    final local$sharedDictionaryBySharedDictionaryPronunciationId =
-        _instance.sharedDictionaryBySharedDictionaryPronunciationId;
-    return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId.stub(
-            _then(_instance),
-          )
-        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId(
-            local$sharedDictionaryBySharedDictionaryPronunciationId,
-            (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
-          );
-  }
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
-    TRes
-  >
-  get sharedDictionaryBySharedDictionaryNicknameId {
-    final local$sharedDictionaryBySharedDictionaryNicknameId =
-        _instance.sharedDictionaryBySharedDictionaryNicknameId;
-    return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId.stub(
-            _then(_instance),
-          )
-        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId(
-            local$sharedDictionaryBySharedDictionaryNicknameId,
-            (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
-          );
-  }
-}
-
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    String? sharedAppellationsId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId?
-    sharedDictionaryBySharedDictionaryNameId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId?
-    sharedDictionaryBySharedDictionaryPronunciationId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId?
-    sharedDictionaryBySharedDictionaryNicknameId,
-    String? $__typename,
-  }) => _res;
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
-    TRes
-  >
-  get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId.stub(
-        _res,
-      );
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
-    TRes
-  >
-  get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId.stub(
-        _res,
-      );
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
-    TRes
-  >
-  get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId.stub(
-        _res,
-      );
-}
-
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId({
-    required this.sharedDictionaryId,
-    required this.ja,
-    required this.en,
-    this.$__typename = 'SharedDictionary',
-  });
-
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$sharedDictionaryId = json['sharedDictionaryId'];
-    final l$ja = json['ja'];
-    final l$en = json['en'];
-    final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId(
-      sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
-        (l$ja as Map<String, dynamic>),
-      ),
-      en: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
-        (l$en as Map<String, dynamic>),
-      ),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final String sharedDictionaryId;
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja
-  ja;
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en
-  en;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$sharedDictionaryId = sharedDictionaryId;
-    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
-    final l$ja = ja;
-    _resultData['ja'] = l$ja.toJson();
-    final l$en = en;
-    _resultData['en'] = l$en.toJson();
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$sharedDictionaryId = sharedDictionaryId;
-    final l$ja = ja;
-    final l$en = en;
-    final l$$__typename = $__typename;
-    return Object.hashAll([l$sharedDictionaryId, l$ja, l$en, l$$__typename]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$sharedDictionaryId = sharedDictionaryId;
-    final lOther$sharedDictionaryId = other.sharedDictionaryId;
-    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
-      return false;
-    }
-    final l$ja = ja;
-    final lOther$ja = other.ja;
-    if (l$ja != lOther$ja) {
-      return false;
-    }
-    final l$en = en;
-    final lOther$en = other.en;
-    if (l$en != lOther$en) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId
-    on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId
-  >
-  get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
-  TRes
-> {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId
-    instance,
-    TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId;
-
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId;
-
-  TRes call({
-    String? sharedDictionaryId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja?
-    ja,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en?
-    en,
-    String? $__typename,
-  });
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
-    TRes
-  >
-  get ja;
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
-    TRes
-  >
-  get en;
-}
-
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId
-  _instance;
-
-  final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? sharedDictionaryId = _undefined,
-    Object? ja = _undefined,
-    Object? en = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId(
-      sharedDictionaryId:
-          sharedDictionaryId == _undefined || sharedDictionaryId == null
-          ? _instance.sharedDictionaryId
-          : (sharedDictionaryId as String),
-      ja: ja == _undefined || ja == null
-          ? _instance.ja
-          : (ja
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja),
-      en: en == _undefined || en == null
-          ? _instance.en
-          : (en
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
-    TRes
-  >
-  get ja {
-    final local$ja = _instance.ja;
-    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja(
-      local$ja,
-      (e) => call(ja: e),
-    );
-  }
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
-    TRes
-  >
-  get en {
-    final local$en = _instance.en;
-    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en(
-      local$en,
-      (e) => call(en: e),
-    );
-  }
-}
-
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    String? sharedDictionaryId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja?
-    ja,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en?
-    en,
-    String? $__typename,
-  }) => _res;
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
-    TRes
-  >
-  get ja =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja.stub(
-        _res,
-      );
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
-    TRes
-  >
-  get en =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en.stub(
-        _res,
-      );
-}
-
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja({
-    required this.nodes,
-    this.$__typename = 'SharedDictionaryValuesConnection',
-  });
-
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$nodes = json['nodes'];
-    final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja(
-      nodes: (l$nodes as List<dynamic>)
-          .map(
-            (e) => e == null
-                ? null
-                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
-                    (e as Map<String, dynamic>),
-                  ),
-          )
-          .toList(),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final List<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
-  >
-  nodes;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$nodes = nodes;
-    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$nodes = nodes;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      Object.hashAll(l$nodes.map((v) => v)),
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$nodes = nodes;
-    final lOther$nodes = other.nodes;
-    if (l$nodes.length != lOther$nodes.length) {
-      return false;
-    }
-    for (int i = 0; i < l$nodes.length; i++) {
-      final l$nodes$entry = l$nodes[i];
-      final lOther$nodes$entry = lOther$nodes[i];
-      if (l$nodes$entry != lOther$nodes$entry) {
-        return false;
-      }
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja
-    on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja
-  >
-  get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
-  TRes
-> {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja
-    instance,
-    TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja;
-
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja;
-
-  TRes call({
-    List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
-    >?
-    nodes,
-    String? $__typename,
-  });
-  TRes nodes(
-    Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
-    >
-    Function(
-      Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes
-        >?
-      >,
-    )
-    _fn,
-  );
-}
-
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja
-  _instance;
-
-  final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? nodes = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja(
-      nodes: nodes == _undefined || nodes == null
-          ? _instance.nodes
-          : (nodes
-                as List<
-                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
-                >),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-
-  TRes nodes(
-    Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
-    >
-    Function(
-      Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes
-        >?
-      >,
-    )
-    _fn,
-  ) => call(
-    nodes: _fn(
-      _instance.nodes.map(
-        (e) => e == null
-            ? null
-            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
-                e,
-                (i) => i,
-              ),
-      ),
-    ).toList(),
-  );
-}
-
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
-    >?
-    nodes,
-    String? $__typename,
-  }) => _res;
-
-  nodes(_fn) => _res;
-}
-
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
-    required this.dictionaryValue,
-    this.$__typename = 'SharedDictionaryValue',
-  });
-
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$dictionaryValue = json['dictionaryValue'];
-    final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
-      dictionaryValue: (l$dictionaryValue as String),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final String dictionaryValue;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$dictionaryValue = dictionaryValue;
-    _resultData['dictionaryValue'] = l$dictionaryValue;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$dictionaryValue = dictionaryValue;
-    final l$$__typename = $__typename;
-    return Object.hashAll([l$dictionaryValue, l$$__typename]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$dictionaryValue = dictionaryValue;
-    final lOther$dictionaryValue = other.dictionaryValue;
-    if (l$dictionaryValue != lOther$dictionaryValue) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes
-    on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes
-  >
-  get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-  TRes
-> {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes
-    instance,
-    TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
-
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
-
-  TRes call({String? dictionaryValue, String? $__typename});
-}
-
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes
-  _instance;
-
-  final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? dictionaryValue = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
-      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
-          ? _instance.dictionaryValue
-          : (dictionaryValue as String),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-}
-
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({String? dictionaryValue, String? $__typename}) => _res;
-}
-
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en({
-    required this.nodes,
-    this.$__typename = 'SharedDictionaryValuesConnection',
-  });
-
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$nodes = json['nodes'];
-    final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en(
-      nodes: (l$nodes as List<dynamic>)
-          .map(
-            (e) => e == null
-                ? null
-                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
-                    (e as Map<String, dynamic>),
-                  ),
-          )
-          .toList(),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final List<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes?
-  >
-  nodes;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$nodes = nodes;
-    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$nodes = nodes;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      Object.hashAll(l$nodes.map((v) => v)),
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$nodes = nodes;
-    final lOther$nodes = other.nodes;
-    if (l$nodes.length != lOther$nodes.length) {
-      return false;
-    }
-    for (int i = 0; i < l$nodes.length; i++) {
-      final l$nodes$entry = l$nodes[i];
-      final lOther$nodes$entry = lOther$nodes[i];
-      if (l$nodes$entry != lOther$nodes$entry) {
-        return false;
-      }
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en
-    on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en
-  >
-  get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
-  TRes
-> {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en
-    instance,
-    TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en;
-
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en;
-
-  TRes call({
-    List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes?
-    >?
-    nodes,
-    String? $__typename,
-  });
-  TRes nodes(
-    Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes?
-    >
-    Function(
-      Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes
-        >?
-      >,
-    )
-    _fn,
-  );
-}
-
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en
-  _instance;
-
-  final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? nodes = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en(
-      nodes: nodes == _undefined || nodes == null
-          ? _instance.nodes
-          : (nodes
-                as List<
-                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes?
-                >),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-
-  TRes nodes(
-    Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes?
-    >
-    Function(
-      Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes
-        >?
-      >,
-    )
-    _fn,
-  ) => call(
-    nodes: _fn(
-      _instance.nodes.map(
-        (e) => e == null
-            ? null
-            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes(
-                e,
-                (i) => i,
-              ),
-      ),
-    ).toList(),
-  );
-}
-
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes?
-    >?
-    nodes,
-    String? $__typename,
-  }) => _res;
-
-  nodes(_fn) => _res;
-}
-
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes({
-    required this.dictionaryValue,
-    this.$__typename = 'SharedDictionaryValue',
-  });
-
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$dictionaryValue = json['dictionaryValue'];
-    final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes(
-      dictionaryValue: (l$dictionaryValue as String),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final String dictionaryValue;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$dictionaryValue = dictionaryValue;
-    _resultData['dictionaryValue'] = l$dictionaryValue;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$dictionaryValue = dictionaryValue;
-    final l$$__typename = $__typename;
-    return Object.hashAll([l$dictionaryValue, l$$__typename]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$dictionaryValue = dictionaryValue;
-    final lOther$dictionaryValue = other.dictionaryValue;
-    if (l$dictionaryValue != lOther$dictionaryValue) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes
-    on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes
-  >
-  get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-  TRes
-> {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes
-    instance,
-    TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes;
-
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes;
-
-  TRes call({String? dictionaryValue, String? $__typename});
-}
-
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes
-  _instance;
-
-  final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? dictionaryValue = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes(
-      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
-          ? _instance.dictionaryValue
-          : (dictionaryValue as String),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-}
-
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({String? dictionaryValue, String? $__typename}) => _res;
-}
-
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId({
-    required this.sharedDictionaryId,
-    required this.ja,
-    required this.en,
-    this.$__typename = 'SharedDictionary',
-  });
-
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$sharedDictionaryId = json['sharedDictionaryId'];
-    final l$ja = json['ja'];
-    final l$en = json['en'];
-    final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId(
-      sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
-        (l$ja as Map<String, dynamic>),
-      ),
-      en: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
-        (l$en as Map<String, dynamic>),
-      ),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final String sharedDictionaryId;
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja
-  ja;
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en
-  en;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$sharedDictionaryId = sharedDictionaryId;
-    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
-    final l$ja = ja;
-    _resultData['ja'] = l$ja.toJson();
-    final l$en = en;
-    _resultData['en'] = l$en.toJson();
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$sharedDictionaryId = sharedDictionaryId;
-    final l$ja = ja;
-    final l$en = en;
-    final l$$__typename = $__typename;
-    return Object.hashAll([l$sharedDictionaryId, l$ja, l$en, l$$__typename]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$sharedDictionaryId = sharedDictionaryId;
-    final lOther$sharedDictionaryId = other.sharedDictionaryId;
-    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
-      return false;
-    }
-    final l$ja = ja;
-    final lOther$ja = other.ja;
-    if (l$ja != lOther$ja) {
-      return false;
-    }
-    final l$en = en;
-    final lOther$en = other.en;
-    if (l$en != lOther$en) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId
-    on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId
-  >
-  get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
-  TRes
-> {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId
-    instance,
-    TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId;
-
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId;
-
-  TRes call({
-    String? sharedDictionaryId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja?
-    ja,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en?
-    en,
-    String? $__typename,
-  });
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
-    TRes
-  >
-  get ja;
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
-    TRes
-  >
-  get en;
-}
-
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId
-  _instance;
-
-  final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? sharedDictionaryId = _undefined,
-    Object? ja = _undefined,
-    Object? en = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId(
-      sharedDictionaryId:
-          sharedDictionaryId == _undefined || sharedDictionaryId == null
-          ? _instance.sharedDictionaryId
-          : (sharedDictionaryId as String),
-      ja: ja == _undefined || ja == null
-          ? _instance.ja
-          : (ja
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja),
-      en: en == _undefined || en == null
-          ? _instance.en
-          : (en
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
-    TRes
-  >
-  get ja {
-    final local$ja = _instance.ja;
-    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-      local$ja,
-      (e) => call(ja: e),
-    );
-  }
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
-    TRes
-  >
-  get en {
-    final local$en = _instance.en;
-    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en(
-      local$en,
-      (e) => call(en: e),
-    );
-  }
-}
-
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    String? sharedDictionaryId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja?
-    ja,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en?
-    en,
-    String? $__typename,
-  }) => _res;
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
-    TRes
-  >
-  get ja =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
-        _res,
-      );
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
-    TRes
-  >
-  get en =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
-        _res,
-      );
-}
-
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja({
-    required this.nodes,
-    this.$__typename = 'SharedDictionaryValuesConnection',
-  });
-
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$nodes = json['nodes'];
-    final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-      nodes: (l$nodes as List<dynamic>)
-          .map(
-            (e) => e == null
-                ? null
-                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
-                    (e as Map<String, dynamic>),
-                  ),
-          )
-          .toList(),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final List<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
-  >
-  nodes;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$nodes = nodes;
-    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$nodes = nodes;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      Object.hashAll(l$nodes.map((v) => v)),
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$nodes = nodes;
-    final lOther$nodes = other.nodes;
-    if (l$nodes.length != lOther$nodes.length) {
-      return false;
-    }
-    for (int i = 0; i < l$nodes.length; i++) {
-      final l$nodes$entry = l$nodes[i];
-      final lOther$nodes$entry = lOther$nodes[i];
-      if (l$nodes$entry != lOther$nodes$entry) {
-        return false;
-      }
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja
-    on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja
-  >
-  get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
-  TRes
-> {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja
-    instance,
-    TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja;
-
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja;
-
-  TRes call({
-    List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
-    >?
-    nodes,
-    String? $__typename,
-  });
-  TRes nodes(
-    Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
-    >
-    Function(
-      Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
-        >?
-      >,
-    )
-    _fn,
-  );
-}
-
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja
-  _instance;
-
-  final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? nodes = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-      nodes: nodes == _undefined || nodes == null
-          ? _instance.nodes
-          : (nodes
-                as List<
-                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
-                >),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-
-  TRes nodes(
-    Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
-    >
-    Function(
-      Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
-        >?
-      >,
-    )
-    _fn,
-  ) => call(
-    nodes: _fn(
-      _instance.nodes.map(
-        (e) => e == null
-            ? null
-            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
-                e,
-                (i) => i,
-              ),
-      ),
-    ).toList(),
-  );
-}
-
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
-    >?
-    nodes,
-    String? $__typename,
-  }) => _res;
-
-  nodes(_fn) => _res;
-}
-
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
-    required this.dictionaryValue,
-    this.$__typename = 'SharedDictionaryValue',
-  });
-
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$dictionaryValue = json['dictionaryValue'];
-    final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
-      dictionaryValue: (l$dictionaryValue as String),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final String dictionaryValue;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$dictionaryValue = dictionaryValue;
-    _resultData['dictionaryValue'] = l$dictionaryValue;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$dictionaryValue = dictionaryValue;
-    final l$$__typename = $__typename;
-    return Object.hashAll([l$dictionaryValue, l$$__typename]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$dictionaryValue = dictionaryValue;
-    final lOther$dictionaryValue = other.dictionaryValue;
-    if (l$dictionaryValue != lOther$dictionaryValue) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
-    on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
-  >
-  get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-  TRes
-> {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
-    instance,
-    TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
-
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
-
-  TRes call({String? dictionaryValue, String? $__typename});
-}
-
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
-  _instance;
-
-  final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? dictionaryValue = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
-      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
-          ? _instance.dictionaryValue
-          : (dictionaryValue as String),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-}
-
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({String? dictionaryValue, String? $__typename}) => _res;
-}
-
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en({
-    required this.nodes,
-    this.$__typename = 'SharedDictionaryValuesConnection',
-  });
-
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$nodes = json['nodes'];
-    final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en(
-      nodes: (l$nodes as List<dynamic>)
-          .map(
-            (e) => e == null
-                ? null
-                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
-                    (e as Map<String, dynamic>),
-                  ),
-          )
-          .toList(),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final List<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
-  >
-  nodes;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$nodes = nodes;
-    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$nodes = nodes;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      Object.hashAll(l$nodes.map((v) => v)),
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$nodes = nodes;
-    final lOther$nodes = other.nodes;
-    if (l$nodes.length != lOther$nodes.length) {
-      return false;
-    }
-    for (int i = 0; i < l$nodes.length; i++) {
-      final l$nodes$entry = l$nodes[i];
-      final lOther$nodes$entry = lOther$nodes[i];
-      if (l$nodes$entry != lOther$nodes$entry) {
-        return false;
-      }
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en
-    on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en
-  >
-  get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
-  TRes
-> {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en
-    instance,
-    TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en;
-
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en;
-
-  TRes call({
-    List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
-    >?
-    nodes,
-    String? $__typename,
-  });
-  TRes nodes(
-    Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
-    >
-    Function(
-      Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
-        >?
-      >,
-    )
-    _fn,
-  );
-}
-
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en
-  _instance;
-
-  final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? nodes = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en(
-      nodes: nodes == _undefined || nodes == null
-          ? _instance.nodes
-          : (nodes
-                as List<
-                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
-                >),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-
-  TRes nodes(
-    Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
-    >
-    Function(
-      Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
-        >?
-      >,
-    )
-    _fn,
-  ) => call(
-    nodes: _fn(
-      _instance.nodes.map(
-        (e) => e == null
-            ? null
-            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
-                e,
-                (i) => i,
-              ),
-      ),
-    ).toList(),
-  );
-}
-
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
-    >?
-    nodes,
-    String? $__typename,
-  }) => _res;
-
-  nodes(_fn) => _res;
-}
-
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
-    required this.dictionaryValue,
-    this.$__typename = 'SharedDictionaryValue',
-  });
-
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$dictionaryValue = json['dictionaryValue'];
-    final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
-      dictionaryValue: (l$dictionaryValue as String),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final String dictionaryValue;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$dictionaryValue = dictionaryValue;
-    _resultData['dictionaryValue'] = l$dictionaryValue;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$dictionaryValue = dictionaryValue;
-    final l$$__typename = $__typename;
-    return Object.hashAll([l$dictionaryValue, l$$__typename]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$dictionaryValue = dictionaryValue;
-    final lOther$dictionaryValue = other.dictionaryValue;
-    if (l$dictionaryValue != lOther$dictionaryValue) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
-    on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
-  >
-  get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-  TRes
-> {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
-    instance,
-    TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
-
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
-
-  TRes call({String? dictionaryValue, String? $__typename});
-}
-
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
-  _instance;
-
-  final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? dictionaryValue = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
-      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
-          ? _instance.dictionaryValue
-          : (dictionaryValue as String),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-}
-
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({String? dictionaryValue, String? $__typename}) => _res;
-}
-
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId({
-    required this.sharedDictionaryId,
-    required this.ja,
-    required this.en,
-    this.$__typename = 'SharedDictionary',
-  });
-
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$sharedDictionaryId = json['sharedDictionaryId'];
-    final l$ja = json['ja'];
-    final l$en = json['en'];
-    final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId(
-      sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
-        (l$ja as Map<String, dynamic>),
-      ),
-      en: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
-        (l$en as Map<String, dynamic>),
-      ),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final String sharedDictionaryId;
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja
-  ja;
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en
-  en;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$sharedDictionaryId = sharedDictionaryId;
-    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
-    final l$ja = ja;
-    _resultData['ja'] = l$ja.toJson();
-    final l$en = en;
-    _resultData['en'] = l$en.toJson();
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$sharedDictionaryId = sharedDictionaryId;
-    final l$ja = ja;
-    final l$en = en;
-    final l$$__typename = $__typename;
-    return Object.hashAll([l$sharedDictionaryId, l$ja, l$en, l$$__typename]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$sharedDictionaryId = sharedDictionaryId;
-    final lOther$sharedDictionaryId = other.sharedDictionaryId;
-    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
-      return false;
-    }
-    final l$ja = ja;
-    final lOther$ja = other.ja;
-    if (l$ja != lOther$ja) {
-      return false;
-    }
-    final l$en = en;
-    final lOther$en = other.en;
-    if (l$en != lOther$en) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId
-    on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId
-  >
-  get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
-  TRes
-> {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId
-    instance,
-    TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId;
-
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId;
-
-  TRes call({
-    String? sharedDictionaryId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja?
-    ja,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en?
-    en,
-    String? $__typename,
-  });
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
-    TRes
-  >
-  get ja;
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
-    TRes
-  >
-  get en;
-}
-
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId
-  _instance;
-
-  final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? sharedDictionaryId = _undefined,
-    Object? ja = _undefined,
-    Object? en = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId(
-      sharedDictionaryId:
-          sharedDictionaryId == _undefined || sharedDictionaryId == null
-          ? _instance.sharedDictionaryId
-          : (sharedDictionaryId as String),
-      ja: ja == _undefined || ja == null
-          ? _instance.ja
-          : (ja
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja),
-      en: en == _undefined || en == null
-          ? _instance.en
-          : (en
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
-    TRes
-  >
-  get ja {
-    final local$ja = _instance.ja;
-    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja(
-      local$ja,
-      (e) => call(ja: e),
-    );
-  }
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
-    TRes
-  >
-  get en {
-    final local$en = _instance.en;
-    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en(
-      local$en,
-      (e) => call(en: e),
-    );
-  }
-}
-
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    String? sharedDictionaryId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja?
-    ja,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en?
-    en,
-    String? $__typename,
-  }) => _res;
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
-    TRes
-  >
-  get ja =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
-        _res,
-      );
-
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
-    TRes
-  >
-  get en =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
-        _res,
-      );
-}
-
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja({
-    required this.nodes,
-    this.$__typename = 'SharedDictionaryValuesConnection',
-  });
-
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$nodes = json['nodes'];
-    final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja(
-      nodes: (l$nodes as List<dynamic>)
-          .map(
-            (e) => e == null
-                ? null
-                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
-                    (e as Map<String, dynamic>),
-                  ),
-          )
-          .toList(),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final List<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
-  >
-  nodes;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$nodes = nodes;
-    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$nodes = nodes;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      Object.hashAll(l$nodes.map((v) => v)),
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$nodes = nodes;
-    final lOther$nodes = other.nodes;
-    if (l$nodes.length != lOther$nodes.length) {
-      return false;
-    }
-    for (int i = 0; i < l$nodes.length; i++) {
-      final l$nodes$entry = l$nodes[i];
-      final lOther$nodes$entry = lOther$nodes[i];
-      if (l$nodes$entry != lOther$nodes$entry) {
-        return false;
-      }
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja
-    on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja
-  >
-  get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
-  TRes
-> {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja
-    instance,
-    TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja;
-
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja;
-
-  TRes call({
-    List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
-    >?
-    nodes,
-    String? $__typename,
-  });
-  TRes nodes(
-    Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
-    >
-    Function(
-      Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
-        >?
-      >,
-    )
-    _fn,
-  );
-}
-
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja
-  _instance;
-
-  final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? nodes = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja(
-      nodes: nodes == _undefined || nodes == null
-          ? _instance.nodes
-          : (nodes
-                as List<
-                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
-                >),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-
-  TRes nodes(
-    Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
-    >
-    Function(
-      Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
-        >?
-      >,
-    )
-    _fn,
-  ) => call(
-    nodes: _fn(
-      _instance.nodes.map(
-        (e) => e == null
-            ? null
-            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
-                e,
-                (i) => i,
-              ),
-      ),
-    ).toList(),
-  );
-}
-
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
-    >?
-    nodes,
-    String? $__typename,
-  }) => _res;
-
-  nodes(_fn) => _res;
-}
-
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
-    required this.dictionaryValue,
-    this.$__typename = 'SharedDictionaryValue',
-  });
-
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$dictionaryValue = json['dictionaryValue'];
-    final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
-      dictionaryValue: (l$dictionaryValue as String),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final String dictionaryValue;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$dictionaryValue = dictionaryValue;
-    _resultData['dictionaryValue'] = l$dictionaryValue;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$dictionaryValue = dictionaryValue;
-    final l$$__typename = $__typename;
-    return Object.hashAll([l$dictionaryValue, l$$__typename]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$dictionaryValue = dictionaryValue;
-    final lOther$dictionaryValue = other.dictionaryValue;
-    if (l$dictionaryValue != lOther$dictionaryValue) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
-    on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
-  >
-  get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-  TRes
-> {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
-    instance,
-    TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
-
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
-
-  TRes call({String? dictionaryValue, String? $__typename});
-}
-
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
-  _instance;
-
-  final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? dictionaryValue = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
-      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
-          ? _instance.dictionaryValue
-          : (dictionaryValue as String),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-}
-
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({String? dictionaryValue, String? $__typename}) => _res;
-}
-
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en({
-    required this.nodes,
-    this.$__typename = 'SharedDictionaryValuesConnection',
-  });
-
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$nodes = json['nodes'];
-    final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en(
-      nodes: (l$nodes as List<dynamic>)
-          .map(
-            (e) => e == null
-                ? null
-                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
-                    (e as Map<String, dynamic>),
-                  ),
-          )
-          .toList(),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final List<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
-  >
-  nodes;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$nodes = nodes;
-    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$nodes = nodes;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      Object.hashAll(l$nodes.map((v) => v)),
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$nodes = nodes;
-    final lOther$nodes = other.nodes;
-    if (l$nodes.length != lOther$nodes.length) {
-      return false;
-    }
-    for (int i = 0; i < l$nodes.length; i++) {
-      final l$nodes$entry = l$nodes[i];
-      final lOther$nodes$entry = lOther$nodes[i];
-      if (l$nodes$entry != lOther$nodes$entry) {
-        return false;
-      }
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en
-    on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en
-  >
-  get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
-  TRes
-> {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en
-    instance,
-    TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en;
-
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en;
-
-  TRes call({
-    List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
-    >?
-    nodes,
-    String? $__typename,
-  });
-  TRes nodes(
-    Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
-    >
-    Function(
-      Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
-        >?
-      >,
-    )
-    _fn,
-  );
-}
-
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en
-  _instance;
-
-  final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? nodes = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en(
-      nodes: nodes == _undefined || nodes == null
-          ? _instance.nodes
-          : (nodes
-                as List<
-                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
-                >),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-
-  TRes nodes(
-    Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
-    >
-    Function(
-      Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
-        >?
-      >,
-    )
-    _fn,
-  ) => call(
-    nodes: _fn(
-      _instance.nodes.map(
-        (e) => e == null
-            ? null
-            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
-                e,
-                (i) => i,
-              ),
-      ),
-    ).toList(),
-  );
-}
-
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
-    >?
-    nodes,
-    String? $__typename,
-  }) => _res;
-
-  nodes(_fn) => _res;
-}
-
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
-    required this.dictionaryValue,
-    this.$__typename = 'SharedDictionaryValue',
-  });
-
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$dictionaryValue = json['dictionaryValue'];
-    final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
-      dictionaryValue: (l$dictionaryValue as String),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final String dictionaryValue;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$dictionaryValue = dictionaryValue;
-    _resultData['dictionaryValue'] = l$dictionaryValue;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$dictionaryValue = dictionaryValue;
-    final l$$__typename = $__typename;
-    return Object.hashAll([l$dictionaryValue, l$$__typename]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$dictionaryValue = dictionaryValue;
-    final lOther$dictionaryValue = other.dictionaryValue;
-    if (l$dictionaryValue != lOther$dictionaryValue) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
-    on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
-  >
-  get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-  TRes
-> {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
-    instance,
-    TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
-
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
-
-  TRes call({String? dictionaryValue, String? $__typename});
-}
-
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
-  _instance;
-
-  final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? dictionaryValue = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
-      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
-          ? _instance.dictionaryValue
-          : (dictionaryValue as String),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-}
-
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-  TRes
->
-    implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({String? dictionaryValue, String? $__typename}) => _res;
-}
-
 class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address {
   Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address({
     required this.infoAddressId,
     this.iso31663,
     this.zipCode,
-    this.phone,
-    this.faxNumber,
     this.address1,
     this.address2,
     this.building,
+    this.phone,
+    this.faxNumber,
+    this.remarks,
     this.$__typename = 'InfoAddress',
   });
 
@@ -15319,18 +12232,17 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$addr
     final l$infoAddressId = json['infoAddressId'];
     final l$iso31663 = json['iso31663'];
     final l$zipCode = json['zipCode'];
-    final l$phone = json['phone'];
-    final l$faxNumber = json['faxNumber'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
     final l$building = json['building'];
+    final l$phone = json['phone'];
+    final l$faxNumber = json['faxNumber'];
+    final l$remarks = json['remarks'];
     final l$$__typename = json['__typename'];
     return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address(
       infoAddressId: (l$infoAddressId as String),
       iso31663: (l$iso31663 as String?),
       zipCode: (l$zipCode as String?),
-      phone: (l$phone as String?),
-      faxNumber: (l$faxNumber as String?),
       address1: l$address1 == null
           ? null
           : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address$address1.fromJson(
@@ -15346,6 +12258,9 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$addr
           : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address$building.fromJson(
               (l$building as Map<String, dynamic>),
             ),
+      phone: (l$phone as String?),
+      faxNumber: (l$faxNumber as String?),
+      remarks: (l$remarks as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -15356,10 +12271,6 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$addr
 
   final String? zipCode;
 
-  final String? phone;
-
-  final String? faxNumber;
-
   final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address$address1?
   address1;
 
@@ -15368,6 +12279,12 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$addr
 
   final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address$building?
   building;
+
+  final String? phone;
+
+  final String? faxNumber;
+
+  final String? remarks;
 
   final String $__typename;
 
@@ -15379,16 +12296,18 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$addr
     _resultData['iso31663'] = l$iso31663;
     final l$zipCode = zipCode;
     _resultData['zipCode'] = l$zipCode;
-    final l$phone = phone;
-    _resultData['phone'] = l$phone;
-    final l$faxNumber = faxNumber;
-    _resultData['faxNumber'] = l$faxNumber;
     final l$address1 = address1;
     _resultData['address1'] = l$address1?.toJson();
     final l$address2 = address2;
     _resultData['address2'] = l$address2?.toJson();
     final l$building = building;
     _resultData['building'] = l$building?.toJson();
+    final l$phone = phone;
+    _resultData['phone'] = l$phone;
+    final l$faxNumber = faxNumber;
+    _resultData['faxNumber'] = l$faxNumber;
+    final l$remarks = remarks;
+    _resultData['remarks'] = l$remarks;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -15399,21 +12318,23 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$addr
     final l$infoAddressId = infoAddressId;
     final l$iso31663 = iso31663;
     final l$zipCode = zipCode;
-    final l$phone = phone;
-    final l$faxNumber = faxNumber;
     final l$address1 = address1;
     final l$address2 = address2;
     final l$building = building;
+    final l$phone = phone;
+    final l$faxNumber = faxNumber;
+    final l$remarks = remarks;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
       l$iso31663,
       l$zipCode,
-      l$phone,
-      l$faxNumber,
       l$address1,
       l$address2,
       l$building,
+      l$phone,
+      l$faxNumber,
+      l$remarks,
       l$$__typename,
     ]);
   }
@@ -15443,16 +12364,6 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$addr
     if (l$zipCode != lOther$zipCode) {
       return false;
     }
-    final l$phone = phone;
-    final lOther$phone = other.phone;
-    if (l$phone != lOther$phone) {
-      return false;
-    }
-    final l$faxNumber = faxNumber;
-    final lOther$faxNumber = other.faxNumber;
-    if (l$faxNumber != lOther$faxNumber) {
-      return false;
-    }
     final l$address1 = address1;
     final lOther$address1 = other.address1;
     if (l$address1 != lOther$address1) {
@@ -15466,6 +12377,21 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$addr
     final l$building = building;
     final lOther$building = other.building;
     if (l$building != lOther$building) {
+      return false;
+    }
+    final l$phone = phone;
+    final lOther$phone = other.phone;
+    if (l$phone != lOther$phone) {
+      return false;
+    }
+    final l$faxNumber = faxNumber;
+    final lOther$faxNumber = other.faxNumber;
+    if (l$faxNumber != lOther$faxNumber) {
+      return false;
+    }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (l$remarks != lOther$remarks) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -15509,14 +12435,15 @@ abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
     String? infoAddressId,
     String? iso31663,
     String? zipCode,
-    String? phone,
-    String? faxNumber,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address$address1?
     address1,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address$address2?
     address2,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address$building?
     building,
+    String? phone,
+    String? faxNumber,
+    String? remarks,
     String? $__typename,
   });
   CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address$address1<
@@ -15559,11 +12486,12 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? infoAddressId = _undefined,
     Object? iso31663 = _undefined,
     Object? zipCode = _undefined,
-    Object? phone = _undefined,
-    Object? faxNumber = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
     Object? building = _undefined,
+    Object? phone = _undefined,
+    Object? faxNumber = _undefined,
+    Object? remarks = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address(
@@ -15574,10 +12502,6 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
           ? _instance.iso31663
           : (iso31663 as String?),
       zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
-      phone: phone == _undefined ? _instance.phone : (phone as String?),
-      faxNumber: faxNumber == _undefined
-          ? _instance.faxNumber
-          : (faxNumber as String?),
       address1: address1 == _undefined
           ? _instance.address1
           : (address1
@@ -15590,6 +12514,11 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
           ? _instance.building
           : (building
                 as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address$building?),
+      phone: phone == _undefined ? _instance.phone : (phone as String?),
+      faxNumber: faxNumber == _undefined
+          ? _instance.faxNumber
+          : (faxNumber as String?),
+      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -15659,14 +12588,15 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
     String? infoAddressId,
     String? iso31663,
     String? zipCode,
-    String? phone,
-    String? faxNumber,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address$address1?
     address1,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address$address2?
     address2,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$address$building?
     building,
+    String? phone,
+    String? faxNumber,
+    String? remarks,
     String? $__typename,
   }) => _res;
 
@@ -25622,6 +22552,3314 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo({
+    required this.sharedAppellationsId,
+    this.sharedDictionaryBySharedDictionaryNameId,
+    this.sharedDictionaryBySharedDictionaryPronunciationId,
+    this.sharedDictionaryBySharedDictionaryNicknameId,
+    this.$__typename = 'SharedAppellation',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedAppellationsId = json['sharedAppellationsId'];
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        json['sharedDictionaryBySharedDictionaryNameId'];
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        json['sharedDictionaryBySharedDictionaryPronunciationId'];
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        json['sharedDictionaryBySharedDictionaryNicknameId'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo(
+      sharedAppellationsId: (l$sharedAppellationsId as String),
+      sharedDictionaryBySharedDictionaryNameId:
+          l$sharedDictionaryBySharedDictionaryNameId == null
+          ? null
+          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId.fromJson(
+              (l$sharedDictionaryBySharedDictionaryNameId
+                  as Map<String, dynamic>),
+            ),
+      sharedDictionaryBySharedDictionaryPronunciationId:
+          l$sharedDictionaryBySharedDictionaryPronunciationId == null
+          ? null
+          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+              (l$sharedDictionaryBySharedDictionaryPronunciationId
+                  as Map<String, dynamic>),
+            ),
+      sharedDictionaryBySharedDictionaryNicknameId:
+          l$sharedDictionaryBySharedDictionaryNicknameId == null
+          ? null
+          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+              (l$sharedDictionaryBySharedDictionaryNicknameId
+                  as Map<String, dynamic>),
+            ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedAppellationsId;
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId?
+  sharedDictionaryBySharedDictionaryNameId;
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId?
+  sharedDictionaryBySharedDictionaryPronunciationId;
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId?
+  sharedDictionaryBySharedDictionaryNicknameId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedAppellationsId = sharedAppellationsId;
+    _resultData['sharedAppellationsId'] = l$sharedAppellationsId;
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        sharedDictionaryBySharedDictionaryNameId;
+    _resultData['sharedDictionaryBySharedDictionaryNameId'] =
+        l$sharedDictionaryBySharedDictionaryNameId?.toJson();
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        sharedDictionaryBySharedDictionaryPronunciationId;
+    _resultData['sharedDictionaryBySharedDictionaryPronunciationId'] =
+        l$sharedDictionaryBySharedDictionaryPronunciationId?.toJson();
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        sharedDictionaryBySharedDictionaryNicknameId;
+    _resultData['sharedDictionaryBySharedDictionaryNicknameId'] =
+        l$sharedDictionaryBySharedDictionaryNicknameId?.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedAppellationsId = sharedAppellationsId;
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        sharedDictionaryBySharedDictionaryNameId;
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        sharedDictionaryBySharedDictionaryPronunciationId;
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        sharedDictionaryBySharedDictionaryNicknameId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$sharedAppellationsId,
+      l$sharedDictionaryBySharedDictionaryNameId,
+      l$sharedDictionaryBySharedDictionaryPronunciationId,
+      l$sharedDictionaryBySharedDictionaryNicknameId,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedAppellationsId = sharedAppellationsId;
+    final lOther$sharedAppellationsId = other.sharedAppellationsId;
+    if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
+      return false;
+    }
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        sharedDictionaryBySharedDictionaryNameId;
+    final lOther$sharedDictionaryBySharedDictionaryNameId =
+        other.sharedDictionaryBySharedDictionaryNameId;
+    if (l$sharedDictionaryBySharedDictionaryNameId !=
+        lOther$sharedDictionaryBySharedDictionaryNameId) {
+      return false;
+    }
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        sharedDictionaryBySharedDictionaryPronunciationId;
+    final lOther$sharedDictionaryBySharedDictionaryPronunciationId =
+        other.sharedDictionaryBySharedDictionaryPronunciationId;
+    if (l$sharedDictionaryBySharedDictionaryPronunciationId !=
+        lOther$sharedDictionaryBySharedDictionaryPronunciationId) {
+      return false;
+    }
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        sharedDictionaryBySharedDictionaryNicknameId;
+    final lOther$sharedDictionaryBySharedDictionaryNicknameId =
+        other.sharedDictionaryBySharedDictionaryNicknameId;
+    if (l$sharedDictionaryBySharedDictionaryNicknameId !=
+        lOther$sharedDictionaryBySharedDictionaryNicknameId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo
+    on Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo;
+
+  TRes call({
+    String? sharedAppellationsId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId?
+    sharedDictionaryBySharedDictionaryNameId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId?
+    sharedDictionaryBySharedDictionaryPronunciationId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId?
+    sharedDictionaryBySharedDictionaryNicknameId,
+    String? $__typename,
+  });
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNameId;
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryPronunciationId;
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNicknameId;
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedAppellationsId = _undefined,
+    Object? sharedDictionaryBySharedDictionaryNameId = _undefined,
+    Object? sharedDictionaryBySharedDictionaryPronunciationId = _undefined,
+    Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo(
+      sharedAppellationsId:
+          sharedAppellationsId == _undefined || sharedAppellationsId == null
+          ? _instance.sharedAppellationsId
+          : (sharedAppellationsId as String),
+      sharedDictionaryBySharedDictionaryNameId:
+          sharedDictionaryBySharedDictionaryNameId == _undefined
+          ? _instance.sharedDictionaryBySharedDictionaryNameId
+          : (sharedDictionaryBySharedDictionaryNameId
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId?),
+      sharedDictionaryBySharedDictionaryPronunciationId:
+          sharedDictionaryBySharedDictionaryPronunciationId == _undefined
+          ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
+          : (sharedDictionaryBySharedDictionaryPronunciationId
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId?),
+      sharedDictionaryBySharedDictionaryNicknameId:
+          sharedDictionaryBySharedDictionaryNicknameId == _undefined
+          ? _instance.sharedDictionaryBySharedDictionaryNicknameId
+          : (sharedDictionaryBySharedDictionaryNicknameId
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNameId {
+    final local$sharedDictionaryBySharedDictionaryNameId =
+        _instance.sharedDictionaryBySharedDictionaryNameId;
+    return local$sharedDictionaryBySharedDictionaryNameId == null
+        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId.stub(
+            _then(_instance),
+          )
+        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId(
+            local$sharedDictionaryBySharedDictionaryNameId,
+            (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
+          );
+  }
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryPronunciationId {
+    final local$sharedDictionaryBySharedDictionaryPronunciationId =
+        _instance.sharedDictionaryBySharedDictionaryPronunciationId;
+    return local$sharedDictionaryBySharedDictionaryPronunciationId == null
+        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+            _then(_instance),
+          )
+        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId(
+            local$sharedDictionaryBySharedDictionaryPronunciationId,
+            (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
+          );
+  }
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNicknameId {
+    final local$sharedDictionaryBySharedDictionaryNicknameId =
+        _instance.sharedDictionaryBySharedDictionaryNicknameId;
+    return local$sharedDictionaryBySharedDictionaryNicknameId == null
+        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId.stub(
+            _then(_instance),
+          )
+        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId(
+            local$sharedDictionaryBySharedDictionaryNicknameId,
+            (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
+          );
+  }
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedAppellationsId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId?
+    sharedDictionaryBySharedDictionaryNameId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId?
+    sharedDictionaryBySharedDictionaryPronunciationId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId?
+    sharedDictionaryBySharedDictionaryNicknameId,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNameId =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryPronunciationId =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNicknameId =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        _res,
+      );
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId({
+    required this.sharedDictionaryId,
+    required this.ja,
+    required this.en,
+    this.$__typename = 'SharedDictionary',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedDictionaryId = json['sharedDictionaryId'];
+    final l$ja = json['ja'];
+    final l$en = json['en'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId(
+      sharedDictionaryId: (l$sharedDictionaryId as String),
+      ja: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedDictionaryId;
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja
+  ja;
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en
+  en;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedDictionaryId = sharedDictionaryId;
+    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
+    final l$ja = ja;
+    _resultData['ja'] = l$ja.toJson();
+    final l$en = en;
+    _resultData['en'] = l$en.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final l$ja = ja;
+    final l$en = en;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedDictionaryId, l$ja, l$en, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final lOther$sharedDictionaryId = other.sharedDictionaryId;
+    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
+      return false;
+    }
+    final l$ja = ja;
+    final lOther$ja = other.ja;
+    if (l$ja != lOther$ja) {
+      return false;
+    }
+    final l$en = en;
+    final lOther$en = other.en;
+    if (l$en != lOther$en) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId;
+
+  TRes call({
+    String? sharedDictionaryId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja?
+    ja,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en?
+    en,
+    String? $__typename,
+  });
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
+    TRes
+  >
+  get ja;
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
+    TRes
+  >
+  get en;
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedDictionaryId = _undefined,
+    Object? ja = _undefined,
+    Object? en = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId(
+      sharedDictionaryId:
+          sharedDictionaryId == _undefined || sharedDictionaryId == null
+          ? _instance.sharedDictionaryId
+          : (sharedDictionaryId as String),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
+    TRes
+  >
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedDictionaryId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja?
+    ja,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en?
+    en,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
+    TRes
+  >
+  get ja =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en.stub(
+        _res,
+      );
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja;
+
+  TRes call({
+    List<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en;
+
+  TRes call({
+    List<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId({
+    required this.sharedDictionaryId,
+    required this.ja,
+    required this.en,
+    this.$__typename = 'SharedDictionary',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedDictionaryId = json['sharedDictionaryId'];
+    final l$ja = json['ja'];
+    final l$en = json['en'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId(
+      sharedDictionaryId: (l$sharedDictionaryId as String),
+      ja: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedDictionaryId;
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  ja;
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en
+  en;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedDictionaryId = sharedDictionaryId;
+    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
+    final l$ja = ja;
+    _resultData['ja'] = l$ja.toJson();
+    final l$en = en;
+    _resultData['en'] = l$en.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final l$ja = ja;
+    final l$en = en;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedDictionaryId, l$ja, l$en, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final lOther$sharedDictionaryId = other.sharedDictionaryId;
+    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
+      return false;
+    }
+    final l$ja = ja;
+    final lOther$ja = other.ja;
+    if (l$ja != lOther$ja) {
+      return false;
+    }
+    final l$en = en;
+    final lOther$en = other.en;
+    if (l$en != lOther$en) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId;
+
+  TRes call({
+    String? sharedDictionaryId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    ja,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    en,
+    String? $__typename,
+  });
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    TRes
+  >
+  get ja;
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    TRes
+  >
+  get en;
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedDictionaryId = _undefined,
+    Object? ja = _undefined,
+    Object? en = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId(
+      sharedDictionaryId:
+          sharedDictionaryId == _undefined || sharedDictionaryId == null
+          ? _instance.sharedDictionaryId
+          : (sharedDictionaryId as String),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    TRes
+  >
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      local$en,
+      (e) => call(en: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedDictionaryId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    ja,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    en,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    TRes
+  >
+  get ja =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+        _res,
+      );
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+
+  TRes call({
+    List<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en;
+
+  TRes call({
+    List<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId({
+    required this.sharedDictionaryId,
+    required this.ja,
+    required this.en,
+    this.$__typename = 'SharedDictionary',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedDictionaryId = json['sharedDictionaryId'];
+    final l$ja = json['ja'];
+    final l$en = json['en'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId(
+      sharedDictionaryId: (l$sharedDictionaryId as String),
+      ja: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedDictionaryId;
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja
+  ja;
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en
+  en;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedDictionaryId = sharedDictionaryId;
+    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
+    final l$ja = ja;
+    _resultData['ja'] = l$ja.toJson();
+    final l$en = en;
+    _resultData['en'] = l$en.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final l$ja = ja;
+    final l$en = en;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedDictionaryId, l$ja, l$en, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final lOther$sharedDictionaryId = other.sharedDictionaryId;
+    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
+      return false;
+    }
+    final l$ja = ja;
+    final lOther$ja = other.ja;
+    if (l$ja != lOther$ja) {
+      return false;
+    }
+    final l$en = en;
+    final lOther$en = other.en;
+    if (l$en != lOther$en) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId;
+
+  TRes call({
+    String? sharedDictionaryId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    ja,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en?
+    en,
+    String? $__typename,
+  });
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    TRes
+  >
+  get ja;
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
+    TRes
+  >
+  get en;
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedDictionaryId = _undefined,
+    Object? ja = _undefined,
+    Object? en = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId(
+      sharedDictionaryId:
+          sharedDictionaryId == _undefined || sharedDictionaryId == null
+          ? _instance.sharedDictionaryId
+          : (sharedDictionaryId as String),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    TRes
+  >
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedDictionaryId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    ja,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en?
+    en,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    TRes
+  >
+  get ja =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+        _res,
+      );
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja;
+
+  TRes call({
+    List<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en;
+
+  TRes call({
+    List<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
 class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions {
   Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions({
     required this.totalCount,
@@ -26082,9 +26320,9 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$prov
     required this.infoProvisionId,
     required this.infoCompanyId,
     required this.code,
-    this.details,
-    this.remarks,
     this.labels,
+    this.detailTexts,
+    this.remarks,
     this.$__typename = 'InfoProvision',
   });
 
@@ -26094,21 +26332,25 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$prov
     final l$infoProvisionId = json['infoProvisionId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
-    final l$details = json['details'];
-    final l$remarks = json['remarks'];
     final l$labels = json['labels'];
+    final l$detailTexts = json['detailTexts'];
+    final l$remarks = json['remarks'];
     final l$$__typename = json['__typename'];
     return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes(
       infoProvisionId: (l$infoProvisionId as String),
       infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String),
-      details: (l$details as String?),
-      remarks: (l$remarks as String?),
       labels: l$labels == null
           ? null
           : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
+      detailTexts: l$detailTexts == null
+          ? null
+          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts.fromJson(
+              (l$detailTexts as Map<String, dynamic>),
+            ),
+      remarks: (l$remarks as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -26119,12 +26361,13 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$prov
 
   final String code;
 
-  final String? details;
-
-  final String? remarks;
-
   final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$labels?
   labels;
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts?
+  detailTexts;
+
+  final String? remarks;
 
   final String $__typename;
 
@@ -26136,12 +26379,12 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$prov
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
-    final l$details = details;
-    _resultData['details'] = l$details;
-    final l$remarks = remarks;
-    _resultData['remarks'] = l$remarks;
     final l$labels = labels;
     _resultData['labels'] = l$labels?.toJson();
+    final l$detailTexts = detailTexts;
+    _resultData['detailTexts'] = l$detailTexts?.toJson();
+    final l$remarks = remarks;
+    _resultData['remarks'] = l$remarks;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -26152,17 +26395,17 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$prov
     final l$infoProvisionId = infoProvisionId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
-    final l$details = details;
-    final l$remarks = remarks;
     final l$labels = labels;
+    final l$detailTexts = detailTexts;
+    final l$remarks = remarks;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoProvisionId,
       l$infoCompanyId,
       l$code,
-      l$details,
-      l$remarks,
       l$labels,
+      l$detailTexts,
+      l$remarks,
       l$$__typename,
     ]);
   }
@@ -26192,19 +26435,19 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$prov
     if (l$code != lOther$code) {
       return false;
     }
-    final l$details = details;
-    final lOther$details = other.details;
-    if (l$details != lOther$details) {
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$detailTexts = detailTexts;
+    final lOther$detailTexts = other.detailTexts;
+    if (l$detailTexts != lOther$detailTexts) {
       return false;
     }
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -26249,16 +26492,21 @@ abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
     String? infoProvisionId,
     String? infoCompanyId,
     String? code,
-    String? details,
-    String? remarks,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$labels?
     labels,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts?
+    detailTexts,
+    String? remarks,
     String? $__typename,
   });
   CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$labels<
     TRes
   >
   get labels;
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts<
+    TRes
+  >
+  get detailTexts;
 }
 
 class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes<
@@ -26287,9 +26535,9 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? infoProvisionId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
-    Object? details = _undefined,
-    Object? remarks = _undefined,
     Object? labels = _undefined,
+    Object? detailTexts = _undefined,
+    Object? remarks = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes(
@@ -26302,12 +26550,15 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
       code: code == _undefined || code == null
           ? _instance.code
           : (code as String),
-      details: details == _undefined ? _instance.details : (details as String?),
-      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       labels: labels == _undefined
           ? _instance.labels
           : (labels
                 as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$labels?),
+      detailTexts: detailTexts == _undefined
+          ? _instance.detailTexts
+          : (detailTexts
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts?),
+      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -26326,6 +26577,21 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
         : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts<
+    TRes
+  >
+  get detailTexts {
+    final local$detailTexts = _instance.detailTexts;
+    return local$detailTexts == null
+        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts.stub(
+            _then(_instance),
+          )
+        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts(
+            local$detailTexts,
+            (e) => call(detailTexts: e),
           );
   }
 }
@@ -26347,10 +26613,11 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
     String? infoProvisionId,
     String? infoCompanyId,
     String? code,
-    String? details,
-    String? remarks,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$labels?
     labels,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts?
+    detailTexts,
+    String? remarks,
     String? $__typename,
   }) => _res;
 
@@ -26359,6 +26626,14 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   >
   get labels =>
       CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$labels.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts<
+    TRes
+  >
+  get detailTexts =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts.stub(
         _res,
       );
 }
@@ -29670,4 +29945,988 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts({
+    required this.sharedTextId,
+    required this.ja,
+    required this.en,
+    this.$__typename = 'SharedText',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedTextId = json['sharedTextId'];
+    final l$ja = json['ja'];
+    final l$en = json['en'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts(
+      sharedTextId: (l$sharedTextId as String),
+      ja: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedTextId;
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja
+  ja;
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en
+  en;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedTextId = sharedTextId;
+    _resultData['sharedTextId'] = l$sharedTextId;
+    final l$ja = ja;
+    _resultData['ja'] = l$ja.toJson();
+    final l$en = en;
+    _resultData['en'] = l$en.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedTextId = sharedTextId;
+    final l$ja = ja;
+    final l$en = en;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedTextId, l$ja, l$en, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedTextId = sharedTextId;
+    final lOther$sharedTextId = other.sharedTextId;
+    if (l$sharedTextId != lOther$sharedTextId) {
+      return false;
+    }
+    final l$ja = ja;
+    final lOther$ja = other.ja;
+    if (l$ja != lOther$ja) {
+      return false;
+    }
+    final l$en = en;
+    final lOther$en = other.en;
+    if (l$en != lOther$en) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts;
+
+  TRes call({
+    String? sharedTextId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja?
+    ja,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en?
+    en,
+    String? $__typename,
+  });
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja<
+    TRes
+  >
+  get ja;
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en<
+    TRes
+  >
+  get en;
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedTextId = _undefined,
+    Object? ja = _undefined,
+    Object? en = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts(
+      sharedTextId: sharedTextId == _undefined || sharedTextId == null
+          ? _instance.sharedTextId
+          : (sharedTextId as String),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja<
+    TRes
+  >
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en(
+      local$en,
+      (e) => call(en: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedTextId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja?
+    ja,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en?
+    en,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja<
+    TRes
+  >
+  get ja =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en.stub(
+        _res,
+      );
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja;
+
+  TRes call({
+    List<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en;
+
+  TRes call({
+    List<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes
+    on
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes
+    instance,
+    TRes Function(
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes;
+
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$provisions$nodes$detailTexts$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
 }

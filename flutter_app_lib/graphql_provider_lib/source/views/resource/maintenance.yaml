@@ -86,7 +86,7 @@ InspectionFormulaEditFields:  &InspectionFormulaEditFields
   kind: edit
   from: mstr_inspection_formula
   requiredWhere:
-    - mstr_inspection_kind_id
+    - mstr_inspection_formula_id
   columns:
     - mstr_inspection_formula_id
     - formula_class
@@ -298,3 +298,268 @@ InspectionEquipentPageEdit:
     - update_user_id
     - update_user_history_id
     - remove
+
+######  0055: 雛形から追加
+# trans_inspect_schの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+InspectSchPage: &InspectSchPage
+  kind: read
+  from: trans_inspect_sch
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_inspect_sch_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelReadFields
+    - equipment_history_id
+    - equipment_id
+    - name: requirementTexts
+      as: requirementTexts
+      arrayType: toFirstOne
+      using: requirements
+      <<: *FlexibleTextReadFields
+    - name: attentionTexts
+      as: attentionTexts
+      arrayType: toFirstOne
+      using: attentions
+      <<: *FlexibleTextReadFields
+    - name: recommendationTexts
+      as: recommendationTexts
+      arrayType: toFirstOne
+      using: recommendations
+      <<: *FlexibleTextReadFields
+    - inspection_operation_history_id
+    - inspection_operation_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_inspect_schの書き込み
+InspectSchPageEdit:
+  kind: edit
+  from: trans_inspect_sch
+  requiredWhere:
+    - trans_inspect_sch_id
+  generateRfe: true
+  columns:
+    - trans_inspect_sch_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelEditFields
+    - equipment_history_id
+    - equipment_id
+    - name: requirementTexts
+      arrayType: toFirstOne
+      using: requirements
+      <<: *FlexibleTextEditFields
+    - name: attentionTexts
+      arrayType: toFirstOne
+      using: attentions
+      <<: *FlexibleTextEditFields
+    - name: recommendationTexts
+      arrayType: toFirstOne
+      using: recommendations
+      <<: *FlexibleTextEditFields
+    - inspection_operation_history_id
+    - inspection_operation_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_inspect_sch_detailの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+InspectSchDetailPage: &InspectSchDetailPage
+  kind: read
+  from: trans_inspect_sch_detail
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_inspect_sch_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_inspect_sch_detail_id
+    - trans_inspect_sch_id
+    - trans_purchase_detail_id
+    - scheduled_start_date
+    - scheduled_end_date
+    - stakeholder_history_id
+    - stakeholder_id
+    - inspection_history_id
+    - inspection_id
+    - inspection_formula_history_id
+    - inspection_formula_id
+    - inspection_kind_history_id
+    - inspection_kind_id
+    - inspection_operation_task_history_id
+    - inspection_operation_task_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_inspect_sch_detailの書き込み
+InspectSchDetailPageEdit:
+  kind: edit
+  from: trans_inspect_sch_detail
+  requiredWhere:
+    - trans_inspect_sch_detail_id
+  generateRfe: true
+  columns:
+    - trans_inspect_sch_detail_id
+    - trans_inspect_sch_id
+    - trans_purchase_detail_id
+    - scheduled_start_date
+    - scheduled_end_date
+    - stakeholder_history_id
+    - stakeholder_id
+    - inspection_history_id
+    - inspection_id
+    - inspection_formula_history_id
+    - inspection_formula_id
+    - inspection_kind_history_id
+    - inspection_kind_id
+    - inspection_operation_task_history_id
+    - inspection_operation_task_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_inspect_recordの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+InspectRecordPage: &InspectRecordPage
+  kind: read
+  from: trans_inspect_record
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_inspect_sch_detail_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_inspect_record_id
+    - trans_inspect_sch_detail_id
+    - implement_start_date
+    - implement_stop_date
+    - result_value
+    - result
+    - result_state
+    - name: noteTexts
+      as: noteTexts
+      arrayType: toFirstOne
+      using: notes
+      <<: *FlexibleTextReadFields
+    - stakeholder_id
+    - stakeholder_history_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_inspect_recordの書き込み
+InspectRecordPageEdit:
+  kind: edit
+  from: trans_inspect_record
+  requiredWhere:
+    - trans_inspect_record_id
+  generateRfe: true
+  columns:
+    - trans_inspect_record_id
+    - trans_inspect_sch_detail_id
+    - implement_start_date
+    - implement_stop_date
+    - result_value
+    - result
+    - result_state
+    - name: noteTexts
+      arrayType: toFirstOne
+      using: notes
+      <<: *FlexibleTextEditFields
+    - stakeholder_id
+    - stakeholder_history_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_inspect_imp_fileの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+InspectImpFilePage: &InspectImpFilePage
+  kind: read
+  from: trans_inspect_imp_file
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_inspect_record_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_inspect_imp_file_id
+    - trans_inspect_record_id
+    - trans_file_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelReadFields
+    - class
+    - trans_file_reminder_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_inspect_imp_fileの書き込み
+InspectImpFilePageEdit:
+  kind: edit
+  from: trans_inspect_imp_file
+  requiredWhere:
+    - trans_inspect_imp_file_id
+  generateRfe: true
+  columns:
+    - trans_inspect_imp_file_id
+    - trans_inspect_record_id
+    - trans_file_id
+    - name: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelEditFields
+    - class
+    - trans_file_reminder_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+

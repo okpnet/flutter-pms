@@ -7,11 +7,12 @@ import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 class Variables$Mutation$OfficePageEdit {
   factory Variables$Mutation$OfficePageEdit({
     required String infoOfficeId,
-    String? remarks,
+    String? infoCompanyId,
+    String? code,
     required String sharedAppellationsId,
+    required String nameSharedDictionaryId,
     required String jaLanguageCodeId,
     required String enLanguageCodeId,
-    required String nameSharedDictionaryId,
     required String nameJa,
     required String nameEn,
     required String pronunciationSharedDictionaryId,
@@ -23,8 +24,6 @@ class Variables$Mutation$OfficePageEdit {
     required String infoAddressId,
     String? iso31663,
     String? zipCode,
-    String? phone,
-    String? faxNumber,
     required String address1SharedAppellationsId,
     required String address1NameSharedDictionaryId,
     required String address1NameJa,
@@ -55,13 +54,17 @@ class Variables$Mutation$OfficePageEdit {
     required String buildingNicknameSharedDictionaryId,
     required String buildingNicknameJa,
     required String buildingNicknameEn,
+    String? phone,
+    String? faxNumber,
+    String? remarks,
   }) => Variables$Mutation$OfficePageEdit._({
     r'infoOfficeId': infoOfficeId,
-    if (remarks != null) r'remarks': remarks,
+    if (infoCompanyId != null) r'infoCompanyId': infoCompanyId,
+    if (code != null) r'code': code,
     r'sharedAppellationsId': sharedAppellationsId,
+    r'nameSharedDictionaryId': nameSharedDictionaryId,
     r'jaLanguageCodeId': jaLanguageCodeId,
     r'enLanguageCodeId': enLanguageCodeId,
-    r'nameSharedDictionaryId': nameSharedDictionaryId,
     r'nameJa': nameJa,
     r'nameEn': nameEn,
     r'pronunciationSharedDictionaryId': pronunciationSharedDictionaryId,
@@ -73,8 +76,6 @@ class Variables$Mutation$OfficePageEdit {
     r'infoAddressId': infoAddressId,
     if (iso31663 != null) r'iso31663': iso31663,
     if (zipCode != null) r'zipCode': zipCode,
-    if (phone != null) r'phone': phone,
-    if (faxNumber != null) r'faxNumber': faxNumber,
     r'address1SharedAppellationsId': address1SharedAppellationsId,
     r'address1NameSharedDictionaryId': address1NameSharedDictionaryId,
     r'address1NameJa': address1NameJa,
@@ -108,6 +109,9 @@ class Variables$Mutation$OfficePageEdit {
     r'buildingNicknameSharedDictionaryId': buildingNicknameSharedDictionaryId,
     r'buildingNicknameJa': buildingNicknameJa,
     r'buildingNicknameEn': buildingNicknameEn,
+    if (phone != null) r'phone': phone,
+    if (faxNumber != null) r'faxNumber': faxNumber,
+    if (remarks != null) r'remarks': remarks,
   });
 
   Variables$Mutation$OfficePageEdit._(this._$data);
@@ -118,19 +122,23 @@ class Variables$Mutation$OfficePageEdit {
     final result$data = <String, dynamic>{};
     final l$infoOfficeId = data['infoOfficeId'];
     result$data['infoOfficeId'] = (l$infoOfficeId as String);
-    if (data.containsKey('remarks')) {
-      final l$remarks = data['remarks'];
-      result$data['remarks'] = (l$remarks as String?);
+    if (data.containsKey('infoCompanyId')) {
+      final l$infoCompanyId = data['infoCompanyId'];
+      result$data['infoCompanyId'] = (l$infoCompanyId as String?);
+    }
+    if (data.containsKey('code')) {
+      final l$code = data['code'];
+      result$data['code'] = (l$code as String?);
     }
     final l$sharedAppellationsId = data['sharedAppellationsId'];
     result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
+    final l$nameSharedDictionaryId = data['nameSharedDictionaryId'];
+    result$data['nameSharedDictionaryId'] =
+        (l$nameSharedDictionaryId as String);
     final l$jaLanguageCodeId = data['jaLanguageCodeId'];
     result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String);
     final l$enLanguageCodeId = data['enLanguageCodeId'];
     result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String);
-    final l$nameSharedDictionaryId = data['nameSharedDictionaryId'];
-    result$data['nameSharedDictionaryId'] =
-        (l$nameSharedDictionaryId as String);
     final l$nameJa = data['nameJa'];
     result$data['nameJa'] = (l$nameJa as String);
     final l$nameEn = data['nameEn'];
@@ -159,14 +167,6 @@ class Variables$Mutation$OfficePageEdit {
     if (data.containsKey('zipCode')) {
       final l$zipCode = data['zipCode'];
       result$data['zipCode'] = (l$zipCode as String?);
-    }
-    if (data.containsKey('phone')) {
-      final l$phone = data['phone'];
-      result$data['phone'] = (l$phone as String?);
-    }
-    if (data.containsKey('faxNumber')) {
-      final l$faxNumber = data['faxNumber'];
-      result$data['faxNumber'] = (l$faxNumber as String?);
     }
     final l$address1SharedAppellationsId = data['address1SharedAppellationsId'];
     result$data['address1SharedAppellationsId'] =
@@ -255,6 +255,18 @@ class Variables$Mutation$OfficePageEdit {
     result$data['buildingNicknameJa'] = (l$buildingNicknameJa as String);
     final l$buildingNicknameEn = data['buildingNicknameEn'];
     result$data['buildingNicknameEn'] = (l$buildingNicknameEn as String);
+    if (data.containsKey('phone')) {
+      final l$phone = data['phone'];
+      result$data['phone'] = (l$phone as String?);
+    }
+    if (data.containsKey('faxNumber')) {
+      final l$faxNumber = data['faxNumber'];
+      result$data['faxNumber'] = (l$faxNumber as String?);
+    }
+    if (data.containsKey('remarks')) {
+      final l$remarks = data['remarks'];
+      result$data['remarks'] = (l$remarks as String?);
+    }
     return Variables$Mutation$OfficePageEdit._(result$data);
   }
 
@@ -262,16 +274,18 @@ class Variables$Mutation$OfficePageEdit {
 
   String get infoOfficeId => (_$data['infoOfficeId'] as String);
 
-  String? get remarks => (_$data['remarks'] as String?);
+  String? get infoCompanyId => (_$data['infoCompanyId'] as String?);
+
+  String? get code => (_$data['code'] as String?);
 
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
+
+  String get nameSharedDictionaryId =>
+      (_$data['nameSharedDictionaryId'] as String);
 
   String get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String);
 
   String get enLanguageCodeId => (_$data['enLanguageCodeId'] as String);
-
-  String get nameSharedDictionaryId =>
-      (_$data['nameSharedDictionaryId'] as String);
 
   String get nameJa => (_$data['nameJa'] as String);
 
@@ -296,10 +310,6 @@ class Variables$Mutation$OfficePageEdit {
   String? get iso31663 => (_$data['iso31663'] as String?);
 
   String? get zipCode => (_$data['zipCode'] as String?);
-
-  String? get phone => (_$data['phone'] as String?);
-
-  String? get faxNumber => (_$data['faxNumber'] as String?);
 
   String get address1SharedAppellationsId =>
       (_$data['address1SharedAppellationsId'] as String);
@@ -379,22 +389,32 @@ class Variables$Mutation$OfficePageEdit {
 
   String get buildingNicknameEn => (_$data['buildingNicknameEn'] as String);
 
+  String? get phone => (_$data['phone'] as String?);
+
+  String? get faxNumber => (_$data['faxNumber'] as String?);
+
+  String? get remarks => (_$data['remarks'] as String?);
+
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     final l$infoOfficeId = infoOfficeId;
     result$data['infoOfficeId'] = l$infoOfficeId;
-    if (_$data.containsKey('remarks')) {
-      final l$remarks = remarks;
-      result$data['remarks'] = l$remarks;
+    if (_$data.containsKey('infoCompanyId')) {
+      final l$infoCompanyId = infoCompanyId;
+      result$data['infoCompanyId'] = l$infoCompanyId;
+    }
+    if (_$data.containsKey('code')) {
+      final l$code = code;
+      result$data['code'] = l$code;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
     result$data['sharedAppellationsId'] = l$sharedAppellationsId;
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
+    result$data['nameSharedDictionaryId'] = l$nameSharedDictionaryId;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
     result$data['enLanguageCodeId'] = l$enLanguageCodeId;
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
-    result$data['nameSharedDictionaryId'] = l$nameSharedDictionaryId;
     final l$nameJa = nameJa;
     result$data['nameJa'] = l$nameJa;
     final l$nameEn = nameEn;
@@ -421,14 +441,6 @@ class Variables$Mutation$OfficePageEdit {
     if (_$data.containsKey('zipCode')) {
       final l$zipCode = zipCode;
       result$data['zipCode'] = l$zipCode;
-    }
-    if (_$data.containsKey('phone')) {
-      final l$phone = phone;
-      result$data['phone'] = l$phone;
-    }
-    if (_$data.containsKey('faxNumber')) {
-      final l$faxNumber = faxNumber;
-      result$data['faxNumber'] = l$faxNumber;
     }
     final l$address1SharedAppellationsId = address1SharedAppellationsId;
     result$data['address1SharedAppellationsId'] =
@@ -508,6 +520,18 @@ class Variables$Mutation$OfficePageEdit {
     result$data['buildingNicknameJa'] = l$buildingNicknameJa;
     final l$buildingNicknameEn = buildingNicknameEn;
     result$data['buildingNicknameEn'] = l$buildingNicknameEn;
+    if (_$data.containsKey('phone')) {
+      final l$phone = phone;
+      result$data['phone'] = l$phone;
+    }
+    if (_$data.containsKey('faxNumber')) {
+      final l$faxNumber = faxNumber;
+      result$data['faxNumber'] = l$faxNumber;
+    }
+    if (_$data.containsKey('remarks')) {
+      final l$remarks = remarks;
+      result$data['remarks'] = l$remarks;
+    }
     return result$data;
   }
 
@@ -528,17 +552,31 @@ class Variables$Mutation$OfficePageEdit {
     if (l$infoOfficeId != lOther$infoOfficeId) {
       return false;
     }
-    final l$remarks = remarks;
-    final lOther$remarks = other.remarks;
-    if (_$data.containsKey('remarks') != other._$data.containsKey('remarks')) {
+    final l$infoCompanyId = infoCompanyId;
+    final lOther$infoCompanyId = other.infoCompanyId;
+    if (_$data.containsKey('infoCompanyId') !=
+        other._$data.containsKey('infoCompanyId')) {
       return false;
     }
-    if (l$remarks != lOther$remarks) {
+    if (l$infoCompanyId != lOther$infoCompanyId) {
+      return false;
+    }
+    final l$code = code;
+    final lOther$code = other.code;
+    if (_$data.containsKey('code') != other._$data.containsKey('code')) {
+      return false;
+    }
+    if (l$code != lOther$code) {
       return false;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
     final lOther$sharedAppellationsId = other.sharedAppellationsId;
     if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
+      return false;
+    }
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
+    final lOther$nameSharedDictionaryId = other.nameSharedDictionaryId;
+    if (l$nameSharedDictionaryId != lOther$nameSharedDictionaryId) {
       return false;
     }
     final l$jaLanguageCodeId = jaLanguageCodeId;
@@ -549,11 +587,6 @@ class Variables$Mutation$OfficePageEdit {
     final l$enLanguageCodeId = enLanguageCodeId;
     final lOther$enLanguageCodeId = other.enLanguageCodeId;
     if (l$enLanguageCodeId != lOther$enLanguageCodeId) {
-      return false;
-    }
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
-    final lOther$nameSharedDictionaryId = other.nameSharedDictionaryId;
-    if (l$nameSharedDictionaryId != lOther$nameSharedDictionaryId) {
       return false;
     }
     final l$nameJa = nameJa;
@@ -618,23 +651,6 @@ class Variables$Mutation$OfficePageEdit {
       return false;
     }
     if (l$zipCode != lOther$zipCode) {
-      return false;
-    }
-    final l$phone = phone;
-    final lOther$phone = other.phone;
-    if (_$data.containsKey('phone') != other._$data.containsKey('phone')) {
-      return false;
-    }
-    if (l$phone != lOther$phone) {
-      return false;
-    }
-    final l$faxNumber = faxNumber;
-    final lOther$faxNumber = other.faxNumber;
-    if (_$data.containsKey('faxNumber') !=
-        other._$data.containsKey('faxNumber')) {
-      return false;
-    }
-    if (l$faxNumber != lOther$faxNumber) {
       return false;
     }
     final l$address1SharedAppellationsId = address1SharedAppellationsId;
@@ -814,17 +830,43 @@ class Variables$Mutation$OfficePageEdit {
     if (l$buildingNicknameEn != lOther$buildingNicknameEn) {
       return false;
     }
+    final l$phone = phone;
+    final lOther$phone = other.phone;
+    if (_$data.containsKey('phone') != other._$data.containsKey('phone')) {
+      return false;
+    }
+    if (l$phone != lOther$phone) {
+      return false;
+    }
+    final l$faxNumber = faxNumber;
+    final lOther$faxNumber = other.faxNumber;
+    if (_$data.containsKey('faxNumber') !=
+        other._$data.containsKey('faxNumber')) {
+      return false;
+    }
+    if (l$faxNumber != lOther$faxNumber) {
+      return false;
+    }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (_$data.containsKey('remarks') != other._$data.containsKey('remarks')) {
+      return false;
+    }
+    if (l$remarks != lOther$remarks) {
+      return false;
+    }
     return true;
   }
 
   @override
   int get hashCode {
     final l$infoOfficeId = infoOfficeId;
-    final l$remarks = remarks;
+    final l$infoCompanyId = infoCompanyId;
+    final l$code = code;
     final l$sharedAppellationsId = sharedAppellationsId;
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$nameJa = nameJa;
     final l$nameEn = nameEn;
     final l$pronunciationSharedDictionaryId = pronunciationSharedDictionaryId;
@@ -836,8 +878,6 @@ class Variables$Mutation$OfficePageEdit {
     final l$infoAddressId = infoAddressId;
     final l$iso31663 = iso31663;
     final l$zipCode = zipCode;
-    final l$phone = phone;
-    final l$faxNumber = faxNumber;
     final l$address1SharedAppellationsId = address1SharedAppellationsId;
     final l$address1NameSharedDictionaryId = address1NameSharedDictionaryId;
     final l$address1NameJa = address1NameJa;
@@ -874,13 +914,17 @@ class Variables$Mutation$OfficePageEdit {
         buildingNicknameSharedDictionaryId;
     final l$buildingNicknameJa = buildingNicknameJa;
     final l$buildingNicknameEn = buildingNicknameEn;
+    final l$phone = phone;
+    final l$faxNumber = faxNumber;
+    final l$remarks = remarks;
     return Object.hashAll([
       l$infoOfficeId,
-      _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('infoCompanyId') ? l$infoCompanyId : const {},
+      _$data.containsKey('code') ? l$code : const {},
       l$sharedAppellationsId,
+      l$nameSharedDictionaryId,
       l$jaLanguageCodeId,
       l$enLanguageCodeId,
-      l$nameSharedDictionaryId,
       l$nameJa,
       l$nameEn,
       l$pronunciationSharedDictionaryId,
@@ -892,8 +936,6 @@ class Variables$Mutation$OfficePageEdit {
       l$infoAddressId,
       _$data.containsKey('iso31663') ? l$iso31663 : const {},
       _$data.containsKey('zipCode') ? l$zipCode : const {},
-      _$data.containsKey('phone') ? l$phone : const {},
-      _$data.containsKey('faxNumber') ? l$faxNumber : const {},
       l$address1SharedAppellationsId,
       l$address1NameSharedDictionaryId,
       l$address1NameJa,
@@ -924,6 +966,9 @@ class Variables$Mutation$OfficePageEdit {
       l$buildingNicknameSharedDictionaryId,
       l$buildingNicknameJa,
       l$buildingNicknameEn,
+      _$data.containsKey('phone') ? l$phone : const {},
+      _$data.containsKey('faxNumber') ? l$faxNumber : const {},
+      _$data.containsKey('remarks') ? l$remarks : const {},
     ]);
   }
 }
@@ -939,11 +984,12 @@ abstract class CopyWith$Variables$Mutation$OfficePageEdit<TRes> {
 
   TRes call({
     String? infoOfficeId,
-    String? remarks,
+    String? infoCompanyId,
+    String? code,
     String? sharedAppellationsId,
+    String? nameSharedDictionaryId,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
-    String? nameSharedDictionaryId,
     String? nameJa,
     String? nameEn,
     String? pronunciationSharedDictionaryId,
@@ -955,8 +1001,6 @@ abstract class CopyWith$Variables$Mutation$OfficePageEdit<TRes> {
     String? infoAddressId,
     String? iso31663,
     String? zipCode,
-    String? phone,
-    String? faxNumber,
     String? address1SharedAppellationsId,
     String? address1NameSharedDictionaryId,
     String? address1NameJa,
@@ -987,6 +1031,9 @@ abstract class CopyWith$Variables$Mutation$OfficePageEdit<TRes> {
     String? buildingNicknameSharedDictionaryId,
     String? buildingNicknameJa,
     String? buildingNicknameEn,
+    String? phone,
+    String? faxNumber,
+    String? remarks,
   });
 }
 
@@ -1002,11 +1049,12 @@ class _CopyWithImpl$Variables$Mutation$OfficePageEdit<TRes>
 
   TRes call({
     Object? infoOfficeId = _undefined,
-    Object? remarks = _undefined,
+    Object? infoCompanyId = _undefined,
+    Object? code = _undefined,
     Object? sharedAppellationsId = _undefined,
+    Object? nameSharedDictionaryId = _undefined,
     Object? jaLanguageCodeId = _undefined,
     Object? enLanguageCodeId = _undefined,
-    Object? nameSharedDictionaryId = _undefined,
     Object? nameJa = _undefined,
     Object? nameEn = _undefined,
     Object? pronunciationSharedDictionaryId = _undefined,
@@ -1018,8 +1066,6 @@ class _CopyWithImpl$Variables$Mutation$OfficePageEdit<TRes>
     Object? infoAddressId = _undefined,
     Object? iso31663 = _undefined,
     Object? zipCode = _undefined,
-    Object? phone = _undefined,
-    Object? faxNumber = _undefined,
     Object? address1SharedAppellationsId = _undefined,
     Object? address1NameSharedDictionaryId = _undefined,
     Object? address1NameJa = _undefined,
@@ -1050,21 +1096,26 @@ class _CopyWithImpl$Variables$Mutation$OfficePageEdit<TRes>
     Object? buildingNicknameSharedDictionaryId = _undefined,
     Object? buildingNicknameJa = _undefined,
     Object? buildingNicknameEn = _undefined,
+    Object? phone = _undefined,
+    Object? faxNumber = _undefined,
+    Object? remarks = _undefined,
   }) => _then(
     Variables$Mutation$OfficePageEdit._({
       ..._instance._$data,
       if (infoOfficeId != _undefined && infoOfficeId != null)
         'infoOfficeId': (infoOfficeId as String),
-      if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (infoCompanyId != _undefined)
+        'infoCompanyId': (infoCompanyId as String?),
+      if (code != _undefined) 'code': (code as String?),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
         'sharedAppellationsId': (sharedAppellationsId as String),
+      if (nameSharedDictionaryId != _undefined &&
+          nameSharedDictionaryId != null)
+        'nameSharedDictionaryId': (nameSharedDictionaryId as String),
       if (jaLanguageCodeId != _undefined && jaLanguageCodeId != null)
         'jaLanguageCodeId': (jaLanguageCodeId as String),
       if (enLanguageCodeId != _undefined && enLanguageCodeId != null)
         'enLanguageCodeId': (enLanguageCodeId as String),
-      if (nameSharedDictionaryId != _undefined &&
-          nameSharedDictionaryId != null)
-        'nameSharedDictionaryId': (nameSharedDictionaryId as String),
       if (nameJa != _undefined && nameJa != null) 'nameJa': (nameJa as String),
       if (nameEn != _undefined && nameEn != null) 'nameEn': (nameEn as String),
       if (pronunciationSharedDictionaryId != _undefined &&
@@ -1086,8 +1137,6 @@ class _CopyWithImpl$Variables$Mutation$OfficePageEdit<TRes>
         'infoAddressId': (infoAddressId as String),
       if (iso31663 != _undefined) 'iso31663': (iso31663 as String?),
       if (zipCode != _undefined) 'zipCode': (zipCode as String?),
-      if (phone != _undefined) 'phone': (phone as String?),
-      if (faxNumber != _undefined) 'faxNumber': (faxNumber as String?),
       if (address1SharedAppellationsId != _undefined &&
           address1SharedAppellationsId != null)
         'address1SharedAppellationsId':
@@ -1178,6 +1227,9 @@ class _CopyWithImpl$Variables$Mutation$OfficePageEdit<TRes>
         'buildingNicknameJa': (buildingNicknameJa as String),
       if (buildingNicknameEn != _undefined && buildingNicknameEn != null)
         'buildingNicknameEn': (buildingNicknameEn as String),
+      if (phone != _undefined) 'phone': (phone as String?),
+      if (faxNumber != _undefined) 'faxNumber': (faxNumber as String?),
+      if (remarks != _undefined) 'remarks': (remarks as String?),
     }),
   );
 }
@@ -1190,11 +1242,12 @@ class _CopyWithStubImpl$Variables$Mutation$OfficePageEdit<TRes>
 
   call({
     String? infoOfficeId,
-    String? remarks,
+    String? infoCompanyId,
+    String? code,
     String? sharedAppellationsId,
+    String? nameSharedDictionaryId,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
-    String? nameSharedDictionaryId,
     String? nameJa,
     String? nameEn,
     String? pronunciationSharedDictionaryId,
@@ -1206,8 +1259,6 @@ class _CopyWithStubImpl$Variables$Mutation$OfficePageEdit<TRes>
     String? infoAddressId,
     String? iso31663,
     String? zipCode,
-    String? phone,
-    String? faxNumber,
     String? address1SharedAppellationsId,
     String? address1NameSharedDictionaryId,
     String? address1NameJa,
@@ -1238,6 +1289,9 @@ class _CopyWithStubImpl$Variables$Mutation$OfficePageEdit<TRes>
     String? buildingNicknameSharedDictionaryId,
     String? buildingNicknameJa,
     String? buildingNicknameEn,
+    String? phone,
+    String? faxNumber,
+    String? remarks,
   }) => _res;
 }
 
@@ -1403,7 +1457,13 @@ const documentNodeMutationOfficePageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'remarks')),
+          variable: VariableNode(name: NameNode(value: 'infoCompanyId')),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: false),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'code')),
           type: NamedTypeNode(
             name: NameNode(value: 'String'),
             isNonNull: false,
@@ -1418,6 +1478,14 @@ const documentNodeMutationOfficePageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
+          variable: VariableNode(
+            name: NameNode(value: 'nameSharedDictionaryId'),
+          ),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -1425,14 +1493,6 @@ const documentNodeMutationOfficePageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(
-            name: NameNode(value: 'nameSharedDictionaryId'),
-          ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
@@ -1506,24 +1566,6 @@ const documentNodeMutationOfficePageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'zipCode')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'phone')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'faxNumber')),
           type: NamedTypeNode(
             name: NameNode(value: 'String'),
             isNonNull: false,
@@ -1747,6 +1789,33 @@ const documentNodeMutationOfficePageEdit = DocumentNode(
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'phone')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'faxNumber')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'remarks')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
       ],
       directives: [],
       selectionSet: SelectionSetNode(
@@ -1770,10 +1839,14 @@ const documentNodeMutationOfficePageEdit = DocumentNode(
                       value: ObjectValueNode(
                         fields: [
                           ObjectFieldNode(
-                            name: NameNode(value: 'remarks'),
+                            name: NameNode(value: 'infoCompanyId'),
                             value: VariableNode(
-                              name: NameNode(value: 'remarks'),
+                              name: NameNode(value: 'infoCompanyId'),
                             ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'code'),
+                            value: VariableNode(name: NameNode(value: 'code')),
                           ),
                           ObjectFieldNode(
                             name: NameNode(value: 'sharedAppellationToNames'),
@@ -2207,22 +2280,6 @@ const documentNodeMutationOfficePageEdit = DocumentNode(
                                               value: VariableNode(
                                                 name: NameNode(
                                                   value: 'zipCode',
-                                                ),
-                                              ),
-                                            ),
-                                            ObjectFieldNode(
-                                              name: NameNode(value: 'phone'),
-                                              value: VariableNode(
-                                                name: NameNode(value: 'phone'),
-                                              ),
-                                            ),
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value: 'faxNumber',
-                                              ),
-                                              value: VariableNode(
-                                                name: NameNode(
-                                                  value: 'faxNumber',
                                                 ),
                                               ),
                                             ),
@@ -3369,6 +3426,30 @@ const documentNodeMutationOfficePageEdit = DocumentNode(
                                                 ],
                                               ),
                                             ),
+                                            ObjectFieldNode(
+                                              name: NameNode(value: 'phone'),
+                                              value: VariableNode(
+                                                name: NameNode(value: 'phone'),
+                                              ),
+                                            ),
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'faxNumber',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'faxNumber',
+                                                ),
+                                              ),
+                                            ),
+                                            ObjectFieldNode(
+                                              name: NameNode(value: 'remarks'),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'remarks',
+                                                ),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -3376,6 +3457,12 @@ const documentNodeMutationOfficePageEdit = DocumentNode(
                                   ),
                                 ),
                               ],
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'remarks'),
+                            value: VariableNode(
+                              name: NameNode(value: 'remarks'),
                             ),
                           ),
                         ],
@@ -3411,13 +3498,6 @@ const documentNodeMutationOfficePageEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'code'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -3947,20 +4027,6 @@ const documentNodeMutationOfficePageEdit = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(value: 'zipCode'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'phone'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'faxNumber'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -5626,6 +5692,27 @@ const documentNodeMutationOfficePageEdit = DocumentNode(
                               ),
                             ),
                             FieldNode(
+                              name: NameNode(value: 'phone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'faxNumber'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'remarks'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
                               name: NameNode(value: '__typename'),
                               alias: null,
                               arguments: [],
@@ -5634,6 +5721,13 @@ const documentNodeMutationOfficePageEdit = DocumentNode(
                             ),
                           ],
                         ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
                       ),
                       FieldNode(
                         name: NameNode(value: '__typename'),
@@ -6042,9 +6136,9 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice {
     required this.infoOfficeId,
     required this.infoCompanyId,
     required this.code,
-    this.remarks,
     this.labels,
     this.address,
+    this.remarks,
     this.$__typename = 'InfoOffice',
   });
 
@@ -6054,15 +6148,14 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice {
     final l$infoOfficeId = json['infoOfficeId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
-    final l$remarks = json['remarks'];
     final l$labels = json['labels'];
     final l$address = json['address'];
+    final l$remarks = json['remarks'];
     final l$$__typename = json['__typename'];
     return Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice(
       infoOfficeId: (l$infoOfficeId as String),
       infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String),
-      remarks: (l$remarks as String?),
       labels: l$labels == null
           ? null
           : Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$labels.fromJson(
@@ -6073,6 +6166,7 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice {
           : Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address.fromJson(
               (l$address as Map<String, dynamic>),
             ),
+      remarks: (l$remarks as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -6083,13 +6177,13 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice {
 
   final String code;
 
-  final String? remarks;
-
   final Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$labels?
   labels;
 
   final Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address?
   address;
+
+  final String? remarks;
 
   final String $__typename;
 
@@ -6101,12 +6195,12 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
-    final l$remarks = remarks;
-    _resultData['remarks'] = l$remarks;
     final l$labels = labels;
     _resultData['labels'] = l$labels?.toJson();
     final l$address = address;
     _resultData['address'] = l$address?.toJson();
+    final l$remarks = remarks;
+    _resultData['remarks'] = l$remarks;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -6117,17 +6211,17 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice {
     final l$infoOfficeId = infoOfficeId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
-    final l$remarks = remarks;
     final l$labels = labels;
     final l$address = address;
+    final l$remarks = remarks;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoOfficeId,
       l$infoCompanyId,
       l$code,
-      l$remarks,
       l$labels,
       l$address,
+      l$remarks,
       l$$__typename,
     ]);
   }
@@ -6157,11 +6251,6 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice {
     if (l$code != lOther$code) {
       return false;
     }
-    final l$remarks = remarks;
-    final lOther$remarks = other.remarks;
-    if (l$remarks != lOther$remarks) {
-      return false;
-    }
     final l$labels = labels;
     final lOther$labels = other.labels;
     if (l$labels != lOther$labels) {
@@ -6170,6 +6259,11 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice {
     final l$address = address;
     final lOther$address = other.address;
     if (l$address != lOther$address) {
+      return false;
+    }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (l$remarks != lOther$remarks) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -6212,11 +6306,11 @@ abstract class CopyWith$Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$i
     String? infoOfficeId,
     String? infoCompanyId,
     String? code,
-    String? remarks,
     Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$labels?
     labels,
     Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address?
     address,
+    String? remarks,
     String? $__typename,
   });
   CopyWith$Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$labels<
@@ -6255,9 +6349,9 @@ class _CopyWithImpl$Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoO
     Object? infoOfficeId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
-    Object? remarks = _undefined,
     Object? labels = _undefined,
     Object? address = _undefined,
+    Object? remarks = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice(
@@ -6270,7 +6364,6 @@ class _CopyWithImpl$Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoO
       code: code == _undefined || code == null
           ? _instance.code
           : (code as String),
-      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       labels: labels == _undefined
           ? _instance.labels
           : (labels
@@ -6279,6 +6372,7 @@ class _CopyWithImpl$Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoO
           ? _instance.address
           : (address
                 as Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address?),
+      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -6333,11 +6427,11 @@ class _CopyWithStubImpl$Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$i
     String? infoOfficeId,
     String? infoCompanyId,
     String? code,
-    String? remarks,
     Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$labels?
     labels,
     Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address?
     address,
+    String? remarks,
     String? $__typename,
   }) => _res;
 
@@ -9671,11 +9765,12 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address 
     required this.infoAddressId,
     this.iso31663,
     this.zipCode,
-    this.phone,
-    this.faxNumber,
     this.address1,
     this.address2,
     this.building,
+    this.phone,
+    this.faxNumber,
+    this.remarks,
     this.$__typename = 'InfoAddress',
   });
 
@@ -9685,18 +9780,17 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address 
     final l$infoAddressId = json['infoAddressId'];
     final l$iso31663 = json['iso31663'];
     final l$zipCode = json['zipCode'];
-    final l$phone = json['phone'];
-    final l$faxNumber = json['faxNumber'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
     final l$building = json['building'];
+    final l$phone = json['phone'];
+    final l$faxNumber = json['faxNumber'];
+    final l$remarks = json['remarks'];
     final l$$__typename = json['__typename'];
     return Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address(
       infoAddressId: (l$infoAddressId as String),
       iso31663: (l$iso31663 as String?),
       zipCode: (l$zipCode as String?),
-      phone: (l$phone as String?),
-      faxNumber: (l$faxNumber as String?),
       address1: l$address1 == null
           ? null
           : Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address$address1.fromJson(
@@ -9712,6 +9806,9 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address 
           : Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address$building.fromJson(
               (l$building as Map<String, dynamic>),
             ),
+      phone: (l$phone as String?),
+      faxNumber: (l$faxNumber as String?),
+      remarks: (l$remarks as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -9722,10 +9819,6 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address 
 
   final String? zipCode;
 
-  final String? phone;
-
-  final String? faxNumber;
-
   final Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address$address1?
   address1;
 
@@ -9734,6 +9827,12 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address 
 
   final Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address$building?
   building;
+
+  final String? phone;
+
+  final String? faxNumber;
+
+  final String? remarks;
 
   final String $__typename;
 
@@ -9745,16 +9844,18 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address 
     _resultData['iso31663'] = l$iso31663;
     final l$zipCode = zipCode;
     _resultData['zipCode'] = l$zipCode;
-    final l$phone = phone;
-    _resultData['phone'] = l$phone;
-    final l$faxNumber = faxNumber;
-    _resultData['faxNumber'] = l$faxNumber;
     final l$address1 = address1;
     _resultData['address1'] = l$address1?.toJson();
     final l$address2 = address2;
     _resultData['address2'] = l$address2?.toJson();
     final l$building = building;
     _resultData['building'] = l$building?.toJson();
+    final l$phone = phone;
+    _resultData['phone'] = l$phone;
+    final l$faxNumber = faxNumber;
+    _resultData['faxNumber'] = l$faxNumber;
+    final l$remarks = remarks;
+    _resultData['remarks'] = l$remarks;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -9765,21 +9866,23 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address 
     final l$infoAddressId = infoAddressId;
     final l$iso31663 = iso31663;
     final l$zipCode = zipCode;
-    final l$phone = phone;
-    final l$faxNumber = faxNumber;
     final l$address1 = address1;
     final l$address2 = address2;
     final l$building = building;
+    final l$phone = phone;
+    final l$faxNumber = faxNumber;
+    final l$remarks = remarks;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
       l$iso31663,
       l$zipCode,
-      l$phone,
-      l$faxNumber,
       l$address1,
       l$address2,
       l$building,
+      l$phone,
+      l$faxNumber,
+      l$remarks,
       l$$__typename,
     ]);
   }
@@ -9809,16 +9912,6 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address 
     if (l$zipCode != lOther$zipCode) {
       return false;
     }
-    final l$phone = phone;
-    final lOther$phone = other.phone;
-    if (l$phone != lOther$phone) {
-      return false;
-    }
-    final l$faxNumber = faxNumber;
-    final lOther$faxNumber = other.faxNumber;
-    if (l$faxNumber != lOther$faxNumber) {
-      return false;
-    }
     final l$address1 = address1;
     final lOther$address1 = other.address1;
     if (l$address1 != lOther$address1) {
@@ -9832,6 +9925,21 @@ class Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address 
     final l$building = building;
     final lOther$building = other.building;
     if (l$building != lOther$building) {
+      return false;
+    }
+    final l$phone = phone;
+    final lOther$phone = other.phone;
+    if (l$phone != lOther$phone) {
+      return false;
+    }
+    final l$faxNumber = faxNumber;
+    final lOther$faxNumber = other.faxNumber;
+    if (l$faxNumber != lOther$faxNumber) {
+      return false;
+    }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (l$remarks != lOther$remarks) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -9875,14 +9983,15 @@ abstract class CopyWith$Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$i
     String? infoAddressId,
     String? iso31663,
     String? zipCode,
-    String? phone,
-    String? faxNumber,
     Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address$address1?
     address1,
     Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address$address2?
     address2,
     Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address$building?
     building,
+    String? phone,
+    String? faxNumber,
+    String? remarks,
     String? $__typename,
   });
   CopyWith$Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address$address1<
@@ -9925,11 +10034,12 @@ class _CopyWithImpl$Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoO
     Object? infoAddressId = _undefined,
     Object? iso31663 = _undefined,
     Object? zipCode = _undefined,
-    Object? phone = _undefined,
-    Object? faxNumber = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
     Object? building = _undefined,
+    Object? phone = _undefined,
+    Object? faxNumber = _undefined,
+    Object? remarks = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address(
@@ -9940,10 +10050,6 @@ class _CopyWithImpl$Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoO
           ? _instance.iso31663
           : (iso31663 as String?),
       zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
-      phone: phone == _undefined ? _instance.phone : (phone as String?),
-      faxNumber: faxNumber == _undefined
-          ? _instance.faxNumber
-          : (faxNumber as String?),
       address1: address1 == _undefined
           ? _instance.address1
           : (address1
@@ -9956,6 +10062,11 @@ class _CopyWithImpl$Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoO
           ? _instance.building
           : (building
                 as Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address$building?),
+      phone: phone == _undefined ? _instance.phone : (phone as String?),
+      faxNumber: faxNumber == _undefined
+          ? _instance.faxNumber
+          : (faxNumber as String?),
+      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -10025,14 +10136,15 @@ class _CopyWithStubImpl$Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$i
     String? infoAddressId,
     String? iso31663,
     String? zipCode,
-    String? phone,
-    String? faxNumber,
     Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address$address1?
     address1,
     Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address$address2?
     address2,
     Mutation$OfficePageEdit$updateInfoOfficeByInfoOfficeId$infoOffice$address$building?
     building,
+    String? phone,
+    String? faxNumber,
+    String? remarks,
     String? $__typename,
   }) => _res;
 

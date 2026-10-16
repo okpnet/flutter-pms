@@ -1,14 +1,14 @@
 # department_category_page画面 - Edit(ミューテーション)
 #
-# 画面仕様: source/view.yaml #DepartmentCategoryPageEdit(組織区分、info_department_kind_value)
+# 画面仕様: source/views/ #DepartmentCategoryPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 mutation DepartmentCategoryPageEdit(
   $infoDepartmentKindValueId: UUID!
-  $remarks: String
   $sharedAppellationsId: UUID!
+  $nameSharedDictionaryId: UUID!
   $jaLanguageCodeId: UUID!
   $enLanguageCodeId: UUID!
-  $nameSharedDictionaryId: UUID!
   $nameJa: String!
   $nameEn: String!
   $pronunciationSharedDictionaryId: UUID!
@@ -17,13 +17,12 @@ mutation DepartmentCategoryPageEdit(
   $nicknameSharedDictionaryId: UUID!
   $nicknameJa: String!
   $nicknameEn: String!
+  $remarks: String
 ) {
   updateInfoDepartmentKindValueByInfoDepartmentKindValueId(
     input: {
       infoDepartmentKindValueId: $infoDepartmentKindValueId
       infoDepartmentKindValuePatch: {
-        remarks: $remarks
-
         sharedAppellationToNames: {
           updateBySharedAppellationsId: {
             sharedAppellationsId: $sharedAppellationsId
@@ -42,6 +41,7 @@ mutation DepartmentCategoryPageEdit(
                   }
                 }
               }
+
               sharedDictionaryToSharedDictionaryPronunciationId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $pronunciationSharedDictionaryId
@@ -56,6 +56,7 @@ mutation DepartmentCategoryPageEdit(
                   }
                 }
               }
+
               sharedDictionaryToSharedDictionaryNicknameId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $nicknameSharedDictionaryId
@@ -73,16 +74,19 @@ mutation DepartmentCategoryPageEdit(
             }
           }
         }
+
+        remarks: $remarks
       }
     }
   ) {
     infoDepartmentKindValue {
       infoDepartmentKindValueId
-      remarks
+
       labels: sharedAppellationByNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -90,6 +94,7 @@ mutation DepartmentCategoryPageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -98,8 +103,10 @@ mutation DepartmentCategoryPageEdit(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -107,6 +114,7 @@ mutation DepartmentCategoryPageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -115,8 +123,10 @@ mutation DepartmentCategoryPageEdit(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -124,6 +134,7 @@ mutation DepartmentCategoryPageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -133,6 +144,8 @@ mutation DepartmentCategoryPageEdit(
           }
         }
       }
+
+      remarks
     }
   }
 }

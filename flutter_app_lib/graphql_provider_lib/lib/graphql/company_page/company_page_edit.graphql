@@ -1,55 +1,14 @@
 # company_page画面 - Edit(ミューテーション)
 #
-# 画面仕様: source/view.yaml #CompanyPageEdit
-# 命名規則: CLAUDE.md 画面仕様命名規則(要件0033)により、view.yamlのトップノード名
-#   `CompanyPageEdit`のスネークケース(`company_page`)をディレクトリ名・ファイル名にする
-#   (要件0033時点は暫定的にテーブル名`info_company`を使っていたが、要件0035で
-#   `company_page`へ統一・リネームした。旧`lib/graphql/info_company/`は廃止)。
-#
-# 要件0026(2026-09-25、schema.graphql再取得)により、`InfoCompany.ceo`・
-# `InfoAddress.address1`/`address2`/`building`が単純な`String`から`shared_appellations`への
-# 直接FK(UUID)へ変更された。会社名(`sharedAppellationToNames`)と同じ
-# 入れ子ミューテーション構造(`sharedAppellationToCeoNames`/`sharedAppellationToAddress1`/
-# `sharedAppellationToAddress2`/`sharedAppellationToBuilding`)で、name/pronunciation/nickname
-# それぞれのshared_dictionary(と配下のshared_dictionary_value)を更新する
-# (docs/0034_view_yaml_graphql_evaluation_log.md参照)。
-#
-# `$jaLanguageCodeId`/`$enLanguageCodeId`はアプリケーション側が別途`SharedLanguageCode`を
-# `code`で解決して渡す(要件0033・shipping_kind試作と同じ方式)。`dictionaryValue`は
-# `String!`のため、翻訳が無い言語は呼び出し側で空文字列('')に変換してから渡す想定
-# (要件0026追記9・27_yaml_to_graphql_conversion_rules.md参照)。
-#
-# 要件0037: `view.yaml`の`CompanyPageEdit`は`generateRfe: true`を持つ。編集フォームへの
-# プリロード用クエリ(旧RFE)は、独立したYAMLノードとしてではなく、本ノードと全く同じ
-# `columns`ツリーから自動導出される(company_page_rfe.graphql参照)。
-#
-# 要件0044追記: `provisions`(1対多、ProvisionPageEditと同じ列構成)の入れ子編集を追加した。
-# これまでの入れ子編集(会社名・代表・住所)はすべて`arrayType: toFirstOne`(1対1相当)で
-# あり、各フィールドを個別のスカラー変数に分解できたが、`provisions`は`arrayType: toMany`
-# (件数が可変)のため同じ分解方式が使えない。このため、PostGraphile
-# (postgraphile-plugin-nested-mutations)が`InfoProvisionFk2InverseInput`として提供する
-# 標準の入れ子書き込み型(`updateByInfoProvisionId`/`create`/`deleteByInfoProvisionId`)を
-# そのまま可変長リストの変数として公開する方式を採用した
-# (`$provisionsUpdate`/`$provisionsCreate`/`$provisionsDelete`)。各要素は
-# `lib/graphql/schema.graphql`の対応する入力型(`InfoProvisionOnInfoProvisionForInfoProvisionFk2UsingInfoProvisionPkcUpdate`
-# 等)にそのまま従う(`infoProvisionPatch`には`sharedAppellationToNames`による名称の
-# 入れ子更新も含められる。呼び出し側がMap/JSONとして直接組み立てる想定で、
-# provision_page_edit.graphqlのような個別スカラー変数への分解は行っていない)。
-#
-# 要件0047(view.yaml修正に伴う再生成): 結果モデルの出力名をview.yamlに揃えた(会社名`labels`、
-# 住所`address`)。view.yamlの`CompanyPageEdit`に`symbol`が無いため、`$symbol`(引数・Patch・
-# 結果)を削除した(view.yamlに従う。symbolを編集対象とする場合はview.yamlへの追加が必要)。
-# 要件0048: symbolの欠落は修正モレと判断されたため、view.yamlに追加し`$symbol`(引数・Patch・結果)を戻した。
+# 画面仕様: source/views/ #CompanyPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 mutation CompanyPageEdit(
   $infoCompanyId: UUID!
-  $webPage: String
-  $symbol: String # 要件0048: view.yamlのCompanyPageEditにsymbolを追加(修正モレ)
-  $remarks: String
   $sharedAppellationsId: UUID!
+  $nameSharedDictionaryId: UUID!
   $jaLanguageCodeId: UUID!
   $enLanguageCodeId: UUID!
-  $nameSharedDictionaryId: UUID!
   $nameJa: String!
   $nameEn: String!
   $pronunciationSharedDictionaryId: UUID!
@@ -58,21 +17,9 @@ mutation CompanyPageEdit(
   $nicknameSharedDictionaryId: UUID!
   $nicknameJa: String!
   $nicknameEn: String!
-  $ceoSharedAppellationsId: UUID!
-  $ceoNameSharedDictionaryId: UUID!
-  $ceoNameJa: String!
-  $ceoNameEn: String!
-  $ceoPronunciationSharedDictionaryId: UUID!
-  $ceoPronunciationJa: String!
-  $ceoPronunciationEn: String!
-  $ceoNicknameSharedDictionaryId: UUID!
-  $ceoNicknameJa: String!
-  $ceoNicknameEn: String!
   $infoAddressId: UUID!
   $iso31663: String
   $zipCode: String
-  $phone: String
-  $faxNumber: String
   $address1SharedAppellationsId: UUID!
   $address1NameSharedDictionaryId: UUID!
   $address1NameJa: String!
@@ -103,19 +50,30 @@ mutation CompanyPageEdit(
   $buildingNicknameSharedDictionaryId: UUID!
   $buildingNicknameJa: String!
   $buildingNicknameEn: String!
-  $provisionsUpdate: [InfoProvisionOnInfoProvisionForInfoProvisionFk2UsingInfoProvisionPkcUpdate!]
-  $provisionsCreate: [InfoProvisionFk2InfoProvisionCreateInput!]
-  $provisionsDelete: [InfoProvisionInfoProvisionPkcDelete!]
+  $phone: String
+  $faxNumber: String
+  $remarks: String
+  $webPage: String
+  $ceoSharedAppellationsId: UUID!
+  $ceoNameSharedDictionaryId: UUID!
+  $ceoNameJa: String!
+  $ceoNameEn: String!
+  $ceoPronunciationSharedDictionaryId: UUID!
+  $ceoPronunciationJa: String!
+  $ceoPronunciationEn: String!
+  $ceoNicknameSharedDictionaryId: UUID!
+  $ceoNicknameJa: String!
+  $ceoNicknameEn: String!
+  $provisionUpdate: [InfoProvisionOnInfoProvisionForInfoProvisionFk3UsingInfoProvisionPkcUpdate!]
+  $provisionCreate: [InfoProvisionFk3InfoProvisionCreateInput!]
+  $provisionDelete: [InfoProvisionInfoProvisionPkcDelete!]
+  $provisionsFirst: Int = 30
+  $provisionsOrderBy: [InfoProvisionsOrderBy!]
 ) {
   updateInfoCompanyByInfoCompanyId(
     input: {
       infoCompanyId: $infoCompanyId
       infoCompanyPatch: {
-        webPage: $webPage
-        symbol: $symbol
-        remarks: $remarks
-
-        # --- 会社名(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
         sharedAppellationToNames: {
           updateBySharedAppellationsId: {
             sharedAppellationsId: $sharedAppellationsId
@@ -134,6 +92,7 @@ mutation CompanyPageEdit(
                   }
                 }
               }
+
               sharedDictionaryToSharedDictionaryPronunciationId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $pronunciationSharedDictionaryId
@@ -148,6 +107,7 @@ mutation CompanyPageEdit(
                   }
                 }
               }
+
               sharedDictionaryToSharedDictionaryNicknameId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $nicknameSharedDictionaryId
@@ -166,66 +126,12 @@ mutation CompanyPageEdit(
           }
         }
 
-        # --- 代表(ceo、要件0026でshared_appellations経由のFKに変更) -----------------
-        sharedAppellationToCeoNames: {
-          updateBySharedAppellationsId: {
-            sharedAppellationsId: $ceoSharedAppellationsId
-            sharedAppellationPatch: {
-              sharedDictionaryToSharedDictionaryNameId: {
-                updateBySharedDictionaryId: {
-                  sharedDictionaryId: $ceoNameSharedDictionaryId
-                  sharedDictionaryPatch: {
-                    sharedDictionaryValuesUsingSharedDictionaryId: {
-                      deleteOthers: true
-                      create: [
-                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $ceoNameJa }
-                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $ceoNameEn }
-                      ]
-                    }
-                  }
-                }
-              }
-              sharedDictionaryToSharedDictionaryPronunciationId: {
-                updateBySharedDictionaryId: {
-                  sharedDictionaryId: $ceoPronunciationSharedDictionaryId
-                  sharedDictionaryPatch: {
-                    sharedDictionaryValuesUsingSharedDictionaryId: {
-                      deleteOthers: true
-                      create: [
-                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $ceoPronunciationJa }
-                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $ceoPronunciationEn }
-                      ]
-                    }
-                  }
-                }
-              }
-              sharedDictionaryToSharedDictionaryNicknameId: {
-                updateBySharedDictionaryId: {
-                  sharedDictionaryId: $ceoNicknameSharedDictionaryId
-                  sharedDictionaryPatch: {
-                    sharedDictionaryValuesUsingSharedDictionaryId: {
-                      deleteOthers: true
-                      create: [
-                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $ceoNicknameJa }
-                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $ceoNicknameEn }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        # --- 住所(要件0026でaddress1/address2/buildingがshared_appellations経由のFKに変更) ---
         infoAddressToInfoAddressId: {
           updateByInfoAddressId: {
             infoAddressId: $infoAddressId
             infoAddressPatch: {
               iso31663: $iso31663
               zipCode: $zipCode
-              phone: $phone
-              faxNumber: $faxNumber
 
               sharedAppellationToAddress1: {
                 updateBySharedAppellationsId: {
@@ -245,6 +151,7 @@ mutation CompanyPageEdit(
                         }
                       }
                     }
+
                     sharedDictionaryToSharedDictionaryPronunciationId: {
                       updateBySharedDictionaryId: {
                         sharedDictionaryId: $address1PronunciationSharedDictionaryId
@@ -259,6 +166,7 @@ mutation CompanyPageEdit(
                         }
                       }
                     }
+
                     sharedDictionaryToSharedDictionaryNicknameId: {
                       updateBySharedDictionaryId: {
                         sharedDictionaryId: $address1NicknameSharedDictionaryId
@@ -295,6 +203,7 @@ mutation CompanyPageEdit(
                         }
                       }
                     }
+
                     sharedDictionaryToSharedDictionaryPronunciationId: {
                       updateBySharedDictionaryId: {
                         sharedDictionaryId: $address2PronunciationSharedDictionaryId
@@ -309,6 +218,7 @@ mutation CompanyPageEdit(
                         }
                       }
                     }
+
                     sharedDictionaryToSharedDictionaryNicknameId: {
                       updateBySharedDictionaryId: {
                         sharedDictionaryId: $address2NicknameSharedDictionaryId
@@ -345,6 +255,7 @@ mutation CompanyPageEdit(
                         }
                       }
                     }
+
                     sharedDictionaryToSharedDictionaryPronunciationId: {
                       updateBySharedDictionaryId: {
                         sharedDictionaryId: $buildingPronunciationSharedDictionaryId
@@ -359,6 +270,7 @@ mutation CompanyPageEdit(
                         }
                       }
                     }
+
                     sharedDictionaryToSharedDictionaryNicknameId: {
                       updateBySharedDictionaryId: {
                         sharedDictionaryId: $buildingNicknameSharedDictionaryId
@@ -376,28 +288,86 @@ mutation CompanyPageEdit(
                   }
                 }
               }
+
+              phone: $phone
+              faxNumber: $faxNumber
+              remarks: $remarks
             }
           }
         }
 
-        # --- 提供一覧(要件0044追加、1対多の入れ子編集) ------------------------------
-        infoProvisionsUsingInfoCompanyId: {
-          updateByInfoProvisionId: $provisionsUpdate
-          create: $provisionsCreate
-          deleteByInfoProvisionId: $provisionsDelete
+        webPage: $webPage
+
+        sharedAppellationToCeoNames: {
+          updateBySharedAppellationsId: {
+            sharedAppellationsId: $ceoSharedAppellationsId
+            sharedAppellationPatch: {
+              sharedDictionaryToSharedDictionaryNameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $ceoNameSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    sharedDictionaryValuesUsingSharedDictionaryId: {
+                      deleteOthers: true
+                      create: [
+                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $ceoNameJa }
+                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $ceoNameEn }
+                      ]
+                    }
+                  }
+                }
+              }
+
+              sharedDictionaryToSharedDictionaryPronunciationId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $ceoPronunciationSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    sharedDictionaryValuesUsingSharedDictionaryId: {
+                      deleteOthers: true
+                      create: [
+                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $ceoPronunciationJa }
+                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $ceoPronunciationEn }
+                      ]
+                    }
+                  }
+                }
+              }
+
+              sharedDictionaryToSharedDictionaryNicknameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $ceoNicknameSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    sharedDictionaryValuesUsingSharedDictionaryId: {
+                      deleteOthers: true
+                      create: [
+                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $ceoNicknameJa }
+                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $ceoNicknameEn }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
+
+        infoProvisionsUsingInfoCompanyId: {
+          updateByInfoProvisionId: $provisionUpdate
+          create: $provisionCreate
+          deleteByInfoProvisionId: $provisionDelete
+        }
+
+        remarks: $remarks
       }
     }
   ) {
     infoCompany {
       infoCompanyId
-      webPage
-      symbol
-      remarks
+
       labels: sharedAppellationByNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -405,6 +375,7 @@ mutation CompanyPageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -413,8 +384,10 @@ mutation CompanyPageEdit(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -422,6 +395,7 @@ mutation CompanyPageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -430,8 +404,10 @@ mutation CompanyPageEdit(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -439,241 +415,285 @@ mutation CompanyPageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
             nodes {
               dictionaryValue
-            }
-          }
-        }
-      }
-      ceo: sharedAppellationByCeoNames {
-        sharedAppellationsId
-        sharedDictionaryBySharedDictionaryNameId {
-          sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-        }
-        sharedDictionaryBySharedDictionaryPronunciationId {
-          sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-        }
-        sharedDictionaryBySharedDictionaryNicknameId {
-          sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-        }
-      }
-      address: infoAddressByInfoAddressId {
-        infoAddressId
-        iso31663
-        zipCode
-        phone
-        faxNumber
-        address1: sharedAppellationByAddress1 {
-          sharedAppellationsId
-          sharedDictionaryBySharedDictionaryNameId {
-            sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-          }
-          sharedDictionaryBySharedDictionaryPronunciationId {
-            sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-          }
-          sharedDictionaryBySharedDictionaryNicknameId {
-            sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-          }
-        }
-        address2: sharedAppellationByAddress2 {
-          sharedAppellationsId
-          sharedDictionaryBySharedDictionaryNameId {
-            sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-          }
-          sharedDictionaryBySharedDictionaryPronunciationId {
-            sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-          }
-          sharedDictionaryBySharedDictionaryNicknameId {
-            sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-          }
-        }
-        building: sharedAppellationByBuilding {
-          sharedAppellationsId
-          sharedDictionaryBySharedDictionaryNameId {
-            sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-          }
-          sharedDictionaryBySharedDictionaryPronunciationId {
-            sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-          }
-          sharedDictionaryBySharedDictionaryNicknameId {
-            sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
             }
           }
         }
       }
 
-      # --- 提供一覧(要件0044追加、更新後の状態を返す) ------------------------------
-      provisions: infoProvisionsByInfoCompanyId {
+      address: infoAddressByInfoAddressId {
+        infoAddressId
+        iso31663
+        zipCode
+
+        address1: sharedAppellationByAddress1 {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        address2: sharedAppellationByAddress2 {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        building: sharedAppellationByBuilding {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        phone
+        faxNumber
+        remarks
+      }
+
+      webPage
+
+      ceo: sharedAppellationByCeoNames {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+
+      provisions: infoProvisionsByInfoCompanyId(
+        first: $provisionsFirst
+        orderBy: $provisionsOrderBy
+      ) {
         totalCount
         pageInfo {
           hasNextPage
@@ -683,12 +703,12 @@ mutation CompanyPageEdit(
           infoProvisionId
           infoCompanyId
           code
-          details
-          remarks
+
           labels: sharedAppellationByNames {
             sharedAppellationsId
             sharedDictionaryBySharedDictionaryNameId {
               sharedDictionaryId
+
               ja: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $jaLanguageCodeId }
               ) {
@@ -696,6 +716,7 @@ mutation CompanyPageEdit(
                   dictionaryValue
                 }
               }
+
               en: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $enLanguageCodeId }
               ) {
@@ -704,8 +725,10 @@ mutation CompanyPageEdit(
                 }
               }
             }
+
             sharedDictionaryBySharedDictionaryPronunciationId {
               sharedDictionaryId
+
               ja: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $jaLanguageCodeId }
               ) {
@@ -713,6 +736,7 @@ mutation CompanyPageEdit(
                   dictionaryValue
                 }
               }
+
               en: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $enLanguageCodeId }
               ) {
@@ -721,8 +745,10 @@ mutation CompanyPageEdit(
                 }
               }
             }
+
             sharedDictionaryBySharedDictionaryNicknameId {
               sharedDictionaryId
+
               ja: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $jaLanguageCodeId }
               ) {
@@ -730,6 +756,7 @@ mutation CompanyPageEdit(
                   dictionaryValue
                 }
               }
+
               en: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $enLanguageCodeId }
               ) {
@@ -739,8 +766,32 @@ mutation CompanyPageEdit(
               }
             }
           }
+
+          detailTexts: sharedTextByDetails {
+            sharedTextId
+
+            ja: sharedTextValuesBySharedTextId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                textValue
+              }
+            }
+
+            en: sharedTextValuesBySharedTextId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                textValue
+              }
+            }
+          }
+
+          remarks
         }
       }
+
+      remarks
     }
   }
 }

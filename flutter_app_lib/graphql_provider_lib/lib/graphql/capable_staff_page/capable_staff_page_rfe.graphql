@@ -230,7 +230,8 @@ query CapableStaffPageRfe(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
         ) {
           nodes {
-            textValue
+            charCount
+            leadText
           }
         }
 
@@ -238,7 +239,8 @@ query CapableStaffPageRfe(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
         ) {
           nodes {
-            textValue
+            charCount
+            leadText
           }
         }
       }

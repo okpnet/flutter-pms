@@ -69,7 +69,8 @@ query ProvisionPageRead(
           condition: { sharedLanguageCodeId: $languageCodeId }
         ) {
           nodes {
-            textValue
+            charCount
+            leadText
           }
         }
       }

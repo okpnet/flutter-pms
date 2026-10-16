@@ -1,12 +1,14 @@
+# yaml-language-server: $schema=../../schema.json
+
 # ドキュメント
 
 # ドキュメントレベル読み込み
-DocumentTierPage:
+DocumentTierPage: &DocumentTierPage
   kind: read
   from: mstr_document_tier
-  filter: true 
+  filter: true
   requiredWhere:
-    - languageCode 
+    - languageCode
   defaultWhere:
     - column: remove
       operator: "="
@@ -18,14 +20,14 @@ DocumentTierPage:
       as: labels
       arrayType: toFirstOne
       using: names
-      pick: 
+      pick:
         - name
         - pronunciation
         - nickname
       <<: *AppellationLabelsReadFields
     - trans_file_id
     - attributive_noun
-    - Identifier
+    - identifier # 0055: 列名は小文字(Identifier → identifier)
     - tier_number
     - symbol
     - remarks
@@ -51,22 +53,22 @@ DocumentTierPageEdit:
       <<: *AppellationLabelsEditFields
     - trans_file_id
     - attributive_noun
-    - Identifier
+    - identifier
     - tier_number
-    - remarks
-    - update_at
     - remarks
     - update_user_id
     - update_user_history_id
     - remove
-    
-# ドキュメントの読み込み
-DocumnetPage:
+
+# ドキュメントの読み込み(体系)
+# 0055: トップノード名の誤字(DocumnetPage → DocumentPage)、名称の列(mstr_document.titles)、
+# 承認パターンの参照(trans_approval_pattern)を、スキーマに合わせて修正した。
+DocumentPage: &DocumentPage
   kind: read
   from: mstr_document
-  filter: true 
+  filter: true
   requiredWhere:
-    - languageCode 
+    - languageCode
   defaultWhere:
     - column: remove
       operator: "="
@@ -97,31 +99,27 @@ DocumnetPage:
     - name: labels
       as: labels
       arrayType: toFirstOne
-      using: names
-      pick: 
+      using: titles
+      pick:
         - name
         - pronunciation
         - nickname
       <<: *AppellationLabelsReadFields
     - mstr_document_tier_id
-    - trans_file_id
-    - title
-    - name: labels
-      as: labels
+    - name: tier
+      as: tier
       arrayType: toFirstOne
-      using: title
-      pick: 
-        - name
-        - pronunciation
-        - nickname
-      <<: *AppellationLabelsReadFields
+      using: mstr_document_tier_id
+      <<: *DocumentTierPage
+    - trans_file_id
     - control_number
     - version_code
+    - trans_approval_pattern_id
     - name: approvalPattern
-      arrayType: toFirstOne
       as: approval_pattern
+      arrayType: toFirstOne
       using: trans_approval_pattern_id
-      <<: *ApprovalOperationReadFields
+      <<: *TransApprovalPatternReadFields
     - symbol
     - remarks
     - update_at
@@ -142,23 +140,124 @@ DocumentPageEdit:
     - code
     - name: labels
       arrayType: toFirstOne
-      using: names
+      using: titles
       <<: *AppellationLabelsEditFields
     - mstr_document_tier_id
-    - trans_file_id
-    - title
-    - name: labels
+    - name: tier
       arrayType: toFirstOne
-      using: title
-      <<: *AppellationLabelsEditFields
+      using: mstr_document_tier_id
+      editable: false # IDの割り当てのみ
+      <<: *DocumentTierPage
+    - trans_file_id
     - control_number
     - version_code
+    - trans_approval_pattern_id
     - name: approvalPattern
-      arrayType: toMany
+      arrayType: toFirstOne
       using: trans_approval_pattern_id
-      <<: *ApprovalOperationReadFields
+      editable: false # IDの割り当てのみ(承認パターンの写しは承認の開始時に作られる)
+      <<: *TransApprovalPatternReadFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# ドキュメントの体系の書き込み(親の付け替え。要件0054案A)
+DocumentTreePageEdit:
+  kind: edit
+  from: mstr_document_tree
+  requiredWhere:
+    - mstr_document_tree_id
+  generateRfe: true
+  columns:
+    - mstr_document_tree_id
+    - parent_mstr_document_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+######  0055: 雛形から追加
+# mstr_document_contentの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+DocumentContentPage: &DocumentContentPage
+  kind: read
+  from: mstr_document_content
+  filter: true
+  requiredWhere:
+    - languageCode
+    - mstr_document_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_document_content_id
+    - mstr_document_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: titles
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: contentTexts
+      as: contentTexts
+      arrayType: toFirstOne
+      using: contents
+      <<: *FixTextReadFields
+    - sequence
+    - image_content
+    - trans_file_id
+    - symbol
     - remarks
     - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# mstr_document_contentの書き込み
+DocumentContentPageEdit:
+  kind: edit
+  from: mstr_document_content
+  requiredWhere:
+    - mstr_document_content_id
+  generateRfe: true
+  columns:
+    - mstr_document_content_id
+    - mstr_document_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *AppellationLabelsEditFields
+    - name: contentTexts
+      arrayType: toFirstOne
+      using: contents
+      <<: *FixTextEditFields
+    - sequence
+    - image_content
+    - trans_file_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+
+# ドキュメントコンテンツ体系の書き込み(親の付け替え。要件0054案A)
+DocumentContentTreePageEdit:
+  kind: edit
+  from: mstr_document_content_tree
+  requiredWhere:
+    - mstr_document_content_tree_id
+  generateRfe: true
+  columns:
+    - mstr_document_content_tree_id
+    - parent_mstr_document_content_id
     - remarks
     - update_user_id
     - update_user_history_id

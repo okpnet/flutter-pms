@@ -4712,7 +4712,16 @@ const documentNodeMutationOperationPageEdit = DocumentNode(
                                                           FieldNode(
                                                             name: NameNode(
                                                               value:
-                                                                  'textValue',
+                                                                  'charCount',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'leadText',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -4788,7 +4797,16 @@ const documentNodeMutationOperationPageEdit = DocumentNode(
                                                           FieldNode(
                                                             name: NameNode(
                                                               value:
-                                                                  'textValue',
+                                                                  'charCount',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'leadText',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -24106,29 +24124,36 @@ class _CopyWithStubImpl$Mutation$OperationPageEdit$updateMstrOperationByMstrOper
 
 class Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperation$operationTasks$nodes$tasks$detailTexts$ja$nodes {
   Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperation$operationTasks$nodes$tasks$detailTexts$ja$nodes({
-    this.textValue,
+    this.charCount,
+    this.leadText,
     this.$__typename = 'SharedTextValue',
   });
 
   factory Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperation$operationTasks$nodes$tasks$detailTexts$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
-    final l$textValue = json['textValue'];
+    final l$charCount = json['charCount'];
+    final l$leadText = json['leadText'];
     final l$$__typename = json['__typename'];
     return Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperation$operationTasks$nodes$tasks$detailTexts$ja$nodes(
-      textValue: (l$textValue as String?),
+      charCount: (l$charCount as int?),
+      leadText: (l$leadText as String?),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final String? textValue;
+  final int? charCount;
+
+  final String? leadText;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
-    final l$textValue = textValue;
-    _resultData['textValue'] = l$textValue;
+    final l$charCount = charCount;
+    _resultData['charCount'] = l$charCount;
+    final l$leadText = leadText;
+    _resultData['leadText'] = l$leadText;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -24136,9 +24161,10 @@ class Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperat
 
   @override
   int get hashCode {
-    final l$textValue = textValue;
+    final l$charCount = charCount;
+    final l$leadText = leadText;
     final l$$__typename = $__typename;
-    return Object.hashAll([l$textValue, l$$__typename]);
+    return Object.hashAll([l$charCount, l$leadText, l$$__typename]);
   }
 
   @override
@@ -24151,9 +24177,14 @@ class Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperat
         runtimeType != other.runtimeType) {
       return false;
     }
-    final l$textValue = textValue;
-    final lOther$textValue = other.textValue;
-    if (l$textValue != lOther$textValue) {
+    final l$charCount = charCount;
+    final lOther$charCount = other.charCount;
+    if (l$charCount != lOther$charCount) {
+      return false;
+    }
+    final l$leadText = leadText;
+    final lOther$leadText = other.leadText;
+    if (l$leadText != lOther$leadText) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -24194,7 +24225,7 @@ abstract class CopyWith$Mutation$OperationPageEdit$updateMstrOperationByMstrOper
     TRes res,
   ) = _CopyWithStubImpl$Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperation$operationTasks$nodes$tasks$detailTexts$ja$nodes;
 
-  TRes call({String? textValue, String? $__typename});
+  TRes call({int? charCount, String? leadText, String? $__typename});
 }
 
 class _CopyWithImpl$Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperation$operationTasks$nodes$tasks$detailTexts$ja$nodes<
@@ -24220,13 +24251,17 @@ class _CopyWithImpl$Mutation$OperationPageEdit$updateMstrOperationByMstrOperatio
   static const _undefined = <dynamic, dynamic>{};
 
   TRes call({
-    Object? textValue = _undefined,
+    Object? charCount = _undefined,
+    Object? leadText = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperation$operationTasks$nodes$tasks$detailTexts$ja$nodes(
-      textValue: textValue == _undefined
-          ? _instance.textValue
-          : (textValue as String?),
+      charCount: charCount == _undefined
+          ? _instance.charCount
+          : (charCount as int?),
+      leadText: leadText == _undefined
+          ? _instance.leadText
+          : (leadText as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -24247,7 +24282,7 @@ class _CopyWithStubImpl$Mutation$OperationPageEdit$updateMstrOperationByMstrOper
 
   TRes _res;
 
-  call({String? textValue, String? $__typename}) => _res;
+  call({int? charCount, String? leadText, String? $__typename}) => _res;
 }
 
 class Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperation$operationTasks$nodes$tasks$detailTexts$en {
@@ -24474,29 +24509,36 @@ class _CopyWithStubImpl$Mutation$OperationPageEdit$updateMstrOperationByMstrOper
 
 class Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperation$operationTasks$nodes$tasks$detailTexts$en$nodes {
   Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperation$operationTasks$nodes$tasks$detailTexts$en$nodes({
-    this.textValue,
+    this.charCount,
+    this.leadText,
     this.$__typename = 'SharedTextValue',
   });
 
   factory Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperation$operationTasks$nodes$tasks$detailTexts$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
-    final l$textValue = json['textValue'];
+    final l$charCount = json['charCount'];
+    final l$leadText = json['leadText'];
     final l$$__typename = json['__typename'];
     return Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperation$operationTasks$nodes$tasks$detailTexts$en$nodes(
-      textValue: (l$textValue as String?),
+      charCount: (l$charCount as int?),
+      leadText: (l$leadText as String?),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final String? textValue;
+  final int? charCount;
+
+  final String? leadText;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
-    final l$textValue = textValue;
-    _resultData['textValue'] = l$textValue;
+    final l$charCount = charCount;
+    _resultData['charCount'] = l$charCount;
+    final l$leadText = leadText;
+    _resultData['leadText'] = l$leadText;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -24504,9 +24546,10 @@ class Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperat
 
   @override
   int get hashCode {
-    final l$textValue = textValue;
+    final l$charCount = charCount;
+    final l$leadText = leadText;
     final l$$__typename = $__typename;
-    return Object.hashAll([l$textValue, l$$__typename]);
+    return Object.hashAll([l$charCount, l$leadText, l$$__typename]);
   }
 
   @override
@@ -24519,9 +24562,14 @@ class Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperat
         runtimeType != other.runtimeType) {
       return false;
     }
-    final l$textValue = textValue;
-    final lOther$textValue = other.textValue;
-    if (l$textValue != lOther$textValue) {
+    final l$charCount = charCount;
+    final lOther$charCount = other.charCount;
+    if (l$charCount != lOther$charCount) {
+      return false;
+    }
+    final l$leadText = leadText;
+    final lOther$leadText = other.leadText;
+    if (l$leadText != lOther$leadText) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -24562,7 +24610,7 @@ abstract class CopyWith$Mutation$OperationPageEdit$updateMstrOperationByMstrOper
     TRes res,
   ) = _CopyWithStubImpl$Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperation$operationTasks$nodes$tasks$detailTexts$en$nodes;
 
-  TRes call({String? textValue, String? $__typename});
+  TRes call({int? charCount, String? leadText, String? $__typename});
 }
 
 class _CopyWithImpl$Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperation$operationTasks$nodes$tasks$detailTexts$en$nodes<
@@ -24588,13 +24636,17 @@ class _CopyWithImpl$Mutation$OperationPageEdit$updateMstrOperationByMstrOperatio
   static const _undefined = <dynamic, dynamic>{};
 
   TRes call({
-    Object? textValue = _undefined,
+    Object? charCount = _undefined,
+    Object? leadText = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperation$operationTasks$nodes$tasks$detailTexts$en$nodes(
-      textValue: textValue == _undefined
-          ? _instance.textValue
-          : (textValue as String?),
+      charCount: charCount == _undefined
+          ? _instance.charCount
+          : (charCount as int?),
+      leadText: leadText == _undefined
+          ? _instance.leadText
+          : (leadText as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -24615,7 +24667,7 @@ class _CopyWithStubImpl$Mutation$OperationPageEdit$updateMstrOperationByMstrOper
 
   TRes _res;
 
-  call({String? textValue, String? $__typename}) => _res;
+  call({int? charCount, String? leadText, String? $__typename}) => _res;
 }
 
 class Mutation$OperationPageEdit$updateMstrOperationByMstrOperationId$mstrOperation$operationTasks$nodes$tasks$defaultTime {

@@ -7,14 +7,12 @@ import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 class Variables$Mutation$StaffPageEdit {
   factory Variables$Mutation$StaffPageEdit({
     required String infoStaffId,
-    String? sex,
-    String? phone,
-    String? privatePhone,
-    String? remarks,
+    String? infoCompanyId,
+    String? code,
     required String sharedAppellationsId,
+    required String nameSharedDictionaryId,
     required String jaLanguageCodeId,
     required String enLanguageCodeId,
-    required String nameSharedDictionaryId,
     required String nameJa,
     required String nameEn,
     required String pronunciationSharedDictionaryId,
@@ -23,16 +21,18 @@ class Variables$Mutation$StaffPageEdit {
     required String nicknameSharedDictionaryId,
     required String nicknameJa,
     required String nicknameEn,
+    String? sex,
+    String? phone,
+    String? privatePhone,
+    String? remarks,
   }) => Variables$Mutation$StaffPageEdit._({
     r'infoStaffId': infoStaffId,
-    if (sex != null) r'sex': sex,
-    if (phone != null) r'phone': phone,
-    if (privatePhone != null) r'privatePhone': privatePhone,
-    if (remarks != null) r'remarks': remarks,
+    if (infoCompanyId != null) r'infoCompanyId': infoCompanyId,
+    if (code != null) r'code': code,
     r'sharedAppellationsId': sharedAppellationsId,
+    r'nameSharedDictionaryId': nameSharedDictionaryId,
     r'jaLanguageCodeId': jaLanguageCodeId,
     r'enLanguageCodeId': enLanguageCodeId,
-    r'nameSharedDictionaryId': nameSharedDictionaryId,
     r'nameJa': nameJa,
     r'nameEn': nameEn,
     r'pronunciationSharedDictionaryId': pronunciationSharedDictionaryId,
@@ -41,6 +41,10 @@ class Variables$Mutation$StaffPageEdit {
     r'nicknameSharedDictionaryId': nicknameSharedDictionaryId,
     r'nicknameJa': nicknameJa,
     r'nicknameEn': nicknameEn,
+    if (sex != null) r'sex': sex,
+    if (phone != null) r'phone': phone,
+    if (privatePhone != null) r'privatePhone': privatePhone,
+    if (remarks != null) r'remarks': remarks,
   });
 
   Variables$Mutation$StaffPageEdit._(this._$data);
@@ -49,31 +53,23 @@ class Variables$Mutation$StaffPageEdit {
     final result$data = <String, dynamic>{};
     final l$infoStaffId = data['infoStaffId'];
     result$data['infoStaffId'] = (l$infoStaffId as String);
-    if (data.containsKey('sex')) {
-      final l$sex = data['sex'];
-      result$data['sex'] = (l$sex as String?);
+    if (data.containsKey('infoCompanyId')) {
+      final l$infoCompanyId = data['infoCompanyId'];
+      result$data['infoCompanyId'] = (l$infoCompanyId as String?);
     }
-    if (data.containsKey('phone')) {
-      final l$phone = data['phone'];
-      result$data['phone'] = (l$phone as String?);
-    }
-    if (data.containsKey('privatePhone')) {
-      final l$privatePhone = data['privatePhone'];
-      result$data['privatePhone'] = (l$privatePhone as String?);
-    }
-    if (data.containsKey('remarks')) {
-      final l$remarks = data['remarks'];
-      result$data['remarks'] = (l$remarks as String?);
+    if (data.containsKey('code')) {
+      final l$code = data['code'];
+      result$data['code'] = (l$code as String?);
     }
     final l$sharedAppellationsId = data['sharedAppellationsId'];
     result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
+    final l$nameSharedDictionaryId = data['nameSharedDictionaryId'];
+    result$data['nameSharedDictionaryId'] =
+        (l$nameSharedDictionaryId as String);
     final l$jaLanguageCodeId = data['jaLanguageCodeId'];
     result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String);
     final l$enLanguageCodeId = data['enLanguageCodeId'];
     result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String);
-    final l$nameSharedDictionaryId = data['nameSharedDictionaryId'];
-    result$data['nameSharedDictionaryId'] =
-        (l$nameSharedDictionaryId as String);
     final l$nameJa = data['nameJa'];
     result$data['nameJa'] = (l$nameJa as String);
     final l$nameEn = data['nameEn'];
@@ -93,6 +89,22 @@ class Variables$Mutation$StaffPageEdit {
     result$data['nicknameJa'] = (l$nicknameJa as String);
     final l$nicknameEn = data['nicknameEn'];
     result$data['nicknameEn'] = (l$nicknameEn as String);
+    if (data.containsKey('sex')) {
+      final l$sex = data['sex'];
+      result$data['sex'] = (l$sex as String?);
+    }
+    if (data.containsKey('phone')) {
+      final l$phone = data['phone'];
+      result$data['phone'] = (l$phone as String?);
+    }
+    if (data.containsKey('privatePhone')) {
+      final l$privatePhone = data['privatePhone'];
+      result$data['privatePhone'] = (l$privatePhone as String?);
+    }
+    if (data.containsKey('remarks')) {
+      final l$remarks = data['remarks'];
+      result$data['remarks'] = (l$remarks as String?);
+    }
     return Variables$Mutation$StaffPageEdit._(result$data);
   }
 
@@ -100,22 +112,18 @@ class Variables$Mutation$StaffPageEdit {
 
   String get infoStaffId => (_$data['infoStaffId'] as String);
 
-  String? get sex => (_$data['sex'] as String?);
+  String? get infoCompanyId => (_$data['infoCompanyId'] as String?);
 
-  String? get phone => (_$data['phone'] as String?);
-
-  String? get privatePhone => (_$data['privatePhone'] as String?);
-
-  String? get remarks => (_$data['remarks'] as String?);
+  String? get code => (_$data['code'] as String?);
 
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
+
+  String get nameSharedDictionaryId =>
+      (_$data['nameSharedDictionaryId'] as String);
 
   String get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String);
 
   String get enLanguageCodeId => (_$data['enLanguageCodeId'] as String);
-
-  String get nameSharedDictionaryId =>
-      (_$data['nameSharedDictionaryId'] as String);
 
   String get nameJa => (_$data['nameJa'] as String);
 
@@ -135,34 +143,34 @@ class Variables$Mutation$StaffPageEdit {
 
   String get nicknameEn => (_$data['nicknameEn'] as String);
 
+  String? get sex => (_$data['sex'] as String?);
+
+  String? get phone => (_$data['phone'] as String?);
+
+  String? get privatePhone => (_$data['privatePhone'] as String?);
+
+  String? get remarks => (_$data['remarks'] as String?);
+
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     final l$infoStaffId = infoStaffId;
     result$data['infoStaffId'] = l$infoStaffId;
-    if (_$data.containsKey('sex')) {
-      final l$sex = sex;
-      result$data['sex'] = l$sex;
+    if (_$data.containsKey('infoCompanyId')) {
+      final l$infoCompanyId = infoCompanyId;
+      result$data['infoCompanyId'] = l$infoCompanyId;
     }
-    if (_$data.containsKey('phone')) {
-      final l$phone = phone;
-      result$data['phone'] = l$phone;
-    }
-    if (_$data.containsKey('privatePhone')) {
-      final l$privatePhone = privatePhone;
-      result$data['privatePhone'] = l$privatePhone;
-    }
-    if (_$data.containsKey('remarks')) {
-      final l$remarks = remarks;
-      result$data['remarks'] = l$remarks;
+    if (_$data.containsKey('code')) {
+      final l$code = code;
+      result$data['code'] = l$code;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
     result$data['sharedAppellationsId'] = l$sharedAppellationsId;
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
+    result$data['nameSharedDictionaryId'] = l$nameSharedDictionaryId;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
     result$data['enLanguageCodeId'] = l$enLanguageCodeId;
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
-    result$data['nameSharedDictionaryId'] = l$nameSharedDictionaryId;
     final l$nameJa = nameJa;
     result$data['nameJa'] = l$nameJa;
     final l$nameEn = nameEn;
@@ -180,6 +188,22 @@ class Variables$Mutation$StaffPageEdit {
     result$data['nicknameJa'] = l$nicknameJa;
     final l$nicknameEn = nicknameEn;
     result$data['nicknameEn'] = l$nicknameEn;
+    if (_$data.containsKey('sex')) {
+      final l$sex = sex;
+      result$data['sex'] = l$sex;
+    }
+    if (_$data.containsKey('phone')) {
+      final l$phone = phone;
+      result$data['phone'] = l$phone;
+    }
+    if (_$data.containsKey('privatePhone')) {
+      final l$privatePhone = privatePhone;
+      result$data['privatePhone'] = l$privatePhone;
+    }
+    if (_$data.containsKey('remarks')) {
+      final l$remarks = remarks;
+      result$data['remarks'] = l$remarks;
+    }
     return result$data;
   }
 
@@ -200,42 +224,31 @@ class Variables$Mutation$StaffPageEdit {
     if (l$infoStaffId != lOther$infoStaffId) {
       return false;
     }
-    final l$sex = sex;
-    final lOther$sex = other.sex;
-    if (_$data.containsKey('sex') != other._$data.containsKey('sex')) {
+    final l$infoCompanyId = infoCompanyId;
+    final lOther$infoCompanyId = other.infoCompanyId;
+    if (_$data.containsKey('infoCompanyId') !=
+        other._$data.containsKey('infoCompanyId')) {
       return false;
     }
-    if (l$sex != lOther$sex) {
+    if (l$infoCompanyId != lOther$infoCompanyId) {
       return false;
     }
-    final l$phone = phone;
-    final lOther$phone = other.phone;
-    if (_$data.containsKey('phone') != other._$data.containsKey('phone')) {
+    final l$code = code;
+    final lOther$code = other.code;
+    if (_$data.containsKey('code') != other._$data.containsKey('code')) {
       return false;
     }
-    if (l$phone != lOther$phone) {
-      return false;
-    }
-    final l$privatePhone = privatePhone;
-    final lOther$privatePhone = other.privatePhone;
-    if (_$data.containsKey('privatePhone') !=
-        other._$data.containsKey('privatePhone')) {
-      return false;
-    }
-    if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$remarks = remarks;
-    final lOther$remarks = other.remarks;
-    if (_$data.containsKey('remarks') != other._$data.containsKey('remarks')) {
-      return false;
-    }
-    if (l$remarks != lOther$remarks) {
+    if (l$code != lOther$code) {
       return false;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
     final lOther$sharedAppellationsId = other.sharedAppellationsId;
     if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
+      return false;
+    }
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
+    final lOther$nameSharedDictionaryId = other.nameSharedDictionaryId;
+    if (l$nameSharedDictionaryId != lOther$nameSharedDictionaryId) {
       return false;
     }
     final l$jaLanguageCodeId = jaLanguageCodeId;
@@ -246,11 +259,6 @@ class Variables$Mutation$StaffPageEdit {
     final l$enLanguageCodeId = enLanguageCodeId;
     final lOther$enLanguageCodeId = other.enLanguageCodeId;
     if (l$enLanguageCodeId != lOther$enLanguageCodeId) {
-      return false;
-    }
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
-    final lOther$nameSharedDictionaryId = other.nameSharedDictionaryId;
-    if (l$nameSharedDictionaryId != lOther$nameSharedDictionaryId) {
       return false;
     }
     final l$nameJa = nameJa;
@@ -295,20 +303,51 @@ class Variables$Mutation$StaffPageEdit {
     if (l$nicknameEn != lOther$nicknameEn) {
       return false;
     }
+    final l$sex = sex;
+    final lOther$sex = other.sex;
+    if (_$data.containsKey('sex') != other._$data.containsKey('sex')) {
+      return false;
+    }
+    if (l$sex != lOther$sex) {
+      return false;
+    }
+    final l$phone = phone;
+    final lOther$phone = other.phone;
+    if (_$data.containsKey('phone') != other._$data.containsKey('phone')) {
+      return false;
+    }
+    if (l$phone != lOther$phone) {
+      return false;
+    }
+    final l$privatePhone = privatePhone;
+    final lOther$privatePhone = other.privatePhone;
+    if (_$data.containsKey('privatePhone') !=
+        other._$data.containsKey('privatePhone')) {
+      return false;
+    }
+    if (l$privatePhone != lOther$privatePhone) {
+      return false;
+    }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (_$data.containsKey('remarks') != other._$data.containsKey('remarks')) {
+      return false;
+    }
+    if (l$remarks != lOther$remarks) {
+      return false;
+    }
     return true;
   }
 
   @override
   int get hashCode {
     final l$infoStaffId = infoStaffId;
-    final l$sex = sex;
-    final l$phone = phone;
-    final l$privatePhone = privatePhone;
-    final l$remarks = remarks;
+    final l$infoCompanyId = infoCompanyId;
+    final l$code = code;
     final l$sharedAppellationsId = sharedAppellationsId;
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$nameJa = nameJa;
     final l$nameEn = nameEn;
     final l$pronunciationSharedDictionaryId = pronunciationSharedDictionaryId;
@@ -317,16 +356,18 @@ class Variables$Mutation$StaffPageEdit {
     final l$nicknameSharedDictionaryId = nicknameSharedDictionaryId;
     final l$nicknameJa = nicknameJa;
     final l$nicknameEn = nicknameEn;
+    final l$sex = sex;
+    final l$phone = phone;
+    final l$privatePhone = privatePhone;
+    final l$remarks = remarks;
     return Object.hashAll([
       l$infoStaffId,
-      _$data.containsKey('sex') ? l$sex : const {},
-      _$data.containsKey('phone') ? l$phone : const {},
-      _$data.containsKey('privatePhone') ? l$privatePhone : const {},
-      _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('infoCompanyId') ? l$infoCompanyId : const {},
+      _$data.containsKey('code') ? l$code : const {},
       l$sharedAppellationsId,
+      l$nameSharedDictionaryId,
       l$jaLanguageCodeId,
       l$enLanguageCodeId,
-      l$nameSharedDictionaryId,
       l$nameJa,
       l$nameEn,
       l$pronunciationSharedDictionaryId,
@@ -335,6 +376,10 @@ class Variables$Mutation$StaffPageEdit {
       l$nicknameSharedDictionaryId,
       l$nicknameJa,
       l$nicknameEn,
+      _$data.containsKey('sex') ? l$sex : const {},
+      _$data.containsKey('phone') ? l$phone : const {},
+      _$data.containsKey('privatePhone') ? l$privatePhone : const {},
+      _$data.containsKey('remarks') ? l$remarks : const {},
     ]);
   }
 }
@@ -350,14 +395,12 @@ abstract class CopyWith$Variables$Mutation$StaffPageEdit<TRes> {
 
   TRes call({
     String? infoStaffId,
-    String? sex,
-    String? phone,
-    String? privatePhone,
-    String? remarks,
+    String? infoCompanyId,
+    String? code,
     String? sharedAppellationsId,
+    String? nameSharedDictionaryId,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
-    String? nameSharedDictionaryId,
     String? nameJa,
     String? nameEn,
     String? pronunciationSharedDictionaryId,
@@ -366,6 +409,10 @@ abstract class CopyWith$Variables$Mutation$StaffPageEdit<TRes> {
     String? nicknameSharedDictionaryId,
     String? nicknameJa,
     String? nicknameEn,
+    String? sex,
+    String? phone,
+    String? privatePhone,
+    String? remarks,
   });
 }
 
@@ -381,14 +428,12 @@ class _CopyWithImpl$Variables$Mutation$StaffPageEdit<TRes>
 
   TRes call({
     Object? infoStaffId = _undefined,
-    Object? sex = _undefined,
-    Object? phone = _undefined,
-    Object? privatePhone = _undefined,
-    Object? remarks = _undefined,
+    Object? infoCompanyId = _undefined,
+    Object? code = _undefined,
     Object? sharedAppellationsId = _undefined,
+    Object? nameSharedDictionaryId = _undefined,
     Object? jaLanguageCodeId = _undefined,
     Object? enLanguageCodeId = _undefined,
-    Object? nameSharedDictionaryId = _undefined,
     Object? nameJa = _undefined,
     Object? nameEn = _undefined,
     Object? pronunciationSharedDictionaryId = _undefined,
@@ -397,24 +442,27 @@ class _CopyWithImpl$Variables$Mutation$StaffPageEdit<TRes>
     Object? nicknameSharedDictionaryId = _undefined,
     Object? nicknameJa = _undefined,
     Object? nicknameEn = _undefined,
+    Object? sex = _undefined,
+    Object? phone = _undefined,
+    Object? privatePhone = _undefined,
+    Object? remarks = _undefined,
   }) => _then(
     Variables$Mutation$StaffPageEdit._({
       ..._instance._$data,
       if (infoStaffId != _undefined && infoStaffId != null)
         'infoStaffId': (infoStaffId as String),
-      if (sex != _undefined) 'sex': (sex as String?),
-      if (phone != _undefined) 'phone': (phone as String?),
-      if (privatePhone != _undefined) 'privatePhone': (privatePhone as String?),
-      if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (infoCompanyId != _undefined)
+        'infoCompanyId': (infoCompanyId as String?),
+      if (code != _undefined) 'code': (code as String?),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
         'sharedAppellationsId': (sharedAppellationsId as String),
+      if (nameSharedDictionaryId != _undefined &&
+          nameSharedDictionaryId != null)
+        'nameSharedDictionaryId': (nameSharedDictionaryId as String),
       if (jaLanguageCodeId != _undefined && jaLanguageCodeId != null)
         'jaLanguageCodeId': (jaLanguageCodeId as String),
       if (enLanguageCodeId != _undefined && enLanguageCodeId != null)
         'enLanguageCodeId': (enLanguageCodeId as String),
-      if (nameSharedDictionaryId != _undefined &&
-          nameSharedDictionaryId != null)
-        'nameSharedDictionaryId': (nameSharedDictionaryId as String),
       if (nameJa != _undefined && nameJa != null) 'nameJa': (nameJa as String),
       if (nameEn != _undefined && nameEn != null) 'nameEn': (nameEn as String),
       if (pronunciationSharedDictionaryId != _undefined &&
@@ -432,6 +480,10 @@ class _CopyWithImpl$Variables$Mutation$StaffPageEdit<TRes>
         'nicknameJa': (nicknameJa as String),
       if (nicknameEn != _undefined && nicknameEn != null)
         'nicknameEn': (nicknameEn as String),
+      if (sex != _undefined) 'sex': (sex as String?),
+      if (phone != _undefined) 'phone': (phone as String?),
+      if (privatePhone != _undefined) 'privatePhone': (privatePhone as String?),
+      if (remarks != _undefined) 'remarks': (remarks as String?),
     }),
   );
 }
@@ -444,14 +496,12 @@ class _CopyWithStubImpl$Variables$Mutation$StaffPageEdit<TRes>
 
   call({
     String? infoStaffId,
-    String? sex,
-    String? phone,
-    String? privatePhone,
-    String? remarks,
+    String? infoCompanyId,
+    String? code,
     String? sharedAppellationsId,
+    String? nameSharedDictionaryId,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
-    String? nameSharedDictionaryId,
     String? nameJa,
     String? nameEn,
     String? pronunciationSharedDictionaryId,
@@ -460,6 +510,10 @@ class _CopyWithStubImpl$Variables$Mutation$StaffPageEdit<TRes>
     String? nicknameSharedDictionaryId,
     String? nicknameJa,
     String? nicknameEn,
+    String? sex,
+    String? phone,
+    String? privatePhone,
+    String? remarks,
   }) => _res;
 }
 
@@ -620,34 +674,13 @@ const documentNodeMutationStaffPageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'sex')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
+          variable: VariableNode(name: NameNode(value: 'infoCompanyId')),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: false),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'phone')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'privatePhone')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'remarks')),
+          variable: VariableNode(name: NameNode(value: 'code')),
           type: NamedTypeNode(
             name: NameNode(value: 'String'),
             isNonNull: false,
@@ -662,6 +695,14 @@ const documentNodeMutationStaffPageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
+          variable: VariableNode(
+            name: NameNode(value: 'nameSharedDictionaryId'),
+          ),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -669,14 +710,6 @@ const documentNodeMutationStaffPageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(
-            name: NameNode(value: 'nameSharedDictionaryId'),
-          ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
@@ -733,6 +766,42 @@ const documentNodeMutationStaffPageEdit = DocumentNode(
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'sex')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'phone')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'privatePhone')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'remarks')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
       ],
       directives: [],
       selectionSet: SelectionSetNode(
@@ -754,24 +823,14 @@ const documentNodeMutationStaffPageEdit = DocumentNode(
                       value: ObjectValueNode(
                         fields: [
                           ObjectFieldNode(
-                            name: NameNode(value: 'sex'),
-                            value: VariableNode(name: NameNode(value: 'sex')),
-                          ),
-                          ObjectFieldNode(
-                            name: NameNode(value: 'phone'),
-                            value: VariableNode(name: NameNode(value: 'phone')),
-                          ),
-                          ObjectFieldNode(
-                            name: NameNode(value: 'privatePhone'),
+                            name: NameNode(value: 'infoCompanyId'),
                             value: VariableNode(
-                              name: NameNode(value: 'privatePhone'),
+                              name: NameNode(value: 'infoCompanyId'),
                             ),
                           ),
                           ObjectFieldNode(
-                            name: NameNode(value: 'remarks'),
-                            value: VariableNode(
-                              name: NameNode(value: 'remarks'),
-                            ),
+                            name: NameNode(value: 'code'),
+                            value: VariableNode(name: NameNode(value: 'code')),
                           ),
                           ObjectFieldNode(
                             name: NameNode(value: 'sharedAppellationToNames'),
@@ -1168,6 +1227,26 @@ const documentNodeMutationStaffPageEdit = DocumentNode(
                               ],
                             ),
                           ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'sex'),
+                            value: VariableNode(name: NameNode(value: 'sex')),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'phone'),
+                            value: VariableNode(name: NameNode(value: 'phone')),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'privatePhone'),
+                            value: VariableNode(
+                              name: NameNode(value: 'privatePhone'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'remarks'),
+                            value: VariableNode(
+                              name: NameNode(value: 'remarks'),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1201,34 +1280,6 @@ const documentNodeMutationStaffPageEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'code'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'sex'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'phone'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'privatePhone'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1736,6 +1787,34 @@ const documentNodeMutationStaffPageEdit = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'sex'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'phone'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'privatePhone'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: '__typename'),
                         alias: null,
                         arguments: [],
@@ -2133,11 +2212,11 @@ class Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff {
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.labels,
     this.sex,
     this.phone,
     this.privatePhone,
     this.remarks,
-    this.labels,
     this.$__typename = 'InfoStaff',
   });
 
@@ -2147,25 +2226,25 @@ class Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff {
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$labels = json['labels'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$privatePhone = json['privatePhone'];
     final l$remarks = json['remarks'];
-    final l$labels = json['labels'];
     final l$$__typename = json['__typename'];
     return Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff(
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      privatePhone: (l$privatePhone as String?),
-      remarks: (l$remarks as String?),
       labels: l$labels == null
           ? null
           : Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      privatePhone: (l$privatePhone as String?),
+      remarks: (l$remarks as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -2176,6 +2255,9 @@ class Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff {
 
   final String? code;
 
+  final Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff$labels?
+  labels;
+
   final String? sex;
 
   final String? phone;
@@ -2183,9 +2265,6 @@ class Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff {
   final String? privatePhone;
 
   final String? remarks;
-
-  final Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff$labels?
-  labels;
 
   final String $__typename;
 
@@ -2197,6 +2276,8 @@ class Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -2205,8 +2286,6 @@ class Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff {
     _resultData['privatePhone'] = l$privatePhone;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2217,21 +2296,21 @@ class Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff {
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$labels = labels;
     final l$sex = sex;
     final l$phone = phone;
     final l$privatePhone = privatePhone;
     final l$remarks = remarks;
-    final l$labels = labels;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$labels,
       l$sex,
       l$phone,
       l$privatePhone,
       l$remarks,
-      l$labels,
       l$$__typename,
     ]);
   }
@@ -2261,6 +2340,11 @@ class Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -2279,11 +2363,6 @@ class Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff {
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -2324,12 +2403,12 @@ abstract class CopyWith$Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$info
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff$labels?
+    labels,
     String? sex,
     String? phone,
     String? privatePhone,
     String? remarks,
-    Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff$labels?
-    labels,
     String? $__typename,
   });
   CopyWith$Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff$labels<
@@ -2363,11 +2442,11 @@ class _CopyWithImpl$Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaf
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? labels = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? privatePhone = _undefined,
     Object? remarks = _undefined,
-    Object? labels = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff(
@@ -2378,16 +2457,16 @@ class _CopyWithImpl$Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaf
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels
+                as Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff$labels?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels
-                as Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff$labels?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -2427,12 +2506,12 @@ class _CopyWithStubImpl$Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$info
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff$labels?
+    labels,
     String? sex,
     String? phone,
     String? privatePhone,
     String? remarks,
-    Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff$labels?
-    labels,
     String? $__typename,
   }) => _res;
 

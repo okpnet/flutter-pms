@@ -477,6 +477,13 @@ second occurrence
 - 1対多の件数は、`pagination`が無ければ`$<名前>First`(既定30)。列に`sequence`があれば`orderBy: SEQUENCE_ASC`。
 - 解釈できない構成はエラーとして記録し、そのノードは生成しない。
 
+### 11-1. 固定条件(defaultWhere)と共通定義の検証(要件0055)
+
+- `defaultWhere`の`remove`以外の条件(例: `column: is_customer, operator: =, value: true`)は、フィルタの`and`に加える。
+  演算子は `=`(equalTo)・`!=`(notEqualTo)・`>`・`>=`・`<`・`<=`。`value`が無い(キー名の誤記を含む)、列が型に無い、演算子が不明な場合はエラーとして、そのノードを生成しない。
+- 共通定義(~ReadFields・~EditFields)は生成しないが、スキーマとの整合を検証する(出力は捨てる)。~EditFieldsに`requiredWhere`が無いときは、主キー(パーティション等で単独の更新ミューテーションが無いときは複合キー)で検証する。
+- 雛形: `dart run tool/scaffold_view.dart <テーブル>:<名前>[:<親を指す列>]`。列・呼称・テキスト・参照(取り込める読み込み定義があるmstr_/info_/shared_unit/trans_approval_pattern)を既存の慣習で組み立てる。出力はレビューして直す。
+
 ## 変更履歴
 
 - 2026-10-07(要件0050): トップノードの命名規則と生成対象を10章として追加。`condition`を`filter`に
@@ -518,3 +525,4 @@ second occurrence
 - 2026-10-14(要件0051): view.yaml→GraphQLの生成ツール(`tool/view_graphql`)を追加し、11章に規則の実装を記した。
 - 2026-10-15(要件0052): view.yamlを`source/views/`以下の機能単位のファイルに分割した(規則は変更なし)。ファイルをまたぐアンカーの参照は、`tool/view_graphql/view_sources.dart`が依存順に結合して解決する。CLAUDE.md 5-9節、`docs/0052_view_yaml_split_log.md`を参照。
 - 2026-10-15(要件0053): `defaultSort`(asc/desc/none)を追加し、並び順の引数(`$orderBy`/`$<子の出力名>OrderBy`)を必ず生成するようにした(6-9節)。
+- 2026-10-16(要件0055): 11-1節を追加(固定条件の反映、共通定義の検証、雛形ツール)。

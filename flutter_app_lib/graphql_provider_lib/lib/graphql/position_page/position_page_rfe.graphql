@@ -1,8 +1,7 @@
-# position_page画面 - RFE(read for editing、要件0037: PositionPageEditのgenerateRfe: trueから導出)
-
-# 要件0048: 要件0036以前の方式($ja/$en: Boolean!と@includeによる条件付き取得)を、
-# company_page_rfe.graphqlと同じ方式($jaLanguageCodeId/$enLanguageCodeIdをUUID!(必須)とし、
-# ja/en両方を常時取得)へ修正した。Editは両言語を必須引数で要求するため、RFEも常に両方を取得する(要件0046のC2)。
+# position_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: source/views/ #PositionPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query PositionPageRfe(
   $infoPositionId: UUID!
@@ -12,16 +11,12 @@ query PositionPageRfe(
   infoPositionByInfoPositionId(infoPositionId: $infoPositionId) {
     infoPositionId
     priority
-    remarks
-    updateAt
-    updateUserId
-    updateUserHistoryId
-    remove
 
     labels: sharedAppellationByNames {
       sharedAppellationsId
       sharedDictionaryBySharedDictionaryNameId {
         sharedDictionaryId
+
         ja: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
         ) {
@@ -29,6 +24,7 @@ query PositionPageRfe(
             dictionaryValue
           }
         }
+
         en: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
         ) {
@@ -37,8 +33,10 @@ query PositionPageRfe(
           }
         }
       }
+
       sharedDictionaryBySharedDictionaryPronunciationId {
         sharedDictionaryId
+
         ja: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
         ) {
@@ -46,6 +44,7 @@ query PositionPageRfe(
             dictionaryValue
           }
         }
+
         en: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
         ) {
@@ -54,8 +53,10 @@ query PositionPageRfe(
           }
         }
       }
+
       sharedDictionaryBySharedDictionaryNicknameId {
         sharedDictionaryId
+
         ja: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
         ) {
@@ -63,6 +64,7 @@ query PositionPageRfe(
             dictionaryValue
           }
         }
+
         en: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
         ) {
@@ -72,5 +74,11 @@ query PositionPageRfe(
         }
       }
     }
+
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
   }
 }

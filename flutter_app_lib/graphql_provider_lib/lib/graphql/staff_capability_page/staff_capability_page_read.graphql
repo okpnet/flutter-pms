@@ -124,7 +124,8 @@ query StaffCapabilityPageRead(
                 condition: { sharedLanguageCodeId: $languageCodeId }
               ) {
                 nodes {
-                  textValue
+                  charCount
+                  leadText
                 }
               }
             }

@@ -8,11 +8,10 @@ class Variables$Mutation$PositionPageEdit {
   factory Variables$Mutation$PositionPageEdit({
     required String infoPositionId,
     int? priority,
-    String? remarks,
     required String sharedAppellationsId,
+    required String nameSharedDictionaryId,
     required String jaLanguageCodeId,
     required String enLanguageCodeId,
-    required String nameSharedDictionaryId,
     required String nameJa,
     required String nameEn,
     required String pronunciationSharedDictionaryId,
@@ -21,14 +20,14 @@ class Variables$Mutation$PositionPageEdit {
     required String nicknameSharedDictionaryId,
     required String nicknameJa,
     required String nicknameEn,
+    String? remarks,
   }) => Variables$Mutation$PositionPageEdit._({
     r'infoPositionId': infoPositionId,
     if (priority != null) r'priority': priority,
-    if (remarks != null) r'remarks': remarks,
     r'sharedAppellationsId': sharedAppellationsId,
+    r'nameSharedDictionaryId': nameSharedDictionaryId,
     r'jaLanguageCodeId': jaLanguageCodeId,
     r'enLanguageCodeId': enLanguageCodeId,
-    r'nameSharedDictionaryId': nameSharedDictionaryId,
     r'nameJa': nameJa,
     r'nameEn': nameEn,
     r'pronunciationSharedDictionaryId': pronunciationSharedDictionaryId,
@@ -37,6 +36,7 @@ class Variables$Mutation$PositionPageEdit {
     r'nicknameSharedDictionaryId': nicknameSharedDictionaryId,
     r'nicknameJa': nicknameJa,
     r'nicknameEn': nicknameEn,
+    if (remarks != null) r'remarks': remarks,
   });
 
   Variables$Mutation$PositionPageEdit._(this._$data);
@@ -51,19 +51,15 @@ class Variables$Mutation$PositionPageEdit {
       final l$priority = data['priority'];
       result$data['priority'] = (l$priority as int?);
     }
-    if (data.containsKey('remarks')) {
-      final l$remarks = data['remarks'];
-      result$data['remarks'] = (l$remarks as String?);
-    }
     final l$sharedAppellationsId = data['sharedAppellationsId'];
     result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
+    final l$nameSharedDictionaryId = data['nameSharedDictionaryId'];
+    result$data['nameSharedDictionaryId'] =
+        (l$nameSharedDictionaryId as String);
     final l$jaLanguageCodeId = data['jaLanguageCodeId'];
     result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String);
     final l$enLanguageCodeId = data['enLanguageCodeId'];
     result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String);
-    final l$nameSharedDictionaryId = data['nameSharedDictionaryId'];
-    result$data['nameSharedDictionaryId'] =
-        (l$nameSharedDictionaryId as String);
     final l$nameJa = data['nameJa'];
     result$data['nameJa'] = (l$nameJa as String);
     final l$nameEn = data['nameEn'];
@@ -83,6 +79,10 @@ class Variables$Mutation$PositionPageEdit {
     result$data['nicknameJa'] = (l$nicknameJa as String);
     final l$nicknameEn = data['nicknameEn'];
     result$data['nicknameEn'] = (l$nicknameEn as String);
+    if (data.containsKey('remarks')) {
+      final l$remarks = data['remarks'];
+      result$data['remarks'] = (l$remarks as String?);
+    }
     return Variables$Mutation$PositionPageEdit._(result$data);
   }
 
@@ -92,16 +92,14 @@ class Variables$Mutation$PositionPageEdit {
 
   int? get priority => (_$data['priority'] as int?);
 
-  String? get remarks => (_$data['remarks'] as String?);
-
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
+
+  String get nameSharedDictionaryId =>
+      (_$data['nameSharedDictionaryId'] as String);
 
   String get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String);
 
   String get enLanguageCodeId => (_$data['enLanguageCodeId'] as String);
-
-  String get nameSharedDictionaryId =>
-      (_$data['nameSharedDictionaryId'] as String);
 
   String get nameJa => (_$data['nameJa'] as String);
 
@@ -121,6 +119,8 @@ class Variables$Mutation$PositionPageEdit {
 
   String get nicknameEn => (_$data['nicknameEn'] as String);
 
+  String? get remarks => (_$data['remarks'] as String?);
+
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     final l$infoPositionId = infoPositionId;
@@ -129,18 +129,14 @@ class Variables$Mutation$PositionPageEdit {
       final l$priority = priority;
       result$data['priority'] = l$priority;
     }
-    if (_$data.containsKey('remarks')) {
-      final l$remarks = remarks;
-      result$data['remarks'] = l$remarks;
-    }
     final l$sharedAppellationsId = sharedAppellationsId;
     result$data['sharedAppellationsId'] = l$sharedAppellationsId;
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
+    result$data['nameSharedDictionaryId'] = l$nameSharedDictionaryId;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
     result$data['enLanguageCodeId'] = l$enLanguageCodeId;
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
-    result$data['nameSharedDictionaryId'] = l$nameSharedDictionaryId;
     final l$nameJa = nameJa;
     result$data['nameJa'] = l$nameJa;
     final l$nameEn = nameEn;
@@ -158,6 +154,10 @@ class Variables$Mutation$PositionPageEdit {
     result$data['nicknameJa'] = l$nicknameJa;
     final l$nicknameEn = nicknameEn;
     result$data['nicknameEn'] = l$nicknameEn;
+    if (_$data.containsKey('remarks')) {
+      final l$remarks = remarks;
+      result$data['remarks'] = l$remarks;
+    }
     return result$data;
   }
 
@@ -189,17 +189,14 @@ class Variables$Mutation$PositionPageEdit {
     if (l$priority != lOther$priority) {
       return false;
     }
-    final l$remarks = remarks;
-    final lOther$remarks = other.remarks;
-    if (_$data.containsKey('remarks') != other._$data.containsKey('remarks')) {
-      return false;
-    }
-    if (l$remarks != lOther$remarks) {
-      return false;
-    }
     final l$sharedAppellationsId = sharedAppellationsId;
     final lOther$sharedAppellationsId = other.sharedAppellationsId;
     if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
+      return false;
+    }
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
+    final lOther$nameSharedDictionaryId = other.nameSharedDictionaryId;
+    if (l$nameSharedDictionaryId != lOther$nameSharedDictionaryId) {
       return false;
     }
     final l$jaLanguageCodeId = jaLanguageCodeId;
@@ -210,11 +207,6 @@ class Variables$Mutation$PositionPageEdit {
     final l$enLanguageCodeId = enLanguageCodeId;
     final lOther$enLanguageCodeId = other.enLanguageCodeId;
     if (l$enLanguageCodeId != lOther$enLanguageCodeId) {
-      return false;
-    }
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
-    final lOther$nameSharedDictionaryId = other.nameSharedDictionaryId;
-    if (l$nameSharedDictionaryId != lOther$nameSharedDictionaryId) {
       return false;
     }
     final l$nameJa = nameJa;
@@ -259,6 +251,14 @@ class Variables$Mutation$PositionPageEdit {
     if (l$nicknameEn != lOther$nicknameEn) {
       return false;
     }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (_$data.containsKey('remarks') != other._$data.containsKey('remarks')) {
+      return false;
+    }
+    if (l$remarks != lOther$remarks) {
+      return false;
+    }
     return true;
   }
 
@@ -266,11 +266,10 @@ class Variables$Mutation$PositionPageEdit {
   int get hashCode {
     final l$infoPositionId = infoPositionId;
     final l$priority = priority;
-    final l$remarks = remarks;
     final l$sharedAppellationsId = sharedAppellationsId;
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$nameJa = nameJa;
     final l$nameEn = nameEn;
     final l$pronunciationSharedDictionaryId = pronunciationSharedDictionaryId;
@@ -279,14 +278,14 @@ class Variables$Mutation$PositionPageEdit {
     final l$nicknameSharedDictionaryId = nicknameSharedDictionaryId;
     final l$nicknameJa = nicknameJa;
     final l$nicknameEn = nicknameEn;
+    final l$remarks = remarks;
     return Object.hashAll([
       l$infoPositionId,
       _$data.containsKey('priority') ? l$priority : const {},
-      _$data.containsKey('remarks') ? l$remarks : const {},
       l$sharedAppellationsId,
+      l$nameSharedDictionaryId,
       l$jaLanguageCodeId,
       l$enLanguageCodeId,
-      l$nameSharedDictionaryId,
       l$nameJa,
       l$nameEn,
       l$pronunciationSharedDictionaryId,
@@ -295,6 +294,7 @@ class Variables$Mutation$PositionPageEdit {
       l$nicknameSharedDictionaryId,
       l$nicknameJa,
       l$nicknameEn,
+      _$data.containsKey('remarks') ? l$remarks : const {},
     ]);
   }
 }
@@ -311,11 +311,10 @@ abstract class CopyWith$Variables$Mutation$PositionPageEdit<TRes> {
   TRes call({
     String? infoPositionId,
     int? priority,
-    String? remarks,
     String? sharedAppellationsId,
+    String? nameSharedDictionaryId,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
-    String? nameSharedDictionaryId,
     String? nameJa,
     String? nameEn,
     String? pronunciationSharedDictionaryId,
@@ -324,6 +323,7 @@ abstract class CopyWith$Variables$Mutation$PositionPageEdit<TRes> {
     String? nicknameSharedDictionaryId,
     String? nicknameJa,
     String? nicknameEn,
+    String? remarks,
   });
 }
 
@@ -340,11 +340,10 @@ class _CopyWithImpl$Variables$Mutation$PositionPageEdit<TRes>
   TRes call({
     Object? infoPositionId = _undefined,
     Object? priority = _undefined,
-    Object? remarks = _undefined,
     Object? sharedAppellationsId = _undefined,
+    Object? nameSharedDictionaryId = _undefined,
     Object? jaLanguageCodeId = _undefined,
     Object? enLanguageCodeId = _undefined,
-    Object? nameSharedDictionaryId = _undefined,
     Object? nameJa = _undefined,
     Object? nameEn = _undefined,
     Object? pronunciationSharedDictionaryId = _undefined,
@@ -353,22 +352,22 @@ class _CopyWithImpl$Variables$Mutation$PositionPageEdit<TRes>
     Object? nicknameSharedDictionaryId = _undefined,
     Object? nicknameJa = _undefined,
     Object? nicknameEn = _undefined,
+    Object? remarks = _undefined,
   }) => _then(
     Variables$Mutation$PositionPageEdit._({
       ..._instance._$data,
       if (infoPositionId != _undefined && infoPositionId != null)
         'infoPositionId': (infoPositionId as String),
       if (priority != _undefined) 'priority': (priority as int?),
-      if (remarks != _undefined) 'remarks': (remarks as String?),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
         'sharedAppellationsId': (sharedAppellationsId as String),
+      if (nameSharedDictionaryId != _undefined &&
+          nameSharedDictionaryId != null)
+        'nameSharedDictionaryId': (nameSharedDictionaryId as String),
       if (jaLanguageCodeId != _undefined && jaLanguageCodeId != null)
         'jaLanguageCodeId': (jaLanguageCodeId as String),
       if (enLanguageCodeId != _undefined && enLanguageCodeId != null)
         'enLanguageCodeId': (enLanguageCodeId as String),
-      if (nameSharedDictionaryId != _undefined &&
-          nameSharedDictionaryId != null)
-        'nameSharedDictionaryId': (nameSharedDictionaryId as String),
       if (nameJa != _undefined && nameJa != null) 'nameJa': (nameJa as String),
       if (nameEn != _undefined && nameEn != null) 'nameEn': (nameEn as String),
       if (pronunciationSharedDictionaryId != _undefined &&
@@ -386,6 +385,7 @@ class _CopyWithImpl$Variables$Mutation$PositionPageEdit<TRes>
         'nicknameJa': (nicknameJa as String),
       if (nicknameEn != _undefined && nicknameEn != null)
         'nicknameEn': (nicknameEn as String),
+      if (remarks != _undefined) 'remarks': (remarks as String?),
     }),
   );
 }
@@ -399,11 +399,10 @@ class _CopyWithStubImpl$Variables$Mutation$PositionPageEdit<TRes>
   call({
     String? infoPositionId,
     int? priority,
-    String? remarks,
     String? sharedAppellationsId,
+    String? nameSharedDictionaryId,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
-    String? nameSharedDictionaryId,
     String? nameJa,
     String? nameEn,
     String? pronunciationSharedDictionaryId,
@@ -412,6 +411,7 @@ class _CopyWithStubImpl$Variables$Mutation$PositionPageEdit<TRes>
     String? nicknameSharedDictionaryId,
     String? nicknameJa,
     String? nicknameEn,
+    String? remarks,
   }) => _res;
 }
 
@@ -592,16 +592,15 @@ const documentNodeMutationPositionPageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'remarks')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
+          variable: VariableNode(name: NameNode(value: 'sharedAppellationsId')),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'sharedAppellationsId')),
+          variable: VariableNode(
+            name: NameNode(value: 'nameSharedDictionaryId'),
+          ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
@@ -614,14 +613,6 @@ const documentNodeMutationPositionPageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(
-            name: NameNode(value: 'nameSharedDictionaryId'),
-          ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
@@ -678,6 +669,15 @@ const documentNodeMutationPositionPageEdit = DocumentNode(
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'remarks')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
       ],
       directives: [],
       selectionSet: SelectionSetNode(
@@ -704,12 +704,6 @@ const documentNodeMutationPositionPageEdit = DocumentNode(
                             name: NameNode(value: 'priority'),
                             value: VariableNode(
                               name: NameNode(value: 'priority'),
-                            ),
-                          ),
-                          ObjectFieldNode(
-                            name: NameNode(value: 'remarks'),
-                            value: VariableNode(
-                              name: NameNode(value: 'remarks'),
                             ),
                           ),
                           ObjectFieldNode(
@@ -1107,6 +1101,12 @@ const documentNodeMutationPositionPageEdit = DocumentNode(
                               ],
                             ),
                           ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'remarks'),
+                            value: VariableNode(
+                              name: NameNode(value: 'remarks'),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1133,13 +1133,6 @@ const documentNodeMutationPositionPageEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'priority'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1647,6 +1640,13 @@ const documentNodeMutationPositionPageEdit = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: '__typename'),
                         alias: null,
                         arguments: [],
@@ -2068,8 +2068,8 @@ class Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId$infoPosition 
   Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId$infoPosition({
     required this.infoPositionId,
     required this.priority,
-    this.remarks,
     this.labels,
+    this.remarks,
     this.$__typename = 'InfoPosition',
   });
 
@@ -2078,18 +2078,18 @@ class Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId$infoPosition 
   ) {
     final l$infoPositionId = json['infoPositionId'];
     final l$priority = json['priority'];
-    final l$remarks = json['remarks'];
     final l$labels = json['labels'];
+    final l$remarks = json['remarks'];
     final l$$__typename = json['__typename'];
     return Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId$infoPosition(
       infoPositionId: (l$infoPositionId as String),
       priority: (l$priority as int),
-      remarks: (l$remarks as String?),
       labels: l$labels == null
           ? null
           : Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId$infoPosition$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
+      remarks: (l$remarks as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -2098,10 +2098,10 @@ class Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId$infoPosition 
 
   final int priority;
 
-  final String? remarks;
-
   final Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId$infoPosition$labels?
   labels;
+
+  final String? remarks;
 
   final String $__typename;
 
@@ -2111,10 +2111,10 @@ class Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId$infoPosition 
     _resultData['infoPositionId'] = l$infoPositionId;
     final l$priority = priority;
     _resultData['priority'] = l$priority;
-    final l$remarks = remarks;
-    _resultData['remarks'] = l$remarks;
     final l$labels = labels;
     _resultData['labels'] = l$labels?.toJson();
+    final l$remarks = remarks;
+    _resultData['remarks'] = l$remarks;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2124,14 +2124,14 @@ class Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId$infoPosition 
   int get hashCode {
     final l$infoPositionId = infoPositionId;
     final l$priority = priority;
-    final l$remarks = remarks;
     final l$labels = labels;
+    final l$remarks = remarks;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoPositionId,
       l$priority,
-      l$remarks,
       l$labels,
+      l$remarks,
       l$$__typename,
     ]);
   }
@@ -2156,14 +2156,14 @@ class Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId$infoPosition 
     if (l$priority != lOther$priority) {
       return false;
     }
-    final l$remarks = remarks;
-    final lOther$remarks = other.remarks;
-    if (l$remarks != lOther$remarks) {
-      return false;
-    }
     final l$labels = labels;
     final lOther$labels = other.labels;
     if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (l$remarks != lOther$remarks) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -2206,9 +2206,9 @@ abstract class CopyWith$Mutation$PositionPageEdit$updateInfoPositionByInfoPositi
   TRes call({
     String? infoPositionId,
     int? priority,
-    String? remarks,
     Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId$infoPosition$labels?
     labels,
+    String? remarks,
     String? $__typename,
   });
   CopyWith$Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId$infoPosition$labels<
@@ -2242,8 +2242,8 @@ class _CopyWithImpl$Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId
   TRes call({
     Object? infoPositionId = _undefined,
     Object? priority = _undefined,
-    Object? remarks = _undefined,
     Object? labels = _undefined,
+    Object? remarks = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId$infoPosition(
@@ -2253,11 +2253,11 @@ class _CopyWithImpl$Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId
       priority: priority == _undefined || priority == null
           ? _instance.priority
           : (priority as int),
-      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       labels: labels == _undefined
           ? _instance.labels
           : (labels
                 as Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId$infoPosition$labels?),
+      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -2296,9 +2296,9 @@ class _CopyWithStubImpl$Mutation$PositionPageEdit$updateInfoPositionByInfoPositi
   call({
     String? infoPositionId,
     int? priority,
-    String? remarks,
     Mutation$PositionPageEdit$updateInfoPositionByInfoPositionId$infoPosition$labels?
     labels,
+    String? remarks,
     String? $__typename,
   }) => _res;
 

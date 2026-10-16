@@ -13,4 +13,10 @@ SupplierPage:
       value: false
     - column: is_supplier
       operator: =
-      valuer: true;
+      value: true
+
+# サプライヤーの書き込み(0055追加: page.mdの外部供給者情報)
+SupplierPageEdit:
+  kind: edit
+  <<: *StakeholderEditFields
+  generateRfe: true

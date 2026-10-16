@@ -25,6 +25,16 @@ Map<String, dynamic> _dict(String? value) =>
 Map<String, dynamic> _text(String? value) =>
     _valueConnection('textValue', value, 'SharedTextValue');
 
+// 読み込み(FixTextReadFields)は、先頭の抜粋(lead_text)と文字数(char_count)を取得する。
+Map<String, dynamic> _textRead(String? value) => {
+  'nodes': value == null
+      ? <dynamic>[]
+      : [
+          {'charCount': value.length, 'leadText': value, '__typename': 'SharedTextValue'},
+        ],
+  '__typename': 'SharedTextValuesConnection',
+};
+
 Map<String, dynamic> _dictionary(String id, Map<String, dynamic> values) => {
   'sharedDictionaryId': id,
   ...values,
@@ -67,7 +77,7 @@ Map<String, dynamic> _labelsJaEn(String appellationsId, String nameJa, String na
 
 Map<String, dynamic> _textValue(String textId, String ja) => {
   'sharedTextId': textId,
-  'value': _text(ja),
+  'value': _textRead(ja),
   '__typename': 'SharedText',
 };
 
@@ -200,10 +210,10 @@ void main() {
     expect(restoredNode, equals(node));
 
     final detail = nodeMap.flattenForColumns(
-      ['detailTexts||value||textValue'],
+      ['detailTexts||value||leadText'],
       collapseSingleRecordPaths: {'detailTexts||value'},
     );
-    expect(detail['detailTexts||value||textValue'], '運用の詳細');
+    expect(detail['detailTexts||value||leadText'], '運用の詳細');
 
     // ignore: avoid_print
     print('OPERATION_PAGE_READ_FLAT_MAP_JSON=${jsonEncode(flatMap)}');

@@ -1,0 +1,234 @@
+# yaml-language-server: $schema=../../schema.json
+
+# trans_resource_planの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ResourcePlanPage: &ResourcePlanPage
+  kind: read
+  from: trans_resource_plan
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_resource_plan_id
+    - trans_order_detail_id
+    - trans_unrecognized_detail_id
+    - register_at
+    - quantity
+    - inventory_resavation
+    - deadline
+    - item_history_id
+    - item_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_resource_planの書き込み
+ResourcePlanPageEdit:
+  kind: edit
+  from: trans_resource_plan
+  requiredWhere:
+    - trans_resource_plan_id
+  generateRfe: true
+  columns:
+    - trans_resource_plan_id
+    - trans_order_detail_id
+    - trans_unrecognized_detail_id
+    - register_at
+    - quantity
+    - inventory_resavation
+    - deadline
+    - item_history_id
+    - item_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_operations_planの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+OperationsPlanPage: &OperationsPlanPage
+  kind: read
+  from: trans_operations_plan
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_operations_plan_id
+    - trans_resource_plan_id
+    - deadline
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_operations_planの書き込み
+OperationsPlanPageEdit:
+  kind: edit
+  from: trans_operations_plan
+  requiredWhere:
+    - trans_operations_plan_id
+  generateRfe: true
+  columns:
+    - trans_operations_plan_id
+    - trans_resource_plan_id
+    - deadline
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_work_planの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+WorkPlanPage: &WorkPlanPage
+  kind: read
+  from: trans_work_plan
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_operations_plan_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_work_plan_id
+    - trans_operations_plan_id
+    - mstr_task_id
+    - name: task
+      as: task
+      arrayType: toFirstOne
+      using: mstr_task_id
+      <<: *TaskReadFields
+    - interval_plan
+    - start_at
+    - completion_at
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_work_planの書き込み
+WorkPlanPageEdit:
+  kind: edit
+  from: trans_work_plan
+  requiredWhere:
+    - trans_work_plan_id
+  generateRfe: true
+  columns:
+    - trans_work_plan_id
+    - trans_operations_plan_id
+    - mstr_task_id
+    - name: task
+      as: task
+      arrayType: toFirstOne
+      using: mstr_task_id
+      editable: false
+      <<: *TaskReadFields
+    - interval_plan
+    - start_at
+    - completion_at
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_product_rezの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ProductRezPage: &ProductRezPage
+  kind: read
+  from: trans_product_rez
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_work_plan_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_product_rez_id
+    - trans_work_plan_id
+    - quantity
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_product_rezの書き込み
+ProductRezPageEdit:
+  kind: edit
+  from: trans_product_rez
+  requiredWhere:
+    - trans_product_rez_id
+  generateRfe: true
+  columns:
+    - trans_product_rez_id
+    - trans_work_plan_id
+    - quantity
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_purchase_rezの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+PurchaseRezPage: &PurchaseRezPage
+  kind: read
+  from: trans_purchase_rez
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_purchase_detail_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_purchase_rez_id
+    - trans_purchase_detail_id
+    - quantity
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_purchase_rezの書き込み
+PurchaseRezPageEdit:
+  kind: edit
+  from: trans_purchase_rez
+  requiredWhere:
+    - trans_purchase_rez_id
+  generateRfe: true
+  columns:
+    - trans_purchase_rez_id
+    - trans_purchase_detail_id
+    - quantity
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+

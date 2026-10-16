@@ -43,6 +43,25 @@ Map<String, dynamic> _unitJsonValue(String appellationsId, String nameJa) => {
   '__typename': 'SharedUnit',
 };
 
+Map<String, dynamic> _dictionaryJaEn(String id, String? ja) => {
+  'sharedDictionaryId': id,
+  'ja': _dictionaryValueConnection(ja),
+  'en': _dictionaryValueConnection(null),
+  '__typename': 'SharedDictionary',
+};
+
+Map<String, dynamic> _unitJsonJaEn(String appellationsId, String nameJa) => {
+  'sharedUnitId': 'u1111111-1111-1111-1111-111111111111',
+  'labels': {
+    'sharedAppellationsId': appellationsId,
+    'sharedDictionaryBySharedDictionaryNameId': _dictionaryJaEn('d1111111-1111-1111-1111-111111111111', nameJa),
+    'sharedDictionaryBySharedDictionaryPronunciationId': _dictionaryJaEn('d2222222-2222-2222-2222-222222222222', null),
+    'sharedDictionaryBySharedDictionaryNicknameId': _dictionaryJaEn('d3333333-3333-3333-3333-333333333333', null),
+    '__typename': 'SharedAppellation',
+  },
+  '__typename': 'SharedUnit',
+};
+
 Map<String, dynamic> _labelsJsonValue(String appellationsId, String nameJa) => {
   'sharedAppellationsId': appellationsId,
   'sharedDictionaryBySharedDictionaryNameId': {
@@ -152,7 +171,7 @@ void main() {
           'measurementValue': '12.0',
           'sharedUnitId': 'u1111111-1111-1111-1111-111111111111',
           'remarks': '備考テキスト(編集後)',
-          'unit': _unitJsonValue(
+          'unit': _unitJsonJaEn(
             'a1111111-1111-1111-1111-111111111111',
             'ミリメートル',
           ),
@@ -192,7 +211,7 @@ void main() {
         'updateUserId': 'u1111111-1111-1111-1111-111111111111',
         'updateUserHistoryId': 'h2222222-2222-2222-2222-222222222222',
         'remove': false,
-        'unit': _unitJsonValue(
+        'unit': _unitJsonJaEn(
           'a1111111-1111-1111-1111-111111111111',
           'ミリメートル',
         ),

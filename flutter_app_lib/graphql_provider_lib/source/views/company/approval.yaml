@@ -245,3 +245,46 @@ ApprovalOperationPageEdit:
     - update_user_id
     - update_user_history_id
     - remove
+
+######  0055: 雛形から追加
+# mstr_approval_scope_patternの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ApprovalScopePage: &ApprovalScopePage
+  kind: read
+  from: mstr_approval_scope_pattern
+  filter: true
+  requiredWhere:
+    - languageCode
+    - mstr_approval_pattern_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_approval_scope_pattern_id
+    - mstr_approval_pattern_id
+    - info_access_path_approval_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# mstr_approval_scope_patternの書き込み
+ApprovalScopePageEdit:
+  kind: edit
+  from: mstr_approval_scope_pattern
+  requiredWhere:
+    - mstr_approval_scope_pattern_id
+  generateRfe: true
+  columns:
+    - mstr_approval_scope_pattern_id
+    - mstr_approval_pattern_id
+    - info_access_path_approval_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+

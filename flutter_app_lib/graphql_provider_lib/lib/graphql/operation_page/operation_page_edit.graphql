@@ -426,7 +426,8 @@ mutation OperationPageEdit(
                 condition: { sharedLanguageCodeId: $jaLanguageCodeId }
               ) {
                 nodes {
-                  textValue
+                  charCount
+                  leadText
                 }
               }
 
@@ -434,7 +435,8 @@ mutation OperationPageEdit(
                 condition: { sharedLanguageCodeId: $enLanguageCodeId }
               ) {
                 nodes {
-                  textValue
+                  charCount
+                  leadText
                 }
               }
             }

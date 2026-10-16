@@ -1,0 +1,324 @@
+# yaml-language-server: $schema=../../schema.json
+
+# trans_riskの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+RiskPage: &RiskPage
+  kind: read
+  from: trans_risk
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_risk_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelReadFields
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FlexibleTextReadFields
+    - frequency
+    - momentous
+    - action
+    - residual_risk_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_riskの書き込み
+RiskPageEdit:
+  kind: edit
+  from: trans_risk
+  requiredWhere:
+    - trans_risk_id
+  generateRfe: true
+  columns:
+    - trans_risk_id
+    - name: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelEditFields
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FlexibleTextEditFields
+    - frequency
+    - momentous
+    - action
+    - residual_risk_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_preventionの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+PreventionPage: &PreventionPage
+  kind: read
+  from: trans_prevention
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_risk_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_prevention_id
+    - trans_risk_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelReadFields
+    - number
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FlexibleTextReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_preventionの書き込み
+PreventionPageEdit:
+  kind: edit
+  from: trans_prevention
+  requiredWhere:
+    - trans_prevention_id
+  generateRfe: true
+  columns:
+    - trans_prevention_id
+    - trans_risk_id
+    - name: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelEditFields
+    - number
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FlexibleTextEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_prevention_detailの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+PreventionDetailPage: &PreventionDetailPage
+  kind: read
+  from: trans_prevention_detail
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_prevention_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_prevention_detail_id
+    - trans_risk_id
+    - trans_prevention_id
+    - info_department_id
+    - name: department
+      as: department
+      arrayType: toFirstOne
+      using: info_department_id
+      <<: *DepartmentReadFields
+    - start_at
+    - stop_at
+    - number
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelReadFields
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FlexibleTextReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_prevention_detailの書き込み
+PreventionDetailPageEdit:
+  kind: edit
+  from: trans_prevention_detail
+  requiredWhere:
+    - trans_prevention_detail_id
+  generateRfe: true
+  columns:
+    - trans_prevention_detail_id
+    - trans_risk_id
+    - trans_prevention_id
+    - info_department_id
+    - name: department
+      as: department
+      arrayType: toFirstOne
+      using: info_department_id
+      editable: false
+      <<: *DepartmentReadFields
+    - start_at
+    - stop_at
+    - number
+    - name: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelEditFields
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FlexibleTextEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_order_riskの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+OrderRiskPage: &OrderRiskPage
+  kind: read
+  from: trans_order_risk
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_order_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_order_risk_id
+    - trans_order_id
+    - trans_risk_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_order_riskの書き込み
+OrderRiskPageEdit:
+  kind: edit
+  from: trans_order_risk
+  requiredWhere:
+    - trans_order_risk_id
+  generateRfe: true
+  columns:
+    - trans_order_risk_id
+    - trans_order_id
+    - trans_risk_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_order_detail_riskの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+OrderDetailRiskPage: &OrderDetailRiskPage
+  kind: read
+  from: trans_order_detail_risk
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_order_detail_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_order_detail_risk_id
+    - trans_order_detail_id
+    - risk_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_order_detail_riskの書き込み
+OrderDetailRiskPageEdit:
+  kind: edit
+  from: trans_order_detail_risk
+  requiredWhere:
+    - trans_order_detail_risk_id
+  generateRfe: true
+  columns:
+    - trans_order_detail_risk_id
+    - trans_order_detail_id
+    - risk_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_task_riskの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+TaskRiskPage: &TaskRiskPage
+  kind: read
+  from: trans_task_risk
+  filter: true
+  requiredWhere:
+    - languageCode
+    - mstr_task_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_task_risk_id
+    - mstr_task_id
+    - risk_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_task_riskの書き込み
+TaskRiskPageEdit:
+  kind: edit
+  from: trans_task_risk
+  requiredWhere:
+    - trans_task_risk_id
+  generateRfe: true
+  columns:
+    - trans_task_risk_id
+    - mstr_task_id
+    - risk_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+

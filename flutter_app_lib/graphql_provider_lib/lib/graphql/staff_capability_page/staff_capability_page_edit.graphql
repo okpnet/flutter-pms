@@ -249,7 +249,8 @@ mutation StaffCapabilityPageEdit(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
             nodes {
-              textValue
+              charCount
+              leadText
             }
           }
 
@@ -257,7 +258,8 @@ mutation StaffCapabilityPageEdit(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
             nodes {
-              textValue
+              charCount
+              leadText
             }
           }
         }

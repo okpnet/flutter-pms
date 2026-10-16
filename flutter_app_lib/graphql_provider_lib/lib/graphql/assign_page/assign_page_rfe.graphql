@@ -1,6 +1,11 @@
-# assign_page画面 - RFE(read for editing、要件0037: AssignPageEditのgenerateRfe: trueから導出)
+# assign_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: source/views/ #AssignPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
-query AssignPageRfe($infoAssignId: UUID!) {
+query AssignPageRfe(
+  $infoAssignId: UUID!
+) {
   infoAssignByInfoAssignId(infoAssignId: $infoAssignId) {
     infoAssignId
     infoStaffId
@@ -10,9 +15,9 @@ query AssignPageRfe($infoAssignId: UUID!) {
     enable
     priority
     remarks
-    updateAt
     updateUserId
     updateUserHistoryId
     remove
+    updateAt
   }
 }

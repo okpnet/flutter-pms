@@ -345,41 +345,6 @@ const documentNodeQueryPositionPageRfe = DocumentNode(
                   selectionSet: null,
                 ),
                 FieldNode(
-                  name: NameNode(value: 'remarks'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateAt'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateUserId'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateUserHistoryId'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'remove'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
                   name: NameNode(value: 'sharedAppellationByNames'),
                   alias: NameNode(value: 'labels'),
                   arguments: [],
@@ -867,6 +832,41 @@ const documentNodeQueryPositionPageRfe = DocumentNode(
                   ),
                 ),
                 FieldNode(
+                  name: NameNode(value: 'remarks'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateUserId'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateUserHistoryId'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'remove'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateAt'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
                   name: NameNode(value: '__typename'),
                   alias: null,
                   arguments: [],
@@ -1042,12 +1042,12 @@ class Query$PositionPageRfe$infoPositionByInfoPositionId {
   Query$PositionPageRfe$infoPositionByInfoPositionId({
     required this.infoPositionId,
     required this.priority,
+    this.labels,
     this.remarks,
-    this.updateAt,
     this.updateUserId,
     this.updateUserHistoryId,
     this.remove,
-    this.labels,
+    this.updateAt,
     this.$__typename = 'InfoPosition',
   });
 
@@ -1056,26 +1056,26 @@ class Query$PositionPageRfe$infoPositionByInfoPositionId {
   ) {
     final l$infoPositionId = json['infoPositionId'];
     final l$priority = json['priority'];
+    final l$labels = json['labels'];
     final l$remarks = json['remarks'];
-    final l$updateAt = json['updateAt'];
     final l$updateUserId = json['updateUserId'];
     final l$updateUserHistoryId = json['updateUserHistoryId'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
+    final l$updateAt = json['updateAt'];
     final l$$__typename = json['__typename'];
     return Query$PositionPageRfe$infoPositionByInfoPositionId(
       infoPositionId: (l$infoPositionId as String),
       priority: (l$priority as int),
-      remarks: (l$remarks as String?),
-      updateAt: (l$updateAt as String?),
-      updateUserId: (l$updateUserId as String?),
-      updateUserHistoryId: (l$updateUserHistoryId as String?),
-      remove: (l$remove as bool?),
       labels: l$labels == null
           ? null
           : Query$PositionPageRfe$infoPositionByInfoPositionId$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
+      remarks: (l$remarks as String?),
+      updateUserId: (l$updateUserId as String?),
+      updateUserHistoryId: (l$updateUserHistoryId as String?),
+      remove: (l$remove as bool?),
+      updateAt: (l$updateAt as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -1084,9 +1084,9 @@ class Query$PositionPageRfe$infoPositionByInfoPositionId {
 
   final int priority;
 
-  final String? remarks;
+  final Query$PositionPageRfe$infoPositionByInfoPositionId$labels? labels;
 
-  final String? updateAt;
+  final String? remarks;
 
   final String? updateUserId;
 
@@ -1094,7 +1094,7 @@ class Query$PositionPageRfe$infoPositionByInfoPositionId {
 
   final bool? remove;
 
-  final Query$PositionPageRfe$infoPositionByInfoPositionId$labels? labels;
+  final String? updateAt;
 
   final String $__typename;
 
@@ -1104,18 +1104,18 @@ class Query$PositionPageRfe$infoPositionByInfoPositionId {
     _resultData['infoPositionId'] = l$infoPositionId;
     final l$priority = priority;
     _resultData['priority'] = l$priority;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
-    final l$updateAt = updateAt;
-    _resultData['updateAt'] = l$updateAt;
     final l$updateUserId = updateUserId;
     _resultData['updateUserId'] = l$updateUserId;
     final l$updateUserHistoryId = updateUserHistoryId;
     _resultData['updateUserHistoryId'] = l$updateUserHistoryId;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
+    final l$updateAt = updateAt;
+    _resultData['updateAt'] = l$updateAt;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -1125,22 +1125,22 @@ class Query$PositionPageRfe$infoPositionByInfoPositionId {
   int get hashCode {
     final l$infoPositionId = infoPositionId;
     final l$priority = priority;
+    final l$labels = labels;
     final l$remarks = remarks;
-    final l$updateAt = updateAt;
     final l$updateUserId = updateUserId;
     final l$updateUserHistoryId = updateUserHistoryId;
     final l$remove = remove;
-    final l$labels = labels;
+    final l$updateAt = updateAt;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoPositionId,
       l$priority,
+      l$labels,
       l$remarks,
-      l$updateAt,
       l$updateUserId,
       l$updateUserHistoryId,
       l$remove,
-      l$labels,
+      l$updateAt,
       l$$__typename,
     ]);
   }
@@ -1164,14 +1164,14 @@ class Query$PositionPageRfe$infoPositionByInfoPositionId {
     if (l$priority != lOther$priority) {
       return false;
     }
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
-      return false;
-    }
-    final l$updateAt = updateAt;
-    final lOther$updateAt = other.updateAt;
-    if (l$updateAt != lOther$updateAt) {
       return false;
     }
     final l$updateUserId = updateUserId;
@@ -1189,9 +1189,9 @@ class Query$PositionPageRfe$infoPositionByInfoPositionId {
     if (l$remove != lOther$remove) {
       return false;
     }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
+    final l$updateAt = updateAt;
+    final lOther$updateAt = other.updateAt;
+    if (l$updateAt != lOther$updateAt) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -1229,12 +1229,12 @@ abstract class CopyWith$Query$PositionPageRfe$infoPositionByInfoPositionId<
   TRes call({
     String? infoPositionId,
     int? priority,
+    Query$PositionPageRfe$infoPositionByInfoPositionId$labels? labels,
     String? remarks,
-    String? updateAt,
     String? updateUserId,
     String? updateUserHistoryId,
     bool? remove,
-    Query$PositionPageRfe$infoPositionByInfoPositionId$labels? labels,
+    String? updateAt,
     String? $__typename,
   });
   CopyWith$Query$PositionPageRfe$infoPositionByInfoPositionId$labels<TRes>
@@ -1258,12 +1258,12 @@ class _CopyWithImpl$Query$PositionPageRfe$infoPositionByInfoPositionId<TRes>
   TRes call({
     Object? infoPositionId = _undefined,
     Object? priority = _undefined,
+    Object? labels = _undefined,
     Object? remarks = _undefined,
-    Object? updateAt = _undefined,
     Object? updateUserId = _undefined,
     Object? updateUserHistoryId = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
+    Object? updateAt = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$PositionPageRfe$infoPositionByInfoPositionId(
@@ -1273,10 +1273,11 @@ class _CopyWithImpl$Query$PositionPageRfe$infoPositionByInfoPositionId<TRes>
       priority: priority == _undefined || priority == null
           ? _instance.priority
           : (priority as int),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels
+                as Query$PositionPageRfe$infoPositionByInfoPositionId$labels?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
-      updateAt: updateAt == _undefined
-          ? _instance.updateAt
-          : (updateAt as String?),
       updateUserId: updateUserId == _undefined
           ? _instance.updateUserId
           : (updateUserId as String?),
@@ -1284,10 +1285,9 @@ class _CopyWithImpl$Query$PositionPageRfe$infoPositionByInfoPositionId<TRes>
           ? _instance.updateUserHistoryId
           : (updateUserHistoryId as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels
-                as Query$PositionPageRfe$infoPositionByInfoPositionId$labels?),
+      updateAt: updateAt == _undefined
+          ? _instance.updateAt
+          : (updateAt as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -1320,12 +1320,12 @@ class _CopyWithStubImpl$Query$PositionPageRfe$infoPositionByInfoPositionId<TRes>
   call({
     String? infoPositionId,
     int? priority,
+    Query$PositionPageRfe$infoPositionByInfoPositionId$labels? labels,
     String? remarks,
-    String? updateAt,
     String? updateUserId,
     String? updateUserHistoryId,
     bool? remove,
-    Query$PositionPageRfe$infoPositionByInfoPositionId$labels? labels,
+    String? updateAt,
     String? $__typename,
   }) => _res;
 

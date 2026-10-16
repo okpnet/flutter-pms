@@ -97,9 +97,10 @@ DepartmentKindReadFields: &DepartmentKindReadFields
       value: false
   columns:
     - info_department_kind_id
+    - info_department_kind_value_id
     - name: kinds
       arrayType: toFirstOne
-      using:  info_department_kind_id
+      using:  info_department_kind_value_id
       <<: *DepartmentCategoryPage
     - info_department_id
     - symbol
@@ -119,8 +120,9 @@ DepartmentKindEditFields: &DepartmentKindEditFields
   columns:
     - info_department_kind_id
     - name: kinds
-      arrayType: toMany
-      using:  info_department_kind_id
+      arrayType: toFirstOne
+      using:  info_department_kind_value_id
+      editable: false
       <<: *DepartmentCategoryPage
     - info_department_id
     - remarks
@@ -189,7 +191,7 @@ DepartmentPage: &DepartmentPage
       using: info_address_id
       <<: *AddressReadFields
     - name: kinds 
-      arrayType: toFirstOne
+      arrayType: toMany
       as: departmentKinds
       using: info_department_id
       <<: *DepartmentKindReadFields
@@ -243,7 +245,7 @@ DepartmentPageEdit:
       arrayType: toFirstOne
       using: info_address_id
       <<: *AddressEditFields
-    - name: departmentkinds
+    - name: departmentKinds
       arrayType: toMany
       using: info_department_id
       <<: *DepartmentKindEditFields

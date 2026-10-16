@@ -1,16 +1,15 @@
 # item_kind_page画面 - Edit(ミューテーション)
 #
-# 画面仕様: source/view.yaml #ItemKindPageEdit(品目区分、mstr_item_kind)
-# office_page_edit.graphql等の前例にならい、自身の業務コード(`code`)は
-# Patch(書き込み対象)から除外し、結果選択(output)・RFEでの表示のみ行う。
+# 画面仕様: source/views/ #ItemKindPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 mutation ItemKindPageEdit(
   $mstrItemKindId: UUID!
-  $remarks: String
+  $code: String
   $sharedAppellationsId: UUID!
+  $nameSharedDictionaryId: UUID!
   $jaLanguageCodeId: UUID!
   $enLanguageCodeId: UUID!
-  $nameSharedDictionaryId: UUID!
   $nameJa: String!
   $nameEn: String!
   $pronunciationSharedDictionaryId: UUID!
@@ -19,12 +18,13 @@ mutation ItemKindPageEdit(
   $nicknameSharedDictionaryId: UUID!
   $nicknameJa: String!
   $nicknameEn: String!
+  $remarks: String
 ) {
   updateMstrItemKindByMstrItemKindId(
     input: {
       mstrItemKindId: $mstrItemKindId
       mstrItemKindPatch: {
-        remarks: $remarks
+        code: $code
 
         sharedAppellationToNames: {
           updateBySharedAppellationsId: {
@@ -44,6 +44,7 @@ mutation ItemKindPageEdit(
                   }
                 }
               }
+
               sharedDictionaryToSharedDictionaryPronunciationId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $pronunciationSharedDictionaryId
@@ -58,6 +59,7 @@ mutation ItemKindPageEdit(
                   }
                 }
               }
+
               sharedDictionaryToSharedDictionaryNicknameId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $nicknameSharedDictionaryId
@@ -75,17 +77,20 @@ mutation ItemKindPageEdit(
             }
           }
         }
+
+        remarks: $remarks
       }
     }
   ) {
     mstrItemKind {
       mstrItemKindId
       code
-      remarks
+
       labels: sharedAppellationByNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -93,6 +98,7 @@ mutation ItemKindPageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -101,8 +107,10 @@ mutation ItemKindPageEdit(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -110,6 +118,7 @@ mutation ItemKindPageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -118,8 +127,10 @@ mutation ItemKindPageEdit(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -127,6 +138,7 @@ mutation ItemKindPageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -136,6 +148,8 @@ mutation ItemKindPageEdit(
           }
         }
       }
+
+      remarks
     }
   }
 }

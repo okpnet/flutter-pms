@@ -7,11 +7,11 @@ import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 class Variables$Mutation$ItemKindPageEdit {
   factory Variables$Mutation$ItemKindPageEdit({
     required String mstrItemKindId,
-    String? remarks,
+    String? code,
     required String sharedAppellationsId,
+    required String nameSharedDictionaryId,
     required String jaLanguageCodeId,
     required String enLanguageCodeId,
-    required String nameSharedDictionaryId,
     required String nameJa,
     required String nameEn,
     required String pronunciationSharedDictionaryId,
@@ -20,13 +20,14 @@ class Variables$Mutation$ItemKindPageEdit {
     required String nicknameSharedDictionaryId,
     required String nicknameJa,
     required String nicknameEn,
+    String? remarks,
   }) => Variables$Mutation$ItemKindPageEdit._({
     r'mstrItemKindId': mstrItemKindId,
-    if (remarks != null) r'remarks': remarks,
+    if (code != null) r'code': code,
     r'sharedAppellationsId': sharedAppellationsId,
+    r'nameSharedDictionaryId': nameSharedDictionaryId,
     r'jaLanguageCodeId': jaLanguageCodeId,
     r'enLanguageCodeId': enLanguageCodeId,
-    r'nameSharedDictionaryId': nameSharedDictionaryId,
     r'nameJa': nameJa,
     r'nameEn': nameEn,
     r'pronunciationSharedDictionaryId': pronunciationSharedDictionaryId,
@@ -35,6 +36,7 @@ class Variables$Mutation$ItemKindPageEdit {
     r'nicknameSharedDictionaryId': nicknameSharedDictionaryId,
     r'nicknameJa': nicknameJa,
     r'nicknameEn': nicknameEn,
+    if (remarks != null) r'remarks': remarks,
   });
 
   Variables$Mutation$ItemKindPageEdit._(this._$data);
@@ -45,19 +47,19 @@ class Variables$Mutation$ItemKindPageEdit {
     final result$data = <String, dynamic>{};
     final l$mstrItemKindId = data['mstrItemKindId'];
     result$data['mstrItemKindId'] = (l$mstrItemKindId as String);
-    if (data.containsKey('remarks')) {
-      final l$remarks = data['remarks'];
-      result$data['remarks'] = (l$remarks as String?);
+    if (data.containsKey('code')) {
+      final l$code = data['code'];
+      result$data['code'] = (l$code as String?);
     }
     final l$sharedAppellationsId = data['sharedAppellationsId'];
     result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
+    final l$nameSharedDictionaryId = data['nameSharedDictionaryId'];
+    result$data['nameSharedDictionaryId'] =
+        (l$nameSharedDictionaryId as String);
     final l$jaLanguageCodeId = data['jaLanguageCodeId'];
     result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String);
     final l$enLanguageCodeId = data['enLanguageCodeId'];
     result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String);
-    final l$nameSharedDictionaryId = data['nameSharedDictionaryId'];
-    result$data['nameSharedDictionaryId'] =
-        (l$nameSharedDictionaryId as String);
     final l$nameJa = data['nameJa'];
     result$data['nameJa'] = (l$nameJa as String);
     final l$nameEn = data['nameEn'];
@@ -77,6 +79,10 @@ class Variables$Mutation$ItemKindPageEdit {
     result$data['nicknameJa'] = (l$nicknameJa as String);
     final l$nicknameEn = data['nicknameEn'];
     result$data['nicknameEn'] = (l$nicknameEn as String);
+    if (data.containsKey('remarks')) {
+      final l$remarks = data['remarks'];
+      result$data['remarks'] = (l$remarks as String?);
+    }
     return Variables$Mutation$ItemKindPageEdit._(result$data);
   }
 
@@ -84,16 +90,16 @@ class Variables$Mutation$ItemKindPageEdit {
 
   String get mstrItemKindId => (_$data['mstrItemKindId'] as String);
 
-  String? get remarks => (_$data['remarks'] as String?);
+  String? get code => (_$data['code'] as String?);
 
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
+
+  String get nameSharedDictionaryId =>
+      (_$data['nameSharedDictionaryId'] as String);
 
   String get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String);
 
   String get enLanguageCodeId => (_$data['enLanguageCodeId'] as String);
-
-  String get nameSharedDictionaryId =>
-      (_$data['nameSharedDictionaryId'] as String);
 
   String get nameJa => (_$data['nameJa'] as String);
 
@@ -113,22 +119,24 @@ class Variables$Mutation$ItemKindPageEdit {
 
   String get nicknameEn => (_$data['nicknameEn'] as String);
 
+  String? get remarks => (_$data['remarks'] as String?);
+
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     final l$mstrItemKindId = mstrItemKindId;
     result$data['mstrItemKindId'] = l$mstrItemKindId;
-    if (_$data.containsKey('remarks')) {
-      final l$remarks = remarks;
-      result$data['remarks'] = l$remarks;
+    if (_$data.containsKey('code')) {
+      final l$code = code;
+      result$data['code'] = l$code;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
     result$data['sharedAppellationsId'] = l$sharedAppellationsId;
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
+    result$data['nameSharedDictionaryId'] = l$nameSharedDictionaryId;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
     result$data['enLanguageCodeId'] = l$enLanguageCodeId;
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
-    result$data['nameSharedDictionaryId'] = l$nameSharedDictionaryId;
     final l$nameJa = nameJa;
     result$data['nameJa'] = l$nameJa;
     final l$nameEn = nameEn;
@@ -146,6 +154,10 @@ class Variables$Mutation$ItemKindPageEdit {
     result$data['nicknameJa'] = l$nicknameJa;
     final l$nicknameEn = nicknameEn;
     result$data['nicknameEn'] = l$nicknameEn;
+    if (_$data.containsKey('remarks')) {
+      final l$remarks = remarks;
+      result$data['remarks'] = l$remarks;
+    }
     return result$data;
   }
 
@@ -168,17 +180,22 @@ class Variables$Mutation$ItemKindPageEdit {
     if (l$mstrItemKindId != lOther$mstrItemKindId) {
       return false;
     }
-    final l$remarks = remarks;
-    final lOther$remarks = other.remarks;
-    if (_$data.containsKey('remarks') != other._$data.containsKey('remarks')) {
+    final l$code = code;
+    final lOther$code = other.code;
+    if (_$data.containsKey('code') != other._$data.containsKey('code')) {
       return false;
     }
-    if (l$remarks != lOther$remarks) {
+    if (l$code != lOther$code) {
       return false;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
     final lOther$sharedAppellationsId = other.sharedAppellationsId;
     if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
+      return false;
+    }
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
+    final lOther$nameSharedDictionaryId = other.nameSharedDictionaryId;
+    if (l$nameSharedDictionaryId != lOther$nameSharedDictionaryId) {
       return false;
     }
     final l$jaLanguageCodeId = jaLanguageCodeId;
@@ -189,11 +206,6 @@ class Variables$Mutation$ItemKindPageEdit {
     final l$enLanguageCodeId = enLanguageCodeId;
     final lOther$enLanguageCodeId = other.enLanguageCodeId;
     if (l$enLanguageCodeId != lOther$enLanguageCodeId) {
-      return false;
-    }
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
-    final lOther$nameSharedDictionaryId = other.nameSharedDictionaryId;
-    if (l$nameSharedDictionaryId != lOther$nameSharedDictionaryId) {
       return false;
     }
     final l$nameJa = nameJa;
@@ -238,17 +250,25 @@ class Variables$Mutation$ItemKindPageEdit {
     if (l$nicknameEn != lOther$nicknameEn) {
       return false;
     }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (_$data.containsKey('remarks') != other._$data.containsKey('remarks')) {
+      return false;
+    }
+    if (l$remarks != lOther$remarks) {
+      return false;
+    }
     return true;
   }
 
   @override
   int get hashCode {
     final l$mstrItemKindId = mstrItemKindId;
-    final l$remarks = remarks;
+    final l$code = code;
     final l$sharedAppellationsId = sharedAppellationsId;
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$nameJa = nameJa;
     final l$nameEn = nameEn;
     final l$pronunciationSharedDictionaryId = pronunciationSharedDictionaryId;
@@ -257,13 +277,14 @@ class Variables$Mutation$ItemKindPageEdit {
     final l$nicknameSharedDictionaryId = nicknameSharedDictionaryId;
     final l$nicknameJa = nicknameJa;
     final l$nicknameEn = nicknameEn;
+    final l$remarks = remarks;
     return Object.hashAll([
       l$mstrItemKindId,
-      _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('code') ? l$code : const {},
       l$sharedAppellationsId,
+      l$nameSharedDictionaryId,
       l$jaLanguageCodeId,
       l$enLanguageCodeId,
-      l$nameSharedDictionaryId,
       l$nameJa,
       l$nameEn,
       l$pronunciationSharedDictionaryId,
@@ -272,6 +293,7 @@ class Variables$Mutation$ItemKindPageEdit {
       l$nicknameSharedDictionaryId,
       l$nicknameJa,
       l$nicknameEn,
+      _$data.containsKey('remarks') ? l$remarks : const {},
     ]);
   }
 }
@@ -287,11 +309,11 @@ abstract class CopyWith$Variables$Mutation$ItemKindPageEdit<TRes> {
 
   TRes call({
     String? mstrItemKindId,
-    String? remarks,
+    String? code,
     String? sharedAppellationsId,
+    String? nameSharedDictionaryId,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
-    String? nameSharedDictionaryId,
     String? nameJa,
     String? nameEn,
     String? pronunciationSharedDictionaryId,
@@ -300,6 +322,7 @@ abstract class CopyWith$Variables$Mutation$ItemKindPageEdit<TRes> {
     String? nicknameSharedDictionaryId,
     String? nicknameJa,
     String? nicknameEn,
+    String? remarks,
   });
 }
 
@@ -315,11 +338,11 @@ class _CopyWithImpl$Variables$Mutation$ItemKindPageEdit<TRes>
 
   TRes call({
     Object? mstrItemKindId = _undefined,
-    Object? remarks = _undefined,
+    Object? code = _undefined,
     Object? sharedAppellationsId = _undefined,
+    Object? nameSharedDictionaryId = _undefined,
     Object? jaLanguageCodeId = _undefined,
     Object? enLanguageCodeId = _undefined,
-    Object? nameSharedDictionaryId = _undefined,
     Object? nameJa = _undefined,
     Object? nameEn = _undefined,
     Object? pronunciationSharedDictionaryId = _undefined,
@@ -328,21 +351,22 @@ class _CopyWithImpl$Variables$Mutation$ItemKindPageEdit<TRes>
     Object? nicknameSharedDictionaryId = _undefined,
     Object? nicknameJa = _undefined,
     Object? nicknameEn = _undefined,
+    Object? remarks = _undefined,
   }) => _then(
     Variables$Mutation$ItemKindPageEdit._({
       ..._instance._$data,
       if (mstrItemKindId != _undefined && mstrItemKindId != null)
         'mstrItemKindId': (mstrItemKindId as String),
-      if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (code != _undefined) 'code': (code as String?),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
         'sharedAppellationsId': (sharedAppellationsId as String),
+      if (nameSharedDictionaryId != _undefined &&
+          nameSharedDictionaryId != null)
+        'nameSharedDictionaryId': (nameSharedDictionaryId as String),
       if (jaLanguageCodeId != _undefined && jaLanguageCodeId != null)
         'jaLanguageCodeId': (jaLanguageCodeId as String),
       if (enLanguageCodeId != _undefined && enLanguageCodeId != null)
         'enLanguageCodeId': (enLanguageCodeId as String),
-      if (nameSharedDictionaryId != _undefined &&
-          nameSharedDictionaryId != null)
-        'nameSharedDictionaryId': (nameSharedDictionaryId as String),
       if (nameJa != _undefined && nameJa != null) 'nameJa': (nameJa as String),
       if (nameEn != _undefined && nameEn != null) 'nameEn': (nameEn as String),
       if (pronunciationSharedDictionaryId != _undefined &&
@@ -360,6 +384,7 @@ class _CopyWithImpl$Variables$Mutation$ItemKindPageEdit<TRes>
         'nicknameJa': (nicknameJa as String),
       if (nicknameEn != _undefined && nicknameEn != null)
         'nicknameEn': (nicknameEn as String),
+      if (remarks != _undefined) 'remarks': (remarks as String?),
     }),
   );
 }
@@ -372,11 +397,11 @@ class _CopyWithStubImpl$Variables$Mutation$ItemKindPageEdit<TRes>
 
   call({
     String? mstrItemKindId,
-    String? remarks,
+    String? code,
     String? sharedAppellationsId,
+    String? nameSharedDictionaryId,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
-    String? nameSharedDictionaryId,
     String? nameJa,
     String? nameEn,
     String? pronunciationSharedDictionaryId,
@@ -385,6 +410,7 @@ class _CopyWithStubImpl$Variables$Mutation$ItemKindPageEdit<TRes>
     String? nicknameSharedDictionaryId,
     String? nicknameJa,
     String? nicknameEn,
+    String? remarks,
   }) => _res;
 }
 
@@ -559,7 +585,7 @@ const documentNodeMutationItemKindPageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'remarks')),
+          variable: VariableNode(name: NameNode(value: 'code')),
           type: NamedTypeNode(
             name: NameNode(value: 'String'),
             isNonNull: false,
@@ -574,6 +600,14 @@ const documentNodeMutationItemKindPageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
+          variable: VariableNode(
+            name: NameNode(value: 'nameSharedDictionaryId'),
+          ),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -581,14 +615,6 @@ const documentNodeMutationItemKindPageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(
-            name: NameNode(value: 'nameSharedDictionaryId'),
-          ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
@@ -645,6 +671,15 @@ const documentNodeMutationItemKindPageEdit = DocumentNode(
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'remarks')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
       ],
       directives: [],
       selectionSet: SelectionSetNode(
@@ -668,10 +703,8 @@ const documentNodeMutationItemKindPageEdit = DocumentNode(
                       value: ObjectValueNode(
                         fields: [
                           ObjectFieldNode(
-                            name: NameNode(value: 'remarks'),
-                            value: VariableNode(
-                              name: NameNode(value: 'remarks'),
-                            ),
+                            name: NameNode(value: 'code'),
+                            value: VariableNode(name: NameNode(value: 'code')),
                           ),
                           ObjectFieldNode(
                             name: NameNode(value: 'sharedAppellationToNames'),
@@ -1068,6 +1101,12 @@ const documentNodeMutationItemKindPageEdit = DocumentNode(
                               ],
                             ),
                           ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'remarks'),
+                            value: VariableNode(
+                              name: NameNode(value: 'remarks'),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1094,13 +1133,6 @@ const documentNodeMutationItemKindPageEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'code'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1608,6 +1640,13 @@ const documentNodeMutationItemKindPageEdit = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: '__typename'),
                         alias: null,
                         arguments: [],
@@ -2029,8 +2068,8 @@ class Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId$mstrItemKind 
   Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId$mstrItemKind({
     required this.mstrItemKindId,
     this.code,
-    this.remarks,
     this.labels,
+    this.remarks,
     this.$__typename = 'MstrItemKind',
   });
 
@@ -2039,18 +2078,18 @@ class Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId$mstrItemKind 
   ) {
     final l$mstrItemKindId = json['mstrItemKindId'];
     final l$code = json['code'];
-    final l$remarks = json['remarks'];
     final l$labels = json['labels'];
+    final l$remarks = json['remarks'];
     final l$$__typename = json['__typename'];
     return Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId$mstrItemKind(
       mstrItemKindId: (l$mstrItemKindId as String),
       code: (l$code as String?),
-      remarks: (l$remarks as String?),
       labels: l$labels == null
           ? null
           : Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId$mstrItemKind$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
+      remarks: (l$remarks as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -2059,10 +2098,10 @@ class Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId$mstrItemKind 
 
   final String? code;
 
-  final String? remarks;
-
   final Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId$mstrItemKind$labels?
   labels;
+
+  final String? remarks;
 
   final String $__typename;
 
@@ -2072,10 +2111,10 @@ class Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId$mstrItemKind 
     _resultData['mstrItemKindId'] = l$mstrItemKindId;
     final l$code = code;
     _resultData['code'] = l$code;
-    final l$remarks = remarks;
-    _resultData['remarks'] = l$remarks;
     final l$labels = labels;
     _resultData['labels'] = l$labels?.toJson();
+    final l$remarks = remarks;
+    _resultData['remarks'] = l$remarks;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2085,14 +2124,14 @@ class Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId$mstrItemKind 
   int get hashCode {
     final l$mstrItemKindId = mstrItemKindId;
     final l$code = code;
-    final l$remarks = remarks;
     final l$labels = labels;
+    final l$remarks = remarks;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrItemKindId,
       l$code,
-      l$remarks,
       l$labels,
+      l$remarks,
       l$$__typename,
     ]);
   }
@@ -2117,14 +2156,14 @@ class Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId$mstrItemKind 
     if (l$code != lOther$code) {
       return false;
     }
-    final l$remarks = remarks;
-    final lOther$remarks = other.remarks;
-    if (l$remarks != lOther$remarks) {
-      return false;
-    }
     final l$labels = labels;
     final lOther$labels = other.labels;
     if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (l$remarks != lOther$remarks) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -2167,9 +2206,9 @@ abstract class CopyWith$Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKi
   TRes call({
     String? mstrItemKindId,
     String? code,
-    String? remarks,
     Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId$mstrItemKind$labels?
     labels,
+    String? remarks,
     String? $__typename,
   });
   CopyWith$Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId$mstrItemKind$labels<
@@ -2203,8 +2242,8 @@ class _CopyWithImpl$Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId
   TRes call({
     Object? mstrItemKindId = _undefined,
     Object? code = _undefined,
-    Object? remarks = _undefined,
     Object? labels = _undefined,
+    Object? remarks = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId$mstrItemKind(
@@ -2212,11 +2251,11 @@ class _CopyWithImpl$Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId
           ? _instance.mstrItemKindId
           : (mstrItemKindId as String),
       code: code == _undefined ? _instance.code : (code as String?),
-      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       labels: labels == _undefined
           ? _instance.labels
           : (labels
                 as Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId$mstrItemKind$labels?),
+      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -2255,9 +2294,9 @@ class _CopyWithStubImpl$Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKi
   call({
     String? mstrItemKindId,
     String? code,
-    String? remarks,
     Mutation$ItemKindPageEdit$updateMstrItemKindByMstrItemKindId$mstrItemKind$labels?
     labels,
+    String? remarks,
     String? $__typename,
   }) => _res;
 

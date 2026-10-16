@@ -7,6 +7,8 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude:
     - lib/postgraphile/schema.graphql.dart
+    - lib/postgraphile/task_resource_page/task_resource_page_edit.graphql.dart
+    - lib/postgraphile/task_resource_page/task_resource_page_rfe.graphql.dart
     - build/**
 
 # Additional information about this file can be found at

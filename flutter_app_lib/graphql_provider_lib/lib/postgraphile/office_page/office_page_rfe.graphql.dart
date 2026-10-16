@@ -347,41 +347,6 @@ const documentNodeQueryOfficePageRfe = DocumentNode(
                   selectionSet: null,
                 ),
                 FieldNode(
-                  name: NameNode(value: 'remarks'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateAt'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateUserId'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateUserHistoryId'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'remove'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
                   name: NameNode(value: 'sharedAppellationByNames'),
                   alias: NameNode(value: 'labels'),
                   arguments: [],
@@ -891,20 +856,6 @@ const documentNodeQueryOfficePageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'zipCode'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'phone'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'faxNumber'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -2414,6 +2365,27 @@ const documentNodeQueryOfficePageRfe = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'phone'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'faxNumber'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: '__typename'),
                         alias: null,
                         arguments: [],
@@ -2422,6 +2394,41 @@ const documentNodeQueryOfficePageRfe = DocumentNode(
                       ),
                     ],
                   ),
+                ),
+                FieldNode(
+                  name: NameNode(value: 'remarks'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateUserId'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateUserHistoryId'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'remove'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateAt'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
                 ),
                 FieldNode(
                   name: NameNode(value: '__typename'),
@@ -2597,13 +2604,13 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId {
     required this.infoOfficeId,
     required this.infoCompanyId,
     required this.code,
+    this.labels,
+    this.address,
     this.remarks,
-    this.updateAt,
     this.updateUserId,
     this.updateUserHistoryId,
     this.remove,
-    this.labels,
-    this.address,
+    this.updateAt,
     this.$__typename = 'InfoOffice',
   });
 
@@ -2613,23 +2620,18 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId {
     final l$infoOfficeId = json['infoOfficeId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$labels = json['labels'];
+    final l$address = json['address'];
     final l$remarks = json['remarks'];
-    final l$updateAt = json['updateAt'];
     final l$updateUserId = json['updateUserId'];
     final l$updateUserHistoryId = json['updateUserHistoryId'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
-    final l$address = json['address'];
+    final l$updateAt = json['updateAt'];
     final l$$__typename = json['__typename'];
     return Query$OfficePageRfe$infoOfficeByInfoOfficeId(
       infoOfficeId: (l$infoOfficeId as String),
       infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String),
-      remarks: (l$remarks as String?),
-      updateAt: (l$updateAt as String?),
-      updateUserId: (l$updateUserId as String?),
-      updateUserHistoryId: (l$updateUserHistoryId as String?),
-      remove: (l$remove as bool?),
       labels: l$labels == null
           ? null
           : Query$OfficePageRfe$infoOfficeByInfoOfficeId$labels.fromJson(
@@ -2640,6 +2642,11 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId {
           : Query$OfficePageRfe$infoOfficeByInfoOfficeId$address.fromJson(
               (l$address as Map<String, dynamic>),
             ),
+      remarks: (l$remarks as String?),
+      updateUserId: (l$updateUserId as String?),
+      updateUserHistoryId: (l$updateUserHistoryId as String?),
+      remove: (l$remove as bool?),
+      updateAt: (l$updateAt as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -2650,9 +2657,11 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId {
 
   final String code;
 
-  final String? remarks;
+  final Query$OfficePageRfe$infoOfficeByInfoOfficeId$labels? labels;
 
-  final String? updateAt;
+  final Query$OfficePageRfe$infoOfficeByInfoOfficeId$address? address;
+
+  final String? remarks;
 
   final String? updateUserId;
 
@@ -2660,9 +2669,7 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId {
 
   final bool? remove;
 
-  final Query$OfficePageRfe$infoOfficeByInfoOfficeId$labels? labels;
-
-  final Query$OfficePageRfe$infoOfficeByInfoOfficeId$address? address;
+  final String? updateAt;
 
   final String $__typename;
 
@@ -2674,20 +2681,20 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
+    final l$address = address;
+    _resultData['address'] = l$address?.toJson();
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
-    final l$updateAt = updateAt;
-    _resultData['updateAt'] = l$updateAt;
     final l$updateUserId = updateUserId;
     _resultData['updateUserId'] = l$updateUserId;
     final l$updateUserHistoryId = updateUserHistoryId;
     _resultData['updateUserHistoryId'] = l$updateUserHistoryId;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
-    final l$address = address;
-    _resultData['address'] = l$address?.toJson();
+    final l$updateAt = updateAt;
+    _resultData['updateAt'] = l$updateAt;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2698,25 +2705,25 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId {
     final l$infoOfficeId = infoOfficeId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$labels = labels;
+    final l$address = address;
     final l$remarks = remarks;
-    final l$updateAt = updateAt;
     final l$updateUserId = updateUserId;
     final l$updateUserHistoryId = updateUserHistoryId;
     final l$remove = remove;
-    final l$labels = labels;
-    final l$address = address;
+    final l$updateAt = updateAt;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoOfficeId,
       l$infoCompanyId,
       l$code,
+      l$labels,
+      l$address,
       l$remarks,
-      l$updateAt,
       l$updateUserId,
       l$updateUserHistoryId,
       l$remove,
-      l$labels,
-      l$address,
+      l$updateAt,
       l$$__typename,
     ]);
   }
@@ -2745,14 +2752,19 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$address = address;
+    final lOther$address = other.address;
+    if (l$address != lOther$address) {
+      return false;
+    }
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
-      return false;
-    }
-    final l$updateAt = updateAt;
-    final lOther$updateAt = other.updateAt;
-    if (l$updateAt != lOther$updateAt) {
       return false;
     }
     final l$updateUserId = updateUserId;
@@ -2770,14 +2782,9 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId {
     if (l$remove != lOther$remove) {
       return false;
     }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
-      return false;
-    }
-    final l$address = address;
-    final lOther$address = other.address;
-    if (l$address != lOther$address) {
+    final l$updateAt = updateAt;
+    final lOther$updateAt = other.updateAt;
+    if (l$updateAt != lOther$updateAt) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -2811,13 +2818,13 @@ abstract class CopyWith$Query$OfficePageRfe$infoOfficeByInfoOfficeId<TRes> {
     String? infoOfficeId,
     String? infoCompanyId,
     String? code,
+    Query$OfficePageRfe$infoOfficeByInfoOfficeId$labels? labels,
+    Query$OfficePageRfe$infoOfficeByInfoOfficeId$address? address,
     String? remarks,
-    String? updateAt,
     String? updateUserId,
     String? updateUserHistoryId,
     bool? remove,
-    Query$OfficePageRfe$infoOfficeByInfoOfficeId$labels? labels,
-    Query$OfficePageRfe$infoOfficeByInfoOfficeId$address? address,
+    String? updateAt,
     String? $__typename,
   });
   CopyWith$Query$OfficePageRfe$infoOfficeByInfoOfficeId$labels<TRes> get labels;
@@ -2842,13 +2849,13 @@ class _CopyWithImpl$Query$OfficePageRfe$infoOfficeByInfoOfficeId<TRes>
     Object? infoOfficeId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? labels = _undefined,
+    Object? address = _undefined,
     Object? remarks = _undefined,
-    Object? updateAt = _undefined,
     Object? updateUserId = _undefined,
     Object? updateUserHistoryId = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
-    Object? address = _undefined,
+    Object? updateAt = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$OfficePageRfe$infoOfficeByInfoOfficeId(
@@ -2861,10 +2868,13 @@ class _CopyWithImpl$Query$OfficePageRfe$infoOfficeByInfoOfficeId<TRes>
       code: code == _undefined || code == null
           ? _instance.code
           : (code as String),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels as Query$OfficePageRfe$infoOfficeByInfoOfficeId$labels?),
+      address: address == _undefined
+          ? _instance.address
+          : (address as Query$OfficePageRfe$infoOfficeByInfoOfficeId$address?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
-      updateAt: updateAt == _undefined
-          ? _instance.updateAt
-          : (updateAt as String?),
       updateUserId: updateUserId == _undefined
           ? _instance.updateUserId
           : (updateUserId as String?),
@@ -2872,12 +2882,9 @@ class _CopyWithImpl$Query$OfficePageRfe$infoOfficeByInfoOfficeId<TRes>
           ? _instance.updateUserHistoryId
           : (updateUserHistoryId as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels as Query$OfficePageRfe$infoOfficeByInfoOfficeId$labels?),
-      address: address == _undefined
-          ? _instance.address
-          : (address as Query$OfficePageRfe$infoOfficeByInfoOfficeId$address?),
+      updateAt: updateAt == _undefined
+          ? _instance.updateAt
+          : (updateAt as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -2921,13 +2928,13 @@ class _CopyWithStubImpl$Query$OfficePageRfe$infoOfficeByInfoOfficeId<TRes>
     String? infoOfficeId,
     String? infoCompanyId,
     String? code,
+    Query$OfficePageRfe$infoOfficeByInfoOfficeId$labels? labels,
+    Query$OfficePageRfe$infoOfficeByInfoOfficeId$address? address,
     String? remarks,
-    String? updateAt,
     String? updateUserId,
     String? updateUserHistoryId,
     bool? remove,
-    Query$OfficePageRfe$infoOfficeByInfoOfficeId$labels? labels,
-    Query$OfficePageRfe$infoOfficeByInfoOfficeId$address? address,
+    String? updateAt,
     String? $__typename,
   }) => _res;
 
@@ -6238,11 +6245,12 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId$address {
     required this.infoAddressId,
     this.iso31663,
     this.zipCode,
-    this.phone,
-    this.faxNumber,
     this.address1,
     this.address2,
     this.building,
+    this.phone,
+    this.faxNumber,
+    this.remarks,
     this.$__typename = 'InfoAddress',
   });
 
@@ -6252,18 +6260,17 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId$address {
     final l$infoAddressId = json['infoAddressId'];
     final l$iso31663 = json['iso31663'];
     final l$zipCode = json['zipCode'];
-    final l$phone = json['phone'];
-    final l$faxNumber = json['faxNumber'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
     final l$building = json['building'];
+    final l$phone = json['phone'];
+    final l$faxNumber = json['faxNumber'];
+    final l$remarks = json['remarks'];
     final l$$__typename = json['__typename'];
     return Query$OfficePageRfe$infoOfficeByInfoOfficeId$address(
       infoAddressId: (l$infoAddressId as String),
       iso31663: (l$iso31663 as String?),
       zipCode: (l$zipCode as String?),
-      phone: (l$phone as String?),
-      faxNumber: (l$faxNumber as String?),
       address1: l$address1 == null
           ? null
           : Query$OfficePageRfe$infoOfficeByInfoOfficeId$address$address1.fromJson(
@@ -6279,6 +6286,9 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId$address {
           : Query$OfficePageRfe$infoOfficeByInfoOfficeId$address$building.fromJson(
               (l$building as Map<String, dynamic>),
             ),
+      phone: (l$phone as String?),
+      faxNumber: (l$faxNumber as String?),
+      remarks: (l$remarks as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -6289,15 +6299,17 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId$address {
 
   final String? zipCode;
 
-  final String? phone;
-
-  final String? faxNumber;
-
   final Query$OfficePageRfe$infoOfficeByInfoOfficeId$address$address1? address1;
 
   final Query$OfficePageRfe$infoOfficeByInfoOfficeId$address$address2? address2;
 
   final Query$OfficePageRfe$infoOfficeByInfoOfficeId$address$building? building;
+
+  final String? phone;
+
+  final String? faxNumber;
+
+  final String? remarks;
 
   final String $__typename;
 
@@ -6309,16 +6321,18 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId$address {
     _resultData['iso31663'] = l$iso31663;
     final l$zipCode = zipCode;
     _resultData['zipCode'] = l$zipCode;
-    final l$phone = phone;
-    _resultData['phone'] = l$phone;
-    final l$faxNumber = faxNumber;
-    _resultData['faxNumber'] = l$faxNumber;
     final l$address1 = address1;
     _resultData['address1'] = l$address1?.toJson();
     final l$address2 = address2;
     _resultData['address2'] = l$address2?.toJson();
     final l$building = building;
     _resultData['building'] = l$building?.toJson();
+    final l$phone = phone;
+    _resultData['phone'] = l$phone;
+    final l$faxNumber = faxNumber;
+    _resultData['faxNumber'] = l$faxNumber;
+    final l$remarks = remarks;
+    _resultData['remarks'] = l$remarks;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -6329,21 +6343,23 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId$address {
     final l$infoAddressId = infoAddressId;
     final l$iso31663 = iso31663;
     final l$zipCode = zipCode;
-    final l$phone = phone;
-    final l$faxNumber = faxNumber;
     final l$address1 = address1;
     final l$address2 = address2;
     final l$building = building;
+    final l$phone = phone;
+    final l$faxNumber = faxNumber;
+    final l$remarks = remarks;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
       l$iso31663,
       l$zipCode,
-      l$phone,
-      l$faxNumber,
       l$address1,
       l$address2,
       l$building,
+      l$phone,
+      l$faxNumber,
+      l$remarks,
       l$$__typename,
     ]);
   }
@@ -6372,16 +6388,6 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId$address {
     if (l$zipCode != lOther$zipCode) {
       return false;
     }
-    final l$phone = phone;
-    final lOther$phone = other.phone;
-    if (l$phone != lOther$phone) {
-      return false;
-    }
-    final l$faxNumber = faxNumber;
-    final lOther$faxNumber = other.faxNumber;
-    if (l$faxNumber != lOther$faxNumber) {
-      return false;
-    }
     final l$address1 = address1;
     final lOther$address1 = other.address1;
     if (l$address1 != lOther$address1) {
@@ -6395,6 +6401,21 @@ class Query$OfficePageRfe$infoOfficeByInfoOfficeId$address {
     final l$building = building;
     final lOther$building = other.building;
     if (l$building != lOther$building) {
+      return false;
+    }
+    final l$phone = phone;
+    final lOther$phone = other.phone;
+    if (l$phone != lOther$phone) {
+      return false;
+    }
+    final l$faxNumber = faxNumber;
+    final lOther$faxNumber = other.faxNumber;
+    if (l$faxNumber != lOther$faxNumber) {
+      return false;
+    }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (l$remarks != lOther$remarks) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -6433,11 +6454,12 @@ abstract class CopyWith$Query$OfficePageRfe$infoOfficeByInfoOfficeId$address<
     String? infoAddressId,
     String? iso31663,
     String? zipCode,
-    String? phone,
-    String? faxNumber,
     Query$OfficePageRfe$infoOfficeByInfoOfficeId$address$address1? address1,
     Query$OfficePageRfe$infoOfficeByInfoOfficeId$address$address2? address2,
     Query$OfficePageRfe$infoOfficeByInfoOfficeId$address$building? building,
+    String? phone,
+    String? faxNumber,
+    String? remarks,
     String? $__typename,
   });
   CopyWith$Query$OfficePageRfe$infoOfficeByInfoOfficeId$address$address1<TRes>
@@ -6467,11 +6489,12 @@ class _CopyWithImpl$Query$OfficePageRfe$infoOfficeByInfoOfficeId$address<TRes>
     Object? infoAddressId = _undefined,
     Object? iso31663 = _undefined,
     Object? zipCode = _undefined,
-    Object? phone = _undefined,
-    Object? faxNumber = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
     Object? building = _undefined,
+    Object? phone = _undefined,
+    Object? faxNumber = _undefined,
+    Object? remarks = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$OfficePageRfe$infoOfficeByInfoOfficeId$address(
@@ -6482,10 +6505,6 @@ class _CopyWithImpl$Query$OfficePageRfe$infoOfficeByInfoOfficeId$address<TRes>
           ? _instance.iso31663
           : (iso31663 as String?),
       zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
-      phone: phone == _undefined ? _instance.phone : (phone as String?),
-      faxNumber: faxNumber == _undefined
-          ? _instance.faxNumber
-          : (faxNumber as String?),
       address1: address1 == _undefined
           ? _instance.address1
           : (address1
@@ -6498,6 +6517,11 @@ class _CopyWithImpl$Query$OfficePageRfe$infoOfficeByInfoOfficeId$address<TRes>
           ? _instance.building
           : (building
                 as Query$OfficePageRfe$infoOfficeByInfoOfficeId$address$building?),
+      phone: phone == _undefined ? _instance.phone : (phone as String?),
+      faxNumber: faxNumber == _undefined
+          ? _instance.faxNumber
+          : (faxNumber as String?),
+      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -6559,11 +6583,12 @@ class _CopyWithStubImpl$Query$OfficePageRfe$infoOfficeByInfoOfficeId$address<
     String? infoAddressId,
     String? iso31663,
     String? zipCode,
-    String? phone,
-    String? faxNumber,
     Query$OfficePageRfe$infoOfficeByInfoOfficeId$address$address1? address1,
     Query$OfficePageRfe$infoOfficeByInfoOfficeId$address$address2? address2,
     Query$OfficePageRfe$infoOfficeByInfoOfficeId$address$building? building,
+    String? phone,
+    String? faxNumber,
+    String? remarks,
     String? $__typename,
   }) => _res;
 

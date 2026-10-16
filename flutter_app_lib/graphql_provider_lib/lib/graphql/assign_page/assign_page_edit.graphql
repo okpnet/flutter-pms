@@ -1,11 +1,7 @@
 # assign_page画面 - Edit(ミューテーション)
 #
-# 画面仕様: source/view.yaml #AssignPageEdit(担当者の組織割り当て、info_assign)
-#
-# 要件0044で`info_staff_id`(担当者)をPatchから除外していたが、ユーザー指示により
-# 担当者の付け替え(再割り当て)も編集対象に含めるよう修正した(2026-09-29追記)。
-# `info_position_id`/`info_office_id`/`info_department_id`とあわせて、この割り当てが
-# 「誰の・どこへの」割り当てかを表す4本のFKすべてが編集対象になる。
+# 画面仕様: source/views/ #AssignPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 mutation AssignPageEdit(
   $infoAssignId: UUID!

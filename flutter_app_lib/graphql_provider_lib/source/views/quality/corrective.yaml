@@ -1,0 +1,247 @@
+# yaml-language-server: $schema=../../schema.json
+
+# trans_disposalの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+DisposalPage: &DisposalPage
+  kind: read
+  from: trans_disposal
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_complaint_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_disposal_id
+    - trans_complaint_id
+    - disposal_at
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelReadFields
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FlexibleTextReadFields
+    - approvals
+    - name: approvals
+      as: approvals
+      arrayType: toFirstOne
+      using: approvals
+      <<: *TransApprovalPatternReadFields
+    - approval_at
+    - department_history_id
+    - department_id
+    - operation_staff_history_id
+    - operation_staff_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_disposalの書き込み
+DisposalPageEdit:
+  kind: edit
+  from: trans_disposal
+  requiredWhere:
+    - trans_disposal_id
+  generateRfe: true
+  columns:
+    - trans_disposal_id
+    - trans_complaint_id
+    - disposal_at
+    - name: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelEditFields
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FlexibleTextEditFields
+    - approvals
+    - name: approvals
+      as: approvals
+      arrayType: toFirstOne
+      using: approvals
+      editable: false
+      <<: *TransApprovalPatternReadFields
+    - approval_at
+    - department_history_id
+    - department_id
+    - operation_staff_history_id
+    - operation_staff_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_recurrence_preventionの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+RecurrencePreventionPage: &RecurrencePreventionPage
+  kind: read
+  from: trans_recurrence_prevention
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_disposal_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_recurrence_prevention_id
+    - trans_disposal_id
+    - occurent_at
+    - approvals
+    - name: approvals
+      as: approvals
+      arrayType: toFirstOne
+      using: approvals
+      <<: *TransApprovalPatternReadFields
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelReadFields
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FlexibleTextReadFields
+    - operation_staff_history_id
+    - operation_staff_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_recurrence_preventionの書き込み
+RecurrencePreventionPageEdit:
+  kind: edit
+  from: trans_recurrence_prevention
+  requiredWhere:
+    - trans_recurrence_prevention_id
+  generateRfe: true
+  columns:
+    - trans_recurrence_prevention_id
+    - trans_disposal_id
+    - occurent_at
+    - approvals
+    - name: approvals
+      as: approvals
+      arrayType: toFirstOne
+      using: approvals
+      editable: false
+      <<: *TransApprovalPatternReadFields
+    - name: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelEditFields
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FlexibleTextEditFields
+    - operation_staff_history_id
+    - operation_staff_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_observer_disposalの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ObserverDisposalPage: &ObserverDisposalPage
+  kind: read
+  from: trans_observer_disposal
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_observer_disposal_id
+    - enable
+    - observe_schedule
+    - observe_at
+    - observer_staff_history_id
+    - observer_staff_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_observer_disposalの書き込み
+ObserverDisposalPageEdit:
+  kind: edit
+  from: trans_observer_disposal
+  requiredWhere:
+    - trans_observer_disposal_id
+  generateRfe: true
+  columns:
+    - trans_observer_disposal_id
+    - enable
+    - observe_schedule
+    - observe_at
+    - observer_staff_history_id
+    - observer_staff_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_observer_preventiveの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ObserverPreventivePage: &ObserverPreventivePage
+  kind: read
+  from: trans_observer_preventive
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_recurrence_prevention_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_observer_preventive_id
+    - trans_observer_disposal_id
+    - trans_recurrence_prevention_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_observer_preventiveの書き込み
+ObserverPreventivePageEdit:
+  kind: edit
+  from: trans_observer_preventive
+  requiredWhere:
+    - trans_observer_preventive_id
+  generateRfe: true
+  columns:
+    - trans_observer_preventive_id
+    - trans_observer_disposal_id
+    - trans_recurrence_prevention_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+

@@ -60,3 +60,7 @@ lib/postgraphile/schema.graphql.dart
 
 # view.yaml -> GraphQL の生成物(検証用の出力先。tool/view_graphql、build.yaml参照)。再生成できるためgit対象外。
 source/generated_graphql/
+
+# 2026/10/16: 5000KBを超えた生成物(要件0015の運用)。
+lib/postgraphile/task_resource_page/task_resource_page_edit.graphql.dart
+lib/postgraphile/task_resource_page/task_resource_page_rfe.graphql.dart

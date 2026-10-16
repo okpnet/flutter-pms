@@ -98,29 +98,48 @@ Map<String, dynamic> _officeJsonJaEn() => {
   '__typename': 'InfoOffice',
 };
 
+// 部署と区分は紐付け(info_department_kind)の1対多。紐付けごとに区分値(kinds)を1件持つ。
 Map<String, dynamic> _kindValueNodeJaEn(String valueId, String labelJa) => {
   'infoDepartmentKindValueId': valueId,
   'labels': _appellationValueJaEn('a6666666-6666-6666-6666-666666666666', labelJa),
+  'symbol': null,
+  'remarks': null,
+  'updateAt': '2026-09-26T00:00:00',
+  'remove': false,
+  'update_user': _updateUserJsonJaEn(),
   '__typename': 'InfoDepartmentKindValue',
 };
 
-Map<String, dynamic> _kindJsonJaEn() => {
-  'infoDepartmentKindId': 'k1111111-1111-1111-1111-111111111111',
+Map<String, dynamic> _departmentKindNodeJaEn(String id, String valueId, String labelJa) => {
+  'infoDepartmentKindId': id,
+  'infoDepartmentKindValueId': valueId,
+  'kinds': _kindValueNodeJaEn(valueId, labelJa),
   'infoDepartmentId': 'dep11111-1111-1111-1111-111111111111',
-  'value': {
-    'totalCount': 2,
-    'pageInfo': {
-      'hasNextPage': false,
-      'endCursor': null,
-      '__typename': 'PageInfo',
-    },
-    'nodes': [
-      _kindValueNodeJaEn('v1111111-1111-1111-1111-111111111111', '本部'),
-      _kindValueNodeJaEn('v2222222-2222-2222-2222-222222222222', '支店'),
-    ],
-    '__typename': 'InfoDepartmentKindValuesConnection',
-  },
+  'remarks': null,
   '__typename': 'InfoDepartmentKind',
+};
+
+Map<String, dynamic> _departmentKindsJaEn() => {
+  'totalCount': 2,
+  'pageInfo': {'hasNextPage': false, 'endCursor': null, '__typename': 'PageInfo'},
+  'nodes': [
+    _departmentKindNodeJaEn('k1111111-1111-1111-1111-111111111111', 'v1111111-1111-1111-1111-111111111111', '本部'),
+    _departmentKindNodeJaEn('k2222222-2222-2222-2222-222222222222', 'v2222222-2222-2222-2222-222222222222', '支店'),
+  ],
+  '__typename': 'InfoDepartmentKindsConnection',
+};
+
+Map<String, dynamic> _updateUserJsonJaEn() => {
+  'historyId': 'h1111111-1111-1111-1111-111111111111',
+  'infoStaffId': 's1111111-1111-1111-1111-111111111111',
+  'infoCompanyId': 'c1111111-1111-1111-1111-111111111111',
+  'code': 'U001',
+  'sex': null,
+  'phone': null,
+  'symbol': null,
+  'privatePhone': null,
+  'name': _appellationValueJaEn('a9999999-9999-9999-9999-999999999999', '管理者 花子'),
+  '__typename': 'HistoryInfoStaff',
 };
 
 Map<String, dynamic> _addressJson() => {
@@ -168,34 +187,35 @@ Map<String, dynamic> _officeJson() => {
 Map<String, dynamic> _kindValueNode(String valueId, String labelJa) => {
   'infoDepartmentKindValueId': valueId,
   'labels': _appellationValue('a6666666-6666-6666-6666-666666666666', labelJa),
+  'symbol': null,
+  'remarks': null,
+  'updateAt': '2026-09-26T00:00:00',
+  'remove': false,
+  'update_user': _updateUserJson(),
   '__typename': 'InfoDepartmentKindValue',
 };
 
-// 要件0045修正: info_department_kindはinfo_department_idに一意制約(Ix1)を持つ
-// 1対1のため、departmentごとにkindは1件のみ。内側のvalue(info_department_kind_value)
-// のみが真のtoMany(Connection)。
-Map<String, dynamic> _kindJson() => {
-  'infoDepartmentKindId': 'k1111111-1111-1111-1111-111111111111',
+Map<String, dynamic> _departmentKindNode(String id, String valueId, String labelJa) => {
+  'infoDepartmentKindId': id,
+  'infoDepartmentKindValueId': valueId,
+  'kinds': _kindValueNode(valueId, labelJa),
   'infoDepartmentId': 'dep11111-1111-1111-1111-111111111111',
   'symbol': null,
   'remarks': null,
   'updateAt': '2026-09-26T00:00:00',
   'remove': false,
-  'value': {
-    'totalCount': 2,
-    'pageInfo': {
-      'hasNextPage': false,
-      'endCursor': null,
-      '__typename': 'PageInfo',
-    },
-    'nodes': [
-      _kindValueNode('v1111111-1111-1111-1111-111111111111', '本部'),
-      _kindValueNode('v2222222-2222-2222-2222-222222222222', '支店'),
-    ],
-    '__typename': 'InfoDepartmentKindValuesConnection',
-  },
   'update_user': _updateUserJson(),
   '__typename': 'InfoDepartmentKind',
+};
+
+Map<String, dynamic> _departmentKinds() => {
+  'totalCount': 2,
+  'pageInfo': {'hasNextPage': false, 'endCursor': null, '__typename': 'PageInfo'},
+  'nodes': [
+    _departmentKindNode('k1111111-1111-1111-1111-111111111111', 'v1111111-1111-1111-1111-111111111111', '本部'),
+    _departmentKindNode('k2222222-2222-2222-2222-222222222222', 'v2222222-2222-2222-2222-222222222222', '支店'),
+  ],
+  '__typename': 'InfoDepartmentKindsConnection',
 };
 
 void main() {
@@ -234,7 +254,7 @@ void main() {
             ),
             'address': _addressJson(),
             'office': _officeJson(),
-            'kinds': _kindJson(),
+            'departmentKinds': _departmentKinds(),
             'update_user': _updateUserJson(),
             '__typename': 'InfoDepartment',
           },
@@ -294,13 +314,12 @@ void main() {
       '本社',
     );
 
-    // kinds.value(1対多)の各レコードから、labelsの表示名だけをJSON配列文字列にする。
-    final kindsMap = nodeMap['kinds'] as Map<String, dynamic>;
-    final kindValueConnection = kindsMap['value'] as Map<String, dynamic>;
-    final kindLabels = kindValueConnection.extractFromEachRecord(
-      'labels||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue',
+    // departmentKinds(紐付けの1対多)の各レコードから、区分値(kinds)の表示名だけをJSON配列文字列にする。
+    final kindConnection = nodeMap['departmentKinds'] as Map<String, dynamic>;
+    final kindLabels = kindConnection.extractFromEachRecord(
+      'kinds||labels||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue',
       collapseSingleRecordPaths: {
-        'labels||sharedDictionaryBySharedDictionaryNameId||value',
+        'kinds||labels||sharedDictionaryBySharedDictionaryNameId||value',
       },
     );
     expect(kindLabels, ['本部', '支店']);
@@ -335,7 +354,7 @@ void main() {
           ),
           'address': _addressJsonJaEn(),
           'office': _officeJsonJaEn(),
-          'kinds': _kindJsonJaEn(),
+          'departmentKinds': _departmentKindsJaEn(),
           '__typename': 'InfoDepartment',
         },
         'clientMutationId': null,
@@ -388,7 +407,7 @@ void main() {
         ),
         'address': _addressJsonJaEn(),
         'office': _officeJsonJaEn(),
-        'kinds': _kindJsonJaEn(),
+        'departmentKinds': _departmentKindsJaEn(),
         '__typename': 'InfoDepartment',
       },
       '__typename': 'Query',

@@ -1,8 +1,7 @@
-# office_page画面 - RFE(read for editing、要件0037: OfficePageEditのgenerateRfe: trueから導出)
-
-# 要件0048: 要件0036以前の方式($ja/$en: Boolean!と@includeによる条件付き取得)を、
-# company_page_rfe.graphqlと同じ方式($jaLanguageCodeId/$enLanguageCodeIdをUUID!(必須)とし、
-# ja/en両方を常時取得)へ修正した。Editは両言語を必須引数で要求するため、RFEも常に両方を取得する(要件0046のC2)。
+# office_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: source/views/ #OfficePageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query OfficePageRfe(
   $infoOfficeId: UUID!
@@ -13,16 +12,12 @@ query OfficePageRfe(
     infoOfficeId
     infoCompanyId
     code
-    remarks
-    updateAt
-    updateUserId
-    updateUserHistoryId
-    remove
 
     labels: sharedAppellationByNames {
       sharedAppellationsId
       sharedDictionaryBySharedDictionaryNameId {
         sharedDictionaryId
+
         ja: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
         ) {
@@ -30,6 +25,7 @@ query OfficePageRfe(
             dictionaryValue
           }
         }
+
         en: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
         ) {
@@ -38,8 +34,10 @@ query OfficePageRfe(
           }
         }
       }
+
       sharedDictionaryBySharedDictionaryPronunciationId {
         sharedDictionaryId
+
         ja: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
         ) {
@@ -47,6 +45,7 @@ query OfficePageRfe(
             dictionaryValue
           }
         }
+
         en: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
         ) {
@@ -55,8 +54,10 @@ query OfficePageRfe(
           }
         }
       }
+
       sharedDictionaryBySharedDictionaryNicknameId {
         sharedDictionaryId
+
         ja: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
         ) {
@@ -64,6 +65,7 @@ query OfficePageRfe(
             dictionaryValue
           }
         }
+
         en: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
         ) {
@@ -78,13 +80,12 @@ query OfficePageRfe(
       infoAddressId
       iso31663
       zipCode
-      phone
-      faxNumber
 
       address1: sharedAppellationByAddress1 {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -92,6 +93,7 @@ query OfficePageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -100,8 +102,10 @@ query OfficePageRfe(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -109,6 +113,7 @@ query OfficePageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -117,8 +122,10 @@ query OfficePageRfe(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -126,6 +133,7 @@ query OfficePageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -140,6 +148,7 @@ query OfficePageRfe(
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -147,6 +156,7 @@ query OfficePageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -155,8 +165,10 @@ query OfficePageRfe(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -164,6 +176,7 @@ query OfficePageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -172,8 +185,10 @@ query OfficePageRfe(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -181,6 +196,7 @@ query OfficePageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -195,6 +211,7 @@ query OfficePageRfe(
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -202,6 +219,7 @@ query OfficePageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -210,8 +228,10 @@ query OfficePageRfe(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -219,6 +239,7 @@ query OfficePageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -227,8 +248,10 @@ query OfficePageRfe(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -236,6 +259,7 @@ query OfficePageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -245,6 +269,16 @@ query OfficePageRfe(
           }
         }
       }
+
+      phone
+      faxNumber
+      remarks
     }
+
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
   }
 }

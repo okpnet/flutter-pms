@@ -1,15 +1,15 @@
 # position_page画面 - Edit(ミューテーション)
 #
-# 画面仕様: source/view.yaml #PositionPageEdit(役割、info_position)
+# 画面仕様: source/views/ #PositionPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 mutation PositionPageEdit(
   $infoPositionId: UUID!
   $priority: Int
-  $remarks: String
   $sharedAppellationsId: UUID!
+  $nameSharedDictionaryId: UUID!
   $jaLanguageCodeId: UUID!
   $enLanguageCodeId: UUID!
-  $nameSharedDictionaryId: UUID!
   $nameJa: String!
   $nameEn: String!
   $pronunciationSharedDictionaryId: UUID!
@@ -18,13 +18,13 @@ mutation PositionPageEdit(
   $nicknameSharedDictionaryId: UUID!
   $nicknameJa: String!
   $nicknameEn: String!
+  $remarks: String
 ) {
   updateInfoPositionByInfoPositionId(
     input: {
       infoPositionId: $infoPositionId
       infoPositionPatch: {
         priority: $priority
-        remarks: $remarks
 
         sharedAppellationToNames: {
           updateBySharedAppellationsId: {
@@ -44,6 +44,7 @@ mutation PositionPageEdit(
                   }
                 }
               }
+
               sharedDictionaryToSharedDictionaryPronunciationId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $pronunciationSharedDictionaryId
@@ -58,6 +59,7 @@ mutation PositionPageEdit(
                   }
                 }
               }
+
               sharedDictionaryToSharedDictionaryNicknameId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $nicknameSharedDictionaryId
@@ -75,17 +77,20 @@ mutation PositionPageEdit(
             }
           }
         }
+
+        remarks: $remarks
       }
     }
   ) {
     infoPosition {
       infoPositionId
       priority
-      remarks
+
       labels: sharedAppellationByNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -93,6 +98,7 @@ mutation PositionPageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -101,8 +107,10 @@ mutation PositionPageEdit(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -110,6 +118,7 @@ mutation PositionPageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -118,8 +127,10 @@ mutation PositionPageEdit(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -127,6 +138,7 @@ mutation PositionPageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -136,6 +148,8 @@ mutation PositionPageEdit(
           }
         }
       }
+
+      remarks
     }
   }
 }

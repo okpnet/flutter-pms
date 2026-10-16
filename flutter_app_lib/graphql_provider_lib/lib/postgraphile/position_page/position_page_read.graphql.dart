@@ -9,14 +9,12 @@ class Variables$Query$PositionPageRead {
   factory Variables$Query$PositionPageRead({
     required int first,
     int? offset,
-    Input$InfoPositionFilter? filter,
     List<Enum$InfoPositionsOrderBy>? orderBy,
     required String languageCodeId,
     bool? removed,
   }) => Variables$Query$PositionPageRead._({
     r'first': first,
     if (offset != null) r'offset': offset,
-    if (filter != null) r'filter': filter,
     if (orderBy != null) r'orderBy': orderBy,
     r'languageCodeId': languageCodeId,
     if (removed != null) r'removed': removed,
@@ -31,14 +29,6 @@ class Variables$Query$PositionPageRead {
     if (data.containsKey('offset')) {
       final l$offset = data['offset'];
       result$data['offset'] = (l$offset as int?);
-    }
-    if (data.containsKey('filter')) {
-      final l$filter = data['filter'];
-      result$data['filter'] = l$filter == null
-          ? null
-          : Input$InfoPositionFilter.fromJson(
-              (l$filter as Map<String, dynamic>),
-            );
     }
     if (data.containsKey('orderBy')) {
       final l$orderBy = data['orderBy'];
@@ -61,9 +51,6 @@ class Variables$Query$PositionPageRead {
 
   int? get offset => (_$data['offset'] as int?);
 
-  Input$InfoPositionFilter? get filter =>
-      (_$data['filter'] as Input$InfoPositionFilter?);
-
   List<Enum$InfoPositionsOrderBy>? get orderBy =>
       (_$data['orderBy'] as List<Enum$InfoPositionsOrderBy>?);
 
@@ -78,10 +65,6 @@ class Variables$Query$PositionPageRead {
     if (_$data.containsKey('offset')) {
       final l$offset = offset;
       result$data['offset'] = l$offset;
-    }
-    if (_$data.containsKey('filter')) {
-      final l$filter = filter;
-      result$data['filter'] = l$filter?.toJson();
     }
     if (_$data.containsKey('orderBy')) {
       final l$orderBy = orderBy;
@@ -123,14 +106,6 @@ class Variables$Query$PositionPageRead {
     if (l$offset != lOther$offset) {
       return false;
     }
-    final l$filter = filter;
-    final lOther$filter = other.filter;
-    if (_$data.containsKey('filter') != other._$data.containsKey('filter')) {
-      return false;
-    }
-    if (l$filter != lOther$filter) {
-      return false;
-    }
     final l$orderBy = orderBy;
     final lOther$orderBy = other.orderBy;
     if (_$data.containsKey('orderBy') != other._$data.containsKey('orderBy')) {
@@ -170,14 +145,12 @@ class Variables$Query$PositionPageRead {
   int get hashCode {
     final l$first = first;
     final l$offset = offset;
-    final l$filter = filter;
     final l$orderBy = orderBy;
     final l$languageCodeId = languageCodeId;
     final l$removed = removed;
     return Object.hashAll([
       l$first,
       _$data.containsKey('offset') ? l$offset : const {},
-      _$data.containsKey('filter') ? l$filter : const {},
       _$data.containsKey('orderBy')
           ? l$orderBy == null
                 ? null
@@ -201,7 +174,6 @@ abstract class CopyWith$Variables$Query$PositionPageRead<TRes> {
   TRes call({
     int? first,
     int? offset,
-    Input$InfoPositionFilter? filter,
     List<Enum$InfoPositionsOrderBy>? orderBy,
     String? languageCodeId,
     bool? removed,
@@ -221,7 +193,6 @@ class _CopyWithImpl$Variables$Query$PositionPageRead<TRes>
   TRes call({
     Object? first = _undefined,
     Object? offset = _undefined,
-    Object? filter = _undefined,
     Object? orderBy = _undefined,
     Object? languageCodeId = _undefined,
     Object? removed = _undefined,
@@ -230,7 +201,6 @@ class _CopyWithImpl$Variables$Query$PositionPageRead<TRes>
       ..._instance._$data,
       if (first != _undefined && first != null) 'first': (first as int),
       if (offset != _undefined) 'offset': (offset as int?),
-      if (filter != _undefined) 'filter': (filter as Input$InfoPositionFilter?),
       if (orderBy != _undefined)
         'orderBy': (orderBy as List<Enum$InfoPositionsOrderBy>?),
       if (languageCodeId != _undefined && languageCodeId != null)
@@ -249,7 +219,6 @@ class _CopyWithStubImpl$Variables$Query$PositionPageRead<TRes>
   call({
     int? first,
     int? offset,
-    Input$InfoPositionFilter? filter,
     List<Enum$InfoPositionsOrderBy>? orderBy,
     String? languageCodeId,
     bool? removed,
@@ -406,15 +375,6 @@ const documentNodeQueryPositionPageRead = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'filter')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'InfoPositionFilter'),
-            isNonNull: false,
-          ),
-          defaultValue: DefaultValueNode(value: ObjectValueNode(fields: [])),
-          directives: [],
-        ),
-        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'orderBy')),
           type: ListTypeNode(
             type: NamedTypeNode(
@@ -423,11 +383,7 @@ const documentNodeQueryPositionPageRead = DocumentNode(
             ),
             isNonNull: false,
           ),
-          defaultValue: DefaultValueNode(
-            value: ListValueNode(
-              values: [EnumValueNode(name: NameNode(value: 'PRIMARY_KEY_ASC'))],
-            ),
-          ),
+          defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
@@ -470,27 +426,15 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                 value: ObjectValueNode(
                   fields: [
                     ObjectFieldNode(
-                      name: NameNode(value: 'and'),
-                      value: ListValueNode(
-                        values: [
-                          ObjectValueNode(
-                            fields: [
-                              ObjectFieldNode(
-                                name: NameNode(value: 'remove'),
-                                value: ObjectValueNode(
-                                  fields: [
-                                    ObjectFieldNode(
-                                      name: NameNode(value: 'equalTo'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'removed'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                      name: NameNode(value: 'remove'),
+                      value: ObjectValueNode(
+                        fields: [
+                          ObjectFieldNode(
+                            name: NameNode(value: 'equalTo'),
+                            value: VariableNode(
+                              name: NameNode(value: 'removed'),
+                            ),
                           ),
-                          VariableNode(name: NameNode(value: 'filter')),
                         ],
                       ),
                     ),
@@ -555,34 +499,6 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'priority'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'symbol'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'updateAt'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remove'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -892,6 +808,34 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'updateAt'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remove'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(
                           value:
                               'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
@@ -924,34 +868,6 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(value: 'code'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'sex'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'phone'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'symbol'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'privatePhone'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -1285,6 +1201,34 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                                   ),
                                 ],
                               ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'sex'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'phone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'symbol'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'privatePhone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
                             ),
                             FieldNode(
                               name: NameNode(value: '__typename'),
@@ -1849,11 +1793,11 @@ class Query$PositionPageRead$allInfoPositions$nodes {
   Query$PositionPageRead$allInfoPositions$nodes({
     required this.infoPositionId,
     required this.priority,
+    this.labels,
     this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
-    this.labels,
     this.update_user,
     this.$__typename = 'InfoPosition',
   });
@@ -1863,25 +1807,25 @@ class Query$PositionPageRead$allInfoPositions$nodes {
   ) {
     final l$infoPositionId = json['infoPositionId'];
     final l$priority = json['priority'];
+    final l$labels = json['labels'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$PositionPageRead$allInfoPositions$nodes(
       infoPositionId: (l$infoPositionId as String),
       priority: (l$priority as int),
-      symbol: (l$symbol as String?),
-      remarks: (l$remarks as String?),
-      updateAt: (l$updateAt as String?),
-      remove: (l$remove as bool?),
       labels: l$labels == null
           ? null
           : Query$PositionPageRead$allInfoPositions$nodes$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
+      symbol: (l$symbol as String?),
+      remarks: (l$remarks as String?),
+      updateAt: (l$updateAt as String?),
+      remove: (l$remove as bool?),
       update_user: l$update_user == null
           ? null
           : Query$PositionPageRead$allInfoPositions$nodes$update_user.fromJson(
@@ -1895,6 +1839,8 @@ class Query$PositionPageRead$allInfoPositions$nodes {
 
   final int priority;
 
+  final Query$PositionPageRead$allInfoPositions$nodes$labels? labels;
+
   final String? symbol;
 
   final String? remarks;
@@ -1902,8 +1848,6 @@ class Query$PositionPageRead$allInfoPositions$nodes {
   final String? updateAt;
 
   final bool? remove;
-
-  final Query$PositionPageRead$allInfoPositions$nodes$labels? labels;
 
   final Query$PositionPageRead$allInfoPositions$nodes$update_user? update_user;
 
@@ -1915,6 +1859,8 @@ class Query$PositionPageRead$allInfoPositions$nodes {
     _resultData['infoPositionId'] = l$infoPositionId;
     final l$priority = priority;
     _resultData['priority'] = l$priority;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
     final l$symbol = symbol;
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
@@ -1923,8 +1869,6 @@ class Query$PositionPageRead$allInfoPositions$nodes {
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -1936,21 +1880,21 @@ class Query$PositionPageRead$allInfoPositions$nodes {
   int get hashCode {
     final l$infoPositionId = infoPositionId;
     final l$priority = priority;
+    final l$labels = labels;
     final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$labels = labels;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoPositionId,
       l$priority,
+      l$labels,
       l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
-      l$labels,
       l$update_user,
       l$$__typename,
     ]);
@@ -1975,6 +1919,11 @@ class Query$PositionPageRead$allInfoPositions$nodes {
     if (l$priority != lOther$priority) {
       return false;
     }
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
     final l$symbol = symbol;
     final lOther$symbol = other.symbol;
     if (l$symbol != lOther$symbol) {
@@ -1993,11 +1942,6 @@ class Query$PositionPageRead$allInfoPositions$nodes {
     final l$remove = remove;
     final lOther$remove = other.remove;
     if (l$remove != lOther$remove) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
       return false;
     }
     final l$update_user = update_user;
@@ -2036,11 +1980,11 @@ abstract class CopyWith$Query$PositionPageRead$allInfoPositions$nodes<TRes> {
   TRes call({
     String? infoPositionId,
     int? priority,
+    Query$PositionPageRead$allInfoPositions$nodes$labels? labels,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$PositionPageRead$allInfoPositions$nodes$labels? labels,
     Query$PositionPageRead$allInfoPositions$nodes$update_user? update_user,
     String? $__typename,
   });
@@ -2066,11 +2010,11 @@ class _CopyWithImpl$Query$PositionPageRead$allInfoPositions$nodes<TRes>
   TRes call({
     Object? infoPositionId = _undefined,
     Object? priority = _undefined,
+    Object? labels = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -2081,15 +2025,15 @@ class _CopyWithImpl$Query$PositionPageRead$allInfoPositions$nodes<TRes>
       priority: priority == _undefined || priority == null
           ? _instance.priority
           : (priority as int),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels as Query$PositionPageRead$allInfoPositions$nodes$labels?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels as Query$PositionPageRead$allInfoPositions$nodes$labels?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -2136,11 +2080,11 @@ class _CopyWithStubImpl$Query$PositionPageRead$allInfoPositions$nodes<TRes>
   call({
     String? infoPositionId,
     int? priority,
+    Query$PositionPageRead$allInfoPositions$nodes$labels? labels,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$PositionPageRead$allInfoPositions$nodes$labels? labels,
     Query$PositionPageRead$allInfoPositions$nodes$update_user? update_user,
     String? $__typename,
   }) => _res;
@@ -4210,11 +4154,11 @@ class Query$PositionPageRead$allInfoPositions$nodes$update_user {
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -4225,26 +4169,26 @@ class Query$PositionPageRead$allInfoPositions$nodes$update_user {
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$PositionPageRead$allInfoPositions$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$PositionPageRead$allInfoPositions$nodes$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -4257,6 +4201,8 @@ class Query$PositionPageRead$allInfoPositions$nodes$update_user {
 
   final String? code;
 
+  final Query$PositionPageRead$allInfoPositions$nodes$update_user$name? name;
+
   final String? sex;
 
   final String? phone;
@@ -4264,8 +4210,6 @@ class Query$PositionPageRead$allInfoPositions$nodes$update_user {
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$PositionPageRead$allInfoPositions$nodes$update_user$name? name;
 
   final String $__typename;
 
@@ -4279,6 +4223,8 @@ class Query$PositionPageRead$allInfoPositions$nodes$update_user {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -4287,8 +4233,6 @@ class Query$PositionPageRead$allInfoPositions$nodes$update_user {
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -4300,22 +4244,22 @@ class Query$PositionPageRead$allInfoPositions$nodes$update_user {
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -4349,6 +4293,11 @@ class Query$PositionPageRead$allInfoPositions$nodes$update_user {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -4367,11 +4316,6 @@ class Query$PositionPageRead$allInfoPositions$nodes$update_user {
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -4413,11 +4357,11 @@ abstract class CopyWith$Query$PositionPageRead$allInfoPositions$nodes$update_use
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$PositionPageRead$allInfoPositions$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$PositionPageRead$allInfoPositions$nodes$update_user$name? name,
     String? $__typename,
   });
   CopyWith$Query$PositionPageRead$allInfoPositions$nodes$update_user$name<TRes>
@@ -4448,11 +4392,11 @@ class _CopyWithImpl$Query$PositionPageRead$allInfoPositions$nodes$update_user<
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$PositionPageRead$allInfoPositions$nodes$update_user(
@@ -4466,16 +4410,16 @@ class _CopyWithImpl$Query$PositionPageRead$allInfoPositions$nodes$update_user<
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$PositionPageRead$allInfoPositions$nodes$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name
-                as Query$PositionPageRead$allInfoPositions$nodes$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -4514,11 +4458,11 @@ class _CopyWithStubImpl$Query$PositionPageRead$allInfoPositions$nodes$update_use
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$PositionPageRead$allInfoPositions$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$PositionPageRead$allInfoPositions$nodes$update_user$name? name,
     String? $__typename,
   }) => _res;
 

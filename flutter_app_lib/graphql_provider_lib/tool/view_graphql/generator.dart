@@ -20,6 +20,7 @@ GenerationResult generateAll({
   String? schemaText,
   String? only,
   SchemaIndex? schemaIndex,
+  bool validateFields = true,
 }) {
   final log = GenLog();
   final views = loadViewYaml(viewYaml);
@@ -34,6 +35,11 @@ GenerationResult generateAll({
     final node = e.value;
     if (node is! Map<String, dynamic>) continue;
     if (only != null && only != name) continue;
+    // 共通定義(~ReadFields/~EditFields)は生成しないが、スキーマとの整合を検証する(要件0055)。
+    if (validateFields && (name.endsWith('ReadFields') || name.endsWith('EditFields'))) {
+      _validateFields(name, node, schema, read, edit);
+      continue;
+    }
     if (!isGenerationTarget(name)) continue;
     final dir = directoryOf(name);
     final kind = node['kind'];
@@ -48,4 +54,42 @@ GenerationResult generateAll({
     }
   }
   return GenerationResult(files, log);
+}
+
+/// 共通定義の検証。ReadFieldsはreadとして、EditFieldsはeditとして組み立て、出力は捨てる(エラーだけ残す)。
+/// EditFieldsにrequiredWhereが無いときは、主キーを補って検証する。
+void _validateFields(
+  String name,
+  Map<String, dynamic> node,
+  SchemaIndex schema,
+  ReadGenerator read,
+  EditGenerator edit,
+) {
+  final kind = node['kind'];
+  if (kind == 'read' && name.endsWith('ReadFields')) {
+    read.generate(name, node);
+  } else if (kind == 'edit' && name.endsWith('EditFields')) {
+    final copy = Map<String, dynamic>.of(node);
+    final from = node['from'] as String?;
+    if (from != null && (copy['requiredWhere'] == null || (copy['requiredWhere'] as List).isEmpty)) {
+      final pk = schema.primaryKeyField(schema.typeOfTable(from));
+      if (pk != null) {
+        // 主キー単独の更新ミューテーションが無い場合(パーティション等)は、複合のキーで検証する。
+        final type = schema.typeOfTable(from);
+        final single = 'update${type}By${cap(pk)}';
+        var keys = [snake(pk)];
+        if (!schema.mutation.containsKey(single)) {
+          for (final m in schema.mutation.keys) {
+            if (m.startsWith('${single}And')) {
+              keys = [snake(pk), ...m.substring(single.length + 3).split('And').map(snake)];
+              break;
+            }
+          }
+        }
+        copy['requiredWhere'] = keys;
+      }
+    }
+    copy['generateRfe'] = false;
+    edit.generate(name, copy);
+  }
 }
