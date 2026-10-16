@@ -1,4 +1,5 @@
 \c test_avocado
+-- This method is used for generating symbols; examples of symbols include barcodes and QR codes.
 CREATE OR REPLACE FUNCTION tests.to_base33(n bigint, min_len int default 4) RETURNs varchar AS
 $BODY$
 DECLARE
@@ -51,7 +52,9 @@ END;
 $BODY$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION tests.trg_gen_symbol_seq() RETURNs trigger AS
+-- symbol = to_base33(連番, 4)：33進数（0-9, A-Z から I/L/O を除く）、4桁ゼロ埋め。
+-- 4桁で 1,185,920 件まで。超えると5桁以上に自動で伸びる（varchar(16) に収まる）。
+CREATE OR REPLACE FUNCTION tests.trg_gen_symbol_seq() RETURNS TRIGGER AS
 $BODY$
 DECLARE
     v_seq bigint;
@@ -65,6 +68,26 @@ BEGIN
 END;
 $BODY$
 LANGUAGE plpgsql;
+
+-- This method, designed specifically for tables containing 'text_value' and 'char_count' columns, converts input text into a character count and an introductory excerpt.
+CREATE OR REPLACE FUNCTION tests.trg_gen_text_summary() RETURNS TRIGGER AS
+$BODY$
+DECLARE
+    v_lead_len INTEGER := 80;
+    v_text     TEXT;
+BEGIN
+    IF TG_NARGS > 0 THEN
+        v_lead_len := TG_ARGV[0]::INTEGER;
+    END IF;
+v_text := COALESCE(NEW.text_value, '');
+    NEW.lead_text  := LEFT(REGEXP_REPLACE(v_text, E'[\r\n\t]+', ' ', 'g'), v_lead_len);
+    -- バイト数ではなく文字数
+    NEW.char_count := CHAR_LENGTH(v_text);
+    RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+COMMENT ON FUNCTION tests.trg_gen_text_summary() IS 'text_valueからlead_text(導入文)とchar_count(文字数)を算出する';
 
 --233.create tables
 create table tests.history_mstr_item_operation (
@@ -111,6 +134,8 @@ create table tests.trans_text_value (
     trans_text_value_id uuid default gen_random_uuid(),
     trans_text_id uuid not null,
     shared_language_code_id uuid not null,
+    char_count integer default 0,
+    lead_text varchar(80) default '',
     text_value text default '',
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -136,6 +161,8 @@ create table tests.history_shared_text_value (
     shared_text_value_id uuid not null,
     shared_language_code_id uuid not null,
     shared_text_id uuid not null,
+    char_count integer default 0,
+    lead_text varchar(80) default '',
     text_value text default '',
     revision integer default 1,
     symbol varchar(16) default '',
@@ -204,6 +231,8 @@ create table tests.shared_text_value (
     shared_text_value_id uuid default gen_random_uuid(),
     shared_language_code_id uuid not null,
     shared_text_id uuid not null,
+    char_count integer default 0,
+    lead_text varchar(80) default '',
     text_value text default '',
     revision integer default 1,
     symbol varchar(16) default '',
@@ -3428,6 +3457,8 @@ comment on table tests.trans_text_value is 'テキストバリュー';
 comment on column tests.trans_text_value.trans_text_value_id is 'テキストバリューID';
 comment on column tests.trans_text_value.trans_text_id is 'テキストID';
 comment on column tests.trans_text_value.shared_language_code_id is '言語コードID';
+comment on column tests.trans_text_value.char_count is '文字数';
+comment on column tests.trans_text_value.lead_text is '導入文';
 comment on column tests.trans_text_value.text_value is 'テキスト';
 comment on column tests.trans_text_value.symbol is 'リニアシンボル';
 comment on column tests.trans_text_value.remarks is '備考';
@@ -3451,6 +3482,8 @@ comment on column tests.history_shared_text_value.history_id is '履歴ID';
 comment on column tests.history_shared_text_value.shared_text_value_id is 'テキストバリューID';
 comment on column tests.history_shared_text_value.shared_language_code_id is '言語コードID';
 comment on column tests.history_shared_text_value.shared_text_id is '共有テキストID';
+comment on column tests.history_shared_text_value.char_count is '文字数';
+comment on column tests.history_shared_text_value.lead_text is '導入文';
 comment on column tests.history_shared_text_value.text_value is 'テキスト';
 comment on column tests.history_shared_text_value.revision is 'レビジョン';
 comment on column tests.history_shared_text_value.symbol is 'リニアシンボル';
@@ -3513,6 +3546,8 @@ comment on table tests.shared_text_value is '共有テキストバリュー';
 comment on column tests.shared_text_value.shared_text_value_id is 'テキストバリューID';
 comment on column tests.shared_text_value.shared_language_code_id is '言語コードID';
 comment on column tests.shared_text_value.shared_text_id is '共有テキストID';
+comment on column tests.shared_text_value.char_count is '文字数';
+comment on column tests.shared_text_value.lead_text is '導入文';
 comment on column tests.shared_text_value.text_value is 'テキスト';
 comment on column tests.shared_text_value.revision is 'レビジョン';
 comment on column tests.shared_text_value.symbol is 'リニアシンボル';
@@ -6479,7 +6514,7 @@ create unique index history_mstr_item_operation_PKI
 alter table tests.history_mstr_item_operation
     add constraint history_mstr_item_operation_PKC primary key (history_id,mstr_item_operation_id);
 alter table tests.history_mstr_item_operation
-     add constraint history_mstr_item_operation_IX1 unique (symbol);
+     add constraint history_mstr_item_operation_IX1 unique (mstr_item_operation_id,revision);
 create unique index mstr_item_operation_PKI
     on tests.mstr_item_operation(mstr_item_operation_id);
 alter table tests.mstr_item_operation
@@ -8989,6 +9024,8 @@ BEGIN
                 NEW.shared_text_value_id,
                 NEW.shared_language_code_id,
                 NEW.shared_text_id,
+                NEW.char_count,
+                NEW.lead_text,
                 NEW.text_value,
                 NEW.symbol,
                 NEW.remarks,
@@ -8997,6 +9034,8 @@ BEGIN
                 OLD.shared_text_value_id,
                 OLD.shared_language_code_id,
                 OLD.shared_text_id,
+                OLD.char_count,
+                OLD.lead_text,
                 OLD.text_value,
                 OLD.symbol,
                 OLD.remarks,
@@ -9013,6 +9052,8 @@ BEGIN
             shared_text_value_id,
             shared_language_code_id,
             shared_text_id,
+            char_count,
+            lead_text,
             text_value,
             revision,
             symbol,
@@ -9027,6 +9068,8 @@ BEGIN
             NEW.shared_text_value_id,
             NEW.shared_language_code_id,
             NEW.shared_text_id,
+            NEW.char_count,
+            NEW.lead_text,
             NEW.text_value,
             NEW.revision,
             NEW.symbol,
@@ -21812,3 +21855,13 @@ GROUP BY
 
 -- Postgraphile additional comment.
 comment on view tests.v_department_descendants is E'@foreignKey (ancestor_info_department_id) references info_department (info_department_id)\n@unique ancestor_info_department_id';
+-- ------------------------------------------------------------
+-- shared_text_value
+--   名前を trg_00_ にしているのは、同じ BEFORE トリガーの中で
+--   trg_01 / trg_02 より先に動かし、履歴に算出済みの値を残すため（PostgreSQL は同じタイミングのトリガーを名前順に実行する）
+-- ------------------------------------------------------------
+DROP TRIGGER IF EXISTS trg_00_text_summary_shared_text_value ON tests.shared_text_value;
+CREATE TRIGGER trg_00_text_summary_shared_text_value BEFORE INSERT OR UPDATE ON tests.shared_text_value FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_text_summary('80');
+DROP TRIGGER IF EXISTS trg_00_text_summary_trans_text_value ON tests.trans_text_value;
+CREATE TRIGGER trg_00_text_summary_trans_text_value BEFORE INSERT OR UPDATE ON tests.trans_text_value FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_text_summary('80');
+

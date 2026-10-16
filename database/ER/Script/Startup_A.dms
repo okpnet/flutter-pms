@@ -571,6 +571,8 @@ class Entity{
 		if(IsTrigger.Relation != null){
 			child=ext.toFirst(entities,function(e){return e.Name==IsTrigger.Relation.entityPName1;});
 		}
+        
+        
 
         return IsTrigger.GetQuery(schema,this,child);
     }
@@ -1194,7 +1196,9 @@ var pubcunction=(function(){
     taransMonthFunc+="LANGUAGE plpgsql;"+CR;
 
     //汎用トリガー関数: 引数なし。TG_TABLE_NAMEで自テーブル名を自動取得.恒久カウンタとして機能する(mm=0は実カレンダーには出現しない値なので安全)
-    var gensymbolFunc="CREATE OR REPLACE FUNCTION "+SCHEMA+".trg_gen_symbol_seq() RETURNs trigger AS"+CR;
+    var gensymbolFunc="-- symbol = to_base33(連番, 4)：33進数（0-9, A-Z から I/L/O を除く）、4桁ゼロ埋め。"+CR;
+    gensymbolFunc+="-- 4桁で 1,185,920 件まで。超えると5桁以上に自動で伸びる（varchar(16) に収まる）。"+CR;
+    gensymbolFunc+="CREATE OR REPLACE FUNCTION "+SCHEMA+".trg_gen_symbol_seq() RETURNS TRIGGER AS"+CR;
     gensymbolFunc+="$BODY$"+CR;
     gensymbolFunc+="DECLARE"+CR;
     gensymbolFunc+=ext.tabs(1)+"v_seq bigint;"+CR;
@@ -1209,14 +1213,52 @@ var pubcunction=(function(){
     gensymbolFunc+="$BODY$"+CR;
     gensymbolFunc+="LANGUAGE plpgsql;"+CR;
     
-    return base33Func+CR+nextSequenceFunc+CR+taransMonthFunc+CR+gensymbolFunc;
+    //lead_text に入れる文字数（省略時 100
+    var comment2="-- This method, designed specifically for tables containing 'text_value' and 'char_count' columns, converts input text into a character count and an introductory excerpt.";
+    var genSummary="CREATE OR REPLACE FUNCTION "+SCHEMA+".trg_gen_text_summary() RETURNS TRIGGER AS"+CR;
+    genSummary+="$BODY$"+CR;
+    genSummary+="DECLARE"+CR;
+    genSummary+=ext.tabs(1)+"v_lead_len INTEGER := 80;"+CR;
+    genSummary+=ext.tabs(1)+"v_text     TEXT;"+CR;
+    genSummary+="BEGIN"+CR;
+    genSummary+=ext.tabs(1)+"IF TG_NARGS > 0 THEN"+CR;
+    genSummary+=ext.tabs(2)+"v_lead_len := TG_ARGV[0]::INTEGER;"+CR;
+    genSummary+=ext.tabs(1)+"END IF;"+CR;
+    genSummary+="v_text := COALESCE(NEW.text_value, '');"+CR;
+    genSummary+=ext.tabs(1)+"NEW.lead_text  := LEFT(REGEXP_REPLACE(v_text, E'[\\r\\n\\t]+', ' ', 'g'), v_lead_len);"+CR;
+    genSummary+=ext.tabs(1)+"-- バイト数ではなく文字数"+CR;
+    genSummary+=ext.tabs(1)+"NEW.char_count := CHAR_LENGTH(v_text);"+CR;
+    genSummary+=ext.tabs(1)+"RETURN NEW;"+CR;
+    genSummary+="END;"+CR;
+    genSummary+="$BODY$"+CR;
+    genSummary+="LANGUAGE plpgsql;"+CR;
+    genSummary+="COMMENT ON FUNCTION "+SCHEMA+".trg_gen_text_summary() IS 'text_valueからlead_text(導入文)とchar_count(文字数)を算出する';"+CR;
+    
+    return comment+CR+base33Func+CR+nextSequenceFunc+CR+taransMonthFunc+CR+gensymbolFunc+CR+comment2+CR+genSummary;
 });
 
-
+var suffix=function(){
+    //このテーブル限定
+    var textValueTables=["shared_text_value","trans_text_value"];
+    var charCount="80";
+    
+    var textValueExt="-- ------------------------------------------------------------"+CR;
+    textValueExt+="-- shared_text_value"+CR;
+    textValueExt+="--   名前を trg_00_ にしているのは、同じ BEFORE トリガーの中で"+CR;
+    textValueExt+="--   trg_01 / trg_02 より先に動かし、履歴に算出済みの値を残すため（PostgreSQL は同じタイミングのトリガーを名前順に実行する）"+CR;
+    textValueExt+="-- ------------------------------------------------------------"+CR;
+    
+    for(var index in textValueTables){
+	    textValueExt+="DROP TRIGGER IF EXISTS trg_00_text_summary_"+textValueTables[index]+" ON "+SCHEMA+"."+textValueTables[index]+";"+CR;
+	    textValueExt+="CREATE TRIGGER trg_00_text_summary_"+textValueTables[index]+" BEFORE INSERT OR UPDATE ON "+SCHEMA+"."+textValueTables[index]+" FOR EACH ROW EXECUTE FUNCTION "+SCHEMA+".trg_gen_text_summary('"+charCount+"');"+CR;
+    }
+    
+    return textValueExt+CR;
+};
 
 //mng.CreateDropFromName("info_company");//名前のテーブルを消去
 //mng.CreateAllDrop();//全テーブル消去
-mng.CreateAll(false,"\\c test_avocado"+CR+pubcunction(),"");//全テーブル生成
+mng.CreateAll(false,"\\c test_avocado"+CR+pubcunction(),suffix());//全テーブル生成
 //mng.CreateEntityFromNames(selectEntities,false);//選択しているアイテムから
 //mng.CreateDeleteAll();//全テーブルの全レコード削除
 
