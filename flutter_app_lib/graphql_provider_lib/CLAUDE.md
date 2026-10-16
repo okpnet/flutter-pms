@@ -376,3 +376,13 @@ docs/                     要件ごとの実施ログ。生成ツールの詳細
     - 列名はこのノードの列(snake_case、主キーは`primary_key`)。関連先の列は、PostGraphileの`orderBy`に無いため指定できず、エラーとする。
     - `defaultSort: asc`のような文字列(旧形式)や、`defaultSort`と同じ階層の`sortColumns`はエラーとする。
 5. `source/schema.json.help.md`に、defaultSort / sortColumns の節を追加した。
+2026/10/16_0054:ツリーの親の付け替え(ドラッグ&ドロップ)を、ツリー行の直接更新で実現する。
+
+1. 背景: 「内向きの入れ子」のエラー(`LocationPageEdit.parent`等)の原因は、ツリー表(`mstr_location_tree`等)の`<親テーブルのID>`列にユニーク制約が無く、PostGraphileが1対多(`mstrLocationTreesToMstrLocationIdUsingMstrLocationId`)として扱うため、ジェネレーターが組み立てる1対1の名前(`mstrLocationTreeToMstrLocationId`)と合わないことだった。
+2. 方針(案A、ユーザー採択): 親の付け替えは、ツリー行を直接更新するページで行う。`updateMstr…TreeByMstr…TreeId(input: {…TreeId, …TreePatch: {parent…Id}})`。
+3. 追加: `LocationTreePageEdit`・`ItemTreePageEdit`・`TaskTreePageEdit`・`DepartmentTreePageEdit`(それぞれ`<dir>_tree_page`)。`requiredWhere`はツリー行のID、`generateRfe: true`。`ItemTreePageEdit`は、旧`ItemPageEdit.parent`の列(呼称・数量・テキスト)を引き継いだ。
+4. 削除: `LocationPageEdit`・`ItemPageEdit`・`TaskPageEdit`・`DepartmentPageEdit`の`parent`(ReadのPageの`parent`は残す。ツリー行のIDを得るため)。
+5. 親をトップ(null)へ移動する: Variablesモデルのコンストラクタはnullを渡すとキーを省略する(親を変更しない)ため、`Variables$Mutation$…Edit.fromJson({'<tree>Id': …, 'parent…Id': null})`でnullのキーを渡す。
+6. 利用側の注意: 自分の子孫の下への移動(循環)は、アプリ側で`v_*_descendants`を使って防ぐ。DB側の制約は無い。ツリー表の`symbol`のユニーク制約(`*_tree_IX1`)にも注意する。
+7. 残りの内向きの入れ子(別原因)も、同じ方針で編集から外した: `DepartmentPageEdit.kinds`(区分は`info_department_kind`の1対1の内向き。値の編集は`DepartmentCategoryPageEdit`、取得は`DepartmentPage`)、`ItemPageEdit.descendants`(読み取り専用のビュー。取得は`ItemPage`)。これでGraphQLの生成エラーは0件になった。
+8. 詳細: `docs/0054_tree_parent_update_log.md`。

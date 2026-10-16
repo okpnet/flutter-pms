@@ -881,7 +881,7 @@ Position="トラザクション",7300,2700
 ZOrder=82
 
 [Entity]
-PName=trans_ship_order
+PName=trans_shipping_order
 LName=出荷オーダー
 Comment=
 TableInnerOption=
@@ -889,9 +889,9 @@ TableOption=
 Page=トラザクション
 Left=500
 Top=1100
-Field="出荷ID","trans_shipping_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="出荷ID","trans_shipping_order_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="受注ID","trans_order_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="出荷予定日","edtimated_shipping_date","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+Field="出荷予定日","estimated_shipping_date","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
 Field="出荷オーダーコード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="到着予定日","estimated_arrival_date","@DATE","NOT NULL",,"","",$FFFFFFFF,""
 Field="履歴利害関係者ID","stakeholder_history_id","*@UUID",,,"","",$FFFFFFFF,""
@@ -902,7 +902,7 @@ Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261014110152
+ModifiedDateTime=20261016162347
 Position="トラザクション",500,1100
 ZOrder=83
 
@@ -916,18 +916,18 @@ Page=トラザクション
 Left=2350
 Top=1000
 Field="出荷オーダー明細ID","trans_shipping_order_detail_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="出荷ID","trans_shipping_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="出荷ID","trans_shipping_order_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="受注明細ID","trans_order_detail_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="個別出荷予定日","edtimated_shipping_date","*@DATETIME",,,"","",$FFFFFFFF,""
+Field="個別出荷予定日","estimated_shipping_date","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="個別到着予定日","estimated_arrival_date","@DATE",,,"","",$FFFFFFFF,""
 Field="出荷数量","shipping_quantity","*@QTY","NOT NULL",,"","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
-Index==2,trans_shipping_id,trans_order_detail_id
+Index==2,trans_order_detail_id,trans_shipping_order_id
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260828211812
+ModifiedDateTime=20261016163108
 Position="トラザクション",2350,1000
 ZOrder=84
 
@@ -1340,7 +1340,7 @@ ZOrder=125
 
 [Relation]
 Entity1=trans_order
-Entity2=trans_ship_order
+Entity2=trans_shipping_order
 RelationType1=1
 RelationType2=1
 Fields1=trans_order_id
@@ -1506,12 +1506,12 @@ TermPos2=R
 ZOrder=147
 
 [Relation]
-Entity1=trans_ship_order
+Entity1=trans_shipping_order
 Entity2=trans_shipping_order_detail
 RelationType1=1
 RelationType2=3
-Fields1=trans_shipping_id
-Fields2=trans_shipping_id
+Fields1=trans_shipping_order_id
+Fields2=trans_shipping_order_id
 Cardinarity1=
 Cardinarity2=
 Position="トラザクション",0,5266,5790,4482,R,R,""
@@ -2656,7 +2656,7 @@ TableOption=
 Page=品質
 Left=4900
 Top=5050
-Field="未然防止処置ID","trans_prevetion_detail_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="未然防止処置ID","trans_prevention_detail_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="リスクID","trans_risk_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="未然防止ID","trans_prevention_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="組織情報ID","info_department_id","*@UUID","NOT NULL",,"","取り組む組織のキー2",$FFFFFFFF,""
@@ -2670,7 +2670,7 @@ Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261014092245
+ModifiedDateTime=20261016160415
 Position="品質",4900,5050
 ZOrder=332
 
@@ -9811,7 +9811,7 @@ ZOrder=-284
 
 [Relation]
 Entity1=history_info_staff
-Entity2=trans_ship_order
+Entity2=trans_shipping_order
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -12478,7 +12478,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20250821164739
-Position="文書",450,1950,1005,381
+Position="文書",450,1950
 ZOrder=885
 
 [Relation]
@@ -12656,7 +12656,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261015165807
+ModifiedDateTime=20261016172310
 Position="文書",1900,1100
 ZOrder=893
 
@@ -15272,7 +15272,7 @@ ZOrder=1009
 
 [Relation]
 Entity1=history_mstr_stakeholder
-Entity2=trans_ship_order
+Entity2=trans_shipping_order
 RelationType1=1
 RelationType2=3
 Fields1=history_id,mstr_stakeholder_id
@@ -15351,12 +15351,11 @@ Field="出荷オーダー明細ID","trans_shipping_order_detail_id","*@UUID","NO
 Field="出荷日時","shipping_date","*@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
 Field="出荷数量","shipping_quantity","*@QTY","NOT NULL",,"","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
-Index==2,trans_shipping_order_detail_record_id,trans_shipping_order_detail_id
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260905222822
+ModifiedDateTime=20261016162740
 Position="トラザクション",1950,1700
 ZOrder=1015
 
@@ -17386,14 +17385,15 @@ Left=5050
 Top=3900
 Field="組織区分ID","info_department_kind_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="組織情報ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="組織区分バリューID","info_department_kind_value_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
-Index==2,info_department_id
+Index==2,info_department_id,info_department_kind_value_id
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260928215406
+ModifiedDateTime=20261016154407
 Position="インフォメーション",5050,3900
 ZOrder=1122
 
@@ -17406,16 +17406,16 @@ TableOption=
 Page=インフォメーション
 Left=5400
 Top=4550
-Field="組織区分バリューID","info_department_kind_value_id","*@UUID",,0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="組織区分ID","info_department_kind_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="組織区分バリューID","info_department_kind_value_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="区分名","names","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="区分詳細","details","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260928215439
+ModifiedDateTime=20261016160152
 Position="インフォメーション",5400,4550
 ZOrder=1123
 
@@ -17475,15 +17475,15 @@ Left=5550
 Top=5250
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="組織区分バリューID","info_department_kind_value_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
-Field="組織区分ID","info_department_kind_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="区分名","names","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="区分詳細","details","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,info_department_kind_value_id,revision
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260928213914
+ModifiedDateTime=20261016160122
 Position="インフォメーション",5550,5250
 ZOrder=1132
 
@@ -17520,13 +17520,14 @@ Top=4500
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="組織区分ID","info_department_kind_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="組織情報ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="組織区分バリューID","info_department_kind_value_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,info_department_kind_id,revision
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260927085242
+ModifiedDateTime=20261016161347
 Position="インフォメーション",3700,4500
 ZOrder=1134
 
@@ -17638,27 +17639,6 @@ Bar3=187
 TermPos1=R
 TermPos2=L
 ZOrder=-521
-
-[Relation]
-Entity1=info_department_kind
-Entity2=info_department_kind_value
-RelationType1=1
-RelationType2=3
-Fields1=info_department_kind_id
-Fields2=info_department_kind_id
-Cardinarity1=
-Cardinarity2=
-Position="インフォメーション",0,7314,2686,6884,R,R,""
-Dependence=0
-Caption=
-PName=
-LineMode=0
-Bar1=731
-Bar2=269
-Bar3=688
-TermPos1=R
-TermPos2=R
-ZOrder=1137
 
 [View]
 PName=v_department_descendants
@@ -18533,7 +18513,7 @@ Index==2,shared_language_code_id,shared_text_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261016073735
+ModifiedDateTime=20261016164744
 Position="共有",4500,2150
 ZOrder=1180
 
@@ -20831,6 +20811,7 @@ Fields1=mstr_item_id
 Fields2=mstr_item_id
 Cardinarity1=
 Cardinarity2=
+Position="マスタ品目",0,1034,8966,1477,R,R,""
 Position="マスタ工程",0,3326,6674,3631,R,R,""
 Dependence=0
 Caption=
@@ -20899,6 +20880,7 @@ Fields1=history_id,info_staff_id
 Fields2=update_user_history_id,update_user_id
 Cardinarity1=
 Cardinarity2=
+Position="インフォメーションー人",0,1118,8882,500,R,R,""
 Position="マスタ工程",0,1118,8882,1381,R,R,""
 Dependence=0
 Caption=auto create.
@@ -20968,6 +20950,7 @@ Fields1=history_id,info_staff_id
 Fields2=update_user_history_id,update_user_id
 Cardinarity1=
 Cardinarity2=
+Position="インフォメーションー人",0,798,9202,500,R,R,""
 Position="マスタ工程",0,798,9202,500,R,R,""
 Dependence=0
 Caption=auto create.
@@ -20979,3 +20962,47 @@ Bar3=50
 TermPos1=R
 TermPos2=R
 ZOrder=-535
+
+[Relation]
+Entity1=info_department_kind_value
+Entity2=info_department_kind
+RelationType1=2
+RelationType2=4
+Fields1=info_department_kind_value_id
+Fields2=info_department_kind_value_id
+Cardinarity1=
+Cardinarity2=
+Position="インフォメーション",0,8260,4185,8777,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20261016153024
+LineMode=0
+Bar1=826
+Bar2=418
+Bar3=878
+TermPos1=R
+TermPos2=R
+ZOrder=1303
+
+[Relation]
+Entity1=shared_text
+Entity2=info_department_kind_value
+RelationType1=1
+RelationType2=3
+Fields1=shared_text_id
+Fields2=details
+Cardinarity1=
+Cardinarity2=
+Position="共有",0,8777,1223,5024,R,R,""
+Position="インフォメーション",0,8777,1223,3001,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=878
+Bar2=122
+Bar3=300
+TermPos1=R
+TermPos2=R
+ZOrder=1305

@@ -45,6 +45,14 @@ import 'package:gqlprvlib/postgraphile/staff_held_license_page/staff_held_licens
 import 'package:gqlprvlib/postgraphile/staff_held_license_page/staff_held_license_page_rfe.graphql.dart' as staff_held_license_page_rfe;
 import 'package:gqlprvlib/postgraphile/staff_page/staff_page_edit.graphql.dart' as staff_page_edit;
 import 'package:gqlprvlib/postgraphile/staff_page/staff_page_rfe.graphql.dart' as staff_page_rfe;
+import 'package:gqlprvlib/postgraphile/location_tree_page/location_tree_page_edit.graphql.dart' as location_tree_page_edit;
+import 'package:gqlprvlib/postgraphile/location_tree_page/location_tree_page_rfe.graphql.dart' as location_tree_page_rfe;
+import 'package:gqlprvlib/postgraphile/item_tree_page/item_tree_page_edit.graphql.dart' as item_tree_page_edit;
+import 'package:gqlprvlib/postgraphile/item_tree_page/item_tree_page_rfe.graphql.dart' as item_tree_page_rfe;
+import 'package:gqlprvlib/postgraphile/task_tree_page/task_tree_page_edit.graphql.dart' as task_tree_page_edit;
+import 'package:gqlprvlib/postgraphile/task_tree_page/task_tree_page_rfe.graphql.dart' as task_tree_page_rfe;
+import 'package:gqlprvlib/postgraphile/department_tree_page/department_tree_page_edit.graphql.dart' as department_tree_page_edit;
+import 'package:gqlprvlib/postgraphile/department_tree_page/department_tree_page_rfe.graphql.dart' as department_tree_page_rfe;
 import 'package:gqlprvlib/postgraphile/unit_page/unit_page_edit.graphql.dart' as unit_page_edit;
 import 'package:gqlprvlib/postgraphile/unit_page/unit_page_rfe.graphql.dart' as unit_page_rfe;
 
@@ -183,6 +191,34 @@ final _pairs = <RfeEditPair>[
     editFromJson: (j) => unit_page_edit.Mutation$UnitPageEdit.fromJson(j).toJson(),
     editVariablesFromJson: (j) =>
         unit_page_edit.Variables$Mutation$UnitPageEdit.fromJson(j).toJson(),
+  ),
+  RfeEditPair(
+    page: 'location_tree_page',
+    rfeFromJson: (j) => location_tree_page_rfe.Query$LocationTreePageRfe.fromJson(j).toJson(),
+    editFromJson: (j) => location_tree_page_edit.Mutation$LocationTreePageEdit.fromJson(j).toJson(),
+    editVariablesFromJson: (j) =>
+        location_tree_page_edit.Variables$Mutation$LocationTreePageEdit.fromJson(j).toJson(),
+  ),
+  RfeEditPair(
+    page: 'item_tree_page',
+    rfeFromJson: (j) => item_tree_page_rfe.Query$ItemTreePageRfe.fromJson(j).toJson(),
+    editFromJson: (j) => item_tree_page_edit.Mutation$ItemTreePageEdit.fromJson(j).toJson(),
+    editVariablesFromJson: (j) =>
+        item_tree_page_edit.Variables$Mutation$ItemTreePageEdit.fromJson(j).toJson(),
+  ),
+  RfeEditPair(
+    page: 'task_tree_page',
+    rfeFromJson: (j) => task_tree_page_rfe.Query$TaskTreePageRfe.fromJson(j).toJson(),
+    editFromJson: (j) => task_tree_page_edit.Mutation$TaskTreePageEdit.fromJson(j).toJson(),
+    editVariablesFromJson: (j) =>
+        task_tree_page_edit.Variables$Mutation$TaskTreePageEdit.fromJson(j).toJson(),
+  ),
+  RfeEditPair(
+    page: 'department_tree_page',
+    rfeFromJson: (j) => department_tree_page_rfe.Query$DepartmentTreePageRfe.fromJson(j).toJson(),
+    editFromJson: (j) => department_tree_page_edit.Mutation$DepartmentTreePageEdit.fromJson(j).toJson(),
+    editVariablesFromJson: (j) =>
+        department_tree_page_edit.Variables$Mutation$DepartmentTreePageEdit.fromJson(j).toJson(),
   ),
 ];
 

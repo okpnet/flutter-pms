@@ -85,7 +85,8 @@ FixTextReadFields: &FixTextReadFields
           operator: "="
           value: false
       columns:
-        - text_value
+        - char_count
+        - lead_text
         - name: language
           arrayType: toFirstOne
           from: shared_language_code

@@ -1,0 +1,26 @@
+# location_tree_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views/ #LocationTreePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation LocationTreePageEdit(
+  $mstrLocationTreeId: UUID!
+  $parentMstrLocationId: UUID
+  $remarks: String
+) {
+  updateMstrLocationTreeByMstrLocationTreeId(
+    input: {
+      mstrLocationTreeId: $mstrLocationTreeId
+      mstrLocationTreePatch: {
+        parentMstrLocationId: $parentMstrLocationId
+        remarks: $remarks
+      }
+    }
+  ) {
+    mstrLocationTree {
+      mstrLocationTreeId
+      parentMstrLocationId
+      remarks
+    }
+  }
+}

@@ -320,39 +320,7 @@ ItemPageEdit:
   generateRfe: true
   columns:
     - mstr_item_id
-    - name: parent
-      arrayType: toFirstOne
-      as: parent
-      using: mstr_item_id
-      from: mstr_item_tree
-      # NULL許容(呼び出し側がNULLを渡したときは組織テーブルのトップノードを表す)。
-      requiredWhere:
-        - parent_mstr_item_id
-      columns:
-        - mstr_item_tree_id
-        - parent_mstr_item_id
-        - code
-        - control_code
-        - name: labels
-          arrayType: toFirstOne
-          using: names
-          <<: *AppellationLabelsEditFields
-        - quantity
-        - name: detailTexts
-          arrayType: toFirstOne
-          using: details
-          <<: *FixTextEditFields
-      defaultWhere:
-        - column: remove
-          operator: "="
-          value: false
-    - name: descendants
-      arrayType: toFirstOne
-      as: descendants
-      using: mstr_item_id
-      pick:
-        - descendant_count
-      from: v_item_descendants
+    # descendants(子孫の数)は読み取り専用のビューのため、editには置かない(要件0054)。取得はItemPage(read)で行う。
     - mstr_item_kind_id
     - name: kinds
       arrayType: toFirstOne
@@ -385,6 +353,35 @@ ItemPageEdit:
     - mstr_item_lot_id # ロットの内容(mstr_item_lot)は、品目とは別に編集する
     # 梱包サイズ(spec)は、品目との関連(mstr_item→mstr_spec_measurement)がDBから無くなったため削除した。
     # 梱包は mstr_item_lot → mstr_packing_spec 経由になった。再設計が必要(docs/schema_refetch_2026-10-15.md)。
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 品目体系の書き込み(ドラッグ&ドロップ等の親の付け替え。要件0054案A)
+# ツリー行(mstr_item_tree)を直接更新する。parent_mstr_item_idがnullのときはトップノード。
+# 旧ItemPageEdit.parent(品目の編集に入れ子で持たせていた)の列を引き継いだ。
+ItemTreePageEdit:
+  kind: edit
+  from: mstr_item_tree
+  requiredWhere:
+    - mstr_item_tree_id
+  generateRfe: true
+  columns:
+    - mstr_item_tree_id
+    - mstr_item_id
+    - parent_mstr_item_id
+    - code
+    - control_code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - quantity
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextEditFields
     - remarks
     - update_user_id
     - update_user_history_id

@@ -1,5 +1,67 @@
 # ドキュメント
-DocumnetReadFields:
+
+# ドキュメントレベル読み込み
+DocumentTierPage:
+  kind: read
+  from: mstr_document_tier
+  filter: true 
+  requiredWhere:
+    - languageCode 
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - mstr_document_tier_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - trans_file_id
+    - attributive_noun
+    - Identifier
+    - tier_number
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+DocumentTierPageEdit:
+  kind: edit
+  from: mstr_document_tier
+  requiredWhere:
+    - mstr_document_tier_id
+  generateRfe: true
+  columns:
+    - mstr_document_tier_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - trans_file_id
+    - attributive_noun
+    - Identifier
+    - tier_number
+    - remarks
+    - update_at
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+    
+# ドキュメントの読み込み
+DocumnetPage:
   kind: read
   from: mstr_document
   filter: true 
@@ -11,6 +73,26 @@ DocumnetReadFields:
       value: false
   columns:
     - mstr_document_id
+    - name: parent
+      arrayType: toFirstOne
+      using: mstr_document_id
+      from: mstr_document_tree
+      requiredWhere:
+        - parent_mstr_document_id
+      columns:
+        - mstr_document_tree_id
+        - parent_mstr_document_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    - name: descendants
+      arrayType: toFirstOne
+      as: descendants
+      using: mstr_document_id
+      pick:
+        - descendant_count
+      from: v_document_descendants
     - code
     - name: labels
       as: labels
@@ -35,4 +117,49 @@ DocumnetReadFields:
       <<: *AppellationLabelsReadFields
     - control_number
     - version_code
-    - trans_approval_pattern_id
+    - name: approvalPattern
+      arrayType: toFirstOne
+      as: approval_pattern
+      using: trans_approval_pattern_id
+      <<: *ApprovalOperationReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+DocumentPageEdit:
+  kind: edit
+  from: mstr_document
+  requiredWhere:
+    - mstr_document_id
+  generateRfe: true
+  columns:
+    - mstr_document_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - mstr_document_tier_id
+    - trans_file_id
+    - title
+    - name: labels
+      arrayType: toFirstOne
+      using: title
+      <<: *AppellationLabelsEditFields
+    - control_number
+    - version_code
+    - name: approvalPattern
+      arrayType: toMany
+      using: trans_approval_pattern_id
+      <<: *ApprovalOperationReadFields
+    - remarks
+    - update_at
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

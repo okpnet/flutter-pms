@@ -124,21 +124,6 @@ LocationPageEdit:
   generateRfe: true
   columns:
     - mstr_location_id
-    - name: parent
-      arrayType: toFirstOne
-      as: parent
-      using: mstr_location_id
-      from: mstr_location_tree
-      # NULL許容(呼び出し側がNULLを渡したときは組織テーブルのトップノードを表す)。
-      requiredWhere:
-        - parent_mstr_location_id
-      columns:
-        - mstr_location_tree_id
-        - parent_mstr_location_id
-      defaultWhere:
-        - column: remove
-          operator: "="
-          value: false
     - code
     - info_department_id
     - name: department  #IDの変更のみ
@@ -159,6 +144,22 @@ LocationPageEdit:
     - available
     - remarks
     - update_at
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 場所体系の書き込み(ドラッグ&ドロップ等の親の付け替え。要件0054案A)
+# ツリー行(mstr_location_tree)を直接更新する。parent_mstr_location_idがnullのときはトップノード。
+LocationTreePageEdit:
+  kind: edit
+  from: mstr_location_tree
+  requiredWhere:
+    - mstr_location_tree_id
+  generateRfe: true
+  columns:
+    - mstr_location_tree_id
+    - parent_mstr_location_id
     - remarks
     - update_user_id
     - update_user_history_id

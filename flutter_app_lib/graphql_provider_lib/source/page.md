@@ -87,6 +87,7 @@
         +   部署区分情報[DepartmentCategoryPageEdit]
     +   部署体系[DepartmentPage]
         +   部署情報[DepartmentPageEdit]
+        +   部署体系情報[DepartmentTreePageEdit]<!--親の付け替え(ドラッグ&ドロップ)-->
 1.  作業者
     +   作業者台帳[StaffPage]
         +   作業者情報[StaffPageEdit]
@@ -114,6 +115,7 @@
 1.  場所
     +   場所台帳[LocationPage]
         +   場所情報[LocationPageEdit]
+        +   場所体系情報[LocationTreePageEdit]<!--親の付け替え(ドラッグ&ドロップ)-->
 1.  設備
     +   設備分類台帳[EquipmentCategoryPage]
         +   設備分類情報[EquipmentCategoryPageEdit]
@@ -145,6 +147,7 @@
     +   品目体系[ItemPage]
         +   品目項目[ItemReadFields]
         +   品目情報[ItemPageEdit]
+        +   品目体系情報[ItemTreePageEdit]<!--親の付け替え(ドラッグ&ドロップ)-->
             +   HSコード情報[HsCodeReadEditFields]
             +   大きさ明細[ItemSizePage]
                 +   大きさ情報[ItemSizePageEdit]
@@ -158,6 +161,7 @@
     +   工程項目[TaskReadFields]
     +   工程体系[TaskPag]
         +   工程情報[TaskPageEdit]
+        +   工程体系情報[TaskTreePageEdit]<!--親の付け替え(ドラッグ&ドロップ)-->
             +   工程場所明細
                 +   工程場所情報
     +   工程グループ項目[TaskGroupPage]
@@ -250,8 +254,10 @@
         +   監査標準項目情報
 ### メイン
 1.  文書
-    +   文書体系
-        +   文書情報
+    +   文書レベル台帳[DocumentTierPage]
+        +   文書レベル情報[DocumentTierPageEdit]
+    +   文書体系[DocumnetPage]
+        +   文書情報[DocumentPageEdit]
             +   文書コンテンツ体系
                 +   文書コンテンツ情報
 1.  レポート

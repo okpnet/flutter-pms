@@ -175,18 +175,6 @@ TaskPageEdit:
   generateRfe: true
   columns:
     - mstr_task_id
-    - name: parent
-      arrayType: toFirstOne
-      as: parent
-      using: mstr_task_id
-      from: mstr_task_tree
-      columns:
-        - mstr_task_tree_id
-        - parent_mstr_task_id
-      defaultWhere:
-        - column: remove
-          operator: "="
-          value: false
     - name: groups
       arrayType: toFirstOne
       using:  mstr_task_group_id
@@ -368,6 +356,22 @@ OperationPageEdit:
         - update_user_id
         - update_user_history_id
         - remove
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 工程体系の書き込み(ドラッグ&ドロップ等の親の付け替え。要件0054案A)
+# ツリー行(mstr_task_tree)を直接更新する。parent_mstr_task_idがnullのときはトップノード。
+TaskTreePageEdit:
+  kind: edit
+  from: mstr_task_tree
+  requiredWhere:
+    - mstr_task_tree_id
+  generateRfe: true
+  columns:
+    - mstr_task_tree_id
+    - parent_mstr_task_id
     - remarks
     - update_user_id
     - update_user_history_id

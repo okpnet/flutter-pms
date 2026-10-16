@@ -1,0 +1,68 @@
+# ファイルの埋込読み込み
+FileReadFields: &FileReadFields
+  kind: read
+  from: trans_file
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_file_id
+    #- binary_data
+    - name
+    - media_type
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# ファイル読み込み
+FilePage:
+  kind: read
+  from: trans_file
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_file_id
+    #- binary_data
+    - name
+    - media_type
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# ファイル書き込み
+FilePageEdit:
+  kind: edit
+  from: trans_file
+  requiredWhere:
+    - trans_file_id
+  generateRfe: true
+  columns:
+    - trans_file_id
+    - binary_data
+    - name
+    - media_type
+    - remarks
+    - update_at
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

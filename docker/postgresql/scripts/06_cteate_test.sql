@@ -277,6 +277,7 @@ create table tests.history_info_department_kind (
     history_id uuid default gen_random_uuid(),
     info_department_kind_id uuid not null,
     info_department_id uuid not null,
+    info_department_kind_value_id uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -288,8 +289,8 @@ create table tests.history_info_department_kind (
 create table tests.history_info_department_kind_value (
     history_id uuid default gen_random_uuid(),
     info_department_kind_value_id uuid not null,
-    info_department_kind_id uuid not null,
     names uuid not null,
+    details uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -300,8 +301,8 @@ create table tests.history_info_department_kind_value (
 );
 create table tests.info_department_kind_value (
     info_department_kind_value_id uuid default gen_random_uuid(),
-    info_department_kind_id uuid not null,
     names uuid not null,
+    details uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -313,6 +314,7 @@ create table tests.info_department_kind_value (
 create table tests.info_department_kind (
     info_department_kind_id uuid default gen_random_uuid(),
     info_department_id uuid not null,
+    info_department_kind_value_id uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2372,7 +2374,7 @@ create table tests.trans_order_detail_risk (
     remove boolean default 'f'
 );
 create table tests.trans_prevention_detail (
-    trans_prevetion_detail_id uuid default gen_random_uuid(),
+    trans_prevention_detail_id uuid default gen_random_uuid(),
     trans_risk_id uuid not null,
     trans_prevention_id uuid not null,
     info_department_id uuid not null,
@@ -2984,9 +2986,9 @@ create table tests.trans_order_detail (
 );
 create table tests.trans_shipping_order_detail (
     trans_shipping_order_detail_id uuid default gen_random_uuid(),
-    trans_shipping_id uuid not null,
+    trans_shipping_order_id uuid not null,
     trans_order_detail_id uuid not null,
-    edtimated_shipping_date timestamp default null,
+    estimated_shipping_date timestamp default null,
     estimated_arrival_date date default null,
     shipping_quantity decimal(10,2) not null,
     symbol varchar(16) default '',
@@ -2996,10 +2998,10 @@ create table tests.trans_shipping_order_detail (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
-create table tests.trans_ship_order (
-    trans_shipping_id uuid default gen_random_uuid(),
+create table tests.trans_shipping_order (
+    trans_shipping_order_id uuid default gen_random_uuid(),
     trans_order_id uuid not null,
-    edtimated_shipping_date timestamp not null,
+    estimated_shipping_date timestamp not null,
     code varchar(255) not null,
     estimated_arrival_date date not null,
     stakeholder_history_id uuid default null,
@@ -3589,6 +3591,7 @@ comment on table tests.history_info_department_kind is '組織区分情報履歴
 comment on column tests.history_info_department_kind.history_id is '履歴ID';
 comment on column tests.history_info_department_kind.info_department_kind_id is '組織区分ID';
 comment on column tests.history_info_department_kind.info_department_id is '組織情報ID';
+comment on column tests.history_info_department_kind.info_department_kind_value_id is '組織区分バリューID';
 comment on column tests.history_info_department_kind.revision is 'レビジョン';
 comment on column tests.history_info_department_kind.symbol is 'リニアシンボル';
 comment on column tests.history_info_department_kind.remarks is '備考';
@@ -3599,8 +3602,8 @@ comment on column tests.history_info_department_kind.remove is '削除';
 comment on table tests.history_info_department_kind_value is '組織区分バリュー情報履歴';
 comment on column tests.history_info_department_kind_value.history_id is '履歴ID';
 comment on column tests.history_info_department_kind_value.info_department_kind_value_id is '組織区分バリューID';
-comment on column tests.history_info_department_kind_value.info_department_kind_id is '組織区分ID';
 comment on column tests.history_info_department_kind_value.names is '区分名';
+comment on column tests.history_info_department_kind_value.details is '区分詳細';
 comment on column tests.history_info_department_kind_value.revision is 'レビジョン';
 comment on column tests.history_info_department_kind_value.symbol is 'リニアシンボル';
 comment on column tests.history_info_department_kind_value.remarks is '備考';
@@ -3610,8 +3613,8 @@ comment on column tests.history_info_department_kind_value.update_user_history_i
 comment on column tests.history_info_department_kind_value.remove is '削除';
 comment on table tests.info_department_kind_value is '組織区分バリュー情報';
 comment on column tests.info_department_kind_value.info_department_kind_value_id is '組織区分バリューID';
-comment on column tests.info_department_kind_value.info_department_kind_id is '組織区分ID';
 comment on column tests.info_department_kind_value.names is '区分名';
+comment on column tests.info_department_kind_value.details is '区分詳細';
 comment on column tests.info_department_kind_value.revision is 'レビジョン';
 comment on column tests.info_department_kind_value.symbol is 'リニアシンボル';
 comment on column tests.info_department_kind_value.remarks is '備考';
@@ -3622,6 +3625,7 @@ comment on column tests.info_department_kind_value.remove is '削除';
 comment on table tests.info_department_kind is '組織区分情報';
 comment on column tests.info_department_kind.info_department_kind_id is '組織区分ID';
 comment on column tests.info_department_kind.info_department_id is '組織情報ID';
+comment on column tests.info_department_kind.info_department_kind_value_id is '組織区分バリューID';
 comment on column tests.info_department_kind.revision is 'レビジョン';
 comment on column tests.info_department_kind.symbol is 'リニアシンボル';
 comment on column tests.info_department_kind.remarks is '備考';
@@ -5535,7 +5539,7 @@ comment on column tests.trans_order_detail_risk.update_user_id is '更新者ID';
 comment on column tests.trans_order_detail_risk.update_user_history_id is '更新者履歴ID';
 comment on column tests.trans_order_detail_risk.remove is '削除';
 comment on table tests.trans_prevention_detail is '未然防止処置';
-comment on column tests.trans_prevention_detail.trans_prevetion_detail_id is '未然防止処置ID';
+comment on column tests.trans_prevention_detail.trans_prevention_detail_id is '未然防止処置ID';
 comment on column tests.trans_prevention_detail.trans_risk_id is 'リスクID';
 comment on column tests.trans_prevention_detail.trans_prevention_id is '未然防止ID';
 comment on column tests.trans_prevention_detail.info_department_id is '組織情報ID';
@@ -6104,9 +6108,9 @@ comment on column tests.trans_order_detail.update_user_history_id is '更新者�
 comment on column tests.trans_order_detail.remove is '削除';
 comment on table tests.trans_shipping_order_detail is '出荷オーダー明細';
 comment on column tests.trans_shipping_order_detail.trans_shipping_order_detail_id is '出荷オーダー明細ID';
-comment on column tests.trans_shipping_order_detail.trans_shipping_id is '出荷ID';
+comment on column tests.trans_shipping_order_detail.trans_shipping_order_id is '出荷ID';
 comment on column tests.trans_shipping_order_detail.trans_order_detail_id is '受注明細ID';
-comment on column tests.trans_shipping_order_detail.edtimated_shipping_date is '個別出荷予定日';
+comment on column tests.trans_shipping_order_detail.estimated_shipping_date is '個別出荷予定日';
 comment on column tests.trans_shipping_order_detail.estimated_arrival_date is '個別到着予定日';
 comment on column tests.trans_shipping_order_detail.shipping_quantity is '出荷数量';
 comment on column tests.trans_shipping_order_detail.symbol is 'リニアシンボル';
@@ -6115,20 +6119,20 @@ comment on column tests.trans_shipping_order_detail.update_at is '更新日時';
 comment on column tests.trans_shipping_order_detail.update_user_id is '更新者ID';
 comment on column tests.trans_shipping_order_detail.update_user_history_id is '更新者履歴ID';
 comment on column tests.trans_shipping_order_detail.remove is '削除';
-comment on table tests.trans_ship_order is '出荷オーダー';
-comment on column tests.trans_ship_order.trans_shipping_id is '出荷ID';
-comment on column tests.trans_ship_order.trans_order_id is '受注ID';
-comment on column tests.trans_ship_order.edtimated_shipping_date is '出荷予定日';
-comment on column tests.trans_ship_order.code is '出荷オーダーコード';
-comment on column tests.trans_ship_order.estimated_arrival_date is '到着予定日';
-comment on column tests.trans_ship_order.stakeholder_history_id is '履歴利害関係者ID';
-comment on column tests.trans_ship_order.stakeholder_id is '利害関係者ID';
-comment on column tests.trans_ship_order.symbol is 'リニアシンボル';
-comment on column tests.trans_ship_order.remarks is '備考';
-comment on column tests.trans_ship_order.update_at is '更新日時';
-comment on column tests.trans_ship_order.update_user_id is '更新者ID';
-comment on column tests.trans_ship_order.update_user_history_id is '更新者履歴ID';
-comment on column tests.trans_ship_order.remove is '削除';
+comment on table tests.trans_shipping_order is '出荷オーダー';
+comment on column tests.trans_shipping_order.trans_shipping_order_id is '出荷ID';
+comment on column tests.trans_shipping_order.trans_order_id is '受注ID';
+comment on column tests.trans_shipping_order.estimated_shipping_date is '出荷予定日';
+comment on column tests.trans_shipping_order.code is '出荷オーダーコード';
+comment on column tests.trans_shipping_order.estimated_arrival_date is '到着予定日';
+comment on column tests.trans_shipping_order.stakeholder_history_id is '履歴利害関係者ID';
+comment on column tests.trans_shipping_order.stakeholder_id is '利害関係者ID';
+comment on column tests.trans_shipping_order.symbol is 'リニアシンボル';
+comment on column tests.trans_shipping_order.remarks is '備考';
+comment on column tests.trans_shipping_order.update_at is '更新日時';
+comment on column tests.trans_shipping_order.update_user_id is '更新者ID';
+comment on column tests.trans_shipping_order.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_shipping_order.remove is '削除';
 comment on table tests.trans_work_record is '作業実績';
 comment on column tests.trans_work_record.trans_work_record_id is '作業実績ID';
 comment on column tests.trans_work_record.trans_work_plan_id is '生産計画詳細ID';
@@ -6622,7 +6626,7 @@ create unique index info_department_kind_PKI
 alter table tests.info_department_kind
     add constraint info_department_kind_PKC primary key (info_department_kind_id);
 alter table tests.info_department_kind
-     add constraint info_department_kind_IX1 unique (info_department_id);
+     add constraint info_department_kind_IX1 unique (info_department_id,info_department_kind_value_id);
 alter table tests.info_department_kind
      add constraint info_department_kind_IX2 unique (symbol);
 create unique index history_shared_dictionary_value_PKI
@@ -6722,9 +6726,7 @@ create unique index trans_shipping_order_detail_record_PKI
 alter table tests.trans_shipping_order_detail_record
     add constraint trans_shipping_order_detail_record_PKC primary key (trans_shipping_order_detail_record_id);
 alter table tests.trans_shipping_order_detail_record
-     add constraint trans_shipping_order_detail_record_IX1 unique (trans_shipping_order_detail_record_id,trans_shipping_order_detail_id);
-alter table tests.trans_shipping_order_detail_record
-     add constraint trans_shipping_order_detail_record_IX2 unique (symbol);
+     add constraint trans_shipping_order_detail_record_IX1 unique (symbol);
 create unique index history_mstr_shipping_kind_PKI
     on tests.history_mstr_shipping_kind(history_id,mstr_shipping_kind_id);
 alter table tests.history_mstr_shipping_kind
@@ -7495,9 +7497,9 @@ alter table tests.trans_order_detail_risk
 alter table tests.trans_order_detail_risk
      add constraint trans_order_detail_risk_IX1 unique (symbol);
 create unique index trans_prevention_detail_PKI
-    on tests.trans_prevention_detail(trans_prevetion_detail_id);
+    on tests.trans_prevention_detail(trans_prevention_detail_id);
 alter table tests.trans_prevention_detail
-    add constraint trans_prevention_detail_PKC primary key (trans_prevetion_detail_id);
+    add constraint trans_prevention_detail_PKC primary key (trans_prevention_detail_id);
 alter table tests.trans_prevention_detail
      add constraint trans_prevention_detail_IX1 unique (symbol);
 create unique index trans_prevention_PKI
@@ -7765,17 +7767,17 @@ create unique index trans_shipping_order_detail_PKI
 alter table tests.trans_shipping_order_detail
     add constraint trans_shipping_order_detail_PKC primary key (trans_shipping_order_detail_id);
 alter table tests.trans_shipping_order_detail
-     add constraint trans_shipping_order_detail_IX1 unique (trans_shipping_id,trans_order_detail_id);
+     add constraint trans_shipping_order_detail_IX1 unique (trans_order_detail_id,trans_shipping_order_id);
 alter table tests.trans_shipping_order_detail
      add constraint trans_shipping_order_detail_IX2 unique (symbol);
-create unique index trans_ship_order_PKI
-    on tests.trans_ship_order(trans_shipping_id);
-alter table tests.trans_ship_order
-    add constraint trans_ship_order_PKC primary key (trans_shipping_id);
-alter table tests.trans_ship_order
-     add constraint trans_ship_order_IX1 unique (trans_order_id);
-alter table tests.trans_ship_order
-     add constraint trans_ship_order_IX2 unique (symbol);
+create unique index trans_shipping_order_PKI
+    on tests.trans_shipping_order(trans_shipping_order_id);
+alter table tests.trans_shipping_order
+    add constraint trans_shipping_order_PKC primary key (trans_shipping_order_id);
+alter table tests.trans_shipping_order
+     add constraint trans_shipping_order_IX1 unique (trans_order_id);
+alter table tests.trans_shipping_order
+     add constraint trans_shipping_order_IX2 unique (symbol);
 create unique index trans_work_record_PKI
     on tests.trans_work_record(trans_work_record_id);
 alter table tests.trans_work_record
@@ -7972,11 +7974,12 @@ alter table tests.history_info_department_kind add constraint history_info_depar
 alter table tests.history_info_department_kind add constraint history_info_department_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_department_kind_value add constraint history_info_department_kind_value_FK1 foreign key (info_department_kind_value_id) references tests.info_department_kind_value (info_department_kind_value_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_department_kind_value add constraint history_info_department_kind_value_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_department_kind_value add constraint info_department_kind_value_FK1 foreign key (info_department_kind_id) references tests.info_department_kind (info_department_kind_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_department_kind_value add constraint info_department_kind_value_FK1 foreign key (details) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_department_kind_value add constraint info_department_kind_value_FK2 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_department_kind_value add constraint info_department_kind_value_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_department_kind add constraint info_department_kind_FK1 foreign key (info_department_id) references tests.info_department (info_department_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_department_kind add constraint info_department_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_department_kind add constraint info_department_kind_FK1 foreign key (info_department_kind_value_id) references tests.info_department_kind_value (info_department_kind_value_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_department_kind add constraint info_department_kind_FK2 foreign key (info_department_id) references tests.info_department (info_department_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_department_kind add constraint info_department_kind_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_shared_dictionary_value add constraint history_shared_dictionary_value_FK1 foreign key (shared_dictionary_value_id) references tests.shared_dictionary_value (shared_dictionary_value_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_shared_dictionary_value add constraint history_shared_dictionary_value_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_shared_language_code add constraint history_shared_language_code_FK1 foreign key (shared_language_code_id) references tests.shared_language_code (shared_language_code_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8484,11 +8487,11 @@ alter table tests.trans_order_detail add constraint trans_order_detail_FK1 forei
 alter table tests.trans_order_detail add constraint trans_order_detail_FK2 foreign key (trans_order_id) references tests.trans_order (trans_order_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_order_detail add constraint trans_order_detail_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_shipping_order_detail add constraint trans_shipping_order_detail_FK1 foreign key (trans_order_detail_id) references tests.trans_order_detail (trans_order_detail_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_shipping_order_detail add constraint trans_shipping_order_detail_FK2 foreign key (trans_shipping_id) references tests.trans_ship_order (trans_shipping_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_shipping_order_detail add constraint trans_shipping_order_detail_FK2 foreign key (trans_shipping_order_id) references tests.trans_shipping_order (trans_shipping_order_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_shipping_order_detail add constraint trans_shipping_order_detail_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_ship_order add constraint trans_ship_order_FK1 foreign key (stakeholder_history_id,stakeholder_id) references tests.history_mstr_stakeholder (history_id,mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_ship_order add constraint trans_ship_order_FK2 foreign key (trans_order_id) references tests.trans_order (trans_order_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_ship_order add constraint trans_ship_order_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_shipping_order add constraint trans_shipping_order_FK1 foreign key (stakeholder_history_id,stakeholder_id) references tests.history_mstr_stakeholder (history_id,mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_shipping_order add constraint trans_shipping_order_FK2 foreign key (trans_order_id) references tests.trans_order (trans_order_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_shipping_order add constraint trans_shipping_order_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_work_record add constraint trans_work_record_FK1 foreign key (equipment_history_id,equipment_id) references tests.history_mstr_equipment (history_id,mstr_equipment_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_work_record add constraint trans_work_record_FK2 foreign key (staff_history_id,staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_work_record add constraint trans_work_record_FK3 foreign key (trans_work_plan_id) references tests.trans_work_plan (trans_work_plan_id) DEFERRABLE INITIALLY DEFERRED;
@@ -9300,15 +9303,15 @@ BEGIN
         IF (revisions >= 0) THEN
             IF (
                 NEW.info_department_kind_value_id,
-                NEW.info_department_kind_id,
                 NEW.names,
+                NEW.details,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.info_department_kind_value_id,
-                OLD.info_department_kind_id,
                 OLD.names,
+                OLD.details,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -9322,8 +9325,8 @@ BEGIN
         END IF;
         INSERT INTO tests.history_info_department_kind_value (
             info_department_kind_value_id,
-            info_department_kind_id,
             names,
+            details,
             revision,
             symbol,
             remarks,
@@ -9335,8 +9338,8 @@ BEGIN
         VALUES
         (
             NEW.info_department_kind_value_id,
-            NEW.info_department_kind_id,
             NEW.names,
+            NEW.details,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -9392,12 +9395,14 @@ BEGIN
             IF (
                 NEW.info_department_kind_id,
                 NEW.info_department_id,
+                NEW.info_department_kind_value_id,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.info_department_kind_id,
                 OLD.info_department_id,
+                OLD.info_department_kind_value_id,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -9412,6 +9417,7 @@ BEGIN
         INSERT INTO tests.history_info_department_kind (
             info_department_kind_id,
             info_department_id,
+            info_department_kind_value_id,
             revision,
             symbol,
             remarks,
@@ -9424,6 +9430,7 @@ BEGIN
         (
             NEW.info_department_kind_id,
             NEW.info_department_id,
+            NEW.info_department_kind_value_id,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -16239,7 +16246,7 @@ BEGIN
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_prevetion_detail_id := gen_random_uuid();
+        NEW.trans_prevention_detail_id := gen_random_uuid();
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP = 'DELETE') THEN
@@ -18082,8 +18089,8 @@ PROCEDURE tests.trg_01_updatetimes_trans_shipping_order_detail();
 
 
 CREATE TRIGGER trg_04_symbol_trans_shipping_order_detail BEFORE INSERT ON tests.trans_shipping_order_detail FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
--- trans_ship_order update trigger
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_ship_order() RETURNS trigger AS
+-- trans_shipping_order update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_shipping_order() RETURNS trigger AS
 $BODY$
 DECLARE
     latest_row record;
@@ -18092,7 +18099,7 @@ BEGIN
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_shipping_id := gen_random_uuid();
+        NEW.trans_shipping_order_id := gen_random_uuid();
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP = 'DELETE') THEN
@@ -18101,11 +18108,11 @@ BEGIN
 END
 $BODY$
 LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_01_updatetimes_trans_ship_order BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_ship_order FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_01_updatetimes_trans_ship_order();
+CREATE TRIGGER trg_01_updatetimes_trans_shipping_order BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_shipping_order FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_shipping_order();
 
 
-CREATE TRIGGER trg_04_symbol_trans_ship_order BEFORE INSERT ON tests.trans_ship_order FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+CREATE TRIGGER trg_04_symbol_trans_shipping_order BEFORE INSERT ON tests.trans_shipping_order FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_work_record update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_work_record() RETURNS trigger AS
 $BODY$
