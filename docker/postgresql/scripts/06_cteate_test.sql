@@ -1841,7 +1841,7 @@ create table tests.history_info_provision (
 create table tests.history_info_address (
     history_id uuid default gen_random_uuid(),
     info_address_id uuid not null,
-    iso3166_3 varchar(2) default 'JP',
+    iso3166_2 varchar(2) default 'JP',
     zip_code varchar(16) default null,
     address1 uuid default null,
     address2 uuid default null,
@@ -2152,7 +2152,7 @@ create table tests.mstr_approval_pattern_detail (
 );
 create table tests.info_address (
     info_address_id uuid default gen_random_uuid(),
-    iso3166_3 varchar(2) default 'JP',
+    iso3166_2 varchar(2) default 'JP',
     zip_code varchar(16) default null,
     address1 uuid default null,
     address2 uuid default null,
@@ -5046,7 +5046,7 @@ comment on column tests.history_info_provision.remove is '削除';
 comment on table tests.history_info_address is '住所情報履歴';
 comment on column tests.history_info_address.history_id is '履歴ID';
 comment on column tests.history_info_address.info_address_id is '住所ID';
-comment on column tests.history_info_address.iso3166_3 is '国';
+comment on column tests.history_info_address.iso3166_2 is '国';
 comment on column tests.history_info_address.zip_code is '郵便番号';
 comment on column tests.history_info_address.address1 is '住所1';
 comment on column tests.history_info_address.address2 is '住所2';
@@ -5335,7 +5335,7 @@ comment on column tests.mstr_approval_pattern_detail.update_user_history_id is '
 comment on column tests.mstr_approval_pattern_detail.remove is '削除';
 comment on table tests.info_address is '住所情報';
 comment on column tests.info_address.info_address_id is '住所ID';
-comment on column tests.info_address.iso3166_3 is '国';
+comment on column tests.info_address.iso3166_2 is '国';
 comment on column tests.info_address.zip_code is '郵便番号';
 comment on column tests.info_address.address1 is '住所1';
 comment on column tests.info_address.address2 is '住所2';
@@ -15352,7 +15352,7 @@ BEGIN
         IF (revisions >= 0) THEN
             IF (
                 NEW.info_address_id,
-                NEW.iso3166_3,
+                NEW.iso3166_2,
                 NEW.zip_code,
                 NEW.address1,
                 NEW.address2,
@@ -15364,7 +15364,7 @@ BEGIN
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.info_address_id,
-                OLD.iso3166_3,
+                OLD.iso3166_2,
                 OLD.zip_code,
                 OLD.address1,
                 OLD.address2,
@@ -15384,7 +15384,7 @@ BEGIN
         END IF;
         INSERT INTO tests.history_info_address (
             info_address_id,
-            iso3166_3,
+            iso3166_2,
             zip_code,
             address1,
             address2,
@@ -15402,7 +15402,7 @@ BEGIN
         VALUES
         (
             NEW.info_address_id,
-            NEW.iso3166_3,
+            NEW.iso3166_2,
             NEW.zip_code,
             NEW.address1,
             NEW.address2,
