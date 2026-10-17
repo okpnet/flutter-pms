@@ -31,6 +31,34 @@ ProvisionPage: &ProvisionPage
       <<: *FixTextReadFields
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 3本)
+    - name: stakeholder_provision_count
+      arrayType: toFirstOne
+      as: stakeholder_provision_count
+      using: info_provision_id
+      from: v_provision_stakeholder_provision_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: item_provision_count
+      arrayType: toFirstOne
+      as: item_provision_count
+      using: info_provision_id
+      from: v_provision_item_provision_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: equipment_provision_count
+      arrayType: toFirstOne
+      as: equipment_provision_count
+      using: info_provision_id
+      from: v_provision_equipment_provision_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -116,6 +144,43 @@ CompanyPage:
       limit: 50
       <<: *OfficePage
     # 要件0047: 共通項(CLAUDE.md「仕様」)のupdate_at・更新者(name)が欠落していたため追加。
+    # 子のレコード数(要件0056。DBのビュー 4本)
+    - name: staff_count
+      arrayType: toFirstOne
+      as: staff_count
+      using: info_company_id
+      from: v_company_staff_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: provision_count
+      arrayType: toFirstOne
+      as: provision_count
+      using: info_company_id
+      from: v_company_provision_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: office_count
+      arrayType: toFirstOne
+      as: office_count
+      using: info_company_id
+      from: v_company_office_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: department_count
+      arrayType: toFirstOne
+      as: department_count
+      using: info_company_id
+      from: v_company_department_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

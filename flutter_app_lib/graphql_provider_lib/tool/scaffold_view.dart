@@ -99,6 +99,33 @@ class _Scaffold {
 
   bool _isEntity(String typeName) => schema.objects[typeName]?.containsKey('nodeId') ?? false;
 
+  /// 子のレコード数(DBのビュー`v_<親>_<子>_count`、要件0056)の列。親が1行ずつ持つ集計(単数の関連)を、
+  /// 全件・有効(removeでない)・無効の件数として取得する。
+  List<String> _countColumns() {
+    final out = <String>[];
+    final parentShort = table.replaceFirst(RegExp(r'^(info|mstr|trans|shared)_'), '');
+    for (final f in fields.values) {
+      if (f.isList || !RegExp(r'^V\w+Count$').hasMatch(f.typeName)) continue;
+      final view = snake(f.typeName);
+      final key = RegExp(r'By(\w+)$').firstMatch(f.name)?.group(1);
+      if (key == null) continue;
+      var child = view.replaceFirst(RegExp(r'^v_'), '').replaceFirst(RegExp(r'_count$'), '');
+      if (child.startsWith('${parentShort}_')) child = child.substring(parentShort.length + 1);
+      out.addAll([
+        '    - name: ${child}_count',
+        '      arrayType: toFirstOne',
+        '      as: ${child}_count',
+        '      using: ${snake(key)}',
+        '      from: $view',
+        '      pick:',
+        '        - all_count',
+        '        - enable_count',
+        '        - disable_count',
+      ]);
+    }
+    return out;
+  }
+
   /// 列(snake_case) -> その列を参照する単数のリレーション(型名, フィールド名)
   (String, String)? _relationOf(String column) {
     final suffix = 'By${pascal(column)}';
@@ -209,6 +236,9 @@ class _Scaffold {
     }
     b.writeln('    - symbol');
     b.writeln('    - remarks');
+    for (final l in _countColumns()) {
+      b.writeln(l);
+    }
     b.writeln('    - update_at');
     b.writeln('    - name: update_user');
     b.writeln('      as: update_user');

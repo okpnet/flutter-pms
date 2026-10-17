@@ -1044,6 +1044,32 @@ const documentNodeQueryLicensePageRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(
+                          value: 'vLicenseStaffLicenseCountByMstrLicenseId',
+                        ),
+                        alias: NameNode(value: 'staff_license_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrLicenseId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -2019,6 +2045,7 @@ class Query$LicensePageRead$allMstrLicenses$nodes {
     this.updateInterval,
     this.symbol,
     this.remarks,
+    this.staff_license_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -2038,6 +2065,7 @@ class Query$LicensePageRead$allMstrLicenses$nodes {
     final l$updateInterval = json['updateInterval'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$staff_license_count = json['staff_license_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -2065,6 +2093,11 @@ class Query$LicensePageRead$allMstrLicenses$nodes {
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      staff_license_count: l$staff_license_count == null
+          ? null
+          : Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count.fromJson(
+              (l$staff_license_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -2097,6 +2130,9 @@ class Query$LicensePageRead$allMstrLicenses$nodes {
 
   final String? remarks;
 
+  final Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count?
+  staff_license_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -2127,6 +2163,8 @@ class Query$LicensePageRead$allMstrLicenses$nodes {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$staff_license_count = staff_license_count;
+    _resultData['staff_license_count'] = l$staff_license_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -2150,6 +2188,7 @@ class Query$LicensePageRead$allMstrLicenses$nodes {
     final l$updateInterval = updateInterval;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$staff_license_count = staff_license_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -2165,6 +2204,7 @@ class Query$LicensePageRead$allMstrLicenses$nodes {
       l$updateInterval,
       l$symbol,
       l$remarks,
+      l$staff_license_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -2231,6 +2271,11 @@ class Query$LicensePageRead$allMstrLicenses$nodes {
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$staff_license_count = staff_license_count;
+    final lOther$staff_license_count = other.staff_license_count;
+    if (l$staff_license_count != lOther$staff_license_count) {
+      return false;
+    }
     final l$updateAt = updateAt;
     final lOther$updateAt = other.updateAt;
     if (l$updateAt != lOther$updateAt) {
@@ -2284,6 +2329,8 @@ abstract class CopyWith$Query$LicensePageRead$allMstrLicenses$nodes<TRes> {
     Query$LicensePageRead$allMstrLicenses$nodes$updateInterval? updateInterval,
     String? symbol,
     String? remarks,
+    Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count?
+    staff_license_count,
     String? updateAt,
     bool? remove,
     Query$LicensePageRead$allMstrLicenses$nodes$update_user? update_user,
@@ -2294,6 +2341,8 @@ abstract class CopyWith$Query$LicensePageRead$allMstrLicenses$nodes<TRes> {
   get detailTexts;
   CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$updateInterval<TRes>
   get updateInterval;
+  CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count<TRes>
+  get staff_license_count;
   CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$update_user<TRes>
   get update_user;
 }
@@ -2322,6 +2371,7 @@ class _CopyWithImpl$Query$LicensePageRead$allMstrLicenses$nodes<TRes>
     Object? updateInterval = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? staff_license_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -2354,6 +2404,10 @@ class _CopyWithImpl$Query$LicensePageRead$allMstrLicenses$nodes<TRes>
                 as Query$LicensePageRead$allMstrLicenses$nodes$updateInterval?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      staff_license_count: staff_license_count == _undefined
+          ? _instance.staff_license_count
+          : (staff_license_count
+                as Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -2406,6 +2460,19 @@ class _CopyWithImpl$Query$LicensePageRead$allMstrLicenses$nodes<TRes>
           );
   }
 
+  CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count<TRes>
+  get staff_license_count {
+    final local$staff_license_count = _instance.staff_license_count;
+    return local$staff_license_count == null
+        ? CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count(
+            local$staff_license_count,
+            (e) => call(staff_license_count: e),
+          );
+  }
+
   CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$update_user<TRes>
   get update_user {
     final local$update_user = _instance.update_user;
@@ -2437,6 +2504,8 @@ class _CopyWithStubImpl$Query$LicensePageRead$allMstrLicenses$nodes<TRes>
     Query$LicensePageRead$allMstrLicenses$nodes$updateInterval? updateInterval,
     String? symbol,
     String? remarks,
+    Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count?
+    staff_license_count,
     String? updateAt,
     bool? remove,
     Query$LicensePageRead$allMstrLicenses$nodes$update_user? update_user,
@@ -2456,6 +2525,12 @@ class _CopyWithStubImpl$Query$LicensePageRead$allMstrLicenses$nodes<TRes>
   CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$updateInterval<TRes>
   get updateInterval =>
       CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$updateInterval.stub(
+        _res,
+      );
+
+  CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count<TRes>
+  get staff_license_count =>
+      CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count.stub(
         _res,
       );
 
@@ -5302,11 +5377,155 @@ class _CopyWithStubImpl$Query$LicensePageRead$allMstrLicenses$nodes$updateInterv
   }) => _res;
 }
 
+class Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count {
+  Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count({
+    this.mstrLicenseId,
+    this.$__typename = 'VLicenseStaffLicenseCount',
+  });
+
+  factory Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrLicenseId = json['mstrLicenseId'];
+    final l$$__typename = json['__typename'];
+    return Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count(
+      mstrLicenseId: (l$mstrLicenseId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrLicenseId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrLicenseId = mstrLicenseId;
+    _resultData['mstrLicenseId'] = l$mstrLicenseId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrLicenseId = mstrLicenseId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrLicenseId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrLicenseId = mstrLicenseId;
+    final lOther$mstrLicenseId = other.mstrLicenseId;
+    if (l$mstrLicenseId != lOther$mstrLicenseId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count
+    on Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count {
+  CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count<
+    Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count
+  >
+  get copyWith =>
+      CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count<
+  TRes
+> {
+  factory CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count(
+    Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count instance,
+    TRes Function(
+      Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count;
+
+  factory CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count;
+
+  TRes call({String? mstrLicenseId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count<
+  TRes
+>
+    implements
+        CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count
+  _instance;
+
+  final TRes Function(
+    Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrLicenseId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count(
+      mstrLicenseId: mstrLicenseId == _undefined
+          ? _instance.mstrLicenseId
+          : (mstrLicenseId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count<
+  TRes
+>
+    implements
+        CopyWith$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$LicensePageRead$allMstrLicenses$nodes$staff_license_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrLicenseId, String? $__typename}) => _res;
+}
+
 class Query$LicensePageRead$allMstrLicenses$nodes$update_user {
   Query$LicensePageRead$allMstrLicenses$nodes$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -5332,7 +5551,7 @@ class Query$LicensePageRead$allMstrLicenses$nodes$update_user {
     return Query$LicensePageRead$allMstrLicenses$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -5351,7 +5570,7 @@ class Query$LicensePageRead$allMstrLicenses$nodes$update_user {
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -5557,9 +5776,9 @@ class _CopyWithImpl$Query$LicensePageRead$allMstrLicenses$nodes$update_user<
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name

@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -175,7 +175,7 @@ Page=インフォメーションー人
 Left=2650
 Top=2650
 Field="担当者ID","info_staff_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="会社ID","info_company_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="会社ID","info_company_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="担当者コード","code","*@VARCHAR16",,,"","",$FFFFFFFF,""
 Field="名前","names","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="性別","sex","*@VARCHAR16",,,"","",$FFFFFFFF,""
@@ -188,7 +188,7 @@ EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260928144821
+ModifiedDateTime=20261017091135
 Position="インフォメーションー人",2650,2650
 ZOrder=17
 
@@ -285,7 +285,7 @@ Left=4050
 Top=1000
 Field="担当者力量ID","mstr_staff_capability_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="担当者ID","info_staff_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
-Field="力量ID","mstr_capability_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="力量ID","mstr_capability_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="値","value","*@PARCENT2","NOT NULL",,"0","",$FFFFFFFF,""
 Field="停止","stop","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
@@ -296,7 +296,7 @@ EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20231004115345
+ModifiedDateTime=20261017091052
 Position="マスタ人的資源",4050,1000
 ZOrder=35
 
@@ -1079,7 +1079,7 @@ Page=トラザクション
 Left=2150
 Top=2950
 Field="発注明細ID","trans_purchase_detail_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="発注ID","trans_purchase_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="発注ID","trans_purchase_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="資材計画ID","trans_resource_plan_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="在庫発注","restocking_purchase","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="数量","quantity","*@QTY",,,"","",$FFFFFFFF,""
@@ -1092,7 +1092,7 @@ Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261014112950
+ModifiedDateTime=20261017091003
 Position="トラザクション",2150,2950
 ZOrder=94
 
@@ -1633,14 +1633,14 @@ Left=4100
 Top=3350
 Field="受入実績ビジターID","trans_purchase_rec_visiter_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="受入実績ID","trans_purchase_rec_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="棚ビジターID","trans_visiter_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
+Field="棚ビジターID","trans_visiter_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260918105512
+ModifiedDateTime=20261017092806
 Position="トラザクション",4100,3350
 ZOrder=195
 
@@ -1930,8 +1930,8 @@ Page=インフォメーションー人
 Left=4850
 Top=2550
 Field="担当者アクセスパス許可情報ID","info_staff_access_permission_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="アクセスパスID","info_access_path_id","*@UUID",,,"","",$FFFFFFFF,""
-Field="担当者ID","info_staff_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="担当者ID","info_staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="パーミット","permit","*@SMALLINT",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
@@ -1940,7 +1940,7 @@ EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260906095246
+ModifiedDateTime=20261017092116
 Position="インフォメーションー人",4850,2550
 ZOrder=217
 
@@ -1957,7 +1957,7 @@ Field="アサインID","info_assign_id","*@UUID","NOT NULL",0,"gen_random_uuid()
 Field="担当者ID","info_staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="役割ID","info_position_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="事業所ID","info_office_id","*@UUID",,,"","",$FFFFFFFF,""
-Field="部署ID","info_department_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="部署ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="有効","enable","*@BOOL","NOT NULL",,"\qT\q","",$FFFFFFFF,""
 Field="優先順位","priority","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
@@ -1967,7 +1967,7 @@ EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260911073306
+ModifiedDateTime=20261017091315
 Position="インフォメーションー人",100,900
 ZOrder=220
 
@@ -2424,13 +2424,13 @@ Left=6150
 Top=2300
 Field="再発防止監視ID","trans_observer_preventive_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="監視ID","trans_observer_disposal_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="再発防止ID","trans_recurrence_prevention_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
+Field="再発防止ID","trans_recurrence_prevention_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260905213936
+ModifiedDateTime=20261017090918
 Position="品質",6150,2300
 ZOrder=296
 
@@ -3501,8 +3501,9 @@ TableInnerOption=
 TableOption=
 Page=文書
 Left=5250
-Top=1000
-Field="点検整備実施ID","trans_inspection_report_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Top=850
+Field="点検レポート実績ID","trans_inspection_report_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="点検整備実施ID","trans_inspect_record_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="点検整備予定詳細ID","trans_inspect_sch_detail_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レポートID","mstr_report_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
@@ -3510,8 +3511,8 @@ Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260906080940
-Position="文書",5250,1000
+ModifiedDateTime=20261017092921
+Position="文書",5250,850
 ZOrder=489
 
 [Relation]
@@ -3520,7 +3521,7 @@ Entity2=trans_inspection_report
 RelationType1=1
 RelationType2=3
 Fields1=trans_inspect_record_id
-Fields2=trans_inspection_report_id
+Fields2=trans_inspect_record_id
 Cardinarity1=
 Cardinarity2=
 Position="トラザクション",0,500,9500,5608,R,R,""
@@ -4259,7 +4260,7 @@ Left=1950
 Top=4200
 Field="利用可能外部ID","mstr_outsource_available_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="工程場所ID","mstr_task_location_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="利害関係者ID","mstr_stakeholder_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="利害関係者ID","mstr_stakeholder_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
@@ -4267,7 +4268,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260905225809
+ModifiedDateTime=20261017091505
 Position="マスタ工程",1950,4200
 ZOrder=570
 
@@ -4282,7 +4283,7 @@ Left=450
 Top=3950
 Field="利用可能設備ID","mstr_equipment_available_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="工程場所ID","mstr_task_location_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="設備ID","mstr_equipment_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="設備ID","mstr_equipment_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="履歴ID","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
@@ -4290,7 +4291,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260905225726
+ModifiedDateTime=20261017091437
 Position="マスタ工程",450,3950
 ZOrder=571
 
@@ -5143,7 +5144,7 @@ Left=4100
 Top=1000
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="担当者ID","info_staff_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
-Field="会社ID","info_company_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="会社ID","info_company_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="担当者コード","code","*@VARCHAR16",,,"","",$FFFFFFFF,""
 Field="名前","names","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="性別","sex","*@VARCHAR16",,,"","",$FFFFFFFF,""
@@ -5156,7 +5157,7 @@ EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260928144806
+ModifiedDateTime=20261017091722
 Position="インフォメーションー人",4100,1000
 ZOrder=630
 
@@ -5268,7 +5269,7 @@ Top=250
 Field="履歴di","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="担当者力量ID","mstr_staff_capability_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="担当者ID","info_staff_id","*@UUID","NOT NULL",2,"","",$FFFFFFFF,""
-Field="力量ID","mstr_capability_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="力量ID","mstr_capability_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="値","value","*@PARCENT2","NOT NULL",,"0","",$FFFFFFFF,""
 Field="停止","stop","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
@@ -5278,7 +5279,7 @@ EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20231004201216
+ModifiedDateTime=20261017091110
 Position="マスタ人的資源",4000,250
 ZOrder=639
 
@@ -5631,8 +5632,8 @@ Left=6450
 Top=1950
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="担当者アクセスパス許可情報ID","info_staff_access_permission_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
-Field="アクセスパスID","info_access_path_id","*@UUID",,,"","",$FFFFFFFF,""
-Field="担当者ID","info_staff_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="担当者ID","info_staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="パーミット","permit","*@SMALLINT",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
@@ -5641,7 +5642,7 @@ EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20240720145039
+ModifiedDateTime=20261017092120
 Position="インフォメーションー人",6450,1950
 ZOrder=657
 
@@ -7028,7 +7029,7 @@ Top=5050
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="利用可能設備ID","mstr_equipment_available_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="工程場所ID","mstr_task_location_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="設備ID","mstr_equipment_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="設備ID","mstr_equipment_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="履歴ID","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,mstr_equipment_available_id,revision
@@ -7036,7 +7037,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260905225745
+ModifiedDateTime=20261017092005
 Position="マスタ工程",150,5050
 ZOrder=744
 
@@ -7067,21 +7068,21 @@ ZOrder=745
 [Relation]
 Entity1=mstr_task_location
 Entity2=mstr_outsource_available
-RelationType1=1
+RelationType1=2
 RelationType2=3
 Fields1=mstr_task_location_id
 Fields2=mstr_task_location_id
 Cardinarity1=
 Cardinarity2=
-Position="マスタ工程",0,2622,7378,2401,R,R,""
+Position="マスタ工程",0,2683,7378,2401,R,R,""
 Dependence=0
 Caption=
 PName=
 FkOnDeleteOption=on delete cascade
 FkOnUpdateOption=on update cascade
-ModifiedDateTime=20260905225821
+ModifiedDateTime=20261017091641
 LineMode=0
-Bar1=262
+Bar1=268
 Bar2=738
 Bar3=240
 TermPos1=R
@@ -7100,7 +7101,7 @@ Top=5100
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="利用可能外部ID","mstr_outsource_available_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="工程場所ID","mstr_task_location_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="利害関係者ID","mstr_stakeholder_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="利害関係者ID","mstr_stakeholder_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,mstr_outsource_available_id,revision
@@ -7108,7 +7109,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260905225832
+ModifiedDateTime=20261017091631
 Position="マスタ工程",2050,5100
 ZOrder=747
 
@@ -11139,7 +11140,7 @@ Field="アサインID","info_assign_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="担当者ID","info_staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="役割ID","info_position_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="事業所ID","info_office_id","*@UUID",,,"","",$FFFFFFFF,""
-Field="部署ID","info_department_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="部署ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="有効","enable","*@BOOL","NOT NULL",,"\qT\q","",$FFFFFFFF,""
 Field="優先順位","priority","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
@@ -11149,7 +11150,7 @@ EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260911073412
+ModifiedDateTime=20261017091905
 Position="インフォメーションー人",800,100
 ZOrder=822
 
@@ -11184,7 +11185,7 @@ Page=インフォメーション
 Left=5150
 Top=1750
 Field="部署アクセスパスID","info_department_access_permission_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="アクセスパスID","info_access_path_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="組織情報ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
@@ -11192,7 +11193,7 @@ Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260905224331
+ModifiedDateTime=20261017091554
 Position="インフォメーション",5150,1750
 ZOrder=824
 
@@ -11229,7 +11230,7 @@ Left=6700
 Top=1200
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="部署アクセスパスID","info_department_access_permission_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
-Field="アクセスパスID","info_access_path_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="組織情報ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
@@ -11237,7 +11238,7 @@ Index==2,info_department_access_permission_id,revision
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260917134952
+ModifiedDateTime=20261017091603
 Position="インフォメーション",6700,1200
 ZOrder=827
 
@@ -17648,11 +17649,11 @@ Query=SELECT\n    ancestor_info_department_id\n    , COUNT(descendant_info_depar
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,350
+Position="ビュー",150,100
 ZOrder=1138
 Page=ビュー
-Left=550
-Top=350
+Left=150
+Top=100
 
 [View]
 PName=v_document_content_descendants
@@ -17662,11 +17663,11 @@ Query=SELECT\n    ancestor_mstr_document_content_id\n    , COUNT(descendant_mstr
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,550
+Position="ビュー",150,300
 ZOrder=1139
 Page=ビュー
-Left=550
-Top=550
+Left=150
+Top=300
 
 [View]
 PName=v_document_descendants
@@ -17676,11 +17677,11 @@ Query=SELECT\n    ancestor_mstr_document_id\n    , COUNT(descendant_mstr_documen
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,750
+Position="ビュー",150,500
 ZOrder=1140
 Page=ビュー
-Left=550
-Top=750
+Left=150
+Top=500
 
 [View]
 PName=v_item_descendants
@@ -17690,11 +17691,11 @@ Query=SELECT\n    ancestor_mstr_item_id\n    , COUNT(descendant_mstr_item_id) AS
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,950
+Position="ビュー",150,700
 ZOrder=1141
 Page=ビュー
-Left=550
-Top=950
+Left=150
+Top=700
 
 [View]
 PName=v_location_descendants
@@ -17704,11 +17705,11 @@ Query=SELECT\n    ancestor_mstr_location_id\n    , COUNT(descendant_mstr_locatio
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,1150
+Position="ビュー",150,900
 ZOrder=1142
 Page=ビュー
-Left=550
-Top=1150
+Left=150
+Top=900
 
 [View]
 PName=v_task_descendants
@@ -17718,11 +17719,11 @@ Query=SELECT\n    ancestor_mstr_task_id\n    , COUNT(descendant_mstr_task_id) AS
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,1350
+Position="ビュー",150,1100
 ZOrder=1143
 Page=ビュー
-Left=550
-Top=1350
+Left=150
+Top=1100
 
 [View]
 PName=v_container_descendants
@@ -17732,11 +17733,11 @@ Query=SELECT\n    ancestor_trans_container_id\n    , COUNT(descendant_trans_cont
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,1550
+Position="ビュー",150,1300
 ZOrder=1144
 Page=ビュー
-Left=550
-Top=1550
+Left=150
+Top=1300
 
 [Relation]
 Entity1=trans_container
@@ -21006,3 +21007,1753 @@ Bar3=502
 TermPos1=R
 TermPos2=R
 ZOrder=1305
+
+[View]
+PName=v_access_path_report_count
+LName=アクセスパス－レポートマスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_access_path_report_count is E\q@foreignKey (info_access_path_id) references info_access_path (info_access_path_id)\\n@unique info_access_path_id\q;
+Query=SELECT\n    p.info_access_path_id\n    , COUNT(c.info_access_path_id) AS all_count\n    , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_access_path AS p\n    LEFT JOIN @schema.mstr_report AS c\n        ON c.info_access_path_id = p.info_access_path_id\nGROUP BY\n    p.info_access_path_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",4950,750
+ZOrder=1306
+Page=ビュー
+Left=4950
+Top=750
+
+[View]
+PName=v_app_access_path_count
+LName=アプリケーション情報－アクセスパスレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_app_access_path_count is E\q@foreignKey (info_app_id) references info_app (info_app_id)\\n@unique info_app_id\q;
+Query=SELECT\n    p.info_app_id\n    , COUNT(c.info_app_id) AS all_count\n    , COUNT(c.info_app_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_app_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_app AS p\n    LEFT JOIN @schema.info_access_path AS c\n        ON c.info_app_id = p.info_app_id\nGROUP BY\n    p.info_app_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3750,5150
+ZOrder=1307
+Page=ビュー
+Left=3750
+Top=5150
+
+[View]
+PName=v_app_app_status_count
+LName=アプリケーション情報－アプリケーションステータスレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_app_app_status_count is E\q@foreignKey (info_app_id) references info_app (info_app_id)\\n@unique info_app_id\q;
+Query=SELECT\n    p.info_app_id\n    , COUNT(c.info_app_id) AS all_count\n    , COUNT(c.info_app_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_app_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_app AS p\n    LEFT JOIN @schema.info_app_status AS c\n        ON c.info_app_id = p.info_app_id\nGROUP BY\n    p.info_app_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",4150,700
+ZOrder=1308
+Page=ビュー
+Left=4150
+Top=700
+
+[View]
+PName=v_company_department_count
+LName=会社情報－組織情報レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_company_department_count is E\q@foreignKey (info_company_id) references info_company (info_company_id)\\n@unique info_company_id\q;
+Query=SELECT\n    p.info_company_id\n    , COUNT(c.info_company_id) AS all_count\n    , COUNT(c.info_company_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_company_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_company AS p\n    LEFT JOIN @schema.info_department AS c\n        ON c.info_company_id = p.info_company_id\nGROUP BY\n    p.info_company_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",4900,4550
+ZOrder=1309
+Page=ビュー
+Left=4900
+Top=4550
+
+[View]
+PName=v_company_office_count
+LName=会社情報－事業所情報レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_company_office_count is E\q@foreignKey (info_company_id) references info_company (info_company_id)\\n@unique info_company_id\q;
+Query=SELECT\n    p.info_company_id\n    , COUNT(c.info_company_id) AS all_count\n    , COUNT(c.info_company_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_company_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_company AS p\n    LEFT JOIN @schema.info_office AS c\n        ON c.info_company_id = p.info_company_id\nGROUP BY\n    p.info_company_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5350,5200
+ZOrder=1310
+Page=ビュー
+Left=5350
+Top=5200
+
+[View]
+PName=v_company_provision_count
+LName=会社情報－提供情報レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_company_provision_count is E\q@foreignKey (info_company_id) references info_company (info_company_id)\\n@unique info_company_id\q;
+Query=SELECT\n    p.info_company_id\n    , COUNT(c.info_company_id) AS all_count\n    , COUNT(c.info_company_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_company_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_company AS p\n    LEFT JOIN @schema.info_provision AS c\n        ON c.info_company_id = p.info_company_id\nGROUP BY\n    p.info_company_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",4350,4850
+ZOrder=1311
+Page=ビュー
+Left=4350
+Top=4850
+
+[View]
+PName=v_department_department_access_permission_count
+LName=組織情報－部署アクセスパスレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_department_department_access_permission_count is E\q@foreignKey (info_department_id) references info_department (info_department_id)\\n@unique info_department_id\q;
+Query=SELECT\n    p.info_department_id\n    , COUNT(c.info_department_id) AS all_count\n    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_department AS p\n    LEFT JOIN @schema.info_department_access_permission AS c\n        ON c.info_department_id = p.info_department_id\nGROUP BY\n    p.info_department_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6750,2400
+ZOrder=1312
+Page=ビュー
+Left=6750
+Top=2400
+
+[View]
+PName=v_department_department_kind_count
+LName=組織情報－組織区分情報レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_department_department_kind_count is E\q@foreignKey (info_department_id) references info_department (info_department_id)\\n@unique info_department_id\q;
+Query=SELECT\n    p.info_department_id\n    , COUNT(c.info_department_id) AS all_count\n    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_department AS p\n    LEFT JOIN @schema.info_department_kind AS c\n        ON c.info_department_id = p.info_department_id\nGROUP BY\n    p.info_department_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",200,5150
+ZOrder=1313
+Page=ビュー
+Left=200
+Top=5150
+
+[View]
+PName=v_department_prevention_detail_count
+LName=組織情報－未然防止処置レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_department_prevention_detail_count is E\q@foreignKey (info_department_id) references info_department (info_department_id)\\n@unique info_department_id\q;
+Query=SELECT\n    p.info_department_id\n    , COUNT(c.info_department_id) AS all_count\n    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_department AS p\n    LEFT JOIN @schema.trans_prevention_detail AS c\n        ON c.info_department_id = p.info_department_id\nGROUP BY\n    p.info_department_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5850,3000
+ZOrder=1314
+Page=ビュー
+Left=5850
+Top=3000
+
+[View]
+PName=v_department_kind_value_department_kind_count
+LName=組織区分バリュー情報－組織区分情報レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_department_kind_value_department_kind_count is E\q@foreignKey (info_department_kind_value_id) references info_department_kind_value (info_department_kind_value_id)\\n@unique info_department_kind_value_id\q;
+Query=SELECT\n    p.info_department_kind_value_id\n    , COUNT(c.info_department_kind_value_id) AS all_count\n    , COUNT(c.info_department_kind_value_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_department_kind_value_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_department_kind_value AS p\n    LEFT JOIN @schema.info_department_kind AS c\n        ON c.info_department_kind_value_id = p.info_department_kind_value_id\nGROUP BY\n    p.info_department_kind_value_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6700,3350
+ZOrder=1315
+Page=ビュー
+Left=6700
+Top=3350
+
+[View]
+PName=v_position_assign_count
+LName=役割情報－割当情報レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_position_assign_count is E\q@foreignKey (info_position_id) references info_position (info_position_id)\\n@unique info_position_id\q;
+Query=SELECT\n    p.info_position_id\n    , COUNT(c.info_position_id) AS all_count\n    , COUNT(c.info_position_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_position_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_position AS p\n    LEFT JOIN @schema.info_assign AS c\n        ON c.info_position_id = p.info_position_id\nGROUP BY\n    p.info_position_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3000,3700
+ZOrder=1316
+Page=ビュー
+Left=3000
+Top=3700
+
+[View]
+PName=v_position_approval_count
+LName=役割情報－承認マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_position_approval_count is E\q@foreignKey (info_position_id) references info_position (info_position_id)\\n@unique info_position_id\q;
+Query=SELECT\n    p.info_position_id\n    , COUNT(c.info_position_id) AS all_count\n    , COUNT(c.info_position_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_position_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_position AS p\n    LEFT JOIN @schema.mstr_approval AS c\n        ON c.info_position_id = p.info_position_id\nGROUP BY\n    p.info_position_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6150,3700
+ZOrder=1317
+Page=ビュー
+Left=6150
+Top=3700
+
+[View]
+PName=v_provision_equipment_provision_count
+LName=提供情報－設備提供マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_provision_equipment_provision_count is E\q@foreignKey (info_provision_id) references info_provision (info_provision_id)\\n@unique info_provision_id\q;
+Query=SELECT\n    p.info_provision_id\n    , COUNT(c.info_provision_id) AS all_count\n    , COUNT(c.info_provision_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_provision_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_provision AS p\n    LEFT JOIN @schema.mstr_equipment_provision AS c\n        ON c.info_provision_id = p.info_provision_id\nGROUP BY\n    p.info_provision_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1700,3000
+ZOrder=1318
+Page=ビュー
+Left=1700
+Top=3000
+
+[View]
+PName=v_provision_item_provision_count
+LName=提供情報－品目提供マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_provision_item_provision_count is E\q@foreignKey (info_provision_id) references info_provision (info_provision_id)\\n@unique info_provision_id\q;
+Query=SELECT\n    p.info_provision_id\n    , COUNT(c.info_provision_id) AS all_count\n    , COUNT(c.info_provision_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_provision_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_provision AS p\n    LEFT JOIN @schema.mstr_item_provision AS c\n        ON c.info_provision_id = p.info_provision_id\nGROUP BY\n    p.info_provision_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5650,2150
+ZOrder=1319
+Page=ビュー
+Left=5650
+Top=2150
+
+[View]
+PName=v_provision_stakeholder_provision_count
+LName=提供情報－利害関係者提供マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_provision_stakeholder_provision_count is E\q@foreignKey (info_provision_id) references info_provision (info_provision_id)\\n@unique info_provision_id\q;
+Query=SELECT\n    p.info_provision_id\n    , COUNT(c.info_provision_id) AS all_count\n    , COUNT(c.info_provision_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_provision_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_provision AS p\n    LEFT JOIN @schema.mstr_stakeholder_provision AS c\n        ON c.info_provision_id = p.info_provision_id\nGROUP BY\n    p.info_provision_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3000,2300
+ZOrder=1320
+Page=ビュー
+Left=3000
+Top=2300
+
+[View]
+PName=v_staff_assign_count
+LName=担当者情報－割当情報レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_staff_assign_count is E\q@foreignKey (info_staff_id) references info_staff (info_staff_id)\\n@unique info_staff_id\q;
+Query=SELECT\n    p.info_staff_id\n    , COUNT(c.info_staff_id) AS all_count\n    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_staff AS p\n    LEFT JOIN @schema.info_assign AS c\n        ON c.info_staff_id = p.info_staff_id\nGROUP BY\n    p.info_staff_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",4000,4450
+ZOrder=1321
+Page=ビュー
+Left=4000
+Top=4450
+
+[View]
+PName=v_staff_sign_count
+LName=担当者情報－サインマスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_staff_sign_count is E\q@foreignKey (info_staff_id) references info_staff (info_staff_id)\\n@unique info_staff_id\q;
+Query=SELECT\n    p.info_staff_id\n    , COUNT(c.info_staff_id) AS all_count\n    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_staff AS p\n    LEFT JOIN @schema.mstr_sign AS c\n        ON c.info_staff_id = p.info_staff_id\nGROUP BY\n    p.info_staff_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1450,400
+ZOrder=1322
+Page=ビュー
+Left=1450
+Top=400
+
+[View]
+PName=v_staff_staff_capability_count
+LName=担当者情報－担当者力量マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_staff_staff_capability_count is E\q@foreignKey (info_staff_id) references info_staff (info_staff_id)\\n@unique info_staff_id\q;
+Query=SELECT\n    p.info_staff_id\n    , COUNT(c.info_staff_id) AS all_count\n    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_staff AS p\n    LEFT JOIN @schema.mstr_staff_capability AS c\n        ON c.info_staff_id = p.info_staff_id\nGROUP BY\n    p.info_staff_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6400,5650
+ZOrder=1323
+Page=ビュー
+Left=6400
+Top=5650
+
+[View]
+PName=v_staff_staff_license_count
+LName=担当者情報－担当者資格マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_staff_staff_license_count is E\q@foreignKey (info_staff_id) references info_staff (info_staff_id)\\n@unique info_staff_id\q;
+Query=SELECT\n    p.info_staff_id\n    , COUNT(c.info_staff_id) AS all_count\n    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_staff AS p\n    LEFT JOIN @schema.mstr_staff_license AS c\n        ON c.info_staff_id = p.info_staff_id\nGROUP BY\n    p.info_staff_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6050,5350
+ZOrder=1324
+Page=ビュー
+Left=6050
+Top=5350
+
+[View]
+PName=v_approval_approval_pattern_detail_count
+LName=承認マスタ－承認パターン明細マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_approval_approval_pattern_detail_count is E\q@foreignKey (mstr_approval_id) references mstr_approval (mstr_approval_id)\\n@unique mstr_approval_id\q;
+Query=SELECT\n    p.mstr_approval_id\n    , COUNT(c.mstr_approval_id) AS all_count\n    , COUNT(c.mstr_approval_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_approval_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_approval AS p\n    LEFT JOIN @schema.mstr_approval_pattern_detail AS c\n        ON c.mstr_approval_id = p.mstr_approval_id\nGROUP BY\n    p.mstr_approval_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1750,5300
+ZOrder=1325
+Page=ビュー
+Left=1750
+Top=5300
+
+[View]
+PName=v_approval_preapproval_count
+LName=承認マスタ－承認前レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_approval_preapproval_count is E\q@foreignKey (mstr_approval_id) references mstr_approval (mstr_approval_id)\\n@unique mstr_approval_id\q;
+Query=SELECT\n    p.mstr_approval_id\n    , COUNT(c.mstr_approval_id) AS all_count\n    , COUNT(c.mstr_approval_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_approval_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_approval AS p\n    LEFT JOIN @schema.trans_preapproval AS c\n        ON c.mstr_approval_id = p.mstr_approval_id\nGROUP BY\n    p.mstr_approval_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6350,5100
+ZOrder=1326
+Page=ビュー
+Left=6350
+Top=5100
+
+[View]
+PName=v_approval_pattern_approval_pattern_detail_count
+LName=承認パターンマスタ－承認パターン明細マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_approval_pattern_approval_pattern_detail_count is E\q@foreignKey (mstr_approval_pattern_id) references mstr_approval_pattern (mstr_approval_pattern_id)\\n@unique mstr_approval_pattern_id\q;
+Query=SELECT\n    p.mstr_approval_pattern_id\n    , COUNT(c.mstr_approval_pattern_id) AS all_count\n    , COUNT(c.mstr_approval_pattern_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_approval_pattern_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_approval_pattern AS p\n    LEFT JOIN @schema.mstr_approval_pattern_detail AS c\n        ON c.mstr_approval_pattern_id = p.mstr_approval_pattern_id\nGROUP BY\n    p.mstr_approval_pattern_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6400,4850
+ZOrder=1327
+Page=ビュー
+Left=6400
+Top=4850
+
+[View]
+PName=v_approval_pattern_approval_pattern_count
+LName=承認パターンマスタ－承認実行パターンレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_approval_pattern_approval_pattern_count is E\q@foreignKey (mstr_approval_pattern_id) references mstr_approval_pattern (mstr_approval_pattern_id)\\n@unique mstr_approval_pattern_id\q;
+Query=SELECT\n    p.mstr_approval_pattern_id\n    , COUNT(c.mstr_approval_pattern_id) AS all_count\n    , COUNT(c.mstr_approval_pattern_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_approval_pattern_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_approval_pattern AS p\n    LEFT JOIN @schema.trans_approval_pattern AS c\n        ON c.mstr_approval_pattern_id = p.mstr_approval_pattern_id\nGROUP BY\n    p.mstr_approval_pattern_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",4550,1300
+ZOrder=1328
+Page=ビュー
+Left=4550
+Top=1300
+
+[View]
+PName=v_audit_std_audit_std_checkitem_count
+LName=監査標準マスタ－監査標準項目マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_audit_std_audit_std_checkitem_count is E\q@foreignKey (mstr_audit_std_id) references mstr_audit_std (mstr_audit_std_id)\\n@unique mstr_audit_std_id\q;
+Query=SELECT\n    p.mstr_audit_std_id\n    , COUNT(c.mstr_audit_std_id) AS all_count\n    , COUNT(c.mstr_audit_std_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_audit_std_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_audit_std AS p\n    LEFT JOIN @schema.mstr_audit_std_checkitem AS c\n        ON c.mstr_audit_std_id = p.mstr_audit_std_id\nGROUP BY\n    p.mstr_audit_std_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5700,1850
+ZOrder=1329
+Page=ビュー
+Left=5700
+Top=1850
+
+[View]
+PName=v_document_document_content_count
+LName=文書マスタ－文書コンテンツマスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_document_document_content_count is E\q@foreignKey (mstr_document_id) references mstr_document (mstr_document_id)\\n@unique mstr_document_id\q;
+Query=SELECT\n    p.mstr_document_id\n    , COUNT(c.mstr_document_id) AS all_count\n    , COUNT(c.mstr_document_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_document_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_document AS p\n    LEFT JOIN @schema.mstr_document_content AS c\n        ON c.mstr_document_id = p.mstr_document_id\nGROUP BY\n    p.mstr_document_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3100,950
+ZOrder=1330
+Page=ビュー
+Left=3100
+Top=950
+
+[View]
+PName=v_document_tier_document_count
+LName=文書階層マスタ－文書マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_document_tier_document_count is E\q@foreignKey (mstr_document_tier_id) references mstr_document_tier (mstr_document_tier_id)\\n@unique mstr_document_tier_id\q;
+Query=SELECT\n    p.mstr_document_tier_id\n    , COUNT(c.mstr_document_tier_id) AS all_count\n    , COUNT(c.mstr_document_tier_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_document_tier_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_document_tier AS p\n    LEFT JOIN @schema.mstr_document AS c\n        ON c.mstr_document_tier_id = p.mstr_document_tier_id\nGROUP BY\n    p.mstr_document_tier_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1650,1850
+ZOrder=1331
+Page=ビュー
+Left=1650
+Top=1850
+
+[View]
+PName=v_equipment_equipment_provision_count
+LName=設備マスタ－設備提供マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_equipment_equipment_provision_count is E\q@foreignKey (mstr_equipment_id) references mstr_equipment (mstr_equipment_id)\\n@unique mstr_equipment_id\q;
+Query=SELECT\n    p.mstr_equipment_id\n    , COUNT(c.mstr_equipment_id) AS all_count\n    , COUNT(c.mstr_equipment_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_equipment_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_equipment AS p\n    LEFT JOIN @schema.mstr_equipment_provision AS c\n        ON c.mstr_equipment_id = p.mstr_equipment_id\nGROUP BY\n    p.mstr_equipment_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1250,2250
+ZOrder=1332
+Page=ビュー
+Left=1250
+Top=2250
+
+[View]
+PName=v_equipment_inspection_operation_count
+LName=設備マスタ－点検整備運用マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_equipment_inspection_operation_count is E\q@foreignKey (mstr_equipment_id) references mstr_equipment (mstr_equipment_id)\\n@unique mstr_equipment_id\q;
+Query=SELECT\n    p.mstr_equipment_id\n    , COUNT(c.mstr_equipment_id) AS all_count\n    , COUNT(c.mstr_equipment_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_equipment_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_equipment AS p\n    LEFT JOIN @schema.mstr_inspection_operation AS c\n        ON c.mstr_equipment_id = p.mstr_equipment_id\nGROUP BY\n    p.mstr_equipment_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2650,1950
+ZOrder=1333
+Page=ビュー
+Left=2650
+Top=1950
+
+[View]
+PName=v_inspection_inspection_operation_task_count
+LName=点検整備マスタ－点検整備運用明細マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_inspection_inspection_operation_task_count is E\q@foreignKey (mstr_inspection_id) references mstr_inspection (mstr_inspection_id)\\n@unique mstr_inspection_id\q;
+Query=SELECT\n    p.mstr_inspection_id\n    , COUNT(c.mstr_inspection_id) AS all_count\n    , COUNT(c.mstr_inspection_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_inspection_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_inspection AS p\n    LEFT JOIN @schema.mstr_inspection_operation_task AS c\n        ON c.mstr_inspection_id = p.mstr_inspection_id\nGROUP BY\n    p.mstr_inspection_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6650,4100
+ZOrder=1334
+Page=ビュー
+Left=6650
+Top=4100
+
+[View]
+PName=v_inspection_operation_inspection_operation_task_count
+LName=点検整備運用マスタ－点検整備運用明細マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_inspection_operation_inspection_operation_task_count is E\q@foreignKey (mstr_inspection_operation_id) references mstr_inspection_operation (mstr_inspection_operation_id)\\n@unique mstr_inspection_operation_id\q;
+Query=SELECT\n    p.mstr_inspection_operation_id\n    , COUNT(c.mstr_inspection_operation_id) AS all_count\n    , COUNT(c.mstr_inspection_operation_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_inspection_operation_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_inspection_operation AS p\n    LEFT JOIN @schema.mstr_inspection_operation_task AS c\n        ON c.mstr_inspection_operation_id = p.mstr_inspection_operation_id\nGROUP BY\n    p.mstr_inspection_operation_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2650,2600
+ZOrder=1335
+Page=ビュー
+Left=2650
+Top=2600
+
+[View]
+PName=v_item_equipment_count
+LName=品目マスタ－設備マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_item_equipment_count is E\q@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\\n@unique mstr_item_id\q;
+Query=SELECT\n    p.mstr_item_id\n    , COUNT(c.mstr_item_id) AS all_count\n    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_item AS p\n    LEFT JOIN @schema.mstr_equipment AS c\n        ON c.mstr_item_id = p.mstr_item_id\nGROUP BY\n    p.mstr_item_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3550,4100
+ZOrder=1336
+Page=ビュー
+Left=3550
+Top=4100
+
+[View]
+PName=v_item_inspection_count
+LName=品目マスタ－点検整備マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_item_inspection_count is E\q@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\\n@unique mstr_item_id\q;
+Query=SELECT\n    p.mstr_item_id\n    , COUNT(c.mstr_item_id) AS all_count\n    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_item AS p\n    LEFT JOIN @schema.mstr_inspection AS c\n        ON c.mstr_item_id = p.mstr_item_id\nGROUP BY\n    p.mstr_item_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2200,3600
+ZOrder=1337
+Page=ビュー
+Left=2200
+Top=3600
+
+[View]
+PName=v_item_item_actual_size_count
+LName=品目マスタ－品目大きさマスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_item_item_actual_size_count is E\q@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\\n@unique mstr_item_id\q;
+Query=SELECT\n    p.mstr_item_id\n    , COUNT(c.mstr_item_id) AS all_count\n    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_item AS p\n    LEFT JOIN @schema.mstr_item_actual_size AS c\n        ON c.mstr_item_id = p.mstr_item_id\nGROUP BY\n    p.mstr_item_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6750,2750
+ZOrder=1338
+Page=ビュー
+Left=6750
+Top=2750
+
+[View]
+PName=v_item_item_hcdcs_count
+LName=品目マスタ－HSコードマスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_item_item_hcdcs_count is E\q@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\\n@unique mstr_item_id\q;
+Query=SELECT\n    p.mstr_item_id\n    , COUNT(c.mstr_item_id) AS all_count\n    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_item AS p\n    LEFT JOIN @schema.mstr_item_hcdcs AS c\n        ON c.mstr_item_id = p.mstr_item_id\nGROUP BY\n    p.mstr_item_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6150,2650
+ZOrder=1339
+Page=ビュー
+Left=6150
+Top=2650
+
+[View]
+PName=v_item_item_operation_count
+LName=品目マスタ－品目工程運用マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_item_item_operation_count is E\q@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\\n@unique mstr_item_id\q;
+Query=SELECT\n    p.mstr_item_id\n    , COUNT(c.mstr_item_id) AS all_count\n    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_item AS p\n    LEFT JOIN @schema.mstr_item_operation AS c\n        ON c.mstr_item_id = p.mstr_item_id\nGROUP BY\n    p.mstr_item_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",4900,2750
+ZOrder=1340
+Page=ビュー
+Left=4900
+Top=2750
+
+[View]
+PName=v_item_item_operation_task_count
+LName=品目マスタ－品目工程運用明細マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_item_item_operation_task_count is E\q@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\\n@unique mstr_item_id\q;
+Query=SELECT\n    p.mstr_item_id\n    , COUNT(c.mstr_item_id) AS all_count\n    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_item AS p\n    LEFT JOIN @schema.mstr_item_operation_task AS c\n        ON c.mstr_item_id = p.mstr_item_id\nGROUP BY\n    p.mstr_item_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",4550,5500
+ZOrder=1341
+Page=ビュー
+Left=4550
+Top=5500
+
+[View]
+PName=v_item_item_provision_count
+LName=品目マスタ－品目提供マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_item_item_provision_count is E\q@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\\n@unique mstr_item_id\q;
+Query=SELECT\n    p.mstr_item_id\n    , COUNT(c.mstr_item_id) AS all_count\n    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_item AS p\n    LEFT JOIN @schema.mstr_item_provision AS c\n        ON c.mstr_item_id = p.mstr_item_id\nGROUP BY\n    p.mstr_item_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6900,1300
+ZOrder=1342
+Page=ビュー
+Left=6900
+Top=1300
+
+[View]
+PName=v_item_kind_item_count
+LName=品目区分マスタ－品目マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_item_kind_item_count is E\q@foreignKey (mstr_item_kind_id) references mstr_item_kind (mstr_item_kind_id)\\n@unique mstr_item_kind_id\q;
+Query=SELECT\n    p.mstr_item_kind_id\n    , COUNT(c.mstr_item_kind_id) AS all_count\n    , COUNT(c.mstr_item_kind_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_item_kind_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_item_kind AS p\n    LEFT JOIN @schema.mstr_item AS c\n        ON c.mstr_item_kind_id = p.mstr_item_kind_id\nGROUP BY\n    p.mstr_item_kind_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6100,1200
+ZOrder=1343
+Page=ビュー
+Left=6100
+Top=1200
+
+[View]
+PName=v_item_size_kind_item_actual_size_count
+LName=品目大きさ区分マスタ－品目大きさマスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_item_size_kind_item_actual_size_count is E\q@foreignKey (mstr_item_size_kind_id) references mstr_item_size_kind (mstr_item_size_kind_id)\\n@unique mstr_item_size_kind_id\q;
+Query=SELECT\n    p.mstr_item_size_kind_id\n    , COUNT(c.mstr_item_size_kind_id) AS all_count\n    , COUNT(c.mstr_item_size_kind_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_item_size_kind_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_item_size_kind AS p\n    LEFT JOIN @schema.mstr_item_actual_size AS c\n        ON c.mstr_item_size_kind_id = p.mstr_item_size_kind_id\nGROUP BY\n    p.mstr_item_size_kind_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6100,800
+ZOrder=1344
+Page=ビュー
+Left=6100
+Top=800
+
+[View]
+PName=v_license_staff_license_count
+LName=資格マスタ－担当者資格マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_license_staff_license_count is E\q@foreignKey (mstr_license_id) references mstr_license (mstr_license_id)\\n@unique mstr_license_id\q;
+Query=SELECT\n    p.mstr_license_id\n    , COUNT(c.mstr_license_id) AS all_count\n    , COUNT(c.mstr_license_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_license_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_license AS p\n    LEFT JOIN @schema.mstr_staff_license AS c\n        ON c.mstr_license_id = p.mstr_license_id\nGROUP BY\n    p.mstr_license_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5650,500
+ZOrder=1345
+Page=ビュー
+Left=5650
+Top=500
+
+[View]
+PName=v_operation_item_operation_count
+LName=工程運用マスタ－品目工程運用マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_operation_item_operation_count is E\q@foreignKey (mstr_operation_id) references mstr_operation (mstr_operation_id)\\n@unique mstr_operation_id\q;
+Query=SELECT\n    p.mstr_operation_id\n    , COUNT(c.mstr_operation_id) AS all_count\n    , COUNT(c.mstr_operation_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_operation_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_operation AS p\n    LEFT JOIN @schema.mstr_item_operation AS c\n        ON c.mstr_operation_id = p.mstr_operation_id\nGROUP BY\n    p.mstr_operation_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6850,5400
+ZOrder=1346
+Page=ビュー
+Left=6850
+Top=5400
+
+[View]
+PName=v_operation_operation_task_count
+LName=工程運用マスタ－工程運用明細マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_operation_operation_task_count is E\q@foreignKey (mstr_operation_id) references mstr_operation (mstr_operation_id)\\n@unique mstr_operation_id\q;
+Query=SELECT\n    p.mstr_operation_id\n    , COUNT(c.mstr_operation_id) AS all_count\n    , COUNT(c.mstr_operation_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_operation_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_operation AS p\n    LEFT JOIN @schema.mstr_operation_task AS c\n        ON c.mstr_operation_id = p.mstr_operation_id\nGROUP BY\n    p.mstr_operation_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2450,1550
+ZOrder=1347
+Page=ビュー
+Left=2450
+Top=1550
+
+[View]
+PName=v_operation_task_item_operation_task_count
+LName=工程運用明細マスタ－品目工程運用明細マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_operation_task_item_operation_task_count is E\q@foreignKey (mstr_operation_task_id) references mstr_operation_task (mstr_operation_task_id)\\n@unique mstr_operation_task_id\q;
+Query=SELECT\n    p.mstr_operation_task_id\n    , COUNT(c.mstr_operation_task_id) AS all_count\n    , COUNT(c.mstr_operation_task_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_operation_task_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_operation_task AS p\n    LEFT JOIN @schema.mstr_item_operation_task AS c\n        ON c.mstr_operation_task_id = p.mstr_operation_task_id\nGROUP BY\n    p.mstr_operation_task_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1700,5000
+ZOrder=1348
+Page=ビュー
+Left=1700
+Top=5000
+
+[View]
+PName=v_stakeholder_stakeholder_contact_count
+LName=利害関係者マスタ－利害関係者窓口マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_stakeholder_stakeholder_contact_count is E\q@foreignKey (mstr_stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)\\n@unique mstr_stakeholder_id\q;
+Query=SELECT\n    p.mstr_stakeholder_id\n    , COUNT(c.mstr_stakeholder_id) AS all_count\n    , COUNT(c.mstr_stakeholder_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_stakeholder_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_stakeholder AS p\n    LEFT JOIN @schema.mstr_stakeholder_contact AS c\n        ON c.mstr_stakeholder_id = p.mstr_stakeholder_id\nGROUP BY\n    p.mstr_stakeholder_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",950,5250
+ZOrder=1349
+Page=ビュー
+Left=950
+Top=5250
+
+[View]
+PName=v_stakeholder_stakeholder_provision_count
+LName=利害関係者マスタ－利害関係者提供マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_stakeholder_stakeholder_provision_count is E\q@foreignKey (mstr_stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)\\n@unique mstr_stakeholder_id\q;
+Query=SELECT\n    p.mstr_stakeholder_id\n    , COUNT(c.mstr_stakeholder_id) AS all_count\n    , COUNT(c.mstr_stakeholder_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_stakeholder_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_stakeholder AS p\n    LEFT JOIN @schema.mstr_stakeholder_provision AS c\n        ON c.mstr_stakeholder_id = p.mstr_stakeholder_id\nGROUP BY\n    p.mstr_stakeholder_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",850,4900
+ZOrder=1350
+Page=ビュー
+Left=850
+Top=4900
+
+[View]
+PName=v_task_operation_task_count
+LName=工程マスタ－工程運用明細マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_task_operation_task_count is E\q@foreignKey (mstr_task_id) references mstr_task (mstr_task_id)\\n@unique mstr_task_id\q;
+Query=SELECT\n    p.mstr_task_id\n    , COUNT(c.mstr_task_id) AS all_count\n    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_task AS p\n    LEFT JOIN @schema.mstr_operation_task AS c\n        ON c.mstr_task_id = p.mstr_task_id\nGROUP BY\n    p.mstr_task_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",250,4800
+ZOrder=1351
+Page=ビュー
+Left=250
+Top=4800
+
+[View]
+PName=v_task_task_location_count
+LName=工程マスタ－工程場所マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_task_task_location_count is E\q@foreignKey (mstr_task_id) references mstr_task (mstr_task_id)\\n@unique mstr_task_id\q;
+Query=SELECT\n    p.mstr_task_id\n    , COUNT(c.mstr_task_id) AS all_count\n    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_task AS p\n    LEFT JOIN @schema.mstr_task_location AS c\n        ON c.mstr_task_id = p.mstr_task_id\nGROUP BY\n    p.mstr_task_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5700,4650
+ZOrder=1352
+Page=ビュー
+Left=5700
+Top=4650
+
+[View]
+PName=v_task_complaint_process_count
+LName=工程マスタ－工程苦情レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_task_complaint_process_count is E\q@foreignKey (mstr_task_id) references mstr_task (mstr_task_id)\\n@unique mstr_task_id\q;
+Query=SELECT\n    p.mstr_task_id\n    , COUNT(c.mstr_task_id) AS all_count\n    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_task AS p\n    LEFT JOIN @schema.trans_complaint_process AS c\n        ON c.mstr_task_id = p.mstr_task_id\nGROUP BY\n    p.mstr_task_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5200,4950
+ZOrder=1353
+Page=ビュー
+Left=5200
+Top=4950
+
+[View]
+PName=v_task_task_risk_count
+LName=工程マスタ－工程リスクレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_task_task_risk_count is E\q@foreignKey (mstr_task_id) references mstr_task (mstr_task_id)\\n@unique mstr_task_id\q;
+Query=SELECT\n    p.mstr_task_id\n    , COUNT(c.mstr_task_id) AS all_count\n    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_task AS p\n    LEFT JOIN @schema.trans_task_risk AS c\n        ON c.mstr_task_id = p.mstr_task_id\nGROUP BY\n    p.mstr_task_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5400,4250
+ZOrder=1354
+Page=ビュー
+Left=5400
+Top=4250
+
+[View]
+PName=v_task_work_plan_count
+LName=工程マスタ－生産計画明細レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_task_work_plan_count is E\q@foreignKey (mstr_task_id) references mstr_task (mstr_task_id)\\n@unique mstr_task_id\q;
+Query=SELECT\n    p.mstr_task_id\n    , COUNT(c.mstr_task_id) AS all_count\n    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_task AS p\n    LEFT JOIN @schema.trans_work_plan AS c\n        ON c.mstr_task_id = p.mstr_task_id\nGROUP BY\n    p.mstr_task_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1500,2700
+ZOrder=1355
+Page=ビュー
+Left=1500
+Top=2700
+
+[View]
+PName=v_task_location_equipment_available_count
+LName=工程場所マスタ－利用可能設備マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_task_location_equipment_available_count is E\q@foreignKey (mstr_task_location_id) references mstr_task_location (mstr_task_location_id)\\n@unique mstr_task_location_id\q;
+Query=SELECT\n    p.mstr_task_location_id\n    , COUNT(c.mstr_task_location_id) AS all_count\n    , COUNT(c.mstr_task_location_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_task_location_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_task_location AS p\n    LEFT JOIN @schema.mstr_equipment_available AS c\n        ON c.mstr_task_location_id = p.mstr_task_location_id\nGROUP BY\n    p.mstr_task_location_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3200,4750
+ZOrder=1356
+Page=ビュー
+Left=3200
+Top=4750
+
+[View]
+PName=v_task_location_outsource_available_count
+LName=工程場所マスタ－利用可能外部マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_task_location_outsource_available_count is E\q@foreignKey (mstr_task_location_id) references mstr_task_location (mstr_task_location_id)\\n@unique mstr_task_location_id\q;
+Query=SELECT\n    p.mstr_task_location_id\n    , COUNT(c.mstr_task_location_id) AS all_count\n    , COUNT(c.mstr_task_location_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_task_location_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_task_location AS p\n    LEFT JOIN @schema.mstr_outsource_available AS c\n        ON c.mstr_task_location_id = p.mstr_task_location_id\nGROUP BY\n    p.mstr_task_location_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",4700,3550
+ZOrder=1357
+Page=ビュー
+Left=4700
+Top=3550
+
+[View]
+PName=v_dictionary_dictionary_value_count
+LName=共有辞書－共有辞書バリューレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_dictionary_dictionary_value_count is E\q@foreignKey (shared_dictionary_id) references shared_dictionary (shared_dictionary_id)\\n@unique shared_dictionary_id\q;
+Query=SELECT\n    p.shared_dictionary_id\n    , COUNT(c.shared_dictionary_id) AS all_count\n    , COUNT(c.shared_dictionary_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.shared_dictionary_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.shared_dictionary AS p\n    LEFT JOIN @schema.shared_dictionary_value AS c\n        ON c.shared_dictionary_id = p.shared_dictionary_id\nGROUP BY\n    p.shared_dictionary_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2350,4700
+ZOrder=1358
+Page=ビュー
+Left=2350
+Top=4700
+
+[View]
+PName=v_language_code_dictionary_value_count
+LName=言語コード－共有辞書バリューレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_language_code_dictionary_value_count is E\q@foreignKey (shared_language_code_id) references shared_language_code (shared_language_code_id)\\n@unique shared_language_code_id\q;
+Query=SELECT\n    p.shared_language_code_id\n    , COUNT(c.shared_language_code_id) AS all_count\n    , COUNT(c.shared_language_code_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.shared_language_code_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.shared_language_code AS p\n    LEFT JOIN @schema.shared_dictionary_value AS c\n        ON c.shared_language_code_id = p.shared_language_code_id\nGROUP BY\n    p.shared_language_code_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",950,4550
+ZOrder=1359
+Page=ビュー
+Left=950
+Top=4550
+
+[View]
+PName=v_language_code_shared_text_value_count
+LName=言語コード－共有テキストバリューレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_language_code_shared_text_value_count is E\q@foreignKey (shared_language_code_id) references shared_language_code (shared_language_code_id)\\n@unique shared_language_code_id\q;
+Query=SELECT\n    p.shared_language_code_id\n    , COUNT(c.shared_language_code_id) AS all_count\n    , COUNT(c.shared_language_code_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.shared_language_code_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.shared_language_code AS p\n    LEFT JOIN @schema.shared_text_value AS c\n        ON c.shared_language_code_id = p.shared_language_code_id\nGROUP BY\n    p.shared_language_code_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6800,4550
+ZOrder=1360
+Page=ビュー
+Left=6800
+Top=4550
+
+[View]
+PName=v_language_code_label_value_count
+LName=言語コード－ラベルバリューレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_language_code_label_value_count is E\q@foreignKey (shared_language_code_id) references shared_language_code (shared_language_code_id)\\n@unique shared_language_code_id\q;
+Query=SELECT\n    p.shared_language_code_id\n    , COUNT(c.shared_language_code_id) AS all_count\n    , COUNT(c.shared_language_code_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.shared_language_code_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.shared_language_code AS p\n    LEFT JOIN @schema.trans_label_value AS c\n        ON c.shared_language_code_id = p.shared_language_code_id\nGROUP BY\n    p.shared_language_code_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6850,1900
+ZOrder=1361
+Page=ビュー
+Left=6850
+Top=1900
+
+[View]
+PName=v_language_code_trans_text_value_count
+LName=言語コード－テキストバリューレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_language_code_trans_text_value_count is E\q@foreignKey (shared_language_code_id) references shared_language_code (shared_language_code_id)\\n@unique shared_language_code_id\q;
+Query=SELECT\n    p.shared_language_code_id\n    , COUNT(c.shared_language_code_id) AS all_count\n    , COUNT(c.shared_language_code_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.shared_language_code_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.shared_language_code AS p\n    LEFT JOIN @schema.trans_text_value AS c\n        ON c.shared_language_code_id = p.shared_language_code_id\nGROUP BY\n    p.shared_language_code_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2550,5350
+ZOrder=1362
+Page=ビュー
+Left=2550
+Top=5350
+
+[View]
+PName=v_text_shared_text_value_count
+LName=共有テキスト－共有テキストバリューレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_text_shared_text_value_count is E\q@foreignKey (shared_text_id) references shared_text (shared_text_id)\\n@unique shared_text_id\q;
+Query=SELECT\n    p.shared_text_id\n    , COUNT(c.shared_text_id) AS all_count\n    , COUNT(c.shared_text_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.shared_text_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.shared_text AS p\n    LEFT JOIN @schema.shared_text_value AS c\n        ON c.shared_text_id = p.shared_text_id\nGROUP BY\n    p.shared_text_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5200,1550
+ZOrder=1363
+Page=ビュー
+Left=5200
+Top=1550
+
+[View]
+PName=v_unit_envelope_measurement_count
+LName=単位－設備占有範囲量マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_unit_envelope_measurement_count is E\q@foreignKey (shared_unit_id) references shared_unit (shared_unit_id)\\n@unique shared_unit_id\q;
+Query=SELECT\n    p.shared_unit_id\n    , COUNT(c.shared_unit_id) AS all_count\n    , COUNT(c.shared_unit_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.shared_unit_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.shared_unit AS p\n    LEFT JOIN @schema.mstr_envelope_measurement AS c\n        ON c.shared_unit_id = p.shared_unit_id\nGROUP BY\n    p.shared_unit_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1150,3250
+ZOrder=1364
+Page=ビュー
+Left=1150
+Top=3250
+
+[View]
+PName=v_unit_item_lot_count
+LName=単位－品目ロットマスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_unit_item_lot_count is E\q@foreignKey (shared_unit_id) references shared_unit (shared_unit_id)\\n@unique shared_unit_id\q;
+Query=SELECT\n    p.shared_unit_id\n    , COUNT(c.shared_unit_id) AS all_count\n    , COUNT(c.shared_unit_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.shared_unit_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.shared_unit AS p\n    LEFT JOIN @schema.mstr_item_lot AS c\n        ON c.shared_unit_id = p.shared_unit_id\nGROUP BY\n    p.shared_unit_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1200,3650
+ZOrder=1365
+Page=ビュー
+Left=1200
+Top=3650
+
+[View]
+PName=v_unit_item_size_kind_count
+LName=単位－品目大きさ区分マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_unit_item_size_kind_count is E\q@foreignKey (shared_unit_id) references shared_unit (shared_unit_id)\\n@unique shared_unit_id\q;
+Query=SELECT\n    p.shared_unit_id\n    , COUNT(c.shared_unit_id) AS all_count\n    , COUNT(c.shared_unit_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.shared_unit_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.shared_unit AS p\n    LEFT JOIN @schema.mstr_item_size_kind AS c\n        ON c.shared_unit_id = p.shared_unit_id\nGROUP BY\n    p.shared_unit_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1400,4150
+ZOrder=1366
+Page=ビュー
+Left=1400
+Top=4150
+
+[View]
+PName=v_unit_spec_measurement_count
+LName=単位－梱包サイズ大きさマスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_unit_spec_measurement_count is E\q@foreignKey (shared_unit_id) references shared_unit (shared_unit_id)\\n@unique shared_unit_id\q;
+Query=SELECT\n    p.shared_unit_id\n    , COUNT(c.shared_unit_id) AS all_count\n    , COUNT(c.shared_unit_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.shared_unit_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.shared_unit AS p\n    LEFT JOIN @schema.mstr_spec_measurement AS c\n        ON c.shared_unit_id = p.shared_unit_id\nGROUP BY\n    p.shared_unit_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",250,4450
+ZOrder=1367
+Page=ビュー
+Left=250
+Top=4450
+
+[View]
+PName=v_approval_pattern_document_count
+LName=承認実行パターン－文書マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_approval_pattern_document_count is E\q@foreignKey (trans_approval_pattern_id) references trans_approval_pattern (trans_approval_pattern_id)\\n@unique trans_approval_pattern_id\q;
+Query=SELECT\n    p.trans_approval_pattern_id\n    , COUNT(c.trans_approval_pattern_id) AS all_count\n    , COUNT(c.trans_approval_pattern_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_approval_pattern_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_approval_pattern AS p\n    LEFT JOIN @schema.mstr_document AS c\n        ON c.trans_approval_pattern_id = p.trans_approval_pattern_id\nGROUP BY\n    p.trans_approval_pattern_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5200,200
+ZOrder=1368
+Page=ビュー
+Left=5200
+Top=200
+
+[View]
+PName=v_approval_pattern_preapproval_count
+LName=承認実行パターン－承認前レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_approval_pattern_preapproval_count is E\q@foreignKey (trans_approval_pattern_id) references trans_approval_pattern (trans_approval_pattern_id)\\n@unique trans_approval_pattern_id\q;
+Query=SELECT\n    p.trans_approval_pattern_id\n    , COUNT(c.trans_approval_pattern_id) AS all_count\n    , COUNT(c.trans_approval_pattern_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_approval_pattern_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_approval_pattern AS p\n    LEFT JOIN @schema.trans_preapproval AS c\n        ON c.trans_approval_pattern_id = p.trans_approval_pattern_id\nGROUP BY\n    p.trans_approval_pattern_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2650,150
+ZOrder=1369
+Page=ビュー
+Left=2650
+Top=150
+
+[View]
+PName=v_audit_audit_member_count
+LName=監査－監査参加者レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_audit_audit_member_count is E\q@foreignKey (trans_audit_id) references trans_audit (trans_audit_id)\\n@unique trans_audit_id\q;
+Query=SELECT\n    p.trans_audit_id\n    , COUNT(c.trans_audit_id) AS all_count\n    , COUNT(c.trans_audit_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_audit_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_audit AS p\n    LEFT JOIN @schema.trans_audit_member AS c\n        ON c.trans_audit_id = p.trans_audit_id\nGROUP BY\n    p.trans_audit_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3850,1000
+ZOrder=1370
+Page=ビュー
+Left=3850
+Top=1000
+
+[View]
+PName=v_audit_audit_team_count
+LName=監査－監査チームレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_audit_audit_team_count is E\q@foreignKey (trans_audit_id) references trans_audit (trans_audit_id)\\n@unique trans_audit_id\q;
+Query=SELECT\n    p.trans_audit_id\n    , COUNT(c.trans_audit_id) AS all_count\n    , COUNT(c.trans_audit_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_audit_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_audit AS p\n    LEFT JOIN @schema.trans_audit_team AS c\n        ON c.trans_audit_id = p.trans_audit_id\nGROUP BY\n    p.trans_audit_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1650,50
+ZOrder=1371
+Page=ビュー
+Left=1650
+Top=50
+
+[View]
+PName=v_audit_team_auditor_count
+LName=監査チーム－監査員レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_audit_team_auditor_count is E\q@foreignKey (trans_audit_team_id) references trans_audit_team (trans_audit_team_id)\\n@unique trans_audit_team_id\q;
+Query=SELECT\n    p.trans_audit_team_id\n    , COUNT(c.trans_audit_team_id) AS all_count\n    , COUNT(c.trans_audit_team_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_audit_team_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_audit_team AS p\n    LEFT JOIN @schema.trans_auditor AS c\n        ON c.trans_audit_team_id = p.trans_audit_team_id\nGROUP BY\n    p.trans_audit_team_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",200,2300
+ZOrder=1372
+Page=ビュー
+Left=200
+Top=2300
+
+[View]
+PName=v_certificate_purchase_certification_count
+LName=成績書－発注品目成績書レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_certificate_purchase_certification_count is E\q@foreignKey (trans_certificate_id) references trans_certificate (trans_certificate_id)\\n@unique trans_certificate_id\q;
+Query=SELECT\n    p.trans_certificate_id\n    , COUNT(c.trans_certificate_id) AS all_count\n    , COUNT(c.trans_certificate_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_certificate_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_certificate AS p\n    LEFT JOIN @schema.trans_purchase_certification AS c\n        ON c.trans_certificate_id = p.trans_certificate_id\nGROUP BY\n    p.trans_certificate_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6300,250
+ZOrder=1373
+Page=ビュー
+Left=6300
+Top=250
+
+[View]
+PName=v_certificate_work_record_certificate_count
+LName=成績書－作業成績書レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_certificate_work_record_certificate_count is E\q@foreignKey (trans_certificate_id) references trans_certificate (trans_certificate_id)\\n@unique trans_certificate_id\q;
+Query=SELECT\n    p.trans_certificate_id\n    , COUNT(c.trans_certificate_id) AS all_count\n    , COUNT(c.trans_certificate_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_certificate_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_certificate AS p\n    LEFT JOIN @schema.trans_work_record_certificate AS c\n        ON c.trans_certificate_id = p.trans_certificate_id\nGROUP BY\n    p.trans_certificate_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6950,2150
+ZOrder=1374
+Page=ビュー
+Left=6950
+Top=2150
+
+[View]
+PName=v_complaint_complaint_equipment_count
+LName=異常－設備苦情レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_complaint_complaint_equipment_count is E\q@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\\n@unique trans_complaint_id\q;
+Query=SELECT\n    p.trans_complaint_id\n    , COUNT(c.trans_complaint_id) AS all_count\n    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_complaint AS p\n    LEFT JOIN @schema.trans_complaint_equipment AS c\n        ON c.trans_complaint_id = p.trans_complaint_id\nGROUP BY\n    p.trans_complaint_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",7200,3650
+ZOrder=1375
+Page=ビュー
+Left=7200
+Top=3650
+
+[View]
+PName=v_complaint_complaint_file_count
+LName=異常－異常報告ファイルレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_complaint_complaint_file_count is E\q@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\\n@unique trans_complaint_id\q;
+Query=SELECT\n    p.trans_complaint_id\n    , COUNT(c.trans_complaint_id) AS all_count\n    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_complaint AS p\n    LEFT JOIN @schema.trans_complaint_file AS c\n        ON c.trans_complaint_id = p.trans_complaint_id\nGROUP BY\n    p.trans_complaint_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6000,4350
+ZOrder=1376
+Page=ビュー
+Left=6000
+Top=4350
+
+[View]
+PName=v_complaint_complaint_order_count
+LName=異常－注文苦情レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_complaint_complaint_order_count is E\q@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\\n@unique trans_complaint_id\q;
+Query=SELECT\n    p.trans_complaint_id\n    , COUNT(c.trans_complaint_id) AS all_count\n    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_complaint AS p\n    LEFT JOIN @schema.trans_complaint_order AS c\n        ON c.trans_complaint_id = p.trans_complaint_id\nGROUP BY\n    p.trans_complaint_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5850,4000
+ZOrder=1377
+Page=ビュー
+Left=5850
+Top=4000
+
+[View]
+PName=v_complaint_complaint_process_count
+LName=異常－工程苦情レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_complaint_complaint_process_count is E\q@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\\n@unique trans_complaint_id\q;
+Query=SELECT\n    p.trans_complaint_id\n    , COUNT(c.trans_complaint_id) AS all_count\n    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_complaint AS p\n    LEFT JOIN @schema.trans_complaint_process AS c\n        ON c.trans_complaint_id = p.trans_complaint_id\nGROUP BY\n    p.trans_complaint_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3950,3450
+ZOrder=1378
+Page=ビュー
+Left=3950
+Top=3450
+
+[View]
+PName=v_complaint_complaint_receive_count
+LName=異常－異常報告受領レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_complaint_complaint_receive_count is E\q@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\\n@unique trans_complaint_id\q;
+Query=SELECT\n    p.trans_complaint_id\n    , COUNT(c.trans_complaint_id) AS all_count\n    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_complaint AS p\n    LEFT JOIN @schema.trans_complaint_receive AS c\n        ON c.trans_complaint_id = p.trans_complaint_id\nGROUP BY\n    p.trans_complaint_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2050,4250
+ZOrder=1379
+Page=ビュー
+Left=2050
+Top=4250
+
+[View]
+PName=v_complaint_complaint_stakeholder_count
+LName=異常－利害関係者苦情レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_complaint_complaint_stakeholder_count is E\q@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\\n@unique trans_complaint_id\q;
+Query=SELECT\n    p.trans_complaint_id\n    , COUNT(c.trans_complaint_id) AS all_count\n    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_complaint AS p\n    LEFT JOIN @schema.trans_complaint_stakeholder AS c\n        ON c.trans_complaint_id = p.trans_complaint_id\nGROUP BY\n    p.trans_complaint_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",500,4050
+ZOrder=1380
+Page=ビュー
+Left=500
+Top=4050
+
+[View]
+PName=v_complaint_disposal_count
+LName=異常－異常処置レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_complaint_disposal_count is E\q@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\\n@unique trans_complaint_id\q;
+Query=SELECT\n    p.trans_complaint_id\n    , COUNT(c.trans_complaint_id) AS all_count\n    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_complaint AS p\n    LEFT JOIN @schema.trans_disposal AS c\n        ON c.trans_complaint_id = p.trans_complaint_id\nGROUP BY\n    p.trans_complaint_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",350,1650
+ZOrder=1381
+Page=ビュー
+Left=350
+Top=1650
+
+[View]
+PName=v_container_visiter_count
+LName=コンテナ－棚ビジターレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_container_visiter_count is E\q@foreignKey (trans_container_id) references trans_container (trans_container_id)\\n@unique trans_container_id\q;
+Query=SELECT\n    p.trans_container_id\n    , COUNT(c.trans_container_id) AS all_count\n    , COUNT(c.trans_container_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_container_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_container AS p\n    LEFT JOIN @schema.trans_visiter AS c\n        ON c.trans_container_id = p.trans_container_id\nGROUP BY\n    p.trans_container_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",450,2000
+ZOrder=1382
+Page=ビュー
+Left=450
+Top=2000
+
+[View]
+PName=v_disposal_recurrence_prevention_count
+LName=異常処置－再発防止処置レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_disposal_recurrence_prevention_count is E\q@foreignKey (trans_disposal_id) references trans_disposal (trans_disposal_id)\\n@unique trans_disposal_id\q;
+Query=SELECT\n    p.trans_disposal_id\n    , COUNT(c.trans_disposal_id) AS all_count\n    , COUNT(c.trans_disposal_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_disposal_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_disposal AS p\n    LEFT JOIN @schema.trans_recurrence_prevention AS c\n        ON c.trans_disposal_id = p.trans_disposal_id\nGROUP BY\n    p.trans_disposal_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",350,3500
+ZOrder=1383
+Page=ビュー
+Left=350
+Top=3500
+
+[View]
+PName=v_file_staff_icon_count
+LName=ファイル－担当者アイコン情報レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_file_staff_icon_count is E\q@foreignKey (trans_file_id) references trans_file (trans_file_id)\\n@unique trans_file_id\q;
+Query=SELECT\n    p.trans_file_id\n    , COUNT(c.trans_file_id) AS all_count\n    , COUNT(c.trans_file_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_file_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_file AS p\n    LEFT JOIN @schema.info_staff_icon AS c\n        ON c.trans_file_id = p.trans_file_id\nGROUP BY\n    p.trans_file_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",600,3050
+ZOrder=1384
+Page=ビュー
+Left=600
+Top=3050
+
+[View]
+PName=v_file_complaint_file_count
+LName=ファイル－異常報告ファイルレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_file_complaint_file_count is E\q@foreignKey (trans_file_id) references trans_file (trans_file_id)\\n@unique trans_file_id\q;
+Query=SELECT\n    p.trans_file_id\n    , COUNT(c.trans_file_id) AS all_count\n    , COUNT(c.trans_file_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_file_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_file AS p\n    LEFT JOIN @schema.trans_complaint_file AS c\n        ON c.trans_file_id = p.trans_file_id\nGROUP BY\n    p.trans_file_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",7150,1650
+ZOrder=1385
+Page=ビュー
+Left=7150
+Top=1650
+
+[View]
+PName=v_inspect_record_inspect_imp_file_count
+LName=点検整備実施－点検整備結果ファイルレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_inspect_record_inspect_imp_file_count is E\q@foreignKey (trans_inspect_record_id) references trans_inspect_record (trans_inspect_record_id)\\n@unique trans_inspect_record_id\q;
+Query=SELECT\n    p.trans_inspect_record_id\n    , COUNT(c.trans_inspect_record_id) AS all_count\n    , COUNT(c.trans_inspect_record_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_inspect_record_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_inspect_record AS p\n    LEFT JOIN @schema.trans_inspect_imp_file AS c\n        ON c.trans_inspect_record_id = p.trans_inspect_record_id\nGROUP BY\n    p.trans_inspect_record_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6800,3050
+ZOrder=1386
+Page=ビュー
+Left=6800
+Top=3050
+
+[View]
+PName=v_inspect_sch_inspect_sch_detail_count
+LName=点検整備予定－点検整備予定明細レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_inspect_sch_inspect_sch_detail_count is E\q@foreignKey (trans_inspect_sch_id) references trans_inspect_sch (trans_inspect_sch_id)\\n@unique trans_inspect_sch_id\q;
+Query=SELECT\n    p.trans_inspect_sch_id\n    , COUNT(c.trans_inspect_sch_id) AS all_count\n    , COUNT(c.trans_inspect_sch_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_inspect_sch_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_inspect_sch AS p\n    LEFT JOIN @schema.trans_inspect_sch_detail AS c\n        ON c.trans_inspect_sch_id = p.trans_inspect_sch_id\nGROUP BY\n    p.trans_inspect_sch_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",4600,3900
+ZOrder=1387
+Page=ビュー
+Left=4600
+Top=3900
+
+[View]
+PName=v_inspect_sch_detail_inspect_record_count
+LName=点検整備予定明細－点検整備実施レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_inspect_sch_detail_inspect_record_count is E\q@foreignKey (trans_inspect_sch_detail_id) references trans_inspect_sch_detail (trans_inspect_sch_detail_id)\\n@unique trans_inspect_sch_detail_id\q;
+Query=SELECT\n    p.trans_inspect_sch_detail_id\n    , COUNT(c.trans_inspect_sch_detail_id) AS all_count\n    , COUNT(c.trans_inspect_sch_detail_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_inspect_sch_detail_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_inspect_sch_detail AS p\n    LEFT JOIN @schema.trans_inspect_record AS c\n        ON c.trans_inspect_sch_detail_id = p.trans_inspect_sch_detail_id\nGROUP BY\n    p.trans_inspect_sch_detail_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5250,3250
+ZOrder=1388
+Page=ビュー
+Left=5250
+Top=3250
+
+[View]
+PName=v_inspect_sch_detail_inspection_report_count
+LName=点検整備予定明細－点検レポート実績レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_inspect_sch_detail_inspection_report_count is E\q@foreignKey (trans_inspect_sch_detail_id) references trans_inspect_sch_detail (trans_inspect_sch_detail_id)\\n@unique trans_inspect_sch_detail_id\q;
+Query=SELECT\n    p.trans_inspect_sch_detail_id\n    , COUNT(c.trans_inspect_sch_detail_id) AS all_count\n    , COUNT(c.trans_inspect_sch_detail_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_inspect_sch_detail_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_inspect_sch_detail AS p\n    LEFT JOIN @schema.trans_inspection_report AS c\n        ON c.trans_inspect_sch_detail_id = p.trans_inspect_sch_detail_id\nGROUP BY\n    p.trans_inspect_sch_detail_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2850,4350
+ZOrder=1389
+Page=ビュー
+Left=2850
+Top=4350
+
+[View]
+PName=v_label_label_value_count
+LName=ラベル－ラベルバリューレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_label_label_value_count is E\q@foreignKey (trans_label_id) references trans_label (trans_label_id)\\n@unique trans_label_id\q;
+Query=SELECT\n    p.trans_label_id\n    , COUNT(c.trans_label_id) AS all_count\n    , COUNT(c.trans_label_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_label_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_label AS p\n    LEFT JOIN @schema.trans_label_value AS c\n        ON c.trans_label_id = p.trans_label_id\nGROUP BY\n    p.trans_label_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1800,3850
+ZOrder=1390
+Page=ビュー
+Left=1800
+Top=3850
+
+[View]
+PName=v_observer_disposal_observer_preventive_count
+LName=処置監視－再発防止監視レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_observer_disposal_observer_preventive_count is E\q@foreignKey (trans_observer_disposal_id) references trans_observer_disposal (trans_observer_disposal_id)\\n@unique trans_observer_disposal_id\q;
+Query=SELECT\n    p.trans_observer_disposal_id\n    , COUNT(c.trans_observer_disposal_id) AS all_count\n    , COUNT(c.trans_observer_disposal_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_observer_disposal_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_observer_disposal AS p\n    LEFT JOIN @schema.trans_observer_preventive AS c\n        ON c.trans_observer_disposal_id = p.trans_observer_disposal_id\nGROUP BY\n    p.trans_observer_disposal_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",300,2650
+ZOrder=1391
+Page=ビュー
+Left=300
+Top=2650
+
+[View]
+PName=v_operations_plan_work_plan_count
+LName=生産計画－生産計画明細レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_operations_plan_work_plan_count is E\q@foreignKey (trans_operations_plan_id) references trans_operations_plan (trans_operations_plan_id)\\n@unique trans_operations_plan_id\q;
+Query=SELECT\n    p.trans_operations_plan_id\n    , COUNT(c.trans_operations_plan_id) AS all_count\n    , COUNT(c.trans_operations_plan_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_operations_plan_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_operations_plan AS p\n    LEFT JOIN @schema.trans_work_plan AS c\n        ON c.trans_operations_plan_id = p.trans_operations_plan_id\nGROUP BY\n    p.trans_operations_plan_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",4500,2300
+ZOrder=1392
+Page=ビュー
+Left=4500
+Top=2300
+
+[View]
+PName=v_order_complaint_order_count
+LName=受注－注文苦情レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_order_complaint_order_count is E\q@foreignKey (trans_order_id) references trans_order (trans_order_id)\\n@unique trans_order_id\q;
+Query=SELECT\n    p.trans_order_id\n    , COUNT(c.trans_order_id) AS all_count\n    , COUNT(c.trans_order_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_order_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_order AS p\n    LEFT JOIN @schema.trans_complaint_order AS c\n        ON c.trans_order_id = p.trans_order_id\nGROUP BY\n    p.trans_order_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",7100,900
+ZOrder=1393
+Page=ビュー
+Left=7100
+Top=900
+
+[View]
+PName=v_order_order_detail_count
+LName=受注－受注明細レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_order_order_detail_count is E\q@foreignKey (trans_order_id) references trans_order (trans_order_id)\\n@unique trans_order_id\q;
+Query=SELECT\n    p.trans_order_id\n    , COUNT(c.trans_order_id) AS all_count\n    , COUNT(c.trans_order_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_order_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_order AS p\n    LEFT JOIN @schema.trans_order_detail AS c\n        ON c.trans_order_id = p.trans_order_id\nGROUP BY\n    p.trans_order_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",6950,500
+ZOrder=1394
+Page=ビュー
+Left=6950
+Top=500
+
+[View]
+PName=v_order_order_risk_count
+LName=受注－注文リスクレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_order_order_risk_count is E\q@foreignKey (trans_order_id) references trans_order (trans_order_id)\\n@unique trans_order_id\q;
+Query=SELECT\n    p.trans_order_id\n    , COUNT(c.trans_order_id) AS all_count\n    , COUNT(c.trans_order_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_order_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_order AS p\n    LEFT JOIN @schema.trans_order_risk AS c\n        ON c.trans_order_id = p.trans_order_id\nGROUP BY\n    p.trans_order_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",4250,1750
+ZOrder=1395
+Page=ビュー
+Left=4250
+Top=1750
+
+[View]
+PName=v_order_shipping_order_count
+LName=受注－出荷オーダーレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_order_shipping_order_count is E\q@foreignKey (trans_order_id) references trans_order (trans_order_id)\\n@unique trans_order_id\q;
+Query=SELECT\n    p.trans_order_id\n    , COUNT(c.trans_order_id) AS all_count\n    , COUNT(c.trans_order_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_order_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_order AS p\n    LEFT JOIN @schema.trans_shipping_order AS c\n        ON c.trans_order_id = p.trans_order_id\nGROUP BY\n    p.trans_order_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5550,2500
+ZOrder=1396
+Page=ビュー
+Left=5550
+Top=2500
+
+[View]
+PName=v_order_detail_order_detail_risk_count
+LName=受注明細－受注明細リスクレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_order_detail_order_detail_risk_count is E\q@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\\n@unique trans_order_detail_id\q;
+Query=SELECT\n    p.trans_order_detail_id\n    , COUNT(c.trans_order_detail_id) AS all_count\n    , COUNT(c.trans_order_detail_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_order_detail_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_order_detail AS p\n    LEFT JOIN @schema.trans_order_detail_risk AS c\n        ON c.trans_order_detail_id = p.trans_order_detail_id\nGROUP BY\n    p.trans_order_detail_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",4400,3100
+ZOrder=1397
+Page=ビュー
+Left=4400
+Top=3100
+
+[View]
+PName=v_order_detail_shipping_order_detail_count
+LName=受注明細－出荷オーダー明細レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_order_detail_shipping_order_detail_count is E\q@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\\n@unique trans_order_detail_id\q;
+Query=SELECT\n    p.trans_order_detail_id\n    , COUNT(c.trans_order_detail_id) AS all_count\n    , COUNT(c.trans_order_detail_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_order_detail_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_order_detail AS p\n    LEFT JOIN @schema.trans_shipping_order_detail AS c\n        ON c.trans_order_detail_id = p.trans_order_detail_id\nGROUP BY\n    p.trans_order_detail_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2950,3350
+ZOrder=1398
+Page=ビュー
+Left=2950
+Top=3350
+
+[View]
+PName=v_preapproval_approved_count
+LName=承認前－承認結果レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_preapproval_approved_count is E\q@foreignKey (trans_preapproval_id) references trans_preapproval (trans_preapproval_id)\\n@unique trans_preapproval_id\q;
+Query=SELECT\n    p.trans_preapproval_id\n    , COUNT(c.trans_preapproval_id) AS all_count\n    , COUNT(c.trans_preapproval_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_preapproval_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_preapproval AS p\n    LEFT JOIN @schema.trans_approved AS c\n        ON c.trans_preapproval_id = p.trans_preapproval_id\nGROUP BY\n    p.trans_preapproval_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1750,3300
+ZOrder=1399
+Page=ビュー
+Left=1750
+Top=3300
+
+[View]
+PName=v_prevention_prevention_detail_count
+LName=未然防止－未然防止処置レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_prevention_prevention_detail_count is E\q@foreignKey (trans_prevention_id) references trans_prevention (trans_prevention_id)\\n@unique trans_prevention_id\q;
+Query=SELECT\n    p.trans_prevention_id\n    , COUNT(c.trans_prevention_id) AS all_count\n    , COUNT(c.trans_prevention_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_prevention_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_prevention AS p\n    LEFT JOIN @schema.trans_prevention_detail AS c\n        ON c.trans_prevention_id = p.trans_prevention_id\nGROUP BY\n    p.trans_prevention_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2450,3000
+ZOrder=1400
+Page=ビュー
+Left=2450
+Top=3000
+
+[View]
+PName=v_purchase_detail_purchase_rec_count
+LName=発注明細－受入実績レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_purchase_detail_purchase_rec_count is E\q@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\\n@unique trans_purchase_detail_id\q;
+Query=SELECT\n    p.trans_purchase_detail_id\n    , COUNT(c.trans_purchase_detail_id) AS all_count\n    , COUNT(c.trans_purchase_detail_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_purchase_detail_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_purchase_detail AS p\n    LEFT JOIN @schema.trans_purchase_rec AS c\n        ON c.trans_purchase_detail_id = p.trans_purchase_detail_id\nGROUP BY\n    p.trans_purchase_detail_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3400,3050
+ZOrder=1401
+Page=ビュー
+Left=3400
+Top=3050
+
+[View]
+PName=v_purchase_detail_purchase_rez_count
+LName=発注明細－購買引き当て予約レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_purchase_detail_purchase_rez_count is E\q@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\\n@unique trans_purchase_detail_id\q;
+Query=SELECT\n    p.trans_purchase_detail_id\n    , COUNT(c.trans_purchase_detail_id) AS all_count\n    , COUNT(c.trans_purchase_detail_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_purchase_detail_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_purchase_detail AS p\n    LEFT JOIN @schema.trans_purchase_rez AS c\n        ON c.trans_purchase_detail_id = p.trans_purchase_detail_id\nGROUP BY\n    p.trans_purchase_detail_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3850,2700
+ZOrder=1402
+Page=ビュー
+Left=3850
+Top=2700
+
+[View]
+PName=v_purchase_rec_purchase_certification_count
+LName=受入実績－発注品目成績書レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_purchase_rec_purchase_certification_count is E\q@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)\\n@unique trans_purchase_rec_id\q;
+Query=SELECT\n    p.trans_purchase_rec_id\n    , COUNT(c.trans_purchase_rec_id) AS all_count\n    , COUNT(c.trans_purchase_rec_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_purchase_rec_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_purchase_rec AS p\n    LEFT JOIN @schema.trans_purchase_certification AS c\n        ON c.trans_purchase_rec_id = p.trans_purchase_rec_id\nGROUP BY\n    p.trans_purchase_rec_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5950,1600
+ZOrder=1403
+Page=ビュー
+Left=5950
+Top=1600
+
+[View]
+PName=v_purchase_rec_purchase_rec_visiter_count
+LName=受入実績－受入実績ビジターレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_purchase_rec_purchase_rec_visiter_count is E\q@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)\\n@unique trans_purchase_rec_id\q;
+Query=SELECT\n    p.trans_purchase_rec_id\n    , COUNT(c.trans_purchase_rec_id) AS all_count\n    , COUNT(c.trans_purchase_rec_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_purchase_rec_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_purchase_rec AS p\n    LEFT JOIN @schema.trans_purchase_rec_visiter AS c\n        ON c.trans_purchase_rec_id = p.trans_purchase_rec_id\nGROUP BY\n    p.trans_purchase_rec_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2750,5050
+ZOrder=1404
+Page=ビュー
+Left=2750
+Top=5050
+
+[View]
+PName=v_risk_order_detail_risk_count
+LName=リスク－受注明細リスクレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_risk_order_detail_risk_count is E\q@foreignKey (trans_risk_id) references trans_risk (trans_risk_id)\\n@unique trans_risk_id\q;
+Query=SELECT\n    p.trans_risk_id\n    , COUNT(c.risk_id) AS all_count\n    , COUNT(c.risk_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.risk_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_risk AS p\n    LEFT JOIN @schema.trans_order_detail_risk AS c\n        ON c.risk_id = p.trans_risk_id\nGROUP BY\n    p.trans_risk_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5400,1050
+ZOrder=1405
+Page=ビュー
+Left=5400
+Top=1050
+
+[View]
+PName=v_risk_order_risk_count
+LName=リスク－注文リスクレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_risk_order_risk_count is E\q@foreignKey (trans_risk_id) references trans_risk (trans_risk_id)\\n@unique trans_risk_id\q;
+Query=SELECT\n    p.trans_risk_id\n    , COUNT(c.trans_risk_id) AS all_count\n    , COUNT(c.trans_risk_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_risk_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_risk AS p\n    LEFT JOIN @schema.trans_order_risk AS c\n        ON c.trans_risk_id = p.trans_risk_id\nGROUP BY\n    p.trans_risk_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",4750,2000
+ZOrder=1406
+Page=ビュー
+Left=4750
+Top=2000
+
+[View]
+PName=v_risk_prevention_detail_count
+LName=リスク－未然防止処置レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_risk_prevention_detail_count is E\q@foreignKey (trans_risk_id) references trans_risk (trans_risk_id)\\n@unique trans_risk_id\q;
+Query=SELECT\n    p.trans_risk_id\n    , COUNT(c.trans_risk_id) AS all_count\n    , COUNT(c.trans_risk_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_risk_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_risk AS p\n    LEFT JOIN @schema.trans_prevention_detail AS c\n        ON c.trans_risk_id = p.trans_risk_id\nGROUP BY\n    p.trans_risk_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3750,3800
+ZOrder=1407
+Page=ビュー
+Left=3750
+Top=3800
+
+[View]
+PName=v_risk_task_risk_count
+LName=リスク－工程リスクレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_risk_task_risk_count is E\q@foreignKey (trans_risk_id) references trans_risk (trans_risk_id)\\n@unique trans_risk_id\q;
+Query=SELECT\n    p.trans_risk_id\n    , COUNT(c.risk_id) AS all_count\n    , COUNT(c.risk_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.risk_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_risk AS p\n    LEFT JOIN @schema.trans_task_risk AS c\n        ON c.risk_id = p.trans_risk_id\nGROUP BY\n    p.trans_risk_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2800,3950
+ZOrder=1408
+Page=ビュー
+Left=2800
+Top=3950
+
+[View]
+PName=v_shipping_order_shipping_order_detail_count
+LName=出荷オーダー－出荷オーダー明細レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_shipping_order_shipping_order_detail_count is E\q@foreignKey (trans_shipping_order_id) references trans_shipping_order (trans_shipping_order_id)\\n@unique trans_shipping_order_id\q;
+Query=SELECT\n    p.trans_shipping_order_id\n    , COUNT(c.trans_shipping_order_id) AS all_count\n    , COUNT(c.trans_shipping_order_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_shipping_order_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_shipping_order AS p\n    LEFT JOIN @schema.trans_shipping_order_detail AS c\n        ON c.trans_shipping_order_id = p.trans_shipping_order_id\nGROUP BY\n    p.trans_shipping_order_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3250,1650
+ZOrder=1409
+Page=ビュー
+Left=3250
+Top=1650
+
+[View]
+PName=v_shipping_order_detail_shipping_order_detail_record_count
+LName=出荷オーダー明細－出荷明細実績レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_shipping_order_detail_shipping_order_detail_record_count is E\q@foreignKey (trans_shipping_order_detail_id) references trans_shipping_order_detail (trans_shipping_order_detail_id)\\n@unique trans_shipping_order_detail_id\q;
+Query=SELECT\n    p.trans_shipping_order_detail_id\n    , COUNT(c.trans_shipping_order_detail_id) AS all_count\n    , COUNT(c.trans_shipping_order_detail_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_shipping_order_detail_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_shipping_order_detail AS p\n    LEFT JOIN @schema.trans_shipping_order_detail_record AS c\n        ON c.trans_shipping_order_detail_id = p.trans_shipping_order_detail_id\nGROUP BY\n    p.trans_shipping_order_detail_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3950,100
+ZOrder=1410
+Page=ビュー
+Left=3950
+Top=100
+
+[View]
+PName=v_text_trans_text_value_count
+LName=テキスト－テキストバリューレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_text_trans_text_value_count is E\q@foreignKey (trans_text_id) references trans_text (trans_text_id)\\n@unique trans_text_id\q;
+Query=SELECT\n    p.trans_text_id\n    , COUNT(c.trans_text_id) AS all_count\n    , COUNT(c.trans_text_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_text_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_text AS p\n    LEFT JOIN @schema.trans_text_value AS c\n        ON c.trans_text_id = p.trans_text_id\nGROUP BY\n    p.trans_text_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3450,650
+ZOrder=1411
+Page=ビュー
+Left=3450
+Top=650
+
+[View]
+PName=v_unrecognized_unrecognized_detail_count
+LName=非計上－非計上明細レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_unrecognized_unrecognized_detail_count is E\q@foreignKey (trans_unrecognized_id) references trans_unrecognized (trans_unrecognized_id)\\n@unique trans_unrecognized_id\q;
+Query=SELECT\n    p.trans_unrecognized_id\n    , COUNT(c.trans_unrecognized_id) AS all_count\n    , COUNT(c.trans_unrecognized_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_unrecognized_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_unrecognized AS p\n    LEFT JOIN @schema.trans_unrecognized_detail AS c\n        ON c.trans_unrecognized_id = p.trans_unrecognized_id\nGROUP BY\n    p.trans_unrecognized_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3250,1250
+ZOrder=1412
+Page=ビュー
+Left=3250
+Top=1250
+
+[View]
+PName=v_visiter_convey_count
+LName=棚ビジター－受払実績レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_visiter_convey_count is E\q@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@unique trans_visiter_id\q;
+Query=SELECT\n    p.trans_visiter_id\n    , COUNT(c.trans_visiter_id) AS all_count\n    , COUNT(c.trans_visiter_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_visiter_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_visiter AS p\n    LEFT JOIN @schema.trans_convey AS c\n        ON c.trans_visiter_id = p.trans_visiter_id\nGROUP BY\n    p.trans_visiter_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1950,2400
+ZOrder=1413
+Page=ビュー
+Left=1950
+Top=2400
+
+[View]
+PName=v_visiter_work_record_visiter_count
+LName=棚ビジター－作業実績ビジターレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_visiter_work_record_visiter_count is E\q@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@unique trans_visiter_id\q;
+Query=SELECT\n    p.trans_visiter_id\n    , COUNT(c.trans_visiter_id) AS all_count\n    , COUNT(c.trans_visiter_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_visiter_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_visiter AS p\n    LEFT JOIN @schema.trans_work_record_visiter AS c\n        ON c.trans_visiter_id = p.trans_visiter_id\nGROUP BY\n    p.trans_visiter_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3450,2050
+ZOrder=1414
+Page=ビュー
+Left=3450
+Top=2050
+
+[View]
+PName=v_work_plan_product_rez_count
+LName=生産計画明細－生産引き当て予約レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_work_plan_product_rez_count is E\q@foreignKey (trans_work_plan_id) references trans_work_plan (trans_work_plan_id)\\n@unique trans_work_plan_id\q;
+Query=SELECT\n    p.trans_work_plan_id\n    , COUNT(c.trans_work_plan_id) AS all_count\n    , COUNT(c.trans_work_plan_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_work_plan_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_work_plan AS p\n    LEFT JOIN @schema.trans_product_rez AS c\n        ON c.trans_work_plan_id = p.trans_work_plan_id\nGROUP BY\n    p.trans_work_plan_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2000,500
+ZOrder=1415
+Page=ビュー
+Left=2000
+Top=500
+
+[View]
+PName=v_work_plan_work_record_count
+LName=生産計画明細－作業実績レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_work_plan_work_record_count is E\q@foreignKey (trans_work_plan_id) references trans_work_plan (trans_work_plan_id)\\n@unique trans_work_plan_id\q;
+Query=SELECT\n    p.trans_work_plan_id\n    , COUNT(c.trans_work_plan_id) AS all_count\n    , COUNT(c.trans_work_plan_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_work_plan_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_work_plan AS p\n    LEFT JOIN @schema.trans_work_record AS c\n        ON c.trans_work_plan_id = p.trans_work_plan_id\nGROUP BY\n    p.trans_work_plan_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1500,800
+ZOrder=1416
+Page=ビュー
+Left=1500
+Top=800
+
+[View]
+PName=v_work_record_work_record_certificate_count
+LName=作業実績－作業成績書レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_work_record_work_record_certificate_count is E\q@foreignKey (trans_work_record_id) references trans_work_record (trans_work_record_id)\\n@unique trans_work_record_id\q;
+Query=SELECT\n    p.trans_work_record_id\n    , COUNT(c.trans_work_record_id) AS all_count\n    , COUNT(c.trans_work_record_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_work_record_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_work_record AS p\n    LEFT JOIN @schema.trans_work_record_certificate AS c\n        ON c.trans_work_record_id = p.trans_work_record_id\nGROUP BY\n    p.trans_work_record_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1500,1500
+ZOrder=1417
+Page=ビュー
+Left=1500
+Top=1500
+
+[View]
+PName=v_work_record_work_record_visiter_count
+LName=作業実績－作業実績ビジターレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_work_record_work_record_visiter_count is E\q@foreignKey (trans_work_record_id) references trans_work_record (trans_work_record_id)\\n@unique trans_work_record_id\q;
+Query=SELECT\n    p.trans_work_record_id\n    , COUNT(c.trans_work_record_id) AS all_count\n    , COUNT(c.trans_work_record_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_work_record_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_work_record AS p\n    LEFT JOIN @schema.trans_work_record_visiter AS c\n        ON c.trans_work_record_id = p.trans_work_record_id\nGROUP BY\n    p.trans_work_record_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2300,1200
+ZOrder=1418
+Page=ビュー
+Left=2300
+Top=1200
+
+[View]
+PName=v_access_path_department_access_permission_count
+LName=アクセスパス－部署アクセスパスレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_access_path_department_access_permission_count is E\q@foreignKey (info_access_path_id) references info_access_path (info_access_path_id)\\n@unique info_access_path_id\q;
+Query=SELECT\n    p.info_access_path_id\n    , COUNT(c.info_access_path_id) AS all_count\n    , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_access_path AS p\n    LEFT JOIN @schema.info_department_access_permission AS c\n        ON c.info_access_path_id = p.info_access_path_id\nGROUP BY\n    p.info_access_path_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3000,5600
+ZOrder=1419
+Page=ビュー
+Left=3000
+Top=5600
+
+[View]
+PName=v_access_path_staff_access_permission_count
+LName=アクセスパス－担当者アクセスパス許可情報レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_access_path_staff_access_permission_count is E\q@foreignKey (info_access_path_id) references info_access_path (info_access_path_id)\\n@unique info_access_path_id\q;
+Query=SELECT\n    p.info_access_path_id\n    , COUNT(c.info_access_path_id) AS all_count\n    , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_access_path AS p\n    LEFT JOIN @schema.info_staff_access_permission AS c\n        ON c.info_access_path_id = p.info_access_path_id\nGROUP BY\n    p.info_access_path_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",4400,5200
+ZOrder=1420
+Page=ビュー
+Left=4400
+Top=5200
+
+[View]
+PName=v_company_staff_count
+LName=会社情報－担当者情報レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_company_staff_count is E\q@foreignKey (info_company_id) references info_company (info_company_id)\\n@unique info_company_id\q;
+Query=SELECT\n    p.info_company_id\n    , COUNT(c.info_company_id) AS all_count\n    , COUNT(c.info_company_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_company_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_company AS p\n    LEFT JOIN @schema.info_staff AS c\n        ON c.info_company_id = p.info_company_id\nGROUP BY\n    p.info_company_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2750,600
+ZOrder=1421
+Page=ビュー
+Left=2750
+Top=600
+
+[View]
+PName=v_department_assign_count
+LName=組織情報－割当情報レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_department_assign_count is E\q@foreignKey (info_department_id) references info_department (info_department_id)\\n@unique info_department_id\q;
+Query=SELECT\n    p.info_department_id\n    , COUNT(c.info_department_id) AS all_count\n    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_department AS p\n    LEFT JOIN @schema.info_assign AS c\n        ON c.info_department_id = p.info_department_id\nGROUP BY\n    p.info_department_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1100,1750
+ZOrder=1422
+Page=ビュー
+Left=1100
+Top=1750
+
+[View]
+PName=v_staff_staff_access_permission_count
+LName=担当者情報－担当者アクセスパス許可情報レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_staff_staff_access_permission_count is E\q@foreignKey (info_staff_id) references info_staff (info_staff_id)\\n@unique info_staff_id\q;
+Query=SELECT\n    p.info_staff_id\n    , COUNT(c.info_staff_id) AS all_count\n    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_staff AS p\n    LEFT JOIN @schema.info_staff_access_permission AS c\n        ON c.info_staff_id = p.info_staff_id\nGROUP BY\n    p.info_staff_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5600,3600
+ZOrder=1423
+Page=ビュー
+Left=5600
+Top=3600
+
+[View]
+PName=v_capability_staff_capability_count
+LName=力量マスタ－担当者力量マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_capability_staff_capability_count is E\q@foreignKey (mstr_capability_id) references mstr_capability (mstr_capability_id)\\n@unique mstr_capability_id\q;
+Query=SELECT\n    p.mstr_capability_id\n    , COUNT(c.mstr_capability_id) AS all_count\n    , COUNT(c.mstr_capability_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_capability_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_capability AS p\n    LEFT JOIN @schema.mstr_staff_capability AS c\n        ON c.mstr_capability_id = p.mstr_capability_id\nGROUP BY\n    p.mstr_capability_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",5100,5600
+ZOrder=1424
+Page=ビュー
+Left=5100
+Top=5600
+
+[View]
+PName=v_equipment_equipment_available_count
+LName=設備マスタ－利用可能設備マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_equipment_equipment_available_count is E\q@foreignKey (mstr_equipment_id) references mstr_equipment (mstr_equipment_id)\\n@unique mstr_equipment_id\q;
+Query=SELECT\n    p.mstr_equipment_id\n    , COUNT(c.mstr_equipment_id) AS all_count\n    , COUNT(c.mstr_equipment_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_equipment_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_equipment AS p\n    LEFT JOIN @schema.mstr_equipment_available AS c\n        ON c.mstr_equipment_id = p.mstr_equipment_id\nGROUP BY\n    p.mstr_equipment_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1000,5600
+ZOrder=1425
+Page=ビュー
+Left=1000
+Top=5600
+
+[View]
+PName=v_stakeholder_outsource_available_count
+LName=利害関係者マスタ－利用可能外部マスタレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_stakeholder_outsource_available_count is E\q@foreignKey (mstr_stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)\\n@unique mstr_stakeholder_id\q;
+Query=SELECT\n    p.mstr_stakeholder_id\n    , COUNT(c.mstr_stakeholder_id) AS all_count\n    , COUNT(c.mstr_stakeholder_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.mstr_stakeholder_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.mstr_stakeholder AS p\n    LEFT JOIN @schema.mstr_outsource_available AS c\n        ON c.mstr_stakeholder_id = p.mstr_stakeholder_id\nGROUP BY\n    p.mstr_stakeholder_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",150,5500
+ZOrder=1426
+Page=ビュー
+Left=150
+Top=5500
+
+[View]
+PName=v_inspect_record_inspection_report_count
+LName=点検整備実施－点検レポート実績レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_inspect_record_inspection_report_count is E\q@foreignKey (trans_inspect_record_id) references trans_inspect_record (trans_inspect_record_id)\\n@unique trans_inspect_record_id\q;
+Query=SELECT\n    p.trans_inspect_record_id\n    , COUNT(c.trans_inspect_record_id) AS all_count\n    , COUNT(c.trans_inspect_record_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_inspect_record_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_inspect_record AS p\n    LEFT JOIN @schema.trans_inspection_report AS c\n        ON c.trans_inspect_record_id = p.trans_inspect_record_id\nGROUP BY\n    p.trans_inspect_record_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",4400,4150
+ZOrder=1427
+Page=ビュー
+Left=4400
+Top=4150
+
+[View]
+PName=v_purchase_purchase_detail_count
+LName=発注－発注明細レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_purchase_purchase_detail_count is E\q@foreignKey (trans_purchase_id) references trans_purchase (trans_purchase_id)\\n@unique trans_purchase_id\q;
+Query=SELECT\n    p.trans_purchase_id\n    , COUNT(c.trans_purchase_id) AS all_count\n    , COUNT(c.trans_purchase_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_purchase_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_purchase AS p\n    LEFT JOIN @schema.trans_purchase_detail AS c\n        ON c.trans_purchase_id = p.trans_purchase_id\nGROUP BY\n    p.trans_purchase_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",2300,850
+ZOrder=1428
+Page=ビュー
+Left=2300
+Top=850
+
+[View]
+PName=v_recurrence_prevention_observer_preventive_count
+LName=再発防止処置－再発防止監視レコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_recurrence_prevention_observer_preventive_count is E\q@foreignKey (trans_recurrence_prevention_id) references trans_recurrence_prevention (trans_recurrence_prevention_id)\\n@unique trans_recurrence_prevention_id\q;
+Query=SELECT\n    p.trans_recurrence_prevention_id\n    , COUNT(c.trans_recurrence_prevention_id) AS all_count\n    , COUNT(c.trans_recurrence_prevention_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_recurrence_prevention_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_recurrence_prevention AS p\n    LEFT JOIN @schema.trans_observer_preventive AS c\n        ON c.trans_recurrence_prevention_id = p.trans_recurrence_prevention_id\nGROUP BY\n    p.trans_recurrence_prevention_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",3700,400
+ZOrder=1429
+Page=ビュー
+Left=3700
+Top=400
+
+[View]
+PName=v_visiter_purchase_rec_visiter_count
+LName=棚ビジター－受入実績ビジターレコード数
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_visiter_purchase_rec_visiter_count is E\q@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@unique trans_visiter_id\q;
+Query=SELECT\n    p.trans_visiter_id\n    , COUNT(c.trans_visiter_id) AS all_count\n    , COUNT(c.trans_visiter_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.trans_visiter_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.trans_visiter AS p\n    LEFT JOIN @schema.trans_purchase_rec_visiter AS c\n        ON c.trans_visiter_id = p.trans_visiter_id\nGROUP BY\n    p.trans_visiter_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",1350,1100
+ZOrder=1430
+Page=ビュー
+Left=1350
+Top=1100

@@ -49,6 +49,16 @@ ItemKindPage:
       <<: *AppellationLabelsReadFields
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: item_count
+      arrayType: toFirstOne
+      as: item_count
+      using: mstr_item_kind_id
+      from: v_item_kind_item_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -303,6 +313,70 @@ ItemPage:
         - batch_size
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 7本)
+    - name: item_provision_count
+      arrayType: toFirstOne
+      as: item_provision_count
+      using: mstr_item_id
+      from: v_item_item_provision_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: item_operation_task_count
+      arrayType: toFirstOne
+      as: item_operation_task_count
+      using: mstr_item_id
+      from: v_item_item_operation_task_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: item_operation_count
+      arrayType: toFirstOne
+      as: item_operation_count
+      using: mstr_item_id
+      from: v_item_item_operation_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: item_hcdcs_count
+      arrayType: toFirstOne
+      as: item_hcdcs_count
+      using: mstr_item_id
+      from: v_item_item_hcdcs_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: item_actual_size_count
+      arrayType: toFirstOne
+      as: item_actual_size_count
+      using: mstr_item_id
+      from: v_item_item_actual_size_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: inspection_count
+      arrayType: toFirstOne
+      as: inspection_count
+      using: mstr_item_id
+      from: v_item_inspection_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: equipment_count
+      arrayType: toFirstOne
+      as: equipment_count
+      using: mstr_item_id
+      from: v_item_equipment_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

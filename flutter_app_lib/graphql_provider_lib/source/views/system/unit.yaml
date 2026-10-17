@@ -28,6 +28,43 @@ UnitPage:
       <<: *FixTextReadFields
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 4本)
+    - name: spec_measurement_count
+      arrayType: toFirstOne
+      as: spec_measurement_count
+      using: shared_unit_id
+      from: v_unit_spec_measurement_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: item_size_kind_count
+      arrayType: toFirstOne
+      as: item_size_kind_count
+      using: shared_unit_id
+      from: v_unit_item_size_kind_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: item_lot_count
+      arrayType: toFirstOne
+      as: item_lot_count
+      using: shared_unit_id
+      from: v_unit_item_lot_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: envelope_measurement_count
+      arrayType: toFirstOne
+      as: envelope_measurement_count
+      using: shared_unit_id
+      from: v_unit_envelope_measurement_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

@@ -25,6 +25,16 @@ PurchasePage: &PurchasePage
     - deadline
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: purchase_detail_count
+      arrayType: toFirstOne
+      as: purchase_detail_count
+      using: trans_purchase_id
+      from: v_purchase_purchase_detail_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -79,6 +89,25 @@ PurchaseDetailPage: &PurchaseDetailPage
     - item_id
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 2本)
+    - name: purchase_rez_count
+      arrayType: toFirstOne
+      as: purchase_rez_count
+      using: trans_purchase_detail_id
+      from: v_purchase_detail_purchase_rez_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: purchase_rec_count
+      arrayType: toFirstOne
+      as: purchase_rec_count
+      using: trans_purchase_detail_id
+      from: v_purchase_detail_purchase_rec_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -126,6 +155,25 @@ PurchaseRecPage: &PurchaseRecPage
     - quantity
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 2本)
+    - name: purchase_rec_visiter_count
+      arrayType: toFirstOne
+      as: purchase_rec_visiter_count
+      using: trans_purchase_rec_id
+      from: v_purchase_rec_purchase_rec_visiter_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: purchase_certification_count
+      arrayType: toFirstOne
+      as: purchase_certification_count
+      using: trans_purchase_rec_id
+      from: v_purchase_rec_purchase_certification_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

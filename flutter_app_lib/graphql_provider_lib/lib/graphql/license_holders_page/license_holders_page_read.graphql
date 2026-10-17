@@ -146,6 +146,27 @@ query LicenseHoldersPageRead(
             privatePhone
             symbol
             remarks
+
+            staff_access_permission_count: vStaffStaffAccessPermissionCountByInfoStaffId {
+              infoStaffId
+            }
+
+            staff_license_count: vStaffStaffLicenseCountByInfoStaffId {
+              infoStaffId
+            }
+
+            staff_capability_count: vStaffStaffCapabilityCountByInfoStaffId {
+              infoStaffId
+            }
+
+            sign_count: vStaffSignCountByInfoStaffId {
+              infoStaffId
+            }
+
+            assign_count: vStaffAssignCountByInfoStaffId {
+              infoStaffId
+            }
+
             updateAt
             remove
 
@@ -265,6 +286,11 @@ query LicenseHoldersPageRead(
             }
             symbol
             remarks
+
+            staff_license_count: vLicenseStaffLicenseCountByMstrLicenseId {
+              mstrLicenseId
+            }
+
             updateAt
             remove
 
@@ -328,6 +354,11 @@ query LicenseHoldersPageRead(
 
       symbol
       remarks
+
+      staff_license_count: vLicenseStaffLicenseCountByMstrLicenseId {
+        mstrLicenseId
+      }
+
       updateAt
       remove
 

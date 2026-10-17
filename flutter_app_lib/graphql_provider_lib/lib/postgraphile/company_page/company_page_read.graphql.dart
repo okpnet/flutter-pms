@@ -14577,7 +14577,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$update_user 
   Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -14603,7 +14603,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$update_user 
     return Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -14622,7 +14622,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$update_user 
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -14842,9 +14842,9 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$node
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -32992,7 +32992,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$update_user {
   Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -33018,7 +33018,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$update_user {
     return Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -33037,7 +33037,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$update_user {
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -33257,9 +33257,9 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$u
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -35396,7 +35396,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$update_user {
   Query$CompanyPageRead$allInfoCompanies$nodes$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -35422,7 +35422,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$update_user {
     return Query$CompanyPageRead$allInfoCompanies$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -35441,7 +35441,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$update_user {
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -35650,9 +35650,9 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$update_user<
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name

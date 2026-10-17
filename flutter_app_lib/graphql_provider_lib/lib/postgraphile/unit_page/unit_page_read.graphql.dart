@@ -955,6 +955,110 @@ const documentNodeQueryUnitPageRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(
+                          value: 'vUnitSpecMeasurementCountBySharedUnitId',
+                        ),
+                        alias: NameNode(value: 'spec_measurement_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'sharedUnitId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vUnitItemSizeKindCountBySharedUnitId',
+                        ),
+                        alias: NameNode(value: 'item_size_kind_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'sharedUnitId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vUnitItemLotCountBySharedUnitId',
+                        ),
+                        alias: NameNode(value: 'item_lot_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'sharedUnitId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vUnitEnvelopeMeasurementCountBySharedUnitId',
+                        ),
+                        alias: NameNode(value: 'envelope_measurement_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'sharedUnitId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -1915,6 +2019,10 @@ class Query$UnitPageRead$allSharedUnits$nodes {
     this.detailTexts,
     this.symbol,
     this.remarks,
+    this.spec_measurement_count,
+    this.item_size_kind_count,
+    this.item_lot_count,
+    this.envelope_measurement_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -1929,6 +2037,10 @@ class Query$UnitPageRead$allSharedUnits$nodes {
     final l$detailTexts = json['detailTexts'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$spec_measurement_count = json['spec_measurement_count'];
+    final l$item_size_kind_count = json['item_size_kind_count'];
+    final l$item_lot_count = json['item_lot_count'];
+    final l$envelope_measurement_count = json['envelope_measurement_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -1947,6 +2059,26 @@ class Query$UnitPageRead$allSharedUnits$nodes {
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      spec_measurement_count: l$spec_measurement_count == null
+          ? null
+          : Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count.fromJson(
+              (l$spec_measurement_count as Map<String, dynamic>),
+            ),
+      item_size_kind_count: l$item_size_kind_count == null
+          ? null
+          : Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count.fromJson(
+              (l$item_size_kind_count as Map<String, dynamic>),
+            ),
+      item_lot_count: l$item_lot_count == null
+          ? null
+          : Query$UnitPageRead$allSharedUnits$nodes$item_lot_count.fromJson(
+              (l$item_lot_count as Map<String, dynamic>),
+            ),
+      envelope_measurement_count: l$envelope_measurement_count == null
+          ? null
+          : Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count.fromJson(
+              (l$envelope_measurement_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -1968,6 +2100,17 @@ class Query$UnitPageRead$allSharedUnits$nodes {
 
   final String? remarks;
 
+  final Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count?
+  spec_measurement_count;
+
+  final Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count?
+  item_size_kind_count;
+
+  final Query$UnitPageRead$allSharedUnits$nodes$item_lot_count? item_lot_count;
+
+  final Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count?
+  envelope_measurement_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -1988,6 +2131,15 @@ class Query$UnitPageRead$allSharedUnits$nodes {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$spec_measurement_count = spec_measurement_count;
+    _resultData['spec_measurement_count'] = l$spec_measurement_count?.toJson();
+    final l$item_size_kind_count = item_size_kind_count;
+    _resultData['item_size_kind_count'] = l$item_size_kind_count?.toJson();
+    final l$item_lot_count = item_lot_count;
+    _resultData['item_lot_count'] = l$item_lot_count?.toJson();
+    final l$envelope_measurement_count = envelope_measurement_count;
+    _resultData['envelope_measurement_count'] = l$envelope_measurement_count
+        ?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -2006,6 +2158,10 @@ class Query$UnitPageRead$allSharedUnits$nodes {
     final l$detailTexts = detailTexts;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$spec_measurement_count = spec_measurement_count;
+    final l$item_size_kind_count = item_size_kind_count;
+    final l$item_lot_count = item_lot_count;
+    final l$envelope_measurement_count = envelope_measurement_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -2016,6 +2172,10 @@ class Query$UnitPageRead$allSharedUnits$nodes {
       l$detailTexts,
       l$symbol,
       l$remarks,
+      l$spec_measurement_count,
+      l$item_size_kind_count,
+      l$item_lot_count,
+      l$envelope_measurement_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -2055,6 +2215,26 @@ class Query$UnitPageRead$allSharedUnits$nodes {
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$spec_measurement_count = spec_measurement_count;
+    final lOther$spec_measurement_count = other.spec_measurement_count;
+    if (l$spec_measurement_count != lOther$spec_measurement_count) {
+      return false;
+    }
+    final l$item_size_kind_count = item_size_kind_count;
+    final lOther$item_size_kind_count = other.item_size_kind_count;
+    if (l$item_size_kind_count != lOther$item_size_kind_count) {
+      return false;
+    }
+    final l$item_lot_count = item_lot_count;
+    final lOther$item_lot_count = other.item_lot_count;
+    if (l$item_lot_count != lOther$item_lot_count) {
+      return false;
+    }
+    final l$envelope_measurement_count = envelope_measurement_count;
+    final lOther$envelope_measurement_count = other.envelope_measurement_count;
+    if (l$envelope_measurement_count != lOther$envelope_measurement_count) {
       return false;
     }
     final l$updateAt = updateAt;
@@ -2105,6 +2285,13 @@ abstract class CopyWith$Query$UnitPageRead$allSharedUnits$nodes<TRes> {
     Query$UnitPageRead$allSharedUnits$nodes$detailTexts? detailTexts,
     String? symbol,
     String? remarks,
+    Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count?
+    spec_measurement_count,
+    Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count?
+    item_size_kind_count,
+    Query$UnitPageRead$allSharedUnits$nodes$item_lot_count? item_lot_count,
+    Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count?
+    envelope_measurement_count,
     String? updateAt,
     bool? remove,
     Query$UnitPageRead$allSharedUnits$nodes$update_user? update_user,
@@ -2113,6 +2300,16 @@ abstract class CopyWith$Query$UnitPageRead$allSharedUnits$nodes<TRes> {
   CopyWith$Query$UnitPageRead$allSharedUnits$nodes$labels<TRes> get labels;
   CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts<TRes>
   get detailTexts;
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count<TRes>
+  get spec_measurement_count;
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count<TRes>
+  get item_size_kind_count;
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count<TRes>
+  get item_lot_count;
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count<
+    TRes
+  >
+  get envelope_measurement_count;
   CopyWith$Query$UnitPageRead$allSharedUnits$nodes$update_user<TRes>
   get update_user;
 }
@@ -2136,6 +2333,10 @@ class _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes<TRes>
     Object? detailTexts = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? spec_measurement_count = _undefined,
+    Object? item_size_kind_count = _undefined,
+    Object? item_lot_count = _undefined,
+    Object? envelope_measurement_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -2154,6 +2355,22 @@ class _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes<TRes>
                 as Query$UnitPageRead$allSharedUnits$nodes$detailTexts?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      spec_measurement_count: spec_measurement_count == _undefined
+          ? _instance.spec_measurement_count
+          : (spec_measurement_count
+                as Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count?),
+      item_size_kind_count: item_size_kind_count == _undefined
+          ? _instance.item_size_kind_count
+          : (item_size_kind_count
+                as Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count?),
+      item_lot_count: item_lot_count == _undefined
+          ? _instance.item_lot_count
+          : (item_lot_count
+                as Query$UnitPageRead$allSharedUnits$nodes$item_lot_count?),
+      envelope_measurement_count: envelope_measurement_count == _undefined
+          ? _instance.envelope_measurement_count
+          : (envelope_measurement_count
+                as Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -2193,6 +2410,61 @@ class _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes<TRes>
           );
   }
 
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count<TRes>
+  get spec_measurement_count {
+    final local$spec_measurement_count = _instance.spec_measurement_count;
+    return local$spec_measurement_count == null
+        ? CopyWith$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count(
+            local$spec_measurement_count,
+            (e) => call(spec_measurement_count: e),
+          );
+  }
+
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count<TRes>
+  get item_size_kind_count {
+    final local$item_size_kind_count = _instance.item_size_kind_count;
+    return local$item_size_kind_count == null
+        ? CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count(
+            local$item_size_kind_count,
+            (e) => call(item_size_kind_count: e),
+          );
+  }
+
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count<TRes>
+  get item_lot_count {
+    final local$item_lot_count = _instance.item_lot_count;
+    return local$item_lot_count == null
+        ? CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count(
+            local$item_lot_count,
+            (e) => call(item_lot_count: e),
+          );
+  }
+
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count<
+    TRes
+  >
+  get envelope_measurement_count {
+    final local$envelope_measurement_count =
+        _instance.envelope_measurement_count;
+    return local$envelope_measurement_count == null
+        ? CopyWith$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count(
+            local$envelope_measurement_count,
+            (e) => call(envelope_measurement_count: e),
+          );
+  }
+
   CopyWith$Query$UnitPageRead$allSharedUnits$nodes$update_user<TRes>
   get update_user {
     final local$update_user = _instance.update_user;
@@ -2219,6 +2491,13 @@ class _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes<TRes>
     Query$UnitPageRead$allSharedUnits$nodes$detailTexts? detailTexts,
     String? symbol,
     String? remarks,
+    Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count?
+    spec_measurement_count,
+    Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count?
+    item_size_kind_count,
+    Query$UnitPageRead$allSharedUnits$nodes$item_lot_count? item_lot_count,
+    Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count?
+    envelope_measurement_count,
     String? updateAt,
     bool? remove,
     Query$UnitPageRead$allSharedUnits$nodes$update_user? update_user,
@@ -2231,6 +2510,32 @@ class _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes<TRes>
   CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts<TRes>
   get detailTexts =>
       CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts.stub(_res);
+
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count<TRes>
+  get spec_measurement_count =>
+      CopyWith$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count<TRes>
+  get item_size_kind_count =>
+      CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count<TRes>
+  get item_lot_count =>
+      CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count<
+    TRes
+  >
+  get envelope_measurement_count =>
+      CopyWith$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count.stub(
+        _res,
+      );
 
   CopyWith$Query$UnitPageRead$allSharedUnits$nodes$update_user<TRes>
   get update_user =>
@@ -4814,11 +5119,571 @@ class _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$valu
   call({int? charCount, String? leadText, String? $__typename}) => _res;
 }
 
+class Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count {
+  Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count({
+    this.sharedUnitId,
+    this.$__typename = 'VUnitSpecMeasurementCount',
+  });
+
+  factory Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedUnitId = json['sharedUnitId'];
+    final l$$__typename = json['__typename'];
+    return Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count(
+      sharedUnitId: (l$sharedUnitId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? sharedUnitId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedUnitId = sharedUnitId;
+    _resultData['sharedUnitId'] = l$sharedUnitId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedUnitId = sharedUnitId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedUnitId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedUnitId = sharedUnitId;
+    final lOther$sharedUnitId = other.sharedUnitId;
+    if (l$sharedUnitId != lOther$sharedUnitId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count
+    on Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count {
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count<
+    Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count
+  >
+  get copyWith =>
+      CopyWith$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count<
+  TRes
+> {
+  factory CopyWith$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count(
+    Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count instance,
+    TRes Function(
+      Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count;
+
+  factory CopyWith$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count;
+
+  TRes call({String? sharedUnitId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count
+  _instance;
+
+  final TRes Function(
+    Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedUnitId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count(
+      sharedUnitId: sharedUnitId == _undefined
+          ? _instance.sharedUnitId
+          : (sharedUnitId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$spec_measurement_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? sharedUnitId, String? $__typename}) => _res;
+}
+
+class Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count {
+  Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count({
+    this.sharedUnitId,
+    this.$__typename = 'VUnitItemSizeKindCount',
+  });
+
+  factory Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedUnitId = json['sharedUnitId'];
+    final l$$__typename = json['__typename'];
+    return Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count(
+      sharedUnitId: (l$sharedUnitId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? sharedUnitId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedUnitId = sharedUnitId;
+    _resultData['sharedUnitId'] = l$sharedUnitId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedUnitId = sharedUnitId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedUnitId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedUnitId = sharedUnitId;
+    final lOther$sharedUnitId = other.sharedUnitId;
+    if (l$sharedUnitId != lOther$sharedUnitId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count
+    on Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count {
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count<
+    Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count
+  >
+  get copyWith =>
+      CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count<
+  TRes
+> {
+  factory CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count(
+    Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count instance,
+    TRes Function(Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count)
+    then,
+  ) = _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count;
+
+  factory CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count;
+
+  TRes call({String? sharedUnitId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count _instance;
+
+  final TRes Function(
+    Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedUnitId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count(
+      sharedUnitId: sharedUnitId == _undefined
+          ? _instance.sharedUnitId
+          : (sharedUnitId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$item_size_kind_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? sharedUnitId, String? $__typename}) => _res;
+}
+
+class Query$UnitPageRead$allSharedUnits$nodes$item_lot_count {
+  Query$UnitPageRead$allSharedUnits$nodes$item_lot_count({
+    this.sharedUnitId,
+    this.$__typename = 'VUnitItemLotCount',
+  });
+
+  factory Query$UnitPageRead$allSharedUnits$nodes$item_lot_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedUnitId = json['sharedUnitId'];
+    final l$$__typename = json['__typename'];
+    return Query$UnitPageRead$allSharedUnits$nodes$item_lot_count(
+      sharedUnitId: (l$sharedUnitId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? sharedUnitId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedUnitId = sharedUnitId;
+    _resultData['sharedUnitId'] = l$sharedUnitId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedUnitId = sharedUnitId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedUnitId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$UnitPageRead$allSharedUnits$nodes$item_lot_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedUnitId = sharedUnitId;
+    final lOther$sharedUnitId = other.sharedUnitId;
+    if (l$sharedUnitId != lOther$sharedUnitId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count
+    on Query$UnitPageRead$allSharedUnits$nodes$item_lot_count {
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count<
+    Query$UnitPageRead$allSharedUnits$nodes$item_lot_count
+  >
+  get copyWith =>
+      CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count<
+  TRes
+> {
+  factory CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count(
+    Query$UnitPageRead$allSharedUnits$nodes$item_lot_count instance,
+    TRes Function(Query$UnitPageRead$allSharedUnits$nodes$item_lot_count) then,
+  ) = _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count;
+
+  factory CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count;
+
+  TRes call({String? sharedUnitId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count<TRes>
+    implements
+        CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count<TRes> {
+  _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$UnitPageRead$allSharedUnits$nodes$item_lot_count _instance;
+
+  final TRes Function(Query$UnitPageRead$allSharedUnits$nodes$item_lot_count)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedUnitId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$UnitPageRead$allSharedUnits$nodes$item_lot_count(
+      sharedUnitId: sharedUnitId == _undefined
+          ? _instance.sharedUnitId
+          : (sharedUnitId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count<TRes> {
+  _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$item_lot_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? sharedUnitId, String? $__typename}) => _res;
+}
+
+class Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count {
+  Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count({
+    this.sharedUnitId,
+    this.$__typename = 'VUnitEnvelopeMeasurementCount',
+  });
+
+  factory Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedUnitId = json['sharedUnitId'];
+    final l$$__typename = json['__typename'];
+    return Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count(
+      sharedUnitId: (l$sharedUnitId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? sharedUnitId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedUnitId = sharedUnitId;
+    _resultData['sharedUnitId'] = l$sharedUnitId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedUnitId = sharedUnitId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedUnitId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedUnitId = sharedUnitId;
+    final lOther$sharedUnitId = other.sharedUnitId;
+    if (l$sharedUnitId != lOther$sharedUnitId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count
+    on Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count {
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count<
+    Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count
+  >
+  get copyWith =>
+      CopyWith$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count<
+  TRes
+> {
+  factory CopyWith$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count(
+    Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count instance,
+    TRes Function(
+      Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count;
+
+  factory CopyWith$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count;
+
+  TRes call({String? sharedUnitId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count
+  _instance;
+
+  final TRes Function(
+    Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedUnitId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count(
+      sharedUnitId: sharedUnitId == _undefined
+          ? _instance.sharedUnitId
+          : (sharedUnitId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$envelope_measurement_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? sharedUnitId, String? $__typename}) => _res;
+}
+
 class Query$UnitPageRead$allSharedUnits$nodes$update_user {
   Query$UnitPageRead$allSharedUnits$nodes$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -4844,7 +5709,7 @@ class Query$UnitPageRead$allSharedUnits$nodes$update_user {
     return Query$UnitPageRead$allSharedUnits$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -4863,7 +5728,7 @@ class Query$UnitPageRead$allSharedUnits$nodes$update_user {
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -5066,9 +5931,9 @@ class _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$update_user<TRes>
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name

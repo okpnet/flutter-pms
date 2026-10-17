@@ -41,6 +41,25 @@ FilePage:
     - media_type
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 2本)
+    - name: complaint_file_count
+      arrayType: toFirstOne
+      as: complaint_file_count
+      using: trans_file_id
+      from: v_file_complaint_file_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: staff_icon_count
+      arrayType: toFirstOne
+      as: staff_icon_count
+      using: trans_file_id
+      from: v_file_staff_icon_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

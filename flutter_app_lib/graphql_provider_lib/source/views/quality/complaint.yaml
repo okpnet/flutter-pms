@@ -34,6 +34,70 @@ ComplaintPage: &ComplaintPage
       <<: *TransApprovalPatternReadFields
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 7本)
+    - name: disposal_count
+      arrayType: toFirstOne
+      as: disposal_count
+      using: trans_complaint_id
+      from: v_complaint_disposal_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: complaint_stakeholder_count
+      arrayType: toFirstOne
+      as: complaint_stakeholder_count
+      using: trans_complaint_id
+      from: v_complaint_complaint_stakeholder_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: complaint_receive_count
+      arrayType: toFirstOne
+      as: complaint_receive_count
+      using: trans_complaint_id
+      from: v_complaint_complaint_receive_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: complaint_process_count
+      arrayType: toFirstOne
+      as: complaint_process_count
+      using: trans_complaint_id
+      from: v_complaint_complaint_process_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: complaint_order_count
+      arrayType: toFirstOne
+      as: complaint_order_count
+      using: trans_complaint_id
+      from: v_complaint_complaint_order_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: complaint_file_count
+      arrayType: toFirstOne
+      as: complaint_file_count
+      using: trans_complaint_id
+      from: v_complaint_complaint_file_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: complaint_equipment_count
+      arrayType: toFirstOne
+      as: complaint_equipment_count
+      using: trans_complaint_id
+      from: v_complaint_complaint_equipment_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

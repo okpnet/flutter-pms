@@ -40,6 +40,34 @@ StakeholderReadFields: &StakeholderReadFields
       <<: *ShippingKindReadFields
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 3本)
+    - name: outsource_available_count
+      arrayType: toFirstOne
+      as: outsource_available_count
+      using: mstr_stakeholder_id
+      from: v_stakeholder_outsource_available_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: stakeholder_provision_count
+      arrayType: toFirstOne
+      as: stakeholder_provision_count
+      using: mstr_stakeholder_id
+      from: v_stakeholder_stakeholder_provision_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: stakeholder_contact_count
+      arrayType: toFirstOne
+      as: stakeholder_contact_count
+      using: mstr_stakeholder_id
+      from: v_stakeholder_stakeholder_contact_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

@@ -1079,7 +1079,7 @@ create table tests.mstr_inspection_operation_task (
 create table tests.history_info_department_access_permission (
     history_id uuid default gen_random_uuid(),
     info_department_access_permission_id uuid not null,
-    info_access_path_id uuid default null,
+    info_access_path_id uuid not null,
     info_department_id uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
@@ -1091,7 +1091,7 @@ create table tests.history_info_department_access_permission (
 );
 create table tests.info_department_access_permission (
     info_department_access_permission_id uuid default gen_random_uuid(),
-    info_access_path_id uuid default null,
+    info_access_path_id uuid not null,
     info_department_id uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
@@ -1107,7 +1107,7 @@ create table tests.history_info_assign (
     info_staff_id uuid not null,
     info_position_id uuid not null,
     info_office_id uuid default null,
-    info_department_id uuid default null,
+    info_department_id uuid not null,
     enable boolean default 'T',
     priority smallint default 1,
     revision integer default 1,
@@ -1324,7 +1324,7 @@ create table tests.history_mstr_outsource_available (
     history_id uuid default gen_random_uuid(),
     mstr_outsource_available_id uuid not null,
     mstr_task_location_id uuid not null,
-    mstr_stakeholder_id uuid default null,
+    mstr_stakeholder_id uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -1337,7 +1337,7 @@ create table tests.history_mstr_equipment_available (
     history_id uuid default gen_random_uuid(),
     mstr_equipment_available_id uuid not null,
     mstr_task_location_id uuid not null,
-    mstr_equipment_id uuid default null,
+    mstr_equipment_id uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -1680,8 +1680,8 @@ create table tests.history_mstr_license (
 create table tests.history_info_staff_access_permission (
     history_id uuid default gen_random_uuid(),
     info_staff_access_permission_id uuid not null,
-    info_access_path_id uuid default null,
-    info_staff_id uuid default null,
+    info_access_path_id uuid not null,
+    info_staff_id uuid not null,
     permit smallint default null,
     revision integer default 1,
     symbol varchar(16) default '',
@@ -1779,7 +1779,7 @@ create table tests.history_mstr_staff_capability (
     history_id uuid default gen_random_uuid(),
     mstr_staff_capability_id uuid not null,
     info_staff_id uuid not null,
-    mstr_capability_id uuid default null,
+    mstr_capability_id uuid not null,
     value decimal(5,2) default 0,
     stop boolean default 'f',
     revision integer default 1,
@@ -1809,7 +1809,7 @@ create table tests.history_mstr_sign (
 create table tests.history_info_staff (
     history_id uuid default gen_random_uuid(),
     info_staff_id uuid not null,
-    info_company_id uuid default null,
+    info_company_id uuid not null,
     code varchar(16) default null,
     names uuid not null,
     sex varchar(16) default null,
@@ -2009,7 +2009,7 @@ create table tests.trans_file_reminder (
 create table tests.mstr_equipment_available (
     mstr_equipment_available_id uuid default gen_random_uuid(),
     mstr_task_location_id uuid not null,
-    mstr_equipment_id uuid default null,
+    mstr_equipment_id uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2021,7 +2021,7 @@ create table tests.mstr_equipment_available (
 create table tests.mstr_outsource_available (
     mstr_outsource_available_id uuid default gen_random_uuid(),
     mstr_task_location_id uuid not null,
-    mstr_stakeholder_id uuid default null,
+    mstr_stakeholder_id uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2169,6 +2169,7 @@ create table tests.info_address (
 );
 create table tests.trans_inspection_report (
     trans_inspection_report_id uuid default gen_random_uuid(),
+    trans_inspect_record_id uuid not null,
     trans_inspect_sch_detail_id uuid not null,
     mstr_report_id uuid default null,
     symbol varchar(16) default '',
@@ -2492,7 +2493,7 @@ create table tests.trans_risk (
 create table tests.trans_observer_preventive (
     trans_observer_preventive_id uuid default gen_random_uuid(),
     trans_observer_disposal_id uuid not null,
-    trans_recurrence_prevention_id uuid default gen_random_uuid(),
+    trans_recurrence_prevention_id uuid not null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2706,7 +2707,7 @@ create table tests.info_assign (
     info_staff_id uuid not null,
     info_position_id uuid not null,
     info_office_id uuid default null,
-    info_department_id uuid default null,
+    info_department_id uuid not null,
     enable boolean default 'T',
     priority smallint default 1,
     revision integer default 1,
@@ -2719,8 +2720,8 @@ create table tests.info_assign (
 );
 create table tests.info_staff_access_permission (
     info_staff_access_permission_id uuid default gen_random_uuid(),
-    info_access_path_id uuid default null,
-    info_staff_id uuid default null,
+    info_access_path_id uuid not null,
+    info_staff_id uuid not null,
     permit smallint default null,
     revision integer default 1,
     symbol varchar(16) default '',
@@ -2801,7 +2802,7 @@ create table tests.trans_work_record_visiter (
 create table tests.trans_purchase_rec_visiter (
     trans_purchase_rec_visiter_id uuid default gen_random_uuid(),
     trans_purchase_rec_id uuid not null,
-    trans_visiter_id uuid default gen_random_uuid(),
+    trans_visiter_id uuid not null,
     quantity decimal(10,2) default 0,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2954,7 +2955,7 @@ create table tests.trans_purchase_rez (
 );
 create table tests.trans_purchase_detail (
     trans_purchase_detail_id uuid default gen_random_uuid(),
-    trans_purchase_id uuid default null,
+    trans_purchase_id uuid not null,
     trans_resource_plan_id uuid default null,
     restocking_purchase boolean default 'f',
     quantity decimal(10,2) default null,
@@ -3312,7 +3313,7 @@ create table tests.mstr_staff_license (
 create table tests.mstr_staff_capability (
     mstr_staff_capability_id uuid default gen_random_uuid(),
     info_staff_id uuid not null,
-    mstr_capability_id uuid default null,
+    mstr_capability_id uuid not null,
     value decimal(5,2) default 0,
     stop boolean default 'f',
     revision integer default 1,
@@ -3374,7 +3375,7 @@ create table tests.mstr_capability (
 );
 create table tests.info_staff (
     info_staff_id uuid default gen_random_uuid(),
-    info_company_id uuid default null,
+    info_company_id uuid not null,
     code varchar(16) default null,
     names uuid not null,
     sex varchar(16) default null,
@@ -5349,7 +5350,8 @@ comment on column tests.info_address.update_user_id is '更新者ID';
 comment on column tests.info_address.update_user_history_id is '更新者履歴ID';
 comment on column tests.info_address.remove is '削除';
 comment on table tests.trans_inspection_report is '点検レポート実績';
-comment on column tests.trans_inspection_report.trans_inspection_report_id is '点検整備実施ID';
+comment on column tests.trans_inspection_report.trans_inspection_report_id is '点検レポート実績ID';
+comment on column tests.trans_inspection_report.trans_inspect_record_id is '点検整備実施ID';
 comment on column tests.trans_inspection_report.trans_inspect_sch_detail_id is '点検整備予定詳細ID';
 comment on column tests.trans_inspection_report.mstr_report_id is 'レポートID';
 comment on column tests.trans_inspection_report.symbol is 'リニアシンボル';
@@ -8279,7 +8281,7 @@ alter table tests.info_address add constraint info_address_FK3 foreign key (addr
 alter table tests.info_address add constraint info_address_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspection_report add constraint trans_inspection_report_FK1 foreign key (trans_inspect_sch_detail_id) references tests.trans_inspect_sch_detail (trans_inspect_sch_detail_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspection_report add constraint trans_inspection_report_FK2 foreign key (mstr_report_id) references tests.mstr_report (mstr_report_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inspection_report add constraint trans_inspection_report_FK3 foreign key (trans_inspection_report_id) references tests.trans_inspect_record (trans_inspect_record_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inspection_report add constraint trans_inspection_report_FK3 foreign key (trans_inspect_record_id) references tests.trans_inspect_record (trans_inspect_record_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspection_report add constraint trans_inspection_report_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_report add constraint mstr_report_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_report add constraint mstr_report_FK2 foreign key (info_access_path_id) references tests.info_access_path (info_access_path_id) DEFERRABLE INITIALLY DEFERRED;
@@ -21742,7 +21744,2132 @@ LANGUAGE plpgsql VOLATILE;
 CREATE OR REPLACE TRIGGER trg_03_hierarchy_mstr_location_tree AFTER INSERT OR UPDATE OR DELETE ON tests.mstr_location_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_03_hierarchy_mstr_location_tree();
 
---7.create view
+--132.create view
+
+drop view if exists tests.v_visiter_purchase_rec_visiter_count;
+create view  tests.v_visiter_purchase_rec_visiter_count as
+SELECT
+    p.trans_visiter_id
+    , COUNT(c.trans_visiter_id) AS all_count
+    , COUNT(c.trans_visiter_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_visiter_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_visiter AS p
+    LEFT JOIN tests.trans_purchase_rec_visiter AS c
+        ON c.trans_visiter_id = p.trans_visiter_id
+GROUP BY
+    p.trans_visiter_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_visiter_purchase_rec_visiter_count is E'@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@unique trans_visiter_id';
+
+drop view if exists tests.v_recurrence_prevention_observer_preventive_count;
+create view  tests.v_recurrence_prevention_observer_preventive_count as
+SELECT
+    p.trans_recurrence_prevention_id
+    , COUNT(c.trans_recurrence_prevention_id) AS all_count
+    , COUNT(c.trans_recurrence_prevention_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_recurrence_prevention_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_recurrence_prevention AS p
+    LEFT JOIN tests.trans_observer_preventive AS c
+        ON c.trans_recurrence_prevention_id = p.trans_recurrence_prevention_id
+GROUP BY
+    p.trans_recurrence_prevention_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_recurrence_prevention_observer_preventive_count is E'@foreignKey (trans_recurrence_prevention_id) references trans_recurrence_prevention (trans_recurrence_prevention_id)\n@unique trans_recurrence_prevention_id';
+
+drop view if exists tests.v_purchase_purchase_detail_count;
+create view  tests.v_purchase_purchase_detail_count as
+SELECT
+    p.trans_purchase_id
+    , COUNT(c.trans_purchase_id) AS all_count
+    , COUNT(c.trans_purchase_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_purchase_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_purchase AS p
+    LEFT JOIN tests.trans_purchase_detail AS c
+        ON c.trans_purchase_id = p.trans_purchase_id
+GROUP BY
+    p.trans_purchase_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_purchase_purchase_detail_count is E'@foreignKey (trans_purchase_id) references trans_purchase (trans_purchase_id)\n@unique trans_purchase_id';
+
+drop view if exists tests.v_inspect_record_inspection_report_count;
+create view  tests.v_inspect_record_inspection_report_count as
+SELECT
+    p.trans_inspect_record_id
+    , COUNT(c.trans_inspect_record_id) AS all_count
+    , COUNT(c.trans_inspect_record_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_inspect_record_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_inspect_record AS p
+    LEFT JOIN tests.trans_inspection_report AS c
+        ON c.trans_inspect_record_id = p.trans_inspect_record_id
+GROUP BY
+    p.trans_inspect_record_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_inspect_record_inspection_report_count is E'@foreignKey (trans_inspect_record_id) references trans_inspect_record (trans_inspect_record_id)\n@unique trans_inspect_record_id';
+
+drop view if exists tests.v_stakeholder_outsource_available_count;
+create view  tests.v_stakeholder_outsource_available_count as
+SELECT
+    p.mstr_stakeholder_id
+    , COUNT(c.mstr_stakeholder_id) AS all_count
+    , COUNT(c.mstr_stakeholder_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_stakeholder_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_stakeholder AS p
+    LEFT JOIN tests.mstr_outsource_available AS c
+        ON c.mstr_stakeholder_id = p.mstr_stakeholder_id
+GROUP BY
+    p.mstr_stakeholder_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_stakeholder_outsource_available_count is E'@foreignKey (mstr_stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)\n@unique mstr_stakeholder_id';
+
+drop view if exists tests.v_equipment_equipment_available_count;
+create view  tests.v_equipment_equipment_available_count as
+SELECT
+    p.mstr_equipment_id
+    , COUNT(c.mstr_equipment_id) AS all_count
+    , COUNT(c.mstr_equipment_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_equipment_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_equipment AS p
+    LEFT JOIN tests.mstr_equipment_available AS c
+        ON c.mstr_equipment_id = p.mstr_equipment_id
+GROUP BY
+    p.mstr_equipment_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_equipment_equipment_available_count is E'@foreignKey (mstr_equipment_id) references mstr_equipment (mstr_equipment_id)\n@unique mstr_equipment_id';
+
+drop view if exists tests.v_capability_staff_capability_count;
+create view  tests.v_capability_staff_capability_count as
+SELECT
+    p.mstr_capability_id
+    , COUNT(c.mstr_capability_id) AS all_count
+    , COUNT(c.mstr_capability_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_capability_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_capability AS p
+    LEFT JOIN tests.mstr_staff_capability AS c
+        ON c.mstr_capability_id = p.mstr_capability_id
+GROUP BY
+    p.mstr_capability_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_capability_staff_capability_count is E'@foreignKey (mstr_capability_id) references mstr_capability (mstr_capability_id)\n@unique mstr_capability_id';
+
+drop view if exists tests.v_staff_staff_access_permission_count;
+create view  tests.v_staff_staff_access_permission_count as
+SELECT
+    p.info_staff_id
+    , COUNT(c.info_staff_id) AS all_count
+    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_staff AS p
+    LEFT JOIN tests.info_staff_access_permission AS c
+        ON c.info_staff_id = p.info_staff_id
+GROUP BY
+    p.info_staff_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_staff_staff_access_permission_count is E'@foreignKey (info_staff_id) references info_staff (info_staff_id)\n@unique info_staff_id';
+
+drop view if exists tests.v_department_assign_count;
+create view  tests.v_department_assign_count as
+SELECT
+    p.info_department_id
+    , COUNT(c.info_department_id) AS all_count
+    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_department AS p
+    LEFT JOIN tests.info_assign AS c
+        ON c.info_department_id = p.info_department_id
+GROUP BY
+    p.info_department_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_department_assign_count is E'@foreignKey (info_department_id) references info_department (info_department_id)\n@unique info_department_id';
+
+drop view if exists tests.v_company_staff_count;
+create view  tests.v_company_staff_count as
+SELECT
+    p.info_company_id
+    , COUNT(c.info_company_id) AS all_count
+    , COUNT(c.info_company_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_company_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_company AS p
+    LEFT JOIN tests.info_staff AS c
+        ON c.info_company_id = p.info_company_id
+GROUP BY
+    p.info_company_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_company_staff_count is E'@foreignKey (info_company_id) references info_company (info_company_id)\n@unique info_company_id';
+
+drop view if exists tests.v_access_path_staff_access_permission_count;
+create view  tests.v_access_path_staff_access_permission_count as
+SELECT
+    p.info_access_path_id
+    , COUNT(c.info_access_path_id) AS all_count
+    , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_access_path AS p
+    LEFT JOIN tests.info_staff_access_permission AS c
+        ON c.info_access_path_id = p.info_access_path_id
+GROUP BY
+    p.info_access_path_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_access_path_staff_access_permission_count is E'@foreignKey (info_access_path_id) references info_access_path (info_access_path_id)\n@unique info_access_path_id';
+
+drop view if exists tests.v_access_path_department_access_permission_count;
+create view  tests.v_access_path_department_access_permission_count as
+SELECT
+    p.info_access_path_id
+    , COUNT(c.info_access_path_id) AS all_count
+    , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_access_path AS p
+    LEFT JOIN tests.info_department_access_permission AS c
+        ON c.info_access_path_id = p.info_access_path_id
+GROUP BY
+    p.info_access_path_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_access_path_department_access_permission_count is E'@foreignKey (info_access_path_id) references info_access_path (info_access_path_id)\n@unique info_access_path_id';
+
+drop view if exists tests.v_work_record_work_record_visiter_count;
+create view  tests.v_work_record_work_record_visiter_count as
+SELECT
+    p.trans_work_record_id
+    , COUNT(c.trans_work_record_id) AS all_count
+    , COUNT(c.trans_work_record_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_work_record_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_work_record AS p
+    LEFT JOIN tests.trans_work_record_visiter AS c
+        ON c.trans_work_record_id = p.trans_work_record_id
+GROUP BY
+    p.trans_work_record_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_work_record_work_record_visiter_count is E'@foreignKey (trans_work_record_id) references trans_work_record (trans_work_record_id)\n@unique trans_work_record_id';
+
+drop view if exists tests.v_work_record_work_record_certificate_count;
+create view  tests.v_work_record_work_record_certificate_count as
+SELECT
+    p.trans_work_record_id
+    , COUNT(c.trans_work_record_id) AS all_count
+    , COUNT(c.trans_work_record_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_work_record_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_work_record AS p
+    LEFT JOIN tests.trans_work_record_certificate AS c
+        ON c.trans_work_record_id = p.trans_work_record_id
+GROUP BY
+    p.trans_work_record_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_work_record_work_record_certificate_count is E'@foreignKey (trans_work_record_id) references trans_work_record (trans_work_record_id)\n@unique trans_work_record_id';
+
+drop view if exists tests.v_work_plan_work_record_count;
+create view  tests.v_work_plan_work_record_count as
+SELECT
+    p.trans_work_plan_id
+    , COUNT(c.trans_work_plan_id) AS all_count
+    , COUNT(c.trans_work_plan_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_work_plan_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_work_plan AS p
+    LEFT JOIN tests.trans_work_record AS c
+        ON c.trans_work_plan_id = p.trans_work_plan_id
+GROUP BY
+    p.trans_work_plan_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_work_plan_work_record_count is E'@foreignKey (trans_work_plan_id) references trans_work_plan (trans_work_plan_id)\n@unique trans_work_plan_id';
+
+drop view if exists tests.v_work_plan_product_rez_count;
+create view  tests.v_work_plan_product_rez_count as
+SELECT
+    p.trans_work_plan_id
+    , COUNT(c.trans_work_plan_id) AS all_count
+    , COUNT(c.trans_work_plan_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_work_plan_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_work_plan AS p
+    LEFT JOIN tests.trans_product_rez AS c
+        ON c.trans_work_plan_id = p.trans_work_plan_id
+GROUP BY
+    p.trans_work_plan_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_work_plan_product_rez_count is E'@foreignKey (trans_work_plan_id) references trans_work_plan (trans_work_plan_id)\n@unique trans_work_plan_id';
+
+drop view if exists tests.v_visiter_work_record_visiter_count;
+create view  tests.v_visiter_work_record_visiter_count as
+SELECT
+    p.trans_visiter_id
+    , COUNT(c.trans_visiter_id) AS all_count
+    , COUNT(c.trans_visiter_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_visiter_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_visiter AS p
+    LEFT JOIN tests.trans_work_record_visiter AS c
+        ON c.trans_visiter_id = p.trans_visiter_id
+GROUP BY
+    p.trans_visiter_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_visiter_work_record_visiter_count is E'@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@unique trans_visiter_id';
+
+drop view if exists tests.v_visiter_convey_count;
+create view  tests.v_visiter_convey_count as
+SELECT
+    p.trans_visiter_id
+    , COUNT(c.trans_visiter_id) AS all_count
+    , COUNT(c.trans_visiter_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_visiter_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_visiter AS p
+    LEFT JOIN tests.trans_convey AS c
+        ON c.trans_visiter_id = p.trans_visiter_id
+GROUP BY
+    p.trans_visiter_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_visiter_convey_count is E'@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@unique trans_visiter_id';
+
+drop view if exists tests.v_unrecognized_unrecognized_detail_count;
+create view  tests.v_unrecognized_unrecognized_detail_count as
+SELECT
+    p.trans_unrecognized_id
+    , COUNT(c.trans_unrecognized_id) AS all_count
+    , COUNT(c.trans_unrecognized_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_unrecognized_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_unrecognized AS p
+    LEFT JOIN tests.trans_unrecognized_detail AS c
+        ON c.trans_unrecognized_id = p.trans_unrecognized_id
+GROUP BY
+    p.trans_unrecognized_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_unrecognized_unrecognized_detail_count is E'@foreignKey (trans_unrecognized_id) references trans_unrecognized (trans_unrecognized_id)\n@unique trans_unrecognized_id';
+
+drop view if exists tests.v_text_trans_text_value_count;
+create view  tests.v_text_trans_text_value_count as
+SELECT
+    p.trans_text_id
+    , COUNT(c.trans_text_id) AS all_count
+    , COUNT(c.trans_text_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_text_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_text AS p
+    LEFT JOIN tests.trans_text_value AS c
+        ON c.trans_text_id = p.trans_text_id
+GROUP BY
+    p.trans_text_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_text_trans_text_value_count is E'@foreignKey (trans_text_id) references trans_text (trans_text_id)\n@unique trans_text_id';
+
+drop view if exists tests.v_shipping_order_detail_shipping_order_detail_record_count;
+create view  tests.v_shipping_order_detail_shipping_order_detail_record_count as
+SELECT
+    p.trans_shipping_order_detail_id
+    , COUNT(c.trans_shipping_order_detail_id) AS all_count
+    , COUNT(c.trans_shipping_order_detail_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_shipping_order_detail_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_shipping_order_detail AS p
+    LEFT JOIN tests.trans_shipping_order_detail_record AS c
+        ON c.trans_shipping_order_detail_id = p.trans_shipping_order_detail_id
+GROUP BY
+    p.trans_shipping_order_detail_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_shipping_order_detail_shipping_order_detail_record_count is E'@foreignKey (trans_shipping_order_detail_id) references trans_shipping_order_detail (trans_shipping_order_detail_id)\n@unique trans_shipping_order_detail_id';
+
+drop view if exists tests.v_shipping_order_shipping_order_detail_count;
+create view  tests.v_shipping_order_shipping_order_detail_count as
+SELECT
+    p.trans_shipping_order_id
+    , COUNT(c.trans_shipping_order_id) AS all_count
+    , COUNT(c.trans_shipping_order_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_shipping_order_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_shipping_order AS p
+    LEFT JOIN tests.trans_shipping_order_detail AS c
+        ON c.trans_shipping_order_id = p.trans_shipping_order_id
+GROUP BY
+    p.trans_shipping_order_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_shipping_order_shipping_order_detail_count is E'@foreignKey (trans_shipping_order_id) references trans_shipping_order (trans_shipping_order_id)\n@unique trans_shipping_order_id';
+
+drop view if exists tests.v_risk_task_risk_count;
+create view  tests.v_risk_task_risk_count as
+SELECT
+    p.trans_risk_id
+    , COUNT(c.risk_id) AS all_count
+    , COUNT(c.risk_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.risk_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_risk AS p
+    LEFT JOIN tests.trans_task_risk AS c
+        ON c.risk_id = p.trans_risk_id
+GROUP BY
+    p.trans_risk_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_risk_task_risk_count is E'@foreignKey (trans_risk_id) references trans_risk (trans_risk_id)\n@unique trans_risk_id';
+
+drop view if exists tests.v_risk_prevention_detail_count;
+create view  tests.v_risk_prevention_detail_count as
+SELECT
+    p.trans_risk_id
+    , COUNT(c.trans_risk_id) AS all_count
+    , COUNT(c.trans_risk_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_risk_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_risk AS p
+    LEFT JOIN tests.trans_prevention_detail AS c
+        ON c.trans_risk_id = p.trans_risk_id
+GROUP BY
+    p.trans_risk_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_risk_prevention_detail_count is E'@foreignKey (trans_risk_id) references trans_risk (trans_risk_id)\n@unique trans_risk_id';
+
+drop view if exists tests.v_risk_order_risk_count;
+create view  tests.v_risk_order_risk_count as
+SELECT
+    p.trans_risk_id
+    , COUNT(c.trans_risk_id) AS all_count
+    , COUNT(c.trans_risk_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_risk_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_risk AS p
+    LEFT JOIN tests.trans_order_risk AS c
+        ON c.trans_risk_id = p.trans_risk_id
+GROUP BY
+    p.trans_risk_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_risk_order_risk_count is E'@foreignKey (trans_risk_id) references trans_risk (trans_risk_id)\n@unique trans_risk_id';
+
+drop view if exists tests.v_risk_order_detail_risk_count;
+create view  tests.v_risk_order_detail_risk_count as
+SELECT
+    p.trans_risk_id
+    , COUNT(c.risk_id) AS all_count
+    , COUNT(c.risk_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.risk_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_risk AS p
+    LEFT JOIN tests.trans_order_detail_risk AS c
+        ON c.risk_id = p.trans_risk_id
+GROUP BY
+    p.trans_risk_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_risk_order_detail_risk_count is E'@foreignKey (trans_risk_id) references trans_risk (trans_risk_id)\n@unique trans_risk_id';
+
+drop view if exists tests.v_purchase_rec_purchase_rec_visiter_count;
+create view  tests.v_purchase_rec_purchase_rec_visiter_count as
+SELECT
+    p.trans_purchase_rec_id
+    , COUNT(c.trans_purchase_rec_id) AS all_count
+    , COUNT(c.trans_purchase_rec_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_purchase_rec_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_purchase_rec AS p
+    LEFT JOIN tests.trans_purchase_rec_visiter AS c
+        ON c.trans_purchase_rec_id = p.trans_purchase_rec_id
+GROUP BY
+    p.trans_purchase_rec_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_purchase_rec_purchase_rec_visiter_count is E'@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)\n@unique trans_purchase_rec_id';
+
+drop view if exists tests.v_purchase_rec_purchase_certification_count;
+create view  tests.v_purchase_rec_purchase_certification_count as
+SELECT
+    p.trans_purchase_rec_id
+    , COUNT(c.trans_purchase_rec_id) AS all_count
+    , COUNT(c.trans_purchase_rec_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_purchase_rec_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_purchase_rec AS p
+    LEFT JOIN tests.trans_purchase_certification AS c
+        ON c.trans_purchase_rec_id = p.trans_purchase_rec_id
+GROUP BY
+    p.trans_purchase_rec_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_purchase_rec_purchase_certification_count is E'@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)\n@unique trans_purchase_rec_id';
+
+drop view if exists tests.v_purchase_detail_purchase_rez_count;
+create view  tests.v_purchase_detail_purchase_rez_count as
+SELECT
+    p.trans_purchase_detail_id
+    , COUNT(c.trans_purchase_detail_id) AS all_count
+    , COUNT(c.trans_purchase_detail_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_purchase_detail_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_purchase_detail AS p
+    LEFT JOIN tests.trans_purchase_rez AS c
+        ON c.trans_purchase_detail_id = p.trans_purchase_detail_id
+GROUP BY
+    p.trans_purchase_detail_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_purchase_detail_purchase_rez_count is E'@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\n@unique trans_purchase_detail_id';
+
+drop view if exists tests.v_purchase_detail_purchase_rec_count;
+create view  tests.v_purchase_detail_purchase_rec_count as
+SELECT
+    p.trans_purchase_detail_id
+    , COUNT(c.trans_purchase_detail_id) AS all_count
+    , COUNT(c.trans_purchase_detail_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_purchase_detail_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_purchase_detail AS p
+    LEFT JOIN tests.trans_purchase_rec AS c
+        ON c.trans_purchase_detail_id = p.trans_purchase_detail_id
+GROUP BY
+    p.trans_purchase_detail_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_purchase_detail_purchase_rec_count is E'@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\n@unique trans_purchase_detail_id';
+
+drop view if exists tests.v_prevention_prevention_detail_count;
+create view  tests.v_prevention_prevention_detail_count as
+SELECT
+    p.trans_prevention_id
+    , COUNT(c.trans_prevention_id) AS all_count
+    , COUNT(c.trans_prevention_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_prevention_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_prevention AS p
+    LEFT JOIN tests.trans_prevention_detail AS c
+        ON c.trans_prevention_id = p.trans_prevention_id
+GROUP BY
+    p.trans_prevention_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_prevention_prevention_detail_count is E'@foreignKey (trans_prevention_id) references trans_prevention (trans_prevention_id)\n@unique trans_prevention_id';
+
+drop view if exists tests.v_preapproval_approved_count;
+create view  tests.v_preapproval_approved_count as
+SELECT
+    p.trans_preapproval_id
+    , COUNT(c.trans_preapproval_id) AS all_count
+    , COUNT(c.trans_preapproval_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_preapproval_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_preapproval AS p
+    LEFT JOIN tests.trans_approved AS c
+        ON c.trans_preapproval_id = p.trans_preapproval_id
+GROUP BY
+    p.trans_preapproval_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_preapproval_approved_count is E'@foreignKey (trans_preapproval_id) references trans_preapproval (trans_preapproval_id)\n@unique trans_preapproval_id';
+
+drop view if exists tests.v_order_detail_shipping_order_detail_count;
+create view  tests.v_order_detail_shipping_order_detail_count as
+SELECT
+    p.trans_order_detail_id
+    , COUNT(c.trans_order_detail_id) AS all_count
+    , COUNT(c.trans_order_detail_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_order_detail_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_order_detail AS p
+    LEFT JOIN tests.trans_shipping_order_detail AS c
+        ON c.trans_order_detail_id = p.trans_order_detail_id
+GROUP BY
+    p.trans_order_detail_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_order_detail_shipping_order_detail_count is E'@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\n@unique trans_order_detail_id';
+
+drop view if exists tests.v_order_detail_order_detail_risk_count;
+create view  tests.v_order_detail_order_detail_risk_count as
+SELECT
+    p.trans_order_detail_id
+    , COUNT(c.trans_order_detail_id) AS all_count
+    , COUNT(c.trans_order_detail_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_order_detail_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_order_detail AS p
+    LEFT JOIN tests.trans_order_detail_risk AS c
+        ON c.trans_order_detail_id = p.trans_order_detail_id
+GROUP BY
+    p.trans_order_detail_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_order_detail_order_detail_risk_count is E'@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\n@unique trans_order_detail_id';
+
+drop view if exists tests.v_order_shipping_order_count;
+create view  tests.v_order_shipping_order_count as
+SELECT
+    p.trans_order_id
+    , COUNT(c.trans_order_id) AS all_count
+    , COUNT(c.trans_order_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_order_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_order AS p
+    LEFT JOIN tests.trans_shipping_order AS c
+        ON c.trans_order_id = p.trans_order_id
+GROUP BY
+    p.trans_order_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_order_shipping_order_count is E'@foreignKey (trans_order_id) references trans_order (trans_order_id)\n@unique trans_order_id';
+
+drop view if exists tests.v_order_order_risk_count;
+create view  tests.v_order_order_risk_count as
+SELECT
+    p.trans_order_id
+    , COUNT(c.trans_order_id) AS all_count
+    , COUNT(c.trans_order_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_order_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_order AS p
+    LEFT JOIN tests.trans_order_risk AS c
+        ON c.trans_order_id = p.trans_order_id
+GROUP BY
+    p.trans_order_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_order_order_risk_count is E'@foreignKey (trans_order_id) references trans_order (trans_order_id)\n@unique trans_order_id';
+
+drop view if exists tests.v_order_order_detail_count;
+create view  tests.v_order_order_detail_count as
+SELECT
+    p.trans_order_id
+    , COUNT(c.trans_order_id) AS all_count
+    , COUNT(c.trans_order_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_order_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_order AS p
+    LEFT JOIN tests.trans_order_detail AS c
+        ON c.trans_order_id = p.trans_order_id
+GROUP BY
+    p.trans_order_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_order_order_detail_count is E'@foreignKey (trans_order_id) references trans_order (trans_order_id)\n@unique trans_order_id';
+
+drop view if exists tests.v_order_complaint_order_count;
+create view  tests.v_order_complaint_order_count as
+SELECT
+    p.trans_order_id
+    , COUNT(c.trans_order_id) AS all_count
+    , COUNT(c.trans_order_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_order_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_order AS p
+    LEFT JOIN tests.trans_complaint_order AS c
+        ON c.trans_order_id = p.trans_order_id
+GROUP BY
+    p.trans_order_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_order_complaint_order_count is E'@foreignKey (trans_order_id) references trans_order (trans_order_id)\n@unique trans_order_id';
+
+drop view if exists tests.v_operations_plan_work_plan_count;
+create view  tests.v_operations_plan_work_plan_count as
+SELECT
+    p.trans_operations_plan_id
+    , COUNT(c.trans_operations_plan_id) AS all_count
+    , COUNT(c.trans_operations_plan_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_operations_plan_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_operations_plan AS p
+    LEFT JOIN tests.trans_work_plan AS c
+        ON c.trans_operations_plan_id = p.trans_operations_plan_id
+GROUP BY
+    p.trans_operations_plan_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_operations_plan_work_plan_count is E'@foreignKey (trans_operations_plan_id) references trans_operations_plan (trans_operations_plan_id)\n@unique trans_operations_plan_id';
+
+drop view if exists tests.v_observer_disposal_observer_preventive_count;
+create view  tests.v_observer_disposal_observer_preventive_count as
+SELECT
+    p.trans_observer_disposal_id
+    , COUNT(c.trans_observer_disposal_id) AS all_count
+    , COUNT(c.trans_observer_disposal_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_observer_disposal_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_observer_disposal AS p
+    LEFT JOIN tests.trans_observer_preventive AS c
+        ON c.trans_observer_disposal_id = p.trans_observer_disposal_id
+GROUP BY
+    p.trans_observer_disposal_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_observer_disposal_observer_preventive_count is E'@foreignKey (trans_observer_disposal_id) references trans_observer_disposal (trans_observer_disposal_id)\n@unique trans_observer_disposal_id';
+
+drop view if exists tests.v_label_label_value_count;
+create view  tests.v_label_label_value_count as
+SELECT
+    p.trans_label_id
+    , COUNT(c.trans_label_id) AS all_count
+    , COUNT(c.trans_label_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_label_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_label AS p
+    LEFT JOIN tests.trans_label_value AS c
+        ON c.trans_label_id = p.trans_label_id
+GROUP BY
+    p.trans_label_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_label_label_value_count is E'@foreignKey (trans_label_id) references trans_label (trans_label_id)\n@unique trans_label_id';
+
+drop view if exists tests.v_inspect_sch_detail_inspection_report_count;
+create view  tests.v_inspect_sch_detail_inspection_report_count as
+SELECT
+    p.trans_inspect_sch_detail_id
+    , COUNT(c.trans_inspect_sch_detail_id) AS all_count
+    , COUNT(c.trans_inspect_sch_detail_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_inspect_sch_detail_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_inspect_sch_detail AS p
+    LEFT JOIN tests.trans_inspection_report AS c
+        ON c.trans_inspect_sch_detail_id = p.trans_inspect_sch_detail_id
+GROUP BY
+    p.trans_inspect_sch_detail_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_inspect_sch_detail_inspection_report_count is E'@foreignKey (trans_inspect_sch_detail_id) references trans_inspect_sch_detail (trans_inspect_sch_detail_id)\n@unique trans_inspect_sch_detail_id';
+
+drop view if exists tests.v_inspect_sch_detail_inspect_record_count;
+create view  tests.v_inspect_sch_detail_inspect_record_count as
+SELECT
+    p.trans_inspect_sch_detail_id
+    , COUNT(c.trans_inspect_sch_detail_id) AS all_count
+    , COUNT(c.trans_inspect_sch_detail_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_inspect_sch_detail_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_inspect_sch_detail AS p
+    LEFT JOIN tests.trans_inspect_record AS c
+        ON c.trans_inspect_sch_detail_id = p.trans_inspect_sch_detail_id
+GROUP BY
+    p.trans_inspect_sch_detail_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_inspect_sch_detail_inspect_record_count is E'@foreignKey (trans_inspect_sch_detail_id) references trans_inspect_sch_detail (trans_inspect_sch_detail_id)\n@unique trans_inspect_sch_detail_id';
+
+drop view if exists tests.v_inspect_sch_inspect_sch_detail_count;
+create view  tests.v_inspect_sch_inspect_sch_detail_count as
+SELECT
+    p.trans_inspect_sch_id
+    , COUNT(c.trans_inspect_sch_id) AS all_count
+    , COUNT(c.trans_inspect_sch_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_inspect_sch_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_inspect_sch AS p
+    LEFT JOIN tests.trans_inspect_sch_detail AS c
+        ON c.trans_inspect_sch_id = p.trans_inspect_sch_id
+GROUP BY
+    p.trans_inspect_sch_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_inspect_sch_inspect_sch_detail_count is E'@foreignKey (trans_inspect_sch_id) references trans_inspect_sch (trans_inspect_sch_id)\n@unique trans_inspect_sch_id';
+
+drop view if exists tests.v_inspect_record_inspect_imp_file_count;
+create view  tests.v_inspect_record_inspect_imp_file_count as
+SELECT
+    p.trans_inspect_record_id
+    , COUNT(c.trans_inspect_record_id) AS all_count
+    , COUNT(c.trans_inspect_record_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_inspect_record_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_inspect_record AS p
+    LEFT JOIN tests.trans_inspect_imp_file AS c
+        ON c.trans_inspect_record_id = p.trans_inspect_record_id
+GROUP BY
+    p.trans_inspect_record_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_inspect_record_inspect_imp_file_count is E'@foreignKey (trans_inspect_record_id) references trans_inspect_record (trans_inspect_record_id)\n@unique trans_inspect_record_id';
+
+drop view if exists tests.v_file_complaint_file_count;
+create view  tests.v_file_complaint_file_count as
+SELECT
+    p.trans_file_id
+    , COUNT(c.trans_file_id) AS all_count
+    , COUNT(c.trans_file_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_file_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_file AS p
+    LEFT JOIN tests.trans_complaint_file AS c
+        ON c.trans_file_id = p.trans_file_id
+GROUP BY
+    p.trans_file_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_file_complaint_file_count is E'@foreignKey (trans_file_id) references trans_file (trans_file_id)\n@unique trans_file_id';
+
+drop view if exists tests.v_file_staff_icon_count;
+create view  tests.v_file_staff_icon_count as
+SELECT
+    p.trans_file_id
+    , COUNT(c.trans_file_id) AS all_count
+    , COUNT(c.trans_file_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_file_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_file AS p
+    LEFT JOIN tests.info_staff_icon AS c
+        ON c.trans_file_id = p.trans_file_id
+GROUP BY
+    p.trans_file_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_file_staff_icon_count is E'@foreignKey (trans_file_id) references trans_file (trans_file_id)\n@unique trans_file_id';
+
+drop view if exists tests.v_disposal_recurrence_prevention_count;
+create view  tests.v_disposal_recurrence_prevention_count as
+SELECT
+    p.trans_disposal_id
+    , COUNT(c.trans_disposal_id) AS all_count
+    , COUNT(c.trans_disposal_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_disposal_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_disposal AS p
+    LEFT JOIN tests.trans_recurrence_prevention AS c
+        ON c.trans_disposal_id = p.trans_disposal_id
+GROUP BY
+    p.trans_disposal_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_disposal_recurrence_prevention_count is E'@foreignKey (trans_disposal_id) references trans_disposal (trans_disposal_id)\n@unique trans_disposal_id';
+
+drop view if exists tests.v_container_visiter_count;
+create view  tests.v_container_visiter_count as
+SELECT
+    p.trans_container_id
+    , COUNT(c.trans_container_id) AS all_count
+    , COUNT(c.trans_container_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_container_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_container AS p
+    LEFT JOIN tests.trans_visiter AS c
+        ON c.trans_container_id = p.trans_container_id
+GROUP BY
+    p.trans_container_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_container_visiter_count is E'@foreignKey (trans_container_id) references trans_container (trans_container_id)\n@unique trans_container_id';
+
+drop view if exists tests.v_complaint_disposal_count;
+create view  tests.v_complaint_disposal_count as
+SELECT
+    p.trans_complaint_id
+    , COUNT(c.trans_complaint_id) AS all_count
+    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_complaint AS p
+    LEFT JOIN tests.trans_disposal AS c
+        ON c.trans_complaint_id = p.trans_complaint_id
+GROUP BY
+    p.trans_complaint_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_complaint_disposal_count is E'@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@unique trans_complaint_id';
+
+drop view if exists tests.v_complaint_complaint_stakeholder_count;
+create view  tests.v_complaint_complaint_stakeholder_count as
+SELECT
+    p.trans_complaint_id
+    , COUNT(c.trans_complaint_id) AS all_count
+    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_complaint AS p
+    LEFT JOIN tests.trans_complaint_stakeholder AS c
+        ON c.trans_complaint_id = p.trans_complaint_id
+GROUP BY
+    p.trans_complaint_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_complaint_complaint_stakeholder_count is E'@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@unique trans_complaint_id';
+
+drop view if exists tests.v_complaint_complaint_receive_count;
+create view  tests.v_complaint_complaint_receive_count as
+SELECT
+    p.trans_complaint_id
+    , COUNT(c.trans_complaint_id) AS all_count
+    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_complaint AS p
+    LEFT JOIN tests.trans_complaint_receive AS c
+        ON c.trans_complaint_id = p.trans_complaint_id
+GROUP BY
+    p.trans_complaint_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_complaint_complaint_receive_count is E'@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@unique trans_complaint_id';
+
+drop view if exists tests.v_complaint_complaint_process_count;
+create view  tests.v_complaint_complaint_process_count as
+SELECT
+    p.trans_complaint_id
+    , COUNT(c.trans_complaint_id) AS all_count
+    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_complaint AS p
+    LEFT JOIN tests.trans_complaint_process AS c
+        ON c.trans_complaint_id = p.trans_complaint_id
+GROUP BY
+    p.trans_complaint_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_complaint_complaint_process_count is E'@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@unique trans_complaint_id';
+
+drop view if exists tests.v_complaint_complaint_order_count;
+create view  tests.v_complaint_complaint_order_count as
+SELECT
+    p.trans_complaint_id
+    , COUNT(c.trans_complaint_id) AS all_count
+    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_complaint AS p
+    LEFT JOIN tests.trans_complaint_order AS c
+        ON c.trans_complaint_id = p.trans_complaint_id
+GROUP BY
+    p.trans_complaint_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_complaint_complaint_order_count is E'@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@unique trans_complaint_id';
+
+drop view if exists tests.v_complaint_complaint_file_count;
+create view  tests.v_complaint_complaint_file_count as
+SELECT
+    p.trans_complaint_id
+    , COUNT(c.trans_complaint_id) AS all_count
+    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_complaint AS p
+    LEFT JOIN tests.trans_complaint_file AS c
+        ON c.trans_complaint_id = p.trans_complaint_id
+GROUP BY
+    p.trans_complaint_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_complaint_complaint_file_count is E'@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@unique trans_complaint_id';
+
+drop view if exists tests.v_complaint_complaint_equipment_count;
+create view  tests.v_complaint_complaint_equipment_count as
+SELECT
+    p.trans_complaint_id
+    , COUNT(c.trans_complaint_id) AS all_count
+    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_complaint AS p
+    LEFT JOIN tests.trans_complaint_equipment AS c
+        ON c.trans_complaint_id = p.trans_complaint_id
+GROUP BY
+    p.trans_complaint_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_complaint_complaint_equipment_count is E'@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@unique trans_complaint_id';
+
+drop view if exists tests.v_certificate_work_record_certificate_count;
+create view  tests.v_certificate_work_record_certificate_count as
+SELECT
+    p.trans_certificate_id
+    , COUNT(c.trans_certificate_id) AS all_count
+    , COUNT(c.trans_certificate_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_certificate_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_certificate AS p
+    LEFT JOIN tests.trans_work_record_certificate AS c
+        ON c.trans_certificate_id = p.trans_certificate_id
+GROUP BY
+    p.trans_certificate_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_certificate_work_record_certificate_count is E'@foreignKey (trans_certificate_id) references trans_certificate (trans_certificate_id)\n@unique trans_certificate_id';
+
+drop view if exists tests.v_certificate_purchase_certification_count;
+create view  tests.v_certificate_purchase_certification_count as
+SELECT
+    p.trans_certificate_id
+    , COUNT(c.trans_certificate_id) AS all_count
+    , COUNT(c.trans_certificate_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_certificate_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_certificate AS p
+    LEFT JOIN tests.trans_purchase_certification AS c
+        ON c.trans_certificate_id = p.trans_certificate_id
+GROUP BY
+    p.trans_certificate_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_certificate_purchase_certification_count is E'@foreignKey (trans_certificate_id) references trans_certificate (trans_certificate_id)\n@unique trans_certificate_id';
+
+drop view if exists tests.v_audit_team_auditor_count;
+create view  tests.v_audit_team_auditor_count as
+SELECT
+    p.trans_audit_team_id
+    , COUNT(c.trans_audit_team_id) AS all_count
+    , COUNT(c.trans_audit_team_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_audit_team_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_audit_team AS p
+    LEFT JOIN tests.trans_auditor AS c
+        ON c.trans_audit_team_id = p.trans_audit_team_id
+GROUP BY
+    p.trans_audit_team_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_audit_team_auditor_count is E'@foreignKey (trans_audit_team_id) references trans_audit_team (trans_audit_team_id)\n@unique trans_audit_team_id';
+
+drop view if exists tests.v_audit_audit_team_count;
+create view  tests.v_audit_audit_team_count as
+SELECT
+    p.trans_audit_id
+    , COUNT(c.trans_audit_id) AS all_count
+    , COUNT(c.trans_audit_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_audit_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_audit AS p
+    LEFT JOIN tests.trans_audit_team AS c
+        ON c.trans_audit_id = p.trans_audit_id
+GROUP BY
+    p.trans_audit_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_audit_audit_team_count is E'@foreignKey (trans_audit_id) references trans_audit (trans_audit_id)\n@unique trans_audit_id';
+
+drop view if exists tests.v_audit_audit_member_count;
+create view  tests.v_audit_audit_member_count as
+SELECT
+    p.trans_audit_id
+    , COUNT(c.trans_audit_id) AS all_count
+    , COUNT(c.trans_audit_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_audit_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_audit AS p
+    LEFT JOIN tests.trans_audit_member AS c
+        ON c.trans_audit_id = p.trans_audit_id
+GROUP BY
+    p.trans_audit_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_audit_audit_member_count is E'@foreignKey (trans_audit_id) references trans_audit (trans_audit_id)\n@unique trans_audit_id';
+
+drop view if exists tests.v_approval_pattern_preapproval_count;
+create view  tests.v_approval_pattern_preapproval_count as
+SELECT
+    p.trans_approval_pattern_id
+    , COUNT(c.trans_approval_pattern_id) AS all_count
+    , COUNT(c.trans_approval_pattern_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_approval_pattern_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_approval_pattern AS p
+    LEFT JOIN tests.trans_preapproval AS c
+        ON c.trans_approval_pattern_id = p.trans_approval_pattern_id
+GROUP BY
+    p.trans_approval_pattern_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_approval_pattern_preapproval_count is E'@foreignKey (trans_approval_pattern_id) references trans_approval_pattern (trans_approval_pattern_id)\n@unique trans_approval_pattern_id';
+
+drop view if exists tests.v_approval_pattern_document_count;
+create view  tests.v_approval_pattern_document_count as
+SELECT
+    p.trans_approval_pattern_id
+    , COUNT(c.trans_approval_pattern_id) AS all_count
+    , COUNT(c.trans_approval_pattern_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_approval_pattern_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_approval_pattern AS p
+    LEFT JOIN tests.mstr_document AS c
+        ON c.trans_approval_pattern_id = p.trans_approval_pattern_id
+GROUP BY
+    p.trans_approval_pattern_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_approval_pattern_document_count is E'@foreignKey (trans_approval_pattern_id) references trans_approval_pattern (trans_approval_pattern_id)\n@unique trans_approval_pattern_id';
+
+drop view if exists tests.v_unit_spec_measurement_count;
+create view  tests.v_unit_spec_measurement_count as
+SELECT
+    p.shared_unit_id
+    , COUNT(c.shared_unit_id) AS all_count
+    , COUNT(c.shared_unit_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.shared_unit_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.shared_unit AS p
+    LEFT JOIN tests.mstr_spec_measurement AS c
+        ON c.shared_unit_id = p.shared_unit_id
+GROUP BY
+    p.shared_unit_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_unit_spec_measurement_count is E'@foreignKey (shared_unit_id) references shared_unit (shared_unit_id)\n@unique shared_unit_id';
+
+drop view if exists tests.v_unit_item_size_kind_count;
+create view  tests.v_unit_item_size_kind_count as
+SELECT
+    p.shared_unit_id
+    , COUNT(c.shared_unit_id) AS all_count
+    , COUNT(c.shared_unit_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.shared_unit_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.shared_unit AS p
+    LEFT JOIN tests.mstr_item_size_kind AS c
+        ON c.shared_unit_id = p.shared_unit_id
+GROUP BY
+    p.shared_unit_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_unit_item_size_kind_count is E'@foreignKey (shared_unit_id) references shared_unit (shared_unit_id)\n@unique shared_unit_id';
+
+drop view if exists tests.v_unit_item_lot_count;
+create view  tests.v_unit_item_lot_count as
+SELECT
+    p.shared_unit_id
+    , COUNT(c.shared_unit_id) AS all_count
+    , COUNT(c.shared_unit_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.shared_unit_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.shared_unit AS p
+    LEFT JOIN tests.mstr_item_lot AS c
+        ON c.shared_unit_id = p.shared_unit_id
+GROUP BY
+    p.shared_unit_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_unit_item_lot_count is E'@foreignKey (shared_unit_id) references shared_unit (shared_unit_id)\n@unique shared_unit_id';
+
+drop view if exists tests.v_unit_envelope_measurement_count;
+create view  tests.v_unit_envelope_measurement_count as
+SELECT
+    p.shared_unit_id
+    , COUNT(c.shared_unit_id) AS all_count
+    , COUNT(c.shared_unit_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.shared_unit_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.shared_unit AS p
+    LEFT JOIN tests.mstr_envelope_measurement AS c
+        ON c.shared_unit_id = p.shared_unit_id
+GROUP BY
+    p.shared_unit_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_unit_envelope_measurement_count is E'@foreignKey (shared_unit_id) references shared_unit (shared_unit_id)\n@unique shared_unit_id';
+
+drop view if exists tests.v_text_shared_text_value_count;
+create view  tests.v_text_shared_text_value_count as
+SELECT
+    p.shared_text_id
+    , COUNT(c.shared_text_id) AS all_count
+    , COUNT(c.shared_text_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.shared_text_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.shared_text AS p
+    LEFT JOIN tests.shared_text_value AS c
+        ON c.shared_text_id = p.shared_text_id
+GROUP BY
+    p.shared_text_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_text_shared_text_value_count is E'@foreignKey (shared_text_id) references shared_text (shared_text_id)\n@unique shared_text_id';
+
+drop view if exists tests.v_language_code_trans_text_value_count;
+create view  tests.v_language_code_trans_text_value_count as
+SELECT
+    p.shared_language_code_id
+    , COUNT(c.shared_language_code_id) AS all_count
+    , COUNT(c.shared_language_code_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.shared_language_code_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.shared_language_code AS p
+    LEFT JOIN tests.trans_text_value AS c
+        ON c.shared_language_code_id = p.shared_language_code_id
+GROUP BY
+    p.shared_language_code_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_language_code_trans_text_value_count is E'@foreignKey (shared_language_code_id) references shared_language_code (shared_language_code_id)\n@unique shared_language_code_id';
+
+drop view if exists tests.v_language_code_label_value_count;
+create view  tests.v_language_code_label_value_count as
+SELECT
+    p.shared_language_code_id
+    , COUNT(c.shared_language_code_id) AS all_count
+    , COUNT(c.shared_language_code_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.shared_language_code_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.shared_language_code AS p
+    LEFT JOIN tests.trans_label_value AS c
+        ON c.shared_language_code_id = p.shared_language_code_id
+GROUP BY
+    p.shared_language_code_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_language_code_label_value_count is E'@foreignKey (shared_language_code_id) references shared_language_code (shared_language_code_id)\n@unique shared_language_code_id';
+
+drop view if exists tests.v_language_code_shared_text_value_count;
+create view  tests.v_language_code_shared_text_value_count as
+SELECT
+    p.shared_language_code_id
+    , COUNT(c.shared_language_code_id) AS all_count
+    , COUNT(c.shared_language_code_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.shared_language_code_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.shared_language_code AS p
+    LEFT JOIN tests.shared_text_value AS c
+        ON c.shared_language_code_id = p.shared_language_code_id
+GROUP BY
+    p.shared_language_code_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_language_code_shared_text_value_count is E'@foreignKey (shared_language_code_id) references shared_language_code (shared_language_code_id)\n@unique shared_language_code_id';
+
+drop view if exists tests.v_language_code_dictionary_value_count;
+create view  tests.v_language_code_dictionary_value_count as
+SELECT
+    p.shared_language_code_id
+    , COUNT(c.shared_language_code_id) AS all_count
+    , COUNT(c.shared_language_code_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.shared_language_code_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.shared_language_code AS p
+    LEFT JOIN tests.shared_dictionary_value AS c
+        ON c.shared_language_code_id = p.shared_language_code_id
+GROUP BY
+    p.shared_language_code_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_language_code_dictionary_value_count is E'@foreignKey (shared_language_code_id) references shared_language_code (shared_language_code_id)\n@unique shared_language_code_id';
+
+drop view if exists tests.v_dictionary_dictionary_value_count;
+create view  tests.v_dictionary_dictionary_value_count as
+SELECT
+    p.shared_dictionary_id
+    , COUNT(c.shared_dictionary_id) AS all_count
+    , COUNT(c.shared_dictionary_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.shared_dictionary_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.shared_dictionary AS p
+    LEFT JOIN tests.shared_dictionary_value AS c
+        ON c.shared_dictionary_id = p.shared_dictionary_id
+GROUP BY
+    p.shared_dictionary_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_dictionary_dictionary_value_count is E'@foreignKey (shared_dictionary_id) references shared_dictionary (shared_dictionary_id)\n@unique shared_dictionary_id';
+
+drop view if exists tests.v_task_location_outsource_available_count;
+create view  tests.v_task_location_outsource_available_count as
+SELECT
+    p.mstr_task_location_id
+    , COUNT(c.mstr_task_location_id) AS all_count
+    , COUNT(c.mstr_task_location_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_task_location_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_task_location AS p
+    LEFT JOIN tests.mstr_outsource_available AS c
+        ON c.mstr_task_location_id = p.mstr_task_location_id
+GROUP BY
+    p.mstr_task_location_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_task_location_outsource_available_count is E'@foreignKey (mstr_task_location_id) references mstr_task_location (mstr_task_location_id)\n@unique mstr_task_location_id';
+
+drop view if exists tests.v_task_location_equipment_available_count;
+create view  tests.v_task_location_equipment_available_count as
+SELECT
+    p.mstr_task_location_id
+    , COUNT(c.mstr_task_location_id) AS all_count
+    , COUNT(c.mstr_task_location_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_task_location_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_task_location AS p
+    LEFT JOIN tests.mstr_equipment_available AS c
+        ON c.mstr_task_location_id = p.mstr_task_location_id
+GROUP BY
+    p.mstr_task_location_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_task_location_equipment_available_count is E'@foreignKey (mstr_task_location_id) references mstr_task_location (mstr_task_location_id)\n@unique mstr_task_location_id';
+
+drop view if exists tests.v_task_work_plan_count;
+create view  tests.v_task_work_plan_count as
+SELECT
+    p.mstr_task_id
+    , COUNT(c.mstr_task_id) AS all_count
+    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_task AS p
+    LEFT JOIN tests.trans_work_plan AS c
+        ON c.mstr_task_id = p.mstr_task_id
+GROUP BY
+    p.mstr_task_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_task_work_plan_count is E'@foreignKey (mstr_task_id) references mstr_task (mstr_task_id)\n@unique mstr_task_id';
+
+drop view if exists tests.v_task_task_risk_count;
+create view  tests.v_task_task_risk_count as
+SELECT
+    p.mstr_task_id
+    , COUNT(c.mstr_task_id) AS all_count
+    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_task AS p
+    LEFT JOIN tests.trans_task_risk AS c
+        ON c.mstr_task_id = p.mstr_task_id
+GROUP BY
+    p.mstr_task_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_task_task_risk_count is E'@foreignKey (mstr_task_id) references mstr_task (mstr_task_id)\n@unique mstr_task_id';
+
+drop view if exists tests.v_task_complaint_process_count;
+create view  tests.v_task_complaint_process_count as
+SELECT
+    p.mstr_task_id
+    , COUNT(c.mstr_task_id) AS all_count
+    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_task AS p
+    LEFT JOIN tests.trans_complaint_process AS c
+        ON c.mstr_task_id = p.mstr_task_id
+GROUP BY
+    p.mstr_task_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_task_complaint_process_count is E'@foreignKey (mstr_task_id) references mstr_task (mstr_task_id)\n@unique mstr_task_id';
+
+drop view if exists tests.v_task_task_location_count;
+create view  tests.v_task_task_location_count as
+SELECT
+    p.mstr_task_id
+    , COUNT(c.mstr_task_id) AS all_count
+    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_task AS p
+    LEFT JOIN tests.mstr_task_location AS c
+        ON c.mstr_task_id = p.mstr_task_id
+GROUP BY
+    p.mstr_task_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_task_task_location_count is E'@foreignKey (mstr_task_id) references mstr_task (mstr_task_id)\n@unique mstr_task_id';
+
+drop view if exists tests.v_task_operation_task_count;
+create view  tests.v_task_operation_task_count as
+SELECT
+    p.mstr_task_id
+    , COUNT(c.mstr_task_id) AS all_count
+    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_task_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_task AS p
+    LEFT JOIN tests.mstr_operation_task AS c
+        ON c.mstr_task_id = p.mstr_task_id
+GROUP BY
+    p.mstr_task_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_task_operation_task_count is E'@foreignKey (mstr_task_id) references mstr_task (mstr_task_id)\n@unique mstr_task_id';
+
+drop view if exists tests.v_stakeholder_stakeholder_provision_count;
+create view  tests.v_stakeholder_stakeholder_provision_count as
+SELECT
+    p.mstr_stakeholder_id
+    , COUNT(c.mstr_stakeholder_id) AS all_count
+    , COUNT(c.mstr_stakeholder_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_stakeholder_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_stakeholder AS p
+    LEFT JOIN tests.mstr_stakeholder_provision AS c
+        ON c.mstr_stakeholder_id = p.mstr_stakeholder_id
+GROUP BY
+    p.mstr_stakeholder_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_stakeholder_stakeholder_provision_count is E'@foreignKey (mstr_stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)\n@unique mstr_stakeholder_id';
+
+drop view if exists tests.v_stakeholder_stakeholder_contact_count;
+create view  tests.v_stakeholder_stakeholder_contact_count as
+SELECT
+    p.mstr_stakeholder_id
+    , COUNT(c.mstr_stakeholder_id) AS all_count
+    , COUNT(c.mstr_stakeholder_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_stakeholder_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_stakeholder AS p
+    LEFT JOIN tests.mstr_stakeholder_contact AS c
+        ON c.mstr_stakeholder_id = p.mstr_stakeholder_id
+GROUP BY
+    p.mstr_stakeholder_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_stakeholder_stakeholder_contact_count is E'@foreignKey (mstr_stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)\n@unique mstr_stakeholder_id';
+
+drop view if exists tests.v_operation_task_item_operation_task_count;
+create view  tests.v_operation_task_item_operation_task_count as
+SELECT
+    p.mstr_operation_task_id
+    , COUNT(c.mstr_operation_task_id) AS all_count
+    , COUNT(c.mstr_operation_task_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_operation_task_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_operation_task AS p
+    LEFT JOIN tests.mstr_item_operation_task AS c
+        ON c.mstr_operation_task_id = p.mstr_operation_task_id
+GROUP BY
+    p.mstr_operation_task_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_operation_task_item_operation_task_count is E'@foreignKey (mstr_operation_task_id) references mstr_operation_task (mstr_operation_task_id)\n@unique mstr_operation_task_id';
+
+drop view if exists tests.v_operation_operation_task_count;
+create view  tests.v_operation_operation_task_count as
+SELECT
+    p.mstr_operation_id
+    , COUNT(c.mstr_operation_id) AS all_count
+    , COUNT(c.mstr_operation_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_operation_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_operation AS p
+    LEFT JOIN tests.mstr_operation_task AS c
+        ON c.mstr_operation_id = p.mstr_operation_id
+GROUP BY
+    p.mstr_operation_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_operation_operation_task_count is E'@foreignKey (mstr_operation_id) references mstr_operation (mstr_operation_id)\n@unique mstr_operation_id';
+
+drop view if exists tests.v_operation_item_operation_count;
+create view  tests.v_operation_item_operation_count as
+SELECT
+    p.mstr_operation_id
+    , COUNT(c.mstr_operation_id) AS all_count
+    , COUNT(c.mstr_operation_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_operation_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_operation AS p
+    LEFT JOIN tests.mstr_item_operation AS c
+        ON c.mstr_operation_id = p.mstr_operation_id
+GROUP BY
+    p.mstr_operation_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_operation_item_operation_count is E'@foreignKey (mstr_operation_id) references mstr_operation (mstr_operation_id)\n@unique mstr_operation_id';
+
+drop view if exists tests.v_license_staff_license_count;
+create view  tests.v_license_staff_license_count as
+SELECT
+    p.mstr_license_id
+    , COUNT(c.mstr_license_id) AS all_count
+    , COUNT(c.mstr_license_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_license_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_license AS p
+    LEFT JOIN tests.mstr_staff_license AS c
+        ON c.mstr_license_id = p.mstr_license_id
+GROUP BY
+    p.mstr_license_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_license_staff_license_count is E'@foreignKey (mstr_license_id) references mstr_license (mstr_license_id)\n@unique mstr_license_id';
+
+drop view if exists tests.v_item_size_kind_item_actual_size_count;
+create view  tests.v_item_size_kind_item_actual_size_count as
+SELECT
+    p.mstr_item_size_kind_id
+    , COUNT(c.mstr_item_size_kind_id) AS all_count
+    , COUNT(c.mstr_item_size_kind_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_item_size_kind_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_item_size_kind AS p
+    LEFT JOIN tests.mstr_item_actual_size AS c
+        ON c.mstr_item_size_kind_id = p.mstr_item_size_kind_id
+GROUP BY
+    p.mstr_item_size_kind_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_item_size_kind_item_actual_size_count is E'@foreignKey (mstr_item_size_kind_id) references mstr_item_size_kind (mstr_item_size_kind_id)\n@unique mstr_item_size_kind_id';
+
+drop view if exists tests.v_item_kind_item_count;
+create view  tests.v_item_kind_item_count as
+SELECT
+    p.mstr_item_kind_id
+    , COUNT(c.mstr_item_kind_id) AS all_count
+    , COUNT(c.mstr_item_kind_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_item_kind_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_item_kind AS p
+    LEFT JOIN tests.mstr_item AS c
+        ON c.mstr_item_kind_id = p.mstr_item_kind_id
+GROUP BY
+    p.mstr_item_kind_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_item_kind_item_count is E'@foreignKey (mstr_item_kind_id) references mstr_item_kind (mstr_item_kind_id)\n@unique mstr_item_kind_id';
+
+drop view if exists tests.v_item_item_provision_count;
+create view  tests.v_item_item_provision_count as
+SELECT
+    p.mstr_item_id
+    , COUNT(c.mstr_item_id) AS all_count
+    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_item AS p
+    LEFT JOIN tests.mstr_item_provision AS c
+        ON c.mstr_item_id = p.mstr_item_id
+GROUP BY
+    p.mstr_item_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_item_item_provision_count is E'@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n@unique mstr_item_id';
+
+drop view if exists tests.v_item_item_operation_task_count;
+create view  tests.v_item_item_operation_task_count as
+SELECT
+    p.mstr_item_id
+    , COUNT(c.mstr_item_id) AS all_count
+    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_item AS p
+    LEFT JOIN tests.mstr_item_operation_task AS c
+        ON c.mstr_item_id = p.mstr_item_id
+GROUP BY
+    p.mstr_item_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_item_item_operation_task_count is E'@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n@unique mstr_item_id';
+
+drop view if exists tests.v_item_item_operation_count;
+create view  tests.v_item_item_operation_count as
+SELECT
+    p.mstr_item_id
+    , COUNT(c.mstr_item_id) AS all_count
+    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_item AS p
+    LEFT JOIN tests.mstr_item_operation AS c
+        ON c.mstr_item_id = p.mstr_item_id
+GROUP BY
+    p.mstr_item_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_item_item_operation_count is E'@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n@unique mstr_item_id';
+
+drop view if exists tests.v_item_item_hcdcs_count;
+create view  tests.v_item_item_hcdcs_count as
+SELECT
+    p.mstr_item_id
+    , COUNT(c.mstr_item_id) AS all_count
+    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_item AS p
+    LEFT JOIN tests.mstr_item_hcdcs AS c
+        ON c.mstr_item_id = p.mstr_item_id
+GROUP BY
+    p.mstr_item_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_item_item_hcdcs_count is E'@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n@unique mstr_item_id';
+
+drop view if exists tests.v_item_item_actual_size_count;
+create view  tests.v_item_item_actual_size_count as
+SELECT
+    p.mstr_item_id
+    , COUNT(c.mstr_item_id) AS all_count
+    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_item AS p
+    LEFT JOIN tests.mstr_item_actual_size AS c
+        ON c.mstr_item_id = p.mstr_item_id
+GROUP BY
+    p.mstr_item_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_item_item_actual_size_count is E'@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n@unique mstr_item_id';
+
+drop view if exists tests.v_item_inspection_count;
+create view  tests.v_item_inspection_count as
+SELECT
+    p.mstr_item_id
+    , COUNT(c.mstr_item_id) AS all_count
+    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_item AS p
+    LEFT JOIN tests.mstr_inspection AS c
+        ON c.mstr_item_id = p.mstr_item_id
+GROUP BY
+    p.mstr_item_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_item_inspection_count is E'@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n@unique mstr_item_id';
+
+drop view if exists tests.v_item_equipment_count;
+create view  tests.v_item_equipment_count as
+SELECT
+    p.mstr_item_id
+    , COUNT(c.mstr_item_id) AS all_count
+    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_item_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_item AS p
+    LEFT JOIN tests.mstr_equipment AS c
+        ON c.mstr_item_id = p.mstr_item_id
+GROUP BY
+    p.mstr_item_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_item_equipment_count is E'@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n@unique mstr_item_id';
+
+drop view if exists tests.v_inspection_operation_inspection_operation_task_count;
+create view  tests.v_inspection_operation_inspection_operation_task_count as
+SELECT
+    p.mstr_inspection_operation_id
+    , COUNT(c.mstr_inspection_operation_id) AS all_count
+    , COUNT(c.mstr_inspection_operation_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_inspection_operation_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_inspection_operation AS p
+    LEFT JOIN tests.mstr_inspection_operation_task AS c
+        ON c.mstr_inspection_operation_id = p.mstr_inspection_operation_id
+GROUP BY
+    p.mstr_inspection_operation_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_inspection_operation_inspection_operation_task_count is E'@foreignKey (mstr_inspection_operation_id) references mstr_inspection_operation (mstr_inspection_operation_id)\n@unique mstr_inspection_operation_id';
+
+drop view if exists tests.v_inspection_inspection_operation_task_count;
+create view  tests.v_inspection_inspection_operation_task_count as
+SELECT
+    p.mstr_inspection_id
+    , COUNT(c.mstr_inspection_id) AS all_count
+    , COUNT(c.mstr_inspection_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_inspection_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_inspection AS p
+    LEFT JOIN tests.mstr_inspection_operation_task AS c
+        ON c.mstr_inspection_id = p.mstr_inspection_id
+GROUP BY
+    p.mstr_inspection_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_inspection_inspection_operation_task_count is E'@foreignKey (mstr_inspection_id) references mstr_inspection (mstr_inspection_id)\n@unique mstr_inspection_id';
+
+drop view if exists tests.v_equipment_inspection_operation_count;
+create view  tests.v_equipment_inspection_operation_count as
+SELECT
+    p.mstr_equipment_id
+    , COUNT(c.mstr_equipment_id) AS all_count
+    , COUNT(c.mstr_equipment_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_equipment_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_equipment AS p
+    LEFT JOIN tests.mstr_inspection_operation AS c
+        ON c.mstr_equipment_id = p.mstr_equipment_id
+GROUP BY
+    p.mstr_equipment_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_equipment_inspection_operation_count is E'@foreignKey (mstr_equipment_id) references mstr_equipment (mstr_equipment_id)\n@unique mstr_equipment_id';
+
+drop view if exists tests.v_equipment_equipment_provision_count;
+create view  tests.v_equipment_equipment_provision_count as
+SELECT
+    p.mstr_equipment_id
+    , COUNT(c.mstr_equipment_id) AS all_count
+    , COUNT(c.mstr_equipment_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_equipment_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_equipment AS p
+    LEFT JOIN tests.mstr_equipment_provision AS c
+        ON c.mstr_equipment_id = p.mstr_equipment_id
+GROUP BY
+    p.mstr_equipment_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_equipment_equipment_provision_count is E'@foreignKey (mstr_equipment_id) references mstr_equipment (mstr_equipment_id)\n@unique mstr_equipment_id';
+
+drop view if exists tests.v_document_tier_document_count;
+create view  tests.v_document_tier_document_count as
+SELECT
+    p.mstr_document_tier_id
+    , COUNT(c.mstr_document_tier_id) AS all_count
+    , COUNT(c.mstr_document_tier_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_document_tier_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_document_tier AS p
+    LEFT JOIN tests.mstr_document AS c
+        ON c.mstr_document_tier_id = p.mstr_document_tier_id
+GROUP BY
+    p.mstr_document_tier_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_document_tier_document_count is E'@foreignKey (mstr_document_tier_id) references mstr_document_tier (mstr_document_tier_id)\n@unique mstr_document_tier_id';
+
+drop view if exists tests.v_document_document_content_count;
+create view  tests.v_document_document_content_count as
+SELECT
+    p.mstr_document_id
+    , COUNT(c.mstr_document_id) AS all_count
+    , COUNT(c.mstr_document_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_document_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_document AS p
+    LEFT JOIN tests.mstr_document_content AS c
+        ON c.mstr_document_id = p.mstr_document_id
+GROUP BY
+    p.mstr_document_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_document_document_content_count is E'@foreignKey (mstr_document_id) references mstr_document (mstr_document_id)\n@unique mstr_document_id';
+
+drop view if exists tests.v_audit_std_audit_std_checkitem_count;
+create view  tests.v_audit_std_audit_std_checkitem_count as
+SELECT
+    p.mstr_audit_std_id
+    , COUNT(c.mstr_audit_std_id) AS all_count
+    , COUNT(c.mstr_audit_std_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_audit_std_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_audit_std AS p
+    LEFT JOIN tests.mstr_audit_std_checkitem AS c
+        ON c.mstr_audit_std_id = p.mstr_audit_std_id
+GROUP BY
+    p.mstr_audit_std_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_audit_std_audit_std_checkitem_count is E'@foreignKey (mstr_audit_std_id) references mstr_audit_std (mstr_audit_std_id)\n@unique mstr_audit_std_id';
+
+drop view if exists tests.v_approval_pattern_approval_pattern_count;
+create view  tests.v_approval_pattern_approval_pattern_count as
+SELECT
+    p.mstr_approval_pattern_id
+    , COUNT(c.mstr_approval_pattern_id) AS all_count
+    , COUNT(c.mstr_approval_pattern_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_approval_pattern_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_approval_pattern AS p
+    LEFT JOIN tests.trans_approval_pattern AS c
+        ON c.mstr_approval_pattern_id = p.mstr_approval_pattern_id
+GROUP BY
+    p.mstr_approval_pattern_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_approval_pattern_approval_pattern_count is E'@foreignKey (mstr_approval_pattern_id) references mstr_approval_pattern (mstr_approval_pattern_id)\n@unique mstr_approval_pattern_id';
+
+drop view if exists tests.v_approval_pattern_approval_pattern_detail_count;
+create view  tests.v_approval_pattern_approval_pattern_detail_count as
+SELECT
+    p.mstr_approval_pattern_id
+    , COUNT(c.mstr_approval_pattern_id) AS all_count
+    , COUNT(c.mstr_approval_pattern_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_approval_pattern_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_approval_pattern AS p
+    LEFT JOIN tests.mstr_approval_pattern_detail AS c
+        ON c.mstr_approval_pattern_id = p.mstr_approval_pattern_id
+GROUP BY
+    p.mstr_approval_pattern_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_approval_pattern_approval_pattern_detail_count is E'@foreignKey (mstr_approval_pattern_id) references mstr_approval_pattern (mstr_approval_pattern_id)\n@unique mstr_approval_pattern_id';
+
+drop view if exists tests.v_approval_preapproval_count;
+create view  tests.v_approval_preapproval_count as
+SELECT
+    p.mstr_approval_id
+    , COUNT(c.mstr_approval_id) AS all_count
+    , COUNT(c.mstr_approval_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_approval_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_approval AS p
+    LEFT JOIN tests.trans_preapproval AS c
+        ON c.mstr_approval_id = p.mstr_approval_id
+GROUP BY
+    p.mstr_approval_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_approval_preapproval_count is E'@foreignKey (mstr_approval_id) references mstr_approval (mstr_approval_id)\n@unique mstr_approval_id';
+
+drop view if exists tests.v_approval_approval_pattern_detail_count;
+create view  tests.v_approval_approval_pattern_detail_count as
+SELECT
+    p.mstr_approval_id
+    , COUNT(c.mstr_approval_id) AS all_count
+    , COUNT(c.mstr_approval_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.mstr_approval_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.mstr_approval AS p
+    LEFT JOIN tests.mstr_approval_pattern_detail AS c
+        ON c.mstr_approval_id = p.mstr_approval_id
+GROUP BY
+    p.mstr_approval_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_approval_approval_pattern_detail_count is E'@foreignKey (mstr_approval_id) references mstr_approval (mstr_approval_id)\n@unique mstr_approval_id';
+
+drop view if exists tests.v_staff_staff_license_count;
+create view  tests.v_staff_staff_license_count as
+SELECT
+    p.info_staff_id
+    , COUNT(c.info_staff_id) AS all_count
+    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_staff AS p
+    LEFT JOIN tests.mstr_staff_license AS c
+        ON c.info_staff_id = p.info_staff_id
+GROUP BY
+    p.info_staff_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_staff_staff_license_count is E'@foreignKey (info_staff_id) references info_staff (info_staff_id)\n@unique info_staff_id';
+
+drop view if exists tests.v_staff_staff_capability_count;
+create view  tests.v_staff_staff_capability_count as
+SELECT
+    p.info_staff_id
+    , COUNT(c.info_staff_id) AS all_count
+    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_staff AS p
+    LEFT JOIN tests.mstr_staff_capability AS c
+        ON c.info_staff_id = p.info_staff_id
+GROUP BY
+    p.info_staff_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_staff_staff_capability_count is E'@foreignKey (info_staff_id) references info_staff (info_staff_id)\n@unique info_staff_id';
+
+drop view if exists tests.v_staff_sign_count;
+create view  tests.v_staff_sign_count as
+SELECT
+    p.info_staff_id
+    , COUNT(c.info_staff_id) AS all_count
+    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_staff AS p
+    LEFT JOIN tests.mstr_sign AS c
+        ON c.info_staff_id = p.info_staff_id
+GROUP BY
+    p.info_staff_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_staff_sign_count is E'@foreignKey (info_staff_id) references info_staff (info_staff_id)\n@unique info_staff_id';
+
+drop view if exists tests.v_staff_assign_count;
+create view  tests.v_staff_assign_count as
+SELECT
+    p.info_staff_id
+    , COUNT(c.info_staff_id) AS all_count
+    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_staff_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_staff AS p
+    LEFT JOIN tests.info_assign AS c
+        ON c.info_staff_id = p.info_staff_id
+GROUP BY
+    p.info_staff_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_staff_assign_count is E'@foreignKey (info_staff_id) references info_staff (info_staff_id)\n@unique info_staff_id';
+
+drop view if exists tests.v_provision_stakeholder_provision_count;
+create view  tests.v_provision_stakeholder_provision_count as
+SELECT
+    p.info_provision_id
+    , COUNT(c.info_provision_id) AS all_count
+    , COUNT(c.info_provision_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_provision_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_provision AS p
+    LEFT JOIN tests.mstr_stakeholder_provision AS c
+        ON c.info_provision_id = p.info_provision_id
+GROUP BY
+    p.info_provision_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_provision_stakeholder_provision_count is E'@foreignKey (info_provision_id) references info_provision (info_provision_id)\n@unique info_provision_id';
+
+drop view if exists tests.v_provision_item_provision_count;
+create view  tests.v_provision_item_provision_count as
+SELECT
+    p.info_provision_id
+    , COUNT(c.info_provision_id) AS all_count
+    , COUNT(c.info_provision_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_provision_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_provision AS p
+    LEFT JOIN tests.mstr_item_provision AS c
+        ON c.info_provision_id = p.info_provision_id
+GROUP BY
+    p.info_provision_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_provision_item_provision_count is E'@foreignKey (info_provision_id) references info_provision (info_provision_id)\n@unique info_provision_id';
+
+drop view if exists tests.v_provision_equipment_provision_count;
+create view  tests.v_provision_equipment_provision_count as
+SELECT
+    p.info_provision_id
+    , COUNT(c.info_provision_id) AS all_count
+    , COUNT(c.info_provision_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_provision_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_provision AS p
+    LEFT JOIN tests.mstr_equipment_provision AS c
+        ON c.info_provision_id = p.info_provision_id
+GROUP BY
+    p.info_provision_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_provision_equipment_provision_count is E'@foreignKey (info_provision_id) references info_provision (info_provision_id)\n@unique info_provision_id';
+
+drop view if exists tests.v_position_approval_count;
+create view  tests.v_position_approval_count as
+SELECT
+    p.info_position_id
+    , COUNT(c.info_position_id) AS all_count
+    , COUNT(c.info_position_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_position_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_position AS p
+    LEFT JOIN tests.mstr_approval AS c
+        ON c.info_position_id = p.info_position_id
+GROUP BY
+    p.info_position_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_position_approval_count is E'@foreignKey (info_position_id) references info_position (info_position_id)\n@unique info_position_id';
+
+drop view if exists tests.v_position_assign_count;
+create view  tests.v_position_assign_count as
+SELECT
+    p.info_position_id
+    , COUNT(c.info_position_id) AS all_count
+    , COUNT(c.info_position_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_position_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_position AS p
+    LEFT JOIN tests.info_assign AS c
+        ON c.info_position_id = p.info_position_id
+GROUP BY
+    p.info_position_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_position_assign_count is E'@foreignKey (info_position_id) references info_position (info_position_id)\n@unique info_position_id';
+
+drop view if exists tests.v_department_kind_value_department_kind_count;
+create view  tests.v_department_kind_value_department_kind_count as
+SELECT
+    p.info_department_kind_value_id
+    , COUNT(c.info_department_kind_value_id) AS all_count
+    , COUNT(c.info_department_kind_value_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_department_kind_value_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_department_kind_value AS p
+    LEFT JOIN tests.info_department_kind AS c
+        ON c.info_department_kind_value_id = p.info_department_kind_value_id
+GROUP BY
+    p.info_department_kind_value_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_department_kind_value_department_kind_count is E'@foreignKey (info_department_kind_value_id) references info_department_kind_value (info_department_kind_value_id)\n@unique info_department_kind_value_id';
+
+drop view if exists tests.v_department_prevention_detail_count;
+create view  tests.v_department_prevention_detail_count as
+SELECT
+    p.info_department_id
+    , COUNT(c.info_department_id) AS all_count
+    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_department AS p
+    LEFT JOIN tests.trans_prevention_detail AS c
+        ON c.info_department_id = p.info_department_id
+GROUP BY
+    p.info_department_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_department_prevention_detail_count is E'@foreignKey (info_department_id) references info_department (info_department_id)\n@unique info_department_id';
+
+drop view if exists tests.v_department_department_kind_count;
+create view  tests.v_department_department_kind_count as
+SELECT
+    p.info_department_id
+    , COUNT(c.info_department_id) AS all_count
+    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_department AS p
+    LEFT JOIN tests.info_department_kind AS c
+        ON c.info_department_id = p.info_department_id
+GROUP BY
+    p.info_department_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_department_department_kind_count is E'@foreignKey (info_department_id) references info_department (info_department_id)\n@unique info_department_id';
+
+drop view if exists tests.v_department_department_access_permission_count;
+create view  tests.v_department_department_access_permission_count as
+SELECT
+    p.info_department_id
+    , COUNT(c.info_department_id) AS all_count
+    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_department AS p
+    LEFT JOIN tests.info_department_access_permission AS c
+        ON c.info_department_id = p.info_department_id
+GROUP BY
+    p.info_department_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_department_department_access_permission_count is E'@foreignKey (info_department_id) references info_department (info_department_id)\n@unique info_department_id';
+
+drop view if exists tests.v_company_provision_count;
+create view  tests.v_company_provision_count as
+SELECT
+    p.info_company_id
+    , COUNT(c.info_company_id) AS all_count
+    , COUNT(c.info_company_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_company_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_company AS p
+    LEFT JOIN tests.info_provision AS c
+        ON c.info_company_id = p.info_company_id
+GROUP BY
+    p.info_company_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_company_provision_count is E'@foreignKey (info_company_id) references info_company (info_company_id)\n@unique info_company_id';
+
+drop view if exists tests.v_company_office_count;
+create view  tests.v_company_office_count as
+SELECT
+    p.info_company_id
+    , COUNT(c.info_company_id) AS all_count
+    , COUNT(c.info_company_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_company_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_company AS p
+    LEFT JOIN tests.info_office AS c
+        ON c.info_company_id = p.info_company_id
+GROUP BY
+    p.info_company_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_company_office_count is E'@foreignKey (info_company_id) references info_company (info_company_id)\n@unique info_company_id';
+
+drop view if exists tests.v_company_department_count;
+create view  tests.v_company_department_count as
+SELECT
+    p.info_company_id
+    , COUNT(c.info_company_id) AS all_count
+    , COUNT(c.info_company_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_company_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_company AS p
+    LEFT JOIN tests.info_department AS c
+        ON c.info_company_id = p.info_company_id
+GROUP BY
+    p.info_company_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_company_department_count is E'@foreignKey (info_company_id) references info_company (info_company_id)\n@unique info_company_id';
+
+drop view if exists tests.v_app_app_status_count;
+create view  tests.v_app_app_status_count as
+SELECT
+    p.info_app_id
+    , COUNT(c.info_app_id) AS all_count
+    , COUNT(c.info_app_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_app_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_app AS p
+    LEFT JOIN tests.info_app_status AS c
+        ON c.info_app_id = p.info_app_id
+GROUP BY
+    p.info_app_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_app_app_status_count is E'@foreignKey (info_app_id) references info_app (info_app_id)\n@unique info_app_id';
+
+drop view if exists tests.v_app_access_path_count;
+create view  tests.v_app_access_path_count as
+SELECT
+    p.info_app_id
+    , COUNT(c.info_app_id) AS all_count
+    , COUNT(c.info_app_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_app_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_app AS p
+    LEFT JOIN tests.info_access_path AS c
+        ON c.info_app_id = p.info_app_id
+GROUP BY
+    p.info_app_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_app_access_path_count is E'@foreignKey (info_app_id) references info_app (info_app_id)\n@unique info_app_id';
+
+drop view if exists tests.v_access_path_report_count;
+create view  tests.v_access_path_report_count as
+SELECT
+    p.info_access_path_id
+    , COUNT(c.info_access_path_id) AS all_count
+    , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.info_access_path AS p
+    LEFT JOIN tests.mstr_report AS c
+        ON c.info_access_path_id = p.info_access_path_id
+GROUP BY
+    p.info_access_path_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_access_path_report_count is E'@foreignKey (info_access_path_id) references info_access_path (info_access_path_id)\n@unique info_access_path_id';
 
 drop view if exists tests.v_container_descendants;
 create view  tests.v_container_descendants as
@@ -21750,7 +23877,7 @@ SELECT
     ancestor_trans_container_id
     , COUNT(descendant_trans_container_id) AS descendant_count
 FROM
-   tests.hrchy_trans_container 
+    tests.hrchy_trans_container 
 WHERE
     remove = 'f' 
     AND
@@ -21767,7 +23894,7 @@ SELECT
     ancestor_mstr_task_id
     , COUNT(descendant_mstr_task_id) AS descendant_count
 FROM
-   tests.hrchy_mstr_task 
+    tests.hrchy_mstr_task 
 WHERE
     remove = 'f' 
     AND
@@ -21784,7 +23911,7 @@ SELECT
     ancestor_mstr_location_id
     , COUNT(descendant_mstr_location_id) AS descendant_count
 FROM
-   tests.hrchy_mstr_location 
+    tests.hrchy_mstr_location 
 WHERE
     remove = 'f' 
     AND
@@ -21801,7 +23928,7 @@ SELECT
     ancestor_mstr_item_id
     , COUNT(descendant_mstr_item_id) AS descendant_count
 FROM
-   tests.hrchy_mstr_item 
+    tests.hrchy_mstr_item 
 WHERE
     remove = 'f' 
     AND
@@ -21818,7 +23945,7 @@ SELECT
     ancestor_mstr_document_id
     , COUNT(descendant_mstr_document_id) AS descendant_count
 FROM
-   tests.hrchy_mstr_documet 
+    tests.hrchy_mstr_documet 
 WHERE
     remove = 'f' 
     AND
@@ -21835,7 +23962,7 @@ SELECT
     ancestor_mstr_document_content_id
     , COUNT(descendant_mstr_document_content_id) AS descendant_count
 FROM
-   tests.hrchy_mstr_document_content 
+    tests.hrchy_mstr_document_content 
 WHERE
     remove = 'f' 
     AND
@@ -21852,7 +23979,7 @@ SELECT
     ancestor_info_department_id
     , COUNT(descendant_info_department_id) AS descendant_count
 FROM
-   tests.hrchy_info_department 
+    tests.hrchy_info_department 
 WHERE
     remove = 'f' 
     AND

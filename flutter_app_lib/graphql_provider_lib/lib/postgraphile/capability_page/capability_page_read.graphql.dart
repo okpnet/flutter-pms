@@ -1008,6 +1008,33 @@ const documentNodeQueryCapabilityPageRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(
+                          value:
+                              'vCapabilityStaffCapabilityCountByMstrCapabilityId',
+                        ),
+                        alias: NameNode(value: 'staff_capability_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrCapabilityId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -2007,6 +2034,7 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
     this.step,
     this.symbol,
     this.remarks,
+    this.staff_capability_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -2026,6 +2054,7 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
     final l$step = json['step'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$staff_capability_count = json['staff_capability_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -2049,6 +2078,11 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
       step: (l$step as String?),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      staff_capability_count: l$staff_capability_count == null
+          ? null
+          : Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count.fromJson(
+              (l$staff_capability_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -2081,6 +2115,9 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
 
   final String? remarks;
 
+  final Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count?
+  staff_capability_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -2112,6 +2149,8 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$staff_capability_count = staff_capability_count;
+    _resultData['staff_capability_count'] = l$staff_capability_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -2135,6 +2174,7 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
     final l$step = step;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$staff_capability_count = staff_capability_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -2150,6 +2190,7 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
       l$step,
       l$symbol,
       l$remarks,
+      l$staff_capability_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -2216,6 +2257,11 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$staff_capability_count = staff_capability_count;
+    final lOther$staff_capability_count = other.staff_capability_count;
+    if (l$staff_capability_count != lOther$staff_capability_count) {
+      return false;
+    }
     final l$updateAt = updateAt;
     final lOther$updateAt = other.updateAt;
     if (l$updateAt != lOther$updateAt) {
@@ -2274,6 +2320,8 @@ abstract class CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes<
     String? step,
     String? symbol,
     String? remarks,
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count?
+    staff_capability_count,
     String? updateAt,
     bool? remove,
     Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user? update_user,
@@ -2283,6 +2331,10 @@ abstract class CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes<
   get labels;
   CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts<TRes>
   get detailTexts;
+  CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count<
+    TRes
+  >
+  get staff_capability_count;
   CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user<TRes>
   get update_user;
 }
@@ -2312,6 +2364,7 @@ class _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes<TRes>
     Object? step = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? staff_capability_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -2341,6 +2394,10 @@ class _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes<TRes>
       step: step == _undefined ? _instance.step : (step as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      staff_capability_count: staff_capability_count == _undefined
+          ? _instance.staff_capability_count
+          : (staff_capability_count
+                as Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -2381,6 +2438,21 @@ class _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes<TRes>
           );
   }
 
+  CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count<
+    TRes
+  >
+  get staff_capability_count {
+    final local$staff_capability_count = _instance.staff_capability_count;
+    return local$staff_capability_count == null
+        ? CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count(
+            local$staff_capability_count,
+            (e) => call(staff_capability_count: e),
+          );
+  }
+
   CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user<TRes>
   get update_user {
     final local$update_user = _instance.update_user;
@@ -2415,6 +2487,8 @@ class _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes<TRes>
     String? step,
     String? symbol,
     String? remarks,
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count?
+    staff_capability_count,
     String? updateAt,
     bool? remove,
     Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user? update_user,
@@ -2430,6 +2504,14 @@ class _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes<TRes>
   CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts<TRes>
   get detailTexts =>
       CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts.stub(
+        _res,
+      );
+
+  CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count<
+    TRes
+  >
+  get staff_capability_count =>
+      CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count.stub(
         _res,
       );
 
@@ -5076,11 +5158,156 @@ class _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detai
   call({int? charCount, String? leadText, String? $__typename}) => _res;
 }
 
+class Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count {
+  Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count({
+    this.mstrCapabilityId,
+    this.$__typename = 'VCapabilityStaffCapabilityCount',
+  });
+
+  factory Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrCapabilityId = json['mstrCapabilityId'];
+    final l$$__typename = json['__typename'];
+    return Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count(
+      mstrCapabilityId: (l$mstrCapabilityId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrCapabilityId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrCapabilityId = mstrCapabilityId;
+    _resultData['mstrCapabilityId'] = l$mstrCapabilityId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrCapabilityId = mstrCapabilityId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrCapabilityId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrCapabilityId = mstrCapabilityId;
+    final lOther$mstrCapabilityId = other.mstrCapabilityId;
+    if (l$mstrCapabilityId != lOther$mstrCapabilityId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count
+    on Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count {
+  CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count<
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count
+  >
+  get copyWith =>
+      CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count<
+  TRes
+> {
+  factory CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count(
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count
+    instance,
+    TRes Function(
+      Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count;
+
+  factory CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count;
+
+  TRes call({String? mstrCapabilityId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count
+  _instance;
+
+  final TRes Function(
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrCapabilityId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count(
+      mstrCapabilityId: mstrCapabilityId == _undefined
+          ? _instance.mstrCapabilityId
+          : (mstrCapabilityId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$staff_capability_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrCapabilityId, String? $__typename}) => _res;
+}
+
 class Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user {
   Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -5106,7 +5333,7 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user {
     return Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -5125,7 +5352,7 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user {
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -5343,9 +5570,9 @@ class _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$update_us
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name

@@ -141,6 +141,16 @@ InspectionItemPage: &InspectionItemPage
       <<: *ItemReadFields
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: inspection_operation_task_count
+      arrayType: toFirstOne
+      as: inspection_operation_task_count
+      using: mstr_inspection_id
+      from: v_inspection_inspection_operation_task_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -213,6 +223,16 @@ InspectionOperationPage:
       <<: *EquipmentPage
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: inspection_operation_task_count
+      arrayType: toFirstOne
+      as: inspection_operation_task_count
+      using: mstr_inspection_operation_id
+      from: v_inspection_operation_inspection_operation_task_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -340,6 +360,16 @@ InspectSchPage: &InspectSchPage
     - inspection_operation_id
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: inspect_sch_detail_count
+      arrayType: toFirstOne
+      as: inspect_sch_detail_count
+      using: trans_inspect_sch_id
+      from: v_inspect_sch_inspect_sch_detail_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -412,6 +442,25 @@ InspectSchDetailPage: &InspectSchDetailPage
     - inspection_operation_task_id
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 2本)
+    - name: inspection_report_count
+      arrayType: toFirstOne
+      as: inspection_report_count
+      using: trans_inspect_sch_detail_id
+      from: v_inspect_sch_detail_inspection_report_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: inspect_record_count
+      arrayType: toFirstOne
+      as: inspect_record_count
+      using: trans_inspect_sch_detail_id
+      from: v_inspect_sch_detail_inspect_record_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -476,6 +525,25 @@ InspectRecordPage: &InspectRecordPage
     - stakeholder_history_id
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 2本)
+    - name: inspection_report_count
+      arrayType: toFirstOne
+      as: inspection_report_count
+      using: trans_inspect_record_id
+      from: v_inspect_record_inspection_report_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: inspect_imp_file_count
+      arrayType: toFirstOne
+      as: inspect_imp_file_count
+      using: trans_inspect_record_id
+      from: v_inspect_record_inspect_imp_file_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

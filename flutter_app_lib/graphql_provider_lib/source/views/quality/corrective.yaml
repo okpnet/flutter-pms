@@ -39,6 +39,16 @@ DisposalPage: &DisposalPage
     - operation_staff_id
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: recurrence_prevention_count
+      arrayType: toFirstOne
+      as: recurrence_prevention_count
+      using: trans_disposal_id
+      from: v_disposal_recurrence_prevention_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -118,6 +128,16 @@ RecurrencePreventionPage: &RecurrencePreventionPage
     - operation_staff_id
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: observer_preventive_count
+      arrayType: toFirstOne
+      as: observer_preventive_count
+      using: trans_recurrence_prevention_id
+      from: v_recurrence_prevention_observer_preventive_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -178,6 +198,16 @@ ObserverDisposalPage: &ObserverDisposalPage
     - observer_staff_id
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: observer_preventive_count
+      arrayType: toFirstOne
+      as: observer_preventive_count
+      using: trans_observer_disposal_id
+      from: v_observer_disposal_observer_preventive_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

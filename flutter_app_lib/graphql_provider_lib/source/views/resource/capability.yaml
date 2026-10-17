@@ -35,6 +35,16 @@ CapabilityPage: &CapabilityPage
     - step 
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: staff_capability_count
+      arrayType: toFirstOne
+      as: staff_capability_count
+      using: mstr_capability_id
+      from: v_capability_staff_capability_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -126,6 +136,16 @@ CapableStaffPage:
         - stop
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: staff_capability_count
+      arrayType: toFirstOne
+      as: staff_capability_count
+      using: mstr_capability_id
+      from: v_capability_staff_capability_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

@@ -1,7 +1,7 @@
 # gqlprvlib 要件定義
 
-要件0001〜0049を統合・整理した、現在有効な要件定義である(2026/10/02再構成)。
-各要件の原文と経緯は`docs/requirements_0001-0049_history.md`を参照する。
+現在有効な要件定義である。要件0001〜0049は2026/10/02に、要件0050〜0056は2026/10/17に、本文の各章へ統合・整理した。
+各要件の原文と経緯は、`docs/requirements_0001-0049_history.md`と`docs/requirements_0050-0056_history.md`を参照する。
 本文中の`(0046)`のような番号は、根拠となった要件の通し番号である。
 新しい要件は末尾の「要件(0050以降)」へ追記する。
 
@@ -71,7 +71,8 @@ docs/                     要件ごとの実施ログ。生成ツールの詳細
   - イントロスペクションで取得し、SDLへ変換して型単位で比較する。差分があれば`source/schema.full.graphql`を置き換える。
   - 接続先の切り替えも自動で行う。Node.jsは不要。
   - 置き換えた後は、4-2節の絞り込みとbuild_runnerを続けて実行する。
-- 全量スキーマ(約20MB、入力型約1万)は**git対象外**とする。
+- DB変更の直後は、PostGraphileがスキーマを再構築している間、応答しない(5分でタイムアウト、またはHTTP 500)ことがある。中止してユーザーへ通知し、サーバーのログでイントロスペクションの完了を確認してから再実行する(イントロスペクションは約45〜70秒)。
+- 全量スキーマ(約27MB、入力型約1.4万)は**git対象外**とする。
 
 ### 4-2. 生成用スキーマ(絞り込み)(2026/10/02、0014を置き換え)
 
@@ -98,6 +99,7 @@ docs/                     要件ごとの実施ログ。生成ツールの詳細
 - 生成モデルのうち5000KBを超えるもの、および`schema.graphql.dart`は、`.gitignore`に追加する。
 - 加えて、アナライザの除外(`analysis_options.yaml`)と、VS Codeの監視・検索の除外(`.vscode/settings.json`)にも加える。
 - `.gitignore`はサイズで動的に指定できないため、build_runnerを実行するたびに生成物のサイズを確認し、該当するものを個別に追記する。
+- 現在の対象: `schema.graphql.dart`(約6.5MB)、`task_resource_page/task_resource_page_edit.graphql.dart`(約6.9MB)・`..._rfe.graphql.dart`(約6.2MB)。
 
 ### 4-5. 検索条件(平坦なMap → Filter)(0050)
 
@@ -116,6 +118,7 @@ docs/                     要件ごとの実施ログ。生成ツールの詳細
   - 同じ`some`に複数の列の条件を指定すると、同じ1件の子が全部を満たす条件になる。
 - 対応表に無いキー、演算子のMapでない値、必要な変数の欠落は`ArgumentError`とする。値がnullまたは空のMapの条件は無視する。
 - edit・RFEには検索条件が無い。
+
 
 ## 5. 画面仕様からGraphQLへの変換
 
@@ -220,182 +223,114 @@ docs/                     要件ごとの実施ログ。生成ツールの詳細
 - 新しい機能を追加するときは、page.mdに機能を追加し、対応するファイルを`source/views/`に作る。
 - 分割は構造だけの変更で、生成物は変わらない(分割前後でGraphQL 68ファイル・エラー68件が一致することを確認した)。
 
+
+### 5-10. 子として流用するときの引き継ぎ(0050)
+
+- `~Page`・`~PageEdit`・`~ReadFields`・`~EditFields`を子として`<<`で取り込むと、`where`・`requiredWhere`・`defaultWhere`・`filter`・`pagination`を引き継ぐ。
+- 子の側で同じキーを書くと、引き継いだ値はキー単位で丸ごと置き換わる(YAMLのマージ)。引き継ぎの例外は、この方法で指定する。
+- 引数名は27章3-1節(0043)に従う。
+  - 同じ名前で同じ型の引数は、1つの変数として親と子で共有する(親の条件を列単位で子へ伝える手段)。
+  - 型が違う場合、または親と子で別の値を渡す場合は、`{column, as}`で引数名を分ける。分けずに重複したときは、生成時にエラーとする。
+- paginationの変数名は`$<子の出力名>First`・`$<子の出力名>Offset`とする(27章3-1節の「自動で接頭辞を付けない」の例外)。
+- editのツリー内(RFEを含む)でreadを参照する子は、引き継いだ言語の条件を、5-5節のedit・RFEの言語引数に読み替える。
+
+### 5-11. 検索条件のfilter(0050)
+
+- `filter: true`は「ページが検索条件を受け取る」ことを示す(旧`condition`)。トップの操作に、Null許容の`$filter: <テーブル>Filter`を生成する。PostGraphile標準のcondition引数は使わない。
+- `defaultWhere`(remove等)の固定条件は、`$filter`とandで結合する。`remove`以外の固定条件(例: `is_customer = true`)もフィルタに反映する(0055。演算子`=` `!=` `>` `>=` `<` `<=`。`value`の無い条件・不明な列はエラー)。
+- 子として流用したページの`filter`は、子に独立した変数を作らず、親の`$filter`の中に関連の経路として展開する(toFirstOneは前方の関連、toManyは`some`)。
+- edit・RFEでは、引き継いだ`filter`を無視する。子の行だけを絞り込み、親の行を絞り込まない検索は、対象外とする。
+- 平坦なMapからの展開は4-5節。
+
+### 5-12. ツリーの親の付け替え(0054)
+
+- ツリー表(`mstr_*_tree`・`info_department_tree`)は、親テーブルのID列にユニーク制約が無く、PostGraphileが1対多として扱う。そのため、親(`~PageEdit`)の入れ子として`parent`を更新する構成は、フィールド名が合わず生成できない(内向きの1対1の入れ子更新は未対応)。
+- 親の付け替え(ドラッグ&ドロップ)は、ツリー行を直接更新するページで行う: `LocationTreePageEdit`・`ItemTreePageEdit`・`TaskTreePageEdit`・`DepartmentTreePageEdit`(それぞれ`<dir>_tree_page`)。
+  - `requiredWhere`はツリー行のID、`generateRfe: true`。生成されるミューテーションは`updateMstr…TreeByMstr…TreeId(input: {…TreeId, …TreePatch: {parent…Id}})`。
+  - 各`~PageEdit`の`parent`は削除した。`~Page`(read)の`parent`は残す(ツリー行のIDを得るため)。
+- 内向きの1対1や読み取り専用のビュー(`DepartmentPageEdit.kinds`・`ItemPageEdit.descendants`)は、editに置かない。値の編集は専用のページ、取得は`~Page`(read)で行う。
+- 親をトップ(null)へ移動する: Variablesモデルのコンストラクタはnullを渡すとキーを省略する(親を変更しない)。`Variables$Mutation$…Edit.fromJson({'<tree>Id': …, 'parent…Id': null})`でnullのキーを渡す。
+- 利用側の注意: 自分の子孫の下への移動(循環)は、アプリ側で`v_*_descendants`を使って防ぐ(DB側の制約は無い)。ツリー表の`symbol`のユニーク制約(`*_tree_IX1`)にも注意する。
+
+### 5-13. page.mdとviews(0055)
+
+- `source/page.md`はページの定義であり、viewsの分割と整合の基準とする。定義(サフィックスの種類、`[ノード名]`、`取込:`、`<!--DB要: ...-->`、命名の対応)は、page.mdの冒頭に書く。
+  - サフィックス: 台帳(別名: 項目)・体系・明細=read、情報・登録=edit。「項目」は、共通定義の読み込み側も指す。
+  - `<!--DB要-->`は、DBの変更・要件の確定が必要でviewsが未定義の項目。
+- viewsの全トップノードはpage.mdから参照され、page.mdの参照はviewsに存在する。サフィックスと参照先のkindは一致する。
+- 新しいページは、`dart run tool/scaffold_view.dart <テーブル>:<名前>[:<親を指す列>][:tree]`で雛形を出力し、列・参照・明細のタグを見直す。雛形の規則は`docs/0055_page_views_review_log.md`の5章。
+- 生成ツールは、共通定義(~ReadFields/~EditFields)も、スキーマとの整合を検証する(エラーは0件でなければならない)。
+
+### 5-14. 子のレコード数(0056)
+
+- DBに、親子関係にあるテーブルごとの集計ビュー`v_<親>_<子>_count`がある(`_tree`で終わるテーブル、`hrchy_`・`history_`で始まるテーブルを除く)。列は、親のキー、`all_count`(全件)・`enable_count`(`remove`でない件数)・`disable_count`(`remove`の件数)。DBのコメント(`@foreignKey`・`@unique`)で、親との1対1がPostGraphileに伝わる。
+- 親の`~Page`(`kind: read`のトップ)の`columns`に、`update_at`の直前へ追加する。形は`v_*_descendants`と同じ:
+  ```yaml
+  - name: department_count        # <子テーブルのプレフィックスを除いた名前>_count。同じ親で重複するときはビュー名
+    arrayType: toFirstOne
+    as: department_count
+    using: info_company_id        # 親の主キー(ビューのキー)
+    from: v_company_department_count
+    pick:
+      - all_count
+      - enable_count
+      - disable_count
+  ```
+- edit・RFEには追加しない(計算値のため)。共通定義(`~ReadFields`)を介する`~Page`は、共通定義側に追加する(`StakeholderReadFields`。CustomerPage・SupplierPageの共通。ユーザー採択)。
+- 親に`~Page`が無いビュー(24本。`trans_visiter`・`info_access_path`・`shared_language_code`・`info_app`等)は対象外(~Pageが無い=主画面になり得ない。ユーザー採択)。`mstr_approval`・`trans_approval_pattern`のビュー(3本)も対象外(ユーザー採択)。`~Page`を追加するときは、`tool/scaffold_view.dart`が集計の列を出力する。
+- 平坦化キーは`<名前>||all_count`等(例: `department_count||allCount`)。画面に出す件数は、通常`enable_count`。
+- `test/page_views_consistency_test.dart`が、~Pageの`from`のテーブルの型が持つ`V…Count`の単数フィールドを、すべて含むことを検証する。詳細は`docs/0056_child_count_columns_log.md`。
+
 ## 6. テストと品質条件
 
 | 条件 | 内容 |
 |---|---|
-| 往復変換(0013・0032・0044) | 生成モデルごとに、`nested_map_flattener.dart`で平坦化→復元して元と一致するテストを作る。再生成のときはテストも見直す |
+| 往復変換(0013・0032・0044・0054) | 生成モデルごとに、`nested_map_flattener.dart`で平坦化→復元して元と一致するテストを作る。再生成のときはテストも見直す。ツリーの親の付け替えページ(5-12節)は`test/tree_page_flatten_roundtrip_test.dart`(親をnullにする挙動を含む) |
 | RFE/Edit相互変換(0046・0048) | `test/rfe_edit_interconversion_test.dart`で全画面を検証する。RFE→Editの結果モデル・引数モデル、Editの結果モデル→RFEのいずれも変換できること。変換できない場合は、view.yamlの修正案をログに出力する。監査列がRFEにのみあるのは方針どおり(A1)とし、条件付き取得の混入は失敗(F6)とする |
 | nested_map_flattener.dartの扱い(0044) | 相互変換できないときだけ見直す。根本的な見直しが必要なら提案し、それ以外は対応できるよう修正する |
-| 生成ツール(0051・0052) | `test/view_graphql_generator_test.dart`で、名前の規則・YAMLのマージ・分割したviewsの結合(依存順・重複・未定義・循環・エラー位置)・既存の画面との一致(回帰)を検証する |
-| page.mdとviewsの整合(0055) | `test/page_views_consistency_test.dart`で、page.mdの参照がviewsに存在すること、viewsの全トップノードがpage.mdから参照されていること、サフィックスと参照先のkindの一致、参照の無い項目が`<!--DB要-->`の項目に限ること、viewsからのGraphQL生成(共通定義の検証を含む)のエラーが0件であることを検証する |
+| 生成ツール(0051・0052・0053) | `test/view_graphql_generator_test.dart`で、名前の規則・YAMLのマージ・分割したviewsの結合(依存順・重複・未定義・循環・エラー位置)・並び順(defaultSort/sortColumns)・既存の画面との一致(回帰)を検証する |
+| page.mdとviewsの整合(0055・0056) | `test/page_views_consistency_test.dart`で、page.mdの参照がviewsに存在すること、viewsの全トップノードがpage.mdから参照されていること、サフィックスと参照先のkindの一致、参照の無い項目が`<!--DB要-->`の項目に限ること、viewsからのGraphQL生成(共通定義の検証を含む)のエラーが0件であること、親の~Pageが子のレコード数(5-14節)を含むことを検証する |
 | 検索条件(0050) | `test/flat_filter_converter_test.dart`で、コンバーター単体の挙動、全画面の対応表のすべてのキーが生成モデル`Input$<テーブル>Filter`のfromJson/toJsonで欠落なく往復できること、OfficePageの実例を検証する |
 
 ## 7. 作業の進め方
 
 - 要件は1つずつ解決する。チャットで通し番号を使って指示する。
 - 要件の追記形式は「年月日_4桁の通し番号:内容」とし、要件に変更があったときは変更の通し番号を参照する。
-- ライブラリの動作に影響しない成果物(ログ・調査結果等)は`docs/`に置き、ファイル名に通し番号を含める(0004)。
+- ライブラリの動作に影響しない成果物(ログ・調査結果等)は`docs/`に置き、ファイル名に通し番号を含める(0004)。スキーマの再取得のログは`docs/schema_refetch_<日付>.md`とする。
 - 直前までの指示・実行済みの内容と重複し、実行しても結果が変わらないと判断できる場合は、実行せずログを残してスキップする(0020)。
 - view.yaml内の要件コメント、および確認用のコメント(`要件0046確認`等)は、ユーザーが確認後に削除する。Claudeは定義の変更なしに削除しない(0045・0046)。
 - 生成やテストの実行が環境の制約(メモリ・ツールの欠如等)で完了しない場合は、状態を元に戻し、原因と対応案をログに残してユーザーの判断を仰ぐ。
+- コミット・プッシュは、ユーザーの指示があったときだけ行う。
+- 環境の注意:
+  - `flutter pub get`・`dart pub get`は、`build ^4.0.11`と`flutter_test`の`meta`の競合で失敗する。テストは`flutter test --no-pub`で実行する。
+  - `tool/view_graphql/builder.dart`が使う`glob`は、`pubspec.yaml`に宣言していない(pubspecが解決できず検証できない)。解決できるようになったら、dev_dependenciesに`glob: ^2.1.3`を追加する。
+  - build_runnerを`--build-filter`で一部だけに限ると、フィルタ外の`lib/postgraphile`の出力が削除される。graphql_codegenの生成は`--build-filter "lib/postgraphile/**"`のように全体を指定する(誤って削除したときは、追跡済みのものは`git checkout`、`schema.graphql.dart`は再生成する)。
 
 ## 8. 保留・既知の課題
 
-- `DepartmentPage.descendants`: 0048で保留とした。0049でビューの関連がスキーマに追加され、取得できるようになった。view.yaml・GraphQLへの反映は未着手。
 - `CompanyPageEdit.provision`: `ProvisionPageEdit`のcolumnsを複製している(`requiredWhere`の扱いのため。docs/0048ログ3章)。
-- 0050は完了した(docs/0050ログ)。全量スキーマの再取得・GraphQLの再生成・コンバーター・build_runner・テストの見直しまで実施済み。
-  - `schema.full.graphql`は、コンテナの作り直し後に再取得した(関連フィルタが有効)。イントロスペクションは約45秒で、タイムアウト(5分)は問題にならなかった。
 - 言語の引数の一般化(ISO 639-1準拠、言語の数を限定しない、ja/enの固定の廃止)と5-5節の見直し: 0050の対象外とし、別の要件として扱う。
-- 0055で保留した項目: 会社の統計情報(集計のビューが無い。確認のため一時停止)。`page.md`の`<!--DB要-->`と、`docs/0055_page_views_review_log.md`の3章を参照する。
-- 0055で雛形から追加したページ(約52ページ)は、`lib/graphql`へ未採用。画面を使う段階で、列・参照・明細のタグを見直してから採用する(`docs/0055`の5章)。
+- 会社の統計情報(集計のビューが無い。確認のため一時停止): 0055で保留した。`page.md`の`<!--DB要-->`と、`docs/0055_page_views_review_log.md`の3章を参照する。
+- 0055で雛形から追加したページ(約52ページ)は、`lib/graphql`へ未採用。画面を使う段階で、列・参照・明細のタグを見直してから採用する(`docs/0055`の5章)。同様に、生成はできるが`lib/graphql`に未採用の画面(`location_page`・`item_page`・`task_page`等)は、採用の判断待ち(採用は5-8節の手順)。
+- 部署の区分(`info_department_kind`)の行そのものを作成・更新する画面は無い。必要になったときに、独立したページを追加する(0054)。
+- 内向きの1対1を入れ子で更新する構成は、ジェネレーターが未対応(0051・0054)。edit内の`parent`等は5-12節の方針で避ける。
+- `descendants`(`v_*_descendants`)の`using`は、ビューのキー(`ancestor_…_id`)と完全一致しないため、末尾一致で解決する警告が出る。動作に問題は無い。
+- 子のレコード数(5-14節)は、`StakeholderReadFields`を子として使う箇所(`TaskResourcePage`・`audit.yaml`)にも含まれる。変更が必要なときは、ユーザーに通知する。
 
 ## 要件(0050以降)
 
 追記形式: 年月日_4桁の通し番号:内容
 
-2026/10/07_0050:view.yamlのトップノードの命名規則、ページを子として流用するときの引き継ぎ規則、および平坦なMapによる検索条件を定める。
+整理済みの要件(0050〜0056)は、規則を本文の章へ統合した。原文と経緯は`docs/requirements_0050-0056_history.md`を参照する。
 
-1. 用語
-    1. ページ: 編集・閲覧を問わず、GoRouterの遷移先1つあたりの単位。
-    2. 共通定義: 単体では生成せず、他のノードの子としてだけ使うノード(区分・種類等の列の一部になる参照、呼称・住所・更新者等)。
-2. トップノードの命名
-    1. 次の4つの接尾辞のいずれかを付ける。kindは接尾辞と一致しなければならない。
+| 通し番号 | 内容 | 本文 | 実施ログ |
+|---|---|---|---|
+| 2026/10/07_0050 | トップノードの命名(`~Page`・`~PageEdit`・`~ReadFields`・`~EditFields`)、ページを子として流用するときの引き継ぎ、`condition`→`filter`、平坦なMapによる検索条件 | 4-5、5-3、5-10、5-11 | `docs/0050_naming_rules_and_filter_migration_log.md` |
+| 2026/10/14_0051 | view.yamlからGraphQLを生成するツール(`tool/view_graphql`、build_runnerのBuilderとCLI) | 5-8 | `docs/view_graphql_generator_2026-10-14.md` |
+| 2026/10/15_0052 | view.yamlを機能単位のファイルに分割(`source/views/`、アンカーの依存順の結合) | 5-9 | `docs/0052_view_yaml_split_log.md` |
+| 2026/10/15_0053 | 並び順の`defaultSort`(asc/desc/none)と`sortColumns`、並び順の引数(`$orderBy`・`$<名>OrderBy`)を必ず生成 | 5-6、27章6-9節 | `docs/0053_default_sort_log.md` |
+| 2026/10/16_0054 | ツリーの親の付け替え(ドラッグ&ドロップ)を、ツリー行の直接更新で実現(案A) | 5-12 | `docs/0054_tree_parent_update_log.md` |
+| 2026/10/16_0055 | page.mdとviews、全量スキーマの学習・追加・レビュー・評価(完了条件: page.mdが矛盾なく埋まり、スキーマとの不整合0件) | 5-13、6章 | `docs/0055_page_views_review_log.md` |
+| 2026/10/17_0056 | 親子関係にあるテーブル(ペア)の子のレコード数(`v_*_count`)を、viewsの親の~Pageの列として追加(`_tree`で終わる、`hrchy_`・`history_`で始まるテーブルを除く。0055に従う) | 5-14 | `docs/0056_child_count_columns_log.md` |
 
-        | 接尾辞 | 用途 | kind |
-        |---|---|---|
-        | ~Page | ページの読み込み | read |
-        | ~PageEdit | ページの編集 | edit |
-        | ~ReadFields | 共通定義の読み込み | read |
-        | ~EditFields | 共通定義の編集 | edit |
-
-    2. ページとして編集するものは、~EditFieldsではなく~PageEditとする。
-    3. 同じテーブルについて、共通定義とページの両方を定義してよい(例: UnitReadFieldsとUnitPage)。
-    4. トップノード名は先頭大文字(PascalCase)とし、アンカー名はトップノード名と同じにする。
-    5. 接尾辞が無い、またはkindが一致しないノードはエラーとしてログに記録し、生成しない(5-7節)。
-3. 生成対象と出力先(5-3節を置き換える)
-    1. 生成対象は~Pageと~PageEditだけとする。~ReadFieldsと~EditFieldsは生成しない。
-    2. ~EditFieldsにはgenerateRfeを付けない(単体のRFEも作らない)。
-    3. ディレクトリ名
-        1. ~Pageと~PageEditは、snake(~Page)の同じディレクトリに置く。
-        2. 対応する~Pageが無い~PageEditは、末尾の「Edit」を除いた名前をスネークケースにしたディレクトリに置く。
-    4. ファイル名は<ディレクトリ名>_read.graphql、_edit.graphql、_rfe.graphqlとし、操作名はPascalCase(<ディレクトリ名>)+Read/Edit/Rfeとする。
-    5. 平坦化キーの定数は、lib/contents/<ディレクトリ名>_keyname.dartに置く。
-4. 共有
-    1. 1つのeditを複数の~PageEditで共有する場合は、本体を~EditFieldsとし、各~PageEditから<<で取り込む。generateRfeとrequiredWhereは、各~PageEdit側に書く。
-    2. readを複数の~Pageで共有する場合も同様に、本体を~ReadFieldsとする。
-5. 子として流用するときの引き継ぎ
-    1. ~Page・~PageEdit・~ReadFields・~EditFieldsを子として<<で取り込むと、where・requiredWhere・defaultWhere・filter・paginationを引き継ぐ。
-    2. 子の側で同じキーを書くと、引き継いだ値はキー単位で丸ごと置き換わる(YAMLのマージ)。引き継ぎの例外は、この方法で指定する。
-    3. 引数名は0043(27章3-1節)に従う。
-        1. 同じ名前で同じ型の引数は、1つの変数として親と子で共有する。これを、親の条件を列単位で子へ伝える手段とする。
-        2. 型が違う場合、または親と子で別の値を渡す場合は、{column, as}で引数名を分ける。分けずに重複した場合は、生成時にエラーとする。
-    4. paginationは、現行どおり「$<子の出力名>First」「$<子の出力名>Offset」とする。この変数名は、27章3-1節の「自動で接頭辞を付けない」の例外とする。
-    5. editのツリー内(RFEを含む)でreadを参照する子は、引き継いだ言語の条件を、5-5節のedit・RFEの言語引数に読み替える。
-6. 検索条件(filter)
-    1. view.yamlの`condition`キーを`filter`キーに改める。`filter: true`は「ページが検索条件を受け取る」ことを示す。GraphQLでは、トップの操作にNull許容の「$filter: <テーブル>Filter」(postgraphile-plugin-connection-filter)を生成する。PostGraphile標準のcondition引数は使わない。
-    2. defaultWhere(remove等)の固定条件は、$filterとandで結合する。
-    3. 子として流用したページのfilterは、子に独立した変数を作らず、親の$filterの中に関連の経路として展開する。
-        1. toFirstOneの子は、前方の関連フィールド(例: infoAddressByInfoAddressId)で辿る。
-        2. toManyの子は、someで辿る(子のいずれかが一致する親を取得する)。
-    4. 呼び出し側は、検索条件を平坦なMap(キーは平坦化キーの定数、値はconnection-filterの演算子のMap。例: {includes: "東京"})で渡す。ライブラリは、view.yamlの経路(as・using・from)に従い、入れ子の<テーブル>Filterへ展開する。
-        1. 平坦化キーから関連フィールドの経路への対応は生成時に作り、KeyNameの定数(ContentVariable)に持たせる。
-        2. 展開できないキーはエラーとする。
-    5. 呼称(shared_appellations)を経由する列の条件には、5-5節の言語の条件を同じ経路の中に加える。
-    6. edit・RFEでは、引き継いだfilterを無視する。
-    7. 子の行だけを絞り込み、親の行を絞り込まない検索は、本要件の対象外とする。
-7. 移行
-    1. 既存ノードの変更前・変更後の対応表と、影響する生成物を、docs/0050のログにまとめてから着手する。
-    2. 生成物(ディレクトリ・操作名・生成クラス・KeyName)が変わるもの
-        1. DepartmentCategoryPage(ディレクトリ department_category → department_category_page)
-        2. DepartmentCategoryEdit → DepartmentCategoryPageEdit(同上)
-        3. StaffCapabilityEdit → StaffCapabilityEditFields。StaffCapabilityPageEditとCapableStaffPageEditを新設し、それぞれから取り込む。staff_capability/は廃止する。
-        4. condition: trueを持つすべてのread: view.yamlのキーをfilter: trueに改め、GraphQLの$condition(<テーブル>Condition)を$filter(<テーブル>Filter)へ変える。
-    3. 名前だけが変わるもの(生成物は変わらない)
-        - dictionaryLabel → DictionaryLabelReadFields
-        - dictionaryEdit → DictionaryEditFields
-        - appellationLabels → AppellationLabelsReadFields
-        - appellationLabelsEdit → AppellationLabelsEditFields
-        - addressFields → AddressReadFields
-        - addressEditFields → AddressEditFields
-        - languageCodeEdit → LanguageCodeEditFields
-        - updateStaff → UpdateStaffReadFields
-        - Unit → UnitReadFields
-        - ItemKind → ItemKindReadFields
-        - ItemRead → ItemReadFields
-        - ApprovalRead → ApprovalReadFields
-        - ApprovalEdit → ApprovalEditFields
-        - ApprovalDetailRead → ApprovalDetailReadFields
-        - ApprovalDetailEdit → ApprovalDetailEditFields
-        - StaffLicenseEdit → StaffLicenseEditFields
-        - SpecMeasurementEdit → SpecMeasurementPageEdit(生成物はすでにspec_measurement_page/SpecMeasurementPageEditのため変わらない)
-    4. 手順は「view.yamlの修正 → 評価 → GraphQLの生成 → 絞り込み → build_runner → テストの見直し」の順とし、生成クラス名・引数の変更は、利用側のアプリへの影響としてログに記録する。
-8. 反映先
-    1. CLAUDE.mdの5-3節を、本要件の2・3で置き換える。
-    2. 27_yaml_to_graphql_conversion_rules.mdの3-1節・5章(conditionをfilterに改める)・6-7節に、5・6の内容を反映する。
-    3. schema.jsonで、トップノードの接尾辞とkindの一致を検査する(patternProperties、if/then)。conditionプロパティをfilterに改め、説明を6-1に合わせる。
-    4. prune_schema.dartの規則に、関連フィルタの入力型(<テーブル>Filterの関連フィールド、some/every/none)を残す設定を加える(4-2節)。
-    5. 平坦なMapから<テーブル>Filterへ展開するコンバーターを、lib/extensions/に追加する。往復変換のテストと同様に、画面ごとのテストを作る。
-9. 前提
-    1. PostGraphileで、postgraphile-plugin-connection-filterの関連フィルタ(connectionFilterRelations: true)が有効になっていること。有効化と全量スキーマの再取得(4-1節)は別途行う。
-10. 対象外
-    1. 言語の引数の一般化(ISO 639-1準拠、言語の数を限定しない、ja/enの固定の廃止)と、5-5節の見直しは、別の要件とする。
-
-2026/10/14_0051:view.yamlからGraphQLを生成するツールを定める。
-
-1. 目的: view.yaml→GraphQLの変換を、Claudeによる毎回の作成から、build_runnerで実行できるツールに置き換える。
-2. 構成: `tool/view_graphql`(純Dartのライブラリ)を、build_runnerのBuilder(`build.yaml`)とCLI(`tool/gen_view_graphql.dart`)の両方から使う。
-3. 入力: `source/view.yaml`(要件0052で`source/views/`に分割)と`source/schema.full.graphql`。出力: `source/generated_graphql/<ディレクトリ>/<ディレクトリ>_{read,edit,rfe}.graphql`。
-4. 規則: 27章(11章)に従う。既存の生成物から読み取った慣習(呼称・辞書の別名なし、単数の関連は主キーを必ず含める、引数名の接頭辞など)をツールに実装した。
-5. 検証: 既存の`lib/graphql`と、書式・コメント・選択の順序を除いて比較する。2026/10/14時点で54ファイル中36ファイルが一致し、残りの差分はview.yaml側(または古い既存ファイル)の原因による(docsのログ)。
-6. 既存の`lib/graphql`は、view.yamlとの差分の扱い(どちらを正とするか)を決めてから、生成物で置き換える。`operation_page`は置き換え済み。
-7. 未対応: 内向きの1対1を入れ子で更新する子(`DepartmentPageEdit.parent`・`kinds`)。エラーとして記録する。
-8. view.yamlの誤字(AppellationLabels系の`pronunciatione`・`npronunciatione`・`nicknam`)を修正した。ほかの不具合はログ5章に列挙した。
-2026/10/15_0052:view.yamlを機能単位のファイルに分割する。
-
-1. 目的: view.yamlが約3,700行に肥大化し、レビューが困難になったため、機能単位のファイルに分ける。
-2. 配置: `source/views/`を作成し、view.yamlの分割はこのDIR以下に展開する。元の`source/view.yaml`は廃止する。
-3. 分割の基準: `source/page.md`をもとに分割する(分野・機能に沿った`<分野>/<機能>.yaml`)。
-4. 共通参照項目: 機能に該当するもの(例えば`TaskReadFields`)は機能のファイルに含める。複数の機能から使うものは`common/`に置く。
-5. ファイルをまたぐ共通項目の参照(アンカーとエイリアス)は、読み込み側(`tool/view_graphql/view_sources.dart`)が全ファイルを依存順に結合してから解析することで解決する。
-6. 進め方: ローダーの複数ファイル対応(結合・依存順・重複検出・位置の対応表) → 機能単位への切り出し(内容は変更しない) → 分割前後の一致の確認(読み込み結果・GraphQLの生成物・回帰テスト) → 元のview.yamlの廃止。
-7. 要件0051の成果物`docs/view_graphql_generator_2026-10-14.md`を、本ファイルの構成(3章)と5-8節から参照する。
-8. 詳細と確認結果: `docs/0052_view_yaml_split_log.md`。
-
-2026/10/15_0053:view.yamlにデフォルトのソート、ASC/DESCがあるか確認する。もし、ソートが存在しなければdefaultSort属性を追加。値はasc,desc,none(標準)。noneの場合は省略可能。GraphQLにソートの引数がない場合は、追加。ソートの引数があるとき、defaultSortを無効にする。引数がNullのときはソートを設定しない。これらはbuildrunnerへの適用し、view.yamlを再評価、ビルドする。
-0053の実施:
-1. view.yamlには並び順の指定が無かった(トップは生成ツールが固定で`PRIMARY_KEY_ASC`、1対多は`sequence`があれば固定で`SEQUENCE_ASC`)。`schema.json`に`defaultSort`を追加し、`tool/view_graphql/read_generator.dart`を変更した。
-2. 従来のトップの固定の`PRIMARY_KEY_ASC`は廃止し、`none`(並べない。PostGraphileは主キー順)を標準とした(ユーザー採択)。順(`sequence`)で並べる`OperationPageEdit.operationTasks`だけ、`defaultSort: { asc: { sortColumns: [sequence] } }`を指定した。
-3. 1対多に並び順の引数を追加したため、該当するクエリ・RFEの変数が増える(利用側への影響): `$<子の出力名>OrderBy`。詳細は`docs/0053_default_sort_log.md`。
-4. ソートの列は、`defaultSort`の入れ子の`sortColumns`(列名の配列)で指定する。`asc`/`desc`をキーにし、その下に`sortColumns`を置く(YAMLでは`defaultSort: asc`の下に子を置けないため)。例:
-    ```yaml
-    defaultSort:
-      asc:
-        sortColumns:
-          - 列名1
-          - 列名2
-    ```
-    - ascとdescは同時に指定できない(両方書くとエラー)。省略・`none`は並べない。
-    - `sortColumns`がnull・空・省略(`asc:`だけ等)のときはnoneと同義。
-    - 列名はこのノードの列(snake_case、主キーは`primary_key`)。関連先の列は、PostGraphileの`orderBy`に無いため指定できず、エラーとする。
-    - `defaultSort: asc`のような文字列(旧形式)や、`defaultSort`と同じ階層の`sortColumns`はエラーとする。
-5. `source/schema.json.help.md`に、defaultSort / sortColumns の節を追加した。
-2026/10/16_0054:ツリーの親の付け替え(ドラッグ&ドロップ)を、ツリー行の直接更新で実現する。
-
-1. 背景: 「内向きの入れ子」のエラー(`LocationPageEdit.parent`等)の原因は、ツリー表(`mstr_location_tree`等)の`<親テーブルのID>`列にユニーク制約が無く、PostGraphileが1対多(`mstrLocationTreesToMstrLocationIdUsingMstrLocationId`)として扱うため、ジェネレーターが組み立てる1対1の名前(`mstrLocationTreeToMstrLocationId`)と合わないことだった。
-2. 方針(案A、ユーザー採択): 親の付け替えは、ツリー行を直接更新するページで行う。`updateMstr…TreeByMstr…TreeId(input: {…TreeId, …TreePatch: {parent…Id}})`。
-3. 追加: `LocationTreePageEdit`・`ItemTreePageEdit`・`TaskTreePageEdit`・`DepartmentTreePageEdit`(それぞれ`<dir>_tree_page`)。`requiredWhere`はツリー行のID、`generateRfe: true`。`ItemTreePageEdit`は、旧`ItemPageEdit.parent`の列(呼称・数量・テキスト)を引き継いだ。
-4. 削除: `LocationPageEdit`・`ItemPageEdit`・`TaskPageEdit`・`DepartmentPageEdit`の`parent`(ReadのPageの`parent`は残す。ツリー行のIDを得るため)。
-5. 親をトップ(null)へ移動する: Variablesモデルのコンストラクタはnullを渡すとキーを省略する(親を変更しない)ため、`Variables$Mutation$…Edit.fromJson({'<tree>Id': …, 'parent…Id': null})`でnullのキーを渡す。
-6. 利用側の注意: 自分の子孫の下への移動(循環)は、アプリ側で`v_*_descendants`を使って防ぐ。DB側の制約は無い。ツリー表の`symbol`のユニーク制約(`*_tree_IX1`)にも注意する。
-7. 残りの内向きの入れ子(別原因)も、同じ方針で編集から外した: `DepartmentPageEdit.kinds`(区分は`info_department_kind`の1対1の内向き。値の編集は`DepartmentCategoryPageEdit`、取得は`DepartmentPage`)、`ItemPageEdit.descendants`(読み取り専用のビュー。取得は`ItemPage`)。これでGraphQLの生成エラーは0件になった。
-8. 詳細: `docs/0054_tree_parent_update_log.md`。
-
-2026/10/16_0055:`page.md`と`views`、`shema.graphql`と関連を学習、傾向から`page.md`と`views`の追加、レビューを行い評価する。
-
-0055の実施(2026/10/16):
-1. 4章を実行(スキーマ再取得 → 生成 → 絞り込み → 対応表 → build_runner → テスト)。部署と区分の構造変更(`info_department_kind`が紐付けの1対多)に`department.yaml`とテストを追従した。
-2. viewsを評価し、スキーマとの不整合を修正した(`document.yaml`、`FlexibleTextEditFields`、`HsCodeReadEditFields`、`InspectionFormulaEditFields`、`ContactReadFields`/`ContactEditFields`、顧客・サプライヤーの`defaultWhere`の誤記)。
-3. page.mdの項目のうち、スキーマに対応するテーブルがあるもの(約50ページ)を、`tool/scaffold_view.dart`の雛形からviewsへ追加した。page.mdの誤記・矛盾・未参照を修正し、定義(「項目」、`[ノード名]`、`取込:`、`<!--DB要-->`、命名の対応)を追記した。
-4. 生成ツールを拡張した: `defaultWhere`の固定条件(remove以外)の反映、共通定義(~ReadFields/~EditFields)の検証。
-5. 完了条件を満たした(page.mdの項目が矛盾なく埋まり、全量スキーマとの不整合0件。`test/page_views_consistency_test.dart`)。DBの変更・要件の確定が必要な項目はスキップし、`docs/0055_page_views_review_log.md`の3・4章に残した。
+スキーマの再取得(4章の実行)のログは、`docs/schema_refetch_2026-10-15.md`・`..._2026-10-16.md`・`..._2026-10-17.md`にある。

@@ -27,6 +27,43 @@ OrderPage: &OrderPage
     - deadline
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 4本)
+    - name: shipping_order_count
+      arrayType: toFirstOne
+      as: shipping_order_count
+      using: trans_order_id
+      from: v_order_shipping_order_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: order_risk_count
+      arrayType: toFirstOne
+      as: order_risk_count
+      using: trans_order_id
+      from: v_order_order_risk_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: order_detail_count
+      arrayType: toFirstOne
+      as: order_detail_count
+      using: trans_order_id
+      from: v_order_order_detail_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: complaint_order_count
+      arrayType: toFirstOne
+      as: complaint_order_count
+      using: trans_order_id
+      from: v_order_complaint_order_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -83,6 +120,25 @@ OrderDetailPage: &OrderDetailPage
     - deadline
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 2本)
+    - name: shipping_order_detail_count
+      arrayType: toFirstOne
+      as: shipping_order_detail_count
+      using: trans_order_detail_id
+      from: v_order_detail_shipping_order_detail_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: order_detail_risk_count
+      arrayType: toFirstOne
+      as: order_detail_risk_count
+      using: trans_order_detail_id
+      from: v_order_detail_order_detail_risk_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

@@ -32,6 +32,16 @@ AuditStdPage: &AuditStdPage
       <<: *FixTextReadFields
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: audit_std_checkitem_count
+      arrayType: toFirstOne
+      as: audit_std_checkitem_count
+      using: mstr_audit_std_id
+      from: v_audit_std_audit_std_checkitem_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -178,6 +188,25 @@ AuditPage: &AuditPage
       <<: *StakeholderReadFields
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 2本)
+    - name: audit_team_count
+      arrayType: toFirstOne
+      as: audit_team_count
+      using: trans_audit_id
+      from: v_audit_audit_team_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: audit_member_count
+      arrayType: toFirstOne
+      as: audit_member_count
+      using: trans_audit_id
+      from: v_audit_audit_member_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -249,6 +278,16 @@ AuditTeamPage: &AuditTeamPage
       <<: *FlexibleLabelReadFields
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: auditor_count
+      arrayType: toFirstOne
+      as: auditor_count
+      using: trans_audit_team_id
+      from: v_audit_team_auditor_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

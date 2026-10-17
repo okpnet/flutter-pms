@@ -25,6 +25,7 @@ abstract class CapabilityPageFilterSpec {
     'step': FlatFilterPath([], 'step'),
     'symbol': FlatFilterPath([], 'symbol'),
     'remarks': FlatFilterPath([], 'remarks'),
+    'staff_capability_count||mstrCapabilityId': FlatFilterPath([FilterStep('vCapabilityStaffCapabilityCountByMstrCapabilityId')], 'mstrCapabilityId'),
     'updateAt': FlatFilterPath([], 'updateAt'),
     'remove': FlatFilterPath([], 'remove'),
     'update_user||historyId': FlatFilterPath([FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId')], 'historyId'),

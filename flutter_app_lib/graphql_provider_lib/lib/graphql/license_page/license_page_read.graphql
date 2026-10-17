@@ -87,6 +87,11 @@ query LicensePageRead(
       }
       symbol
       remarks
+
+      staff_license_count: vLicenseStaffLicenseCountByMstrLicenseId {
+        mstrLicenseId
+      }
+
       updateAt
       remove
 

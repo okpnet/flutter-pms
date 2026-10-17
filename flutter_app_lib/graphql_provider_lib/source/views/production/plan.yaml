@@ -69,6 +69,16 @@ OperationsPlanPage: &OperationsPlanPage
     - deadline
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: work_plan_count
+      arrayType: toFirstOne
+      as: work_plan_count
+      using: trans_operations_plan_id
+      from: v_operations_plan_work_plan_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -118,6 +128,25 @@ WorkPlanPage: &WorkPlanPage
     - completion_at
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 2本)
+    - name: work_record_count
+      arrayType: toFirstOne
+      as: work_record_count
+      using: trans_work_plan_id
+      from: v_work_plan_work_record_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: product_rez_count
+      arrayType: toFirstOne
+      as: product_rez_count
+      using: trans_work_plan_id
+      from: v_work_plan_product_rez_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

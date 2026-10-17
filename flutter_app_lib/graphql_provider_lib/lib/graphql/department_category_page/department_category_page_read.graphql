@@ -63,6 +63,11 @@ query DepartmentCategoryPageRead(
 
       symbol
       remarks
+
+      department_kind_count: vDepartmentKindValueDepartmentKindCountByInfoDepartmentKindValueId {
+        infoDepartmentKindValueId
+      }
+
       updateAt
       remove
 

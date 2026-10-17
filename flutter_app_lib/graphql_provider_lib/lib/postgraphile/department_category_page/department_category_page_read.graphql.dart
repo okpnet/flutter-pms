@@ -895,6 +895,35 @@ const documentNodeQueryDepartmentCategoryPageRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(
+                          value:
+                              'vDepartmentKindValueDepartmentKindCountByInfoDepartmentKindValueId',
+                        ),
+                        alias: NameNode(value: 'department_kind_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(
+                                value: 'infoDepartmentKindValueId',
+                              ),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -1962,6 +1991,7 @@ class Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes {
     this.labels,
     this.symbol,
     this.remarks,
+    this.department_kind_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -1975,6 +2005,7 @@ class Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes {
     final l$labels = json['labels'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$department_kind_count = json['department_kind_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -1988,6 +2019,11 @@ class Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes {
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      department_kind_count: l$department_kind_count == null
+          ? null
+          : Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count.fromJson(
+              (l$department_kind_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -2008,6 +2044,9 @@ class Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes {
 
   final String? remarks;
 
+  final Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count?
+  department_kind_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -2027,6 +2066,8 @@ class Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$department_kind_count = department_kind_count;
+    _resultData['department_kind_count'] = l$department_kind_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -2044,6 +2085,7 @@ class Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes {
     final l$labels = labels;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$department_kind_count = department_kind_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -2053,6 +2095,7 @@ class Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes {
       l$labels,
       l$symbol,
       l$remarks,
+      l$department_kind_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -2088,6 +2131,11 @@ class Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes {
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$department_kind_count = department_kind_count;
+    final lOther$department_kind_count = other.department_kind_count;
+    if (l$department_kind_count != lOther$department_kind_count) {
       return false;
     }
     final l$updateAt = updateAt;
@@ -2147,6 +2195,8 @@ abstract class CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindVa
     labels,
     String? symbol,
     String? remarks,
+    Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count?
+    department_kind_count,
     String? updateAt,
     bool? remove,
     Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$update_user?
@@ -2157,6 +2207,10 @@ abstract class CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindVa
     TRes
   >
   get labels;
+  CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count<
+    TRes
+  >
+  get department_kind_count;
   CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$update_user<
     TRes
   >
@@ -2190,6 +2244,7 @@ class _CopyWithImpl$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues
     Object? labels = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? department_kind_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -2207,6 +2262,10 @@ class _CopyWithImpl$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues
                 as Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$labels?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      department_kind_count: department_kind_count == _undefined
+          ? _instance.department_kind_count
+          : (department_kind_count
+                as Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -2233,6 +2292,21 @@ class _CopyWithImpl$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues
         : CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count<
+    TRes
+  >
+  get department_kind_count {
+    final local$department_kind_count = _instance.department_kind_count;
+    return local$department_kind_count == null
+        ? CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count(
+            local$department_kind_count,
+            (e) => call(department_kind_count: e),
           );
   }
 
@@ -2271,6 +2345,8 @@ class _CopyWithStubImpl$Query$DepartmentCategoryPageRead$allInfoDepartmentKindVa
     labels,
     String? symbol,
     String? remarks,
+    Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count?
+    department_kind_count,
     String? updateAt,
     bool? remove,
     Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$update_user?
@@ -2283,6 +2359,14 @@ class _CopyWithStubImpl$Query$DepartmentCategoryPageRead$allInfoDepartmentKindVa
   >
   get labels =>
       CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$labels.stub(
+        _res,
+      );
+
+  CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count<
+    TRes
+  >
+  get department_kind_count =>
+      CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count.stub(
         _res,
       );
 
@@ -4358,11 +4442,157 @@ class _CopyWithStubImpl$Query$DepartmentCategoryPageRead$allInfoDepartmentKindVa
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
+class Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count {
+  Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count({
+    this.infoDepartmentKindValueId,
+    this.$__typename = 'VDepartmentKindValueDepartmentKindCount',
+  });
+
+  factory Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoDepartmentKindValueId = json['infoDepartmentKindValueId'];
+    final l$$__typename = json['__typename'];
+    return Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count(
+      infoDepartmentKindValueId: (l$infoDepartmentKindValueId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoDepartmentKindValueId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoDepartmentKindValueId = infoDepartmentKindValueId;
+    _resultData['infoDepartmentKindValueId'] = l$infoDepartmentKindValueId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoDepartmentKindValueId = infoDepartmentKindValueId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoDepartmentKindValueId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoDepartmentKindValueId = infoDepartmentKindValueId;
+    final lOther$infoDepartmentKindValueId = other.infoDepartmentKindValueId;
+    if (l$infoDepartmentKindValueId != lOther$infoDepartmentKindValueId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count
+    on
+        Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count {
+  CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count<
+    Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count
+  >
+  get copyWith =>
+      CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count<
+  TRes
+> {
+  factory CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count(
+    Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count
+    instance,
+    TRes Function(
+      Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count;
+
+  factory CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count;
+
+  TRes call({String? infoDepartmentKindValueId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count<
+  TRes
+>
+    implements
+        CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count
+  _instance;
+
+  final TRes Function(
+    Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoDepartmentKindValueId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count(
+      infoDepartmentKindValueId: infoDepartmentKindValueId == _undefined
+          ? _instance.infoDepartmentKindValueId
+          : (infoDepartmentKindValueId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count<
+  TRes
+>
+    implements
+        CopyWith$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$department_kind_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoDepartmentKindValueId, String? $__typename}) => _res;
+}
+
 class Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$update_user {
   Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -4388,7 +4618,7 @@ class Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$update_
     return Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -4407,7 +4637,7 @@ class Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes$update_
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -4627,9 +4857,9 @@ class _CopyWithImpl$Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name

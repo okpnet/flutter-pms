@@ -979,6 +979,133 @@ const documentNodeQueryStaffCapabilityPageRfe = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(
+                          value:
+                              'vStaffStaffAccessPermissionCountByInfoStaffId',
+                        ),
+                        alias: NameNode(value: 'staff_access_permission_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'infoStaffId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vStaffStaffLicenseCountByInfoStaffId',
+                        ),
+                        alias: NameNode(value: 'staff_license_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'infoStaffId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vStaffStaffCapabilityCountByInfoStaffId',
+                        ),
+                        alias: NameNode(value: 'staff_capability_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'infoStaffId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'vStaffSignCountByInfoStaffId'),
+                        alias: NameNode(value: 'sign_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'infoStaffId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'vStaffAssignCountByInfoStaffId'),
+                        alias: NameNode(value: 'assign_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'infoStaffId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -2361,6 +2488,33 @@ const documentNodeQueryStaffCapabilityPageRfe = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(
+                          value:
+                              'vCapabilityStaffCapabilityCountByMstrCapabilityId',
+                        ),
+                        alias: NameNode(value: 'staff_capability_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrCapabilityId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -3251,7 +3405,7 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     required this.mstrStaffCapabilityId,
     required this.infoStaffId,
     this.staff,
-    this.mstrCapabilityId,
+    required this.mstrCapabilityId,
     this.capability,
     this.value,
     this.stop,
@@ -3287,7 +3441,7 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
           : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff.fromJson(
               (l$staff as Map<String, dynamic>),
             ),
-      mstrCapabilityId: (l$mstrCapabilityId as String?),
+      mstrCapabilityId: (l$mstrCapabilityId as String),
       capability: l$capability == null
           ? null
           : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability.fromJson(
@@ -3311,7 +3465,7 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
   final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff?
   staff;
 
-  final String? mstrCapabilityId;
+  final String mstrCapabilityId;
 
   final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability?
   capability;
@@ -3579,9 +3733,10 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
           ? _instance.staff
           : (staff
                 as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff?),
-      mstrCapabilityId: mstrCapabilityId == _undefined
+      mstrCapabilityId:
+          mstrCapabilityId == _undefined || mstrCapabilityId == null
           ? _instance.mstrCapabilityId
-          : (mstrCapabilityId as String?),
+          : (mstrCapabilityId as String),
       capability: capability == _undefined
           ? _instance.capability
           : (capability
@@ -3687,7 +3842,7 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
 class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff {
   Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff({
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.labels,
     this.sex,
@@ -3695,6 +3850,11 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     this.privatePhone,
     this.symbol,
     this.remarks,
+    this.staff_access_permission_count,
+    this.staff_license_count,
+    this.staff_capability_count,
+    this.sign_count,
+    this.assign_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -3713,13 +3873,19 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$privatePhone = json['privatePhone'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$staff_access_permission_count =
+        json['staff_access_permission_count'];
+    final l$staff_license_count = json['staff_license_count'];
+    final l$staff_capability_count = json['staff_capability_count'];
+    final l$sign_count = json['sign_count'];
+    final l$assign_count = json['assign_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff(
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       labels: l$labels == null
           ? null
@@ -3731,6 +3897,31 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
       privatePhone: (l$privatePhone as String?),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      staff_access_permission_count: l$staff_access_permission_count == null
+          ? null
+          : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count.fromJson(
+              (l$staff_access_permission_count as Map<String, dynamic>),
+            ),
+      staff_license_count: l$staff_license_count == null
+          ? null
+          : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count.fromJson(
+              (l$staff_license_count as Map<String, dynamic>),
+            ),
+      staff_capability_count: l$staff_capability_count == null
+          ? null
+          : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count.fromJson(
+              (l$staff_capability_count as Map<String, dynamic>),
+            ),
+      sign_count: l$sign_count == null
+          ? null
+          : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count.fromJson(
+              (l$sign_count as Map<String, dynamic>),
+            ),
+      assign_count: l$assign_count == null
+          ? null
+          : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count.fromJson(
+              (l$assign_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -3744,7 +3935,7 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -3760,6 +3951,21 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
   final String? symbol;
 
   final String? remarks;
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count?
+  staff_access_permission_count;
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count?
+  staff_license_count;
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count?
+  staff_capability_count;
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count?
+  sign_count;
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count?
+  assign_count;
 
   final String? updateAt;
 
@@ -3790,6 +3996,17 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$staff_access_permission_count = staff_access_permission_count;
+    _resultData['staff_access_permission_count'] =
+        l$staff_access_permission_count?.toJson();
+    final l$staff_license_count = staff_license_count;
+    _resultData['staff_license_count'] = l$staff_license_count?.toJson();
+    final l$staff_capability_count = staff_capability_count;
+    _resultData['staff_capability_count'] = l$staff_capability_count?.toJson();
+    final l$sign_count = sign_count;
+    _resultData['sign_count'] = l$sign_count?.toJson();
+    final l$assign_count = assign_count;
+    _resultData['assign_count'] = l$assign_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -3812,6 +4029,11 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$privatePhone = privatePhone;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$staff_access_permission_count = staff_access_permission_count;
+    final l$staff_license_count = staff_license_count;
+    final l$staff_capability_count = staff_capability_count;
+    final l$sign_count = sign_count;
+    final l$assign_count = assign_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -3826,6 +4048,11 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
       l$privatePhone,
       l$symbol,
       l$remarks,
+      l$staff_access_permission_count,
+      l$staff_license_count,
+      l$staff_capability_count,
+      l$sign_count,
+      l$assign_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -3886,6 +4113,33 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$staff_access_permission_count = staff_access_permission_count;
+    final lOther$staff_access_permission_count =
+        other.staff_access_permission_count;
+    if (l$staff_access_permission_count !=
+        lOther$staff_access_permission_count) {
+      return false;
+    }
+    final l$staff_license_count = staff_license_count;
+    final lOther$staff_license_count = other.staff_license_count;
+    if (l$staff_license_count != lOther$staff_license_count) {
+      return false;
+    }
+    final l$staff_capability_count = staff_capability_count;
+    final lOther$staff_capability_count = other.staff_capability_count;
+    if (l$staff_capability_count != lOther$staff_capability_count) {
+      return false;
+    }
+    final l$sign_count = sign_count;
+    final lOther$sign_count = other.sign_count;
+    if (l$sign_count != lOther$sign_count) {
+      return false;
+    }
+    final l$assign_count = assign_count;
+    final lOther$assign_count = other.assign_count;
+    if (l$assign_count != lOther$assign_count) {
       return false;
     }
     final l$updateAt = updateAt;
@@ -3952,6 +4206,16 @@ abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     String? privatePhone,
     String? symbol,
     String? remarks,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count?
+    staff_access_permission_count,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count?
+    staff_license_count,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count?
+    staff_capability_count,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count?
+    sign_count,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count?
+    assign_count,
     String? updateAt,
     bool? remove,
     Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user?
@@ -3962,6 +4226,26 @@ abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     TRes
   >
   get labels;
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count<
+    TRes
+  >
+  get staff_access_permission_count;
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count<
+    TRes
+  >
+  get staff_license_count;
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count<
+    TRes
+  >
+  get staff_capability_count;
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count<
+    TRes
+  >
+  get sign_count;
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count<
+    TRes
+  >
+  get assign_count;
   CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user<
     TRes
   >
@@ -4000,6 +4284,11 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
     Object? privatePhone = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? staff_access_permission_count = _undefined,
+    Object? staff_license_count = _undefined,
+    Object? staff_capability_count = _undefined,
+    Object? sign_count = _undefined,
+    Object? assign_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -4009,9 +4298,9 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       labels: labels == _undefined
           ? _instance.labels
@@ -4024,6 +4313,26 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
           : (privatePhone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      staff_access_permission_count: staff_access_permission_count == _undefined
+          ? _instance.staff_access_permission_count
+          : (staff_access_permission_count
+                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count?),
+      staff_license_count: staff_license_count == _undefined
+          ? _instance.staff_license_count
+          : (staff_license_count
+                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count?),
+      staff_capability_count: staff_capability_count == _undefined
+          ? _instance.staff_capability_count
+          : (staff_capability_count
+                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count?),
+      sign_count: sign_count == _undefined
+          ? _instance.sign_count
+          : (sign_count
+                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count?),
+      assign_count: assign_count == _undefined
+          ? _instance.assign_count
+          : (assign_count
+                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -4050,6 +4359,82 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
         : CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count<
+    TRes
+  >
+  get staff_access_permission_count {
+    final local$staff_access_permission_count =
+        _instance.staff_access_permission_count;
+    return local$staff_access_permission_count == null
+        ? CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count(
+            local$staff_access_permission_count,
+            (e) => call(staff_access_permission_count: e),
+          );
+  }
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count<
+    TRes
+  >
+  get staff_license_count {
+    final local$staff_license_count = _instance.staff_license_count;
+    return local$staff_license_count == null
+        ? CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count(
+            local$staff_license_count,
+            (e) => call(staff_license_count: e),
+          );
+  }
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count<
+    TRes
+  >
+  get staff_capability_count {
+    final local$staff_capability_count = _instance.staff_capability_count;
+    return local$staff_capability_count == null
+        ? CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count(
+            local$staff_capability_count,
+            (e) => call(staff_capability_count: e),
+          );
+  }
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count<
+    TRes
+  >
+  get sign_count {
+    final local$sign_count = _instance.sign_count;
+    return local$sign_count == null
+        ? CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count(
+            local$sign_count,
+            (e) => call(sign_count: e),
+          );
+  }
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count<
+    TRes
+  >
+  get assign_count {
+    final local$assign_count = _instance.assign_count;
+    return local$assign_count == null
+        ? CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count(
+            local$assign_count,
+            (e) => call(assign_count: e),
           );
   }
 
@@ -4093,6 +4478,16 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     String? privatePhone,
     String? symbol,
     String? remarks,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count?
+    staff_access_permission_count,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count?
+    staff_license_count,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count?
+    staff_capability_count,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count?
+    sign_count,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count?
+    assign_count,
     String? updateAt,
     bool? remove,
     Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user?
@@ -4105,6 +4500,46 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
   >
   get labels =>
       CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$labels.stub(
+        _res,
+      );
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count<
+    TRes
+  >
+  get staff_access_permission_count =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count<
+    TRes
+  >
+  get staff_license_count =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count<
+    TRes
+  >
+  get staff_capability_count =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count<
+    TRes
+  >
+  get sign_count =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count<
+    TRes
+  >
+  get assign_count =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count.stub(
         _res,
       );
 
@@ -7426,11 +7861,741 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
+class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count {
+  Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count({
+    this.infoStaffId,
+    this.$__typename = 'VStaffStaffAccessPermissionCount',
+  });
+
+  factory Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoStaffId = json['infoStaffId'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count(
+      infoStaffId: (l$infoStaffId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoStaffId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoStaffId = infoStaffId;
+    _resultData['infoStaffId'] = l$infoStaffId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoStaffId = infoStaffId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoStaffId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoStaffId = infoStaffId;
+    final lOther$infoStaffId = other.infoStaffId;
+    if (l$infoStaffId != lOther$infoStaffId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count
+    on
+        Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count {
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count<
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count
+  >
+  get copyWith =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count<
+  TRes
+> {
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count
+    instance,
+    TRes Function(
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count;
+
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count;
+
+  TRes call({String? infoStaffId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count
+  _instance;
+
+  final TRes Function(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoStaffId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count(
+      infoStaffId: infoStaffId == _undefined
+          ? _instance.infoStaffId
+          : (infoStaffId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_access_permission_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoStaffId, String? $__typename}) => _res;
+}
+
+class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count {
+  Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count({
+    this.infoStaffId,
+    this.$__typename = 'VStaffStaffLicenseCount',
+  });
+
+  factory Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoStaffId = json['infoStaffId'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count(
+      infoStaffId: (l$infoStaffId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoStaffId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoStaffId = infoStaffId;
+    _resultData['infoStaffId'] = l$infoStaffId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoStaffId = infoStaffId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoStaffId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoStaffId = infoStaffId;
+    final lOther$infoStaffId = other.infoStaffId;
+    if (l$infoStaffId != lOther$infoStaffId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count
+    on
+        Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count {
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count<
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count
+  >
+  get copyWith =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count<
+  TRes
+> {
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count
+    instance,
+    TRes Function(
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count;
+
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count;
+
+  TRes call({String? infoStaffId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count
+  _instance;
+
+  final TRes Function(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoStaffId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count(
+      infoStaffId: infoStaffId == _undefined
+          ? _instance.infoStaffId
+          : (infoStaffId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_license_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoStaffId, String? $__typename}) => _res;
+}
+
+class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count {
+  Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count({
+    this.infoStaffId,
+    this.$__typename = 'VStaffStaffCapabilityCount',
+  });
+
+  factory Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoStaffId = json['infoStaffId'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count(
+      infoStaffId: (l$infoStaffId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoStaffId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoStaffId = infoStaffId;
+    _resultData['infoStaffId'] = l$infoStaffId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoStaffId = infoStaffId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoStaffId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoStaffId = infoStaffId;
+    final lOther$infoStaffId = other.infoStaffId;
+    if (l$infoStaffId != lOther$infoStaffId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count
+    on
+        Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count {
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count<
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count
+  >
+  get copyWith =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count<
+  TRes
+> {
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count
+    instance,
+    TRes Function(
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count;
+
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count;
+
+  TRes call({String? infoStaffId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count
+  _instance;
+
+  final TRes Function(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoStaffId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count(
+      infoStaffId: infoStaffId == _undefined
+          ? _instance.infoStaffId
+          : (infoStaffId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$staff_capability_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoStaffId, String? $__typename}) => _res;
+}
+
+class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count {
+  Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count({
+    this.infoStaffId,
+    this.$__typename = 'VStaffSignCount',
+  });
+
+  factory Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoStaffId = json['infoStaffId'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count(
+      infoStaffId: (l$infoStaffId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoStaffId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoStaffId = infoStaffId;
+    _resultData['infoStaffId'] = l$infoStaffId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoStaffId = infoStaffId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoStaffId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoStaffId = infoStaffId;
+    final lOther$infoStaffId = other.infoStaffId;
+    if (l$infoStaffId != lOther$infoStaffId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count
+    on
+        Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count {
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count<
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count
+  >
+  get copyWith =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count<
+  TRes
+> {
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count
+    instance,
+    TRes Function(
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count;
+
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count;
+
+  TRes call({String? infoStaffId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count
+  _instance;
+
+  final TRes Function(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoStaffId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count(
+      infoStaffId: infoStaffId == _undefined
+          ? _instance.infoStaffId
+          : (infoStaffId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$sign_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoStaffId, String? $__typename}) => _res;
+}
+
+class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count {
+  Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count({
+    this.infoStaffId,
+    this.$__typename = 'VStaffAssignCount',
+  });
+
+  factory Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoStaffId = json['infoStaffId'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count(
+      infoStaffId: (l$infoStaffId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoStaffId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoStaffId = infoStaffId;
+    _resultData['infoStaffId'] = l$infoStaffId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoStaffId = infoStaffId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoStaffId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoStaffId = infoStaffId;
+    final lOther$infoStaffId = other.infoStaffId;
+    if (l$infoStaffId != lOther$infoStaffId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count
+    on
+        Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count {
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count<
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count
+  >
+  get copyWith =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count<
+  TRes
+> {
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count
+    instance,
+    TRes Function(
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count;
+
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count;
+
+  TRes call({String? infoStaffId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count
+  _instance;
+
+  final TRes Function(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoStaffId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count(
+      infoStaffId: infoStaffId == _undefined
+          ? _instance.infoStaffId
+          : (infoStaffId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$assign_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoStaffId, String? $__typename}) => _res;
+}
+
 class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user {
   Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -7456,7 +8621,7 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -7475,7 +8640,7 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -7696,9 +8861,9 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -11089,6 +12254,7 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     this.step,
     this.symbol,
     this.remarks,
+    this.staff_capability_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -11108,6 +12274,7 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$step = json['step'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$staff_capability_count = json['staff_capability_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -11131,6 +12298,11 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
       step: (l$step as String?),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      staff_capability_count: l$staff_capability_count == null
+          ? null
+          : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count.fromJson(
+              (l$staff_capability_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -11164,6 +12336,9 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
 
   final String? remarks;
 
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count?
+  staff_capability_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -11195,6 +12370,8 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$staff_capability_count = staff_capability_count;
+    _resultData['staff_capability_count'] = l$staff_capability_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -11218,6 +12395,7 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$step = step;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$staff_capability_count = staff_capability_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -11233,6 +12411,7 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
       l$step,
       l$symbol,
       l$remarks,
+      l$staff_capability_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -11298,6 +12477,11 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$staff_capability_count = staff_capability_count;
+    final lOther$staff_capability_count = other.staff_capability_count;
+    if (l$staff_capability_count != lOther$staff_capability_count) {
       return false;
     }
     final l$updateAt = updateAt;
@@ -11366,6 +12550,8 @@ abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     String? step,
     String? symbol,
     String? remarks,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count?
+    staff_capability_count,
     String? updateAt,
     bool? remove,
     Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user?
@@ -11380,6 +12566,10 @@ abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     TRes
   >
   get detailTexts;
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count<
+    TRes
+  >
+  get staff_capability_count;
   CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user<
     TRes
   >
@@ -11419,6 +12609,7 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
     Object? step = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? staff_capability_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -11448,6 +12639,10 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
       step: step == _undefined ? _instance.step : (step as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      staff_capability_count: staff_capability_count == _undefined
+          ? _instance.staff_capability_count
+          : (staff_capability_count
+                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -11489,6 +12684,21 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
         : CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts(
             local$detailTexts,
             (e) => call(detailTexts: e),
+          );
+  }
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count<
+    TRes
+  >
+  get staff_capability_count {
+    final local$staff_capability_count = _instance.staff_capability_count;
+    return local$staff_capability_count == null
+        ? CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count(
+            local$staff_capability_count,
+            (e) => call(staff_capability_count: e),
           );
   }
 
@@ -11534,6 +12744,8 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     String? step,
     String? symbol,
     String? remarks,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count?
+    staff_capability_count,
     String? updateAt,
     bool? remove,
     Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user?
@@ -11554,6 +12766,14 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
   >
   get detailTexts =>
       CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts.stub(
+        _res,
+      );
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count<
+    TRes
+  >
+  get staff_capability_count =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count.stub(
         _res,
       );
 
@@ -15893,11 +17113,157 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
   call({int? charCount, String? leadText, String? $__typename}) => _res;
 }
 
+class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count {
+  Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count({
+    this.mstrCapabilityId,
+    this.$__typename = 'VCapabilityStaffCapabilityCount',
+  });
+
+  factory Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrCapabilityId = json['mstrCapabilityId'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count(
+      mstrCapabilityId: (l$mstrCapabilityId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrCapabilityId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrCapabilityId = mstrCapabilityId;
+    _resultData['mstrCapabilityId'] = l$mstrCapabilityId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrCapabilityId = mstrCapabilityId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrCapabilityId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrCapabilityId = mstrCapabilityId;
+    final lOther$mstrCapabilityId = other.mstrCapabilityId;
+    if (l$mstrCapabilityId != lOther$mstrCapabilityId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count
+    on
+        Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count {
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count<
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count
+  >
+  get copyWith =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count<
+  TRes
+> {
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count
+    instance,
+    TRes Function(
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count;
+
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count;
+
+  TRes call({String? mstrCapabilityId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count
+  _instance;
+
+  final TRes Function(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrCapabilityId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count(
+      mstrCapabilityId: mstrCapabilityId == _undefined
+          ? _instance.mstrCapabilityId
+          : (mstrCapabilityId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$staff_capability_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrCapabilityId, String? $__typename}) => _res;
+}
+
 class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user {
   Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -15923,7 +17289,7 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -15942,7 +17308,7 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -16163,9 +17529,9 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name

@@ -21,6 +21,16 @@ UnrecognizedPage: &UnrecognizedPage
     - planned_shipping_date
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: unrecognized_detail_count
+      arrayType: toFirstOne
+      as: unrecognized_detail_count
+      using: trans_unrecognized_id
+      from: v_unrecognized_unrecognized_detail_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

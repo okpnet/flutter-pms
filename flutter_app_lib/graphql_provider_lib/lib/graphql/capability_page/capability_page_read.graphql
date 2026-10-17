@@ -80,6 +80,11 @@ query CapabilityPageRead(
       step
       symbol
       remarks
+
+      staff_capability_count: vCapabilityStaffCapabilityCountByMstrCapabilityId {
+        mstrCapabilityId
+      }
+
       updateAt
       remove
 

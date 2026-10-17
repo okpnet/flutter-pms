@@ -555,7 +555,7 @@ class Entity{
     }
     //ビュー生成クエリ
     function GetViewQuery(schema){
-        var reg=new RegExp("[\\s|^|\\t]@schema","i");
+        var reg=new RegExp("@schema","i/g");
         var query=reg.replace(ViewQuery,schema);
         var result =CR+ "drop view if exists " + schema + "." + Name + ";" + CR;
         result += "create view  " + schema + "." + Name +  " as" + CR;

@@ -25,6 +25,25 @@ PositionPage: &PositionPage
       <<: *AppellationLabelsReadFields
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 2本)
+    - name: approval_count
+      arrayType: toFirstOne
+      as: approval_count
+      using: info_position_id
+      from: v_position_approval_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: assign_count
+      arrayType: toFirstOne
+      as: assign_count
+      using: info_position_id
+      from: v_position_assign_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

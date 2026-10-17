@@ -159,6 +159,52 @@ TaskPage:
     - default_time
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 5本)
+    - name: work_plan_count
+      arrayType: toFirstOne
+      as: work_plan_count
+      using: mstr_task_id
+      from: v_task_work_plan_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: task_risk_count
+      arrayType: toFirstOne
+      as: task_risk_count
+      using: mstr_task_id
+      from: v_task_task_risk_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: complaint_process_count
+      arrayType: toFirstOne
+      as: complaint_process_count
+      using: mstr_task_id
+      from: v_task_complaint_process_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: task_location_count
+      arrayType: toFirstOne
+      as: task_location_count
+      using: mstr_task_id
+      from: v_task_task_location_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: operation_task_count
+      arrayType: toFirstOne
+      as: operation_task_count
+      using: mstr_task_id
+      from: v_task_operation_task_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -232,6 +278,25 @@ TaskResourcePage:
       <<: *StakeholderReadFields
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 2本)
+    - name: outsource_available_count
+      arrayType: toFirstOne
+      as: outsource_available_count
+      using: mstr_task_location_id
+      from: v_task_location_outsource_available_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: equipment_available_count
+      arrayType: toFirstOne
+      as: equipment_available_count
+      using: mstr_task_location_id
+      from: v_task_location_equipment_available_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -300,6 +365,25 @@ OperationPage:
       <<: *FixTextReadFields
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 2本)
+    - name: operation_task_count
+      arrayType: toFirstOne
+      as: operation_task_count
+      using: mstr_operation_id
+      from: v_operation_operation_task_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: item_operation_count
+      arrayType: toFirstOne
+      as: item_operation_count
+      using: mstr_operation_id
+      from: v_operation_item_operation_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

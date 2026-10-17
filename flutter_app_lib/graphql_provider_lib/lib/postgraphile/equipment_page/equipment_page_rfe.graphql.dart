@@ -29868,7 +29868,7 @@ class Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$kinds$update_user {
   Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$kinds$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -29894,7 +29894,7 @@ class Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$kinds$update_user {
     return Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$kinds$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -29913,7 +29913,7 @@ class Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$kinds$update_user {
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -30133,9 +30133,9 @@ class _CopyWithImpl$Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$kinds$
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -48128,7 +48128,7 @@ class Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$locations$department
   Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$locations$department$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -48154,7 +48154,7 @@ class Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$locations$department
     return Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$locations$department$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -48173,7 +48173,7 @@ class Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$locations$department
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -48394,9 +48394,9 @@ class _CopyWithImpl$Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$locati
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -65409,7 +65409,7 @@ class Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$locations$update_use
   Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$locations$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -65435,7 +65435,7 @@ class Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$locations$update_use
     return Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$locations$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -65454,7 +65454,7 @@ class Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$locations$update_use
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -65674,9 +65674,9 @@ class _CopyWithImpl$Query$EquipmentPageRfe$mstrEquipmentByMstrEquipmentId$locati
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name

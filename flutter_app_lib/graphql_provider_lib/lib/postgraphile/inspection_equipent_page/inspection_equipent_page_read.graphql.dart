@@ -12401,7 +12401,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$ins
   Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$inspections$kinds$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -12427,7 +12427,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$ins
     return Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$inspections$kinds$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -12446,7 +12446,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$ins
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -12667,9 +12667,9 @@ class _CopyWithImpl$Query$InspectionEquipentPageRead$allMstrInspectionOperationT
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -15416,7 +15416,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$ins
   Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$inspections$formulas$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -15442,7 +15442,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$ins
     return Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$inspections$formulas$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -15461,7 +15461,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$ins
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -15682,9 +15682,9 @@ class _CopyWithImpl$Query$InspectionEquipentPageRead$allMstrInspectionOperationT
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -23190,7 +23190,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$ins
   Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$inspections$items$manufacture$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -23216,7 +23216,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$ins
     return Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$inspections$items$manufacture$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -23235,7 +23235,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$ins
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -23456,9 +23456,9 @@ class _CopyWithImpl$Query$InspectionEquipentPageRead$allMstrInspectionOperationT
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -30516,7 +30516,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$ins
   Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$inspections$items$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -30542,7 +30542,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$ins
     return Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$inspections$items$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -30561,7 +30561,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$ins
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -30782,9 +30782,9 @@ class _CopyWithImpl$Query$InspectionEquipentPageRead$allMstrInspectionOperationT
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -32922,7 +32922,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$ins
   Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$inspections$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -32948,7 +32948,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$ins
     return Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$inspections$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -32967,7 +32967,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$ins
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -33188,9 +33188,9 @@ class _CopyWithImpl$Query$InspectionEquipentPageRead$allMstrInspectionOperationT
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -35571,7 +35571,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$upd
   Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -35597,7 +35597,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$upd
     return Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -35616,7 +35616,7 @@ class Query$InspectionEquipentPageRead$allMstrInspectionOperationTasks$nodes$upd
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -35837,9 +35837,9 @@ class _CopyWithImpl$Query$InspectionEquipentPageRead$allMstrInspectionOperationT
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name

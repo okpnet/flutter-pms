@@ -972,6 +972,60 @@ const documentNodeQueryOperationPageRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(
+                          value:
+                              'vOperationOperationTaskCountByMstrOperationId',
+                        ),
+                        alias: NameNode(value: 'operation_task_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrOperationId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value:
+                              'vOperationItemOperationCountByMstrOperationId',
+                        ),
+                        alias: NameNode(value: 'item_operation_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrOperationId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -1960,6 +2014,8 @@ class Query$OperationPageRead$allMstrOperations$nodes {
     this.detailTexts,
     this.symbol,
     this.remarks,
+    this.operation_task_count,
+    this.item_operation_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -1975,6 +2031,8 @@ class Query$OperationPageRead$allMstrOperations$nodes {
     final l$detailTexts = json['detailTexts'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$operation_task_count = json['operation_task_count'];
+    final l$item_operation_count = json['item_operation_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -1994,6 +2052,16 @@ class Query$OperationPageRead$allMstrOperations$nodes {
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      operation_task_count: l$operation_task_count == null
+          ? null
+          : Query$OperationPageRead$allMstrOperations$nodes$operation_task_count.fromJson(
+              (l$operation_task_count as Map<String, dynamic>),
+            ),
+      item_operation_count: l$item_operation_count == null
+          ? null
+          : Query$OperationPageRead$allMstrOperations$nodes$item_operation_count.fromJson(
+              (l$item_operation_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -2018,6 +2086,12 @@ class Query$OperationPageRead$allMstrOperations$nodes {
 
   final String? remarks;
 
+  final Query$OperationPageRead$allMstrOperations$nodes$operation_task_count?
+  operation_task_count;
+
+  final Query$OperationPageRead$allMstrOperations$nodes$item_operation_count?
+  item_operation_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -2041,6 +2115,10 @@ class Query$OperationPageRead$allMstrOperations$nodes {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$operation_task_count = operation_task_count;
+    _resultData['operation_task_count'] = l$operation_task_count?.toJson();
+    final l$item_operation_count = item_operation_count;
+    _resultData['item_operation_count'] = l$item_operation_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -2060,6 +2138,8 @@ class Query$OperationPageRead$allMstrOperations$nodes {
     final l$detailTexts = detailTexts;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$operation_task_count = operation_task_count;
+    final l$item_operation_count = item_operation_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -2071,6 +2151,8 @@ class Query$OperationPageRead$allMstrOperations$nodes {
       l$detailTexts,
       l$symbol,
       l$remarks,
+      l$operation_task_count,
+      l$item_operation_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -2115,6 +2197,16 @@ class Query$OperationPageRead$allMstrOperations$nodes {
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$operation_task_count = operation_task_count;
+    final lOther$operation_task_count = other.operation_task_count;
+    if (l$operation_task_count != lOther$operation_task_count) {
+      return false;
+    }
+    final l$item_operation_count = item_operation_count;
+    final lOther$item_operation_count = other.item_operation_count;
+    if (l$item_operation_count != lOther$item_operation_count) {
       return false;
     }
     final l$updateAt = updateAt;
@@ -2167,6 +2259,10 @@ abstract class CopyWith$Query$OperationPageRead$allMstrOperations$nodes<TRes> {
     Query$OperationPageRead$allMstrOperations$nodes$detailTexts? detailTexts,
     String? symbol,
     String? remarks,
+    Query$OperationPageRead$allMstrOperations$nodes$operation_task_count?
+    operation_task_count,
+    Query$OperationPageRead$allMstrOperations$nodes$item_operation_count?
+    item_operation_count,
     String? updateAt,
     bool? remove,
     Query$OperationPageRead$allMstrOperations$nodes$update_user? update_user,
@@ -2176,6 +2272,14 @@ abstract class CopyWith$Query$OperationPageRead$allMstrOperations$nodes<TRes> {
   get labels;
   CopyWith$Query$OperationPageRead$allMstrOperations$nodes$detailTexts<TRes>
   get detailTexts;
+  CopyWith$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count<
+    TRes
+  >
+  get operation_task_count;
+  CopyWith$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count<
+    TRes
+  >
+  get item_operation_count;
   CopyWith$Query$OperationPageRead$allMstrOperations$nodes$update_user<TRes>
   get update_user;
 }
@@ -2200,6 +2304,8 @@ class _CopyWithImpl$Query$OperationPageRead$allMstrOperations$nodes<TRes>
     Object? detailTexts = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? operation_task_count = _undefined,
+    Object? item_operation_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -2221,6 +2327,14 @@ class _CopyWithImpl$Query$OperationPageRead$allMstrOperations$nodes<TRes>
                 as Query$OperationPageRead$allMstrOperations$nodes$detailTexts?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      operation_task_count: operation_task_count == _undefined
+          ? _instance.operation_task_count
+          : (operation_task_count
+                as Query$OperationPageRead$allMstrOperations$nodes$operation_task_count?),
+      item_operation_count: item_operation_count == _undefined
+          ? _instance.item_operation_count
+          : (item_operation_count
+                as Query$OperationPageRead$allMstrOperations$nodes$item_operation_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -2261,6 +2375,36 @@ class _CopyWithImpl$Query$OperationPageRead$allMstrOperations$nodes<TRes>
           );
   }
 
+  CopyWith$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count<
+    TRes
+  >
+  get operation_task_count {
+    final local$operation_task_count = _instance.operation_task_count;
+    return local$operation_task_count == null
+        ? CopyWith$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count(
+            local$operation_task_count,
+            (e) => call(operation_task_count: e),
+          );
+  }
+
+  CopyWith$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count<
+    TRes
+  >
+  get item_operation_count {
+    final local$item_operation_count = _instance.item_operation_count;
+    return local$item_operation_count == null
+        ? CopyWith$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count(
+            local$item_operation_count,
+            (e) => call(item_operation_count: e),
+          );
+  }
+
   CopyWith$Query$OperationPageRead$allMstrOperations$nodes$update_user<TRes>
   get update_user {
     final local$update_user = _instance.update_user;
@@ -2288,6 +2432,10 @@ class _CopyWithStubImpl$Query$OperationPageRead$allMstrOperations$nodes<TRes>
     Query$OperationPageRead$allMstrOperations$nodes$detailTexts? detailTexts,
     String? symbol,
     String? remarks,
+    Query$OperationPageRead$allMstrOperations$nodes$operation_task_count?
+    operation_task_count,
+    Query$OperationPageRead$allMstrOperations$nodes$item_operation_count?
+    item_operation_count,
     String? updateAt,
     bool? remove,
     Query$OperationPageRead$allMstrOperations$nodes$update_user? update_user,
@@ -2303,6 +2451,22 @@ class _CopyWithStubImpl$Query$OperationPageRead$allMstrOperations$nodes<TRes>
   CopyWith$Query$OperationPageRead$allMstrOperations$nodes$detailTexts<TRes>
   get detailTexts =>
       CopyWith$Query$OperationPageRead$allMstrOperations$nodes$detailTexts.stub(
+        _res,
+      );
+
+  CopyWith$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count<
+    TRes
+  >
+  get operation_task_count =>
+      CopyWith$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count<
+    TRes
+  >
+  get item_operation_count =>
+      CopyWith$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count.stub(
         _res,
       );
 
@@ -4936,11 +5100,301 @@ class _CopyWithStubImpl$Query$OperationPageRead$allMstrOperations$nodes$detailTe
   call({int? charCount, String? leadText, String? $__typename}) => _res;
 }
 
+class Query$OperationPageRead$allMstrOperations$nodes$operation_task_count {
+  Query$OperationPageRead$allMstrOperations$nodes$operation_task_count({
+    this.mstrOperationId,
+    this.$__typename = 'VOperationOperationTaskCount',
+  });
+
+  factory Query$OperationPageRead$allMstrOperations$nodes$operation_task_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrOperationId = json['mstrOperationId'];
+    final l$$__typename = json['__typename'];
+    return Query$OperationPageRead$allMstrOperations$nodes$operation_task_count(
+      mstrOperationId: (l$mstrOperationId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrOperationId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrOperationId = mstrOperationId;
+    _resultData['mstrOperationId'] = l$mstrOperationId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrOperationId = mstrOperationId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrOperationId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$OperationPageRead$allMstrOperations$nodes$operation_task_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrOperationId = mstrOperationId;
+    final lOther$mstrOperationId = other.mstrOperationId;
+    if (l$mstrOperationId != lOther$mstrOperationId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count
+    on Query$OperationPageRead$allMstrOperations$nodes$operation_task_count {
+  CopyWith$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count<
+    Query$OperationPageRead$allMstrOperations$nodes$operation_task_count
+  >
+  get copyWith =>
+      CopyWith$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count<
+  TRes
+> {
+  factory CopyWith$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count(
+    Query$OperationPageRead$allMstrOperations$nodes$operation_task_count
+    instance,
+    TRes Function(
+      Query$OperationPageRead$allMstrOperations$nodes$operation_task_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count;
+
+  factory CopyWith$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count;
+
+  TRes call({String? mstrOperationId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count<
+  TRes
+>
+    implements
+        CopyWith$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$OperationPageRead$allMstrOperations$nodes$operation_task_count
+  _instance;
+
+  final TRes Function(
+    Query$OperationPageRead$allMstrOperations$nodes$operation_task_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrOperationId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$OperationPageRead$allMstrOperations$nodes$operation_task_count(
+      mstrOperationId: mstrOperationId == _undefined
+          ? _instance.mstrOperationId
+          : (mstrOperationId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count<
+  TRes
+>
+    implements
+        CopyWith$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$OperationPageRead$allMstrOperations$nodes$operation_task_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrOperationId, String? $__typename}) => _res;
+}
+
+class Query$OperationPageRead$allMstrOperations$nodes$item_operation_count {
+  Query$OperationPageRead$allMstrOperations$nodes$item_operation_count({
+    this.mstrOperationId,
+    this.$__typename = 'VOperationItemOperationCount',
+  });
+
+  factory Query$OperationPageRead$allMstrOperations$nodes$item_operation_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrOperationId = json['mstrOperationId'];
+    final l$$__typename = json['__typename'];
+    return Query$OperationPageRead$allMstrOperations$nodes$item_operation_count(
+      mstrOperationId: (l$mstrOperationId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrOperationId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrOperationId = mstrOperationId;
+    _resultData['mstrOperationId'] = l$mstrOperationId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrOperationId = mstrOperationId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrOperationId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$OperationPageRead$allMstrOperations$nodes$item_operation_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrOperationId = mstrOperationId;
+    final lOther$mstrOperationId = other.mstrOperationId;
+    if (l$mstrOperationId != lOther$mstrOperationId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count
+    on Query$OperationPageRead$allMstrOperations$nodes$item_operation_count {
+  CopyWith$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count<
+    Query$OperationPageRead$allMstrOperations$nodes$item_operation_count
+  >
+  get copyWith =>
+      CopyWith$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count<
+  TRes
+> {
+  factory CopyWith$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count(
+    Query$OperationPageRead$allMstrOperations$nodes$item_operation_count
+    instance,
+    TRes Function(
+      Query$OperationPageRead$allMstrOperations$nodes$item_operation_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count;
+
+  factory CopyWith$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count;
+
+  TRes call({String? mstrOperationId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count<
+  TRes
+>
+    implements
+        CopyWith$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$OperationPageRead$allMstrOperations$nodes$item_operation_count
+  _instance;
+
+  final TRes Function(
+    Query$OperationPageRead$allMstrOperations$nodes$item_operation_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrOperationId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$OperationPageRead$allMstrOperations$nodes$item_operation_count(
+      mstrOperationId: mstrOperationId == _undefined
+          ? _instance.mstrOperationId
+          : (mstrOperationId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count<
+  TRes
+>
+    implements
+        CopyWith$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$OperationPageRead$allMstrOperations$nodes$item_operation_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrOperationId, String? $__typename}) => _res;
+}
+
 class Query$OperationPageRead$allMstrOperations$nodes$update_user {
   Query$OperationPageRead$allMstrOperations$nodes$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -4966,7 +5420,7 @@ class Query$OperationPageRead$allMstrOperations$nodes$update_user {
     return Query$OperationPageRead$allMstrOperations$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -4985,7 +5439,7 @@ class Query$OperationPageRead$allMstrOperations$nodes$update_user {
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -5198,9 +5652,9 @@ class _CopyWithImpl$Query$OperationPageRead$allMstrOperations$nodes$update_user<
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name

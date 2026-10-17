@@ -24437,7 +24437,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$departments$update_u
   Query$TaskResourcePageRead$allMstrTaskLocations$nodes$departments$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -24463,7 +24463,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$departments$update_u
     return Query$TaskResourcePageRead$allMstrTaskLocations$nodes$departments$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -24482,7 +24482,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$departments$update_u
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -24702,9 +24702,9 @@ class _CopyWithImpl$Query$TaskResourcePageRead$allMstrTaskLocations$nodes$depart
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -32773,7 +32773,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$item$manu
   Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$item$manufacture$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -32799,7 +32799,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$item$manu
     return Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$item$manufacture$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -32818,7 +32818,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$item$manu
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -33039,9 +33039,9 @@ class _CopyWithImpl$Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipm
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -40097,7 +40097,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$item$upda
   Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$item$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -40123,7 +40123,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$item$upda
     return Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$item$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -40142,7 +40142,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$item$upda
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -40363,9 +40363,9 @@ class _CopyWithImpl$Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipm
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -44961,7 +44961,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$kinds$upd
   Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$kinds$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -44987,7 +44987,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$kinds$upd
     return Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$kinds$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -45006,7 +45006,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$kinds$upd
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -45227,9 +45227,9 @@ class _CopyWithImpl$Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipm
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -57000,7 +57000,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$locations
   Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$locations$department$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -57026,7 +57026,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$locations
     return Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$locations$department$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -57045,7 +57045,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$locations
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -57266,9 +57266,9 @@ class _CopyWithImpl$Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipm
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -68058,7 +68058,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$locations
   Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$locations$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -68084,7 +68084,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$locations
     return Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$locations$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -68103,7 +68103,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$locations
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -68324,9 +68324,9 @@ class _CopyWithImpl$Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipm
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -70464,7 +70464,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$update_us
   Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -70490,7 +70490,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$update_us
     return Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -70509,7 +70509,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipments$update_us
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -70729,9 +70729,9 @@ class _CopyWithImpl$Query$TaskResourcePageRead$allMstrTaskLocations$nodes$equipm
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -84528,7 +84528,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$suppliers$shippingKi
   Query$TaskResourcePageRead$allMstrTaskLocations$nodes$suppliers$shippingKinds$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -84554,7 +84554,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$suppliers$shippingKi
     return Query$TaskResourcePageRead$allMstrTaskLocations$nodes$suppliers$shippingKinds$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -84573,7 +84573,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$suppliers$shippingKi
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -84794,9 +84794,9 @@ class _CopyWithImpl$Query$TaskResourcePageRead$allMstrTaskLocations$nodes$suppli
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -86934,7 +86934,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$suppliers$update_use
   Query$TaskResourcePageRead$allMstrTaskLocations$nodes$suppliers$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -86960,7 +86960,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$suppliers$update_use
     return Query$TaskResourcePageRead$allMstrTaskLocations$nodes$suppliers$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -86979,7 +86979,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$suppliers$update_use
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -87199,9 +87199,9 @@ class _CopyWithImpl$Query$TaskResourcePageRead$allMstrTaskLocations$nodes$suppli
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -89339,7 +89339,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$update_user {
   Query$TaskResourcePageRead$allMstrTaskLocations$nodes$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -89365,7 +89365,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$update_user {
     return Query$TaskResourcePageRead$allMstrTaskLocations$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -89384,7 +89384,7 @@ class Query$TaskResourcePageRead$allMstrTaskLocations$nodes$update_user {
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -89603,9 +89603,9 @@ class _CopyWithImpl$Query$TaskResourcePageRead$allMstrTaskLocations$nodes$update
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name

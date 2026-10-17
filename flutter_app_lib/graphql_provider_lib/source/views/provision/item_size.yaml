@@ -94,6 +94,16 @@ ItemSizeKindPage: &ItemSizeKindPage
       <<: *UnitReadFields
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: item_actual_size_count
+      arrayType: toFirstOne
+      as: item_actual_size_count
+      using: mstr_item_size_kind_id
+      from: v_item_size_kind_item_actual_size_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

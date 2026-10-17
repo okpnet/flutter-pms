@@ -95,6 +95,34 @@ EquipmentPage:  &EquipmentPage
       <<: *LocationReadFields
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 3本)
+    - name: equipment_available_count
+      arrayType: toFirstOne
+      as: equipment_available_count
+      using: mstr_equipment_id
+      from: v_equipment_equipment_available_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: inspection_operation_count
+      arrayType: toFirstOne
+      as: inspection_operation_count
+      using: mstr_equipment_id
+      from: v_equipment_inspection_operation_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: equipment_provision_count
+      arrayType: toFirstOne
+      as: equipment_provision_count
+      using: mstr_equipment_id
+      from: v_equipment_equipment_provision_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

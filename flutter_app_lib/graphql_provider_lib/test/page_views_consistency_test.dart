@@ -5,6 +5,7 @@
 //   3) サフィックス(台帳・体系・項目・明細=read、情報・登録=edit)と、参照先のkindが一致する。
 //   4) 参照の無い項目は、`<!--DB要: ...-->`の付いた項目(またはその配下)に限る。
 //   5) viewsからGraphQLを生成したときに、スキーマとの不整合(エラー)が無い。
+//   6) 親の~Pageに、子のレコード数(v_*_count、要件0056)の列が含まれる。
 //
 // 全量スキーマ(source/schema.full.graphql、git対象外)が無い環境では、5)だけ省略する。
 
@@ -13,6 +14,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../tool/view_graphql/generator.dart';
+import '../tool/view_graphql/schema_index.dart';
 import '../tool/view_graphql/view_sources.dart';
 
 const _readSuffixes = ['台帳', '体系', '項目', '明細'];
@@ -123,6 +125,50 @@ void main() {
       final result = generateAll(viewYaml: combined.text, schemaPath: schemaFile.path);
       expect(result.log.errors, isEmpty, reason: result.log.errors.join('\n'));
       expect(result.files, isNotEmpty);
+    }, skip: available ? false : '全量スキーマ(source/schema.full.graphql)がありません');
+
+    test('子のレコード数(v_*_count)が、親の~Pageに含まれる(要件0056)', () {
+      final schema = SchemaIndex.load(schemaFile.path);
+      final views = loadViewDirectory('source/views');
+      // 列(columns)を再帰的にたどり、from: v_*_count のビュー名を集める。
+      Set<String> countViews(dynamic node) {
+        final out = <String>{};
+        if (node is Map) {
+          final from = node['from'];
+          if (from is String && RegExp(r'^v_\w+_count$').hasMatch(from)) out.add(from);
+          for (final c in (node['columns'] as List? ?? const [])) {
+            if (c is Map) {
+              final f = c['from'];
+              if (f is String && RegExp(r'^v_\w+_count$').hasMatch(f)) out.add(f);
+            }
+          }
+        }
+        return out;
+      }
+
+      String typeOfView(String view) =>
+          view.split('_').map((w) => w.isEmpty ? w : w[0].toUpperCase() + w.substring(1)).join();
+
+      final missing = <String>[];
+      var checked = 0;
+      for (final e in views.entries) {
+        final node = e.value;
+        if (node is! Map || node['kind'] != 'read' || !e.key.endsWith('Page') || node['from'] == null) continue;
+        final type = schema.typeOfTable(node['from'] as String);
+        final fields = schema.objects[type] ?? const <String, FieldInfo>{};
+        // 親が1行ずつ持つ集計(単数の関連)。例: InfoCompany.vCompanyDepartmentCountByInfoCompanyId
+        final expected = {
+          for (final f in fields.values)
+            if (!f.isList && RegExp(r'^V\w+Count$').hasMatch(f.typeName)) f.typeName,
+        };
+        final actual = {for (final v in countViews(node)) typeOfView(v)};
+        for (final t in expected) {
+          checked++;
+          if (!actual.contains(t)) missing.add('${e.key}: $t');
+        }
+      }
+      expect(checked, greaterThan(0));
+      expect(missing, isEmpty, reason: missing.join('\n'));
     }, skip: available ? false : '全量スキーマ(source/schema.full.graphql)がありません');
 
     test('defaultWhereの固定条件(remove以外)が、フィルタに反映される', () {

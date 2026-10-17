@@ -1051,7 +1051,7 @@ class Mutation$AssignPageEdit$updateInfoAssignByInfoAssignId$infoAssign {
     required this.infoStaffId,
     required this.infoPositionId,
     this.infoOfficeId,
-    this.infoDepartmentId,
+    required this.infoDepartmentId,
     this.enable,
     this.priority,
     this.remarks,
@@ -1075,7 +1075,7 @@ class Mutation$AssignPageEdit$updateInfoAssignByInfoAssignId$infoAssign {
       infoStaffId: (l$infoStaffId as String),
       infoPositionId: (l$infoPositionId as String),
       infoOfficeId: (l$infoOfficeId as String?),
-      infoDepartmentId: (l$infoDepartmentId as String?),
+      infoDepartmentId: (l$infoDepartmentId as String),
       enable: (l$enable as bool?),
       priority: (l$priority as int?),
       remarks: (l$remarks as String?),
@@ -1091,7 +1091,7 @@ class Mutation$AssignPageEdit$updateInfoAssignByInfoAssignId$infoAssign {
 
   final String? infoOfficeId;
 
-  final String? infoDepartmentId;
+  final String infoDepartmentId;
 
   final bool? enable;
 
@@ -1293,9 +1293,10 @@ class _CopyWithImpl$Mutation$AssignPageEdit$updateInfoAssignByInfoAssignId$infoA
       infoOfficeId: infoOfficeId == _undefined
           ? _instance.infoOfficeId
           : (infoOfficeId as String?),
-      infoDepartmentId: infoDepartmentId == _undefined
+      infoDepartmentId:
+          infoDepartmentId == _undefined || infoDepartmentId == null
           ? _instance.infoDepartmentId
-          : (infoDepartmentId as String?),
+          : (infoDepartmentId as String),
       enable: enable == _undefined ? _instance.enable : (enable as bool?),
       priority: priority == _undefined
           ? _instance.priority

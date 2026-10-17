@@ -29,6 +29,52 @@ StaffPage: &StaffPage
     - private_phone
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 5本)
+    - name: staff_access_permission_count
+      arrayType: toFirstOne
+      as: staff_access_permission_count
+      using: info_staff_id
+      from: v_staff_staff_access_permission_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: staff_license_count
+      arrayType: toFirstOne
+      as: staff_license_count
+      using: info_staff_id
+      from: v_staff_staff_license_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: staff_capability_count
+      arrayType: toFirstOne
+      as: staff_capability_count
+      using: info_staff_id
+      from: v_staff_staff_capability_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: sign_count
+      arrayType: toFirstOne
+      as: sign_count
+      using: info_staff_id
+      from: v_staff_sign_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: assign_count
+      arrayType: toFirstOne
+      as: assign_count
+      using: info_staff_id
+      from: v_staff_assign_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -106,6 +152,52 @@ StaffCapabilityPage:
         - stop 
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 5本)
+    - name: staff_access_permission_count
+      arrayType: toFirstOne
+      as: staff_access_permission_count
+      using: info_staff_id
+      from: v_staff_staff_access_permission_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: staff_license_count
+      arrayType: toFirstOne
+      as: staff_license_count
+      using: info_staff_id
+      from: v_staff_staff_license_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: staff_capability_count
+      arrayType: toFirstOne
+      as: staff_capability_count
+      using: info_staff_id
+      from: v_staff_staff_capability_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: sign_count
+      arrayType: toFirstOne
+      as: sign_count
+      using: info_staff_id
+      from: v_staff_sign_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: assign_count
+      arrayType: toFirstOne
+      as: assign_count
+      using: info_staff_id
+      from: v_staff_assign_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -213,6 +305,52 @@ StaffHeldLicensePage:
         - revocation_at
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 5本)
+    - name: staff_access_permission_count
+      arrayType: toFirstOne
+      as: staff_access_permission_count
+      using: info_staff_id
+      from: v_staff_staff_access_permission_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: staff_license_count
+      arrayType: toFirstOne
+      as: staff_license_count
+      using: info_staff_id
+      from: v_staff_staff_license_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: staff_capability_count
+      arrayType: toFirstOne
+      as: staff_capability_count
+      using: info_staff_id
+      from: v_staff_staff_capability_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: sign_count
+      arrayType: toFirstOne
+      as: sign_count
+      using: info_staff_id
+      from: v_staff_sign_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: assign_count
+      arrayType: toFirstOne
+      as: assign_count
+      using: info_staff_id
+      from: v_staff_assign_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

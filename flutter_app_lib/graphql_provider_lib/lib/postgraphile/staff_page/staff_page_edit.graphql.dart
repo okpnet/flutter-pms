@@ -2210,7 +2210,7 @@ class _CopyWithStubImpl$Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId<
 class Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff {
   Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff({
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.labels,
     this.sex,
@@ -2234,7 +2234,7 @@ class Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff {
     final l$$__typename = json['__typename'];
     return Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff(
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       labels: l$labels == null
           ? null
@@ -2251,7 +2251,7 @@ class Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaff {
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -2453,9 +2453,9 @@ class _CopyWithImpl$Mutation$StaffPageEdit$updateInfoStaffByInfoStaffId$infoStaf
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       labels: labels == _undefined
           ? _instance.labels

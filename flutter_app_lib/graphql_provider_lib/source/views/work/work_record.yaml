@@ -27,6 +27,16 @@ ContainerPage: &ContainerPage
       <<: *LocationReadFields
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: visiter_count
+      arrayType: toFirstOne
+      as: visiter_count
+      using: trans_container_id
+      from: v_container_visiter_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -83,6 +93,25 @@ CertificatePage: &CertificatePage
     - trans_file_id
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 2本)
+    - name: work_record_certificate_count
+      arrayType: toFirstOne
+      as: work_record_certificate_count
+      using: trans_certificate_id
+      from: v_certificate_work_record_certificate_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: purchase_certification_count
+      arrayType: toFirstOne
+      as: purchase_certification_count
+      using: trans_certificate_id
+      from: v_certificate_purchase_certification_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -177,6 +206,25 @@ WorkRecordPage: &WorkRecordPage
     - equipment_id
     - symbol
     - remarks
+    # 子のレコード数(要件0056。DBのビュー 2本)
+    - name: work_record_visiter_count
+      arrayType: toFirstOne
+      as: work_record_visiter_count
+      using: trans_work_record_id
+      from: v_work_record_work_record_visiter_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: work_record_certificate_count
+      arrayType: toFirstOne
+      as: work_record_certificate_count
+      using: trans_work_record_id
+      from: v_work_record_work_record_certificate_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user

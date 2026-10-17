@@ -76,6 +76,15 @@ query OperationPageRead(
 
       symbol
       remarks
+
+      operation_task_count: vOperationOperationTaskCountByMstrOperationId {
+        mstrOperationId
+      }
+
+      item_operation_count: vOperationItemOperationCountByMstrOperationId {
+        mstrOperationId
+      }
+
       updateAt
       remove
 

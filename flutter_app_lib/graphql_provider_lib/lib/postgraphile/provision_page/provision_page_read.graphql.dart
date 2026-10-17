@@ -979,6 +979,87 @@ const documentNodeQueryProvisionPageRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(
+                          value:
+                              'vProvisionStakeholderProvisionCountByInfoProvisionId',
+                        ),
+                        alias: NameNode(value: 'stakeholder_provision_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'infoProvisionId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value:
+                              'vProvisionItemProvisionCountByInfoProvisionId',
+                        ),
+                        alias: NameNode(value: 'item_provision_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'infoProvisionId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value:
+                              'vProvisionEquipmentProvisionCountByInfoProvisionId',
+                        ),
+                        alias: NameNode(value: 'equipment_provision_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'infoProvisionId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -1968,6 +2049,9 @@ class Query$ProvisionPageRead$allInfoProvisions$nodes {
     this.detailTexts,
     this.symbol,
     this.remarks,
+    this.stakeholder_provision_count,
+    this.item_provision_count,
+    this.equipment_provision_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -1984,6 +2068,9 @@ class Query$ProvisionPageRead$allInfoProvisions$nodes {
     final l$detailTexts = json['detailTexts'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$stakeholder_provision_count = json['stakeholder_provision_count'];
+    final l$item_provision_count = json['item_provision_count'];
+    final l$equipment_provision_count = json['equipment_provision_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -2004,6 +2091,21 @@ class Query$ProvisionPageRead$allInfoProvisions$nodes {
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      stakeholder_provision_count: l$stakeholder_provision_count == null
+          ? null
+          : Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count.fromJson(
+              (l$stakeholder_provision_count as Map<String, dynamic>),
+            ),
+      item_provision_count: l$item_provision_count == null
+          ? null
+          : Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count.fromJson(
+              (l$item_provision_count as Map<String, dynamic>),
+            ),
+      equipment_provision_count: l$equipment_provision_count == null
+          ? null
+          : Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count.fromJson(
+              (l$equipment_provision_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -2030,6 +2132,15 @@ class Query$ProvisionPageRead$allInfoProvisions$nodes {
 
   final String? remarks;
 
+  final Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count?
+  stakeholder_provision_count;
+
+  final Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count?
+  item_provision_count;
+
+  final Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count?
+  equipment_provision_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -2055,6 +2166,14 @@ class Query$ProvisionPageRead$allInfoProvisions$nodes {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$stakeholder_provision_count = stakeholder_provision_count;
+    _resultData['stakeholder_provision_count'] = l$stakeholder_provision_count
+        ?.toJson();
+    final l$item_provision_count = item_provision_count;
+    _resultData['item_provision_count'] = l$item_provision_count?.toJson();
+    final l$equipment_provision_count = equipment_provision_count;
+    _resultData['equipment_provision_count'] = l$equipment_provision_count
+        ?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -2075,6 +2194,9 @@ class Query$ProvisionPageRead$allInfoProvisions$nodes {
     final l$detailTexts = detailTexts;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$stakeholder_provision_count = stakeholder_provision_count;
+    final l$item_provision_count = item_provision_count;
+    final l$equipment_provision_count = equipment_provision_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -2087,6 +2209,9 @@ class Query$ProvisionPageRead$allInfoProvisions$nodes {
       l$detailTexts,
       l$symbol,
       l$remarks,
+      l$stakeholder_provision_count,
+      l$item_provision_count,
+      l$equipment_provision_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -2136,6 +2261,22 @@ class Query$ProvisionPageRead$allInfoProvisions$nodes {
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$stakeholder_provision_count = stakeholder_provision_count;
+    final lOther$stakeholder_provision_count =
+        other.stakeholder_provision_count;
+    if (l$stakeholder_provision_count != lOther$stakeholder_provision_count) {
+      return false;
+    }
+    final l$item_provision_count = item_provision_count;
+    final lOther$item_provision_count = other.item_provision_count;
+    if (l$item_provision_count != lOther$item_provision_count) {
+      return false;
+    }
+    final l$equipment_provision_count = equipment_provision_count;
+    final lOther$equipment_provision_count = other.equipment_provision_count;
+    if (l$equipment_provision_count != lOther$equipment_provision_count) {
       return false;
     }
     final l$updateAt = updateAt;
@@ -2189,6 +2330,12 @@ abstract class CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes<TRes> {
     Query$ProvisionPageRead$allInfoProvisions$nodes$detailTexts? detailTexts,
     String? symbol,
     String? remarks,
+    Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count?
+    stakeholder_provision_count,
+    Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count?
+    item_provision_count,
+    Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count?
+    equipment_provision_count,
     String? updateAt,
     bool? remove,
     Query$ProvisionPageRead$allInfoProvisions$nodes$update_user? update_user,
@@ -2198,6 +2345,18 @@ abstract class CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes<TRes> {
   get labels;
   CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$detailTexts<TRes>
   get detailTexts;
+  CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count<
+    TRes
+  >
+  get stakeholder_provision_count;
+  CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count<
+    TRes
+  >
+  get item_provision_count;
+  CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count<
+    TRes
+  >
+  get equipment_provision_count;
   CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$update_user<TRes>
   get update_user;
 }
@@ -2223,6 +2382,9 @@ class _CopyWithImpl$Query$ProvisionPageRead$allInfoProvisions$nodes<TRes>
     Object? detailTexts = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? stakeholder_provision_count = _undefined,
+    Object? item_provision_count = _undefined,
+    Object? equipment_provision_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -2247,6 +2409,18 @@ class _CopyWithImpl$Query$ProvisionPageRead$allInfoProvisions$nodes<TRes>
                 as Query$ProvisionPageRead$allInfoProvisions$nodes$detailTexts?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      stakeholder_provision_count: stakeholder_provision_count == _undefined
+          ? _instance.stakeholder_provision_count
+          : (stakeholder_provision_count
+                as Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count?),
+      item_provision_count: item_provision_count == _undefined
+          ? _instance.item_provision_count
+          : (item_provision_count
+                as Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count?),
+      equipment_provision_count: equipment_provision_count == _undefined
+          ? _instance.equipment_provision_count
+          : (equipment_provision_count
+                as Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -2287,6 +2461,52 @@ class _CopyWithImpl$Query$ProvisionPageRead$allInfoProvisions$nodes<TRes>
           );
   }
 
+  CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count<
+    TRes
+  >
+  get stakeholder_provision_count {
+    final local$stakeholder_provision_count =
+        _instance.stakeholder_provision_count;
+    return local$stakeholder_provision_count == null
+        ? CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count(
+            local$stakeholder_provision_count,
+            (e) => call(stakeholder_provision_count: e),
+          );
+  }
+
+  CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count<
+    TRes
+  >
+  get item_provision_count {
+    final local$item_provision_count = _instance.item_provision_count;
+    return local$item_provision_count == null
+        ? CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count(
+            local$item_provision_count,
+            (e) => call(item_provision_count: e),
+          );
+  }
+
+  CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count<
+    TRes
+  >
+  get equipment_provision_count {
+    final local$equipment_provision_count = _instance.equipment_provision_count;
+    return local$equipment_provision_count == null
+        ? CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count(
+            local$equipment_provision_count,
+            (e) => call(equipment_provision_count: e),
+          );
+  }
+
   CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$update_user<TRes>
   get update_user {
     final local$update_user = _instance.update_user;
@@ -2315,6 +2535,12 @@ class _CopyWithStubImpl$Query$ProvisionPageRead$allInfoProvisions$nodes<TRes>
     Query$ProvisionPageRead$allInfoProvisions$nodes$detailTexts? detailTexts,
     String? symbol,
     String? remarks,
+    Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count?
+    stakeholder_provision_count,
+    Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count?
+    item_provision_count,
+    Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count?
+    equipment_provision_count,
     String? updateAt,
     bool? remove,
     Query$ProvisionPageRead$allInfoProvisions$nodes$update_user? update_user,
@@ -2330,6 +2556,30 @@ class _CopyWithStubImpl$Query$ProvisionPageRead$allInfoProvisions$nodes<TRes>
   CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$detailTexts<TRes>
   get detailTexts =>
       CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$detailTexts.stub(
+        _res,
+      );
+
+  CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count<
+    TRes
+  >
+  get stakeholder_provision_count =>
+      CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count<
+    TRes
+  >
+  get item_provision_count =>
+      CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count<
+    TRes
+  >
+  get equipment_provision_count =>
+      CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count.stub(
         _res,
       );
 
@@ -4963,11 +5213,446 @@ class _CopyWithStubImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$detailTe
   call({int? charCount, String? leadText, String? $__typename}) => _res;
 }
 
+class Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count {
+  Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count({
+    this.infoProvisionId,
+    this.$__typename = 'VProvisionStakeholderProvisionCount',
+  });
+
+  factory Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoProvisionId = json['infoProvisionId'];
+    final l$$__typename = json['__typename'];
+    return Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count(
+      infoProvisionId: (l$infoProvisionId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoProvisionId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoProvisionId = infoProvisionId;
+    _resultData['infoProvisionId'] = l$infoProvisionId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoProvisionId = infoProvisionId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoProvisionId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoProvisionId = infoProvisionId;
+    final lOther$infoProvisionId = other.infoProvisionId;
+    if (l$infoProvisionId != lOther$infoProvisionId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count
+    on Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count {
+  CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count<
+    Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count
+  >
+  get copyWith =>
+      CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count<
+  TRes
+> {
+  factory CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count(
+    Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count
+    instance,
+    TRes Function(
+      Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count;
+
+  factory CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count;
+
+  TRes call({String? infoProvisionId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count
+  _instance;
+
+  final TRes Function(
+    Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoProvisionId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count(
+      infoProvisionId: infoProvisionId == _undefined
+          ? _instance.infoProvisionId
+          : (infoProvisionId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$stakeholder_provision_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoProvisionId, String? $__typename}) => _res;
+}
+
+class Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count {
+  Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count({
+    this.infoProvisionId,
+    this.$__typename = 'VProvisionItemProvisionCount',
+  });
+
+  factory Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoProvisionId = json['infoProvisionId'];
+    final l$$__typename = json['__typename'];
+    return Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count(
+      infoProvisionId: (l$infoProvisionId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoProvisionId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoProvisionId = infoProvisionId;
+    _resultData['infoProvisionId'] = l$infoProvisionId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoProvisionId = infoProvisionId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoProvisionId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoProvisionId = infoProvisionId;
+    final lOther$infoProvisionId = other.infoProvisionId;
+    if (l$infoProvisionId != lOther$infoProvisionId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count
+    on Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count {
+  CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count<
+    Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count
+  >
+  get copyWith =>
+      CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count<
+  TRes
+> {
+  factory CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count(
+    Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count
+    instance,
+    TRes Function(
+      Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count;
+
+  factory CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count;
+
+  TRes call({String? infoProvisionId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count
+  _instance;
+
+  final TRes Function(
+    Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoProvisionId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count(
+      infoProvisionId: infoProvisionId == _undefined
+          ? _instance.infoProvisionId
+          : (infoProvisionId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$item_provision_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoProvisionId, String? $__typename}) => _res;
+}
+
+class Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count {
+  Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count({
+    this.infoProvisionId,
+    this.$__typename = 'VProvisionEquipmentProvisionCount',
+  });
+
+  factory Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoProvisionId = json['infoProvisionId'];
+    final l$$__typename = json['__typename'];
+    return Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count(
+      infoProvisionId: (l$infoProvisionId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoProvisionId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoProvisionId = infoProvisionId;
+    _resultData['infoProvisionId'] = l$infoProvisionId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoProvisionId = infoProvisionId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoProvisionId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoProvisionId = infoProvisionId;
+    final lOther$infoProvisionId = other.infoProvisionId;
+    if (l$infoProvisionId != lOther$infoProvisionId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count
+    on Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count {
+  CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count<
+    Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count
+  >
+  get copyWith =>
+      CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count<
+  TRes
+> {
+  factory CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count(
+    Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count
+    instance,
+    TRes Function(
+      Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count;
+
+  factory CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count;
+
+  TRes call({String? infoProvisionId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count
+  _instance;
+
+  final TRes Function(
+    Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoProvisionId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count(
+      infoProvisionId: infoProvisionId == _undefined
+          ? _instance.infoProvisionId
+          : (infoProvisionId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$equipment_provision_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoProvisionId, String? $__typename}) => _res;
+}
+
 class Query$ProvisionPageRead$allInfoProvisions$nodes$update_user {
   Query$ProvisionPageRead$allInfoProvisions$nodes$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -4993,7 +5678,7 @@ class Query$ProvisionPageRead$allInfoProvisions$nodes$update_user {
     return Query$ProvisionPageRead$allInfoProvisions$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -5012,7 +5697,7 @@ class Query$ProvisionPageRead$allInfoProvisions$nodes$update_user {
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -5225,9 +5910,9 @@ class _CopyWithImpl$Query$ProvisionPageRead$allInfoProvisions$nodes$update_user<
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name

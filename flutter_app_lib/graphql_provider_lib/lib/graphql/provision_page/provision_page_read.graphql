@@ -77,6 +77,19 @@ query ProvisionPageRead(
 
       symbol
       remarks
+
+      stakeholder_provision_count: vProvisionStakeholderProvisionCountByInfoProvisionId {
+        infoProvisionId
+      }
+
+      item_provision_count: vProvisionItemProvisionCountByInfoProvisionId {
+        infoProvisionId
+      }
+
+      equipment_provision_count: vProvisionEquipmentProvisionCountByInfoProvisionId {
+        infoProvisionId
+      }
+
       updateAt
       remove
 

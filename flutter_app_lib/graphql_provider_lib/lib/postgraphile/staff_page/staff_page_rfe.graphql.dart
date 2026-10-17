@@ -1057,7 +1057,7 @@ class Query$StaffPageRfe$Widget
 class Query$StaffPageRfe$infoStaffByInfoStaffId {
   Query$StaffPageRfe$infoStaffByInfoStaffId({
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.labels,
     this.sex,
@@ -1089,7 +1089,7 @@ class Query$StaffPageRfe$infoStaffByInfoStaffId {
     final l$$__typename = json['__typename'];
     return Query$StaffPageRfe$infoStaffByInfoStaffId(
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       labels: l$labels == null
           ? null
@@ -1110,7 +1110,7 @@ class Query$StaffPageRfe$infoStaffByInfoStaffId {
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -1343,9 +1343,9 @@ class _CopyWithImpl$Query$StaffPageRfe$infoStaffByInfoStaffId<TRes>
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       labels: labels == _undefined
           ? _instance.labels

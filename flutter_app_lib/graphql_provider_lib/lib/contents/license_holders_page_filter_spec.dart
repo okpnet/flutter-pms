@@ -24,6 +24,7 @@ abstract class LicenseHoldersPageFilterSpec {
     'organizationLicense': FlatFilterPath([], 'organizationLicense'),
     'symbol': FlatFilterPath([], 'symbol'),
     'remarks': FlatFilterPath([], 'remarks'),
+    'staff_license_count||mstrLicenseId': FlatFilterPath([FilterStep('vLicenseStaffLicenseCountByMstrLicenseId')], 'mstrLicenseId'),
     'updateAt': FlatFilterPath([], 'updateAt'),
     'remove': FlatFilterPath([], 'remove'),
     'update_user||historyId': FlatFilterPath([FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId')], 'historyId'),

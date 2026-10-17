@@ -21,6 +21,8 @@ abstract class OperationPageFilterSpec {
     'detailTexts||value||leadText': FlatFilterPath([FilterStep('sharedTextByDetails'), FilterStep.many('sharedTextValuesBySharedTextId', {'sharedLanguageCodeId': 'languageCodeId'})], 'leadText'),
     'symbol': FlatFilterPath([], 'symbol'),
     'remarks': FlatFilterPath([], 'remarks'),
+    'operation_task_count||mstrOperationId': FlatFilterPath([FilterStep('vOperationOperationTaskCountByMstrOperationId')], 'mstrOperationId'),
+    'item_operation_count||mstrOperationId': FlatFilterPath([FilterStep('vOperationItemOperationCountByMstrOperationId')], 'mstrOperationId'),
     'updateAt': FlatFilterPath([], 'updateAt'),
     'remove': FlatFilterPath([], 'remove'),
     'update_user||historyId': FlatFilterPath([FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId')], 'historyId'),

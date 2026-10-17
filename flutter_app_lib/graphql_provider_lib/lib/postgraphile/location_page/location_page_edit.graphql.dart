@@ -31245,7 +31245,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
   Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$office$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -31271,7 +31271,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     return Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$office$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -31290,7 +31290,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -31511,9 +31511,9 @@ class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -53016,7 +53016,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
   Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -53042,7 +53042,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     return Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -53061,7 +53061,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -53282,9 +53282,9 @@ class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -56667,7 +56667,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
   Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -56693,7 +56693,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     return Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -56712,7 +56712,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -56933,9 +56933,9 @@ class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name
@@ -60318,7 +60318,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
   Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$update_user({
     required this.historyId,
     required this.infoStaffId,
-    this.infoCompanyId,
+    required this.infoCompanyId,
     this.code,
     this.name,
     this.sex,
@@ -60344,7 +60344,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     return Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      infoCompanyId: (l$infoCompanyId as String?),
+      infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String?),
       name: l$name == null
           ? null
@@ -60363,7 +60363,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
 
   final String infoStaffId;
 
-  final String? infoCompanyId;
+  final String infoCompanyId;
 
   final String? code;
 
@@ -60584,9 +60584,9 @@ class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      infoCompanyId: infoCompanyId == _undefined
+      infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
-          : (infoCompanyId as String?),
+          : (infoCompanyId as String),
       code: code == _undefined ? _instance.code : (code as String?),
       name: name == _undefined
           ? _instance.name

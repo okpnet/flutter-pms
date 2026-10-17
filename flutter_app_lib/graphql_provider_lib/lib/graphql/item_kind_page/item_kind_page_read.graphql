@@ -64,6 +64,11 @@ query ItemKindPageRead(
 
       symbol
       remarks
+
+      item_count: vItemKindItemCountByMstrItemKindId {
+        mstrItemKindId
+      }
+
       updateAt
       remove
 

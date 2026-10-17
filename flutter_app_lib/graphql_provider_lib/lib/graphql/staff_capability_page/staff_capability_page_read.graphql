@@ -136,6 +136,11 @@ query StaffCapabilityPageRead(
             step
             symbol
             remarks
+
+            staff_capability_count: vCapabilityStaffCapabilityCountByMstrCapabilityId {
+              mstrCapabilityId
+            }
+
             updateAt
             remove
 
@@ -195,6 +200,27 @@ query StaffCapabilityPageRead(
 
       symbol
       remarks
+
+      staff_access_permission_count: vStaffStaffAccessPermissionCountByInfoStaffId {
+        infoStaffId
+      }
+
+      staff_license_count: vStaffStaffLicenseCountByInfoStaffId {
+        infoStaffId
+      }
+
+      staff_capability_count: vStaffStaffCapabilityCountByInfoStaffId {
+        infoStaffId
+      }
+
+      sign_count: vStaffSignCountByInfoStaffId {
+        infoStaffId
+      }
+
+      assign_count: vStaffAssignCountByInfoStaffId {
+        infoStaffId
+      }
+
       updateAt
       remove
 
