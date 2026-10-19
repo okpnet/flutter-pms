@@ -1,0 +1,25 @@
+name: feature_shared
+description: 機能パッケージとアプリの共通の口(CommandBus の Provider、FeatureModule)。
+version: 0.0.1
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  baton_lib:
+    path: ../baton_lib
+  flutter_riverpod: ^3.4.3
+  go_router: ^18.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:

@@ -1,0 +1,95 @@
+name: flutter_pms_workspace
+description: flutter-pms の pub workspace / melos ルート。
+publish_to: none
+
+environment:
+  sdk: ^3.12.2
+
+# ── pub workspace ─────────────────────────────────────────────
+# ここに並べたパッケージの依存関係を「まとめて1回」解決する。
+# ロックファイルはこのフォルダの pubspec.lock 1つだけになる。
+workspace:
+  - apps/*
+  - packages/*/*
+  # ↑ ワイルドカードが使えない SDK の場合は、次のように1つずつ列挙する:
+  #   - apps/pms_app
+  #   - packages/foundation/logger_lib
+  #   - packages/foundation/query_builder ...
+
+# 層の構成(依存は上から下への一方向のみ):
+#   apps/        … シェルアプリ
+#   features/    … 機能(xxx_api = 契約 / xxx = 実装)
+#   core/        … baton_lib, feature_shared(機能とアプリの仲介)
+#   ui/ infra/   … UI基盤 / 通信・ログなどの基盤
+#   foundation/  … 画面を持たない汎用部品
+# workspace 対象外: legacy/(grid_lib など)、tools/(DB・Docker など)
+
+dev_dependencies:
+  melos: ^8.9.0
+
+# ── melos ─────────────────────────────────────────────────────
+# 対象パッケージは上の workspace から自動で決まる。
+melos:
+  name: flutter_pms
+
+  # 層ごとにまとめて操作する: melos exec --category=features -- flutter test
+  categories:
+    apps: [apps/*]
+    features: [packages/features/*]
+    core: [packages/core/*]
+    ui: [packages/ui/*]
+    infra: [packages/infra/*]
+    foundation: [packages/foundation/*]
+
+  command:
+    bootstrap:
+      # 同期した行に「melos管理」のコメントを付ける
+      markSharedDependencies: true
+
+      # ▼ バージョンの集中管理
+      #   melos bootstrap を実行すると、ここに書いた依存を
+      #   「すでに宣言しているパッケージ」の pubspec.yaml へ上書き同期する。
+      #   バージョンを上げるときはここだけ直して bootstrap する。
+      environment:
+        sdk: ^3.12.2
+      dependencies:
+        logger: ^2.7.0
+        uuid: ^4.6.0
+        flutter_riverpod: ^3.4.3
+        go_router: ^18.1.0
+      dev_dependencies:
+        flutter_lints: ^6.0.0
+        lints: ^6.0.0
+        test: ^1.25.6
+        build_runner: ^2.12.1
+
+  scripts:
+    analyze:
+      description: 全パッケージを静的解析
+      exec: dart analyze .
+
+    test:
+      description: 全テスト(Flutter と純Dart の両方)
+      steps:
+        - test:flutter
+        - test:dart
+
+    test:flutter:
+      description: Flutter パッケージのテスト
+      exec: flutter test
+      packageFilters:
+        flutter: true
+        dirExists: test
+
+    test:dart:
+      description: 純Dart パッケージのテスト
+      exec: dart test
+      packageFilters:
+        flutter: false
+        dirExists: test
+
+    gen:
+      description: build_runner を使うパッケージのコード生成
+      exec: dart run build_runner build --delete-conflicting-outputs
+      packageFilters:
+        dependsOn: build_runner
