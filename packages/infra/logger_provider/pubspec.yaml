@@ -13,8 +13,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  logger_lib:
-    path: ../../foundation/logger_lib
   logger: ^2.7.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   rotation_log: ^0.1.1
 

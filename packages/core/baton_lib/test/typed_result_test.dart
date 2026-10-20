@@ -1,6 +1,7 @@
 import 'package:baton_lib/baton_lib.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:logger/logger.dart';
+
+import 'fake_logger.dart';
 
 class _Dummy {
   const _Dummy({required this.id, required this.name});
@@ -96,7 +97,7 @@ void main() {
     return DefaultCommandBus(
       handlers: reg,
       navigator: _TypedNavigator(fixed, dummy),
-      logger: Logger(level: Level.off),
+      logger: FakeLoggerProvider(),
     );
   }
 

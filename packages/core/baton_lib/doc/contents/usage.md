@@ -39,7 +39,9 @@ final bus = DefaultCommandBus(
   handlers: CommandHandlerRegistry()..register(ApproveOrderHandler()),
   navigator: GoRouterNavigator(router),
   middlewares: [/* 権限チェック・ログなど */],
+  logger: ref.read(commandLoggerProvider), // アプリ共通のILoggerProvider
 );
+// アプリ起動時: ProviderScope(overrides: [commandLoggerProvider.overrideWithValue(共通ロガー)])
 // Riverpodで配る場合は Provider<CommandBus>((ref) => bus) をアプリ側で定義する。
 ```
 

@@ -3,14 +3,14 @@ import 'dart:io';
 
 import 'package:flutter/services.dart' show AssetBundle, rootBundle;
 import 'package:logger/logger.dart';
-import 'package:logger_lib/logger_lib.dart';
 import 'package:rotation_log/rotation_log.dart';
 
 import 'logger_object/_logger_object.dart';
+import 'logger_proveder.dart';
 import 'logger_provider_config.dart';
 import 'rotation_object/_rotation_object.dart';
 
-/// `logger` と `rotation_log` をラップし、`logger_lib` の [LoggerProvider] を実装するロガー本体。
+/// `logger` と `rotation_log` をラップし、[LoggerProvider] を実装するロガー本体。
 ///
 /// 利用側は本クラスを直接生成せず、以下3通りのファクトリメソッドのいずれかを使う:
 /// - [DefaultLoggerProvider.fromConfig] : 設定クラス（[LoggerProviderConfig]）から

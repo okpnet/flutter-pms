@@ -15,8 +15,8 @@ dependencies:
   graphql: ^5.2.3
   graphql_flutter: ^5.1.0
   collection: #^1.19.1
-  logger_lib:
-    path: ../../foundation/logger_lib
+  logger_provider:
+    path: ../../infra/logger_provider
 dev_dependencies:
   flutter_test:
     sdk: flutter

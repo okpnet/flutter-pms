@@ -2,6 +2,7 @@ name: baton_lib
 description: "A new Flutter package project."
 version: 1.0.0
 homepage:
+publish_to: "none"
 
 resolution: workspace
 
@@ -12,7 +13,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  logger: ^2.7.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  logger_provider:
+    path: ../../infra/logger_provider
 
 dev_dependencies:
   flutter_test:

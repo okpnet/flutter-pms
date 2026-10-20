@@ -6,10 +6,10 @@
 
 `gqlib` は `graphql_flutter`/`graphql` をラップし、型付き・Result方式のクライアントとして
 提供する Flutter/Dart パッケージで、`flutter-pms` アプリ全体から利用されます。モノレポ内の
-`flutter_pub_lib/gqlib` に配置されており、兄弟パッケージとして `logger_lib`,
+`flutter_pub_lib/gqlib` に配置されており、兄弟パッケージとして `logger_provider`,
 `data_strategist`, `query_builder`, `ui_mapper`, `undo_redo`, `view_responsiveness`
 (`../` 配下) が存在します。`pubspec.yaml` の `logger_lib: path: ../../flutter_pub_lib/logger_lib`
-が示すとおり `logger_lib` へ相対パス依存しているため、`gqlib` を解決するにはこの兄弟パッケージの
+が示すとおり `logger_provider` へ相対パス依存しているため、`gqlib` を解決するにはこの兄弟パッケージの
 チェックアウトが存在している必要があります。
 
 ## コマンド
@@ -39,7 +39,7 @@
 - `providers/` — メインのエントリポイントである `GraphQLClientProvider`
   (`providers/client_provider.dart`)。`graphql` の `GraphQLClient` を以下の機能でラップします。
   - `Future.timeout` による呼び出しごとのタイムアウトで、`GraphqlTimeoutException` に変換されます。
-  - `logger_lib` の `ILoggerProvider` を任意で受け取り、すべてのクエリ/ミューテーションおよび
+  - `logger_provider` の `ILoggerProvider` を任意で受け取り、すべてのクエリ/ミューテーションおよび
     エラーをログ出力します。
   - `query(QueryOptions)` — 読み取り用。
   - `save(List<IEditModel>)` — 書き込み用。各モデルを `GraphQLConverterCollection` を通して、

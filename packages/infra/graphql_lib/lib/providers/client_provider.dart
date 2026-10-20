@@ -4,7 +4,7 @@ import 'package:graphql/client.dart';
 import 'dart:async';
 import 'dart:io';
 
-import 'package:logger_lib/logger_lib.dart';
+import 'package:logger_provider/logger_provider.dart';
 
 import '../constants/graphql_constant.dart';
 import '../edit_models/_edit_model.dart';

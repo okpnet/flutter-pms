@@ -11,7 +11,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql/client.dart';
 import 'package:gqlib/gqlib.dart';
-import 'package:logger_lib/logger_lib.dart';
+import 'package:logger_provider/logger_provider.dart';
 
 final _insertDocument = gql(r'''
   mutation InsertFake($objects: [fake_insert_input!]!) {

@@ -1,4 +1,4 @@
-import 'package:logger/logger.dart';
+import 'package:logger_provider/logger_provider.dart';
 
 import 'action_command.dart';
 import 'command_exception.dart';
@@ -26,14 +26,14 @@ class DefaultCommandBus implements CommandBus {
   DefaultCommandBus({
     required this.handlers,
     required this.navigator,
+    required ILoggerProvider logger,
     this.middlewares = const [],
-    Logger? logger,
-  }) : _logger = logger ?? Logger(printer: SimplePrinter());
+  }) : _log = logger;
 
   final CommandHandlerRegistry handlers;
   final DestinationNavigator navigator;
   final List<CommandMiddleware> middlewares;
-  final Logger _logger;
+  final ILoggerProvider _log;
 
   @override
   Future<R> execute<R>(ActionCommand<R> command) async {
@@ -95,10 +95,10 @@ class DefaultCommandBus implements CommandBus {
       cause: cause,
       causeStackTrace: stack,
     );
-    _logger.e(
+    _log.error(
       '[baton_lib] ${exception.toJson()}',
-      error: cause,
-      stackTrace: stack,
+      ex: cause ?? exception,
+      trace: stack ?? StackTrace.current,
     );
     return exception;
   }

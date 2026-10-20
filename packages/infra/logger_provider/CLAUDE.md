@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## 現在の状態
 
 下記の設計に基づき実装済み（初回実装: 2026-09-02、[doc/2026/09/02_001.md](doc/2026/09/02_001.md) 参照）。
-- 実体は [DefaultLoggerProvider](lib/src/default_logger_provider.dart)。`logger_lib` の `LoggerProvider<Logger>` を継承し、`T` に `package:logger` の `Logger` を当てている。
+- 実体は [DefaultLoggerProvider](lib/src/default_logger_provider.dart)。`LoggerProvider<Logger>` を継承し、`T` に `package:logger` の `Logger` を当てている。
 - フィルタは `logger` パッケージ既定の `DevelopmentFilter` ではなく `ProductionFilter` を使用する。`DevelopmentFilter` は `assert` 経由で判定するため release ビルドで常に出力を止めてしまい、ローテーションファイルへの記録が主目的の本パッケージでは不適切なため。
 - `rotation_log` が提供する `RotationLogOutput`（`logger` の `LogOutput` 実装）をそのまま `Logger` の出力先として利用し、ラップ・ブリッジの自前実装は行っていない。
 - ログ出力先ディレクトリはテスト/上位アプリから差し替えられるよう、各ファクトリに `directoryProvider` を任意で渡せる。
@@ -15,7 +15,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 このパッケージは `c:\git\flutter-pms` リポジトリ内の1つの Flutter パッケージ (`flutter_app_lib/logger_provider`)。コマンドはこのディレクトリで実行する。
 
 ```
-flutter pub get                      # 依存解決（logger_lib を path 参照しているため、隣接パッケージの変更後は再実行が必要）
+flutter pub get                      # 依存解決
 flutter test                         # 全テスト実行
 flutter test test/logger_provider_test.dart   # 単一テストファイルの実行
 flutter analyze                      # 静的解析（analysis_options.yaml は flutter_lints/flutter.yaml を継承）
@@ -27,13 +27,12 @@ flutter analyze                      # 静的解析（analysis_options.yaml は 
 本パッケージは以下をラップしてロガー機能を提供する:
 - [logger](https://pub.dev/packages/logger)（^2.7.0）
 - [rotation_log](https://pub.dev/packages/rotation_log)（^0.1.1）
-- `../../flutter_pub_lib/logger_lib`（path 依存。pubspec.yaml では `logger_lib` として参照）
 
-ロガー本体は `logger_lib` が定義するインターフェイスを実装する。利用側は必ずこのインターフェイス経由で呼び出す。`logger_lib` 側の実体は次の通り（変更時はそちらのソースも参照）:
-- `ILoggerProvider`（`flutter_pub_lib/logger_lib/lib/src/i_logger_provider.dart`）: `level` getter と `debug/info/warn/error/fatal(String message, {Object ex, StackTrace trace})` の書き込みメソッド群を宣言。
-- `LoggerProvider<T>`（`flutter_pub_lib/logger_lib/lib/src/logger_proveder.dart`）: `ILoggerProvider` を implements し、ラップ対象のロガーインスタンスを `T get logger` として公開する抽象クラス。本パッケージはこれを継承し、`T` に `logger`/`rotation_log` のロガー型を当てはめて実装する想定。
+ロガー本体は本パッケージ内の `ILoggerProvider` / `LoggerProvider<T>` を実装する。利用側は必ずこのインターフェイス経由で呼び出す。実体は次の通り:
+- `ILoggerProvider`（`lib/src/i_logger_provider.dart`）: `level` getter と `debug/info/warn/error/fatal(String message, {Object ex, StackTrace trace})` の書き込みメソッド群を宣言。
+- `LoggerProvider<T>`（`lib/src/logger_proveder.dart`）: `ILoggerProvider` を implements し、ラップ対象のロガーインスタンスを `T get logger` として公開する抽象クラス。本パッケージはこれを継承し、`T` に `logger`/`rotation_log` のロガー型を当てはめて実装する想定。
 
-ログレベルの定義は `logger_lib` 側に従うこと（本パッケージ側で独自定義しない）。
+ログレベルの定義は `ILoggerProvider` に従うこと。
 
 ### 設定
 `rotation_log` と `logger` の設定は1つの JSON オブジェクトとして扱い、asset から読み込んでアプリ側で差し替え可能にする。

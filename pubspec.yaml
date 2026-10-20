@@ -13,7 +13,6 @@ workspace:
   - packages/*/*
   # ↑ ワイルドカードが使えない SDK の場合は、次のように1つずつ列挙する:
   #   - apps/pms_app
-  #   - packages/foundation/logger_lib
   #   - packages/foundation/query_builder ...
 
 # 層の構成(依存は上から下への一方向のみ):

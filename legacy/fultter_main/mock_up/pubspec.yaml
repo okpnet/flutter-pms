@@ -49,8 +49,8 @@ dependencies:
     path: ../../../packages/foundation/data_strategist
   query_builder:
     path: ../../../packages/foundation/query_builder
-  logger_lib:
-    path: ../../../packages/foundation/logger_lib
+  logger_provider:
+    path: ../../../packages/infra/logger_provider
   trina_grid:
     git:
       url: https://github.com/okpnet/trina_grid

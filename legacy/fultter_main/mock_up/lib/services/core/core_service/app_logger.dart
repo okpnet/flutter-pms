@@ -1,4 +1,4 @@
-import 'package:logger_lib/logger_lib.dart';
+import 'package:logger_provider/logger_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:logger_provider/logger_provider.dart';
 

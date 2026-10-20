@@ -1,6 +1,7 @@
 import 'package:baton_lib/baton_lib.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:logger/logger.dart';
+
+import 'fake_logger.dart';
 
 class _Approve extends ActionCommand<String> {
   const _Approve(this.id);
@@ -33,7 +34,7 @@ DefaultCommandBus _bus([List<CommandMiddleware> m = const []]) {
     handlers: reg,
     navigator: _FakeNavigator(),
     middlewares: m,
-    logger: Logger(level: Level.off),
+    logger: FakeLoggerProvider(),
   );
 }
 

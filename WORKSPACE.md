@@ -14,7 +14,7 @@ flutter-pms/
 │   ├─ core/                  ← baton_lib, feature_shared(機能とアプリの仲介)
 │   ├─ ui/                    ← theme_lib, view_responsiveness, ui_mapper, grid_extensions
 │   ├─ infra/                 ← graphql_lib(gqlib), graphql_provider_lib(gqlprvlib), logger_provider
-│   └─ foundation/            ← logger_lib, query_builder, data_strategist, undo_redo
+│   └─ foundation/            ← query_builder, data_strategist, undo_redo
 ├─ legacy/                    ← workspace 対象外(grid_lib, pms_authenticator, fetch_token, fultter_main …)
 └─ tools/                     ← Flutter 以外(database, docker, condition_pipeline, uml)
 ```
