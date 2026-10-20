@@ -2,6 +2,7 @@ name: grid_extensions
 description: "A new Flutter package project."
 version: 0.0.12
 homepage:
+publish_to: none
 
 resolution: workspace
 

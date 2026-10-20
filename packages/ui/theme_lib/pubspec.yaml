@@ -1,7 +1,7 @@
 name: theme_lib
-description: "A new Flutter package project."
-version: 0.0.8
-homepage:
+description: "機能共通のテーマ管理(システム/ライト/ダーク切替、JSONの取り込み・書き出し)。"
+version: 0.1.0
+publish_to: "none"
 
 resolution: workspace
 
@@ -12,6 +12,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  logger_provider:
+    path: ../../infra/logger_provider
 
 dev_dependencies:
   flutter_test:

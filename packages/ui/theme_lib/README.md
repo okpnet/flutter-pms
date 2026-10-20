@@ -1,39 +1,17 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# theme_lib
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+機能ごとのページデザインを統一するテーマ管理ライブラリ。
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+- システム / ライト / ダークの切り替え
+- JSON からのテーマ取り込み・書き出し(実行中に反映)
+- Riverpod で管理インスタンスを提供し、ログはアプリ共通の `ILoggerProvider` へ出力
+- ボタン・チェックボックス・検索窓・余白・文字のテーマ連動拡張
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+使い方は [doc/contents/usage.md](doc/contents/usage.md)、サンプルは [example](example/lib/main.dart)。
+開発規則は [CLAUDE.md](CLAUDE.md)。
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```powershell
+flutter test                                          # このパッケージのテスト
+cd example; flutter test                              # サンプルのテスト
+cd example; flutter test tool/screenshots_test.dart   # usage.md 用の画像を再生成
 ```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
