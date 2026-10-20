@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:logger_provider/logger_provider.dart';
 import 'package:pms_app/app.dart';
+
+/// テストでは何も出力しないロガー。
+class _SilentLogger implements ILoggerProvider {
+  @override
+  int get level => 0;
+  @override
+  void debug(String message, {Object? ex, StackTrace? trace}) {}
+  @override
+  void info(String message, {Object? ex, StackTrace? trace}) {}
+  @override
+  void warn(String message, {Object? ex, StackTrace? trace}) {}
+  @override
+  void error(String message, {Object? ex, StackTrace? trace}) {}
+  @override
+  void fatal(String message, {Object? ex, StackTrace? trace}) {}
+}
 
 void main() {
   Future<void> pumpApp(WidgetTester tester) async {
     await tester.pumpWidget(
-      ProviderScope(overrides: appOverrides, child: const PmsApp()),
+      ProviderScope(
+        overrides: [
+          loggerProvider.overrideWithValue(_SilentLogger()),
+          ...appOverrides,
+        ],
+        child: const PmsApp(),
+      ),
     );
     await tester.pumpAndSettle();
   }

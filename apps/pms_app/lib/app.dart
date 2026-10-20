@@ -3,6 +3,7 @@ import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger_provider/logger_provider.dart';
 
 import 'go_router_destination_navigator.dart';
 import 'home_page.dart';
@@ -26,6 +27,7 @@ final routerProvider = Provider<GoRouter>((ref) {
 });
 
 /// アプリが差し込む実体(「宣言はライブラリ、実体はアプリ」)。
+/// loggerProvider(logger_provider)は非同期生成のため main.dart で別に override する。
 final appOverrides = [
   commandBusProvider.overrideWith((ref) {
     final registry = CommandHandlerRegistry();
@@ -34,6 +36,7 @@ final appOverrides = [
     }
     return DefaultCommandBus(
       handlers: registry,
+      logger: ref.watch(loggerProvider),
       navigator: GoRouterDestinationNavigator(
         router: ref.watch(routerProvider),
         modules: featureModules,

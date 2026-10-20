@@ -19,6 +19,9 @@ dependencies:
   # ホーム画面から顧客機能の遷移先・命令を使うため
   customer_api:
     path: ../../packages/features/customer_api
+  # アプリ全体のロガー(共有の loggerProvider へ差し込む)
+  logger_provider:
+    path: ../../packages/infra/logger_provider
   flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
 

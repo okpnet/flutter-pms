@@ -43,6 +43,10 @@ flutter analyze                      # 静的解析（analysis_options.yaml は 
   3. アセットのパス（[DefaultLoggerProvider.fromAsset](lib/src/default_logger_provider.dart)）
 - 具体的なJSONキーは [LoggerProviderConfig](lib/src/logger_provider_config.dart) のdartdocにサンプルを記載している（`logger`/`rotation` の各設定項目は [LoggerConfig](lib/src/logger_object/logger_config.dart) / [RotationConfig](lib/src/rotation_object/rotation_config.dart) 参照）。
 
+### Riverpod での共有
+- 共有の `loggerProvider`(`Provider<ILoggerProvider>`、[shared_logger_provider.dart](lib/src/shared_logger_provider.dart))を提供する。アプリが `overrideWithValue` で登録し、各ライブラリは `ref.watch(loggerProvider)` で受け取る。
+- 利用側に null 判定を持たせない。未登録時は何もしない [NoopLoggerProvider](lib/src/noop_logger_provider.dart) を既定値として返す。
+
 ### ディレクトリ・命名規約
 - 命名は snake_case、Flutter の命名規則に従う。
 - 名前空間とディレクトリ構成を一致させる。

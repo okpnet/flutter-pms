@@ -22,6 +22,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  # テスト用の ILoggerProvider を作るため
+  logger_provider:
+    path: ../../infra/logger_provider
   flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
 
 flutter:

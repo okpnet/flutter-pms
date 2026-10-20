@@ -96,3 +96,21 @@ await (log as DefaultLoggerProvider).dispose();
 
 - フィルタは `ProductionFilter` を使用します。release ビルドでもファイルへ記録されます。
 - `logger` の生インスタンスが必要なら `DefaultLoggerProvider.logger` から取得できます。
+
+## Riverpod で共有する 🤝
+
+アプリが1回登録すれば、どのライブラリも `loggerProvider` から同じロガーを受け取れます。
+
+```dart
+// ① アプリ(main.dart)で登録
+final logger = await DefaultLoggerProvider.fromAsset('assets/logger_provider.json');
+runApp(ProviderScope(
+  overrides: [loggerProvider.overrideWithValue(logger)],
+  child: const MyApp(),
+));
+
+// ② ライブラリ側で受け取る(null判定は不要です ✨)
+ref.watch(loggerProvider).info('受け取れました');
+```
+
+未登録のときは何もしない `NoopLoggerProvider` が返るので、テストでも安心です 🧪

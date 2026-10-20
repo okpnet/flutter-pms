@@ -3,6 +3,23 @@ import 'package:customer_api/customer_api.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:logger_provider/logger_provider.dart';
+
+/// テストでは何も出力しないロガー。
+class _SilentLogger implements ILoggerProvider {
+  @override
+  int get level => 0;
+  @override
+  void debug(String message, {Object? ex, StackTrace? trace}) {}
+  @override
+  void info(String message, {Object? ex, StackTrace? trace}) {}
+  @override
+  void warn(String message, {Object? ex, StackTrace? trace}) {}
+  @override
+  void error(String message, {Object? ex, StackTrace? trace}) {}
+  @override
+  void fatal(String message, {Object? ex, StackTrace? trace}) {}
+}
 
 /// テストでは遷移しない。
 class _NoNavigator implements DestinationNavigator {
@@ -47,6 +64,7 @@ void main() {
           return DefaultCommandBus(
             handlers: registry,
             navigator: _NoNavigator(),
+            logger: _SilentLogger(),
           );
         }),
       );
