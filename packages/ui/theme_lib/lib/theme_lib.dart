@@ -5,8 +5,8 @@
 /// 使い方は`doc/contents/usage.md`を参照。
 library;
 
-export 'build/built_in_themes.dart';
-export 'build/theme_builder.dart';
+export 'builder/built_in_themes.dart';
+export 'builder/theme_builder.dart';
 export 'extensions/search_field_extensions.dart';
 export 'extensions/space_extensions.dart';
 export 'extensions/text_extensions.dart';

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger_provider/logger_provider.dart';
 
-import '../build/built_in_themes.dart';
-import '../build/theme_builder.dart';
+import '../builder/built_in_themes.dart';
+import '../builder/theme_builder.dart';
 import '../model/theme_definition.dart';
 import '../model/theme_exceptions.dart';
 import '../model/theme_state.dart';
