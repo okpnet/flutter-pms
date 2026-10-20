@@ -38,7 +38,6 @@ class _NodeEditDialogState extends State<NodeEditDialog> {
   late NodeKind _kind;
   String? _draftName;
   late Map<Breakpoint, NodeBreakpointStyle?> _draftStyles; // nullは「継承」を表す一時状態
-  bool get _canSave => _kind != NodeKind.widget || _draftName != null;
 
   /// 既存ノード編集時はtrue。種別（nodeType）は作成後固定のため変更不可にする。
   bool get _isEditingExisting => widget.node != null;

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+<module fileurl="file://$PROJECT_DIR$/packages/core/baton_lib/melos_baton_lib.iml" filepath="$PROJECT_DIR$/packages/core/baton_lib/melos_baton_lib.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/customer/melos_customer.iml" filepath="$PROJECT_DIR$/packages/features/customer/melos_customer.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/customer_api/melos_customer_api.iml" filepath="$PROJECT_DIR$/packages/features/customer_api/melos_customer_api.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/foundation/data_strategist/melos_data_strategist.iml" filepath="$PROJECT_DIR$/packages/foundation/data_strategist/melos_data_strategist.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/core/feature_shared/melos_feature_shared.iml" filepath="$PROJECT_DIR$/packages/core/feature_shared/melos_feature_shared.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/infra/graphql_lib/melos_gqlib.iml" filepath="$PROJECT_DIR$/packages/infra/graphql_lib/melos_gqlib.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/infra/graphql_provider_lib/melos_gqlprvlib.iml" filepath="$PROJECT_DIR$/packages/infra/graphql_provider_lib/melos_gqlprvlib.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/ui/grid_extensions/melos_grid_extensions.iml" filepath="$PROJECT_DIR$/packages/ui/grid_extensions/melos_grid_extensions.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/foundation/logger_lib/melos_logger_lib.iml" filepath="$PROJECT_DIR$/packages/foundation/logger_lib/melos_logger_lib.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/infra/logger_provider/melos_logger_provider.iml" filepath="$PROJECT_DIR$/packages/infra/logger_provider/melos_logger_provider.iml"/>
+<module fileurl="file://$PROJECT_DIR$/apps/pms_app/melos_pms_app.iml" filepath="$PROJECT_DIR$/apps/pms_app/melos_pms_app.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/foundation/query_builder/melos_query_builder.iml" filepath="$PROJECT_DIR$/packages/foundation/query_builder/melos_query_builder.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/ui/theme_lib/melos_theme_lib.iml" filepath="$PROJECT_DIR$/packages/ui/theme_lib/melos_theme_lib.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/ui/ui_mapper/melos_ui_mapper.iml" filepath="$PROJECT_DIR$/packages/ui/ui_mapper/melos_ui_mapper.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/foundation/undo_redo/melos_undo_redo.iml" filepath="$PROJECT_DIR$/packages/foundation/undo_redo/melos_undo_redo.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/ui/view_responsiveness/melos_view_responsiveness.iml" filepath="$PROJECT_DIR$/packages/ui/view_responsiveness/melos_view_responsiveness.iml"/>
+<module fileurl="file://$PROJECT_DIR$/melos_flutter_pms_workspace.iml" filepath="$PROJECT_DIR$/melos_flutter_pms_workspace.iml"/>
+    </modules>
+  </component>
+</project>

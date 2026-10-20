@@ -6,9 +6,7 @@ include: package:flutter_lints/flutter.yaml
 # ダイアログが出る不具合の原因になっていた。アナライザの解析対象自体から除外して回避する。
 analyzer:
   exclude:
-    - lib/postgraphile/schema.graphql.dart
-    - lib/postgraphile/task_resource_page/task_resource_page_edit.graphql.dart
-    - lib/postgraphile/task_resource_page/task_resource_page_rfe.graphql.dart
+    - lib/postgraphile/**
     - build/**
 
 # Additional information about this file can be found at

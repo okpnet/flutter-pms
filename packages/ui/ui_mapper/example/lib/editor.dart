@@ -75,9 +75,9 @@ class _Editor extends State<Editor> {
               ElevatedButton.icon(
                 onPressed: () async {
                   final json = controller.document.toJson().toString();
-                  final result = await showDialog<String>(
+                  await showDialog<String>(
                     context: context,
-                    builder: (_context) => AlertDialog(
+                    builder: (context) => AlertDialog(
                       content: Text(json, softWrap: true),
                       actions: [
                         TextButton(

@@ -6,12 +6,12 @@ version: 1.0.0
 resolution: workspace
 
 environment:
-  sdk: ^3.12.2
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
 
 # Add regular dependencies here.
 dependencies:
   # path: ^1.9.0
 
 dev_dependencies:
-  lints: ^6.0.0
-  test: ^1.25.6
+  lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  test: ^1.25.6 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

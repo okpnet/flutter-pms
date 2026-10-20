@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:undo_redo/lib.dart';
@@ -8,7 +6,7 @@ void main() {
   group('command test', () {
     test('addUndo test', () {
       dynamic object = {'name': 'test1', 'id': 5};
-      print('1 ${object}'); //test1 5
+      //test1 5
       final stack = UndoStack();
 
       //基
@@ -19,7 +17,7 @@ void main() {
           execute: (t) => object['id'] = t,
         ),
       );
-      print('2 ${object}'); //test1 1
+      //test1 1
       stack.push(
         ValueUndoCommand(
           currentValue: object['name'],
@@ -27,12 +25,12 @@ void main() {
           execute: (t) => object['name'] = t,
         ),
       );
-      print('3 ${object}'); //test2 1
+      //test2 1
       stack.undo();
-      print('4 ${object}'); //test1 1
+      //test1 1
       stack.redo();
-      print('5 ${object}'); //test2 1
-      print('redo ${stack.redo()}'); //false
+      //test2 1
+      //false
       expect(object['name'], equals('test2'));
     });
     test('executeAdd test', () {});
@@ -43,8 +41,6 @@ void main() {
     final Map<String, dynamic> object = {'name': 'test1', 'id': 5};
     final stack = UndoTartgetStack();
     final changeId1 = 1;
-    final changeId2 = 2;
-    final changeId3 = 3;
 
     stack.push(
       object,
@@ -66,8 +62,7 @@ void main() {
       ),
     );
 
-    final isDirty = stack.isDirty(object);
-    final hasDirty = stack.hasDirty;
+    stack.isDirty(object);
 
     stack.undo();
     expect(object['id'], equals(1));

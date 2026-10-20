@@ -7,7 +7,7 @@ publish_to: "none"
 resolution: workspace
 
 environment:
-  sdk: ^3.12.2
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   flutter: ">=1.17.0"
 
 dependencies:
@@ -15,13 +15,13 @@ dependencies:
     sdk: flutter
   logger_lib:
     path: ../../foundation/logger_lib
-  logger: ^2.7.0
+  logger: ^2.7.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   rotation_log: ^0.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
