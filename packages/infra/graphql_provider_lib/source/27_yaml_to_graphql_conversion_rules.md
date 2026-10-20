@@ -396,7 +396,7 @@ defaultSort:
 - ルートの絞り込みは、その`edit`ノードの`requiredWhere`(通常は主キー1列)をそのまま必須引数として使う。
 - `columns`ツリーの各要素は、「書き込み対象の列」としてではなく「SELECT対象の列」として解釈し直す。具体的には、`sharedAppellationToXxx: { updateBySharedAppellationsId: { ... } }`のような入れ子ミューテーション記法は、対応する`using`/`from`が指す関連先を辿る通常のSELECT(`sharedAppellationByXxx { ... }`)に読み替える。`deleteOthers`+`create`のような書き込み専用の入れ子(`sharedDictionaryValuesUsingSharedDictionaryId`等)は、読み込み側では対応する取得用フィールド(`sharedDictionaryValuesBySharedDictionaryId`、ja/en等必要な言語ぶん)に読み替える。この対応関係は`company_page_edit.graphql`/`company_page_rfe.graphql`の実例を参照。
 - `arrayType`/`using`/`pick`/`output`/`defaultWhere`/`where`/`requiredWhere`の解釈規則(3〜6章)は、書き込み対象・SELECT対象のどちらとして読むかに関わらず共通(生成側が列挙する対象が変わるだけ)。
-- (要件0046)生成後、RFEとEditのモデルが相互変換できることを条件とする。`test/rfe_edit_interconversion_test.dart`が全画面について、(T1)RFEのMapからEditの結果モデルを復元できること、(T2)Editの結果モデルのMapからRFEモデルを復元できること、(T3)Editの全引数をRFEのMapから組み立てられること、を`nested_map_flattener.dart`経由で検証する。引数とRFEの取得位置の対応は、ミューテーションのinputツリーの入れ子書き込み名(`xToY`/`xUsingY`)を読み込み側の`xByY`に読み替えて求めるため、画面ごとの対応表は持たない。変換できない場合は`view.yaml`を直接修正せず、修正案をログ(`docs/0046_rfe_edit_interconversion_log.md`形式)に出力する。
+- (要件0046)生成後、RFEとEditのモデルが相互変換できることを条件とする。`test/rfe_edit_interconversion_test.dart`が全画面について、(T1)RFEのMapからEditの結果モデルを復元できること、(T2)Editの結果モデルのMapからRFEモデルを復元できること、(T3)Editの全引数をRFEのMapから組み立てられること、を`nested_map_flattener.dart`経由で検証する。引数とRFEの取得位置の対応は、ミューテーションのinputツリーの入れ子書き込み名(`xToY`/`xUsingY`)を読み込み側の`xByY`に読み替えて求めるため、画面ごとの対応表は持たない。変換できない場合は`view.yaml`を直接修正せず、修正案をログ(`doc/log/0046_rfe_edit_interconversion_log.md`形式)に出力する。
 - (要件0048)監査列(`update_at`/`update_user_id`/`update_user_history_id`/`remove`)はRFEでのみ取得し、Editの引数・Patch・結果モデルには含めない。`update_at`はトリガーで設定されるが、Editに含めるとプログラマが意図的に変更できてしまうため。保存後に最新の監査列が必要な場合はRFEを再取得する。したがって相互変換テストでこれらが「RFEにのみ存在する」(C1)と出るのは方針どおりであり、問題としない。
 - (要件0048)RFEは`$jaLanguageCodeId`/`$enLanguageCodeId`(UUID!、必須)でja/en両方を常時取得する。`$ja`/`$en: Boolean!`と`@include`による条件付き取得(要件0036以前の方式)は使わない(Editが両言語を必須引数で要求するため)。
 - 表示用の`read`(一覧・詳細表示)と`generateRfe`による読み込み専用クエリは**別物**であり、統合しない(要件0036参照)。前者は一覧表示のためページネーション・1言語のみの取得を基本とするのに対し、後者は編集フォームへのプリロードのため単一レコード・編集に必要な全ての言語・id一式の取得を必要とする。この要件の違いはkindの統一だけでは吸収できないため、意図的に別ドキュメントのままとする。
@@ -468,7 +468,7 @@ second occurrence
 ## 11. 生成ツール(要件0051)
 
 この章の規則は、`tool/view_graphql`(build_runnerのBuilder、CLI`tool/gen_view_graphql.dart`)として実装されている。
-詳細と既存の画面との比較は`docs/view_graphql_generator_2026-10-14.md`を参照する。
+詳細と既存の画面との比較は`doc/log/view_graphql_generator_2026-10-14.md`を参照する。
 
 - 入力は`source/views/`以下のYAML(要件0052でview.yamlを分割。結合してから解析する)と全量スキーマ(`source/schema.full.graphql`)。関連の向き・フィールド名・入力型はスキーマから求める。
 - `using`は、親側のFK列(外向き)または子側のFK列(内向き)。`toMany`はコネクション、`toFirstOne`は単数のフィールドを優先する。
@@ -523,6 +523,6 @@ second occurrence
   注意を追記。`test.yaml`の列順を修正した。
 - 2026-09-26(要件0037): 独立した`kind: "RFE"`を廃止した。`company_page`の実装で「`CompanyPageRFE`が対応する`CompanyPageEdit`ではなく無関係な`dictionaryEdit`を誤って参照する」という事故(0034ログ)が発生し、根本原因が「同一であるべきedit/RFE定義がYAML上2箇所に独立して書けてしまうこと」にあると判明したため。`kind: "edit"`のノードに`generateRfe: true`を指定すると、そのeditと全く同一の`columns`ツリーから読み込み専用クエリ(旧RFE相当)を自動導出する方式に変更した(1章・2章・7章を修正、8章を全面書き換え)。`schema.json`の`kind`enumから`"RFE"`を削除し、新規プロパティ`generateRfe`(`node`のみ)を追加。`view.yaml`から`dictionaryRFE`・`appellationLabelsRFE`・`CompanyPageRFE`ノードを削除し、`CompanyPageEdit`に`requiredWhere: [info_company_id]`・`generateRfe: true`を追加した。
 - 2026-10-14(要件0051): view.yaml→GraphQLの生成ツール(`tool/view_graphql`)を追加し、11章に規則の実装を記した。
-- 2026-10-15(要件0052): view.yamlを`source/views/`以下の機能単位のファイルに分割した(規則は変更なし)。ファイルをまたぐアンカーの参照は、`tool/view_graphql/view_sources.dart`が依存順に結合して解決する。CLAUDE.md 5-9節、`docs/0052_view_yaml_split_log.md`を参照。
+- 2026-10-15(要件0052): view.yamlを`source/views/`以下の機能単位のファイルに分割した(規則は変更なし)。ファイルをまたぐアンカーの参照は、`tool/view_graphql/view_sources.dart`が依存順に結合して解決する。CLAUDE.md 5-9節、`doc/log/0052_view_yaml_split_log.md`を参照。
 - 2026-10-15(要件0053): `defaultSort`(asc/desc/none)を追加し、並び順の引数(`$orderBy`/`$<子の出力名>OrderBy`)を必ず生成するようにした(6-9節)。
 - 2026-10-16(要件0055): 11-1節を追加(固定条件の反映、共通定義の検証、雛形ツール)。

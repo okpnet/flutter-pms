@@ -21,9 +21,9 @@ views.mdの全40見出しのうち、既に生成済みの31見出し(info_compa
 10. purchase_rec_visitor
 11. container_tree
 
-これらは[docs/0025_symbol_and_transaction_evaluation_log.md](0025_symbol_and_transaction_evaluation_log.md)・
-[docs/0025_inspection_and_production_evaluation_log.md](0025_inspection_and_production_evaluation_log.md)・
-[docs/0025_container_and_visiter_evaluation_log.md](0025_container_and_visiter_evaluation_log.md)で
+これらは[doc/log/0025_symbol_and_transaction_evaluation_log.md](0025_symbol_and_transaction_evaluation_log.md)・
+[doc/log/0025_inspection_and_production_evaluation_log.md](0025_inspection_and_production_evaluation_log.md)・
+[doc/log/0025_container_and_visiter_evaluation_log.md](0025_container_and_visiter_evaluation_log.md)で
 既に評価済みで、いずれもエラー無し(一部、ユーザー判断待ちの未採択提案が`### 提案への指示`に
 残るのみ)の状態であることを確認済み。今回は直前の[0026再実行(追記7)](0026_schema_fetch_log.md)
 によるschema更新を受けて、新たな影響が無いかを再確認した。

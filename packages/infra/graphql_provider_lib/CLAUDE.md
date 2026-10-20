@@ -1,7 +1,7 @@
 # gqlprvlib 要件定義
 
 現在有効な要件定義である。要件0001〜0049は2026/10/02に、要件0050〜0056は2026/10/17に、本文の各章へ統合・整理した。
-各要件の原文と経緯は、`docs/requirements_0001-0049_history.md`と`docs/requirements_0050-0056_history.md`を参照する。
+各要件の原文と経緯は、`doc/log/requirements_0001-0049_history.md`と`doc/log/requirements_0050-0056_history.md`を参照する。
 本文中の`(0046)`のような番号は、根拠となった要件の通し番号である。
 新しい要件は末尾の「要件(0050以降)」へ追記する。
 
@@ -58,7 +58,7 @@ tool/
   view_graphql/           view.yaml→GraphQLの生成ライブラリとbuild_runnerのBuilder(5-8節)
     view_sources.dart       分割したviewsの結合(5-9節)
 test/                     モデルごとの往復変換テスト、RFE/Edit相互変換テスト
-docs/                     要件ごとの実施ログ。生成ツールの詳細は`view_graphql_generator_2026-10-14.md`(5-8節)
+doc/log/                     要件ごとの実施ログ(生成結果のレポート)。生成ツールの詳細は`view_graphql_generator_2026-10-14.md`(5-8節)
 ```
 
 ## 4. スキーマとモデル生成
@@ -203,7 +203,7 @@ docs/                     要件ごとの実施ログ。生成ツールの詳細
   - 出力先は`source/generated_graphql/`(git対象外、`build.yaml`の`view_graphql.options.output_dir`)。`lib/graphql`へはコピーして採用する。
   - 採用するときは、コピー → 絞り込み → 検索条件の対応表の生成 → build_runnerの順に進める(4-2節)。
 - 規則は27章に従い、関連の向き・フィールド名・入力型は全量スキーマから求める。解釈できない箇所は、エラーを警告として出力し、そのノードは生成しない(5-7節)。
-- 規則と生成物の詳細・既存の画面との比較は、`docs/view_graphql_generator_2026-10-14.md`を参照する(要件0051の成果物)。
+- 規則と生成物の詳細・既存の画面との比較は、`doc/log/view_graphql_generator_2026-10-14.md`を参照する(要件0051の成果物)。
 - 既存の画面との回帰は`test/view_graphql_generator_test.dart`で固定する。view.yamlを変更して生成物が変わるのは正しいため、既存のGraphQLを生成物で置き換えてから、このテストの一覧を見直す。
 
 ### 5-9. view.yamlの分割(0052)
@@ -258,7 +258,7 @@ docs/                     要件ごとの実施ログ。生成ツールの詳細
   - サフィックス: 台帳(別名: 項目)・体系・明細=read、情報・登録=edit。「項目」は、共通定義の読み込み側も指す。
   - `<!--DB要-->`は、DBの変更・要件の確定が必要でviewsが未定義の項目。
 - viewsの全トップノードはpage.mdから参照され、page.mdの参照はviewsに存在する。サフィックスと参照先のkindは一致する。
-- 新しいページは、`dart run tool/scaffold_view.dart <テーブル>:<名前>[:<親を指す列>][:tree]`で雛形を出力し、列・参照・明細のタグを見直す。雛形の規則は`docs/0055_page_views_review_log.md`の5章。
+- 新しいページは、`dart run tool/scaffold_view.dart <テーブル>:<名前>[:<親を指す列>][:tree]`で雛形を出力し、列・参照・明細のタグを見直す。雛形の規則は`doc/log/0055_page_views_review_log.md`の5章。
 - 生成ツールは、共通定義(~ReadFields/~EditFields)も、スキーマとの整合を検証する(エラーは0件でなければならない)。
 
 ### 5-14. 子のレコード数(0056)
@@ -279,7 +279,7 @@ docs/                     要件ごとの実施ログ。生成ツールの詳細
 - edit・RFEには追加しない(計算値のため)。共通定義(`~ReadFields`)を介する`~Page`は、共通定義側に追加する(`StakeholderReadFields`。CustomerPage・SupplierPageの共通。ユーザー採択)。
 - 親に`~Page`が無いビュー(24本。`trans_visiter`・`info_access_path`・`shared_language_code`・`info_app`等)は対象外(~Pageが無い=主画面になり得ない。ユーザー採択)。`mstr_approval`・`trans_approval_pattern`のビュー(3本)も対象外(ユーザー採択)。`~Page`を追加するときは、`tool/scaffold_view.dart`が集計の列を出力する。
 - 平坦化キーは`<名前>||all_count`等(例: `department_count||allCount`)。画面に出す件数は、通常`enable_count`。
-- `test/page_views_consistency_test.dart`が、~Pageの`from`のテーブルの型が持つ`V…Count`の単数フィールドを、すべて含むことを検証する。詳細は`docs/0056_child_count_columns_log.md`。
+- `test/page_views_consistency_test.dart`が、~Pageの`from`のテーブルの型が持つ`V…Count`の単数フィールドを、すべて含むことを検証する。詳細は`doc/log/0056_child_count_columns_log.md`。
 
 ## 6. テストと品質条件
 
@@ -296,7 +296,7 @@ docs/                     要件ごとの実施ログ。生成ツールの詳細
 
 - 要件は1つずつ解決する。チャットで通し番号を使って指示する。
 - 要件の追記形式は「年月日_4桁の通し番号:内容」とし、要件に変更があったときは変更の通し番号を参照する。
-- ライブラリの動作に影響しない成果物(ログ・調査結果等)は`docs/`に置き、ファイル名に通し番号を含める(0004)。スキーマの再取得のログは`docs/schema_refetch_<日付>.md`とする。
+- ライブラリの動作に影響しない成果物(ログ・調査結果等)は`doc/log/`に置き、ファイル名に通し番号を含める(0004)。スキーマの再取得のログは`doc/log/schema_refetch_<日付>.md`とする。
 - 直前までの指示・実行済みの内容と重複し、実行しても結果が変わらないと判断できる場合は、実行せずログを残してスキップする(0020)。
 - view.yaml内の要件コメント、および確認用のコメント(`要件0046確認`等)は、ユーザーが確認後に削除する。Claudeは定義の変更なしに削除しない(0045・0046)。
 - 生成やテストの実行が環境の制約(メモリ・ツールの欠如等)で完了しない場合は、状態を元に戻し、原因と対応案をログに残してユーザーの判断を仰ぐ。
@@ -308,10 +308,10 @@ docs/                     要件ごとの実施ログ。生成ツールの詳細
 
 ## 8. 保留・既知の課題
 
-- `CompanyPageEdit.provision`: `ProvisionPageEdit`のcolumnsを複製している(`requiredWhere`の扱いのため。docs/0048ログ3章)。
+- `CompanyPageEdit.provision`: `ProvisionPageEdit`のcolumnsを複製している(`requiredWhere`の扱いのため。doc/log/0048ログ3章)。
 - 言語の引数の一般化(ISO 639-1準拠、言語の数を限定しない、ja/enの固定の廃止)と5-5節の見直し: 0050の対象外とし、別の要件として扱う。
-- 会社の統計情報(集計のビューが無い。確認のため一時停止): 0055で保留した。`page.md`の`<!--DB要-->`と、`docs/0055_page_views_review_log.md`の3章を参照する。
-- 0055で雛形から追加したページ(約52ページ)は、`lib/graphql`へ未採用。画面を使う段階で、列・参照・明細のタグを見直してから採用する(`docs/0055`の5章)。同様に、生成はできるが`lib/graphql`に未採用の画面(`location_page`・`item_page`・`task_page`等)は、採用の判断待ち(採用は5-8節の手順)。
+- 会社の統計情報(集計のビューが無い。確認のため一時停止): 0055で保留した。`page.md`の`<!--DB要-->`と、`doc/log/0055_page_views_review_log.md`の3章を参照する。
+- 0055で雛形から追加したページ(約52ページ)は、`lib/graphql`へ未採用。画面を使う段階で、列・参照・明細のタグを見直してから採用する(`doc/log/0055`の5章)。同様に、生成はできるが`lib/graphql`に未採用の画面(`location_page`・`item_page`・`task_page`等)は、採用の判断待ち(採用は5-8節の手順)。
 - 部署の区分(`info_department_kind`)の行そのものを作成・更新する画面は無い。必要になったときに、独立したページを追加する(0054)。
 - 内向きの1対1を入れ子で更新する構成は、ジェネレーターが未対応(0051・0054)。edit内の`parent`等は5-12節の方針で避ける。
 - `descendants`(`v_*_descendants`)の`using`は、ビューのキー(`ancestor_…_id`)と完全一致しないため、末尾一致で解決する警告が出る。動作に問題は無い。
@@ -321,16 +321,26 @@ docs/                     要件ごとの実施ログ。生成ツールの詳細
 
 追記形式: 年月日_4桁の通し番号:内容
 
-整理済みの要件(0050〜0056)は、規則を本文の章へ統合した。原文と経緯は`docs/requirements_0050-0056_history.md`を参照する。
+整理済みの要件(0050〜0056)は、規則を本文の章へ統合した。原文と経緯は`doc/log/requirements_0050-0056_history.md`を参照する。
 
 | 通し番号 | 内容 | 本文 | 実施ログ |
 |---|---|---|---|
-| 2026/10/07_0050 | トップノードの命名(`~Page`・`~PageEdit`・`~ReadFields`・`~EditFields`)、ページを子として流用するときの引き継ぎ、`condition`→`filter`、平坦なMapによる検索条件 | 4-5、5-3、5-10、5-11 | `docs/0050_naming_rules_and_filter_migration_log.md` |
-| 2026/10/14_0051 | view.yamlからGraphQLを生成するツール(`tool/view_graphql`、build_runnerのBuilderとCLI) | 5-8 | `docs/view_graphql_generator_2026-10-14.md` |
-| 2026/10/15_0052 | view.yamlを機能単位のファイルに分割(`source/views/`、アンカーの依存順の結合) | 5-9 | `docs/0052_view_yaml_split_log.md` |
-| 2026/10/15_0053 | 並び順の`defaultSort`(asc/desc/none)と`sortColumns`、並び順の引数(`$orderBy`・`$<名>OrderBy`)を必ず生成 | 5-6、27章6-9節 | `docs/0053_default_sort_log.md` |
-| 2026/10/16_0054 | ツリーの親の付け替え(ドラッグ&ドロップ)を、ツリー行の直接更新で実現(案A) | 5-12 | `docs/0054_tree_parent_update_log.md` |
-| 2026/10/16_0055 | page.mdとviews、全量スキーマの学習・追加・レビュー・評価(完了条件: page.mdが矛盾なく埋まり、スキーマとの不整合0件) | 5-13、6章 | `docs/0055_page_views_review_log.md` |
-| 2026/10/17_0056 | 親子関係にあるテーブル(ペア)の子のレコード数(`v_*_count`)を、viewsの親の~Pageの列として追加(`_tree`で終わる、`hrchy_`・`history_`で始まるテーブルを除く。0055に従う) | 5-14 | `docs/0056_child_count_columns_log.md` |
+| 2026/10/07_0050 | トップノードの命名(`~Page`・`~PageEdit`・`~ReadFields`・`~EditFields`)、ページを子として流用するときの引き継ぎ、`condition`→`filter`、平坦なMapによる検索条件 | 4-5、5-3、5-10、5-11 | `doc/log/0050_naming_rules_and_filter_migration_log.md` |
+| 2026/10/14_0051 | view.yamlからGraphQLを生成するツール(`tool/view_graphql`、build_runnerのBuilderとCLI) | 5-8 | `doc/log/view_graphql_generator_2026-10-14.md` |
+| 2026/10/15_0052 | view.yamlを機能単位のファイルに分割(`source/views/`、アンカーの依存順の結合) | 5-9 | `doc/log/0052_view_yaml_split_log.md` |
+| 2026/10/15_0053 | 並び順の`defaultSort`(asc/desc/none)と`sortColumns`、並び順の引数(`$orderBy`・`$<名>OrderBy`)を必ず生成 | 5-6、27章6-9節 | `doc/log/0053_default_sort_log.md` |
+| 2026/10/16_0054 | ツリーの親の付け替え(ドラッグ&ドロップ)を、ツリー行の直接更新で実現(案A) | 5-12 | `doc/log/0054_tree_parent_update_log.md` |
+| 2026/10/16_0055 | page.mdとviews、全量スキーマの学習・追加・レビュー・評価(完了条件: page.mdが矛盾なく埋まり、スキーマとの不整合0件) | 5-13、6章 | `doc/log/0055_page_views_review_log.md` |
+| 2026/10/17_0056 | 親子関係にあるテーブル(ペア)の子のレコード数(`v_*_count`)を、viewsの親の~Pageの列として追加(`_tree`で終わる、`hrchy_`・`history_`で始まるテーブルを除く。0055に従う) | 5-14 | `doc/log/0056_child_count_columns_log.md` |
 
-スキーマの再取得(4章の実行)のログは、`docs/schema_refetch_2026-10-15.md`・`..._2026-10-16.md`・`..._2026-10-17.md`にある。
+スキーマの再取得(4章の実行)のログは、`doc/log/schema_refetch_2026-10-15.md`・`..._2026-10-16.md`・`..._2026-10-17.md`にある。
+
+## 規則/仕様
+
+1.  ディレクトリ/ファイル
+    1.  生成結果のレポートは`doc/log`ディレクトリにファイル名`年月日_4桁ゼロ埋の番号.md`として保存する。
+        1.  同じ年月日、同じ番号に対する追加変更は`年月日_4桁ゼロ埋の番号_add_1からの連番.md`として保存する。
+    2.  生成したライブラリに関する使い方やヘルプなどの使用にかかわるレポートは`doc/contens`に保存する。
+    3.  最終的にこの`CLAUDE.md`へ統合される追加、変更の指示は`issue`ディレクトリに`年月日_4桁ゼロ埋の番号.md`として保存する。
+        1.  つまり`生成結果のレポート`と連動する。
+        2.  `CLAUDE.md`への統合も指示に含める。統合時、削除指示が無い限り`issue`ディレクトリ`doc/log`ディレクトリの中を削除しない。`CLAUDE.md`には変更や追加、削除であることについて記録しない(生成時に`issue`ディレクトリ`doc/log`ディレクトリを参照するため)。

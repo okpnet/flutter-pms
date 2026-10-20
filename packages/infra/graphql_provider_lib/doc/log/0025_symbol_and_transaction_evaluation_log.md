@@ -89,7 +89,7 @@ symbol以外の実質的なモレ・エラーは発見しなかった。「更�
 - 要件0028(readに削除フラグ列が必須)は、全見出し(read保有見出し全数)で既に「削除」項目が
   含まれていることを確認した。追加対応なし。
 - 要件0026で判明した`MstrItem.mstrItemKindId`・`MstrItemOperationTask.mstrItemId`の必須化は、
-  対応する`Patch`型が引き続き任意のままであることを既に確認済み(docs/0026_schema_fetch_log.md
+  対応する`Patch`型が引き続き任意のままであることを既に確認済み(doc/log/0026_schema_fetch_log.md
   追記3参照)であり、views.mdの記述変更は不要と判断した。
 
 ## 5. 結論

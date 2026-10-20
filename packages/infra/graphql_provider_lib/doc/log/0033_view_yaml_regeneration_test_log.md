@@ -7,7 +7,7 @@
 要件0033(CLAUDE.md):
 > 大幅な方針変更。[画面仕様](#画面仕様)を変更した。既存のGraphQL、生成物を一度削除し、GraphQLの再生成のテストを行い、問題が見つからなかった場合はCLAUD.mdの見え消し部分を削除する。問題、または発見したリスクはログに記録すること。テストのため一部のみInfoCompanyのみ実装している。この0033は1度のみ実行。
 
-※ `docs/0033_shared_dictionary_language_redesign_log.md`は、本要件0033が追記される前
+※ `doc/log/0033_shared_dictionary_language_redesign_log.md`は、本要件0033が追記される前
 (2026/09/20)に実施された別作業(`SharedDictionary.ja/en`廃止に伴う設計・shipping_kind試作)の
 記録であり、本要件0033(2026/09/24追記、画面仕様の全面変更・既存生成物の削除・再生成テスト)
 とは対象が異なる。混同を避けるため本ログを別ファイルとして作成した。
@@ -127,7 +127,7 @@ postgraphile-plugin-connection-filterによる「結合先テーブルの列」�
 `SharedDictionaryValueFilter`には存在しない。つまり`code`(例:`'ja'`)を直接GraphQL引数として
 LATERAL結合のWHERE句に反映する標準的な方法が、現行スキーマ構成には存在しない。
 
-**対応**: 既存のshipping_kind試作(`docs/0033_shared_dictionary_language_redesign_log.md`、
+**対応**: 既存のshipping_kind試作(`doc/log/0033_shared_dictionary_language_redesign_log.md`、
 要件0026追記9)で採用済みの方式を踏襲し、`$jaLanguageCodeId`/`$enLanguageCodeId`
 (`UUID`、アプリケーション側が別途`SharedLanguageCode`を`code`で検索して解決した結果を渡す
 想定)を`condition: { sharedLanguageCodeId: ... }`に使う2段階解決方式とした。

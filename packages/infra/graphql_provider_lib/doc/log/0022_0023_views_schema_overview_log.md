@@ -4,15 +4,15 @@
 に従い、GraphQL/モデルの生成やbuild_runner実行は行わず、[画面仕様](../source/views.md)・
 [lib/graphql/schema.graphql](../lib/graphql/schema.graphql)の状態確認のみを行った。
 
-## 要件0023(docs/06_cteate_test.sqlの削除)
+## 要件0023(doc/log/06_cteate_test.sqlの削除)
 
-- `docs/06_cteate_test.sql`はディスク上から削除済みであることを確認した(`git status`でも`D`表示)。
+- `doc/log/06_cteate_test.sql`はディスク上から削除済みであることを確認した(`git status`でも`D`表示)。
 - 現行の生成パイプライン(GraphQL作成・build_runner)は既に
   [lib/graphql/schema.graphql](../lib/graphql/schema.graphql)を直接参照する構成(要件0008以降)
   になっており、同ファイルへの依存は残っていない。
-- [docs/0007_view_graphql_log.md](0007_view_graphql_log.md)・
-  [docs/0012_build_runner_log.md](0012_build_runner_log.md)・
-  [docs/0003_risk_assessment.md](0003_risk_assessment.md)内の参照は、当時実際に参照していた
+- [doc/log/0007_view_graphql_log.md](0007_view_graphql_log.md)・
+  [doc/log/0012_build_runner_log.md](0012_build_runner_log.md)・
+  [doc/log/0003_risk_assessment.md](0003_risk_assessment.md)内の参照は、当時実際に参照していた
   事実の記録(過去ログ)のため、要件0004の趣旨(生成物・記録の保存)に鑑み修正せず残した。
 - 以降、コード生成作業で本ファイルの参照が必要になった場合は要件0023のとおり生成処理を停止し、
   本ログに追記する(現時点ではそのような事象は発生していない)。

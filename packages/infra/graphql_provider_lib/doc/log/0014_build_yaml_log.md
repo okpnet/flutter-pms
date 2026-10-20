@@ -1,6 +1,6 @@
 # 0014_build.yaml修正ログ
 
-対象: [docs/0012_build_runner_log.md](0012_build_runner_log.md)で提示した案A(スキーマ・問い合わせを
+対象: [doc/log/0012_build_runner_log.md](0012_build_runner_log.md)で提示した案A(スキーマ・問い合わせを
 `lib/`配下に統合する)を採用し、`build.yaml`を修正する。あわせて、容量が大きい`schema.graphql`を
 gitの除外リストに追加し、そこから生成されるモデルについても、不要であれば`build.yaml`から除外する。
 

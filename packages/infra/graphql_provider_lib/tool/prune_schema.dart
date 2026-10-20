@@ -1,7 +1,7 @@
 // 生成用スキーマの絞り込みツール(CLAUDE.md 4-2節、2026/10/02)。
 //
 // PostGraphileの全量スキーマ(入力型約1万)をそのままgraphql_codegenに渡すと、
-// schema.graphql.dartの生成に6GB超のメモリを要し実行できない(docs/0049ログ)。
+// schema.graphql.dartの生成に6GB超のメモリを要し実行できない(doc/log/0049ログ)。
 // そこで、lib/graphql配下の画面のGraphQLが実際に使う型・フィールド・引数だけを残した
 // スキーマを書き出し、graphql_codegenの入力(lib/graphql/schema.graphql)とする。
 //

@@ -1,7 +1,7 @@
 # 0025 実施ログ(task/operation/equipment_inspection系7画面のGraphQL作成・モデル生成)
 
 評価内容は
-[docs/0025_task_operation_inspection_evaluation_log.md](0025_task_operation_inspection_evaluation_log.md)
+[doc/log/0025_task_operation_inspection_evaluation_log.md](0025_task_operation_inspection_evaluation_log.md)
 を参照。本ログはエラー無しと判定した7見出し(task_group, task, operation, oepration_editer,
 equipment_inspection_kind, equipment_inspection_operation, equipment_inspection_operation_editor)
 のGraphQL作成・build_runner実行・キー定数化・往復変換テストの結果を記録する。
@@ -104,7 +104,7 @@ flutter test             -> All tests passed!(既存35件 + 新規12件 = 47件)
 
 見送りとした2見出しについて、views.mdが修正され(「工程id」参照の取り消し線での無効化、
 「点検整備区分id」「点検整備id」の追加、「外部点検整備」「点検整備サービス品目id」への
-「(表示のための参照)」注記の追加)、docs/0025_task_operation_inspection_evaluation_log.md
+「(表示のための参照)」注記の追加)、doc/log/0025_task_operation_inspection_evaluation_log.md
 4-1節・4-2節のエラーが解消されたことを確認した(検証内容は同ログ末尾を参照)。あわせて
 equipment_inspection読みのすぐ下に残っていた空の箇条書き行(取り消し線編集の副産物)を削除し、
 「点検整備サービス品目id」にも外部点検整備と同じ「(表示のための参照)」注記を追加して
@@ -140,7 +140,7 @@ GraphQL作成・モデル生成まで完了した。
 
 ## 追記2: 5-2(taskの親id編集)・5-3(operationの工数集計)の解消(2026/09/15)
 
-評価ログ(docs/0025_task_operation_inspection_evaluation_log.md)5-2節・5-3節で「未対応」と
+評価ログ(doc/log/0025_task_operation_inspection_evaluation_log.md)5-2節・5-3節で「未対応」と
 記録していた2点について、views.mdの更新(「親id(idのみセットする)」「工数」への
 「getプロパティで実装」の追加)を受けて対応した。
 

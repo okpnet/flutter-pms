@@ -102,7 +102,7 @@ customer/supplier(親場所マスタのエラー)・item_actual_size(呼称セ�
 と無関係のため、要件0025ログの判定(見送り)のまま変化なし。
 
 (その後、views.mdの修正・要件0025の再評価・9画面ぶんのGraphQL作成/モデル生成を実施した。詳細は
-[docs/0025_view_graphql_generation_log.md](0025_view_graphql_generation_log.md)を参照。)
+[doc/log/0025_view_graphql_generation_log.md](0025_view_graphql_generation_log.md)を参照。)
 
 ## 追記1: 0026再実行(2026/09/12、「0026を実行」の再指示)
 
@@ -350,7 +350,7 @@ order/order_detail/ship_order/purchase/purchase_detail/unrecognized)には実質
 テーブルは無し。実質差分(Fk#番号ズレノイズ除く)は以下の2点のみだった。
 
 1.  **`TransWorkRecordVisiter.transProductDetailId`列が削除された**(前回
-    [docs/0025_container_and_visiter_evaluation_log.md](0025_container_and_visiter_evaluation_log.md)
+    [doc/log/0025_container_and_visiter_evaluation_log.md](0025_container_and_visiter_evaluation_log.md)
     で「`TransProduct`廃止の余波で参照先を失い孤立した列」としてエラー記録していた
     まさにその列)。
 2.  `TransWorkRecordVisiter.transVisiterId`が`UUID`(任意)から`UUID!`(必須)に変更された。
@@ -372,7 +372,7 @@ order/order_detail/ship_order/purchase/purchase_detail/unrecognized)には実質
 ### 次のアクション
 
 `transProductDetailId`列の削除に伴うviews.md側の対応は、要件0025として続けて実施する
-(docs/0025_container_and_visiter_evaluation_log.md の続報を参照)。
+(doc/log/0025_container_and_visiter_evaluation_log.md の続報を参照)。
 
 ## 追記7: 0026再実行(2026/09/19、「0026の実行。product_rezを除き、0025を実行。」の指示)
 
@@ -437,7 +437,7 @@ views.mdが対象とする既存31画面・評価済み11見出し(unrecognized�
 いずれにも影響しない。生成物の再作成は不要と判断し、実施していない。
 
 要件0025の実行(product_rez除く)については
-[docs/0025_purchase_convey_staff_reference_evaluation_log.md](0025_purchase_convey_staff_reference_evaluation_log.md)
+[doc/log/0025_purchase_convey_staff_reference_evaluation_log.md](0025_purchase_convey_staff_reference_evaluation_log.md)
 に記録した。
 
 ## 追記8: 0026再実行(2026/09/19、「trans_purchase_rezとtrans_product_rez、中間テーブル
@@ -624,7 +624,7 @@ schema.graphql自体の置き換え以外の対応(views.md・GraphQL・KeyName�
 冒頭コメントには「view.yamlは`ceo`・`address1`/`address2`/`bill`を`shared_appellations`経由
 (呼称セット)として定義しているが、実スキーマは単純な`String`だったため、実スキーマに
 合わせてプレーンな文字列として補正した」という暫定対応が明記されている
-([docs/0033_view_yaml_regeneration_test_log.md](0033_view_yaml_regeneration_test_log.md)参照)。
+([doc/log/0033_view_yaml_regeneration_test_log.md](0033_view_yaml_regeneration_test_log.md)参照)。
 今回の変更は、まさにこの乖離(view.yamlの設計 = shared_appellations経由)を実スキーマ側が
 追いついて解消したものであり、view.yamlの記述を修正する必要はない。
 
@@ -684,7 +684,7 @@ schema.graphql自体の置き換え以外の対応(views.md・GraphQL・KeyName�
 では、`shared_appellations_id`→`names`への全面リネームをSQL側で検出したが、当時は
 `http://192.168.1.100:5000/graphql`に到達できず(別セグメント)、SDL取得・実際のフィールド名
 確定は持ち越しとなっていた(詳細は
-[docs/0040_shared_appellations_column_rename_log.md](0040_shared_appellations_column_rename_log.md))。
+[doc/log/0040_shared_appellations_column_rename_log.md](0040_shared_appellations_column_rename_log.md))。
 今回は接続可能な環境で0026が実行できたため、要件0040の残作業(正確なフィールド名の確定・
 schema.graphql反映)を本追記で完了させる。
 

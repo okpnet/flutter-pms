@@ -1,9 +1,9 @@
 # 0025 実施ログ(コンテナ体系/作業実績ビジター/受入実績ビジター見出しの評価)
 
-指示: 「0026の実行。完了後0025を実行。」(0026は[docs/0026_schema_fetch_log.md](0026_schema_fetch_log.md)
+指示: 「0026の実行。完了後0025を実行。」(0026は[doc/log/0026_schema_fetch_log.md](0026_schema_fetch_log.md)
 追記5を参照)
 
-前回の[docs/0025_inspection_and_production_evaluation_log.md](0025_inspection_and_production_evaluation_log.md)
+前回の[doc/log/0025_inspection_and_production_evaluation_log.md](0025_inspection_and_production_evaluation_log.md)
 以降、views.mdに以下の変化があったため、今回はこれらを対象に評価した。要件0029・0030に従い、
 発見事項はviews.md本文に直接反映した。GraphQLの作成・build_runnerの実行は行っていない。
 

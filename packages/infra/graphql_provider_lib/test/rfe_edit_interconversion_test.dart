@@ -4,7 +4,7 @@
 //
 // 検証項目・失敗/要確認の区分は test/support/rfe_edit_conversion.dart を参照。
 // 結果は画面ごとに `RFE_EDIT_REPORT=<JSON>` として標準出力へ出す
-// (docs/0046_rfe_edit_interconversion_log.md の元データ)。
+// (doc/log/0046_rfe_edit_interconversion_log.md の元データ)。
 
 import 'dart:convert';
 

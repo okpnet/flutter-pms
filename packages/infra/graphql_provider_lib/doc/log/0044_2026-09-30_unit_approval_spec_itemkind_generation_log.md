@@ -6,7 +6,7 @@
 > 不足しているものは追加。推測出来ない場合はログに追加してください。
 
 要件0045(view.yaml内の要件コメント確認→0044実行)の方針に従い、まずview.yamlの
-「要件のコメント」を確認した。既存のdocs/0045ログが「実行可能なコメントは無い」と
+「要件のコメント」を確認した。既存のdoc/log/0045ログが「実行可能なコメントは無い」と
 結論していたことを再確認し、今回のスコープは**未生成の残り画面の生成**であると判断した。
 
 ## 1. 生成前の評価(view.yamlの誤りの発見・修正)
@@ -18,7 +18,7 @@
 `ApprovalRead`/`ApprovalEdit`には「既知の問題: 列名はinfo_role_idのまま」という
 コメントが付いていたが、本日(2026-09-30)の要件0026実行でschema.graphqlを再取得した
 ところ、`MstrApproval.info_role_id`列自体が`info_position_id`へリネームされたことを
-確認した(docs/0026_schema_fetch_log.md 追記15参照)。`ApprovalRead`/`ApprovalEdit`の
+確認した(doc/log/0026_schema_fetch_log.md 追記15参照)。`ApprovalRead`/`ApprovalEdit`の
 `info_role_id`を`info_position_id`に修正し、コメントも現状にあわせて更新した。
 
 ### 1-2. `ApprovalEdit`/`ApprovalDetailEdit`のYAMLパースエラー(未定義アンカー参照)

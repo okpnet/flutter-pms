@@ -138,7 +138,7 @@ GraphQL/モデル生成の変更を求めるものではなく、既に取得済
 | equipment_inspection_peration_task | エラーあり(4-2) | 見送り |
 
 7見出しでGraphQL作成・build_runner実行・キー定数化・往復変換テストまで実施した(結果は
-[docs/0025_task_operation_inspection_generation_log.md](0025_task_operation_inspection_generation_log.md)
+[doc/log/0025_task_operation_inspection_generation_log.md](0025_task_operation_inspection_generation_log.md)
 を参照)。`equipment_inspection`・`equipment_inspection_peration_task`の2見出しは、
 4節のエラーの解消方針(「工程」参照の意図確認、editフィールドの見直し、ファイル末尾の補完)に
 ついてユーザーの判断を仰いだ上で再評価する。

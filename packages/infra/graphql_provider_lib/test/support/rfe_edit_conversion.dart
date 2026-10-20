@@ -2,7 +2,7 @@
 // モデルが相互変換できるかを、GraphQLドキュメント(lib/graphql/**)とschema.graphqlから
 // 画面ごとに検証するための解析ヘルパー。
 //
-// 検証内容(docs/0046_rfe_edit_interconversion_log.md参照):
+// 検証内容(doc/log/0046_rfe_edit_interconversion_log.md参照):
 //   T1 RFE -> Edit(結果モデル): RFEモデルのMapを平坦化・復元し、Editの結果モデル
 //      (ミューテーションが返すエンティティ)として復元できること。Editの全リーフがRFEに存在すること。
 //   T2 Edit -> RFE: Editの結果モデルのMapを平坦化・復元し、RFEモデルとして復元できること。

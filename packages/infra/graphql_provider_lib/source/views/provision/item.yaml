@@ -426,7 +426,7 @@ ItemPageEdit:
       <<: *UnitReadFields
     - mstr_item_lot_id # ロットの内容(mstr_item_lot)は、品目とは別に編集する
     # 梱包サイズ(spec)は、品目との関連(mstr_item→mstr_spec_measurement)がDBから無くなったため削除した。
-    # 梱包は mstr_item_lot → mstr_packing_spec 経由になった。再設計が必要(docs/schema_refetch_2026-10-15.md)。
+    # 梱包は mstr_item_lot → mstr_packing_spec 経由になった。再設計が必要(doc/log/schema_refetch_2026-10-15.md)。
     - remarks
     - update_user_id
     - update_user_history_id

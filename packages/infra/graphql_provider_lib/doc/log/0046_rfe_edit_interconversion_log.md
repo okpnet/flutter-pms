@@ -157,4 +157,4 @@ C3・C4は0件だった。したがって、今回の構造差に`schema.graphql
 ## 追記(要件0047、2026/10/01)
 
 要件0047でview.yamlの修正(`editable`の付与、修正モレの修正)と、再生成が必要なGraphQLの再生成を行ったうえで、本要件の相互変換テスト・確認を再実行した。
-17画面すべてが相互変換可となり、company_pageの相互変換不可は解消した。詳細は`docs/0047_editable_attribute_and_regeneration_log.md`を参照。
+17画面すべてが相互変換可となり、company_pageの相互変換不可は解消した。詳細は`doc/log/0047_editable_attribute_and_regeneration_log.md`を参照。

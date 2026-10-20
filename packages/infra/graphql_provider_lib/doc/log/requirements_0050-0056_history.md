@@ -56,7 +56,7 @@ CLAUDE.mdの「要件(0050以降)」を、2026/10/17に整理(各要件の規則
     6. edit・RFEでは、引き継いだfilterを無視する。
     7. 子の行だけを絞り込み、親の行を絞り込まない検索は、本要件の対象外とする。
 7. 移行
-    1. 既存ノードの変更前・変更後の対応表と、影響する生成物を、docs/0050のログにまとめてから着手する。
+    1. 既存ノードの変更前・変更後の対応表と、影響する生成物を、doc/log/0050のログにまとめてから着手する。
     2. 生成物(ディレクトリ・操作名・生成クラス・KeyName)が変わるもの
         1. DepartmentCategoryPage(ディレクトリ department_category → department_category_page)
         2. DepartmentCategoryEdit → DepartmentCategoryPageEdit(同上)
@@ -110,14 +110,14 @@ CLAUDE.mdの「要件(0050以降)」を、2026/10/17に整理(各要件の規則
 4. 共通参照項目: 機能に該当するもの(例えば`TaskReadFields`)は機能のファイルに含める。複数の機能から使うものは`common/`に置く。
 5. ファイルをまたぐ共通項目の参照(アンカーとエイリアス)は、読み込み側(`tool/view_graphql/view_sources.dart`)が全ファイルを依存順に結合してから解析することで解決する。
 6. 進め方: ローダーの複数ファイル対応(結合・依存順・重複検出・位置の対応表) → 機能単位への切り出し(内容は変更しない) → 分割前後の一致の確認(読み込み結果・GraphQLの生成物・回帰テスト) → 元のview.yamlの廃止。
-7. 要件0051の成果物`docs/view_graphql_generator_2026-10-14.md`を、本ファイルの構成(3章)と5-8節から参照する。
-8. 詳細と確認結果: `docs/0052_view_yaml_split_log.md`。
+7. 要件0051の成果物`doc/log/view_graphql_generator_2026-10-14.md`を、本ファイルの構成(3章)と5-8節から参照する。
+8. 詳細と確認結果: `doc/log/0052_view_yaml_split_log.md`。
 
 2026/10/15_0053:view.yamlにデフォルトのソート、ASC/DESCがあるか確認する。もし、ソートが存在しなければdefaultSort属性を追加。値はasc,desc,none(標準)。noneの場合は省略可能。GraphQLにソートの引数がない場合は、追加。ソートの引数があるとき、defaultSortを無効にする。引数がNullのときはソートを設定しない。これらはbuildrunnerへの適用し、view.yamlを再評価、ビルドする。
 0053の実施:
 1. view.yamlには並び順の指定が無かった(トップは生成ツールが固定で`PRIMARY_KEY_ASC`、1対多は`sequence`があれば固定で`SEQUENCE_ASC`)。`schema.json`に`defaultSort`を追加し、`tool/view_graphql/read_generator.dart`を変更した。
 2. 従来のトップの固定の`PRIMARY_KEY_ASC`は廃止し、`none`(並べない。PostGraphileは主キー順)を標準とした(ユーザー採択)。順(`sequence`)で並べる`OperationPageEdit.operationTasks`だけ、`defaultSort: { asc: { sortColumns: [sequence] } }`を指定した。
-3. 1対多に並び順の引数を追加したため、該当するクエリ・RFEの変数が増える(利用側への影響): `$<子の出力名>OrderBy`。詳細は`docs/0053_default_sort_log.md`。
+3. 1対多に並び順の引数を追加したため、該当するクエリ・RFEの変数が増える(利用側への影響): `$<子の出力名>OrderBy`。詳細は`doc/log/0053_default_sort_log.md`。
 4. ソートの列は、`defaultSort`の入れ子の`sortColumns`(列名の配列)で指定する。`asc`/`desc`をキーにし、その下に`sortColumns`を置く(YAMLでは`defaultSort: asc`の下に子を置けないため)。例:
     ```yaml
     defaultSort:
@@ -140,7 +140,7 @@ CLAUDE.mdの「要件(0050以降)」を、2026/10/17に整理(各要件の規則
 5. 親をトップ(null)へ移動する: Variablesモデルのコンストラクタはnullを渡すとキーを省略する(親を変更しない)ため、`Variables$Mutation$…Edit.fromJson({'<tree>Id': …, 'parent…Id': null})`でnullのキーを渡す。
 6. 利用側の注意: 自分の子孫の下への移動(循環)は、アプリ側で`v_*_descendants`を使って防ぐ。DB側の制約は無い。ツリー表の`symbol`のユニーク制約(`*_tree_IX1`)にも注意する。
 7. 残りの内向きの入れ子(別原因)も、同じ方針で編集から外した: `DepartmentPageEdit.kinds`(区分は`info_department_kind`の1対1の内向き。値の編集は`DepartmentCategoryPageEdit`、取得は`DepartmentPage`)、`ItemPageEdit.descendants`(読み取り専用のビュー。取得は`ItemPage`)。これでGraphQLの生成エラーは0件になった。
-8. 詳細: `docs/0054_tree_parent_update_log.md`。
+8. 詳細: `doc/log/0054_tree_parent_update_log.md`。
 
 2026/10/16_0055:`page.md`と`views`、`shema.graphql`と関連を学習、傾向から`page.md`と`views`の追加、レビューを行い評価する。
 
@@ -149,6 +149,6 @@ CLAUDE.mdの「要件(0050以降)」を、2026/10/17に整理(各要件の規則
 2. viewsを評価し、スキーマとの不整合を修正した(`document.yaml`、`FlexibleTextEditFields`、`HsCodeReadEditFields`、`InspectionFormulaEditFields`、`ContactReadFields`/`ContactEditFields`、顧客・サプライヤーの`defaultWhere`の誤記)。
 3. page.mdの項目のうち、スキーマに対応するテーブルがあるもの(約50ページ)を、`tool/scaffold_view.dart`の雛形からviewsへ追加した。page.mdの誤記・矛盾・未参照を修正し、定義(「項目」、`[ノード名]`、`取込:`、`<!--DB要-->`、命名の対応)を追記した。
 4. 生成ツールを拡張した: `defaultWhere`の固定条件(remove以外)の反映、共通定義(~ReadFields/~EditFields)の検証。
-5. 完了条件を満たした(page.mdの項目が矛盾なく埋まり、全量スキーマとの不整合0件。`test/page_views_consistency_test.dart`)。DBの変更・要件の確定が必要な項目はスキップし、`docs/0055_page_views_review_log.md`の3・4章に残した。
+5. 完了条件を満たした(page.mdの項目が矛盾なく埋まり、全量スキーマとの不整合0件。`test/page_views_consistency_test.dart`)。DBの変更・要件の確定が必要な項目はスキップし、`doc/log/0055_page_views_review_log.md`の3・4章に残した。
 
 2026/10/17_0056:`_tree`で終わるテーブル、または`hrchy_`か`history_`で始まるテーブルを除き、親子関係にあるテーブル(ペア)の子のレコード数を定義した。

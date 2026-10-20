@@ -217,7 +217,7 @@ W graphql_codegen on lib/graphql/schema.graphql:
 新しく取得した環境やクリーンアップ後の環境では**手動で配置しないとビルドできない**
 (今回のように`Invalid GraphQL: Failed to find operation type`で失敗する)。
 このこと自体は「低減処置(運用ドキュメント化)で対応可能」の範囲と考えられるが、恒常的な問題になる
-場合は、`docs/06_cteate_test.sql`や`CLAUDE.md`にスキーマファイルの入手・配置手順を明記するなど、
+場合は、`doc/log/06_cteate_test.sql`や`CLAUDE.md`にスキーマファイルの入手・配置手順を明記するなど、
 仕様として運用ルールを追記することを推奨する。
 
 ## 再々実行(2026/09/10・チャット指示「schema.graphqlを更新しました。コード生成してください。」)

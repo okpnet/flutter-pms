@@ -96,7 +96,7 @@ view.yamlの`using`・GraphQLへの反映は、別途指示があれば行う。
 
 - 要件0014を無効にした。全量のschema.graphqlをそのままgraphql_codegenの入力にする構成を廃止した。全量スキーマをgit対象外とする点は維持する。
 - CLAUDE.mdを、要件0001〜0049を統合した要件定義に再構成した。
-  要件の原文は`docs/requirements_0001-0049_history.md`へ切り出し(0014には無効の印を付けた)、CLAUDE.mdからは削除した。
+  要件の原文は`doc/log/requirements_0001-0049_history.md`へ切り出し(0014には無効の印を付けた)、CLAUDE.mdからは削除した。
 
 ### 5-2. 調査(大きいスキーマを持つFlutter/Dartでのモデル生成)
 

@@ -40,7 +40,7 @@
 +   ページ
 +   `[ノード名,...]`: 対応するviews(`source/views/`)のトップノード。複数のときはカンマで区切る(例: `[ItemKindPage,ItemKindReadFields]`)。同じノードを複数の場所に書くときは共有
 +   `取込:<名前>`: 他の項目を取り込む(view.yamlの`<<`による子としての流用)
-+   `<!--DB要: ...-->`: DBの変更が必要、または要件が未確定で、viewsを未定義(スキップ)の項目。理由は`docs/0055_page_views_review_log.md`
++   `<!--DB要: ...-->`: DBの変更が必要、または要件が未確定で、viewsを未定義(スキップ)の項目。理由は`doc/log/0055_page_views_review_log.md`
 ### 命名の対応(要件0055)
 +   サフィックスと、viewsのノードの種類を対応させる: 台帳・体系・項目・明細 → ~Page / ~ReadFields(kind: read)、情報・登録 → ~PageEdit / ~EditFields(kind: edit)
 +   ページIDは`<名詞>Page`/`<名詞>PageEdit`。名詞はテーブル名の単数形をPascalCaseにしたものを基本とする(例: trans_inspect_sch_detail → InspectSchDetail)
@@ -86,7 +86,7 @@
         +   単位情報[UnitPageEdit]
 ##  会社情報
 1. 会社
-    +   会社台帳[CompanyPage]<!--統計情報(集計の表示)は、集計のビュー・テーブルが無いため未定義。DB要: docs/0055 参照-->
+    +   会社台帳[CompanyPage]<!--統計情報(集計の表示)は、集計のビュー・テーブルが無いため未定義。DB要: doc/log/0055 参照-->
         +   会社情報[CompanyPageEdit]
             +   提供項目[ProvisionPage]
                 +   提供情報[ProvisionPageEdit]
@@ -259,12 +259,12 @@
         +   成績書明細[PurchaseCertificationPage]
             +   成績書登録[PurchaseCertificationPageEdit]
     +   投入台帳[InventoryApplyPage]
-        +   投入登録[InventoryApplyPageEdit]<!--推定: 投入=在庫の払出実施(trans_inventory_apply)。docs/0055 参照-->
+        +   投入登録[InventoryApplyPageEdit]<!--推定: 投入=在庫の払出実施(trans_inventory_apply)。doc/log/0055 参照-->
     +   成績書台帳[CertificatePage]
         +   成績書情報[CertificatePageEdit]
 1.  引当実績
     +   引当実績台帳[InventoryRequestPage]
-        +   引当実績登録[InventoryRequestPageEdit]<!--推定: 引当=在庫の払出要求(trans_inventory_request)。docs/0055 参照-->
+        +   引当実績登録[InventoryRequestPageEdit]<!--推定: 引当=在庫の払出要求(trans_inventory_request)。doc/log/0055 参照-->
     +   投入台帳[InventoryApplyPage]<!--購入受入と共有-->
 1.  作業実績
     +   作業実績台帳[WorkRecordPage]

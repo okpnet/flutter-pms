@@ -5,7 +5,7 @@
 要件0006「ただし、graphql作成前に問題がある箇所はログを残す」に従い、
 作成前に見つかった問題点を記録する。
 
-参照した実DBスキーマ: [docs/06_cteate_test.sql](06_cteate_test.sql)
+参照した実DBスキーマ: [doc/log/06_cteate_test.sql](06_cteate_test.sql)
 (容量が大きいため、実際にPostgraphileが生成するGraphQLスキーマそのものは未確認。
 [CLAUDE.md](../CLAUDE.md) 仕様15のとおり、当CREATE文から構造を読み取って作成している)
 
@@ -34,7 +34,7 @@
 ## 追記(要件0008適用後の再検証・2026/09/08)
 
 要件0008により[このライブラリの仕様](../CLAUDE.md#このライブラリの仕様)の参照先が
-`docs/06_cteate_test.sql`(実DBのCREATE文からの推定)から
+`doc/log/06_cteate_test.sql`(実DBのCREATE文からの推定)から
 [source/schema.graphql](../source/schema.graphql)(Postgraphileが実際に生成したスキーマ)へ
 変更されたため、本ログの問題一覧を実スキーマと照合し、`graphql/Company/Read.graphql`・
 `graphql/Company/Edit.graphql`を再作成した(要件0007再実行)。

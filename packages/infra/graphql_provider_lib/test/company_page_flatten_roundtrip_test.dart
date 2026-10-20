@@ -3,13 +3,13 @@
 // 検証する。要件0033の暫定実装(info_company_*、ceo/address1/address2/buildingをプレーンな
 // String列として扱っていた)を、要件0026のスキーマ変更(shared_appellations経由のFKに
 // 変更)・要件0034の評価・命名規則(トップノード基準の`company_page`)にあわせて
-// 全面的に書き直したもの。結果はdocs/0035_company_page_generation_log.md に記録する。
+// 全面的に書き直したもの。結果はdoc/log/0035_company_page_generation_log.md に記録する。
 //
 // 要件0036(2026-09-26): company_page_read.graphql / company_page_rfe.graphqlから
 // 「$ja: Boolean!/$en: Boolean!」を撤廃した。read側は1回の呼び出しで言語1つのみ
 // (エイリアス`value`)を取得する形になったため、read用のモックJSONはja/enペアではなく
 // 単一の`value`を持つ形に変更した(edit/RFEは引き続きja/enペアのまま)。
-// 結果はdocs/0036_language_argument_simplification_log.md に記録する。
+// 結果はdoc/log/0036_language_argument_simplification_log.md に記録する。
 
 import 'dart:convert';
 

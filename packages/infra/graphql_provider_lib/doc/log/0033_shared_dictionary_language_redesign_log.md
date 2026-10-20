@@ -6,7 +6,7 @@
 [CLAUDE.md 共通名前仕様](../CLAUDE.md#共通名前仕様)が前提とする`SharedDictionary.ja`/`en`
 スカラー列が廃止され、新設の`SharedLanguageCode`(言語コードマスタ)・
 `SharedDictionaryValue`(辞書値、1言語1行)経由の構造に置き換わっていることが判明した
-(詳細は[docs/0026_schema_fetch_log.md](0026_schema_fetch_log.md)追記9)。
+(詳細は[doc/log/0026_schema_fetch_log.md](0026_schema_fetch_log.md)追記9)。
 
 影響は既存31画面のうち48個のGraphQLファイルに及ぶ全面的なものであり、要件0003の言う
 「低減処置で対応できず仕様そのものの変更としてコミットすべき」領域に該当すると判断し、

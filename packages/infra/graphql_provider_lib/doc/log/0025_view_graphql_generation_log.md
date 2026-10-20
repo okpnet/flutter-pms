@@ -2,7 +2,7 @@
 
 指示: 「view.md修正。0025を実行。」
 
-[docs/0025_view_graphql_evaluation_log.md](0025_view_graphql_evaluation_log.md)で記録した評価の後、
+[doc/log/0025_view_graphql_evaluation_log.md](0025_view_graphql_evaluation_log.md)で記録した評価の後、
 ユーザーによって[views.md](../source/views.md)が修正された。本ログは、その修正内容を反映した
 再評価と、エラーが無い状態になった見出しに対するGraphQL作成・build_runnerによるモデル生成の結果を
 記録する。
@@ -17,7 +17,7 @@
 | supplier_contact | エラーなし | 同上 | エラーなし(維持) |
 | item_actual_size | エラー(4-2節「呼称セット」) | 「呼称セット」「大きさ区分コード/大きさ区分id」を削除し「品目大きさ区分(品目大きさ区分マスタのオブジェクト)」に統合。read側も「品目大きさ区分の呼称セット」表記に整理。 | **解消** |
 
-「親場所マスタ」→「配送区分」への置き換えは、docs/0026_schema_fetch_log.mdで確認した
+「親場所マスタ」→「配送区分」への置き換えは、doc/log/0026_schema_fetch_log.mdで確認した
 `mstr_stakeholder.mstr_shipping_kind_id`(既存列)を参照する設計であり、スキーマ上の実体がある
 正しい参照になっていることを確認した。「品目大きさ区分マスタのオブジェクト」も、
 `mstr_item_actual_size.mstr_item_size_kind_id`という実在のスカラー参照に対応しており、

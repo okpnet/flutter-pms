@@ -2,7 +2,7 @@
 
 指示: 「0025を実行」
 
-前回の[docs/0025_symbol_and_transaction_evaluation_log.md](0025_symbol_and_transaction_evaluation_log.md)
+前回の[doc/log/0025_symbol_and_transaction_evaluation_log.md](0025_symbol_and_transaction_evaluation_log.md)
 以降、views.mdに以下の変化があったため、今回はこれらを対象に評価した。要件0029・0030に従い、
 発見事項はviews.md本文に直接反映した。GraphQLの作成・build_runnerの実行は行っていない。
 

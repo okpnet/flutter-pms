@@ -8,7 +8,7 @@
 > [画面仕様](#画面仕様)に従いGraphQLの再生成のテストを行い、GraphQLを作成するための評価を実施。
 > エラーが無い状態になったときにGraphQLを作成し、GraphQLからモデル生成を実行する。
 
-要件0034(docs/0034_view_yaml_graphql_evaluation_log.md、追記1〜3)の評価により、
+要件0034(doc/log/0034_view_yaml_graphql_evaluation_log.md、追記1〜3)の評価により、
 `view.yaml`全12定義のうち`languageCodeEdit`(未使用の孤立定義)を除く全てが✅
 (エラー無し)の状態に到達済みだったため、本ログでは再評価の再確認のみ行い、
 GraphQL作成・モデル生成(要件0035後段)に進んだ。

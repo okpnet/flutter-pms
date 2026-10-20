@@ -3,7 +3,7 @@
 ## 経緯
 
 0036の実装過程で、company_pageの「read(表示用)」と「RFE(編集フォームのプリロード用)」の
-キー構造が非対称になったことを記録した([docs/0036_language_argument_simplification_log.md](0036_language_argument_simplification_log.md)3節)。
+キー構造が非対称になったことを記録した([doc/log/0036_language_argument_simplification_log.md](0036_language_argument_simplification_log.md)3節)。
 これを受けてユーザーから、この非対称性(および0034ログで見つかった
 「`CompanyPageRFE`が対応する`CompanyPageEdit`ではなく無関係な`dictionaryEdit`を
 誤って参照していた」事故)の根本原因はkind:RFEというeditと独立した定義を

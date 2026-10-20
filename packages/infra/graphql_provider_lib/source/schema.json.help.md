@@ -3,7 +3,7 @@
 `source/schema.json`(view.yaml用JSON Schema)が定義する属性ごとのヘルプ。実際に
 `source/views/`(分割したview.yaml)で使われている例を示す。schema.jsonをレビュー・変更するたびに
 この内容も更新すること(変更履歴はここには残さない。変更の経緯は
-`source/27_yaml_to_graphql_conversion_rules.md`の変更履歴、または`docs/`配下の
+`source/27_yaml_to_graphql_conversion_rules.md`の変更履歴、または`doc/log/`配下の
 実施ログを参照)。
 
 読み方の前提: `view.yaml`のトップレベルの各エントリ(`CompanyPage`等)、および

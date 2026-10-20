@@ -3,14 +3,14 @@
 - 切り出し日: 2026/10/02(チャットでの指示による)
 - 内容: CLAUDE.mdの「要件」節に追記されていた要件0001〜0049の原文。
 - 現在有効な仕様は、これらを整理・統合した`CLAUDE.md`(要件定義)を正とする。本ファイルは経緯の記録(トレース)用であり、ここに書かれた指示を直接実行の根拠にしない。
-- 各要件の実施結果は`docs/<通し番号>_*.md`の各ログを参照。
+- 各要件の実施結果は`doc/log/<通し番号>_*.md`の各ログを参照。
 - 付録に、再構成前のCLAUDE.md本文(仕様部分)を原文のまま残す。
 
 ## 無効化・置き換え
 
 | 要件 | 状態 | 理由 |
 |---|---|---|
-| 0014 | **無効**(2026/10/02) | 生成時に全量のschema.graphqlをそのままgraphql_codegenの入力とする構成(案A)を廃止した。全量のスキーマは巨大で(入力型約1万)、schema.graphql.dartの生成に6GB超のメモリを要し、VS Codeがクラッシュしたため(docs/0049_schema_fetch_and_codegen_tuning_log.md)。代わりに、画面のGraphQLが使う部分だけに絞り込んだ生成用スキーマを使う方式とする(CLAUDE.md「スキーマとモデル生成」)。全量のスキーマをgit対象外とする点は引き続き有効 |
+| 0014 | **無効**(2026/10/02) | 生成時に全量のschema.graphqlをそのままgraphql_codegenの入力とする構成(案A)を廃止した。全量のスキーマは巨大で(入力型約1万)、schema.graphql.dartの生成に6GB超のメモリを要し、VS Codeがクラッシュしたため(doc/log/0049_schema_fetch_and_codegen_tuning_log.md)。代わりに、画面のGraphQLが使う部分だけに絞り込んだ生成用スキーマを使う方式とする(CLAUDE.md「スキーマとモデル生成」)。全量のスキーマをgit対象外とする点は引き続き有効 |
 
 ## 要件原文(0001〜0049)
 
@@ -98,11 +98,11 @@ GraphQLへの変換できないエラーは変換できない理由をログへ�
 
 2026/09/26_0038:test.yamlのCompanyPage.offices.update_user(history_info_staffへの複合FK、update_user_id+update_user_history_id)で"using"に配列を渡そうとしていたが、schema.jsonの"using"は単一文字列のみ対応でこの用法に未対応だった。加えて指定順が実スキーマのフィールド名(historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId、列順はupdate_user_history_id→update_user_id)と逆になっていた。schema.jsonの"using"を文字列または文字列配列に対応するよう修正し、27_yaml_to_graphql_conversion_rules.mdに複合FKの列順に関する注意を追記。test.yamlの列順を修正した。
 
-2026/09/28_0039:部署ツリー画面で子孫数からノードの展開可否を判断する必要があるが、DepartmentHierarchy案(ancestor_info_department_id<>descendant_info_department_idの除外、count(*)による子孫数集計)は標準のPostGraphile condition/filterでは列同士の比較も集計も表現できず、対応するAggregateプラグインも未導入のため実現不可と判明した。対応案(3.1 DBビュー作成/3.2 pg-aggregatesプラグイン導入/3.3 schema.jsonのみの変更/3.4 クライアント側集計)を提示し、3.1(DBビュー作成)を採択した。schema.jsonのoperatorに"<>"を追加し、test.yamlにビュー(hrchy_info_department_descendant_count、要DB側での作成)を参照する共有アームdepartmentDescendantCountを追加した。詳細はdocs/0039_department_hierarchy_descendant_count_log.md参照。
+2026/09/28_0039:部署ツリー画面で子孫数からノードの展開可否を判断する必要があるが、DepartmentHierarchy案(ancestor_info_department_id<>descendant_info_department_idの除外、count(*)による子孫数集計)は標準のPostGraphile condition/filterでは列同士の比較も集計も表現できず、対応するAggregateプラグインも未導入のため実現不可と判明した。対応案(3.1 DBビュー作成/3.2 pg-aggregatesプラグイン導入/3.3 schema.jsonのみの変更/3.4 クライアント側集計)を提示し、3.1(DBビュー作成)を採択した。schema.jsonのoperatorに"<>"を追加し、test.yamlにビュー(hrchy_info_department_descendant_count、要DB側での作成)を参照する共有アームdepartmentDescendantCountを追加した。詳細はdoc/log/0039_department_hierarchy_descendant_count_log.md参照。
 
 2026/09/28_0040:"source/06_create_test.sql"からPostgrapileのスキーマを作成、SDLからschema.graphqlを取得して差分を比較し、変更があれば"lib/graphql/schema.json"置き換え、0024を実行。Postgrapileは"postgraphile-plugin-nested-mutations postgraphile-plugin-connection-filter@2.3.0"のプラグインを適用する。
 
-2026/09/28_0041:【翌日の課題】0026の実行(docs/0026_schema_fetch_log.md 追記14)で確定した"shared_appellations_id"→"names"(info_company・info_officeほか70件以上のテーブル)、及び"ceo"→"ceo_names"(info_companyのみ)のDB列名変更に対応する。生成済み5画面(company_page, staff_page, department_category, office_page, department_page)のGraphQL(read/edit/rfe計14ファイル)、lib/contents配下のkeyname.dart(5ファイル)、対応するflatten_roundtripテスト(5ファイル)、及びsource/view.yaml・source/test.yamlの"using: shared_appellations_id"(15+2箇所)・"using: ceo"(2箇所)を新しい列名に合わせて修正し、buildrunner再生成・テストを行う。詳細は上記ログ参照。
+2026/09/28_0041:【翌日の課題】0026の実行(doc/log/0026_schema_fetch_log.md 追記14)で確定した"shared_appellations_id"→"names"(info_company・info_officeほか70件以上のテーブル)、及び"ceo"→"ceo_names"(info_companyのみ)のDB列名変更に対応する。生成済み5画面(company_page, staff_page, department_category, office_page, department_page)のGraphQL(read/edit/rfe計14ファイル)、lib/contents配下のkeyname.dart(5ファイル)、対応するflatten_roundtripテスト(5ファイル)、及びsource/view.yaml・source/test.yamlの"using: shared_appellations_id"(15+2箇所)・"using: ceo"(2箇所)を新しい列名に合わせて修正し、buildrunner再生成・テストを行う。詳細は上記ログ参照。
 
 2026/09/29_0042:生成およびテストは、結合を除き最小サイズに分割して順次行う。実行時はタスクのハングアップを10分間隔で監視し、状態を評価する。停止状態と判断した場合は、ハングアップなど進行を阻害する原因を調査し、権限の範囲で除去(タスクキルなど)し、再評価を行う。
 
