@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>organization 画面イメージ</title>
+<style>
+:root{--bg:#f4f6f8;--surface:#fff;--ink:#1d2733;--sub:#5b6773;--line:#d7dde3;--pri:#1f6feb;--pri-ink:#fff;--soft:#e8f0fe;--warn:#b54708;--ok:#067647}
+@media (prefers-color-scheme:dark){:root{--bg:#12161b;--surface:#1b2128;--ink:#e6ebf0;--sub:#9aa7b4;--line:#2d3640;--pri:#5b9bff;--pri-ink:#0b1220;--soft:#1f2c42;--warn:#f79009;--ok:#47cd89}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Yu Gothic UI","Meiryo",system-ui,sans-serif}
+header.top{padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+header.top h1{font-size:16px;margin:0;flex:1 1 200px}
+.seg button{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:6px 12px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--pri);color:var(--pri-ink);border-color:var(--pri)}
+nav.screens{display:flex;flex-wrap:wrap;gap:6px;padding:12px 16px}
+nav.screens a{padding:4px 10px;border:1px solid var(--line);border-radius:14px;color:var(--ink);text-decoration:none;background:var(--surface);font-size:12px}
+main{padding:0 16px 40px;display:grid;gap:28px}
+section h2{font-size:15px;margin:0 0 2px}
+section p.meta{margin:0 0 8px;color:var(--sub);font-size:12px}
+.device{margin:0 auto;width:var(--w,1100px);max-width:100%;border:1px solid var(--line);background:var(--surface);border-radius:6px;overflow:hidden}
+body[data-size=tablet]{--w:760px}body[data-size=mobile]{--w:380px}
+.titlebar{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--pri);color:var(--pri-ink);font-weight:600}
+.burger{display:none}
+body[data-size=mobile] .burger{display:inline}
+.frame{display:flex;min-height:300px}
+.side{width:170px;border-right:1px solid var(--line);padding:8px;background:var(--bg);font-size:12px}
+.side div{padding:5px 8px;border-radius:4px}.side .on{background:var(--soft);font-weight:600}
+body[data-size=tablet] .side{width:48px;overflow:hidden;white-space:nowrap;text-overflow:clip}
+body[data-size=mobile] .side{display:none}
+.main{flex:1;padding:12px;min-width:0}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;align-items:center}
+.bar input,.bar select{padding:5px 8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:4px}
+.btn{padding:5px 12px;border:1px solid var(--pri);background:var(--pri);color:var(--pri-ink);border-radius:4px}
+.btn.o{background:transparent;color:var(--pri)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border:1px solid var(--line);padding:5px 8px;text-align:left;white-space:nowrap}
+th{background:var(--bg)}tbody tr:hover{background:var(--soft)}
+.ro{color:var(--sub)}
+.form{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+body[data-size=mobile] .form{grid-template-columns:1fr}
+.frame{position:relative}.device{position:relative}
+.fab{position:absolute;right:14px;bottom:14px;width:48px;height:48px;border-radius:50%;background:var(--pri);color:var(--pri-ink);display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 2px 6px rgba(0,0,0,.3);cursor:pointer}
+body[data-size=mobile] .side.open{display:block;position:absolute;z-index:5;left:0;top:0;bottom:0;width:200px;box-shadow:2px 0 8px rgba(0,0,0,.3)}
+.burger{cursor:pointer}
+.map{margin:0 16px 12px;padding:8px 12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);font-size:12px;color:var(--sub)}
+.form label{display:grid;gap:2px;font-size:12px;color:var(--sub)}
+.form input,.form textarea{padding:6px 8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:4px;font:inherit}
+.form input[readonly]{background:var(--bg);color:var(--sub)}
+.sub{margin-top:14px;border:1px solid var(--line);border-radius:4px}
+.sub h3{margin:0;padding:6px 10px;font-size:13px;background:var(--bg);display:flex;justify-content:space-between;align-items:center}
+.sub ul{list-style:none;margin:0;padding:0}.sub li{display:flex;gap:8px;padding:6px 10px;border-top:1px solid var(--line);align-items:center}
+.sub li .grip{color:var(--sub);cursor:grab}.sub li .grow{flex:1}
+.tag{font-size:11px;border:1px solid var(--line);border-radius:10px;padding:0 8px;color:var(--sub)}
+.tree ul{list-style:none;margin:0;padding-left:20px}.tree>ul{padding-left:0}
+.tree li{padding:3px 0}.tree .row{display:inline-flex;gap:6px;padding:2px 8px;border-radius:4px}
+.tree .row:hover{background:var(--soft)}.tree .drag{border:1px dashed var(--pri)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-bottom:10px}
+.card{border:1px solid var(--line);border-radius:4px;padding:8px}.card b{font-size:18px;display:block}
+.note{font-size:12px;color:var(--warn);margin-top:6px}
+.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}
+</style>
+</head>
+<body data-size="pc">
+<header class="top">
+  <h1>organization 画面イメージ</h1>
+  <div class="seg" role="group" aria-label="表示サイズ">
+    <button data-size="pc" aria-pressed="true">PC</button><button data-size="tablet" aria-pressed="false">タブレット</button><button data-size="mobile" aria-pressed="false">モバイル</button>
+  </div>
+</header>
+<div class="map">mock_up(legacy/fultter_main/mock_up)の配置に合わせた表示: 新規は右下の FAB(＋)、モバイルは☰で Drawer を開く、入力フォームは3分割(モバイルは1列)、ファイル名は lib/&lt;区分&gt;/{list,tree,edit,info,select}_xxx.dart。</div>
+<nav class="screens">
+  <a href="#unit">単位台帳</a><a href="#unit-edit">単位情報</a><a href="#company">会社</a><a href="#company-edit">会社情報</a><a href="#office">事業所台帳</a><a href="#office-edit">事業所情報</a>
+  <a href="#dept-cat">部署区分台帳</a><a href="#dept">部署体系</a><a href="#dept-edit">部署情報</a><a href="#dept-select">部署項目(選択)</a>
+  <a href="#staff">作業者台帳</a><a href="#staff-edit">作業者情報</a><a href="#appr">承認パターン台帳</a><a href="#appr-edit">承認パターン情報</a>
+</nav>
+<main>
+
+<section id="unit"><h2>単位台帳 [UnitPage] — テーブル構造</h2><p class="meta">列キー: labels(name/pronunciation/nickname), detailTexts, symbol, remarks, *_count, update_at, update_user。既定: remove=false</p>
+<div class="device"><div class="titlebar"><span class="burger">☰</span>PMS</div><div class="frame"><div class="side"><div class="on">単位</div><div>会社</div><div>事業所</div><div>部門・部署</div><div>作業者</div><div>承認</div></div>
+<div class="main"><div class="bar"><input placeholder="絞り込み(名前)"><span class="ro">ソート: 名前 ▲</span><button class="btn o">列の表示/非表示</button><span class="fab" title="新規">＋</span></div>
+<div class="tablewrap"><table><thead><tr><th>名前</th><th>読み</th><th>略称</th><th>記号</th><th>備考</th><th>更新日時</th><th>更新者</th></tr></thead><tbody>
+<tr><td>キログラム</td><td>きろぐらむ</td><td>kg</td><td>kg</td><td></td><td>2026/09/29</td><td>山田 太郎</td></tr>
+<tr><td>メートル</td><td>めーとる</td><td>m</td><td>m</td><td></td><td>2026/09/29</td><td>山田 太郎</td></tr>
+<tr><td>個</td><td>こ</td><td>個</td><td>pcs</td><td>員数</td><td>2026/10/01</td><td>佐藤 花子</td></tr></tbody></table></div></div></div></div></section>
+
+<section id="unit-edit"><h2>単位情報 [UnitPageEdit] — 編集構造</h2><p class="meta">行クリックで遷移。更新者・更新日は読み取り専用</p>
+<div class="device"><div class="titlebar"><span class="burger">☰</span>PMS</div><div class="frame"><div class="side"><div class="on">単位</div><div>会社</div><div>事業所</div></div>
+<div class="main"><div class="form"><label>名前<input value="キログラム"></label><label>読み<input value="きろぐらむ"></label><label>略称<input value="kg"></label><label>説明(共有テキスト)<textarea rows="2">質量の単位</textarea></label><label>備考<input></label><label>更新者<input readonly value="山田 太郎"></label><label>更新日時<input readonly value="2026/09/29 10:12"></label></div>
+<div class="actions"><button class="btn o">キャンセル</button><button class="btn o">削除(論理)</button><button class="btn">保存</button></div></div></div></div></section>
+
+<section id="company"><h2>会社閲覧 [CompanyPage] — 構造非該当</h2><p class="meta">基本情報 + 事業所リスト + 従業員数 + 提供項目[ProvisionPage]。統計は集計ビュー未整備のため仮表示(DB要)</p>
+<div class="device"><div class="titlebar"><span class="burger">☰</span>PMS</div><div class="frame"><div class="side"><div>単位</div><div class="on">会社</div><div>事業所</div></div>
+<div class="main"><div class="cards"><div class="card">従業員<b>128</b></div><div class="card">事業所<b>3</b></div><div class="card">部署<b>14</b></div><div class="card">提供項目<b>5</b></div></div>
+<div class="form"><label>会社名<input readonly value="株式会社サンプル"></label><label>代表者<input readonly value="鈴木 一郎"></label><label>ホームページ<input readonly value="https://example.com"></label><label>住所<input readonly value="東京都千代田区1-1"></label></div>
+<div class="sub"><h3>事業所</h3><ul><li><span class="grow">本社</span><span class="tag">HQ</span></li><li><span class="grow">大阪工場</span><span class="tag">OSK</span></li></ul></div>
+<div class="sub"><h3>提供項目</h3><ul><li><span class="grow">金属加工</span><span class="tag">品目 12</span></li><li><span class="grow">検査サービス</span><span class="tag">設備 3</span></li></ul></div>
+<div class="actions"><button class="btn">編集</button></div></div></div></div></section>
+
+<section id="company-edit"><h2>会社情報 [CompanyPageEdit] — 編集構造</h2><p class="meta">提供・役職・役職割当を内包(明細: 追加=割り当て/削除=解除/順の変更)</p>
+<div class="device"><div class="titlebar"><span class="burger">☰</span>PMS</div><div class="frame"><div class="side"><div>単位</div><div class="on">会社</div></div>
+<div class="main"><div class="form"><label>会社名<input value="株式会社サンプル"></label><label>代表者名<input value="鈴木 一郎"></label><label>ホームページ<input value="https://example.com"></label><label>住所<input value="東京都千代田区1-1"></label><label>備考<input></label></div>
+<div class="sub"><h3>提供リスト <button class="btn o">追加</button></h3><ul><li><span class="grip">⠿</span><span class="grow">金属加工</span><button class="btn o">情報</button><button class="btn o">削除</button></li></ul></div>
+<div class="sub"><h3>役職リスト <button class="btn o">追加</button></h3><ul><li><span class="grip">⠿</span><span class="grow">部長</span><span class="tag">割当 2</span><button class="btn o">情報</button></li><li><span class="grip">⠿</span><span class="grow">課長</span><span class="tag">割当 5</span><button class="btn o">情報</button></li></ul></div>
+<div class="sub"><h3>役職割当明細 〔解除〕 <button class="btn o">追加</button></h3><ul><li><span class="grow">山田 太郎 / 部長 / 本社 / 製造部</span><span class="tag">有効</span><button class="btn o">情報</button></li></ul></div>
+<div class="actions"><button class="btn o">キャンセル</button><button class="btn">保存</button></div></div></div></div></section>
+
+<section id="office"><h2>事業所台帳 [OfficePage] — テーブル構造</h2><p class="meta">列: code, labels, address, symbol, remarks, update_at, update_user</p>
+<div class="device"><div class="titlebar"><span class="burger">☰</span>PMS</div><div class="frame"><div class="side"><div>会社</div><div class="on">事業所</div></div>
+<div class="main"><div class="bar"><input placeholder="絞り込み"><button class="btn o">列の表示/非表示</button><span class="fab" title="新規">＋</span></div>
+<div class="tablewrap"><table><thead><tr><th>事業所コード</th><th>事業所名称</th><th>略称</th><th>住所</th><th>記号</th><th>備考</th><th>更新日時</th></tr></thead><tbody>
+<tr><td>HQ</td><td>本社</td><td>本社</td><td>東京都千代田区1-1</td><td></td><td></td><td>2026/09/29</td></tr><tr><td>OSK</td><td>大阪工場</td><td>大阪</td><td>大阪府堺市2-2</td><td></td><td></td><td>2026/09/30</td></tr></tbody></table></div></div></div></div></section>
+
+<section id="office-edit"><h2>事業所情報 [OfficePageEdit] — 編集構造</h2><p class="meta">編集項目: code, labels, address, remarks</p>
+<div class="device"><div class="titlebar"><span class="burger">☰</span>PMS</div><div class="frame"><div class="side"><div>会社</div><div class="on">事業所</div></div>
+<div class="main"><div class="form"><label>事業所コード<input value="HQ"></label><label>事業所名称<input value="本社"></label><label>読み<input value="ほんしゃ"></label><label>略称<input value="本社"></label><label>住所<input value="東京都千代田区1-1"></label><label>備考<input></label></div>
+<div class="actions"><button class="btn o">キャンセル</button><button class="btn o">削除(論理)</button><button class="btn">保存</button></div></div></div></div></section>
+
+<section id="dept-cat"><h2>部署区分台帳 [DepartmentCategoryPage] — テーブル構造</h2><p class="meta">区分の編集は [DepartmentCategoryPageEdit]</p>
+<div class="device"><div class="titlebar"><span class="burger">☰</span>PMS</div><div class="frame"><div class="side"><div class="on">部門・部署</div></div>
+<div class="main"><div class="tablewrap"><table><thead><tr><th>名前</th><th>読み</th><th>略称</th><th>部署区分数</th><th>備考</th><th>更新日時</th></tr></thead><tbody><tr><td>製造</td><td>せいぞう</td><td>製</td><td>6</td><td></td><td>2026/09/29</td></tr><tr><td>品質保証</td><td>ひんしつほしょう</td><td>QA</td><td>2</td><td></td><td>2026/09/29</td></tr></tbody></table></div></div></div></div></section>
+
+<section id="dept"><h2>部署体系 [DepartmentPage] — ツリー構造</h2><p class="meta">子の有無あり→展開時に遅延読み込み。D&amp;Dは部署体系情報[DepartmentTreePageEdit]で保存</p>
+<div class="device"><div class="titlebar"><span class="burger">☰</span>PMS</div><div class="frame"><div class="side"><div class="on">部門・部署</div></div>
+<div class="main"><div class="bar"><button class="btn o">すべて展開</button><span class="fab" title="新規">＋</span></div>
+<div class="tree"><ul><li><span class="row">▾ 本社</span><ul><li><span class="row">▸ 製造部 <span class="tag">子あり</span></span></li><li><span class="row">▾ 管理部</span><ul><li><span class="row drag">⠿ 総務課</span></li><li><span class="row">　経理課</span></li></ul></li></ul></li></ul></div></div></div></div></section>
+
+<section id="dept-edit"><h2>部署情報 [DepartmentPageEdit] — 編集構造</h2><p class="meta">部署区分明細[DepartmentKindReadFields]と割当情報[DepartmentKindEditFields]を内包</p>
+<div class="device"><div class="titlebar"><span class="burger">☰</span>PMS</div><div class="frame"><div class="side"><div class="on">部門・部署</div></div>
+<div class="main"><div class="form"><label>事業所<input value="本社"></label><label>部署コード<input value="D-020"></label><label>名前<input value="総務課"></label><label>略称<input value="総務"></label><label>住所<input></label><label>備考<input></label></div>
+<div class="sub"><h3>部署区分明細 〔解除〕 <button class="btn o">追加</button></h3><ul><li><span class="grow">管理</span><button class="btn o">解除</button></li></ul></div>
+<div class="actions"><button class="btn o">キャンセル</button><button class="btn">保存</button></div></div></div></div></section>
+
+<section id="dept-select"><h2>部署項目 [DepartmentReadFields] — 選択フレーム</h2><p class="meta">タイトルバー・サイドバーなし。他画面から呼び出して1件選択</p>
+<div class="device" style="max-width:520px"><div class="main"><div class="bar"><input placeholder="検索"></div><div class="sub"><ul><li><span class="grow">製造部</span><span class="tag">D-010</span></li><li><span class="grow">総務課</span><span class="tag">D-020</span></li></ul></div><div class="actions"><button class="btn o">閉じる</button><button class="btn">選択</button></div></div></div></section>
+
+<section id="staff"><h2>作業者台帳 [StaffPage] — テーブル構造</h2><p class="meta">列: code, labels, sex, phone, private_phone, *_count(権限/資格/力量/署名/割当)</p>
+<div class="device"><div class="titlebar"><span class="burger">☰</span>PMS</div><div class="frame"><div class="side"><div class="on">作業者</div></div>
+<div class="main"><div class="bar"><input placeholder="絞り込み"><button class="btn o">列の表示/非表示</button><span class="fab" title="新規">＋</span></div>
+<div class="tablewrap"><table><thead><tr><th>担当者コード</th><th>名前</th><th>性別</th><th>電話</th><th>緊急電話</th><th>資格数</th><th>力量数</th><th>更新日時</th></tr></thead><tbody><tr><td>S-001</td><td>山田 太郎</td><td>男</td><td>03-0000-0000</td><td>090-0000-0000</td><td>3</td><td>5</td><td>2026/09/29</td></tr><tr><td>S-002</td><td>佐藤 花子</td><td>女</td><td>03-0000-0001</td><td></td><td>1</td><td>2</td><td>2026/10/01</td></tr></tbody></table></div></div></div></div></section>
+
+<section id="staff-edit"><h2>作業者情報 [StaffPageEdit] — 編集構造</h2><p class="meta">力量明細・資格明細を内包。子の新規作成は力量/資格の情報へ遷移</p>
+<div class="device"><div class="titlebar"><span class="burger">☰</span>PMS</div><div class="frame"><div class="side"><div class="on">作業者</div></div>
+<div class="main"><div class="form"><label>担当者コード<input value="S-001"></label><label>名前<input value="山田 太郎"></label><label>性別<input value="男"></label><label>電話<input value="03-0000-0000"></label><label>緊急電話<input value="090-0000-0000"></label><label>備考<input></label></div>
+<div class="sub"><h3>作業者力量明細 〔解除〕 <button class="btn o">追加</button></h3><ul><li><span class="grow">溶接</span><span class="tag">値 3</span><button class="btn o">情報</button></li></ul></div>
+<div class="sub"><h3>作業者資格明細 〔解除〕 <button class="btn o">追加</button></h3><ul><li><span class="grow">フォークリフト運転</span><button class="btn o">情報</button></li></ul></div>
+<div class="actions"><button class="btn o">キャンセル</button><button class="btn">保存</button></div></div></div></div></section>
+
+<section id="appr"><h2>承認パターン台帳 [ApprovalOperationPage] — テーブル構造</h2><p class="meta">pattern_detail、*_count を表示</p>
+<div class="device"><div class="titlebar"><span class="burger">☰</span>PMS</div><div class="frame"><div class="side"><div class="on">承認</div></div>
+<div class="main"><div class="tablewrap"><table><thead><tr><th>名前</th><th>略称</th><th>承認段数</th><th>備考</th><th>更新日時</th></tr></thead><tbody><tr><td>文書承認(標準)</td><td>文書</td><td>3</td><td></td><td>2026/09/29</td></tr><tr><td>異常報告承認</td><td>異常</td><td>2</td><td></td><td>2026/09/30</td></tr></tbody></table></div></div></div></div></section>
+
+<section id="appr-edit"><h2>承認パターン情報 [ApprovalOperationPageEdit] — 編集構造</h2><p class="meta">承認範囲明細[ApprovalScopePage]、承認者明細[ApprovalReadFields]を内包。順(sequence)はD&amp;Dで変更し1からの連番に振り直す</p>
+<div class="device"><div class="titlebar"><span class="burger">☰</span>PMS</div><div class="frame"><div class="side"><div class="on">承認</div></div>
+<div class="main"><div class="form"><label>名前<input value="文書承認(標準)"></label><label>略称<input value="文書"></label><label>備考<input></label></div>
+<div class="sub"><h3>承認範囲明細 〔解除〕 <button class="btn o">追加</button></h3><ul><li><span class="grow">アクセスパス: 文書/品質</span><button class="btn o">情報</button><button class="btn o">解除</button></li></ul></div>
+<div class="sub"><h3>承認者明細 〔解除〕 順:sequence <button class="btn o">追加</button></h3><ul><li><span class="grip">⠿</span><b>1</b><span class="grow">製造部 / 課長</span><button class="btn o">権限情報</button><button class="btn o">解除</button></li><li><span class="grip">⠿</span><b>2</b><span class="grow">品質保証 / 部長</span><button class="btn o">権限情報</button><button class="btn o">解除</button></li></ul></div>
+<p class="note">ラベル仮置き: 「承認段数」「アクセスパス」(推論。実装前に確認)</p>
+<div class="actions"><button class="btn o">キャンセル</button><button class="btn">保存</button></div></div></div></div></section>
+
+</main>
+<script>
+document.querySelectorAll('.burger').forEach(function(b){b.addEventListener('click',function(){
+  b.closest('.device').querySelector('.side').classList.toggle('open');
+});});
+document.querySelectorAll('.seg button').forEach(function(b){b.addEventListener('click',function(){
+  document.body.dataset.size=b.dataset.size;
+  document.querySelectorAll('.seg button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});
+});});
+</script>
+</body>
+</html>
