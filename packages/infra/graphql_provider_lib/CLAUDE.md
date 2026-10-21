@@ -53,6 +53,7 @@ tool/
   fetch_schema.dart       全量スキーマの取得(4-1節)
   prune_schema.dart       生成用スキーマの絞り込み(4-2節)
   gen_filter_spec.dart    検索条件の対応表の生成(4-5節)
+  gen_property_list.dart  生成モデルのプロパティ一覧CSVの生成(連携インターフェイスファイル)
   gen_view_graphql.dart   view.yaml→GraphQLの生成(CLI、5-8節)
   scaffold_view.dart      テーブルからviewsの雛形(~Pageと~PageEdit)を出力する(要件0055)
   view_graphql/           view.yaml→GraphQLの生成ライブラリとbuild_runnerのBuilder(5-8節)
@@ -344,3 +345,17 @@ doc/log/                     要件ごとの実施ログ(生成結果のレポ�
     3.  最終的にこの`CLAUDE.md`へ統合される追加、変更の指示は`issue`ディレクトリに`年月日_4桁ゼロ埋の番号.md`として保存する。
         1.  つまり`生成結果のレポート`と連動する。
         2.  `CLAUDE.md`への統合も指示に含める。統合時、削除指示が無い限り`issue`ディレクトリ`doc/log`ディレクトリの中を削除しない。`CLAUDE.md`には変更や追加、削除であることについて記録しない(生成時に`issue`ディレクトリ`doc/log`ディレクトリを参照するため)。
+2.  view生成の連携インターフェイスファイル
+    1.  テーブルWidgetの列や編集用のラベル設計のために、生成モデルのプロパティ一覧を`doc/contens/property_list.csv`として出力する。
+    2.  `dart run tool/gen_property_list.dart`で生成する(生成物。直接編集しない)。GraphQLを採用し、build_runnerで生成モデルを更新した後に実行する。
+    3.  UTF-8(BOM付き)、改行CRLF、1行目はヘッダー行。列(ヘッダーの値)は次のとおり。
+        1.  `category`: `lib/graphql`以下の画面フォルダ名(カテゴリ名)
+        2.  `db_table_name`: プロパティを持つクラスのDBテーブル名(view.yamlの`from`。無ければスキーマの型名から求める)。Query・Mutation・Payloadのクラスは空
+        3.  `db_column`: DB列名(view.yamlの列。無ければスキーマのフィールド名から求める)。関連のプロパティは結合に使うFK列(複数は`;`区切り)。Connectionの`nodes`・`totalCount`・`pageInfo`は空
+        4.  `class_name`: 生成モデルのクラス名(`lib/postgraphile/<category>/<category>_{read,edit,rfe}.graphql.dart`の`Query$…`/`Mutation$…`の入れ子のクラス。Variables・copyWith・Optionsは除く。`schema.graphql.dart`は対象外)
+        5.  `proerty_name`: プロパティ名(エイリアスがあればエイリアス)。ヘッダーの綴りは指示どおり
+        6.  `key_name`: `lib/contents/<category>_keyname.dart`に定義された平坦化キー名(`ContentVariable`のname)。keynameに定義があるプロパティだけ記載する
+        7.  `type`: 生成モデルのプロパティの型文字列
+        8.  `label`: プロパティの日本語名(全量スキーマのDBコメント。関連のプロパティは関連先の型のコメント)
+        9.  `note`: 実フィールド名(エイリアスと異なるとき)、結合先の型(1対1は「結合」、1対多は「1対多」)、引数名
+    4.  スキーマに無いフィールド(例: 子のレコード数のビュー)は`label`を空にし、ツールが警告を出力する。
