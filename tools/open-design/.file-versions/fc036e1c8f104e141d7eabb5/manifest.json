@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "fileName": "design/theme.html",
+  "currentVersionId": "8292e704-ac53-46b5-ab36-60ff83e977fe",
+  "entries": [
+    {
+      "id": "8292e704-ac53-46b5-ab36-60ff83e977fe",
+      "fileName": "design/theme.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1792648086940,
+      "source": "ai",
+      "prompt": "Htmlで出力してください。",
+      "size": 16932,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-8292e704-ac53-46b5-ab36-60ff83e977fe.html",
+      "contentDigest": "6441a76ee828c3ae2d8cb90ffdd3d66686ec874477a20b7f28fde44f69ca4dc8",
+      "promptSource": "message"
+    }
+  ]
+}

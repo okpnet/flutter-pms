@@ -1,8 +1,8 @@
 {
   "version": 1,
   "kind": "html",
-  "title": "index.html",
-  "entry": "index.html",
+  "title": "design/theme.html",
+  "entry": "design/theme.html",
   "renderer": "html",
   "status": "complete",
   "exports": [
@@ -10,8 +10,8 @@
     "pdf",
     "zip"
   ],
-  "createdAt": "2026-10-19T12:42:43.621Z",
-  "updatedAt": "2026-10-21T13:52:48.241Z",
+  "createdAt": "2026-10-22T05:48:02.300Z",
+  "updatedAt": "2026-10-22T05:48:02.300Z",
   "metadata": {
     "inferred": true,
     "reconciled": true

@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>生産管理アプリ テーマ仕様（Flutter）</title>
+<style>
+:root{--bg:#f2f5f6;--surface:#fff;--surface-2:#eaf0f1;--ink:#12202a;--muted:#4f5e69;--line:#d3dce1;--accent:#0b6b6f;--accent-soft:#dcefef;--focus:#1a5fd0;--radius:8px;--radius-lg:12px}
+@media (prefers-color-scheme:dark){:root{--bg:#0e171d;--surface:#16232b;--surface-2:#1e2f39;--ink:#e8eff2;--muted:#a5b4bd;--line:#2d4250;--accent:#5cc3c6;--accent-soft:#1b3f43;--focus:#8ab4ff}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif;font-size:16px;line-height:1.6}
+main{max-width:960px;margin:0 auto;padding:32px 16px 48px;display:flex;flex-direction:column;gap:24px}
+h1{font-size:28px;line-height:1.3;margin:0}
+h2{font-size:20px;line-height:1.4;margin:0 0 12px}
+p,ul{margin:0}
+ul{padding-left:24px}
+a{color:var(--accent)}
+a:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+section{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:24px;min-width:0}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+thead th{background:var(--surface-2);color:var(--muted);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;background:var(--surface-2);padding:1px 6px;border-radius:4px;white-space:nowrap}
+.sw{display:inline-block;width:20px;height:20px;border-radius:4px;border:1px solid var(--muted);vertical-align:middle;margin-right:8px}
+pre{margin:0;padding:16px;overflow-x:auto;background:var(--surface-2);border-radius:var(--radius);font-size:13px;line-height:1.6}
+pre code{background:none;padding:0;white-space:pre}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>生産管理アプリ テーマ仕様（Flutter）</h1>
+<p style="margin-top:8px">このプロジェクトのデザイントークンの正本。<code>styles.css</code>（Web プロトタイプ）と <code>flutter/app_theme.dart</code>（Flutter 実装）は同じ値を使う。新しい画面を作るときは、この値を参照し、色を直接書かない。</p>
+</header>
+<section>
+<ul>
+<li>ライトテーマ: ステップ1で生成した現行の配色</li>
+<li>ダークテーマ: ライトを基準に、コントラストを独立に調整した配色（<code>styles.css</code> の <code>prefers-color-scheme: dark</code> と同値）</li>
+<li>Flutter ファイル: <a href="../flutter/app_theme.dart"><code>flutter/app_theme.dart</code></a></li>
+</ul>
+</section>
+<section>
+<h2>カラーパレット</h2>
+<div class="scroll"><table>
+<thead><tr><th scope="col">トークン</th><th scope="col">用途</th><th scope="col">ライト</th><th scope="col">ダーク</th></tr></thead>
+<tbody>
+<tr><td><code>background (--bg)</code></td><td>画面の地</td><td><span class="sw" style="background:#F2F5F6"></span><code>#F2F5F6</code></td><td><span class="sw" style="background:#0E171D"></span><code>#0E171D</code></td></tr>
+<tr><td><code>surface (--surface)</code></td><td>カード・ナビ・シート</td><td><span class="sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td><span class="sw" style="background:#16232B"></span><code>#16232B</code></td></tr>
+<tr><td><code>surface2</code></td><td>ホバー・進捗の背景</td><td><span class="sw" style="background:#EAF0F1"></span><code>#EAF0F1</code></td><td><span class="sw" style="background:#1E2F39"></span><code>#1E2F39</code></td></tr>
+<tr><td><code>ink (--ink)</code></td><td>本文</td><td><span class="sw" style="background:#12202A"></span><code>#12202A</code></td><td><span class="sw" style="background:#E8EFF2"></span><code>#E8EFF2</code></td></tr>
+<tr><td><code>muted</code></td><td>補助テキスト</td><td><span class="sw" style="background:#4F5E69"></span><code>#4F5E69</code></td><td><span class="sw" style="background:#A5B4BD"></span><code>#A5B4BD</code></td></tr>
+<tr><td><code>line</code></td><td>罫線・枠</td><td><span class="sw" style="background:#D3DCE1"></span><code>#D3DCE1</code></td><td><span class="sw" style="background:#2D4250"></span><code>#2D4250</code></td></tr>
+<tr><td><code>accent (primary)</code></td><td>主アクション・選択中</td><td><span class="sw" style="background:#0B6B6F"></span><code>#0B6B6F</code></td><td><span class="sw" style="background:#5CC3C6"></span><code>#5CC3C6</code></td></tr>
+<tr><td><code>onAccent</code></td><td>accent 上の文字</td><td><span class="sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td><span class="sw" style="background:#062A2C"></span><code>#062A2C</code></td></tr>
+<tr><td><code>accentSoft</code></td><td>チップ・選択中ナビの背景</td><td><span class="sw" style="background:#DCEFEF"></span><code>#DCEFEF</code></td><td><span class="sw" style="background:#1B3F43"></span><code>#1B3F43</code></td></tr>
+<tr><td><code>danger</code></td><td>エラー・破壊的操作</td><td><span class="sw" style="background:#B3261E"></span><code>#B3261E</code></td><td><span class="sw" style="background:#FF8A80"></span><code>#FF8A80</code></td></tr>
+<tr><td><code>seg1</code></td><td>従業員区分: 社員</td><td><span class="sw" style="background:#0B6B6F"></span><code>#0B6B6F</code></td><td><span class="sw" style="background:#5CC3C6"></span><code>#5CC3C6</code></td></tr>
+<tr><td><code>seg2</code></td><td>従業員区分: パート</td><td><span class="sw" style="background:#3B78A8"></span><code>#3B78A8</code></td><td><span class="sw" style="background:#7DB4E0"></span><code>#7DB4E0</code></td></tr>
+<tr><td><code>seg3</code></td><td>従業員区分: 派遣</td><td><span class="sw" style="background:#7B8895"></span><code>#7B8895</code></td><td><span class="sw" style="background:#98A6B2"></span><code>#98A6B2</code></td></tr>
+<tr><td><code>focus</code></td><td>フォーカスリング</td><td><span class="sw" style="background:#1A5FD0"></span><code>#1A5FD0</code></td><td><span class="sw" style="background:#8AB4FF"></span><code>#8AB4FF</code></td></tr>
+</tbody></table></div>
+</section>
+<section>
+<h2>その他のトークン</h2>
+<div class="scroll"><table>
+<thead><tr><th scope="col">項目</th><th scope="col">値</th></tr></thead>
+<tbody>
+<tr><td>余白</td><td>4 / 8 / 12 / 16 / 24 / 32 / 48 px</td></tr>
+<tr><td>角丸</td><td>8px（ボタン・入力）、12px（カード・シート）</td></tr>
+<tr><td>文字サイズ</td><td>12 / 14 / 16 / 20 / 28 px（本文は 16px 以上を基本、行高 1.6）</td></tr>
+<tr><td>フォント</td><td>Noto Sans JP → Hiragino Sans → Yu Gothic UI → Meiryo</td></tr>
+<tr><td>タップ領域</td><td>最小 44×44</td></tr>
+<tr><td>動き</td><td>180ms（小）/ 260ms（シート）。reduced-motion では無効化</td></tr>
+</tbody></table></div>
+</section>
+<section>
+<h2>設計メモ</h2>
+<ul>
+<li>区分や状態は色だけで伝えない。必ずラベルや数値を併記する（従業員バーは凡例の数値つき）。</li>
+<li>Flutter では、<code>ColorScheme</code> に収まらない値（surface2、muted、line、accentSoft、seg1〜3、focus）を <code>ThemeExtension&lt;AppColors&gt;</code> として持つ。</li>
+<li>本文とその背景のコントラストは 4.5:1 以上を意図した配色。ダークは独立に調整している。</li>
+<li>搭載画面: 会社情報（概要・サマリ・事業所・提供サービス／製品）、ログアウト。</li>
+</ul>
+</section>
+<section>
+<h2>使い方</h2>
+<pre><code>MaterialApp(
+  theme: AppTheme.light,
+  darkTheme: AppTheme.dark,
+  themeMode: ThemeMode.system,
+);
+
+// 独自トークン
+final c = Theme.of(context).extension&lt;AppColors&gt;()!;
+Container(color: c.accentSoft);</code></pre>
+</section>
+<section>
+<h2>ソース（<code>flutter/app_theme.dart</code> と同一）</h2>
+<pre tabindex="0"><code>
+// 生産管理アプリ Flutter テーマ。styles.css のデザイントークンと対応。
+// 使い方: MaterialApp(theme: AppTheme.light, darkTheme: AppTheme.dark, themeMode: ThemeMode.system)
+// 拡張トークンは Theme.of(context).extension&lt;AppColors&gt;()! で参照する。
+import 'package:flutter/material.dart';
+
+/// ColorScheme に収まらない独自トークン。
+@immutable
+class AppColors extends ThemeExtension&lt;AppColors&gt; {
+  const AppColors({
+    required this.surface2,
+    required this.muted,
+    required this.line,
+    required this.accentSoft,
+    required this.seg1,
+    required this.seg2,
+    required this.seg3,
+    required this.focus,
+  });
+
+  final Color surface2; // 面の二段目（ホバー・進捗の背景）
+  final Color muted; // 補助テキスト
+  final Color line; // 罫線・枠線
+  final Color accentSoft; // アクセントの淡色（チップ・選択中ナビ）
+  final Color seg1; // 従業員区分: 社員
+  final Color seg2; // 従業員区分: パート
+  final Color seg3; // 従業員区分: 派遣
+  final Color focus; // フォーカスリング
+
+  static const light = AppColors(
+    surface2: Color(0xFFEAF0F1),
+    muted: Color(0xFF4F5E69),
+    line: Color(0xFFD3DCE1),
+    accentSoft: Color(0xFFDCEFEF),
+    seg1: Color(0xFF0B6B6F),
+    seg2: Color(0xFF3B78A8),
+    seg3: Color(0xFF7B8895),
+    focus: Color(0xFF1A5FD0),
+  );
+
+  static const dark = AppColors(
+    surface2: Color(0xFF1E2F39),
+    muted: Color(0xFFA5B4BD),
+    line: Color(0xFF2D4250),
+    accentSoft: Color(0xFF1B3F43),
+    seg1: Color(0xFF5CC3C6),
+    seg2: Color(0xFF7DB4E0),
+    seg3: Color(0xFF98A6B2),
+    focus: Color(0xFF8AB4FF),
+  );
+
+  @override
+  AppColors copyWith({
+    Color? surface2,
+    Color? muted,
+    Color? line,
+    Color? accentSoft,
+    Color? seg1,
+    Color? seg2,
+    Color? seg3,
+    Color? focus,
+  }) =&gt;
+      AppColors(
+        surface2: surface2 ?? this.surface2,
+        muted: muted ?? this.muted,
+        line: line ?? this.line,
+        accentSoft: accentSoft ?? this.accentSoft,
+        seg1: seg1 ?? this.seg1,
+        seg2: seg2 ?? this.seg2,
+        seg3: seg3 ?? this.seg3,
+        focus: focus ?? this.focus,
+      );
+
+  @override
+  AppColors lerp(ThemeExtension&lt;AppColors&gt;? other, double t) {
+    if (other is! AppColors) return this;
+    return AppColors(
+      surface2: Color.lerp(surface2, other.surface2, t)!,
+      muted: Color.lerp(muted, other.muted, t)!,
+      line: Color.lerp(line, other.line, t)!,
+      accentSoft: Color.lerp(accentSoft, other.accentSoft, t)!,
+      seg1: Color.lerp(seg1, other.seg1, t)!,
+      seg2: Color.lerp(seg2, other.seg2, t)!,
+      seg3: Color.lerp(seg3, other.seg3, t)!,
+      focus: Color.lerp(focus, other.focus, t)!,
+    );
+  }
+}
+
+/// 余白・角丸（styles.css の --sp-* / --radius と同値）
+class AppSpacing {
+  static const double s1 = 4, s2 = 8, s3 = 12, s4 = 16, s5 = 24, s6 = 32, s7 = 48;
+  static const double radius = 8, radiusLg = 12;
+}
+
+class AppTheme {
+  static final ThemeData light = _build(
+    brightness: Brightness.light,
+    background: const Color(0xFFF2F5F6),
+    surface: const Color(0xFFFFFFFF),
+    ink: const Color(0xFF12202A),
+    accent: const Color(0xFF0B6B6F),
+    onAccent: const Color(0xFFFFFFFF),
+    danger: const Color(0xFFB3261E),
+    colors: AppColors.light,
+  );
+
+  static final ThemeData dark = _build(
+    brightness: Brightness.dark,
+    background: const Color(0xFF0E171D),
+    surface: const Color(0xFF16232B),
+    ink: const Color(0xFFE8EFF2),
+    accent: const Color(0xFF5CC3C6),
+    onAccent: const Color(0xFF062A2C),
+    danger: const Color(0xFFFF8A80),
+    colors: AppColors.dark,
+  );
+
+  static ThemeData _build({
+    required Brightness brightness,
+    required Color background,
+    required Color surface,
+    required Color ink,
+    required Color accent,
+    required Color onAccent,
+    required Color danger,
+    required AppColors colors,
+  }) {
+    final scheme = ColorScheme(
+      brightness: brightness,
+      primary: accent,
+      onPrimary: onAccent,
+      primaryContainer: colors.accentSoft,
+      onPrimaryContainer: accent,
+      secondary: colors.seg2,
+      onSecondary: onAccent,
+      error: danger,
+      onError: onAccent,
+      surface: surface,
+      onSurface: ink,
+      surfaceContainerHighest: colors.surface2,
+      onSurfaceVariant: colors.muted,
+      outline: colors.line,
+      outlineVariant: colors.line,
+    );
+
+    // 日本語優先のフォールバック。pubspec で Noto Sans JP を同梱する場合は fontFamily を指定。
+    const fontFallback = ['Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', 'Meiryo'];
+    final base = Typography.material2021(platform: TargetPlatform.android)
+        .black
+        .apply(fontFamilyFallback: fontFallback, bodyColor: ink, displayColor: ink);
+
+    final shape = RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(AppSpacing.radius),
+    );
+
+    return ThemeData(
+      useMaterial3: true,
+      brightness: brightness,
+      colorScheme: scheme,
+      scaffoldBackgroundColor: background,
+      extensions: [colors],
+      textTheme: base.copyWith(
+        headlineMedium: base.headlineMedium?.copyWith(fontSize: 28, fontWeight: FontWeight.w700, height: 1.3),
+        titleLarge: base.titleLarge?.copyWith(fontSize: 20, fontWeight: FontWeight.w700, height: 1.4),
+        titleMedium: base.titleMedium?.copyWith(fontSize: 16, fontWeight: FontWeight.w700),
+        bodyLarge: base.bodyLarge?.copyWith(fontSize: 16, height: 1.6),
+        bodyMedium: base.bodyMedium?.copyWith(fontSize: 14, height: 1.6),
+        labelSmall: base.labelSmall?.copyWith(fontSize: 12, fontWeight: FontWeight.w700),
+      ),
+      cardTheme: CardThemeData(
+        color: surface,
+        elevation: 0,
+        margin: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+          side: BorderSide(color: colors.line),
+        ),
+      ),
+      dividerTheme: DividerThemeData(color: colors.line, space: 1, thickness: 1),
+      appBarTheme: AppBarTheme(
+        backgroundColor: surface,
+        foregroundColor: ink,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        shape: Border(bottom: BorderSide(color: colors.line)),
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: surface,
+        indicatorColor: colors.accentSoft,
+        height: 64,
+        iconTheme: WidgetStateProperty.resolveWith((s) =&gt;
+            IconThemeData(color: s.contains(WidgetState.selected) ? accent : colors.muted)),
+        labelTextStyle: WidgetStateProperty.resolveWith((s) =&gt; TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: s.contains(WidgetState.selected) ? accent : colors.muted)),
+      ),
+      navigationRailTheme: NavigationRailThemeData(
+        backgroundColor: surface,
+        indicatorColor: colors.accentSoft,
+        selectedIconTheme: IconThemeData(color: accent),
+        unselectedIconTheme: IconThemeData(color: colors.muted),
+        selectedLabelTextStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: accent),
+        unselectedLabelTextStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: colors.muted),
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: colors.accentSoft,
+        labelStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: accent),
+        side: BorderSide.none,
+        shape: const StadiumBorder(),
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          backgroundColor: accent,
+          foregroundColor: onAccent,
+          minimumSize: const Size(44, 44),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s5),
+          shape: shape,
+          textStyle: const TextStyle(fontWeight: FontWeight.w600),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: ink,
+          minimumSize: const Size(44, 44),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s5),
+          side: BorderSide(color: colors.line),
+          shape: shape,
+          textStyle: const TextStyle(fontWeight: FontWeight.w600),
+        ),
+      ),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: surface,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(AppSpacing.radiusLg)),
+        ),
+      ),
+      dialogTheme: DialogThemeData(
+        backgroundColor: surface,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.radiusLg)),
+      ),
+      focusColor: colors.focus,
+    );
+  }
+}
+</code></pre>
+</section>
+</main>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "fileName": "mobile-1.html",
+  "currentVersionId": "f2bdf550-471d-4494-bffc-8dc27ff595fd",
+  "entries": [
+    {
+      "id": "f2bdf550-471d-4494-bffc-8dc27ff595fd",
+      "fileName": "mobile-1.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1792648295878,
+      "source": "manual",
+      "prompt": null,
+      "size": 8607,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-f2bdf550-471d-4494-bffc-8dc27ff595fd.html",
+      "contentDigest": "0b91dec856f1510014df506bdbc66e0053c626afab2e29fcd14d88ca158ef396",
+      "promptSource": "manual"
+    }
+  ]
+}

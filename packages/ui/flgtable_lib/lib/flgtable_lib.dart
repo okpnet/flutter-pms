@@ -1,5 +1,8 @@
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+/// 列と行のテーブル表示ライブラリ。
+library;
+
+export 'cell/cell.dart';
+export 'column/column.dart';
+export 'data/data.dart';
+export 'row/row.dart';
+export 'table/table.dart';

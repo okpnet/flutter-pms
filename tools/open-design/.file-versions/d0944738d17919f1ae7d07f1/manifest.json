@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "fileName": "tablet-1.html",
+  "currentVersionId": "94d04bb6-c07c-4591-b5fa-fc707d469f5d",
+  "entries": [
+    {
+      "id": "94d04bb6-c07c-4591-b5fa-fc707d469f5d",
+      "fileName": "tablet-1.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1792648295875,
+      "source": "manual",
+      "prompt": null,
+      "size": 353,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-94d04bb6-c07c-4591-b5fa-fc707d469f5d.html",
+      "contentDigest": "266a347ae383bc3db193da321995bcaa10b469250d1f40a721599cd636bcfe3d",
+      "promptSource": "manual"
+    }
+  ]
+}

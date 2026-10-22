@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "fileName": "index-1.html",
+  "currentVersionId": "25c95a65-6541-48c8-b755-a51a044655c9",
+  "entries": [
+    {
+      "id": "25c95a65-6541-48c8-b755-a51a044655c9",
+      "fileName": "index-1.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1792648295876,
+      "source": "manual",
+      "prompt": null,
+      "size": 349,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-25c95a65-6541-48c8-b755-a51a044655c9.html",
+      "contentDigest": "94fb6990b53d446a57180c6880a8e4d3754f3e0a2156d6d385e7cf66549dfbdc",
+      "promptSource": "manual"
+    }
+  ]
+}

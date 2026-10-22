@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "fileName": "tablet.html",
+  "currentVersionId": "673fc123-a4bb-45a1-8027-d7ce22b68247",
+  "entries": [
+    {
+      "id": "673fc123-a4bb-45a1-8027-d7ce22b68247",
+      "fileName": "tablet.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1792647007668,
+      "source": "ai",
+      "prompt": "このファイルからプロジェクトへ展開してください。",
+      "size": 353,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-673fc123-a4bb-45a1-8027-d7ce22b68247.html",
+      "contentDigest": "266a347ae383bc3db193da321995bcaa10b469250d1f40a721599cd636bcfe3d",
+      "promptSource": "message"
+    }
+  ]
+}

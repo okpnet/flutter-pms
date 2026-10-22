@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "fileName": "index.html",
+  "currentVersionId": "189ba977-faf4-4910-9cfa-0a4e1a470fb3",
+  "entries": [
+    {
+      "id": "189ba977-faf4-4910-9cfa-0a4e1a470fb3",
+      "fileName": "index.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1792647007665,
+      "source": "ai",
+      "prompt": "このファイルからプロジェクトへ展開してください。",
+      "size": 349,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-189ba977-faf4-4910-9cfa-0a4e1a470fb3.html",
+      "contentDigest": "94fb6990b53d446a57180c6880a8e4d3754f3e0a2156d6d385e7cf66549dfbdc",
+      "promptSource": "message"
+    }
+  ]
+}

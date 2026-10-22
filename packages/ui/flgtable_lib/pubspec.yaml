@@ -13,6 +13,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  logger_provider:
+    path: ../../infra/logger_provider
+  theme_lib:
+    path: ../theme_lib
 
 dev_dependencies:
   flutter_test:
