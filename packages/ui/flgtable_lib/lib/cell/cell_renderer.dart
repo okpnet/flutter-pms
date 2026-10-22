@@ -12,9 +12,15 @@ abstract interface class CellRenderer<T> {
 
 /// 文字列をそのまま表示する標準のセル。
 class TextCellRenderer<T> implements CellRenderer<T> {
-  const TextCellRenderer({this.textAlign = TextAlign.start});
+  const TextCellRenderer({
+    this.textAlign = TextAlign.start,
+    this.overflow = TextOverflow.ellipsis,
+  });
 
   final TextAlign textAlign;
+
+  /// 表示文字列が列幅に収まらないときの扱い。
+  final TextOverflow overflow;
 
   @override
   Widget build(BuildContext context, CellContext<T> cell) {
@@ -22,7 +28,7 @@ class TextCellRenderer<T> implements CellRenderer<T> {
       cell.text,
       textAlign: textAlign,
       maxLines: 1,
-      overflow: TextOverflow.ellipsis,
+      overflow: overflow,
     );
   }
 }

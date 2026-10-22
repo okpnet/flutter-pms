@@ -26,16 +26,20 @@ void main() {
   ];
 
   Widget wrap(Widget child) => ProviderScope(
-        child: MaterialApp(
-          home: Scaffold(body: SizedBox(height: 300, child: child)),
-        ),
-      );
+    child: MaterialApp(
+      home: Scaffold(body: SizedBox(height: 300, child: child)),
+    ),
+  );
 
   testWidgets('静的データを表示する', (tester) async {
-    await tester.pumpWidget(wrap(FlgTable<_User>(
-      columns: columns,
-      items: [_User('太郎', 20), _User('花子', 30)],
-    )));
+    await tester.pumpWidget(
+      wrap(
+        FlgTable<_User>(
+          columns: columns,
+          items: [_User('太郎', 20), _User('花子', 30)],
+        ),
+      ),
+    );
     expect(find.text('名前'), findsOneWidget);
     expect(find.text('太郎'), findsOneWidget);
     expect(find.text('30'), findsOneWidget);
@@ -62,16 +66,20 @@ void main() {
   });
 
   testWidgets('非同期ローダーで読み込む', (tester) async {
-    await tester.pumpWidget(wrap(FlgTable<_User>(
-      columns: columns,
-      loader: (q) async => LoadResult(
-        items: [_User('次郎', 40)],
-        totalCount: 1,
-        filteredCount: 1,
-        start: 0,
-        count: 1,
+    await tester.pumpWidget(
+      wrap(
+        FlgTable<_User>(
+          columns: columns,
+          loader: (q) async => LoadResult(
+            items: [_User('次郎', 40)],
+            totalCount: 1,
+            filteredCount: 1,
+            start: 0,
+            count: 1,
+          ),
+        ),
       ),
-    )));
+    );
     await tester.pumpAndSettle();
     expect(find.text('次郎'), findsOneWidget);
   });

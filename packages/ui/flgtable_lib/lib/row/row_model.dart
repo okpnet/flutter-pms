@@ -7,8 +7,8 @@ class RowModel<T> {
   final bool draggable;
 
   Map<String, dynamic> toJson() => {
-        'item': item.toString(),
-        'flagged': flagged,
-        'draggable': draggable,
-      };
+    'item': item.toString(),
+    'flagged': flagged,
+    'draggable': draggable,
+  };
 }

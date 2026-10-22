@@ -15,8 +15,8 @@ class CellContext<T> {
   final String text;
 
   Map<String, dynamic> toJson() => {
-        'columnKey': columnKey,
-        'rowIndex': rowIndex,
-        'text': text,
-      };
+    'columnKey': columnKey,
+    'rowIndex': rowIndex,
+    'text': text,
+  };
 }

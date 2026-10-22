@@ -16,6 +16,8 @@ dependencies:
     path: ../../../infra/logger_provider
   theme_lib:
     path: ../../theme_lib
+  view_responsiveness:
+    path: ../../view_responsiveness
 
 dev_dependencies:
   flutter_test:
