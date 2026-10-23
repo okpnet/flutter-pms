@@ -72,6 +72,45 @@ class FlagLimitExceededEvent<T> {
   final int limit;
 }
 
+/// 親の変更前。[newParent]はトップノードになる場合null。キャンセルできる。
+class BeforeParentChangeEvent<T> extends CancelableEvent {
+  BeforeParentChangeEvent({required this.item, required this.newParent});
+  final T item;
+  final T? newParent;
+}
+
+/// 親の変更後。[newParent]はトップノードになった場合null。
+class AfterParentChangeEvent<T> {
+  const AfterParentChangeEvent({required this.item, required this.newParent});
+  final T item;
+  final T? newParent;
+}
+
+/// 取り消し/やり直しの対象になる操作の種類。
+enum TableOperation { cellEdit, delete, flag, reorder, parentChange }
+
+/// 取り消し/やり直しを行った後に通知する。データの実体はアプリ側が持つため、
+/// アプリはこの通知でデータを元に戻す(進める)。
+///
+/// [value]は、セル編集では適用後のセルの文字列。それ以外はnull。
+/// [parent]は、ツリーの親の変更で、適用後の親(トップノードならnull)。
+class UndoRedoEvent<T> {
+  const UndoRedoEvent({
+    required this.operation,
+    required this.item,
+    this.columnKey,
+    this.value,
+    this.parent,
+  });
+  final TableOperation operation;
+  final T item;
+  final String? columnKey;
+  final String? value;
+
+  /// 親の変更では、適用後の親(トップノードならnull)。
+  final T? parent;
+}
+
 typedef EventCallback<E> = void Function(E event);
 
 /// テーブルが通知するイベントのコールバック群。
@@ -90,6 +129,10 @@ class TableEvents<T> {
     this.onCellChanged,
     this.onFlagLimitExceeded,
     this.onFlagChanged,
+    this.onUndone,
+    this.onRedone,
+    this.onBeforeParentChange,
+    this.onAfterParentChange,
   });
 
   final EventCallback<BeforeDeleteEvent<T>>? onBeforeDelete;
@@ -105,4 +148,12 @@ class TableEvents<T> {
   final EventCallback<CellChangedEvent<T>>? onCellChanged;
   final EventCallback<FlagLimitExceededEvent<T>>? onFlagLimitExceeded;
   final EventCallback<T>? onFlagChanged;
+
+  /// 取り消し/やり直しの後。アプリがデータを戻す/進めるために使う。
+  final EventCallback<UndoRedoEvent<T>>? onUndone;
+  final EventCallback<UndoRedoEvent<T>>? onRedone;
+
+  /// ツリーの親変更の前後。
+  final EventCallback<BeforeParentChangeEvent<T>>? onBeforeParentChange;
+  final EventCallback<AfterParentChangeEvent<T>>? onAfterParentChange;
 }

@@ -1,6 +1,8 @@
 import 'package:example/main.dart';
 import 'package:example/feature_cases.dart';
 import 'package:flgtable_lib/flgtable_lib.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -38,6 +40,8 @@ const tabs = [
   'CSVエクスポート',
   'ローディング種別',
   'セル配置・件数表示',
+  'ツリー',
+  '取り消し/やり直し',
 ];
 
 /// タブバーが画面外にはみ出すため、コントローラで直接切り替える。
@@ -191,8 +195,8 @@ void main() {
     expect(find.text('社員1'), findsOneWidget);
   });
 
-  Future<void> wide(WidgetTester tester) async {
-    tester.view.physicalSize = const Size(1200, 800);
+  Future<void> wide(WidgetTester tester, {double width = 1200}) async {
+    tester.view.physicalSize = Size(width, 800);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.reset);
     await tester.pumpWidget(app());
@@ -241,7 +245,7 @@ void main() {
   });
 
   testWidgets('行操作: 選択・セル編集・削除キャンセルのイベントログ', (tester) async {
-    await wide(tester);
+    await wide(tester, width: 1000);
     await openTab(tester, '行操作・選択・セル編集・イベント');
     await tester.drag(find.text('社員1').first, const Offset(120, 0));
     await tester.pumpAndSettle();
@@ -459,7 +463,7 @@ void main() {
   });
 
   testWidgets('行フラグ: 先頭に固定・解除・上限(3件)超過のイベント', (tester) async {
-    await wide(tester);
+    await wide(tester, width: 1000);
     await openTab(tester, '行操作・選択・セル編集・イベント');
 
     Future<void> slideAndTap(String row, String action) async {
@@ -546,5 +550,169 @@ void main() {
     await tapRow('社員5');
     await tapRow('社員6');
     expect(selected(), 2);
+  });
+
+  group('ツリー', () {
+    Future<void> openTree(WidgetTester tester) async {
+      await wide(tester, width: 1400);
+      await openTab(tester, 'ツリー');
+      await tester.pumpAndSettle();
+    }
+
+    Future<void> toggle(WidgetTester tester, int id) async {
+      await tester.tap(find.byKey(Key('tree.toggle.$id')));
+      await tester.pumpAndSettle();
+    }
+
+    double dx(WidgetTester tester, String text) =>
+        tester.getTopLeft(find.text(text)).dx;
+
+    testWidgets('トップノードだけ表示し、展開で子を読み込む', (tester) async {
+      await openTree(tester);
+      expect(find.text('本社'), findsOneWidget);
+      expect(find.text('支社A'), findsOneWidget);
+      expect(find.text('本社 第1部'), findsNothing);
+      await toggle(tester, 1);
+      expect(find.text('本社 第1部'), findsOneWidget);
+      expect(dx(tester, '本社 第1部'), greaterThan(dx(tester, '本社')));
+    });
+
+    testWidgets('インデントの設定を変えると子の位置が変わる', (tester) async {
+      await openTree(tester);
+      await toggle(tester, 1);
+      final base = dx(tester, '本社 第1部') - dx(tester, '本社');
+      await tester.tap(
+        find.descendant(
+          of: find.byKey(const Key('tree.indent')),
+          matching: find.text('4'),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(dx(tester, '本社 第1部') - dx(tester, '本社'), greaterThan(base));
+    });
+
+    testWidgets('1レベルの最大行数: 「もっと読み込む」で続きを読み込む', (tester) async {
+      await openTree(tester);
+      await tester.tap(
+        find.descendant(
+          of: find.byKey(const Key('tree.pageSize')),
+          matching: find.text('3'),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await toggle(tester, 1);
+      expect(find.text('本社 第3部'), findsOneWidget);
+      expect(find.text('本社 第4部'), findsNothing);
+      await tester.tap(find.byKey(const Key('tree.more.1')));
+      await tester.pumpAndSettle();
+      expect(find.text('本社 第4部'), findsOneWidget);
+      expect(find.text('本社 第5部'), findsOneWidget);
+    });
+
+    testWidgets('フィルタ: ヒットした行は全てトップノードになる', (tester) async {
+      await openTree(tester);
+      await toggle(tester, 1);
+      final topDx = dx(tester, '本社');
+      await tester.enterText(find.byKey(const Key('tree.filter')), 'チーム1');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pumpAndSettle();
+      expect(find.text('本社'), findsNothing);
+      expect(find.text('本社 第1部 チーム1'), findsOneWidget);
+      expect(dx(tester, '本社 第1部 チーム1'), closeTo(topDx, 1));
+    });
+
+    testWidgets(
+      'ドラッグで親を変更し、イベントと取り消し/やり直しが動く',
+      variant: TargetPlatformVariant.only(TargetPlatform.windows),
+      (tester) async {
+        await openTree(tester);
+        await toggle(tester, 1);
+        final g = await tester.startGesture(
+          tester.getCenter(find.text('本社 第1部')),
+          kind: PointerDeviceKind.mouse,
+        );
+        await g.moveBy(const Offset(40, 0));
+        await g.moveTo(Offset(900, tester.getCenter(find.text('支社A')).dy));
+        await tester.pump();
+        await g.up();
+        await tester.pumpAndSettle();
+        expect(find.text('親変更前: 本社 第1部 → 支社A'), findsOneWidget);
+        expect(find.text('親変更後: 本社 第1部 → 支社A'), findsOneWidget);
+        expect(find.text('本社 第1部'), findsNothing);
+
+        await tester.tap(find.byKey(const Key('tree.undo')));
+        await tester.pumpAndSettle();
+        expect(find.text('本社 第1部'), findsOneWidget);
+        expect(find.text('取り消し通知: parentChange'), findsOneWidget);
+        await tester.tap(find.byKey(const Key('tree.redo')));
+        await tester.pumpAndSettle();
+        expect(find.text('本社 第1部'), findsNothing);
+      },
+    );
+
+    testWidgets(
+      '自分の子孫の上へのドロップは拒否される',
+      variant: TargetPlatformVariant.only(TargetPlatform.windows),
+      (tester) async {
+        await openTree(tester);
+        await toggle(tester, 1);
+        final g = await tester.startGesture(
+          tester.getCenter(find.text('本社')),
+          kind: PointerDeviceKind.mouse,
+        );
+        await g.moveBy(const Offset(40, 0));
+        await g.moveTo(Offset(900, tester.getCenter(find.text('本社 第1部')).dy));
+        await tester.pump();
+        await g.up();
+        await tester.pumpAndSettle();
+        expect(find.textContaining('親変更後'), findsNothing);
+        expect(find.text('子孫の下には移動できません'), findsOneWidget);
+      },
+    );
+  });
+
+  group('取り消し/やり直し', () {
+    testWidgets(
+      '削除・セル編集を取り消し/やり直しボタンで戻せる',
+      variant: TargetPlatformVariant.only(TargetPlatform.windows),
+      (tester) async {
+        await wide(tester, width: 1400);
+        await openTab(tester, '取り消し/やり直し');
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('社員2'), buttons: kSecondaryButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('削除'));
+        await tester.pumpAndSettle();
+        expect(find.text('社員2'), findsNothing);
+
+        await tester.tap(find.byKey(const Key('undo.undo')));
+        await tester.pumpAndSettle();
+        expect(find.text('社員2'), findsOneWidget);
+        expect(find.textContaining('取り消し通知: delete 社員2'), findsOneWidget);
+
+        await tester.tap(find.byKey(const Key('undo.redo')));
+        await tester.pumpAndSettle();
+        expect(find.text('社員2'), findsNothing);
+      },
+    );
+
+    testWidgets('Ctrl+Z で取り消せる', variant: TargetPlatformVariant.only(TargetPlatform.windows), (
+      tester,
+    ) async {
+      await wide(tester, width: 1400);
+      await openTab(tester, '取り消し/やり直し');
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('社員3'), buttons: kSecondaryButton);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('削除'));
+      await tester.pumpAndSettle();
+      expect(find.text('社員3'), findsNothing);
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.controlLeft);
+      await tester.sendKeyEvent(LogicalKeyboardKey.keyZ);
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.controlLeft);
+      await tester.pumpAndSettle();
+      expect(find.text('社員3'), findsOneWidget);
+    });
   });
 }

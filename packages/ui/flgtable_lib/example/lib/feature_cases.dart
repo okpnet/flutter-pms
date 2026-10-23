@@ -123,7 +123,7 @@ class _RowOperationCaseState extends State<RowOperationCase> {
   @override
   Widget build(BuildContext context) => Column(
     children: [
-      const Text('左クリック:選択 / 選択済みセルの再クリック:編集 / 右クリック・右スライド・長押し:行操作'),
+      const Text('左クリック:選択 / 選択済みセルの再クリック:編集 / 右クリック:行操作(PC)、右スライド:削除・フラグのタイル(モバイル/タブレット)、長押し:行操作'),
       Row(
         children: [
           Switch(

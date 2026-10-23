@@ -18,6 +18,7 @@ class ColumnDefinition<T> {
     this.setter,
     this.width,
     this.visible = true,
+    this.exportable = true,
     this.defaultValue = '',
     this.type = ColumnType.string,
     this.sortable = true,
@@ -48,6 +49,9 @@ class ColumnDefinition<T> {
   /// null のときはテーマの文字サイズから20文字分の幅を使う。
   final double? width;
   final bool visible;
+
+  /// CSVに出力する列か。表示されている列(`visible`)のうち、これが真のものだけ出力する。
+  final bool exportable;
 
   /// 取得に失敗した場合に表示する標準値。
   final String defaultValue;
@@ -80,6 +84,7 @@ class ColumnDefinition<T> {
     'label': label,
     'width': width,
     'visible': visible,
+    'exportable': exportable,
     'editable': setter != null,
     'type': type.name,
     'sortable': sortable,

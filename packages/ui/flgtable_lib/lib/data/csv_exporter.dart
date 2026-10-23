@@ -6,12 +6,14 @@ class CsvExporter {
 
   static const bom = '﻿';
 
-  /// 非表示の列は出力しない。ヘッダは列の表示名。改行はCRLF。
+  /// 非表示の列、`exportable`が偽の列は出力しない。ヘッダは列の表示名。改行はCRLF。
   static String export<T>(
     List<ColumnDefinition<T>> columns,
     Iterable<T> items,
   ) {
-    final visible = columns.where((c) => c.visible).toList();
+    final visible = columns
+        .where((c) => c.visible && c.exportable)
+        .toList();
     final lines = [
       visible.map((c) => _escape(c.label)).join(','),
       for (final item in items)

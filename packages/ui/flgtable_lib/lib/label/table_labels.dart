@@ -33,6 +33,8 @@ class TableLabels {
     this.countTotal = '全{n}件',
     this.countFiltered = 'フィルタ適用{n}件',
     this.countLoaded = '読込{n}件',
+    this.loadMore = 'もっと読み込む',
+    this.cycleRejected = '子孫の下には移動できません',
     this.operators = const {},
   });
 
@@ -65,6 +67,8 @@ class TableLabels {
     countTotal: 'Total {n}',
     countFiltered: 'Filtered {n}',
     countLoaded: 'Loaded {n}',
+    loadMore: 'Load more',
+    cycleRejected: 'Cannot move under a descendant',
     operators: {
       FilterOperator.eq: 'Equals',
       FilterOperator.neq: 'Not equals',
@@ -114,6 +118,10 @@ class TableLabels {
   final String countFiltered;
   final String countLoaded;
 
+  /// ツリー: 「もっと読み込む」行と、子孫の下へ移動できないときの通知。
+  final String loadMore;
+  final String cycleRejected;
+
   /// 演算子名の上書き。未指定は既定の名称。
   final Map<FilterOperator, String> operators;
 
@@ -150,6 +158,8 @@ class TableLabels {
     'countTotal': countTotal,
     'countFiltered': countFiltered,
     'countLoaded': countLoaded,
+    'loadMore': loadMore,
+    'cycleRejected': cycleRejected,
     'operators': {
       for (final op in FilterOperator.values) op.name: operatorLabel(op),
     },

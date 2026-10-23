@@ -67,4 +67,23 @@ void main() {
     stack.undo();
     expect(object['id'], equals(1));
   });
+
+  test('limit を超えた履歴は古いものから捨てる', () {
+    var value = 0;
+    final stack = UndoStack(limit: 2);
+    for (final v in [1, 2, 3]) {
+      final before = value;
+      stack.push(
+        ValueUndoCommand<int>(
+          currentValue: before,
+          valueToApply: v,
+          execute: (t) => value = t!,
+        ),
+      );
+    }
+    expect(stack.undo(), isTrue);
+    expect(stack.undo(), isTrue);
+    expect(stack.undo(), isFalse); // 最初の1件は捨てられている
+    expect(value, 1);
+  });
 }

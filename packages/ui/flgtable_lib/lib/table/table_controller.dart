@@ -9,6 +9,10 @@ abstract interface class TableControllerHost<T> {
   List<FilterCondition> get filters;
   void setFilters(List<FilterCondition> filters);
   void setSort(SortCondition? sort);
+  bool get canUndo;
+  bool get canRedo;
+  bool undo();
+  bool redo();
 }
 
 /// テーブルをアプリ側から操作するためのコントローラ。
@@ -43,4 +47,14 @@ class FlgTableController<T> {
 
   void setFilters(List<FilterCondition> filters) => _h.setFilters(filters);
   void setSort(SortCondition? sort) => _h.setSort(sort);
+
+  /// 取り消し/やり直しができるか。
+  bool get canUndo => _h.canUndo;
+  bool get canRedo => _h.canRedo;
+
+  /// 直前の操作を取り消す。取り消せたときtrue。
+  bool undo() => _h.undo();
+
+  /// 取り消した操作をやり直す。やり直せたときtrue。
+  bool redo() => _h.redo();
 }

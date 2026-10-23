@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import '../data/load_models.dart';
 import '../event/table_events.dart';
 import '../label/table_labels.dart';
-import '../table/flg_table.dart';
+import '../table/table_core.dart';
 import '../table/table_config.dart';
 import 'column_definition.dart';
 
@@ -64,6 +64,8 @@ class ChildTableDefinition<T, C> {
         countDirection: c.countDirection,
         countHorizontalOrder: c.countHorizontalOrder,
         countVerticalOrder: c.countVerticalOrder,
+        undoEnabled: c.undoEnabled,
+        undoLimit: c.undoLimit,
       ),
     );
   }

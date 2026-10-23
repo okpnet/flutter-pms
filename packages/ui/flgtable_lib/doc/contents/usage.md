@@ -88,5 +88,68 @@ TableConfig(
 ```
 - `total`=全N件(ローダーの `totalCount`、`items` 渡しは `items` の件数)、`filtered`=フィルタ適用N件(ローダーの `filteredCount`)、`loaded`=読込N件(読み込み済みの件数)。横並びはスペース区切り。
 
+## 行操作(右クリック/右スライド)
+`TableConfig(rowActionsEnabled: true)` のとき有効。画面サイズで切り替わる。
+- PC: 右クリックのコンテキストメニュー(削除・フラグ・上へ・下へ)。右スライドは使わない。
+- モバイル/タブレット: 行を右にスライドすると、行の高さと同じ大きさの正方形のタイル(ゴミ箱=削除、旗=フラグ)が現れる。行が低いときはタッチの最小サイズ(40)になる。左スライドか行のタップで閉じる。色はテーマの `error`(削除)・`primary`(フラグ)。上下移動はメニューのみ。
+
+## CSV出力の可否
+`ColumnDefinition(exportable: false)` の列は、表示していても出力しない(標準は true)。非表示の列も出力しない。
+
+## 取り消し/やり直し
+セル編集・削除・フラグ・上下移動/ドロップによる並び替え(ツリーは親の変更も)が対象。
+
+```dart
+final controller = FlgTableController<User>();
+FlgTable<User>(
+  controller: controller,
+  config: const TableConfig(undoLimit: 100), // undoEnabled: false で無効
+  events: TableEvents<User>(
+    // データの実体はアプリ側。通知を受けて元に戻す(進める)
+    onUndone: (e) => repo.apply(e.operation, e.item, column: e.columnKey, value: e.value, parent: e.parent),
+    onRedone: (e) => repo.apply(e.operation, e.item, column: e.columnKey, value: e.value, parent: e.parent),
+  ),
+  // undoStack: sharedStack, // 複数の画面で履歴を共有するとき(IUndoStack)
+  ...
+);
+controller.undo(); controller.redo(); // canUndo / canRedo
+```
+- キーボードは Ctrl+Z(取り消し)、Ctrl+Y または Ctrl+Shift+Z(やり直し)。セル編集中は入力欄が優先。
+- 再読み込みでテーブルが持つ履歴は消える(渡した `undoStack` は消さない)。
+- テーブル間のドロップは対象外。
+
+## ツリー(`tree_table_lib.dart`)
+```dart
+import 'package:flgtable_lib/tree_table_lib.dart'; // 通常のテーブルの機能も使える
+
+final source = StaticTreeSource<Org>(   // メモリ上のデータ向けの読み込みと循環判定
+  items: orgs, columns: columns,
+  key: (o) => o.id, parentKey: (o) => o.parent,
+);
+TreeTable<Org>(
+  columns: columns,
+  treeLoader: source.loader,            // 外部読み込みは TreeChildrenLoader を実装する
+  rowKey: (o) => o.id,                  // 必須
+  cycleChecker: source.cycleChecker,    // フィルタ中のドラッグドロップを許すとき
+  treeConfig: const TreeConfig(
+    indentChars: 2,                     // 1レベルのインデント(文字数、1以上)
+    showLines: true,
+    lineStyle: TreeLineStyle.solid,     // solid/dashed/dotted
+    lineWidth: null,                    // null はテーマに従う
+    childCountColumnKey: null,          // 子の数の列。null は内部の列(標準1)
+  ),
+  config: const TableConfig(pageSize: 50, dragEnabled: true), // pageSize=1レベルの最大行数
+  events: TableEvents<Org>(
+    onBeforeParentChange: (e) { /* e.cancel = true で中止 */ },
+    onAfterParentChange: (e) => repo.setParent(e.item, e.newParent), // データの更新はアプリ側
+  ),
+);
+```
+- 子は展開したときだけ `treeLoader` で読み込む。`LoadResult.filteredCount` はその親の子の総数。最大行数を超えると `もっと読み込む` 行が出る。
+- アイコン: `▶`縮小、`▼`展開、`▷`子なし。読み込み中はサークル。
+- ドラッグドロップ: 行の左端付近=ドロップ先と同じレベル、それ以外=ドロップ先の子。自分の子孫の上へは移動できない(循環)。フィルタ中は `cycleChecker` がないとドラッグできない。最終的な循環の検証はアプリ(データ側)で行う。
+- フィルタ有効時は、階層に関係なく合致した行が全てトップノードになる(ローダーには `flatten: true` で依頼)。
+- 設定は `TreeConfig.toJson()` / `fromJson()` でシリアライズできる。
+
 ## 設定のシリアライズ
-`TableConfig.toJson()` / `TableConfig.fromJson(json)`。欠けた値・不正な値は標準値になる。
+`TableConfig.toJson()` / `TableConfig.fromJson(json)`、`TreeConfig` も同様。欠けた値・不正な値は標準値になる。

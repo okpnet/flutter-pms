@@ -7,6 +7,7 @@ import 'package:logger_provider/logger_provider.dart';
 import 'package:theme_lib/theme_lib.dart';
 
 import 'feature_cases.dart';
+import 'tree_cases.dart';
 
 void main() {
   final logger = ConsoleLogger();
@@ -125,6 +126,8 @@ class ExamplePage extends ConsumerWidget {
       ('CSVエクスポート', const ExportCase()),
       ('ローディング種別', const LoadingKindCase()),
       ('セル配置・件数表示', const DisplayOptionsCase()),
+      ('ツリー', const TreeCase()),
+      ('取り消し/やり直し', const UndoCase()),
     ];
     return DefaultTabController(
       length: cases.length,

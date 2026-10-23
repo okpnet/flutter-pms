@@ -46,6 +46,8 @@ class TableConfig {
     this.countDirection = CountDirection.horizontal,
     this.countHorizontalOrder = defaultCountOrder,
     this.countVerticalOrder = defaultCountOrder,
+    this.undoEnabled = true,
+    this.undoLimit = 100,
   });
 
   /// 件数表示の標準の並び順(全件→フィルタ適用→読込)。
@@ -139,6 +141,8 @@ class TableConfig {
         json['countVerticalOrder'],
         d.countVerticalOrder,
       ),
+      undoEnabled: flag('undoEnabled', d.undoEnabled),
+      undoLimit: positive(json['undoLimit']) ?? d.undoLimit,
     );
   }
 
@@ -188,6 +192,12 @@ class TableConfig {
   final List<CountItem> countHorizontalOrder;
   final List<CountItem> countVerticalOrder;
 
+  /// 取り消し/やり直し(Ctrl+Z, Ctrl+Y)を使うか。
+  final bool undoEnabled;
+
+  /// 取り消しの履歴の最大件数。超えたら古いものから捨てる。
+  final int undoLimit;
+
   Map<String, dynamic> toJson() => {
     'rowHeight': rowHeight,
     'pageSize': pageSize,
@@ -213,5 +223,7 @@ class TableConfig {
     'countDirection': countDirection.name,
     'countHorizontalOrder': countHorizontalOrder.map((e) => e.name).toList(),
     'countVerticalOrder': countVerticalOrder.map((e) => e.name).toList(),
+    'undoEnabled': undoEnabled,
+    'undoLimit': undoLimit,
   };
 }

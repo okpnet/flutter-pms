@@ -28,7 +28,10 @@ class UndoStack implements IUndoStack {
   ///進むスタックリスト。後ろほど新しい
   final List<IUndoCommand> _redo = [];
 
-  UndoStack();
+  ///戻す履歴の最大件数。超えたときは古いものから捨てる。nullは無制限。
+  final int? limit;
+
+  UndoStack({this.limit});
 
   ///初期値をもつUndoStack
   factory UndoStack.to(IUndoCommand command) {
@@ -52,6 +55,10 @@ class UndoStack implements IUndoStack {
       command.redo();
     }
     _undo.add(command);
+    final max = limit;
+    if (max != null && _undo.length > max) {
+      _undo.removeRange(0, _undo.length - max);
+    }
     _redo.clear();
   }
 
