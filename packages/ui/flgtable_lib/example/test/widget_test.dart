@@ -567,6 +567,29 @@ void main() {
     double dx(WidgetTester tester, String text) =>
         tester.getTopLeft(find.text(text)).dx;
 
+    testWidgets('件数表示: 全・フィルタ適用・読込。展開で読込が増える', (tester) async {
+      await openTree(tester);
+      List<int> counts() {
+        final t = tester
+            .widget<Text>(
+              find.descendant(
+                of: find.byKey(const Key('countPanel')),
+                matching: find.byType(Text),
+              ),
+            )
+            .data!;
+        return [for (final m in RegExp(r'\d+').allMatches(t)) int.parse(m[0]!)];
+      }
+
+      final before = counts(); // [全, フィルタ適用, 読込]
+      expect(before.length, 3);
+      expect(before[1], before[0]); // フィルタなしは全件と同じ
+      await toggle(tester, 1);
+      final after = counts();
+      expect(after[0], before[0]);
+      expect(after[2], greaterThan(before[2])); // 子を読み込んだ分だけ増える
+    });
+
     testWidgets('トップノードだけ表示し、展開で子を読み込む', (tester) async {
       await openTree(tester);
       expect(find.text('本社'), findsOneWidget);
@@ -644,9 +667,52 @@ void main() {
         await tester.pumpAndSettle();
         expect(find.text('本社 第1部'), findsOneWidget);
         expect(find.text('取り消し通知: parentChange'), findsOneWidget);
+        // データの親も戻っているので、移動先(支社A)を展開しても行は現れない
+        await toggle(tester, 17);
+        expect(find.text('本社 第1部'), findsOneWidget); // 本社の下の1行だけ
+        await toggle(tester, 17);
         await tester.tap(find.byKey(const Key('tree.redo')));
         await tester.pumpAndSettle();
-        expect(find.text('本社 第1部'), findsNothing);
+        // 移動先は読み込み済みなので、やり直すと開いて、移動した行(1行)が見える
+        expect(find.text('本社 第1部'), findsOneWidget);
+        expect(find.text('支社A 第1部'), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      '親を変更した後に移動先を展開しても、取り消しで移動先から行が消える',
+      variant: TargetPlatformVariant.only(TargetPlatform.windows),
+      (tester) async {
+        await openTree(tester);
+        await toggle(tester, 1); // 本社
+        await toggle(tester, 17); // 支社A
+        // 本社 第5部 を 支社A 第1部(未展開)の子へ
+        final g = await tester.startGesture(
+          tester.getCenter(find.text('本社 第5部')),
+          kind: PointerDeviceKind.mouse,
+        );
+        await g.moveBy(const Offset(40, 0));
+        await g.moveTo(Offset(900, tester.getCenter(find.text('支社A 第1部')).dy));
+        await tester.pump();
+        await g.up();
+        await tester.pumpAndSettle();
+        expect(find.text('本社 第5部'), findsNothing);
+        await toggle(tester, 18); // 支社A 第1部 を展開(移動した行が読み込まれる)
+        expect(find.text('本社 第5部'), findsOneWidget);
+
+        await tester.tap(find.byKey(const Key('tree.undo')));
+        await tester.pumpAndSettle();
+        expect(find.text('本社 第5部'), findsOneWidget); // 本社の下の1行だけ
+        final top = tester.getTopLeft(find.text('本社 第5部')).dx;
+        expect(top, closeTo(tester.getTopLeft(find.text('本社 第1部')).dx, 1));
+
+        await tester.tap(find.byKey(const Key('tree.redo')));
+        await tester.pumpAndSettle();
+        expect(find.text('本社 第5部'), findsOneWidget); // 支社A 第1部の下の1行だけ
+        expect(
+          tester.getTopLeft(find.text('本社 第5部')).dx,
+          greaterThan(tester.getTopLeft(find.text('支社A 第1部')).dx),
+        );
       },
     );
 
@@ -697,22 +763,24 @@ void main() {
       },
     );
 
-    testWidgets('Ctrl+Z で取り消せる', variant: TargetPlatformVariant.only(TargetPlatform.windows), (
-      tester,
-    ) async {
-      await wide(tester, width: 1400);
-      await openTab(tester, '取り消し/やり直し');
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('社員3'), buttons: kSecondaryButton);
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('削除'));
-      await tester.pumpAndSettle();
-      expect(find.text('社員3'), findsNothing);
-      await tester.sendKeyDownEvent(LogicalKeyboardKey.controlLeft);
-      await tester.sendKeyEvent(LogicalKeyboardKey.keyZ);
-      await tester.sendKeyUpEvent(LogicalKeyboardKey.controlLeft);
-      await tester.pumpAndSettle();
-      expect(find.text('社員3'), findsOneWidget);
-    });
+    testWidgets(
+      'Ctrl+Z で取り消せる',
+      variant: TargetPlatformVariant.only(TargetPlatform.windows),
+      (tester) async {
+        await wide(tester, width: 1400);
+        await openTab(tester, '取り消し/やり直し');
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('社員3'), buttons: kSecondaryButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('削除'));
+        await tester.pumpAndSettle();
+        expect(find.text('社員3'), findsNothing);
+        await tester.sendKeyDownEvent(LogicalKeyboardKey.controlLeft);
+        await tester.sendKeyEvent(LogicalKeyboardKey.keyZ);
+        await tester.sendKeyUpEvent(LogicalKeyboardKey.controlLeft);
+        await tester.pumpAndSettle();
+        expect(find.text('社員3'), findsOneWidget);
+      },
+    );
   });
 }

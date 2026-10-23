@@ -130,7 +130,12 @@ void main() {
       ]);
       expect(find.text('a'), findsNothing);
       expect(calls, ['root:0:50']);
-      expect([for (final id in [1, 2, 3]) glyph(tester, id)], ['▶', '▶', '▶']);
+      expect(
+        [
+          for (final id in [1, 2, 3]) glyph(tester, id),
+        ],
+        ['▶', '▶', '▶'],
+      );
     });
 
     testWidgets('展開で子を読み込み、アイコンが▼に。再展開では読み込まない', (tester) async {
@@ -224,9 +229,7 @@ void main() {
 
     testWidgets('最大行数を超える子は「もっと読み込む」(同じレベルの末尾)', (tester) async {
       big(tester);
-      await tester.pumpWidget(
-        tree(config: const TableConfig(pageSize: 2)),
-      );
+      await tester.pumpWidget(tree(config: const TableConfig(pageSize: 2)));
       await tester.pumpAndSettle();
       // トップノードも最大2行。続きは末尾の「もっと読み込む」
       expect(find.text('root3'), findsNothing);
@@ -240,10 +243,7 @@ void main() {
       expect(find.text('c'), findsNothing);
       expect(find.text('もっと読み込む'), findsOneWidget);
       // インデントは同じ親の子と同じ
-      expect(
-        dx(tester, 'もっと読み込む'),
-        closeTo(dx(tester, 'a'), 1),
-      );
+      expect(dx(tester, 'もっと読み込む'), closeTo(dx(tester, 'a'), 1));
       await tester.tap(find.byKey(const Key('tree.more.1')));
       await tester.pumpAndSettle();
       expect(find.text('c'), findsOneWidget);
@@ -303,7 +303,8 @@ void main() {
       await toggle(tester, 1);
       expect(painters, findsWidgets);
       final painter =
-          tester.widget<CustomPaint>(painters.first).painter! as TreeLinePainter;
+          tester.widget<CustomPaint>(painters.first).painter!
+              as TreeLinePainter;
       expect(painter.style, TreeLineStyle.dashed);
       expect(painter.width, 3);
 
@@ -324,7 +325,8 @@ void main() {
       await tester.pumpAndSettle();
       await toggle(tester, 1);
       final painter =
-          tester.widget<CustomPaint>(painters.first).painter! as TreeLinePainter;
+          tester.widget<CustomPaint>(painters.first).painter!
+              as TreeLinePainter;
       expect(painter.width, 1); // 既定のテーマには BorderField が無いので標準値
       expect(painter.style, TreeLineStyle.solid);
     });
@@ -433,10 +435,13 @@ void main() {
         await drag(tester, 'aa', sibling(tester, 'b'));
         expect(log.last, 'after aa->root1');
         expect(dx(tester, 'aa'), closeTo(dx(tester, 'b'), 1));
-        expect(
-          order(tester, ['root1', 'a', 'b', 'c', 'aa']),
-          ['root1', 'a', 'b', 'c', 'aa'],
-        );
+        expect(order(tester, ['root1', 'a', 'b', 'c', 'aa']), [
+          'root1',
+          'a',
+          'b',
+          'c',
+          'aa',
+        ]);
         // c を root2(トップ)の左端へ → 親なし=トップノード
         await drag(tester, 'c', sibling(tester, 'root2'));
         expect(log.last, 'after c->null');
@@ -510,6 +515,188 @@ void main() {
         expect(log, ['before c->root2']); // 変更後は通知されない
         expect(find.text('c'), findsOneWidget);
         expect(items.firstWhere((n) => n.id == 13).parent, 1);
+      },
+    );
+
+    testWidgets(
+      '取り消し: 移動先が未展開(子を読み込んでいない)でも、移動先に行が残らない',
+      variant: TargetPlatformVariant.only(TargetPlatform.windows),
+      (tester) async {
+        big(tester);
+        final controller = FlgTableController<N>();
+        await tester.pumpWidget(tree(config: dnd, controller: controller));
+        await tester.pumpAndSettle();
+        await toggle(tester, 1);
+        await drag(tester, 'c', child(tester, 'root2')); // root2 は未展開
+        controller.undo();
+        await tester.pumpAndSettle();
+        await toggle(tester, 2); // root2 を展開: 元の子 x だけのはず
+        expect(find.text('x'), findsOneWidget);
+        expect(find.text('c'), findsOneWidget); // root1 の下の c だけ
+        expect(find.text('もっと読み込む'), findsNothing);
+        expect(order(tester, ['root1', 'a', 'b', 'c', 'root2', 'x', 'root3']), [
+          'root1',
+          'a',
+          'b',
+          'c',
+          'root2',
+          'x',
+          'root3',
+        ]);
+      },
+    );
+
+    testWidgets(
+      '取り消し/やり直し: 移動先が展開済みでも、行が増減せず元に戻る',
+      variant: TargetPlatformVariant.only(TargetPlatform.windows),
+      (tester) async {
+        big(tester);
+        final controller = FlgTableController<N>();
+        await tester.pumpWidget(tree(config: dnd, controller: controller));
+        await tester.pumpAndSettle();
+        await toggle(tester, 1);
+        await toggle(tester, 2); // root2 を展開済みにする
+        await drag(tester, 'c', child(tester, 'root2'));
+        expect(find.text('c'), findsOneWidget); // root2 の子として表示
+        expect(order(tester, ['root1', 'a', 'b', 'root2', 'x', 'c', 'root3']), [
+          'root1',
+          'a',
+          'b',
+          'root2',
+          'x',
+          'c',
+          'root3',
+        ]);
+        controller.undo();
+        await tester.pumpAndSettle();
+        expect(find.text('c'), findsOneWidget);
+        expect(order(tester, ['root1', 'a', 'b', 'c', 'root2', 'x', 'root3']), [
+          'root1',
+          'a',
+          'b',
+          'c',
+          'root2',
+          'x',
+          'root3',
+        ]);
+        controller.redo();
+        await tester.pumpAndSettle();
+        expect(order(tester, ['root1', 'a', 'b', 'root2', 'x', 'c', 'root3']), [
+          'root1',
+          'a',
+          'b',
+          'root2',
+          'x',
+          'c',
+          'root3',
+        ]);
+        controller.undo();
+        await tester.pumpAndSettle();
+        // 件数表示の元になる子の数も戻っている(▷/▶ の判定): root2 を閉じて開き直す
+        await toggle(tester, 2);
+        await toggle(tester, 2);
+        expect(find.text('c'), findsOneWidget);
+        expect(find.text('もっと読み込む'), findsNothing);
+      },
+    );
+
+    testWidgets(
+      '取り消し/やり直し: 移動後に移動先を展開(読み込み)しても、移動先から行が消える/戻る',
+      variant: TargetPlatformVariant.only(TargetPlatform.windows),
+      (tester) async {
+        big(tester);
+        final controller = FlgTableController<N>();
+        await tester.pumpWidget(
+          tree(
+            config: dnd,
+            controller: controller,
+            // データの更新はアプリ側(移動・取り消し・やり直しのどれも)
+            events: TableEvents<N>(
+              onAfterParentChange: (e) => e.item.parent = e.newParent?.id,
+              onUndone: (e) {
+                if (e.operation == TableOperation.parentChange) {
+                  e.item.parent = e.parent?.id;
+                }
+              },
+              onRedone: (e) {
+                if (e.operation == TableOperation.parentChange) {
+                  e.item.parent = e.parent?.id;
+                }
+              },
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        await toggle(tester, 1);
+        // c を a(未展開)の子へ移動し、a を展開して読み込む(c は読み込み結果として現れる)
+        await drag(tester, 'c', child(tester, 'a'));
+        await toggle(tester, 11);
+        expect(order(tester, ['root1', 'a', 'c', 'aa', 'b', 'root2']), [
+          'root1',
+          'a',
+          'c',
+          'aa',
+          'b',
+          'root2',
+        ]);
+        expect(find.text('c'), findsOneWidget);
+
+        // 取り消し: c は root1 の子に戻り、a の子からは消える
+        controller.undo();
+        await tester.pumpAndSettle();
+        expect(find.text('c'), findsOneWidget);
+        expect(order(tester, ['root1', 'a', 'aa', 'b', 'c', 'root2']), [
+          'root1',
+          'a',
+          'aa',
+          'b',
+          'c',
+          'root2',
+        ]);
+        expect(dx(tester, 'c'), closeTo(dx(tester, 'b'), 1)); // root1 の子のレベル
+
+        // やり直し: a の子に戻り、root1 の子からは消える
+        controller.redo();
+        await tester.pumpAndSettle();
+        expect(find.text('c'), findsOneWidget);
+        // やり直し後は a の子の最後に追加される
+        expect(order(tester, ['root1', 'a', 'c', 'aa', 'b', 'root2']), [
+          'root1',
+          'a',
+          'aa',
+          'c',
+          'b',
+          'root2',
+        ]);
+        expect(dx(tester, 'c'), closeTo(dx(tester, 'aa'), 1));
+      },
+    );
+
+    testWidgets(
+      '取り消し: 子のない行(▷)へ移動して取り消すと、移動先は▷に戻る',
+      variant: TargetPlatformVariant.only(TargetPlatform.windows),
+      (tester) async {
+        big(tester);
+        final controller = FlgTableController<N>();
+        await tester.pumpWidget(
+          tree(
+            config: dnd,
+            controller: controller,
+            columns: ncols(source: items),
+            treeConfig: const TreeConfig(childCountColumnKey: 'kids'),
+          ),
+        );
+        await tester.pumpAndSettle();
+        await toggle(tester, 1);
+        expect(glyph(tester, 3), '▷'); // root3 は子なし(子の数の列が0)
+        await drag(tester, 'c', child(tester, 'root3'));
+        expect(glyph(tester, 3), '▶'); // 子の数だけ更新(展開しない)
+        controller.undo();
+        await tester.pumpAndSettle();
+        expect(glyph(tester, 3), '▷');
+        controller.redo();
+        await tester.pumpAndSettle();
+        expect(glyph(tester, 3), '▶');
       },
     );
 
@@ -675,7 +862,10 @@ void main() {
     });
 
     test('StaticTreeSource.isDescendant: 子孫・非子孫・循環データ', () async {
-      expect(await src.isDescendant(items[0], items[6]), isTrue); // aa は root1 の子孫
+      expect(
+        await src.isDescendant(items[0], items[6]),
+        isTrue,
+      ); // aa は root1 の子孫
       expect(await src.isDescendant(items[6], items[0]), isFalse);
       expect(await src.isDescendant(items[1], items[3]), isFalse);
       final loop = StaticTreeSource<N>(
@@ -801,6 +991,107 @@ void main() {
       );
       await tester.pumpAndSettle();
       expect(find.text('Load more'), findsOneWidget);
+    });
+  });
+
+  group('件数表示(CLAUDE.md 21 をツリーにも適用)', () {
+    const all3 = [CountItem.total, CountItem.filtered, CountItem.loaded];
+
+    testWidgets('項目が null のときは表示しない', (tester) async {
+      big(tester);
+      await tester.pumpWidget(tree());
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('countPanel')), findsNothing);
+    });
+
+    testWidgets('全=ローダーの全件数、読込=読み込み済みの行(展開で増える)', (tester) async {
+      big(tester);
+      await tester.pumpWidget(
+        tree(config: const TableConfig(countItems: all3)),
+      );
+      await tester.pumpAndSettle();
+      // 全8件(root1,2,3 / a,b,c / aa / x)。読み込み済みはトップの3行
+      expect(find.text('全8件 フィルタ適用8件 読込3件'), findsOneWidget);
+      await toggle(tester, 1); // root1 を展開: a,b,c を読み込む
+      expect(find.text('全8件 フィルタ適用8件 読込6件'), findsOneWidget);
+      await toggle(tester, 1); // 縮小しても読み込み済みのまま
+      expect(find.text('全8件 フィルタ適用8件 読込6件'), findsOneWidget);
+    });
+
+    testWidgets('フィルタ有効時はフィルタ適用件数(階層を無視した件数)になる', (tester) async {
+      big(tester);
+      final controller = FlgTableController<N>();
+      await tester.pumpWidget(
+        tree(
+          controller: controller,
+          config: const TableConfig(countItems: all3),
+        ),
+      );
+      await tester.pumpAndSettle();
+      controller.setFilters(const [
+        FilterCondition('name', FilterOperator.startsWith, ['root']),
+      ]);
+      await tester.pumpAndSettle();
+      expect(find.text('全8件 フィルタ適用3件 読込3件'), findsOneWidget);
+      controller.setFilters(const []);
+      await tester.pumpAndSettle();
+      expect(find.text('全8件 フィルタ適用8件 読込3件'), findsOneWidget);
+    });
+
+    testWidgets('場所・左右・縦並び・並び順・英語ラベル', (tester) async {
+      big(tester);
+      await tester.pumpWidget(
+        ProviderScope(
+          child: MaterialApp(
+            home: Scaffold(
+              body: TreeTable<N>(
+                columns: ncols(),
+                treeLoader: loader(),
+                rowKey: (n) => n.id,
+                labels: TableLabels.english,
+                config: const TableConfig(
+                  countItems: all3,
+                  countPosition: CountPosition.footer,
+                  countAlignment: HorizontalPlacement.left,
+                  countDirection: CountDirection.vertical,
+                  countVerticalOrder: [CountItem.loaded, CountItem.total],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      final loaded = tester.getTopLeft(find.text('Loaded 3'));
+      final total = tester.getTopLeft(find.text('Total 8'));
+      expect(loaded.dy, lessThan(total.dy));
+      expect(loaded.dx, lessThan(100)); // 左寄せ
+      expect(
+        loaded.dy,
+        greaterThan(tester.getTopLeft(find.text('名前')).dy),
+      ); // フッター
+      expect(find.text('Filtered 8'), findsNothing); // 縦の順に含めていない項目
+    });
+
+    testWidgets('削除すると全件・読込が減り、取り消しで戻る', (tester) async {
+      big(tester);
+      final controller = FlgTableController<N>();
+      await tester.pumpWidget(
+        tree(
+          controller: controller,
+          config: const TableConfig(countItems: all3, rowActionsEnabled: true),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('全8件 フィルタ適用8件 読込3件'), findsOneWidget);
+      await tester.tap(find.text('root3'), buttons: kSecondaryButton);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('削除'));
+      await tester.pumpAndSettle();
+      expect(find.text('全7件 フィルタ適用7件 読込2件'), findsOneWidget);
+      controller.undo();
+      await tester.pumpAndSettle();
+      expect(find.text('全8件 フィルタ適用8件 読込3件'), findsOneWidget);
     });
   });
 }

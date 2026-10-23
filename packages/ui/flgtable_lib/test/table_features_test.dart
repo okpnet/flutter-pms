@@ -1527,4 +1527,92 @@ void main() {
       expect(find.text('Add condition'), findsOneWidget);
     });
   });
+
+  testWidgets('列のフィルタ/ソートの有効・無効(filterable/sortable)', (tester) async {
+    big(tester);
+    await tester.pumpWidget(
+      host(
+        FlgTable<TP>(
+          columns: [
+            ColumnDefinition<TP>(
+              key: 'id',
+              label: 'ID',
+              getter: (p) => '${p.id}',
+              type: ColumnType.number,
+              filterable: false, // フィルタ不可(ソートは可)
+            ),
+            ColumnDefinition<TP>(
+              key: 'name',
+              label: '名前',
+              getter: (p) => p.name,
+              sortable: false, // ソート不可(フィルタは可)
+            ),
+          ],
+          items: people(),
+          config: const TableConfig(
+            sortEnabled: true,
+            filterEnabled: true,
+            initialFilters: [
+              FilterCondition('name', FilterOperator.like, ['%']),
+            ],
+          ),
+        ),
+      ),
+    );
+    // フィルタ不可の列: ポップアップを開かない。ソートはできる
+    await tester.longPress(find.byKey(const Key('header.id')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('filterApply')), findsNothing);
+    // (長押しの離しもタップとして1回ソートされるため、タップは1回で降順になる)
+    await tester.tap(find.byKey(const Key('header.id')));
+    await tester.pump();
+    expect(order(tester, names), names.reversed.toList());
+
+    // ソート不可の列: タップしても並び替わらない。フィルタは開ける
+    await tester.tap(find.byKey(const Key('header.name')));
+    await tester.pump();
+    expect(order(tester, names), names.reversed.toList());
+    expect(find.byIcon(Icons.arrow_upward), findsNothing);
+    await tester.longPress(find.byKey(const Key('header.name')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('filterApply')), findsOneWidget);
+  });
+
+  testWidgets('モバイルの検索/並び替えバーには無効な列を出さない', (tester) async {
+    big(tester, size: const Size(400, 700));
+    await tester.pumpWidget(
+      host(
+        FlgTable<TP>(
+          columns: [
+            ColumnDefinition<TP>(
+              key: 'id',
+              label: 'ID',
+              getter: (p) => '${p.id}',
+              filterable: false,
+            ),
+            ColumnDefinition<TP>(
+              key: 'name',
+              label: '名前',
+              getter: (p) => p.name,
+              sortable: false,
+            ),
+          ],
+          items: people(),
+          config: const TableConfig(sortEnabled: true, filterEnabled: true),
+          mobileBuilder: (context, p) => Text('tile ${p.name}'),
+        ),
+        h: 650,
+      ),
+    );
+    await tester.tap(find.byKey(const Key('mobileFilterColumn')));
+    await tester.pumpAndSettle();
+    expect(find.text('名前'), findsWidgets);
+    expect(find.text('ID'), findsNothing); // フィルタ不可の列
+    await tester.tap(find.text('名前').last);
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('mobileSortColumn')));
+    await tester.pumpAndSettle();
+    expect(find.text('ID'), findsWidgets);
+    expect(find.text('名前'), findsNWidgets(1)); // ソート不可の列は並び替え候補にない(検索の列名のみ)
+  });
 }

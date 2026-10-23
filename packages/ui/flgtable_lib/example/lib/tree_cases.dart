@@ -128,7 +128,10 @@ class _TreeCaseState extends State<TreeCase> {
                     value: TreeLineStyle.dashed,
                     label: Text('ダッシュ'),
                   ),
-                  ButtonSegment(value: TreeLineStyle.dotted, label: Text('ドット')),
+                  ButtonSegment(
+                    value: TreeLineStyle.dotted,
+                    label: Text('ドット'),
+                  ),
                 ],
                 selected: {_style},
                 onSelectionChanged: (s) => setState(() => _style = s.first),
@@ -222,7 +225,11 @@ class _TreeCaseState extends State<TreeCase> {
               dragEnabled: _drag,
               rowActionsEnabled: true,
               cellSelection: true,
-              countItems: const [CountItem.loaded],
+              countItems: const [
+                CountItem.total,
+                CountItem.filtered,
+                CountItem.loaded,
+              ],
             ),
             events: TableEvents<Org>(
               onBeforeParentChange: (e) =>
@@ -231,8 +238,20 @@ class _TreeCaseState extends State<TreeCase> {
                 e.item.parent = e.newParent?.id; // データの更新はアプリ側
                 _add('親変更後: ${e.item.name} → ${e.newParent?.name ?? 'トップ'}');
               },
-              onUndone: (e) => _add('取り消し通知: ${e.operation.name}'),
-              onRedone: (e) => _add('やり直し通知: ${e.operation.name}'),
+              // データの実体はアプリが持つ。取り消し/やり直しの通知で、親の付け替えをデータにも反映する
+              // (しないと、移動先を展開したときにデータ上の親のまま行が現れる)。
+              onUndone: (e) {
+                if (e.operation == TableOperation.parentChange) {
+                  e.item.parent = e.parent?.id;
+                }
+                _add('取り消し通知: ${e.operation.name}');
+              },
+              onRedone: (e) {
+                if (e.operation == TableOperation.parentChange) {
+                  e.item.parent = e.parent?.id;
+                }
+                _add('やり直し通知: ${e.operation.name}');
+              },
               onAfterDelete: (o) => _add('削除: ${o.name}'),
             ),
           ),
@@ -251,9 +270,7 @@ class UndoCase extends StatefulWidget {
 }
 
 class _UndoCaseState extends State<UndoCase> {
-  final _items = [
-    for (var i = 1; i <= 8; i++) Person(i, '社員$i', 20 + i, '東京'),
-  ];
+  final _items = [for (var i = 1; i <= 8; i++) Person(i, '社員$i', 20 + i, '東京')];
   final _controller = FlgTableController<Person>();
   final _log = <String>[];
 

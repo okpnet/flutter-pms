@@ -80,6 +80,9 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
   List<_Node<T>> _roots = [];
   int _rootsFetched = 0;
   int _rootsTotal = 0;
+
+  /// ローダーが返した全件数(フィルタ前)。件数表示の「全N件」に使う。
+  int _rootsAll = 0;
   bool _rootsLoadingMore = false;
 
   /// フィルタ有効で読み込んだ状態(階層に関係なく全ての行がトップノード)。
@@ -179,6 +182,7 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
         _roots = [for (final i in r.items) _makeNode(i, null, 0)];
         _rootsFetched = r.items.length;
         _rootsTotal = r.filteredCount;
+        _rootsAll = r.totalCount;
         _loading = false;
         _actionKey = null;
         _invalidate();
@@ -291,6 +295,7 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
         }
         _rootsFetched = query.start + r.items.length;
         _rootsTotal = r.filteredCount;
+        _rootsAll = r.totalCount;
         _rootsLoadingMore = false;
         _invalidate();
       });
@@ -320,13 +325,22 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
   @override
   _View<T> _computeView() {
     final rows = [for (final n in _visibleNodes()) n.item];
+    // 件数表示: 全=ローダーの全件数、フィルタ適用=フィルタ有効時はその件数(無効時は全件)、
+    // 読込=読み込み済みの行数(トップ+展開で読み込んだ子。縮小中の行も含む)。
     return _View(
       rows,
       0,
-      rows.length,
-      all: _nodes.length,
-      loaded: rows.length,
+      _flat ? _rootsTotal : _rootsAll,
+      all: _rootsAll,
+      loaded: _countLoaded(),
     );
+  }
+
+  /// 木に入っている読み込み済みの行数(縮小中の子も含む)。
+  int _countLoaded() {
+    int count(List<_Node<T>> nodes) =>
+        nodes.fold(0, (sum, n) => sum + 1 + count(n.children));
+    return count(_roots);
   }
 
   @override
@@ -396,13 +410,7 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
       }
     }
 
-    walk(
-      _roots,
-      more: _hasRootsMore,
-      parent: null,
-      level: 0,
-      flags: const [],
-    );
+    walk(_roots, more: _hasRootsMore, parent: null, level: 0, flags: const []);
     return out;
   }
 
@@ -417,14 +425,9 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
     return painter.width;
   }
 
-  double _unit(BuildContext context) =>
-      _charWidth(context) * _tree.indentChars;
+  double _unit(BuildContext context) => _charWidth(context) * _tree.indentChars;
 
-  Widget _lines(
-    BuildContext context,
-    List<bool> lastFlags,
-    double rowHeight,
-  ) {
+  Widget _lines(BuildContext context, List<bool> lastFlags, double rowHeight) {
     final theme = Theme.of(context);
     final width =
         _tree.lineWidth ?? theme.extension<BorderField>()?.borderWidth ?? 1;
@@ -454,7 +457,8 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
         key: Key('tree.loading.$key'),
         width: rowHeight * 0.6,
         height: rowHeight * 0.6,
-        child: widget.loadingIndicator ??
+        child:
+            widget.loadingIndicator ??
             const CircularProgressIndicator(strokeWidth: 2),
       );
     } else {
@@ -518,17 +522,15 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
     Widget content = Row(
       children: [
         SizedBox(width: pad + e.level * unit + box),
-        if (busy) ...[
-          _indicator(small: true),
-          const SizedBox(width: 8),
-        ],
+        if (busy) ...[_indicator(small: true), const SizedBox(width: 8)],
         Flexible(child: Text(label, overflow: TextOverflow.ellipsis)),
       ],
     );
     if (isMore && !busy) {
       content = InkWell(
         key: Key('tree.more.$id'),
-        onTap: () => node == null ? _loadMoreRoots() : _loadChildren(node, more: true),
+        onTap: () =>
+            node == null ? _loadMoreRoots() : _loadChildren(node, more: true),
         child: content,
       );
     }
@@ -571,7 +573,10 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
     final key = _key(item);
     final node = _nodes[key];
     setState(() {
-      if (node != null) _detach(node);
+      if (node != null) {
+        _detach(node);
+        if (_rootsAll > 0) _rootsAll--;
+      }
       _flagged.remove(key);
       _selected.remove(key);
       _actionKey = null;
@@ -582,9 +587,11 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
   @override
   void _restoreRow(T item, Object? token) {
     if (token == null) return;
-    final t = token as ({_Node<T> node, _Node<T>? parent, int index, bool flagged});
+    final t =
+        token as ({_Node<T> node, _Node<T>? parent, int index, bool flagged});
     setState(() {
       _attach(t.node, t.parent, t.index);
+      _rootsAll++;
       if (t.flagged) _flagged[_key(item)] = item;
       _invalidate();
     });
@@ -594,7 +601,13 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
   void _detach(_Node<T> node) {
     final parent = node.parent;
     final siblings = parent?.children ?? _roots;
-    if (!siblings.remove(node)) return;
+    if (!siblings.remove(node)) {
+      // 子を読み込んでいない親は、子の数だけを持つ(行は入っていない)。
+      if (parent != null && !parent.loaded && parent.childCount > 0) {
+        parent.childCount--;
+      }
+      return;
+    }
     if (parent == null) {
       if (_rootsFetched > 0) _rootsFetched--;
       if (_rootsTotal > 0) _rootsTotal--;
@@ -670,7 +683,11 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
     final box = rowContext.findRenderObject() as RenderBox?;
     final dragged = _nodes[_key(d.data.item as T)];
     if (box == null || dragged == null || e.node == null) return;
-    final left = _leftZone(box.globalToLocal(d.offset).dx, e, _unit(rowContext));
+    final left = _leftZone(
+      box.globalToLocal(d.offset).dx,
+      e,
+      _unit(rowContext),
+    );
     final newParent = _newParent(e, left);
     final canDrop =
         _canAccept(d.data) &&
@@ -734,9 +751,9 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
   void _rejectCycle() {
     _log.error('tree move rejected: would create a cycle');
     if (!mounted) return;
-    ScaffoldMessenger.maybeOf(context)?.showSnackBar(
-      SnackBar(content: Text(_labels.cycleRejected)),
-    );
+    ScaffoldMessenger.maybeOf(
+      context,
+    )?.showSnackBar(SnackBar(content: Text(_labels.cycleRejected)));
   }
 
   /// [node]の親を[newParent](nullならトップ)に変える。
@@ -776,8 +793,12 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
     final oldParent = node.parent;
     final siblings = oldParent?.children ?? _roots;
     final oldIndex = siblings.indexOf(node);
-    void apply() => _relocate(node, newParent, null, oldParent, oldIndex);
-    void revert() => _relocate(node, oldParent, oldIndex, newParent, null);
+    // 移動先を後から展開(読み込み)すると、同じ行の別のノードが作られて
+    // `_nodes`に登録し直される。取り消し/やり直しでは、その時点のノードを使う。
+    final key = _key(node.item);
+    _Node<T> live() => _nodes[key] ?? node;
+    void apply() => _relocate(live(), newParent, null, oldParent, oldIndex);
+    void revert() => _relocate(live(), oldParent, oldIndex, newParent, null);
     apply();
     _record(
       TableOperation.parentChange,

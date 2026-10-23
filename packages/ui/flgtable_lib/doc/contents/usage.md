@@ -40,7 +40,7 @@ FlgTable<User>(
 ページネーションの部品は `pagination: PaginationBuilders(previous:, next:, page:)` で差し替え、表示桁数は `paginationDigits`(既定10)。
 
 ## ソート・フィルタ
-- `sortEnabled`/`filterEnabled` + 列の `sortable`/`filterable`。見出しのタップでソート(昇順⇔降順)、見出しの右クリック/長押しでフィルタ編集ポップアップ。
+- `sortEnabled`/`filterEnabled` + 列の `sortable`/`filterable`(列は標準で有効。`filterable: false` の列はフィルタのポップアップが開かず、`sortable: false` の列はタップしてもソートしない。モバイルの検索/並び替えバーにも出ない)。見出しのタップでソート(昇順⇔降順)、見出しの右クリック/長押しでフィルタ編集ポップアップ。
 - 同じ列に複数の条件を指定できる(ポップアップの「条件を追加」)。条件同士(列間・同じ列内)はAND。見出しのフィルタアイコンの右に、その列の条件数を表示する。
 - フィルタは大文字小文字は区別しない。`LIKE` は `%`(任意の文字列)と `_`(任意の1文字)。値は型(`ColumnType`)に従って数値/時間へ変換する。IN/NOT IN はカンマ区切り。
 - 初期値は `initialSort`/`initialFilters`。アプリからは `FlgTableController.setSort/setFilters`。
@@ -87,6 +87,7 @@ TableConfig(
 )
 ```
 - `total`=全N件(ローダーの `totalCount`、`items` 渡しは `items` の件数)、`filtered`=フィルタ適用N件(ローダーの `filteredCount`)、`loaded`=読込N件(読み込み済みの件数)。横並びはスペース区切り。
+- ツリー(`TreeTable`)にも同じ設定で使える。ツリーでは、`total`=ローダーの全件数(削除・取り消しで増減)、`filtered`=フィルタ有効時は階層に関係なく合致した件数(無効時は全件と同じ)、`loaded`=木に読み込み済みの行数(トップと展開で読み込んだ子。縮小中の子も含む)。
 
 ## 行操作(右クリック/右スライド)
 `TableConfig(rowActionsEnabled: true)` のとき有効。画面サイズで切り替わる。
