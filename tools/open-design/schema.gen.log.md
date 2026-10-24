@@ -1,0 +1,221 @@
+# schema.gen ログ
+
+生成: 59 / 76 画面
+
+## 置換した画面
+
+- `unit` UnitPage ⇄ shared_unit (単位): 単位名称／読み／略称／詳細／記号／備考　〔置換で外れた旧項目: 種類〕
+- `itemkind` ItemKindPage ⇄ mstr_item_kind (品目区分マスタ): 品目コード／品目区分名称／読み／略称／備考
+- `hscode` HsCodeReadFields ⇄ mstr_item_hcdcs (HSコードマスタ): コード／品目／国／備考　〔置換で外れた旧項目: 品名〕
+- `item` ItemPage ⇄ mstr_item (品目マスタ): 品目コード／識別コード／管理コード／表示コード／品目名称／読み／略称／品目種類／詳細／個別単位／備考
+- `itemsizekind` ItemSizeKindPage ⇄ mstr_item_size_kind (品目大きさ区分マスタ): 大きさ区分コード／読み／略称／サイズ区分名称／単位／備考　〔置換で外れた旧項目: 区分名〕
+- `itemsize` ItemSizePage ⇄ mstr_item_actual_size (品目大きさマスタ): 品目大きさ区分／詳細／備考　〔置換で外れた旧項目: 値、単位〕
+- `itemop` ItemOperationPage ⇄ mstr_item_operation (品目工程運用マスタ): 管理コード／運用名称／読み／略称／工程運用／詳細／備考　〔置換で外れた旧項目: 完了期限〕
+- `task` TaskPage ⇄ mstr_task (工程マスタ): 工程コード／工程名称／読み／略称／詳細／区分／標準時間／備考　〔置換で外れた旧項目: 工程グループ〕
+- `taskres` TaskResourcePage ⇄ mstr_task_location (工程場所マスタ): 組織情報／利害関係者／備考　〔置換で外れた旧項目: 場所、設備〕
+- `operation` OperationPage ⇄ mstr_operation (工程運用マスタ): 管理コード／運用名称／読み／略称／詳細／備考
+- `shipkind` ShippingKindReadFields ⇄ mstr_shipping_kind (配送区分マスタ): 配送区分コード／配送区分名称／読み／略称／備考
+- `customer` CustomerPage ⇄ mstr_stakeholder (利害関係者マスタ): 利害関係者コード／管理コード／名称／読み／略称／顧客／外部供給者／配送サービサー／メール／配送区分／備考　〔置換で外れた旧項目: 地域〕
+- `order` OrderPage ⇄ trans_order (受注): 注文番号／顧客発注番号／受注日／納期／完了期限／備考　〔置換で外れた旧項目: 顧客、配送区分〕
+- `orderdetail` OrderDetailPage ⇄ trans_order_detail (受注明細): 数量／単価／個別納期／個別完了期限／備考　〔置換で外れた旧項目: 品目、単位〕
+- `supplier` SupplierPage ⇄ mstr_stakeholder (利害関係者マスタ): 利害関係者コード／管理コード／名称／読み／略称／顧客／外部供給者／配送サービサー／メール／配送区分／備考　〔置換で外れた旧項目: 地域〕
+- `unrec` UnrecognizedPage ⇄ trans_unrecognized (非計上): 決定日／納期／完了予定日／出荷予定日／備考　〔置換で外れた旧項目: 非計上発注番号、サプライヤー、非計上の理由〕
+- `unrecdetail` UnrecognizedDetailPage ⇄ trans_unrecognized_detail (非計上明細): 数量／単価／個別納期／備考　〔置換で外れた旧項目: 品目、単位〕
+- `purchase` PurchasePage ⇄ trans_purchase (発注): 登録日／発注日／発注期限／備考　〔置換で外れた旧項目: 発注番号、サプライヤー〕
+- `purdetail` PurchaseDetailPage ⇄ trans_purchase_detail (発注明細): 資材計画／在庫発注／数量／納期／備考　〔置換で外れた旧項目: 品目、単位、単価（円）〕
+- `purchaserec` PurchaseRecPage ⇄ trans_purchase_rec (受入実績): 発注明細／受入日時／数量／備考　〔置換で外れた旧項目: 受入番号、発注、受入担当〕
+- `purcert` PurchaseCertificationPage ⇄ trans_purchase_certification (発注品目成績書): 成績書／備考　〔置換で外れた旧項目: ファイル名、登録日〕
+- `resplan` ResourcePlanPage ⇄ trans_resource_plan (資材計画): 受注明細／非計上明細／登録日時／数量／在庫数量／期限／備考　〔置換で外れた旧項目: 資材計画コード、計画名〕
+- `opsplan` OperationsPlanPage ⇄ trans_operations_plan (生産計画): 完了期限／備考　〔置換で外れた旧項目: 生産計画番号、品目、計画数量〕
+- `workplan` WorkPlanPage ⇄ trans_work_plan (生産計画明細): 工程／予定作業時間／開始予定／完了予定／備考　〔置換で外れた旧項目: 担当〕
+- `prodrez` ProductRezPage ⇄ trans_product_rez (生産引き当て予約): 生産計画詳細／引当数量／備考　〔置換で外れた旧項目: 予約番号、品目、受注〕
+- `purrez` PurchaseRezPage ⇄ trans_purchase_rez (購買引き当て予約): 発注明細／引当数量／備考　〔置換で外れた旧項目: 予約番号、品目、発注〕
+- `itemoptask` ItemOperationTaskPage ⇄ mstr_item_operation_task (品目工程運用明細マスタ): 品目／順／標準時間／備考　〔置換で外れた旧項目: 工程〕
+- `container` ContainerPage ⇄ trans_container (コンテナ): コード／コンテナ名称／備考　〔置換で外れた旧項目: 保管場所〕
+- `invapply` InventoryApplyPage ⇄ trans_inventory_apply (引き当て): 引当日／引当予約／備考　〔置換で外れた旧項目: 投入番号、資材計画、コンテナ、品目、数量〕
+- `invreq` InventoryRequestPage ⇄ trans_inventory_request (引き当て予約): 引当予約日／引当予定日／購買引き当て／生産引き当て／引当数量／備考　〔置換で外れた旧項目: 引当番号、資材計画、品目〕
+- `certificate` CertificatePage ⇄ trans_certificate (成績書): シリアル番号／件名／区分／備考　〔置換で外れた旧項目: ファイル名（PDF）、登録日〕
+- `workrec` WorkRecordPage ⇄ trans_work_record (作業実績): 生産計画詳細／回数／開始／終了／作業数量／備考　〔置換で外れた旧項目: 作業実績番号、作業指示書、工程、作業者〕
+- `wrcert` WorkRecordCertificatePage ⇄ trans_work_record_certificate (作業成績書): 成績書／備考
+- `disposal` DisposalPage ⇄ trans_disposal (異常処置): 異常／処置年月日／件名／詳細／承認／承認日／備考　〔置換で外れた旧項目: 処置番号、担当〕
+- `recur` RecurrencePreventionPage ⇄ trans_recurrence_prevention (再発防止処置): 異常処置／発生年月日／承認／件名／詳細／備考　〔置換で外れた旧項目: 再発防止番号、担当〕
+- `obsdisp` ObserverDisposalPage ⇄ trans_observer_disposal (処置監視): 有効性／監視測定予定日／監視測定日／備考　〔置換で外れた旧項目: 修正処置、結果、備考〕
+- `obsprev` ObserverPreventivePage ⇄ trans_observer_preventive (再発防止監視): 監視／再発防止／備考　〔置換で外れた旧項目: 確認日、結果、備考〕
+- `risk` RiskPage ⇄ trans_risk (リスク): 件名／詳細／発生頻度／重大度／対応可否／残留リスク／備考　〔置換で外れた旧項目: リスク番号、評価〕
+- `prevention` PreventionPage ⇄ trans_prevention (未然防止): 番号／件名／詳細／備考　〔置換で外れた旧項目: 未然防止策、担当、期限〕
+- `preventiondetail` PreventionDetailPage ⇄ trans_prevention_detail (未然防止処置): 番号／リスク／組織情報／開始日／終了日／件名／詳細／備考　〔置換で外れた旧項目: 処置内容、結果〕
+- `auditstdcheck` AuditStdCheckitemPage ⇄ mstr_audit_std_checkitem (監査標準項目マスタ): 監査標準項目コード／管理コード／標準項目名称／読み／略称／監査標準／詳細／型／式／引数／備考
+- `doctier` DocumentTierPage ⇄ mstr_document_tier (文書階層マスタ): コード／名前／読み／略称／限定名詞／階層番号／備考　〔置換で外れた旧項目: 階層〕
+- `doc` DocumentPage ⇄ mstr_document (文書マスタ): コード／管理番号／版コード／文書名／読み／略称／文書階層／備考　〔置換で外れた旧項目: 版〕
+- `doccontent` DocumentContentPage ⇄ mstr_document_content (文書コンテンツマスタ): コード／文書コンテンツ名／読み／略称／詳細／シーケンス／イメージコンテンツ／備考
+- `report` ReportPage ⇄ mstr_report (レポートマスタ): コード／名前／読み／略称／デフォルト／備考　〔置換で外れた旧項目: 出力形式〕
+- `complaint` ComplaintPage ⇄ trans_complaint (異常): 発生年月日／件名／詳細／承認／備考　〔置換で外れた旧項目: 報告番号、重要度、状態〕
+- `compreceive` ComplaintReceivePage ⇄ trans_complaint_receive (異常報告受領): 受領日／詳細／備考　〔置換で外れた旧項目: 受付者、受付方法〕
+- `compstake` ComplaintStakeholderPage ⇄ trans_complaint_stakeholder (利害関係者苦情): 備考　〔置換で外れた旧項目: 名称、関係〕
+- `corder` ComplaintOrderPage ⇄ trans_complaint_order (注文苦情): 異常／注文／備考　〔置換で外れた旧項目: 報告番号、件名、状態〕
+- `cproc` ComplaintProcessPage ⇄ trans_complaint_process (工程苦情): 異常／工程／備考　〔置換で外れた旧項目: 報告番号、件名、状態〕
+- `cequip` ComplaintEquipmentPage ⇄ trans_complaint_equipment (設備苦情): 異常／備考　〔置換で外れた旧項目: 報告番号、設備、件名、状態〕
+- `orderrisk` OrderRiskPage ⇄ trans_order_risk (注文リスク): 注文／リスク／備考　〔置換で外れた旧項目: リスク番号、件名、評価〕
+- `orderdetailrisk` OrderDetailRiskPage ⇄ trans_order_detail_risk (受注明細リスク): 受注明細／リスク／備考　〔置換で外れた旧項目: リスク番号、件名、評価〕
+- `taskrisk` TaskRiskPage ⇄ trans_task_risk (工程リスク): 工程／リスク／備考　〔置換で外れた旧項目: リスク番号、件名、評価〕
+- `auditstd` AuditStdPage ⇄ mstr_audit_std (監査標準マスタ): 監査標準コード／管理コード／監査標準名称／読み／略称／区分／詳細／備考
+- `auditteam` AuditTeamPage ⇄ trans_audit_team (監査チーム): チーム名／監査／備考
+- `auditor` AuditorPage ⇄ trans_auditor (監査員): メンバー区分／備考　〔置換で外れた旧項目: 監査員、役割〕
+- `audit` AuditPage ⇄ trans_audit (監査): 開始予定日／終了予定日／件名／詳細／組織情報／利害関係者／備考　〔置換で外れた旧項目: 監査番号、監査名、監査標準〕
+- `auditmember` AuditMemberPage ⇄ trans_audit_member (監査参加者): 参加区分／備考　〔置換で外れた旧項目: 参加者、所属部署〕
+
+## 不明な箇所（要確認）
+
+- `itemsize` 大きさ: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `taskres` 工程場所: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `order` trans_order.control_code1: SQL に列が無い → スキップ
+- `order` trans_order.control_code2: SQL に列が無い → スキップ
+- `order` trans_order.control_code3: SQL に列が無い → スキップ
+- `orderdetail` 受注明細: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `unrec` trans_unrecognized.control_code1: SQL に列が無い → スキップ
+- `unrec` trans_unrecognized.control_code2: SQL に列が無い → スキップ
+- `unrec` trans_unrecognized.control_code3: SQL に列が無い → スキップ
+- `unrec` 非計上発注: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `unrecdetail` 非計上発注明細: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `purchase` trans_purchase.purchase_ctrl1: SQL に列が無い → スキップ
+- `purchase` trans_purchase.purchase_ctrl2: SQL に列が無い → スキップ
+- `purchase` trans_purchase.purchase_ctrl3: SQL に列が無い → スキップ
+- `purchase` 発注: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `purdetail` 発注明細: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `purchaserec` 受入: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `purcert` 成績書（PDF）: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `resplan` 資材所要量計画: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `opsplan` 生産計画: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `workplan` 生産計画明細: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `prodrez` 生産引当予約: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `purrez` 購買引当予約: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `itemoptask` 品目工程明細: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `invapply` 投入: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `invreq` 引当実績: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `workrec` 作業実績: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `wrcert` 成績書ファイル: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `disposal` 修正処置: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `recur` 再発防止: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `obsdisp` 修正処置の監視: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `obsprev` 再発防止の監視: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `risk` リスク: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `doctier` mstr_document_tier.identifier: SQL に列が無い → スキップ
+- `complaint` 異常報告: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `compreceive` 異常受付: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `compstake` 異常報告利害関係者: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `corder` 顧客クレーム: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `cproc` 工程異常報告: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `cequip` 設備異常報告: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `orderrisk` 受注リスク: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `orderdetailrisk` 受注明細リスク: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `taskrisk` 工程リスク: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `auditor` 監査員: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `audit` 監査計画: コード/名前の列が見つからない（先頭列を代表表示にします）
+- `auditmember` 監査参加者: コード/名前の列が見つからない（先頭列を代表表示にします）
+
+## スキップした項目
+
+- `item` 列 品目(mstr_item_id) → mstr_item_tree: 参照先の画面が無い → 非表示
+- `item` 列 製造元(mstr_manufacturer_id) → mstr_manufacturer: 参照先の画面が無い → 非表示
+- `item` 列 ロット(mstr_item_lot_id) → mstr_item_lot: 参照先の画面が無い → 非表示
+- `item` 列 ロット(mstr_item_lot_id) → mstr_item_lot: 参照先の画面が無い → 非表示
+- `itemhs` HSコード: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `itempack` 梱包サイズ: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `itemmaker` 製造元: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `taskgroup` 工程グループ: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `task` 列 工程(mstr_task_id) → mstr_task_tree: 参照先の画面が無い → 非表示
+- `task` 列 工程グループ(mstr_task_group_id) → mstr_task_group: 参照先の画面が無い → 非表示
+- `taskres` 列 設備(mstr_equipment_id) → mstr_equipment: 参照先の画面が無い → 非表示
+- `taskres` 列 設備(mstr_equipment_id) → mstr_equipment: 参照先の画面が無い → 非表示
+- `optask` 工程の選択: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `opapply` 適用する品目の工程計画: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `customer` 列 住所(info_address_id) → info_address: 参照先の画面が無い → 非表示
+- `custcontact` 担当者: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `order` 列 顧客(stakeholder_id) → ?: 参照先の画面が無い → 非表示
+- `order` 列 顧客窓口(stakeholder_contact_id) → ?: 参照先の画面が無い → 非表示
+- `orderdetail` 列 品目(item_id) → ?: 参照先の画面が無い → 非表示
+- `supplier` 列 住所(info_address_id) → info_address: 参照先の画面が無い → 非表示
+- `suppcontact` 担当者: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `unrecdetail` 列 品目(item_id) → ?: 参照先の画面が無い → 非表示
+- `purchase` 列 発注先(stakeholder_id) → ?: 参照先の画面が無い → 非表示
+- `purchase` 列 発注先窓口(stakeholder_contact_id) → ?: 参照先の画面が無い → 非表示
+- `purdetail` 列 品目(item_id) → ?: 参照先の画面が無い → 非表示
+- `purchaseline` 受入明細: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `resplan` 列 品目(item_id) → ?: 参照先の画面が無い → 非表示
+- `itemoptask` 列 工程運用明細(mstr_operation_task_id) → mstr_operation_task: 参照先の画面が無い → 非表示
+- `container` 列 場所(mstr_location_id) → mstr_location: 参照先の画面が無い → 非表示
+- `container` 列 場所(mstr_location_id) → mstr_location: 参照先の画面が無い → 非表示
+- `invapply` 列 受払実績(convey_id) → trans_convey: 参照先の画面が無い → 非表示
+- `invapply` 列 作業担当者(staff_id) → ?: 参照先の画面が無い → 非表示
+- `invreq` 列 作業担当者(staff_id) → ?: 参照先の画面が無い → 非表示
+- `certificate` 列 ファイル(trans_file_id) → trans_file: 参照先の画面が無い → 非表示
+- `workrec` 列 作業担当者(staff_id) → ?: 参照先の画面が無い → 非表示
+- `workrec` 列 設備(equipment_id) → ?: 参照先の画面が無い → 非表示
+- `disposal` 列 approvals(approvals): 承認/参加者名の結合表示 → 非表示
+- `disposal` 列 処置組織(department_id) → ?: 参照先の画面が無い → 非表示
+- `disposal` 列 処置担当者(operation_staff_id) → ?: 参照先の画面が無い → 非表示
+- `recur` 列 approvals(approvals): 承認/参加者名の結合表示 → 非表示
+- `recur` 列 実施担当者(operation_staff_id) → ?: 参照先の画面が無い → 非表示
+- `obsdisp` 列 監視測定者(observer_staff_id) → ?: 参照先の画面が無い → 非表示
+- `doctier` 列 ファイル(trans_file_id) → trans_file: 参照先の画面が無い → 非表示
+- `doc` 列 文書(mstr_document_id) → mstr_document_tree: 参照先の画面が無い → 非表示
+- `doc` 列 ファイル(trans_file_id) → trans_file: 参照先の画面が無い → 非表示
+- `doc` 列 承認実行パターン(trans_approval_pattern_id) → trans_approval_pattern: 参照先の画面が無い → 非表示
+- `doc` 列 承認実行パターン(trans_approval_pattern_id) → trans_approval_pattern: 参照先の画面が無い → 非表示
+- `doccontent` 列 ファイル(trans_file_id) → trans_file: 参照先の画面が無い → 非表示
+- `report` 列 ファイル(trans_file_id) → trans_file: 参照先の画面が無い → 非表示
+- `report` 列 アクセスパス(info_access_path_id) → info_access_path: 参照先の画面が無い → 非表示
+- `complaint` 列 報告者(reporter_staff_id) → ?: 参照先の画面が無い → 非表示
+- `complaint` 列 approvals(approvals): 承認/参加者名の結合表示 → 非表示
+- `compreceive` 列 受領者(receive_staff_id) → ?: 参照先の画面が無い → 非表示
+- `compstake` 列 利害関係者(stakeholder_id) → ?: 参照先の画面が無い → 非表示
+- `compfile` 異常報告ファイル: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `corderimp` 取込: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `cprocimp` 取込: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `cequip` 列 設備(equipment_id) → ?: 参照先の画面が無い → 非表示
+- `cequipimp` 取込: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `odrimp` 取込：リスク: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `trimp` 取込：リスク: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `auditstdimp` 取込：監査標準項目: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `auditor` 列 監査標準(audit_std_id) → ?: 参照先の画面が無い → 非表示
+- `auditor` 列 監査メンバー(staff_id) → ?: 参照先の画面が無い → 非表示
+- `audit` 列 監査標準(audit_std_id) → ?: 参照先の画面が無い → 非表示
+- `audit` 列 監査責任者(staff_id) → ?: 参照先の画面が無い → 非表示
+- `auditteamlink` 監査チーム: 対応するYAMLページが無い（連携用/取込用の子画面）→ 既存定義のまま
+- `auditmember` 列 参加者名(participant_names) → trans_label: 参照先の画面が無い → 非表示
+- `auditmember` 列 参加者組織名(department_names) → trans_label: 参照先の画面が無い → 非表示
+
+## 補足
+
+- `unit` 子レコード件数ビュー 4 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `itemkind` 子レコード件数ビュー 1 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `item` 子レコード件数ビュー 8 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `itemsizekind` 子レコード件数ビュー 1 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `task` 子レコード件数ビュー 6 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `taskres` 子レコード件数ビュー 2 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `operation` 子レコード件数ビュー 2 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `customer` 子レコード件数ビュー 3 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `order` 子レコード件数ビュー 4 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `orderdetail` 子レコード件数ビュー 2 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `supplier` 子レコード件数ビュー 3 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `unrec` 子レコード件数ビュー 1 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `purchase` 子レコード件数ビュー 1 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `purdetail` 子レコード件数ビュー 2 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `purchaserec` 子レコード件数ビュー 2 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `opsplan` 子レコード件数ビュー 1 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `workplan` 子レコード件数ビュー 2 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `container` 子レコード件数ビュー 1 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `certificate` 子レコード件数ビュー 2 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `workrec` 子レコード件数ビュー 2 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `disposal` 子レコード件数ビュー 1 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `recur` 子レコード件数ビュー 1 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `obsdisp` 子レコード件数ビュー 1 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `risk` 子レコード件数ビュー 4 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `prevention` 子レコード件数ビュー 1 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `doctier` 子レコード件数ビュー 1 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `doc` 子レコード件数ビュー 2 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `complaint` 子レコード件数ビュー 7 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `auditstd` 子レコード件数ビュー 1 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `auditteam` 子レコード件数ビュー 1 本は一覧に出さない（件数列は既存の「件」列を使用）
+- `audit` 子レコード件数ビュー 2 本は一覧に出さない（件数列は既存の「件」列を使用）
+

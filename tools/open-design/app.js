@@ -6,6 +6,9 @@
 
   const PATHS = {
     building: "M4 21V5l8-3v19M12 9h8v12M4 21h16M8 8h1M8 12h1M8 16h1M15 13h1M15 17h1",
+    database: "M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3",
+    ruler: "M3 17L17 3l4 4L7 21zM7 13l2 2M10 10l2 2M13 7l2 2",
+    emblem: "M12 2l8.5 5v10L12 22l-8.5-5V7zM9 17v-6l3-1.5 3 1.5v6M9 17h6M11 13h2",
     factory: "M3 21V10l6 4v-4l6 4V6h3v15zM3 21h18",
     truck: "M2 6h11v10H2zM13 9h4l3 3v4h-7M6 19a1.5 1.5 0 1 0 .01 0M17 19a1.5 1.5 0 1 0 .01 0",
     office: "M3 21h18M5 21V8h6v13M11 21V4h8v17M14 8h2M14 12h2M8 12h0M8 16h0",
@@ -34,6 +37,8 @@
     search: "M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14M20 20l-4-4",
     more: "M5 12h.01M12 12h.01M19 12h.01",
     alert: "M12 3l10 18H2zM12 10v5M12 18h.01",
+    gear: "M12 9a3 3 0 1 0 .01 0M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.9a7 7 0 0 0-2-1.2L14.2 3h-4l-.4 2.6a7 7 0 0 0-2 1.2l-2.3-.9-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 2 1.2l.4 2.6h4l.4-2.6a7 7 0 0 0 2-1.2l2.3.9 2-3.4-2-1.5c.1-.4.1-.8.1-1.2",
+    list: "M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01",
   };
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const editLink = (href, label) =>
@@ -58,13 +63,36 @@
   D.licenses.forEach((l) => { l.item ||= ensureItem(D.licItems, "li", l.name, { issuer: LIC_ISSUER[l.name] ?? "" }).id; });
   ensureItem(D.capItems, "ci", "溶接（TIG）", { desc: "TIG溶接で、薄板の突き合わせ溶接ができる。" });
   ensureItem(D.licItems, "li", "アーク溶接等の業務特別教育", { issuer: "登録教習機関" });
+  /* data.extra.js: YAML(views)×DB のコメントに合わせて足す項目（コード・読み など） */
+  const X = window.OD_EXTRA ?? { reading: {}, siteCode: {}, company: {}, licKind: {}, capScale: {} };
+  const rd = (name) => X.reading[name] ?? "";
+  const seq = (pfx, i, w = 3) => `${pfx}${String(i + 1).padStart(w, "0")}`;
+  const YN = ["はい", "いいえ"];
+  const DEPT_OFFICE = { d1: "hq", d2: "hq", d3: "kt", d4: "kt", d5: "kt", d6: "kt", d7: "kt", d8: "hq", d9: "hq", d10: "hq", d11: "hq", d12: "ch", d13: "ch", d14: "ch" };
+  const CYCLE_INTERVAL = { "日": "1日", "月": "1か月", "年": "1年" };
+  for (const [k, v] of Object.entries(X.company)) D.company[k] ??= v;
+  D.sites.forEach((s) => { [s.code, s.reading] = X.siteCode[s.id] ?? ["", ""]; });
+  D.departments.forEach((d, i) => { d.code ??= seq("DP", i); d.reading ??= rd(d.name); d.office ??= DEPT_OFFICE[d.id] ?? ""; });
+  D.deptKinds.forEach((k) => { k.reading ??= rd(k.name); });
+  D.positions.forEach((p, i) => { p.reading ??= rd(p.name); p.priority ??= String(i + 1); });
+  D.employees.forEach((e) => { e.reading ??= rd(e.name); e.sex ??= ""; e.phone ??= ""; e.private_phone ??= ""; e.remarks ??= ""; });
+  D.capItems.forEach((c, i) => { c.code ??= seq("CAP-", i); c.reading ??= rd(c.name); Object.entries(X.capScale).forEach(([k, v]) => { c[k] ??= v; }); c.remarks ??= ""; });
+  D.licItems.forEach((l, i) => { const f = X.licKind[l.name] ?? [0, 0, 0]; l.code ??= seq("LIC-", i); l.reading ??= rd(l.name); l.public_license ??= YN[1 - f[0]]; l.customer_license ??= YN[1 - f[1]]; l.organization_license ??= YN[1 - f[2]]; l.remarks ??= ""; });
+  D.locations.forEach((l, i) => { l.code ??= seq("LOC-", i); l.control_code ??= ""; l.reading ??= rd(l.name); l.available ??= "はい"; });
+  D.eqCats.forEach((c, i) => { c.code ??= seq("EQC-", i); c.reading ??= rd(c.name); c.start_at ??= "2015-04-01"; c.stop_at ??= ""; });
+  D.equipments.forEach((e, i) => { e.control_code ??= seq("CTL-", i, 4); e.label_code ??= e.code; });
+  D.inspKinds.forEach((k, i) => { k.code ??= seq("IK-", i); k.reading ??= rd(k.name); });
+  D.inspItems.forEach((it, i) => { const c = D.inspKinds.find((k) => k.id === it.kind)?.cycle; it.code ??= seq("INS-", i); it.reading ??= rd(it.name); it.base_date ??= "2026-04-01"; it.time_interval ??= CYCLE_INTERVAL[c] ?? ""; it.external ??= "いいえ"; });
+  D.inspOps.forEach((o, i) => { const eq = D.equipments.find((e) => e.id === o.equip), k = D.inspKinds.find((x) => x.id === o.kind); o.code ??= seq("IO-", i); o.name ??= `${eq?.name ?? ""} ${k?.name ?? ""}`.trim(); });
+  D.inspSchs.forEach((x, i) => { const o = D.inspOps.find((y) => y.id === x.op); x.code ??= seq("IS-", i); x.title ??= `${x.month} ${o?.name ?? ""}`.trim(); });
+  D.apPatterns.forEach((a) => { a.reading ??= rd(a.name); });
   D.employees.forEach((e) => { e.id ||= e.no; e.dept ??= EMP_DEPT[e.no] ?? ""; e.updatedBy ||= "鈴木 一郎"; e.updatedAt ||= "2026年9月30日"; });
-  D.offerings.forEach((o, i) => { o.id ||= `o${i + 1}`; o.updatedBy ||= "鈴木 一郎"; o.updatedAt ||= "2026年10月1日"; });
+  D.offerings.forEach((o, i) => { o.id ||= `o${i + 1}`; o.code ??= `PV-${String(i + 1).padStart(3, "0")}`; o.updatedBy ||= "鈴木 一郎"; o.updatedAt ||= "2026年10月1日"; });
   const ROUTES = {
-    home: "ホーム",
+    home: "ダッシュボード",
     customers: "顧客",
-    orders: "受注・出荷",
-    production: "生産計画・進捗",
+    orders: "出荷",
+    production: "生産計画",
     organization: "組織",
     more: "その他",
     company: "会社情報",
@@ -110,11 +138,18 @@
     "staff/license": "資格の編集",
     offerings: "提供サービス・製品一覧",
     logout: "ログアウト",
+    menu: "業務メニュー",
+    settings: "設定",
+    boot: "起動中",
+    login: "ログイン",
+    error: "エラー",
   };
   /* #/company/provision/<id|new>, #/company/position/<id|new>, #/company/position/<pid>/assign/<id|new> */
   const parseRoute = () => {
     const r = location.hash.replace(/^#\//, "");
     let m;
+    if ((m = r.match(/^g\/e\/(\w+)\/([\w-]+)(?:\/([\w-]+))?$/))) return { name: "g/entity", ent: m[1], id: m[2], parentId: m[3] };
+    if ((m = r.match(/^g\/(\w+)(?:\/(\w+))?(\/edit)?$/)) && m[1] !== "e") return { name: "g", sid: m[1], tab: m[2] === "edit" ? undefined : m[2], edit: !!m[3] || m[2] === "edit" };
     if ((m = r.match(/^company\/provision\/([\w-]+)$/))) return { name: "company/provision", id: m[1] };
     if ((m = r.match(/^company\/position\/([\w-]+)\/assign\/([\w-]+)$/))) return { name: "company/assign", pid: m[1], id: m[2] };
     if ((m = r.match(/^company\/position\/([\w-]+)$/))) return { name: "company/position", id: m[1] };
@@ -176,6 +211,10 @@
     "departments/dept": "部署 › 編集",
     "departments/kind": "部署 › 編集 › 区分",
     "departments/kindedit": "部署 › 編集 › 区分",
+    g: gCrumb(),
+    "g/entity": gCrumb(),
+    menu: D.company.name,
+    settings: D.company.name,
   }[route] ?? D.company.name);
   const TOP = ["home", "customers", "orders", "production", "organization", "more", "company"];
   const isTop = (r) => TOP.includes(r);
@@ -217,14 +256,28 @@
   };
 
   /* ---------- PMS screens ---------- */
+  const avatarImg = (cls = "") => `<img class="avatar ${cls}" src="${D.user.photo}" width="120" height="120" alt="">`;
+  const userCard = () => `<div class="user">${avatarImg()}<span class="user-text"><span class="user-name od-truncate">${D.user.name}</span><span class="user-role od-truncate">${D.user.role}</span></span></div>`;
+
   function homeScreen() {
     const cnt = (s) => D.orders.filter((o) => o.status === s).length;
-    const plan = D.lines.reduce((a, l) => a + pctOf(l.actual, l.plan), 0);
-    const avg = Math.round(plan / D.lines.length);
+    const avg = Math.round(D.lines.reduce((a, l) => a + pctOf(l.actual, l.plan), 0) / D.lines.length);
     const late = D.lines.filter((l) => l.state === "遅延");
     const stat = (href, ic, cap, num, unit) => `<a class="card statc" href="${href}"><span class="od-stat"><span class="statc-cap">${icon(ic)}${cap}</span><span class="big-num">${num}<small>${unit}</small></span></span></a>`;
     const ship = D.orders.filter((o) => o.status === "出荷準備").sort((a, b) => a.due.localeCompare(b.due, "ja", { numeric: true }));
+    const PIPE = [["受注", "seg-1"], ["出荷準備", "seg-2"], ["出荷済", "seg-3"]];
+    const pipeBar = PIPE.map(([s, c]) => `<span class="${c}" style="flex:${cnt(s)}"></span>`).join("");
+    const pipeLeg = PIPE.map(([s, c]) => `<span class="legend-label od-nowrap"><span class="dot ${c}"></span>${s} ${cnt(s)}件</span>`).join("");
+    const sites = [...new Set(D.lines.map((l) => l.site))].map((site) => {
+      const ls = D.lines.filter((l) => l.site === site);
+      const p = Math.round(ls.reduce((a, l) => a + pctOf(l.actual, l.plan), 0) / ls.length);
+      return `<li class="dept"><span class="dept-name od-fill">${site}</span><span class="prog dept-bar" role="img" aria-label="${site} 平均進捗 ${p}%"><span style="--p:${p}"></span></span><strong class="od-nowrap">${p}%</strong></li>`;
+    }).join("");
     return `
+      <section class="card dash-user" aria-label="ログインユーザー">
+        ${avatarImg("avatar-lg")}
+        <div class="od-fill"><p class="dash-hello">ログイン中</p><h2 class="dash-name od-truncate">${D.user.name}</h2><p class="muted od-truncate">${D.user.role} ・ ${D.asOf}</p></div>
+      </section>
       ${late.length ? `<div class="alert" role="alert">${icon("alert")}<div class="od-fill"><strong>遅延ラインが${late.length}本あります</strong><p>${late.map((l) => `${l.site} ${l.name}`).join("、")}。<a href="#/production">生産計画・進捗で確認する</a></p></div></div>` : ""}
       <section aria-label="本日の概況"><div class="grid-stats">
         ${stat("#/orders", "orders", "新規受注", cnt("受注"), "件")}
@@ -233,8 +286,19 @@
         ${stat("#/production", "alert", "遅延ライン", late.length, "本")}
       </div></section>
       <div class="two-col">
+        <section class="card dash-panel" aria-labelledby="h-pipe">
+          <h2 class="sec-title" id="h-pipe">受注の進み具合</h2>
+          <div class="bar" role="img" aria-label="${PIPE.map(([s]) => s + " " + cnt(s) + "件").join("、")}">${pipeBar}</div>
+          <div class="od-cluster org-leg">${pipeLeg}</div>
+        </section>
+        <section class="card dash-panel" aria-labelledby="h-site">
+          <h2 class="sec-title" id="h-site">拠点別の生産進捗</h2>
+          <ul class="dept-list" aria-label="拠点別の平均進捗">${sites}</ul>
+        </section>
+      </div>
+      <div class="two-col">
         <section aria-labelledby="h-ship">
-          <div class="sec-head"><h2 class="sec-title" id="h-ship">出荷予定</h2><a class="sec-link" href="#/orders">受注・出荷へ</a></div>
+          <div class="sec-head"><h2 class="sec-title" id="h-ship">出荷予定</h2><a class="sec-link" href="#/orders">出荷へ</a></div>
           <div class="card list-card">${ship.length ? ship.map(orderRow).join("") : emptyState("出荷予定はありません", "受注を出荷準備に進めると、ここに表示されます。")}</div>
         </section>
         <section aria-labelledby="h-line">
@@ -326,7 +390,7 @@
 
   function moreScreen() {
     const l = (href, ic, label, sub) => `<a class="rowi" href="${href}"><span class="rowi-main"><span class="rowi-name">${icon(ic)}${label}</span><span class="rowi-sub">${sub}</span></span><span class="rowi-right">${icon("chevron")}</span></a>`;
-    return `<div class="card list-card">${l("#/resources", "box", "資源", "力量・資格・場所・設備・保全")}${l("#/company", "building", "会社情報", "概要・サマリ・提供サービス")}${l("#/logout", "logout", "ログアウト", `${esc(D.user.name)} さんとしてサインイン中`)}</div>`;
+    return `<div class="card list-card">${l("#/menu", "list", "業務メニュー", "品目・工程・営業・購買・生産計画・作業実績・品質管理")}${l("#/resources", "box", "資源", "力量・資格・場所・設備・保全")}${l("#/company", "building", "会社情報", "概要・サマリ・提供サービス")}${l("#/settings", "gear", "設定", "テーマ・言語・画面の列")}${l("#/logout", "logout", "ログアウト", `${esc(D.user.name)} さんとしてサインイン中`)}</div>`;
   }
 
   /* ---------- screens ---------- */
@@ -368,8 +432,12 @@
         <div class="card-title has-action"><h2 class="card-title-main">${icon("building")}会社情報</h2>${editLink("#/company/edit", "会社情報")}</div>
         <p class="company-name od-keep" id="co-name">${esc(c.name)}</p>
         <dl class="profile-list">
-          <div class="kv"><dt>CEO</dt><dd>${esc(c.ceo)}（${esc(c.ceoTitle)}）</dd></div>
+          <div class="kv"><dt>会社名の読み</dt><dd>${esc(c.pronunciation || "―")}</dd></div>
+          <div class="kv"><dt>略称</dt><dd>${esc(c.nickname || "―")}</dd></div>
+          <div class="kv"><dt>代表者名</dt><dd>${esc(c.ceo)}（${esc(c.ceoTitle)}）</dd></div>
+          <div class="kv"><dt>ホームページ</dt><dd class="od-keep">${c.web_page ? `<a href="${esc(c.web_page)}" target="_blank" rel="noopener">${esc(c.web_page)}</a>` : "―"}</dd></div>
           <div class="kv" style="grid-column: span ${mobile ? 1 : 2}"><dt>メインサイト（本社）所在地</dt><dd>${esc(c.address)}</dd></div>
+          ${c.remarks ? `<div class="kv" style="grid-column: span ${mobile ? 1 : 2}"><dt>備考</dt><dd>${esc(c.remarks)}</dd></div>` : ""}
         </dl>
       </section>
 
@@ -420,9 +488,13 @@
   /* ---------- edit / list screens ---------- */
   const FIELDS = [
     ["name", "会社名", "input", 60],
+    ["pronunciation", "会社名の読み", "input", 120, false],
+    ["nickname", "略称", "input", 30, false],
     ["ceo", "代表者名", "input", 30],
     ["ceoTitle", "代表者の役職", "input", 30],
+    ["web_page", "ホームページ", "input", 255, false],
     ["address", "メインサイト（本社）所在地", "textarea", 120],
+    ["remarks", "備考", "textarea", 1024, false],
   ];
   /* ---------- edit structure helpers ---------- */
   const fieldRow = ({ id, label, kind = "input", max = 60, req = true, options = [], value = "", taken = null, blank = "選択してください", after = null, min = null }) => {
@@ -445,7 +517,7 @@
 
   function companyEditScreen() {
     const c = draft || D.company;
-    const fields = FIELDS.map(([id, label, kind, max]) => fieldRow({ id, label, kind, max, value: c[id] })).join("");
+    const fields = FIELDS.map(([id, label, kind, max, req = true]) => fieldRow({ id, label, kind, max, req, value: c[id] ?? "" })).join("");
     const provs = D.offerings.map((o) => rowItem(`href="#/company/provision/${o.id}" data-draft`, o.name, o.desc, chip(o.kind, o.kind === "製品" ? "box" : "wrench"), "a")).join("");
     const poss = D.positions.map((p) => {
       const n = assignsOf(p.id).length;
@@ -471,14 +543,15 @@
 
   function provisionEditScreen(id) {
     const isNew = id === "new";
-    const o = isNew ? { kind: "", name: "", desc: "" } : D.offerings.find((x) => x.id === id);
+    const o = isNew ? { kind: "", code: "", name: "", desc: "" } : D.offerings.find((x) => x.id === id);
     if (!o) return notFound("提供項目が見つかりません", "#/company/edit");
     return `${backLink("#/company/edit", "編集に戻る")}
       <form class="card form" id="edit-form" data-kind="provision" data-id="${id}" novalidate>
         <div class="err-sum" id="err-sum" role="alert" tabindex="-1" hidden></div>
         ${fieldRow({ id: "kind", label: "種別", kind: "select", options: [["製品", "製品"], ["サービス", "サービス"]], value: o.kind })}
+        ${fieldRow({ id: "code", label: "提供コード", max: 20, value: o.code ?? "", taken: D.offerings.filter((x) => x.id !== id).map((x) => x.code) })}
         ${fieldRow({ id: "name", label: "名称", max: 40, value: o.name })}
-        ${fieldRow({ id: "desc", label: "説明", kind: "textarea", max: 120, value: o.desc })}
+        ${fieldRow({ id: "desc", label: "詳細", kind: "textarea", max: 120, value: o.desc })}
         ${isNew ? "" : metaHtml(o)}
         <div class="form-actions">${isNew ? "" : '<button class="btn btn-danger" type="button" id="del-btn">削除</button>'}<button class="btn btn-primary" type="submit">${isNew ? "追加" : "保存"}</button></div>
       </form>`;
@@ -486,7 +559,7 @@
 
   function positionEditScreen(id) {
     const isNew = id === "new";
-    const p = isNew ? { name: "", desc: "" } : D.positions.find((x) => x.id === id);
+    const p = isNew ? { name: "", reading: "", priority: "", desc: "" } : D.positions.find((x) => x.id === id);
     if (!p) return notFound("役職が見つかりません", "#/company/edit");
     const taken = D.positions.filter((x) => x.id !== id).map((x) => x.name);
     const as = isNew ? [] : assignsOf(id);
@@ -497,8 +570,10 @@
     return `${backLink("#/company/edit", "編集に戻る")}${flashHtml()}
       <form class="card form" id="edit-form" data-kind="position" data-id="${id}" novalidate>
         <div class="err-sum" id="err-sum" role="alert" tabindex="-1" hidden></div>
-        ${fieldRow({ id: "name", label: "役職名", max: 30, value: p.name, taken })}
-        ${fieldRow({ id: "desc", label: "説明", kind: "textarea", max: 120, req: false, value: p.desc })}
+        ${fieldRow({ id: "name", label: "役割名称", max: 30, value: p.name, taken })}
+        ${fieldRow({ id: "reading", label: "読み", max: 60, req: false, value: p.reading ?? "" })}
+        ${fieldRow({ id: "priority", label: "順位", kind: "number", max: 3, value: p.priority ?? "" })}
+        ${fieldRow({ id: "desc", label: "備考", kind: "textarea", max: 120, req: false, value: p.desc })}
         ${isNew ? "" : metaHtml(p)}
         <div class="form-actions">${isNew ? "" : '<button class="btn btn-danger" type="button" id="del-btn">削除</button>'}<button class="btn btn-primary" type="submit">${isNew ? "追加" : "保存"}</button></div>
       </form>
@@ -561,7 +636,7 @@
     const handle = editMode ? `<button class="drag-handle" type="button" data-drag="${d.id}" aria-label="${esc(d.name)}をドラッグして親を付け替え（キーボードやタッチでは「親を変更」を使用）">${icon("grip")}</button>` : "";
     const name = editMode ? `<a class="cell-link" href="#/departments/${d.id}">${esc(d.name)}</a>` : `<span class="tree-name">${esc(d.name)}</span>`;
     return `<li class="trow" role="treeitem" aria-level="${depth + 1}" ${n ? `aria-expanded="${open}"` : ""} ${editMode ? `data-drop="${d.id}"` : ""} style="--depth:${depth}">
-      ${handle}${toggle}<span class="tree-main">${name}</span><span class="tree-tags">${deptTags(d)}</span>${n ? `<span class="chip mute od-nowrap">配下 ${n}</span>` : ""}${editMode ? `<button class="btn tree-act" type="button" data-reparent="${d.id}">親を変更</button>` : ""}</li>`;
+      ${handle}${toggle}<span class="tree-main"><span class="muted od-nowrap tree-code">${esc(d.code ?? "")}</span> ${name}</span><span class="tree-tags">${deptTags(d)}</span>${n ? `<span class="chip mute od-nowrap">配下 ${n}</span>` : ""}${editMode ? `<button class="btn tree-act" type="button" data-reparent="${d.id}">親を変更</button>` : ""}</li>`;
   }
   function deptScreen(editMode) {
     const rows = deptVisible();
@@ -599,7 +674,7 @@
 
   function deptEditScreen(id) {
     const isNew = id === "new";
-    const d = isNew ? { id: "new", name: "", parent: null, kinds: [], updatedBy: "", updatedAt: "" } : deptById(id);
+    const d = isNew ? { id: "new", code: "", name: "", reading: "", office: "", parent: null, kinds: [], updatedBy: "", updatedAt: "" } : deptById(id);
     if (!d) return notFound("部署が見つかりません", "#/departments/edit");
     const v = deptDraft && deptDraft.id === id ? { ...d, ...deptDraft } : d;
     const banned = new Set(isNew ? [] : [id, ...deptDescendants(id)]);
@@ -613,7 +688,10 @@
     return `${backLink("#/departments/edit", "一覧に戻る")}${flashHtml()}
       <form class="card form" id="edit-form" data-kind="department" data-id="${id}" novalidate>
         <div class="err-sum" id="err-sum" role="alert" tabindex="-1" hidden></div>
-        ${fieldRow({ id: "name", label: "部署名", max: 30, value: v.name, taken })}
+        ${fieldRow({ id: "code", label: "組織コード", max: 10, value: v.code ?? "", taken: D.departments.filter((x) => x.id !== id).map((x) => x.code) })}
+        ${fieldRow({ id: "name", label: "組織名称", max: 30, value: v.name, taken })}
+        ${fieldRow({ id: "reading", label: "読み", max: 60, req: false, value: v.reading ?? "" })}
+        ${fieldRow({ id: "office", label: "事業所", kind: "select", req: false, blank: "指定なし", options: D.sites.map((x) => [x.id, x.name]), value: v.office ?? "" })}
         ${fieldRow({ id: "parent", label: "親部署", kind: "select", req: false, blank: "最上位（親なし）", options: parentOpts, value: v.parent ?? "" })}
         ${kinds}
         ${isNew ? "" : metaHtml(d)}
@@ -661,8 +739,9 @@
   const COLL = { caps: "capabilities", lics: "licenses" };
   const TODAY_ISO = "2026-10-19";
   const STAFF_COLS = [
-    { key: "no", label: "社員番号" },
-    { key: "name", label: "氏名", fixed: true },
+    { key: "no", label: "担当者コード" },
+    { key: "name", label: "名前", fixed: true },
+    { key: "reading", label: "読み" },
     { key: "site", label: "所属事業所" },
     { key: "type", label: "区分" },
     { key: "dept", label: "部署" },
@@ -685,7 +764,7 @@
   };
   const staffRows = () => {
     const v = staffView;
-    let list = D.employees.filter((e) => (v.type === "すべて" || e.type === v.type) && (v.aff === "すべて" || e.site === v.aff) && (!v.q || (e.name + e.no).includes(v.q)));
+    let list = D.employees.filter((e) => (v.type === "すべて" || e.type === v.type) && (v.aff === "すべて" || e.site === v.aff) && (!v.q || (e.name + e.no + (e.reading ?? "")).includes(v.q)));
     if (v.sort.key) list = [...list].sort((a, b) => v.sort.dir * staffCmp(v.sort.key)(a, b));
     return list;
   };
@@ -725,7 +804,7 @@
     return `${backLink(editMode ? "#/staff" : "#/company", editMode ? "閲覧に戻る" : "会社情報に戻る")}${flashHtml()}
       <section class="card cust-tools" aria-label="検索と絞り込み">
         <div class="field-row"><label for="tbl-q">作業者を検索</label>
-          <div class="search-box">${icon("search")}<input id="tbl-q" type="search" value="${esc(v.q)}" placeholder="氏名・社員番号" autocomplete="off"></div></div>
+          <div class="search-box">${icon("search")}<input id="tbl-q" type="search" value="${esc(v.q)}" placeholder="名前・読み・担当者コード" autocomplete="off"></div></div>
         ${filterBar("区分", "tbl", ["すべて", ...STAFF_TYPES], v.type)}
         <div class="field-row"><label for="tbl-aff">所属事業所</label><select id="tbl-aff">${affOpts}</select></div>
         <div class="field-row sort-select"><label for="tbl-sort">並べ替え</label><select id="tbl-sort">${sortOpts}</select></div>
@@ -746,23 +825,28 @@
   };
   function staffEditScreen(id) {
     const isNew = id === "new";
-    const s = isNew ? { id: "new", no: "", name: "", site: "", type: "", dept: "" } : D.employees.find((x) => x.id === id);
+    const s = isNew ? { id: "new", no: "", name: "", reading: "", sex: "", phone: "", private_phone: "", remarks: "", site: "", type: "", dept: "" } : D.employees.find((x) => x.id === id);
     if (!s) return notFound("作業者が見つかりません", "#/staff/edit");
     const v = staffDraft?.id === id ? { ...s, ...staffDraft } : s;
     const deptOpts = deptWalk().map(({ d, depth }) => [d.id, `${"　".repeat(depth)}${d.name}`]);
     const held = assignsHeldBy(id);
     const caps = staffItems("caps", id).map((c) => rowItem(`href="#/staff/${id}/capability/${c.id}" data-keep`, c.name, c.level, chip(c.level, LEVEL_ICON[c.level], c.level === "見習い" ? "mute" : ""), "a")).join("");
-    const lics = staffItems("lics", id).map((l) => rowItem(`href="#/staff/${id}/license/${l.id}" data-keep`, l.name, `登録番号 ${l.number} ・ 取得 ${fmtDate(l.acquired)}`, licStatus(l.expires), "a")).join("");
+    const lics = staffItems("lics", id).map((l) => rowItem(`href="#/staff/${id}/license/${l.id}" data-keep`, l.name, `適用開始 ${fmtDate(l.acquired)}`, licStatus(l.expires), "a")).join("");
     return `${backLink("#/staff/edit", "一覧に戻る")}${flashHtml()}
       <form class="card form" id="edit-form" data-kind="staff" data-id="${id}" novalidate>
         <div class="err-sum" id="err-sum" role="alert" tabindex="-1" hidden></div>
         ${isNew
-          ? fieldRow({ id: "no", label: "社員番号", max: 10, value: v.no, taken: D.employees.map((e) => e.no) })
-          : `<dl><div class="kv"><dt>社員番号（変更できません）</dt><dd class="od-nowrap">${esc(s.no)}</dd></div></dl>`}
-        ${fieldRow({ id: "name", label: "氏名", max: 30, value: v.name })}
+          ? fieldRow({ id: "no", label: "担当者コード", max: 10, value: v.no, taken: D.employees.map((e) => e.no) })
+          : `<dl><div class="kv"><dt>担当者コード（変更できません）</dt><dd class="od-nowrap">${esc(s.no)}</dd></div></dl>`}
+        ${fieldRow({ id: "name", label: "名前", max: 30, value: v.name })}
+        ${fieldRow({ id: "reading", label: "読み", max: 60, req: false, value: v.reading ?? "" })}
+        ${fieldRow({ id: "sex", label: "性別", kind: "select", req: false, blank: "未設定", options: ["男性", "女性", "その他"].map((x) => [x, x]), value: v.sex ?? "" })}
+        ${fieldRow({ id: "phone", label: "電話", max: 30, req: false, value: v.phone ?? "" })}
+        ${fieldRow({ id: "private_phone", label: "緊急電話", max: 30, req: false, value: v.private_phone ?? "" })}
         ${fieldRow({ id: "site", label: "所属事業所", kind: "select", options: D.sites.map((x) => [x.name, x.name]), value: v.site })}
         ${fieldRow({ id: "type", label: "区分", kind: "select", options: STAFF_TYPES.map((t) => [t, t]), value: v.type })}
         ${fieldRow({ id: "dept", label: "部署", kind: "select", req: false, blank: "未所属", options: deptOpts, value: v.dept ?? "" })}
+        ${fieldRow({ id: "remarks", label: "備考", kind: "textarea", max: 1024, req: false, value: v.remarks ?? "" })}
         ${isNew ? "" : metaHtml(s)}
         ${held.length ? `<p class="note" id="del-note">役職「${esc(held.join("、"))}」に割り当てられているため削除できません。先に割当を解除してください。</p>` : ""}
         <div class="form-actions">${isNew ? "" : `<button class="btn btn-danger" type="button" id="del-btn" ${held.length ? 'disabled aria-describedby="del-note"' : ""}>削除</button>`}<button class="btn btn-primary" type="submit">${isNew ? "追加" : "保存"}</button></div>
@@ -787,9 +871,9 @@
     return `${backLink(back, "作業者に戻る")}
       <form class="card form" id="edit-form" data-kind="cap" data-id="${cid}" data-pid="${sid}" novalidate>
         <div class="err-sum" id="err-sum" role="alert" tabindex="-1" hidden></div>
-        <dl><div class="kv"><dt>作業者</dt><dd>${esc(owner.name)}</dd></div></dl>
+        <dl><div class="kv"><dt>担当者</dt><dd>${esc(owner.name)}</dd></div></dl>
         ${fieldRow({ id: "item", label: "力量", kind: "select", options: D.capItems.map((x) => [x.id, x.name]), value: c.item, taken: staffItems("caps", sid).filter((x) => x.id !== cid).map((x) => x.item) })}
-        ${fieldRow({ id: "level", label: "習熟度", kind: "select", options: LEVELS.map((l) => [l, l]), value: c.level })}
+        ${fieldRow({ id: "level", label: "値（習熟度）", kind: "select", options: LEVELS.map((l) => [l, l]), value: c.level })}
         ${isNew ? "" : metaHtml(c)}
         <div class="form-actions">${isNew ? "" : '<button class="btn btn-danger" type="button" id="del-btn">削除</button>'}<button class="btn btn-primary" type="submit">${isNew ? "追加" : "保存"}</button></div>
       </form>`;
@@ -804,11 +888,11 @@
     return `${backLink(back, "作業者に戻る")}
       <form class="card form" id="edit-form" data-kind="lic" data-id="${lid}" data-pid="${sid}" novalidate>
         <div class="err-sum" id="err-sum" role="alert" tabindex="-1" hidden></div>
-        <dl><div class="kv"><dt>作業者</dt><dd>${esc(owner.name)}</dd></div></dl>
+        <dl><div class="kv"><dt>担当者</dt><dd>${esc(owner.name)}</dd></div></dl>
         ${fieldRow({ id: "item", label: "資格", kind: "select", options: D.licItems.map((x) => [x.id, x.name]), value: l.item, taken: staffItems("lics", sid).filter((x) => x.id !== lid).map((x) => x.item) })}
-        ${fieldRow({ id: "number", label: "登録番号", max: 20, value: l.number })}
-        ${fieldRow({ id: "acquired", label: "取得日", kind: "date", value: l.acquired })}
-        ${fieldRow({ id: "expires", label: "有効期限", kind: "date", req: false, value: l.expires, after: "acquired" })}
+        
+        ${fieldRow({ id: "acquired", label: "適用開始", kind: "date", value: l.acquired })}
+        ${fieldRow({ id: "expires", label: "適用終了", kind: "date", req: false, value: l.expires, after: "acquired" })}
         ${isNew ? "" : metaHtml(l)}
         <div class="form-actions">${isNew ? "" : '<button class="btn btn-danger" type="button" id="del-btn">削除</button>'}<button class="btn btn-primary" type="submit">${isNew ? "追加" : "保存"}</button></div>
       </form>`;
@@ -829,7 +913,7 @@
   /* ---------- generic table structure (used by the approval tables) ---------- */
   const TABLES = {}; // every makeTable() result, looked up by key from the DOM (data-tkey)
   function makeTable({ key, cols, hidden = [], list, search, placeholder = "", filter = null, sort = null, href = null, pick = null, always = false, noun = "件" }) {
-    const view = { sort: sort ? { ...sort } : { key: null, dir: 1 }, q: "", type: "すべて", hidden: new Set(hidden), colsOpen: false };
+    const view = { sort: sort ? { ...sort } : { key: null, dir: 1 }, q: "", type: "すべて", hidden: new Set(hidden), colsOpen: false, limit: null };
     const shown = () => cols.filter((c) => c.fixed || !view.hidden.has(c.key));
     const rows = () => {
       let l = list().filter((r) => (!filter || view.type === "すべて" || filter.get(r) === view.type) && (!view.q || search(r).includes(view.q)));
@@ -840,7 +924,9 @@
     const cellHtml = (c, r) => (c.html ? c.html(r) : esc(c.val(r)));
     const html = (editMode) => {
       const cs = shown();
-      const l = rows();
+      const all = rows();
+      const cap = view.limit ?? SETTINGS.pageSize;
+      const l = all.slice(0, cap);
       const head = cs.map((c) => {
         const on = view.sort.key === c.key;
         const aria = on ? (view.sort.dir === 1 ? "ascending" : "descending") : "none";
@@ -859,7 +945,8 @@
       const table = l.length
         ? `<div class="tbl-wrap"><table class="tbl"><caption class="sr-only">一覧テーブル</caption><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`
         : emptyState(total ? "該当するデータがありません" : "まだ登録されていません", total ? "検索語や絞り込みを変えてください。" : "「追加」ボタンから登録してください。");
-      return `<p class="tbl-note">全${total}${noun}のうち${l.length}${noun}を表示${link ? "。行を選ぶと編集できます。" : pick && !editMode ? "。名称を選ぶと、下に詳細を表示します。" : "。"}</p>${table}`;
+      const more = all.length > l.length ? `<div class="form-actions"><button class="btn" type="button" data-more="${key}">さらに読み込む（残り${all.length - l.length}${noun}）</button></div>` : "";
+      return `<p class="tbl-note">全${total}${noun}のうち${all.length === total ? "" : `条件に合う${all.length}${noun}から`}${l.length}${noun}を表示${link ? "。行を選ぶと編集できます。" : pick && !editMode ? "。名称を選ぶと、下に詳細を表示します。" : "。"}</p>${table}${more}`;
     };
     const toolbar = () => {
       const sortOpts = [`<option value="">指定なし</option>`].concat(shown().flatMap((c) =>
@@ -896,8 +983,9 @@
     list: () => D.apPatterns, search: (r) => r.name + r.desc, placeholder: "パターン名・説明", hidden: ["updatedBy", "updatedAt"],
     href: (r) => `#/approval/${r.id}`,
     cols: [
-      { key: "name", label: "パターン名", fixed: true, val: (r) => r.name },
-      { key: "desc", label: "説明", val: (r) => r.desc },
+      { key: "name", label: "パターン名称", fixed: true, val: (r) => r.name },
+      { key: "reading", label: "読み", val: (r) => r.reading || "―" },
+      { key: "desc", label: "備考", val: (r) => r.desc },
       { key: "scopes", label: "承認の範囲", num: true, val: (r) => D.apScopes.filter((s) => s.ap === r.id).length, html: (r) => `${D.apScopes.filter((s) => s.ap === r.id).length}件` },
       { key: "people", label: "承認できる人", num: true, val: (r) => D.apApprovers.filter((m) => D.apScopes.some((s) => s.id === m.scope && s.ap === r.id)).length, html: (r) => `${D.apApprovers.filter((m) => D.apScopes.some((s) => s.id === m.scope && s.ap === r.id)).length}名` },
       byCol, dateCol,
@@ -921,12 +1009,12 @@
   const approverT = makeTable({
     key: "apApprover",
     always: true, noun: "名",
-    list: () => scopeApprovers(routeIds().id), search: (r) => staffName(r.staff) + r.staff, placeholder: "氏名・社員番号", hidden: ["updatedBy", "updatedAt"],
+    list: () => scopeApprovers(routeIds().id), search: (r) => staffName(r.staff) + r.staff, placeholder: "名前・担当者コード", hidden: ["updatedBy", "updatedAt"],
     filter: { label: "種別", values: AP_KINDS, get: (r) => r.kind },
     href: (r) => { const s = D.apScopes.find((x) => x.id === r.scope); return `#/approval/${s.ap}/scope/${s.id}/approver/${r.id}`; },
     cols: [
-      { key: "staff", label: "氏名", fixed: true, val: (r) => staffName(r.staff) },
-      { key: "no", label: "社員番号", val: (r) => r.staff, html: (r) => `<span class="od-nowrap">${esc(r.staff)}</span>` },
+      { key: "staff", label: "名前", fixed: true, val: (r) => staffName(r.staff) },
+      { key: "no", label: "担当者コード", val: (r) => r.staff, html: (r) => `<span class="od-nowrap">${esc(r.staff)}</span>` },
       { key: "kind", label: "種別", val: (r) => r.kind, html: (r) => chip(r.kind, r.kind === "承認者" ? "check" : "users", r.kind === "承認者" ? "" : "line") },
       { key: "period", label: "有効期間", val: (r) => r.from, html: (r) => `<span class="od-nowrap">${fmtDate(r.from)}〜${r.to ? fmtDate(r.to) : "期限なし"}</span>` },
       { key: "held", label: "役職の割当", val: (r) => (assignsHeldBy(r.staff).includes(posName(D.apScopes.find((s) => s.id === r.scope)?.pos)) ? "割当あり" : "割当なし"), html: heldChip },
@@ -946,8 +1034,9 @@
     return `${backLink("#/approval/edit", "一覧に戻る")}${flashHtml()}
       <form class="card form" id="edit-form" data-kind="apPattern" data-id="${id}" novalidate>
         <div class="err-sum" id="err-sum" role="alert" tabindex="-1" hidden></div>
-        ${fieldRow({ id: "name", label: "パターン名", max: 30, value: p.name, taken: D.apPatterns.filter((x) => x.id !== id).map((x) => x.name) })}
-        ${fieldRow({ id: "desc", label: "説明", kind: "textarea", max: 120, req: false, value: p.desc })}
+        ${fieldRow({ id: "name", label: "パターン名称", max: 30, value: p.name, taken: D.apPatterns.filter((x) => x.id !== id).map((x) => x.name) })}
+        ${fieldRow({ id: "reading", label: "読み", max: 60, req: false, value: p.reading ?? "" })}
+        ${fieldRow({ id: "desc", label: "備考", kind: "textarea", max: 120, req: false, value: p.desc })}
         ${isNew ? "" : metaHtml(p)}
         <div class="form-actions">${isNew ? "" : '<button class="btn btn-danger" type="button" id="del-btn">削除</button>'}<button class="btn btn-primary" type="submit">${isNew ? "追加" : "保存"}</button></div>
       </form>
@@ -1010,49 +1099,59 @@
     return resSel[kind];
   };
   const holderBase = () => [
-    { key: "staff", label: "氏名", fixed: true, val: (r) => staffName(r.staff) },
-    { key: "no", label: "社員番号", val: (r) => r.staff, html: (r) => `<span class="od-nowrap">${esc(r.staff)}</span>` },
+    { key: "staff", label: "名前", fixed: true, val: (r) => staffName(r.staff) },
+    { key: "no", label: "担当者コード", val: (r) => r.staff, html: (r) => `<span class="od-nowrap">${esc(r.staff)}</span>` },
   ];
   const capItemT = makeTable({
-    key: "capItem", list: () => D.capItems, search: (r) => r.name + r.desc, placeholder: "力量名・説明", hidden: ["updatedBy", "updatedAt"],
+    key: "capItem", list: () => D.capItems, search: (r) => r.code + r.name + (r.reading ?? "") + r.desc, placeholder: "力量コード・力量名称・読み・詳細", hidden: ["updatedBy", "updatedAt"],
     href: (r) => `#/capabilities/${r.id}`, pick: { get: () => resSel.capabilities, set: (id) => { resSel.capabilities = id; } },
     cols: [
-      { key: "name", label: "力量名", fixed: true, val: (r) => r.name },
-      { key: "desc", label: "説明", val: (r) => r.desc || "―" },
+      { key: "code", label: "力量コード", val: (r) => r.code, html: (r) => `<span class="od-nowrap">${esc(r.code ?? "")}</span>` },
+      { key: "name", label: "力量名称", fixed: true, val: (r) => r.name },
+      { key: "reading", label: "読み", val: (r) => r.reading || "―" },
+      { key: "desc", label: "詳細", val: (r) => r.desc || "―" },
+      { key: "reference_value", label: "基準", num: true, val: (r) => Number(r.reference_value) || 0, html: (r) => esc(r.reference_value ?? "―") },
+      { key: "min", label: "最小", num: true, val: (r) => Number(r.min) || 0, html: (r) => esc(r.min ?? "―") },
+      { key: "max", label: "最大", num: true, val: (r) => Number(r.max) || 0, html: (r) => esc(r.max ?? "―") },
+      { key: "step", label: "刻み", num: true, val: (r) => Number(r.step) || 0, html: (r) => esc(r.step ?? "―") },
       { key: "holders", label: "保持者", num: true, val: (r) => D.capabilities.filter((x) => x.item === r.id).length, html: (r) => `${D.capabilities.filter((x) => x.item === r.id).length}名` },
       byCol, dateCol,
     ],
   });
   const capHolderT = makeTable({
     key: "capHolder", noun: "名", list: () => D.capabilities.filter((x) => x.item === resItemId("capabilities")),
-    search: (r) => staffName(r.staff) + r.staff, placeholder: "氏名・社員番号", hidden: ["updatedBy", "updatedAt"],
+    search: (r) => staffName(r.staff) + r.staff, placeholder: "名前・担当者コード", hidden: ["updatedBy", "updatedAt"],
     filter: { label: "習熟度", values: LEVELS, get: (r) => r.level }, href: (r) => `#/capabilities/${r.item}/holder/${r.id}`,
     cols: [
       ...holderBase(),
       { key: "site", label: "所属事業所", val: (r) => empOf(r.staff)?.site ?? "―" },
-      { key: "level", label: "習熟度", val: (r) => LEVELS.indexOf(r.level), html: (r) => chip(r.level, LEVEL_ICON[r.level], r.level === "見習い" ? "mute" : "") },
+      { key: "level", label: "値（習熟度）", val: (r) => LEVELS.indexOf(r.level), html: (r) => chip(r.level, LEVEL_ICON[r.level], r.level === "見習い" ? "mute" : "") },
       byCol, dateCol,
     ],
   });
   const licItemT = makeTable({
-    key: "licItem", list: () => D.licItems, search: (r) => r.name + r.issuer, placeholder: "資格名・発行元", hidden: ["updatedBy", "updatedAt"],
+    key: "licItem", list: () => D.licItems, search: (r) => r.code + r.name + (r.reading ?? "") + (r.desc ?? ""), placeholder: "資格コード・資格名称・読み・詳細", hidden: ["updatedBy", "updatedAt"],
     href: (r) => `#/licenses/${r.id}`, pick: { get: () => resSel.licenses, set: (id) => { resSel.licenses = id; } },
     cols: [
-      { key: "name", label: "資格名", fixed: true, val: (r) => r.name },
-      { key: "issuer", label: "発行元", val: (r) => r.issuer || "―" },
+      { key: "code", label: "資格コード", val: (r) => r.code, html: (r) => `<span class="od-nowrap">${esc(r.code ?? "")}</span>` },
+      { key: "name", label: "資格名称", fixed: true, val: (r) => r.name },
+      { key: "reading", label: "読み", val: (r) => r.reading || "―" },
+      { key: "desc", label: "詳細", val: (r) => r.desc || "―" },
+      { key: "public_license", label: "公的", val: (r) => r.public_license },
+      { key: "customer_license", label: "顧客", val: (r) => r.customer_license },
+      { key: "organization_license", label: "内部", val: (r) => r.organization_license },
       { key: "holders", label: "保持者", num: true, val: (r) => D.licenses.filter((x) => x.item === r.id).length, html: (r) => `${D.licenses.filter((x) => x.item === r.id).length}名` },
       byCol, dateCol,
     ],
   });
   const licHolderT = makeTable({
     key: "licHolder", noun: "名", list: () => D.licenses.filter((x) => x.item === resItemId("licenses")),
-    search: (r) => staffName(r.staff) + r.staff + r.number, placeholder: "氏名・社員番号・登録番号", hidden: ["updatedBy", "updatedAt"],
+    search: (r) => staffName(r.staff) + r.staff, placeholder: "名前・担当者コード", hidden: ["updatedBy", "updatedAt"],
     href: (r) => `#/licenses/${r.item}/holder/${r.id}`,
     cols: [
       ...holderBase(),
-      { key: "number", label: "登録番号", val: (r) => r.number, html: (r) => `<span class="od-nowrap">${esc(r.number)}</span>` },
-      { key: "acquired", label: "取得日", val: (r) => r.acquired, html: (r) => `<span class="od-nowrap">${fmtDate(r.acquired)}</span>` },
-      { key: "expires", label: "有効期限", val: (r) => r.expires || "9999-12-31", html: (r) => licStatus(r.expires) },
+      { key: "acquired", label: "適用開始", val: (r) => r.acquired, html: (r) => `<span class="od-nowrap">${fmtDate(r.acquired)}</span>` },
+      { key: "expires", label: "適用終了", val: (r) => r.expires || "9999-12-31", html: (r) => licStatus(r.expires) },
       byCol, dateCol,
     ],
   });
@@ -1082,16 +1181,21 @@
   function resItemEditScreen(kind, id) {
     const R = RES[kind];
     const isNew = id === "new";
-    const it = isNew ? { name: "", desc: "", issuer: "" } : D[R.items].find((x) => x.id === id);
+    const it = isNew ? { code: "", name: "", reading: "", desc: "", remarks: "", reference_value: "", min: "", max: "", step: "", public_license: "いいえ", customer_license: "いいえ", organization_license: "いいえ" } : D[R.items].find((x) => x.id === id);
     if (!it) return notFound(`${R.label}が見つかりません`, `#/${kind}/edit`);
-    const second = kind === "capabilities"
-      ? fieldRow({ id: "desc", label: "説明", kind: "textarea", max: 120, req: false, value: it.desc })
-      : fieldRow({ id: "issuer", label: "発行元", max: 40, req: false, value: it.issuer });
+    const yn = (id, label) => fieldRow({ id, label, kind: "select", options: [["はい", "はい"], ["いいえ", "いいえ"]], value: it[id] ?? "いいえ" });
+    const num = (id, label, req) => fieldRow({ id, label, kind: "number", max: 8, req, value: it[id] ?? "" });
+    const second = fieldRow({ id: "desc", label: "詳細", kind: "textarea", max: 120, req: false, value: it.desc ?? "" }) + (kind === "capabilities"
+      ? num("reference_value", "基準", true) + num("max", "最大", false) + num("min", "最小", false) + num("step", "刻み", false)
+      : yn("public_license", "公的") + yn("customer_license", "顧客") + yn("organization_license", "内部"));
     return `${backLink(`#/${kind}/edit`, "一覧に戻る")}${flashHtml()}
       <form class="card form" id="edit-form" data-kind="resItem" data-res="${kind}" data-id="${id}" novalidate>
         <div class="err-sum" id="err-sum" role="alert" tabindex="-1" hidden></div>
-        ${fieldRow({ id: "name", label: `${R.label}名`, max: 40, value: it.name, taken: D[R.items].filter((x) => x.id !== id).map((x) => x.name) })}
+        ${fieldRow({ id: "code", label: `${R.label}コード`, max: 20, value: it.code ?? "", taken: D[R.items].filter((x) => x.id !== id).map((x) => x.code) })}
+        ${fieldRow({ id: "name", label: `${R.label}名称`, max: 40, value: it.name, taken: D[R.items].filter((x) => x.id !== id).map((x) => x.name) })}
+        ${fieldRow({ id: "reading", label: "読み", max: 80, req: false, value: it.reading ?? "" })}
         ${second}
+        ${fieldRow({ id: "remarks", label: "備考", kind: "textarea", max: 1024, req: false, value: it.remarks ?? "" })}
         ${isNew ? "" : metaHtml(it)}
         <div class="form-actions">${isNew ? "" : '<button class="btn btn-danger" type="button" id="del-btn">削除</button>'}<button class="btn btn-primary" type="submit">${isNew ? "追加" : "保存"}</button></div>
       </form>
@@ -1109,13 +1213,13 @@
     if (!rec) return notFound("保持の登録が見つかりません", back);
     const taken = D[R.recs].filter((x) => x.item === itemId && x.id !== hid).map((x) => x.staff);
     const fields = kind === "capabilities"
-      ? fieldRow({ id: "level", label: "習熟度", kind: "select", options: LEVELS.map((l) => [l, l]), value: rec.level })
-      : `${fieldRow({ id: "number", label: "登録番号", max: 20, value: rec.number })}${fieldRow({ id: "acquired", label: "取得日", kind: "date", value: rec.acquired })}${fieldRow({ id: "expires", label: "有効期限", kind: "date", req: false, value: rec.expires, after: "acquired" })}`;
+      ? fieldRow({ id: "level", label: "値（習熟度）", kind: "select", options: LEVELS.map((l) => [l, l]), value: rec.level })
+      : `${fieldRow({ id: "acquired", label: "適用開始", kind: "date", value: rec.acquired })}${fieldRow({ id: "expires", label: "適用終了", kind: "date", req: false, value: rec.expires, after: "acquired" })}`;
     return `${backLink(back, `${R.label}に戻る`)}
       <form class="card form" id="edit-form" data-kind="resHolder" data-res="${kind}" data-id="${hid}" data-pid="${itemId}" novalidate>
         <div class="err-sum" id="err-sum" role="alert" tabindex="-1" hidden></div>
         <dl><div class="kv"><dt>${R.label}</dt><dd>${esc(it.name)}</dd></div></dl>
-        ${fieldRow({ id: "staff", label: "作業者", kind: "select", options: D.employees.map((e) => [e.no, `${e.name}（${e.no}）`]), value: rec.staff, taken })}
+        ${fieldRow({ id: "staff", label: "担当者", kind: "select", options: D.employees.map((e) => [e.no, `${e.name}（${e.no}）`]), value: rec.staff, taken })}
         ${fields}
         ${isNew ? "" : metaHtml(rec)}
         <div class="form-actions">${isNew ? "" : '<button class="btn btn-danger" type="button" id="del-btn">削除</button>'}<button class="btn btn-primary" type="submit">${isNew ? "追加" : "保存"}</button></div>
@@ -1153,14 +1257,18 @@
       usedBy: (r) => sameMonthCount("inspItems", "kind", r.id) + sameMonthCount("inspOps", "kind", r.id),
       usedNote: "この区分は点検整備項目か運用台帳で使われているため削除できません。",
       fields: (r) => [
-        { id: "name", label: "区分名", max: 20, taken: D.inspKinds.filter((x) => x.id !== r.id).map((x) => x.name) },
+        { id: "code", label: "点検整備区分コード", max: 12, taken: D.inspKinds.filter((x) => x.id !== r.id).map((x) => x.code) },
+        { id: "name", label: "区分名称", max: 20, taken: D.inspKinds.filter((x) => x.id !== r.id).map((x) => x.name) },
+        { id: "reading", label: "読み", max: 60, req: false },
         { id: "cycle", label: "周期の目安", kind: "select", options: CYCLES.map((c) => [c, c]) },
-        { id: "desc", label: "説明", kind: "textarea", max: 120, req: false },
+        { id: "desc", label: "備考", kind: "textarea", max: 120, req: false },
       ],
       cols: [
-        { key: "name", label: "区分名", fixed: true, val: (r) => r.name },
+        { key: "code", label: "点検整備区分コード", val: (r) => r.code, html: (r) => `<span class="od-nowrap">${esc(r.code ?? "")}</span>` },
+        { key: "name", label: "区分名称", fixed: true, val: (r) => r.name },
+        { key: "reading", label: "読み", val: (r) => r.reading || "―" },
         { key: "cycle", label: "周期の目安", val: (r) => CYCLES.indexOf(r.cycle), html: (r) => esc(r.cycle) },
-        { key: "desc", label: "説明", val: (r) => r.desc || "―" },
+        { key: "desc", label: "備考", val: (r) => r.desc || "―" },
         numCol("items", "項目数", "inspItems", "kind", "件"),
       ],
     },
@@ -1170,14 +1278,24 @@
       usedBy: (r) => sameMonthCount("inspLines", "item", r.id) + sameMonthCount("inspSchDets", "item", r.id),
       usedNote: "この項目は運用明細か点検予定で使われているため削除できません。",
       fields: (r) => [
-        { id: "name", label: "項目名", max: 30, taken: D.inspItems.filter((x) => x.id !== r.id).map((x) => x.name) },
-        { id: "kind", label: "点検整備区分", kind: "select", options: D.inspKinds.map((k) => [k.id, k.name]) },
+        { id: "code", label: "点検コード", max: 16, taken: D.inspItems.filter((x) => x.id !== r.id).map((x) => x.code) },
+        { id: "name", label: "点検名称", max: 30, taken: D.inspItems.filter((x) => x.id !== r.id).map((x) => x.name) },
+        { id: "reading", label: "読み", max: 60, req: false },
+        { id: "kind", label: "点検区分", kind: "select", options: D.inspKinds.map((k) => [k.id, k.name]) },
+        { id: "base_date", label: "標準起算日", kind: "date", req: false },
+        { id: "time_interval", label: "標準間隔", max: 12, req: false },
+        { id: "external", label: "外部点検整備", kind: "select", options: [["はい", "はい"], ["いいえ", "いいえ"]] },
         { id: "part", label: "対象部位", max: 30 },
         { id: "criteria", label: "判定基準", kind: "textarea", max: 120, req: false },
       ],
       cols: [
-        { key: "name", label: "項目名", fixed: true, val: (r) => r.name },
-        { key: "kind", label: "点検整備区分", val: (r) => kindNm(r.kind) },
+        { key: "code", label: "点検コード", val: (r) => r.code, html: (r) => `<span class="od-nowrap">${esc(r.code ?? "")}</span>` },
+        { key: "name", label: "点検名称", fixed: true, val: (r) => r.name },
+        { key: "reading", label: "読み", val: (r) => r.reading || "―" },
+        { key: "kind", label: "点検区分", val: (r) => kindNm(r.kind) },
+        { key: "base_date", label: "標準起算日", val: (r) => r.base_date || "", html: (r) => `<span class="od-nowrap">${r.base_date ? fmtDate(r.base_date) : "―"}</span>` },
+        { key: "time_interval", label: "標準間隔", val: (r) => r.time_interval || "―" },
+        { key: "external", label: "外部点検整備", val: (r) => r.external || "いいえ" },
         { key: "part", label: "対象部位", val: (r) => r.part },
         numCol("formulas", "算式", "inspFormulas", "item", "件"),
       ],
@@ -1187,28 +1305,32 @@
       name: (r) => r.name,
       fields: (r) => [
         { id: "name", label: "算式名", max: 30 },
-        { id: "expr", label: "算式", max: 60 },
+        { id: "expr", label: "式", max: 60 },
         { id: "unit", label: "単位", max: 10, req: false },
         { id: "base", label: "基準値", kind: "number", req: false },
       ],
       cols: [
         { key: "name", label: "算式名", fixed: true, val: (r) => r.name },
-        { key: "expr", label: "算式", val: (r) => r.expr },
+        { key: "expr", label: "式", val: (r) => r.expr },
         { key: "unit", label: "単位", val: (r) => r.unit || "―" },
         { key: "base", label: "基準値", num: true, val: (r) => Number(r.base) || 0, html: (r) => (r.base === "" ? "―" : esc(r.base)) },
       ],
     },
     inspOp: {
       label: "設備点検整備運用", coll: "inspOps", prefix: "io", tab: "ops", children: "inspLine", parent: null,
-      name: (r) => `${eqNm(r.equip)} / ${kindNm(r.kind)}`,
+      name: (r) => r.name || `${eqNm(r.equip)} / ${kindNm(r.kind)}`,
       usedBy: (r) => sameMonthCount("inspSchs", "op", r.id),
       usedNote: "この運用は点検予定で使われているため削除できません。",
       fields: (r) => [
+        { id: "code", label: "点検整備運用コード", max: 12, taken: D.inspOps.filter((x) => x.id !== r.id).map((x) => x.code) },
+        { id: "name", label: "運用名称", max: 40 },
         { id: "equip", label: "設備", kind: "select", options: D.equipments.map((e) => [e.id, `${e.name}（${locPath(e.loc)}）`]) },
         { id: "kind", label: "点検整備区分", kind: "select", options: D.inspKinds.map((k) => [k.id, k.name]) },
         { id: "cycle", label: "周期", kind: "select", options: CYCLES.map((c) => [c, c]) },
       ],
       cols: [
+        { key: "code", label: "点検整備運用コード", val: (r) => r.code, html: (r) => `<span class="od-nowrap">${esc(r.code ?? "")}</span>` },
+        { key: "opname", label: "運用名称", val: (r) => r.name || "―" },
         { key: "equip", label: "設備", fixed: true, val: (r) => eqNm(r.equip) },
         { key: "kind", label: "点検整備区分", val: (r) => kindNm(r.kind) },
         { key: "cycle", label: "周期", val: (r) => CYCLES.indexOf(r.cycle), html: (r) => esc(r.cycle) },
@@ -1219,26 +1341,34 @@
       label: "点検整備運用明細", coll: "inspLines", prefix: "il", tab: "ops", children: null, parent: { ent: "inspOp", key: "op" },
       name: (r) => itemNm(r.item),
       fields: (r, p) => [
-        { id: "item", label: "点検整備項目", kind: "select", options: D.inspItems.map((i) => [i.id, `${i.name}（${kindNm(i.kind)}）`]), taken: D.inspLines.filter((x) => x.op === p.id && x.id !== r.id).map((x) => x.item) },
-        { id: "seq", label: "順序", kind: "number", max: 3 },
+        { id: "item", label: "点検整備", kind: "select", options: D.inspItems.map((i) => [i.id, `${i.name}（${kindNm(i.kind)}）`]), taken: D.inspLines.filter((x) => x.op === p.id && x.id !== r.id).map((x) => x.item) },
+        { id: "seq", label: "順", kind: "number", max: 3 },
+        { id: "commencement_date", label: "起算日", kind: "date", req: false },
+        { id: "time_interval", label: "間隔", max: 12, req: false },
         { id: "role", label: "担当の役職", kind: "select", req: false, blank: "指定なし", options: D.positions.map((x) => [x.id, x.name]) },
       ],
       cols: [
-        { key: "item", label: "点検整備項目", fixed: true, val: (r) => itemNm(r.item) },
-        { key: "seq", label: "順序", num: true, val: (r) => Number(r.seq) || 0, html: (r) => esc(r.seq) },
+        { key: "item", label: "点検整備", fixed: true, val: (r) => itemNm(r.item) },
+        { key: "seq", label: "順", num: true, val: (r) => Number(r.seq) || 0, html: (r) => esc(r.seq) },
         { key: "kind", label: "区分", val: (r) => kindNm(mGet("inspItems", r.item)?.kind) },
+        { key: "commencement_date", label: "起算日", val: (r) => r.commencement_date || "", html: (r) => `<span class="od-nowrap">${r.commencement_date ? fmtDate(r.commencement_date) : "―"}</span>` },
+        { key: "time_interval", label: "間隔", val: (r) => r.time_interval || "―" },
         { key: "role", label: "担当の役職", val: (r) => (r.role ? posName(r.role) : "―") },
       ],
     },
     inspSch: {
       label: "設備点検整備予定", coll: "inspSchs", prefix: "is", tab: "schedule", children: "inspSchDet", parent: null,
-      name: (r) => `${opNm(r.op)} ${monthFmt(r.month)}`,
+      name: (r) => r.title || `${opNm(r.op)} ${monthFmt(r.month)}`,
       fields: (r) => [
-        { id: "op", label: "運用（設備／区分）", kind: "select", options: D.inspOps.map((o) => [o.id, opNm(o.id)]) },
+        { id: "code", label: "管理コード", max: 16, taken: D.inspSchs.filter((x) => x.id !== r.id).map((x) => x.code) },
+        { id: "title", label: "予定名称", max: 40 },
+        { id: "op", label: "点検整備運用", kind: "select", options: D.inspOps.map((o) => [o.id, opNm(o.id)]) },
         { id: "month", label: "予定月", kind: "month" },
         { id: "status", label: "状態", kind: "select", options: SCH_STATUS.map((x) => [x, x]) },
       ],
       cols: [
+        { key: "code", label: "管理コード", val: (r) => r.code, html: (r) => `<span class="od-nowrap">${esc(r.code ?? "")}</span>` },
+        { key: "title", label: "予定名称", val: (r) => r.title || "―" },
         { key: "op", label: "設備／区分", fixed: true, val: (r) => opNm(r.op) },
         { key: "month", label: "予定月", val: (r) => r.month, html: (r) => `<span class="od-nowrap">${monthFmt(r.month)}</span>` },
         { key: "status", label: "状態", val: (r) => SCH_STATUS.indexOf(r.status), html: (r) => chip(r.status, SCH_CHIP[r.status][0], SCH_CHIP[r.status][1]) },
@@ -1253,13 +1383,15 @@
         const items = (op.length ? D.inspItems.filter((i) => op.includes(i.id)) : D.inspItems).map((i) => [i.id, i.name]);
         return [
           { id: "item", label: "点検整備項目", kind: "select", options: items },
-          { id: "date", label: "予定日", kind: "date" },
+          { id: "date", label: "開始予定日", kind: "date" },
+          { id: "end_date", label: "終了予定日", kind: "date", req: false },
           { id: "staff", label: "担当者", kind: "select", options: D.employees.map((e) => [e.no, `${e.name}（${e.no}）`]) },
         ];
       },
       cols: [
         { key: "item", label: "点検整備項目", fixed: true, val: (r) => itemNm(r.item) },
-        { key: "date", label: "予定日", val: (r) => r.date, html: (r) => `<span class="od-nowrap">${fmtDate(r.date)}</span>` },
+        { key: "date", label: "開始予定日", val: (r) => r.date, html: (r) => `<span class="od-nowrap">${fmtDate(r.date)}</span>` },
+        { key: "end_date", label: "終了予定日", val: (r) => r.end_date || "", html: (r) => `<span class="od-nowrap">${r.end_date ? fmtDate(r.end_date) : "―"}</span>` },
         { key: "staff", label: "担当者", val: (r) => staffName(r.staff) },
         { key: "done", label: "実施", val: (r) => cnt("inspRecs", "det")(r), html: (r) => (cnt("inspRecs", "det")(r) ? chip("実施済", "check", "ok") : chip("未実施", "", "mute")) },
       ],
@@ -1410,7 +1542,7 @@
       ? `<button class="tree-toggle" type="button" data-ltoggle="${l.id}" aria-expanded="${open}" aria-label="${esc(l.name)}を${open ? "縮小" : "展開"}">${icon("chevron")}</button>`
       : `<span class="tree-spacer" aria-hidden="true"></span>`;
     const handle = editMode ? `<button class="drag-handle" type="button" data-ldrag="${l.id}" aria-label="${esc(l.name)}をドラッグして親を付け替え（キーボードやタッチでは「親を変更」を使用）">${icon("grip")}</button>` : "";
-    const name = editMode ? `<a class="cell-link" href="#/locations/${l.id}">${esc(l.name)}</a>` : `<span class="tree-name">${esc(l.name)}</span>`;
+    const name = `<span class="muted od-nowrap tree-code">${esc(l.code ?? "")}</span> ` + (editMode ? `<a class="cell-link" href="#/locations/${l.id}">${esc(l.name)}</a>` : `<span class="tree-name">${esc(l.name)}</span>`) + (l.reading ? ` <span class="muted tree-reading">${esc(l.reading)}</span>` : "") + (l.available === "いいえ" ? ` ${chip("使用停止", "alert", "mute")}` : "");
     return `<li class="trow" role="treeitem" aria-level="${depth + 1}" ${n ? `aria-expanded="${open}"` : ""} ${editMode ? `data-ldrop="${l.id}"` : ""} style="--depth:${depth}">
       ${handle}${toggle}<span class="tree-main">${name}</span><span class="tree-tags">${chip(l.type, LOC_ICON[l.type])}${eq ? chip(`設備 ${eq}`, "factory", "mute") : ""}</span>${n ? `<span class="chip mute od-nowrap">配下 ${n}</span>` : ""}${editMode ? `<button class="btn tree-act" type="button" data-lreparent="${l.id}">親を変更</button>` : ""}</li>`;
   }
@@ -1448,7 +1580,7 @@
   }
   function locEditScreen(id) {
     const isNew = id === "new";
-    const l = isNew ? { name: "", type: "", parent: null, desc: "" } : locById(id);
+    const l = isNew ? { code: "", control_code: "", name: "", reading: "", type: "", parent: null, available: "はい", desc: "" } : locById(id);
     if (!l) return notFound("場所が見つかりません", "#/locations/edit");
     const banned = new Set(isNew ? [] : [id, ...locBelow(id)]);
     const parentOpts = locWalk().filter(({ l: x }) => !banned.has(x.id)).map(({ l: x, depth }) => [x.id, `${"　".repeat(depth)}${x.name}`]);
@@ -1456,10 +1588,14 @@
     return `${backLink("#/locations/edit", "一覧に戻る")}${flashHtml()}
       <form class="card form" id="edit-form" data-kind="loc" data-id="${id}" novalidate>
         <div class="err-sum" id="err-sum" role="alert" tabindex="-1" hidden></div>
-        ${fieldRow({ id: "name", label: "場所名", max: 30, value: l.name, taken: D.locations.filter((x) => x.id !== id).map((x) => x.name) })}
+        ${fieldRow({ id: "code", label: "場所コード", max: 12, value: l.code ?? "", taken: D.locations.filter((x) => x.id !== id).map((x) => x.code) })}
+        ${fieldRow({ id: "control_code", label: "管理コード", max: 20, req: false, value: l.control_code ?? "" })}
+        ${fieldRow({ id: "name", label: "場所名称", max: 30, value: l.name, taken: D.locations.filter((x) => x.id !== id).map((x) => x.name) })}
+        ${fieldRow({ id: "reading", label: "読み", max: 60, req: false, value: l.reading ?? "" })}
         ${fieldRow({ id: "type", label: "種別", kind: "select", options: LOC_TYPES.map((t) => [t, t]), value: l.type })}
         ${fieldRow({ id: "parent", label: "親の場所", kind: "select", req: false, blank: "最上位（親なし）", options: parentOpts, value: l.parent ?? "" })}
-        ${fieldRow({ id: "desc", label: "説明", kind: "textarea", max: 120, req: false, value: l.desc })}
+        ${fieldRow({ id: "available", label: "使用", kind: "select", options: [["はい", "はい"], ["いいえ", "いいえ"]], value: l.available ?? "はい" })}
+        ${fieldRow({ id: "desc", label: "備考", kind: "textarea", max: 120, req: false, value: l.desc })}
         ${isNew ? "" : metaHtml(l)}
         ${used ? `<p class="note" id="del-note">配下の場所か、置かれている設備があるため削除できません。先に移すか削除してください。</p>` : ""}
         <div class="form-actions">${isNew ? "" : `<button class="btn btn-danger" type="button" id="del-btn" ${used ? 'disabled aria-describedby="del-note"' : ""}>削除</button>`}<button class="btn btn-primary" type="submit">${isNew ? "追加" : "保存"}</button></div>
@@ -1474,24 +1610,30 @@
   const recOp = (r) => { const d = mGet("inspSchDets", r.det); const s = d && mGet("inspSchs", d.sch); return s?.op; };
   const recEquip = (r) => mGet("inspOps", recOp(r))?.equip;
   const eqCatT = makeTable({
-    key: "eqCat", list: () => D.eqCats, search: (r) => r.name + r.desc, placeholder: "分類名・説明", hidden: ["updatedBy", "updatedAt"],
+    key: "eqCat", list: () => D.eqCats, search: (r) => r.code + r.name + (r.reading ?? "") + r.desc, placeholder: "分類コード・分類名称・読み・備考", hidden: ["updatedBy", "updatedAt"],
     href: (r) => `#/equipment/cat/${r.id}`, pick: { get: () => eqSel.cat, set: (id) => { eqSel.cat = eqSel.cat === id ? null : id; } },
     cols: [
-      { key: "name", label: "分類名", fixed: true, val: (r) => r.name },
-      { key: "desc", label: "説明", val: (r) => r.desc || "―" },
+      { key: "code", label: "分類コード", val: (r) => r.code, html: (r) => `<span class="od-nowrap">${esc(r.code ?? "")}</span>` },
+      { key: "name", label: "分類名称", fixed: true, val: (r) => r.name },
+      { key: "reading", label: "読み", val: (r) => r.reading || "―" },
+      { key: "start_at", label: "適用開始", val: (r) => r.start_at, html: (r) => `<span class="od-nowrap">${r.start_at ? fmtDate(r.start_at) : "―"}</span>` },
+      { key: "stop_at", label: "適用終了", val: (r) => r.stop_at || "9999-12-31", html: (r) => `<span class="od-nowrap">${r.stop_at ? fmtDate(r.stop_at) : "―"}</span>` },
+      { key: "desc", label: "備考", val: (r) => r.desc || "―" },
       numCol("n", "設備数", "equipments", "cat", "台"),
       byCol, dateCol,
     ],
   });
   const eqT = makeTable({
     key: "equip", noun: "台", list: () => D.equipments.filter((e) => !eqSel.cat || e.cat === eqSel.cat),
-    search: (r) => r.code + r.name + locPath(r.loc), placeholder: "設備コード・設備名・場所", hidden: ["updatedBy", "updatedAt"],
+    search: (r) => r.code + (r.control_code ?? "") + r.name + locPath(r.loc), placeholder: "設備コード・管理コード・設備名・場所", hidden: ["updatedBy", "updatedAt"],
     filter: { label: "状態", values: EQ_STATUS, get: (r) => r.status }, href: (r) => `#/equipment/${r.id}`,
     cols: [
       { key: "code", label: "設備コード", val: (r) => r.code, html: (r) => `<span class="od-nowrap">${esc(r.code)}</span>` },
-      { key: "name", label: "設備名", fixed: true, val: (r) => r.name },
-      { key: "cat", label: "分類", val: (r) => catNm(r.cat) },
-      { key: "loc", label: "設置場所", val: (r) => locPath(r.loc) },
+      { key: "control_code", label: "管理コード", val: (r) => r.control_code, html: (r) => `<span class="od-nowrap">${esc(r.control_code ?? "")}</span>` },
+      { key: "label_code", label: "表示コード", val: (r) => r.label_code, html: (r) => `<span class="od-nowrap">${esc(r.label_code ?? "")}</span>` },
+      { key: "name", label: "設備名（品目）", fixed: true, val: (r) => r.name },
+      { key: "cat", label: "設備分類", val: (r) => catNm(r.cat) },
+      { key: "loc", label: "場所", val: (r) => locPath(r.loc) },
       { key: "installed", label: "設置日", val: (r) => r.installed, html: (r) => `<span class="od-nowrap">${fmtDate(r.installed)}</span>` },
       { key: "status", label: "状態", val: (r) => EQ_STATUS.indexOf(r.status), html: (r) => chip(r.status, EQ_CHIP[r.status][0], EQ_CHIP[r.status][1]) },
       byCol, dateCol,
@@ -1525,14 +1667,18 @@
   }
   function eqCatEditScreen(id) {
     const isNew = id === "new";
-    const c = isNew ? { name: "", desc: "" } : D.eqCats.find((x) => x.id === id);
+    const c = isNew ? { code: "", name: "", reading: "", start_at: "", stop_at: "", desc: "" } : D.eqCats.find((x) => x.id === id);
     if (!c) return notFound("設備の分類が見つかりません", "#/equipment/edit");
     const used = isNew ? 0 : D.equipments.filter((e) => e.cat === id).length;
     return `${backLink("#/equipment/edit", "一覧に戻る")}${flashHtml()}
       <form class="card form" id="edit-form" data-kind="eqCat" data-id="${id}" novalidate>
         <div class="err-sum" id="err-sum" role="alert" tabindex="-1" hidden></div>
-        ${fieldRow({ id: "name", label: "分類名", max: 20, value: c.name, taken: D.eqCats.filter((x) => x.id !== id).map((x) => x.name) })}
-        ${fieldRow({ id: "desc", label: "説明", kind: "textarea", max: 120, req: false, value: c.desc })}
+        ${fieldRow({ id: "code", label: "分類コード", max: 12, value: c.code ?? "", taken: D.eqCats.filter((x) => x.id !== id).map((x) => x.code) })}
+        ${fieldRow({ id: "name", label: "分類名称", max: 20, value: c.name, taken: D.eqCats.filter((x) => x.id !== id).map((x) => x.name) })}
+        ${fieldRow({ id: "reading", label: "読み", max: 60, req: false, value: c.reading ?? "" })}
+        ${fieldRow({ id: "start_at", label: "適用開始", kind: "date", req: false, value: c.start_at ?? "" })}
+        ${fieldRow({ id: "stop_at", label: "適用終了", kind: "date", req: false, value: c.stop_at ?? "", after: "start_at" })}
+        ${fieldRow({ id: "desc", label: "備考", kind: "textarea", max: 120, req: false, value: c.desc })}
         ${isNew ? "" : metaHtml(c)}
         ${used ? `<p class="note" id="del-note">この分類の設備が${used}台あるため削除できません。</p>` : ""}
         <div class="form-actions">${isNew ? "" : `<button class="btn btn-danger" type="button" id="del-btn" ${used ? 'disabled aria-describedby="del-note"' : ""}>削除</button>`}<button class="btn btn-primary" type="submit">${isNew ? "追加" : "保存"}</button></div>
@@ -1540,7 +1686,7 @@
   }
   function equipmentEditScreen(id) {
     const isNew = id === "new";
-    const e = isNew ? { code: "", name: "", cat: "", loc: "", installed: "", status: "" } : D.equipments.find((x) => x.id === id);
+    const e = isNew ? { code: "", control_code: "", label_code: "", name: "", cat: "", loc: "", installed: "", status: "" } : D.equipments.find((x) => x.id === id);
     if (!e) return notFound("設備が見つかりません", "#/equipment/edit");
     if (eqSel.equip !== id) { eqSel.equip = id; eqSel.op = null; }
     const used = isNew ? 0 : D.inspOps.filter((o) => o.equip === id).length;
@@ -1553,9 +1699,11 @@
       <form class="card form" id="edit-form" data-kind="equip" data-id="${id}" novalidate>
         <div class="err-sum" id="err-sum" role="alert" tabindex="-1" hidden></div>
         ${fieldRow({ id: "code", label: "設備コード", max: 12, value: e.code, taken: D.equipments.filter((x) => x.id !== id).map((x) => x.code) })}
-        ${fieldRow({ id: "name", label: "設備名", max: 40, value: e.name })}
-        ${fieldRow({ id: "cat", label: "分類", kind: "select", options: D.eqCats.map((c) => [c.id, c.name]), value: e.cat })}
-        ${fieldRow({ id: "loc", label: "設置場所", kind: "select", options: locWalk().map(({ l, depth }) => [l.id, `${"　".repeat(depth)}${l.name}（${l.type}）`]), value: e.loc })}
+        ${fieldRow({ id: "control_code", label: "管理コード", max: 20, req: false, value: e.control_code ?? "" })}
+        ${fieldRow({ id: "label_code", label: "表示コード", max: 20, req: false, value: e.label_code ?? "" })}
+        ${fieldRow({ id: "name", label: "設備名（品目）", max: 40, value: e.name })}
+        ${fieldRow({ id: "cat", label: "設備分類", kind: "select", options: D.eqCats.map((c) => [c.id, c.name]), value: e.cat })}
+        ${fieldRow({ id: "loc", label: "場所", kind: "select", options: locWalk().map(({ l, depth }) => [l.id, `${"　".repeat(depth)}${l.name}（${l.type}）`]), value: e.loc })}
         ${fieldRow({ id: "installed", label: "設置日", kind: "date", value: e.installed })}
         ${fieldRow({ id: "status", label: "状態", kind: "select", options: EQ_STATUS.map((s) => [s, s]), value: e.status })}
         ${isNew ? "" : metaHtml(e)}
@@ -1574,8 +1722,8 @@
     if (kind === "loc") {
       const parent = v.parent || null;
       if (parent) { locView.open.add(parent); locView.loaded.add(parent); }
-      if (id === "new") D.locations.push({ id: nextId("l", D.locations), name: v.name, type: v.type, parent, desc: v.desc, ...stamp });
-      else Object.assign(locById(id), { name: v.name, type: v.type, parent, desc: v.desc }, stamp);
+      if (id === "new") D.locations.push({ id: nextId("l", D.locations), code: v.code, control_code: v.control_code, name: v.name, reading: v.reading, type: v.type, parent, available: v.available, desc: v.desc, ...stamp });
+      else Object.assign(locById(id), { code: v.code, control_code: v.control_code, name: v.name, reading: v.reading, type: v.type, parent, available: v.available, desc: v.desc }, stamp);
       flash = `場所「${v.name}」を${id === "new" ? "追加" : "保存"}しました。`;
       return "#/locations/edit";
     }
@@ -1590,6 +1738,22 @@
       else Object.assign(D.equipments.find((x) => x.id === id), v, stamp);
       flash = `設備「${v.name}」を${id === "new" ? "追加" : "保存"}しました。`;
       return "#/equipment/edit";
+    }
+    if (kind === "gEnt") {
+      const E = G[ent];
+      const back = form.dataset.back;
+      if (id === "new") {
+        const n = { id: nextId(E.key, D[E.coll]), ...(E.parent ? { [E.parent.key]: pid || v[E.parent.key] } : {}), ...v, ...stamp };
+        if (E.tree) { n.parent = v.parent || ""; if (n.parent) { gTree.open.add(n.parent); gTree.loaded.add(n.parent); } }
+        D[E.coll].push(n);
+        flash = `${E.label}「${gName(E, n)}」を追加しました。${E.children.length ? "続けて関連する情報を登録できます。" : ""}`;
+        return E.children.length ? `#/g/e/${ent}/${n.id}` : back;
+      }
+      const r = gGet(ent, id);
+      Object.assign(r, v, stamp);
+      if (E.tree) r.parent = v.parent || "";
+      flash = `${E.label}「${gName(E, r)}」を保存しました。`;
+      return back;
     }
     if (kind === "mEnt") {
       const E = ENT[ent];
@@ -1679,7 +1843,7 @@
       return "#/company/edit";
     }
     if (kind === "staff") {
-      const person = { name: v.name, site: v.site, type: v.type, dept: v.dept || "" };
+      const person = { name: v.name, reading: v.reading, sex: v.sex, phone: v.phone, private_phone: v.private_phone, remarks: v.remarks, site: v.site, type: v.type, dept: v.dept || "" };
       if (id === "new") {
         const caps = staffItems("caps", "new");
         const lics = staffItems("lics", "new");
@@ -1708,12 +1872,12 @@
       deptDraft = null;
       if (parent) { deptView.open.add(parent); deptView.loaded.add(parent); }
       if (id === "new") {
-        const n = { id: nextId("d", D.departments), name: v.name, parent, kinds: newKinds, ...stamp };
+        const n = { id: nextId("d", D.departments), code: v.code, name: v.name, reading: v.reading, office: v.office, parent, kinds: newKinds, ...stamp };
         D.departments.push(n);
         flash = `部署「${v.name}」を追加しました。`;
         return `#/departments/${n.id}`;
       }
-      Object.assign(deptById(id), { name: v.name, parent }, stamp);
+      Object.assign(deptById(id), { code: v.code, name: v.name, reading: v.reading, office: v.office, parent }, stamp);
       flash = `部署「${v.name}」を保存しました。`;
       return "#/departments/edit";
     }
@@ -1773,6 +1937,15 @@
       const e = D.equipments.find((x) => x.id === id);
       confirmSheet(trigger, { title: `設備「${e.name}」を削除しますか？`, text: "元に戻せません。", okLabel: "削除する",
         onOk: () => { D.equipments.splice(D.equipments.indexOf(e), 1); flash = `設備「${e.name}」を削除しました。`; location.hash = "#/equipment/edit"; } });
+      return;
+    }
+    if (kind === "gEnt") {
+      const E = G[ent];
+      const r = gGet(ent, id);
+      const n = gCountBelow(ent, id);
+      const nm = gName(E, r);
+      confirmSheet(trigger, { title: `${E.label}「${nm}」を削除しますか？`, text: n ? `配下の関連情報${n}件も削除されます。元に戻せません。` : "元に戻せません。", okLabel: "削除する",
+        onOk: () => { const back = form.dataset.back; gRemove(ent, id); flash = `${E.label}「${nm}」を削除しました。`; location.hash = back; } });
       return;
     }
     if (kind === "mEnt") {
@@ -1893,7 +2066,9 @@
   const SITE_TYPES = ["本社", "工場", "物流", "営業所"];
   const SITE_ICONS = { "本社": "building", "工場": "factory", "物流": "truck", "営業所": "office" };
   const SITE_COLS = [
-    { key: "name", label: "事業所名", fixed: true },
+    { key: "code", label: "事業所コード" },
+    { key: "name", label: "事業所名称", fixed: true },
+    { key: "reading", label: "読み" },
     { key: "type", label: "種別" },
     { key: "address", label: "所在地" },
     { key: "people", label: "在籍人数", num: true },
@@ -1909,7 +2084,7 @@
   };
   const siteRows = () => {
     const v = siteView;
-    let list = D.sites.filter((s) => (v.type === "すべて" || s.type === v.type) && (!v.q || (s.name + s.address).includes(v.q)));
+    let list = D.sites.filter((s) => (v.type === "すべて" || s.type === v.type) && (!v.q || (s.name + s.address + s.code + s.reading).includes(v.q)));
     if (v.sort.key) list = [...list].sort((a, b) => v.sort.dir * siteCmp(v.sort.key)(a, b));
     return list;
   };
@@ -1945,7 +2120,7 @@
     return `${backLink(editMode ? "#/sites" : "#/company", editMode ? "閲覧に戻る" : "会社情報に戻る")}${flashHtml()}
       <section class="card cust-tools" aria-label="検索と絞り込み">
         <div class="field-row"><label for="tbl-q">事業所を検索</label>
-          <div class="search-box">${icon("search")}<input id="tbl-q" type="search" value="${esc(v.q)}" placeholder="事業所名・所在地" autocomplete="off"></div></div>
+          <div class="search-box">${icon("search")}<input id="tbl-q" type="search" value="${esc(v.q)}" placeholder="事業所コード・事業所名称・読み・所在地" autocomplete="off"></div></div>
         ${filterBar("種別", "tbl", ["すべて", ...SITE_TYPES], v.type)}
         <div class="field-row sort-select"><label for="tbl-sort">並べ替え</label><select id="tbl-sort">${sortOpts}</select></div>
         <details class="col-menu" ${v.colsOpen ? "open" : ""}><summary class="btn">表示する列</summary><div class="col-list">${colOpts}</div></details>
@@ -1957,13 +2132,15 @@
   }
   function officeEditScreen(id) {
     const isNew = id === "new";
-    const s = isNew ? { name: "", type: "", address: "", people: 0 } : D.sites.find((x) => x.id === id);
+    const s = isNew ? { code: "", name: "", reading: "", type: "", address: "", people: 0 } : D.sites.find((x) => x.id === id);
     if (!s) return notFound("事業所が見つかりません", "#/sites/edit");
     const locked = s.people > 0;
     return `${backLink("#/sites/edit", "一覧に戻る")}
       <form class="card form" id="edit-form" data-kind="office" data-id="${id}" novalidate>
         <div class="err-sum" id="err-sum" role="alert" tabindex="-1" hidden></div>
-        ${fieldRow({ id: "name", label: "事業所名", max: 30, value: s.name, taken: D.sites.filter((x) => x.id !== id).map((x) => x.name) })}
+        ${fieldRow({ id: "code", label: "事業所コード", max: 10, value: s.code ?? "", taken: D.sites.filter((x) => x.id !== id).map((x) => x.code) })}
+        ${fieldRow({ id: "name", label: "事業所名称", max: 30, value: s.name, taken: D.sites.filter((x) => x.id !== id).map((x) => x.name) })}
+        ${fieldRow({ id: "reading", label: "読み", max: 60, req: false, value: s.reading ?? "" })}
         ${fieldRow({ id: "type", label: "種別", kind: "select", options: SITE_TYPES.map((t) => [t, t]), value: s.type })}
         ${fieldRow({ id: "address", label: "所在地", kind: "textarea", max: 120, value: s.address })}
         ${isNew ? "" : `<dl class="meta" aria-label="編集できない項目">
@@ -1995,8 +2172,9 @@
       inner = `<div class="logout-icon">${icon("check")}</div>
         <h1>ログアウトしました</h1>
         <p>再度ご利用の際は、外部認証（OAuth）でサインインしてください。</p>
-        <div class="logout-actions"><button class="btn btn-primary" type="button" id="resignin">外部認証でサインイン</button></div>
-        <p class="note">プロトタイプでは、サインイン後の戻り先として会社情報を表示します。</p>`;
+        <p class="note" aria-live="polite"><span id="lo-count">5</span>秒後にログイン画面へ移動します。</p>
+        <div class="logout-actions"><button class="btn btn-primary" type="button" id="resignin">今すぐログイン画面へ</button></div>
+        <p class="note">セッションが切れたときも、この画面を表示します。</p>`;
     } else {
       inner = `<div class="logout-icon">${icon("logout")}</div>
         <h1>ログアウトしますか？</h1>
@@ -2009,13 +2187,451 @@
     return `<div class="logout-wrap"><section class="card logout-card" aria-live="polite">${inner}</section></div>`;
   }
 
+  /* ---------- generic domain screens (declared in domains.js) ----------
+     Every ledger is one entity: a table (テーブル構造) or tree (ツリー構造) page, plus an edit page (編集構造)
+     whose child entities are listed below the form. Routes: #/g/<screen>[/<tab>][/edit], #/g/e/<entity>/<id|new>[/<parentId>] */
+  const DOM = window.OD_DOMAINS ?? { entities: [], screens: [], groups: [] };
+  const G = {};
+  const GS = {};
+  const gSel = {}; // selected row per entity in view mode (master -> detail chain)
+  const FK = { t: "input", x: "textarea", n: "number", d: "date", s: "select", r: "select" };
+  const G_CHIP = { "高": "bad", "中": "warn", "低": "mute", "受付": "mute", "対応中": "line", "完了": "ok", "有効": "ok", "継続監視": "warn", "無効": "mute" };
+  DOM.entities.forEach((e) => {
+    G[e.key] = { ...e, coll: `g_${e.key}`, children: [],
+      fields: e.fields.map(([id, label, kind = "t", x = {}]) => ({ id, label, kind, req: x.req !== false, opts: x.opts, ref: x.ref })) };
+  });
+  DOM.entities.forEach((e) => { if (e.parent) G[e.parent.ent].children.push(e.key); });
+  DOM.screens.forEach((s) => {
+    GS[s.id] = { ...s, tabs: s.tabs.map(([id, label, root]) => ({ id, label, root })) };
+    GS[s.id].tabs.forEach((t) => { const E = G[t.root]; if (!E.screen) { E.screen = s.id; E.tab = t.id; } });
+  });
+  const gTree = { open: new Set(), loaded: new Set(), loading: new Set() };
+  Object.values(G).forEach((E) => {
+    D[E.coll] = (E.rows ?? []).map((row, i) => {
+      const a = [...row];
+      const r = { id: `${E.key}${i + 1}` };
+      if (E.parent) r[E.parent.key] = a.shift();
+      E.fields.forEach((f) => { r[f.id] = a.shift() ?? ""; });
+      if (E.tree) r.parent = a.shift() ?? "";
+      return { ...r, updatedBy: "鈴木 一郎", updatedAt: "2026年9月30日" };
+    });
+    if (E.tree) D[E.coll].filter((r) => !r.parent).forEach((r) => { gTree.open.add(r.id); gTree.loaded.add(r.id); });
+  });
+  const gGet = (k, id) => D[G[k].coll].find((x) => x.id === id);
+  const gRefOpts = (f) => {
+    if (f.ref.startsWith("@")) { const [c, i, l] = f.ref.slice(1).split(":"); return D[c].map((r) => [r[i], r[l]]); }
+    const R = G[f.ref];
+    return D[R.coll].map((r) => [r.id, gName(R, r)]);
+  };
+  const gShow = (f, v) => {
+    if (f.kind === "r") return v ? gRefOpts(f).find(([i]) => i === v)?.[1] ?? "（削除済み）" : "―";
+    if (f.kind === "d") return v ? fmtDate(v) : "―";
+    if (f.kind === "n") return v === "" || v == null ? "―" : fmt(Number(v));
+    return v || "―";
+  };
+  const gName = (E, r) => { const k = E.fields.filter((f) => ["code", "no", "name", "title"].includes(f.id)).slice(0, 2); return (k.length ? k : [E.fields[0]]).map((f) => String(gShow(f, r[f.id]))).filter((x) => x && x !== "―").join(" ") || "―"; };
+  const gScr = (E) => E.screen ?? (E.parent ? gScr(G[E.parent.ent]) : "");
+  const gTab = (E) => E.tab ?? (E.parent ? gTab(G[E.parent.ent]) : "");
+  const gGroupOf = (sid) => DOM.groups.find((g) => g.screens.includes(sid));
+  function gCrumb() {
+    const P = parseRoute();
+    const sid = P.name === "g" ? P.sid : P.name === "g/entity" && G[P.ent] ? gScr(G[P.ent]) : null;
+    if (!sid || !GS[sid]) return D.company.name;
+    return `${gGroupOf(sid)?.label ?? ""}${P.name === "g/entity" ? ` › ${GS[sid].label} › 編集` : P.edit ? ` › ${GS[sid].label} › 編集` : ""}`;
+  }
+  const gCurScreen = () => {
+    const P = parseRoute();
+    return P.name === "g" ? P.sid : P.name === "g/entity" && G[P.ent] ? gScr(G[P.ent]) : null;
+  };
+  const gCtx = (E) => { const P = parseRoute(); return P.name === "g/entity" && P.ent === E.parent.ent ? P.id : gSel[E.parent.ent]; };
+  function gSelect(k, id) { gSel[k] = id; G[k].children.forEach((c) => gSelect(c, null)); }
+  const gCols = (E) => [
+    ...E.fields.map((f, i) => ({
+      key: f.id, label: f.label, fixed: i === 0, num: f.kind === "n",
+      val: (r) => (f.kind === "n" ? Number(r[f.id]) || 0 : f.kind === "s" ? f.opts.indexOf(r[f.id]) : f.kind === "d" ? r[f.id] : String(gShow(f, r[f.id]))),
+      html: (r) => (f.kind === "s" && r[f.id] ? chip(esc(r[f.id]), "", G_CHIP[r[f.id]] ?? "") : f.kind === "d" ? `<span class="od-nowrap">${esc(gShow(f, r[f.id]))}</span>` : esc(gShow(f, r[f.id]))),
+    })),
+    ...E.children.map((c) => numCol(`c_${c}`, G[c].label, G[c].coll, G[c].parent.key, "件")),
+    byCol, dateCol,
+  ];
+  Object.values(G).forEach((E) => {
+    if (E.tree) return;
+    const mk = (root) => makeTable({
+      key: `${root ? "gr" : "g"}_${E.key}`, hidden: ["updatedBy", "updatedAt"], placeholder: "名称などで検索",
+      list: root || !E.parent ? () => D[E.coll] : () => D[E.coll].filter((r) => r[E.parent.key] === gCtx(E)),
+      search: (r) => E.fields.map((f) => gShow(f, r[f.id])).join(" "),
+      href: (r) => `#/g/e/${E.key}/${r.id}`,
+      pick: E.children.length ? { get: () => gSel[E.key], set: (id) => gSelect(E.key, id) } : null,
+      cols: gCols(E),
+    });
+    E.table = mk(false);
+    E.rootTable = mk(true);
+  });
+
+  /* tree structure: parent / child indent, lazy expand, drag & drop re-parenting (edit mode) */
+  const gKids = (E, id, owner) => D[E.coll].filter((r) => (r.parent || "") === id && (owner == null || !E.parent || r[E.parent.key] === owner));
+  const gBelow = (E, id) => gKids(E, id).flatMap((c) => [c.id, ...gBelow(E, c.id)]);
+  const gVisible = (E, owner, pid = "", depth = 0) => gKids(E, pid, owner).flatMap((r) => {
+    const out = [{ r, depth }];
+    if (gTree.open.has(r.id)) out.push(...(gTree.loading.has(r.id) ? [{ loading: true, depth: depth + 1 }] : gVisible(E, owner, r.id, depth + 1)));
+    return out;
+  });
+  const gWalkAll = (E, owner, pid = "", depth = 0) => gKids(E, pid, owner).flatMap((r) => [{ r, depth }, ...gWalkAll(E, owner, r.id, depth + 1)]);
+  function gTreeRow(E, it, edit, owner) {
+    if (it.loading) return `<li class="trow skeleton" role="status" style="--depth:${it.depth}"><span class="skel-bar" aria-hidden="true"></span><span class="muted">読み込み中…</span></li>`;
+    const { r, depth } = it;
+    const nm = gName(E, r);
+    const n = gKids(E, r.id, owner).length;
+    const open = gTree.open.has(r.id);
+    const toggle = n
+      ? `<button class="tree-toggle" type="button" data-gtoggle="${r.id}" data-gent="${E.key}" aria-expanded="${open}" aria-label="${esc(nm)}を${open ? "縮小" : "展開"}">${icon("chevron")}</button>`
+      : `<span class="tree-spacer" aria-hidden="true"></span>`;
+    const handle = edit ? `<button class="drag-handle" type="button" data-gdrag="${r.id}" data-gent="${E.key}" aria-label="${esc(nm)}をドラッグして親を付け替え（キーボードやタッチでは編集ページの「親」を使用）">${icon("grip")}</button>` : "";
+    const sel = !edit && gSel[E.key] === r.id;
+    const name = edit ? `<a class="cell-link" href="#/g/e/${E.key}/${r.id}">${esc(nm)}</a>`
+      : E.children.length ? `<button class="pick-btn" type="button" data-gpick="${r.id}" data-gent="${E.key}" aria-pressed="${sel}">${esc(nm)}</button>` : `<span class="tree-name">${esc(nm)}</span>`;
+    const tags = E.fields.slice(1, 3).filter((f) => f.kind === "r" || f.kind === "s").map((f) => chip(esc(String(gShow(f, r[f.id]))), "", f.kind === "s" ? G_CHIP[r[f.id]] ?? "" : "")).join("");
+    return `<li class="trow ${sel ? "is-sel" : ""}" role="treeitem" aria-level="${depth + 1}" ${n ? `aria-expanded="${open}"` : ""} ${edit ? `data-gdrop="${r.id}"` : ""} style="--depth:${depth}">
+      ${handle}${toggle}<span class="tree-main">${name}</span><span class="tree-tags">${tags}</span>${n ? `<span class="chip mute od-nowrap">配下 ${n}</span>` : ""}</li>`;
+  }
+  const gTreeCard = (E, edit, title, action, owner) => {
+    const rows = gVisible(E, owner);
+    const total = D[E.coll].filter((r) => owner == null || !E.parent || r[E.parent.key] === owner).length;
+    return `<section class="card tbl-card" aria-labelledby="h-g-${E.key}" data-gtree="${E.key}">
+      <div class="sec-head tbl-head"><h2 class="sec-title" id="h-g-${E.key}">${title}</h2>${action}</div>
+      <p class="tbl-note">全${total}件${edit ? "。ハンドルをドラッグして親にしたい行へ重ねると付け替えられます。名称を選ぶと編集できます。" : E.children.length ? "。名称を選ぶと、下に関連する情報を表示します。" : "。"}</p>
+      ${edit ? `<div class="root-drop" data-gdrop="root">最上位にする場合は、ここにドロップ</div>` : ""}
+      ${rows.length ? `<ul class="tree" role="tree" aria-label="${esc(E.label)}のツリー">${rows.map((it) => gTreeRow(E, it, edit, owner)).join("")}</ul>` : emptyState(`${E.label}がありません`, "「追加」ボタンから登録してください。")}
+    </section>`;
+  };
+  const gBlock = (E, edit, title, action, root) => (E.tree
+    ? gTreeCard(E, edit, title, action, root || !E.parent ? null : gCtx(E))
+    : tableCard(root ? E.rootTable : E.table, edit, `h-g-${E.key}`, title, action));
+  const gTabBar = (S, cur, edit) => (S.tabs.length < 2 ? "" : `<div class="tabs" role="tablist" aria-label="${esc(S.label)}">${S.tabs.map((t) =>
+    `<a role="tab" class="tab" id="tab-${t.id}" href="#/g/${S.id}/${t.id}${edit ? "/edit" : ""}" aria-selected="${t.id === cur}" tabindex="${t.id === cur ? 0 : -1}">${esc(t.label)}</a>`).join("")}</div>`);
+  function gWalk(k) {
+    const E = G[k];
+    const rec = gSel[k] ? gGet(k, gSel[k]) : null;
+    if (!rec) { gSel[k] = null; return ""; }
+    return E.children.map((c) => gBlock(G[c], false, `「${esc(gName(E, rec))}」の${G[c].label}`, "") + gWalk(c)).join("");
+  }
+  function gScreen(sid, tabId, edit) {
+    const S = GS[sid];
+    if (!S) return notFound("画面が見つかりません", "#/menu");
+    const tab = S.tabs.find((t) => t.id === tabId) ?? S.tabs[0];
+    const E = G[tab.root];
+    const base = `#/g/${sid}/${tab.id}`;
+    const body = edit
+      ? gBlock(E, true, `${E.label}の一覧`, `<a class="btn" href="#/g/e/${E.key}/new">${icon("plus")}<span>${E.label}を追加</span></a>`, true)
+      : gBlock(E, false, `${E.label}の一覧`, editLink(`${base}/edit`, tab.label), true) +
+        (gSel[E.key] ? gWalk(E.key) : E.children.length ? `<section class="card">${emptyState(`${E.label}を選んでください`, `上の一覧で${E.label}の名称を選ぶと、${E.children.map((c) => G[c].label).join("・")}がここに表示されます。`)}</section>` : "");
+    return `${backLink(edit ? base : "#/menu", edit ? "閲覧に戻る" : "メニューに戻る")}${flashHtml()}
+      ${gTabBar(S, tab.id, edit)}
+      <div class="tab-panel" ${S.tabs.length > 1 ? `role="tabpanel" aria-labelledby="tab-${tab.id}"` : ""}>${body}</div>`;
+  }
+  let gPrev = "";
+  function gEntityScreen(ent, id, parentId) {
+    const E = G[ent];
+    if (!E) return notFound("画面が見つかりません", "#/menu");
+    const isNew = id === "new";
+    const rec = isNew ? { id: "new" } : gGet(ent, id);
+    const home = `#/g/${gScr(E)}/${gTab(E)}/edit`;
+    if (!rec) return notFound(`${E.label}が見つかりません`, home);
+    const pid = E.parent ? (isNew ? parentId : rec[E.parent.key]) : null;
+    const P = pid ? gGet(E.parent.ent, pid) : null;
+    if (pid && !P) return notFound(`${G[E.parent.ent].label}が見つかりません`, home);
+    const back = P && (!E.screen || gPrev.includes(`#/g/e/${E.parent.ent}/${pid}`)) ? `#/g/e/${E.parent.ent}/${pid}` : home;
+    const rows = [];
+    if (E.parent && !pid) rows.push(fieldRow({ id: E.parent.key, label: G[E.parent.ent].label, kind: "select", options: gRefOpts({ ref: E.parent.ent }), value: "" }));
+    E.fields.forEach((f) => rows.push(fieldRow({
+      id: f.id, label: f.label, kind: FK[f.kind], max: f.kind === "x" ? 200 : 60, req: f.req,
+      options: f.kind === "s" ? f.opts.map((o) => [o, o]) : f.kind === "r" ? gRefOpts(f) : [], value: String(rec[f.id] ?? ""),
+    })));
+    if (E.tree) {
+      const owner = E.parent ? pid : null;
+      const banned = new Set(isNew ? [] : [id, ...gBelow(E, id)]);
+      const opts = gWalkAll(E, owner).filter(({ r }) => !banned.has(r.id)).map(({ r, depth }) => [r.id, `${"　".repeat(depth)}${gName(E, r)}`]);
+      rows.push(fieldRow({ id: "parent", label: "親", kind: "select", req: false, blank: "最上位（親なし）", options: opts, value: String(rec.parent ?? "") }));
+    }
+    const kids = isNew ? "" : E.children.map((c) => {
+      const C = G[c];
+      return gBlock(C, true, `${C.label}の一覧`, `<a class="btn" href="#/g/e/${c}/new/${id}">${icon("plus")}<span>${C.label}を追加</span></a>`);
+    }).join("");
+    return `${backLink(back, "一つ前に戻る")}${flashHtml()}
+      <form class="card form" id="edit-form" data-kind="gEnt" data-ent="${ent}" data-id="${id}" data-pid="${pid ?? ""}" data-back="${back}" novalidate>
+        <div class="err-sum" id="err-sum" role="alert" tabindex="-1" hidden></div>
+        ${P ? `<dl><div class="kv"><dt>${G[E.parent.ent].label}</dt><dd>${esc(gName(G[E.parent.ent], P))}</dd></div></dl>` : ""}
+        ${rows.join("")}
+        ${isNew ? "" : metaHtml(rec)}
+        <div class="form-actions">${isNew ? "" : `<button class="btn btn-danger" type="button" id="del-btn">削除</button>`}<button class="btn btn-primary" type="submit">${isNew ? "追加" : "保存"}</button></div>
+      </form>
+      ${isNew ? (E.children.length ? `<p class="tbl-note-out">${E.label}を追加すると、続けて${E.children.map((c) => G[c].label).join("・")}を登録できます。</p>` : "") : kids}`;
+  }
+  function gRemove(k, id) {
+    const E = G[k];
+    if (E.tree) gBelow(E, id).forEach((c) => gRemove(k, c));
+    E.children.forEach((c) => D[G[c].coll].filter((x) => x[G[c].parent.key] === id).forEach((x) => gRemove(c, x.id)));
+    D[E.coll] = D[E.coll].filter((x) => x.id !== id);
+    if (gSel[k] === id) gSelect(k, null);
+  }
+  const gCountBelow = (k, id) => {
+    const E = G[k];
+    const sub = E.tree ? gBelow(E, id).length : 0;
+    return sub + E.children.reduce((n, c) => n + D[G[c].coll].filter((x) => x[G[c].parent.key] === id).reduce((m, x) => m + 1 + gCountBelow(c, x.id), 0), 0);
+  };
+  function moveG(E, r, target) {
+    r.parent = target || "";
+    r.updatedBy = D.user.name;
+    r.updatedAt = TODAY;
+    if (target) { gTree.open.add(target); gTree.loaded.add(target); }
+    flash = `「${gName(E, r)}」を「${target ? gName(E, gGet(E.key, target)) : "最上位"}」の配下に移しました。`;
+    render();
+  }
+  /* entry list of every business screen (used by the 業務メニュー page, mainly for phones) */
+  function menuScreen() {
+    const row = (href, ic, label, sub) => `<a class="rowi" href="${href}"><span class="rowi-main"><span class="rowi-name">${icon(ic)}${label}</span><span class="rowi-sub">${sub}</span></span><span class="rowi-right">${icon("chevron")}</span></a>`;
+    return DOM.groups.map((g) => `<section class="card list-card" aria-labelledby="mg-${g.id}"><h2 class="sec-title menu-title" id="mg-${g.id}">${icon(g.icon)}${g.label}</h2>${g.screens.map((sid) => {
+      const S = GS[sid];
+      return row(`#/g/${sid}`, S.icon, S.label, S.tabs.map((t) => t.label).join("・"));
+    }).join("")}</section>`).join("") +
+      `<section class="card list-card" aria-label="アプリケーション">${row("#/settings", "gear", "設定", "自分のイメージ・読込件数・テーマ・言語・画面の列")}</section>`;
+  }
+
+  /* ---------- AppCore: boot / login / error / settings ---------- */
+  let loginMsg = "";
+  let gErr = { title: "認証サーバーに接続できません", msg: "ネットワークの状態を確認して、もう一度お試しください。", code: "KC-503" };
+  const bootScreen = () => `<div class="logout-wrap"><section class="card logout-card" aria-live="polite">
+      <div class="spinner" role="status" aria-label="読み込み中"></div><h1>生産管理を起動しています…</h1><p>データと設定を読み込んでいます。</p>
+      <div class="progress" aria-hidden="true"><span></span></div></section></div>`;
+  const loginScreen = () => `<div class="logout-wrap"><section class="card logout-card login-card" aria-labelledby="login-h">
+      <div class="logout-icon">${icon("emblem")}</div>
+      <h1 id="login-h">生産管理にサインイン</h1>
+      <div class="kc-frame" role="group" aria-label="認証サーバーの画面（内部ブラウザ）">
+        <div class="kc-bar"><span class="kc-lock" aria-hidden="true">${icon("check")}</span><span class="kc-url od-truncate">https://auth.example.test/realms/pms</span></div>
+        <form class="kc-form" id="login-form" novalidate>
+          ${loginMsg ? `<p class="login-err" role="alert" id="login-err">${icon("alert")}<span>${esc(loginMsg)}</span></p>` : ""}
+          <div class="field-row"><label for="lg-user">ユーザー名<span class="req">必須</span></label><input id="lg-user" name="user" autocomplete="username" value="suzuki.ichiro" required></div>
+          <div class="field-row"><label for="lg-pass">パスワード<span class="req">必須</span></label><input id="lg-pass" name="pass" type="password" autocomplete="current-password" value="demo-password" required></div>
+          <button class="btn btn-primary" type="submit" id="login-btn">ログイン</button>
+        </form>
+      </div>
+      <p class="note">プロトタイプでは、初期値のまま「ログイン」で進めます。パスワードを変えると、ログイン失敗の表示を確認できます。</p>
+      <a class="btn" href="#/error" data-err="conn">認証サーバーに接続できないときの画面</a>
+    </section></div>`;
+  const errorScreen = () => `<div class="logout-wrap"><section class="card logout-card" role="alert">
+      <div class="logout-icon err">${icon("alert")}</div><h1>${esc(gErr.title)}</h1><p>${esc(gErr.msg)}</p>
+      <p class="note">エラーコード：<span class="od-nowrap">${esc(gErr.code)}</span></p>
+      <div class="logout-actions"><a class="btn btn-primary" href="#/login">ログイン画面へ</a></div></section></div>`;
+  const SETTINGS = { theme: "system", lang: "ja-JP", pageSize: 50 };
+  const DEFAULT_PHOTO = D.user.photo;
+  const PAGE_SIZE = { min: 10, max: 500, step: 10, std: 50 };
+  const PHOTO_TYPES = ["image/png", "image/jpeg", "image/gif", "image/webp"];
+  const PHOTO_MAX = 2 * 1024 * 1024;
+  try {
+    const ph = localStorage.getItem("od.photo");
+    if (ph) D.user.photo = ph;
+    const n = Number(localStorage.getItem("od.pageSize"));
+    if (Number.isInteger(n) && n >= PAGE_SIZE.min && n <= PAGE_SIZE.max) SETTINGS.pageSize = n;
+  } catch { /* storage unavailable: keep the defaults */ }
+  const LANGS = [["ja-JP", "日本語（日本）"], ["en-US", "English (US)"], ["zh-CN", "中文（简体）"], ["ko-KR", "한국어"]];
+  const applyTheme = () => { if (SETTINGS.theme === "system") delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = SETTINGS.theme; };
+  function settingsScreen() {
+    const radio = ([v, l]) => `<label class="col-opt"><input type="radio" name="theme" value="${v}" data-theme-pick ${SETTINGS.theme === v ? "checked" : ""}>${l}</label>`;
+    const tbl = Object.values(G).filter((E) => !E.tree && E.screen).map((E) => {
+      const T = E.rootTable;
+      const sortOpts = [`<option value="">指定なし</option>`].concat(T.view.hidden ? E.fields.concat([]).flatMap((f) => [1, -1].map((d) =>
+        `<option value="${f.id}:${d}" ${T.view.sort.key === f.id && T.view.sort.dir === d ? "selected" : ""}>${f.label}（${d === 1 ? "昇順" : "降順"}）</option>`)) : []).join("");
+      const cols = gCols(E).map((c) => `<label class="col-opt"><input type="checkbox" data-tcol="${c.key}" data-tkey="${T.key}" ${c.fixed || !T.view.hidden.has(c.key) ? "checked" : ""} ${c.fixed ? "disabled" : ""}>${c.label}</label>`).join("");
+      return `<details class="col-menu set-tbl" data-tmenu="${T.key}" ${T.view.colsOpen ? "open" : ""}><summary class="btn">${esc(E.label)}</summary>
+        <div class="col-list">${cols}</div>
+        <div class="field-row sort-select"><label for="ts-${T.key}">標準の並べ替え</label><select id="ts-${T.key}" data-tsort="${T.key}">${sortOpts}</select></div></details>`;
+    }).join("");
+    return `<div class="set-grid">
+      <section class="card" aria-labelledby="h-set-photo"><h2 class="sec-title" id="h-set-photo">自分のイメージ</h2>
+        <div class="od-row set-photo"><img class="avatar avatar-lg" id="set-photo-prev" src="${esc(D.user.photo)}" width="120" height="120" alt="現在の自分のイメージ">
+          <div class="od-fill"><p class="dash-name od-truncate">${esc(D.user.name)}</p><p class="muted od-truncate">${esc(D.user.role)}</p></div></div>
+        <div class="field-row"><label for="set-photo">画像ファイルを選ぶ</label>
+          <input id="set-photo" type="file" accept="image/png,image/jpeg,image/gif,image/webp,.png,.jpg,.jpeg,.gif,.webp" data-photo-input aria-describedby="photo-note photo-msg"></div>
+        <p class="note" id="photo-note">PNG・JPEG・GIF・WebP、2MBまで。アプリバーとダッシュボードの顔写真が変わります。</p>
+        <p class="field-err" id="photo-msg" role="alert"></p>
+        <div class="form-actions"><button class="btn" type="button" data-photo-reset ${D.user.photo === DEFAULT_PHOTO ? "disabled" : ""}>初期のイメージに戻す</button></div></section>
+      <section class="card" aria-labelledby="h-set-page"><h2 class="sec-title" id="h-set-page">データの読込件数</h2>
+        <div class="field-row"><label for="set-page">一覧に一度に読み込む件数</label>
+          <input id="set-page" type="number" inputmode="numeric" min="${PAGE_SIZE.min}" max="${PAGE_SIZE.max}" step="${PAGE_SIZE.step}" value="${SETTINGS.pageSize}" data-pagesize aria-describedby="page-note page-msg"></div>
+        <p class="note" id="page-note">標準は${PAGE_SIZE.std}件（${PAGE_SIZE.min}〜${PAGE_SIZE.max}件）。超える分は、一覧の下の「さらに読み込む」で追加します。</p>
+        <p class="field-err" id="page-msg" role="alert"></p>
+        <div class="form-actions"><button class="btn" type="button" data-pagesize-reset ${SETTINGS.pageSize === PAGE_SIZE.std ? "disabled" : ""}>標準（${PAGE_SIZE.std}件）に戻す</button></div></section>
+      <section class="card" aria-labelledby="h-set-ver"><h2 class="sec-title" id="h-set-ver">バージョン情報</h2>
+        <dl><div class="kv"><dt>アプリケーション</dt><dd class="od-nowrap">生産管理 0.1.0</dd></div><div class="kv"><dt>ビルド</dt><dd class="od-nowrap">2026.10.24</dd></div></dl>
+        <p class="note">ライブラリではなく、アプリケーションのバージョンを表示します。</p></section>
+      <section class="card" aria-labelledby="h-set-theme"><h2 class="sec-title" id="h-set-theme">テーマ</h2>
+        <fieldset class="set-fs"><legend class="sr-only">テーマの選択</legend>${[["system", "実行環境に合わせる"], ["light", "ライト"], ["dark", "ダーク"]].map(radio).join("")}</fieldset>
+        <p class="note">この設定は、サインインしている本人にだけ反映されます。</p></section>
+      <section class="card" aria-labelledby="h-set-lang"><h2 class="sec-title" id="h-set-lang">使用言語</h2>
+        <div class="field-row"><label for="set-lang">言語（ISO 3166）</label><select id="set-lang" data-lang>${LANGS.map(([v, l]) => `<option value="${v}" ${SETTINGS.lang === v ? "selected" : ""}>${l}</option>`).join("")}</select></div>
+        <p class="note">初期値は実行環境の言語です。プロトタイプの画面文言は日本語のみです。</p></section>
+      <section class="card set-wide" aria-labelledby="h-set-cols"><h2 class="sec-title" id="h-set-cols">各画面の列</h2>
+        <p class="note">表示する列と標準の並べ替えを、画面ごとに選べます。名称の列は常に表示されます。</p>
+        <div class="set-tbls">${tbl}</div></section></div>`;
+  }
+  let cdTimer = null;
+  function startCountdown() {
+    clearInterval(cdTimer);
+    let n = 5;
+    cdTimer = setInterval(() => {
+      n -= 1;
+      const el = document.getElementById("lo-count");
+      if (el) el.textContent = n;
+      if (n <= 0) { clearInterval(cdTimer); logoutState = "confirm"; location.hash = "#/login"; }
+    }, 1000);
+  }
+  function bindG() {
+    document.querySelectorAll("[data-gtoggle]").forEach((b) => b.addEventListener("click", () => {
+      const id = b.dataset.gtoggle;
+      if (gTree.open.has(id)) gTree.open.delete(id);
+      else {
+        gTree.open.add(id);
+        if (!gTree.loaded.has(id)) {
+          gTree.loading.add(id);
+          setTimeout(() => {
+            gTree.loading.delete(id);
+            gTree.loaded.add(id);
+            if (currentRoute().startsWith("g")) { const keep = scroller().scrollTop; render(); scroller().scrollTop = keep; }
+          }, 350);
+        }
+      }
+      const keep = scroller().scrollTop;
+      render();
+      scroller().scrollTop = keep;
+      document.querySelector(`[data-gtoggle="${id}"]`)?.focus();
+    }));
+    document.querySelectorAll("[data-gpick]").forEach((b) => b.addEventListener("click", () => {
+      gSelect(b.dataset.gent, b.dataset.gpick);
+      const keep = scroller().scrollTop;
+      render();
+      scroller().scrollTop = keep;
+      document.querySelector(`[data-gpick="${b.dataset.gpick}"]`)?.focus();
+    }));
+    document.querySelectorAll("[data-gdrag]").forEach((h) => h.addEventListener("pointerdown", (e) => {
+      if (e.button > 0) return;
+      e.preventDefault();
+      const E = G[h.dataset.gent];
+      const r = gGet(E.key, h.dataset.gdrag);
+      const banned = new Set([r.id, ...gBelow(E, r.id)]);
+      const ghost = document.createElement("div");
+      ghost.className = "drag-ghost";
+      ghost.textContent = gName(E, r);
+      document.body.appendChild(ghost);
+      let target; // undefined = no valid target, "" = top level, string = parent id
+      const clear = () => document.querySelectorAll(".drop-ok, .drop-bad").forEach((x) => x.classList.remove("drop-ok", "drop-bad"));
+      const move = (ev) => {
+        ghost.style.transform = `translate(${ev.clientX + 12}px, ${ev.clientY + 12}px)`;
+        clear();
+        target = undefined;
+        const el = document.elementFromPoint(ev.clientX, ev.clientY)?.closest("[data-gdrop]");
+        if (!el) return;
+        const t = el.dataset.gdrop === "root" ? "" : el.dataset.gdrop;
+        if (t === (r.parent || "")) return;
+        if (t && banned.has(t)) { el.classList.add("drop-bad"); return; }
+        el.classList.add("drop-ok");
+        target = t;
+      };
+      const stop = (apply) => {
+        window.removeEventListener("pointermove", move);
+        window.removeEventListener("pointerup", up);
+        window.removeEventListener("pointercancel", cancel);
+        window.removeEventListener("keydown", key);
+        clear();
+        ghost.remove();
+        if (apply && target !== undefined) moveG(E, r, target);
+      };
+      const up = () => stop(true);
+      const cancel = () => stop(false);
+      const key = (ev) => { if (ev.key === "Escape") stop(false); };
+      window.addEventListener("pointermove", move);
+      window.addEventListener("pointerup", up);
+      window.addEventListener("pointercancel", cancel);
+      window.addEventListener("keydown", key);
+      move(e);
+    }));
+    document.querySelectorAll("[data-theme-pick]").forEach((r) => r.addEventListener("change", () => { SETTINGS.theme = r.value; applyTheme(); }));
+    document.querySelector("[data-lang]")?.addEventListener("change", (e) => { SETTINGS.lang = e.target.value; });
+    const setPhoto = (url) => {
+      D.user.photo = url;
+      try { if (url === DEFAULT_PHOTO) localStorage.removeItem("od.photo"); else localStorage.setItem("od.photo", url); } catch { /* too large for storage: applies to this session only */ }
+      document.querySelectorAll("img.avatar").forEach((img) => { img.src = url; });
+      const rb = document.querySelector("[data-photo-reset]");
+      if (rb) rb.disabled = url === DEFAULT_PHOTO;
+    };
+    document.querySelector("[data-photo-input]")?.addEventListener("change", (e) => {
+      const msg = document.getElementById("photo-msg");
+      const f = e.target.files?.[0];
+      if (!f) return;
+      const ext = (f.name.match(/\.(\w+)$/)?.[1] ?? "").toLowerCase();
+      const okType = PHOTO_TYPES.includes(f.type) || (!f.type && ["png", "jpg", "jpeg", "gif", "webp"].includes(ext));
+      if (!okType) { msg.textContent = "PNG・JPEG・GIF・WebP の画像ファイルを選んでください。"; e.target.value = ""; return; }
+      if (f.size > PHOTO_MAX) { msg.textContent = `ファイルが大きすぎます（${(f.size / 1048576).toFixed(1)}MB）。2MB以下の画像を選んでください。`; e.target.value = ""; return; }
+      const rd = new FileReader();
+      rd.onerror = () => { msg.textContent = "画像を読み込めませんでした。別のファイルを選んでください。"; };
+      rd.onload = () => {
+        const img = new Image();
+        img.onerror = () => { msg.textContent = "画像として開けないファイルです。別のファイルを選んでください。"; };
+        img.onload = () => { msg.textContent = ""; setPhoto(String(rd.result)); flash = ""; };
+        img.src = String(rd.result);
+      };
+      rd.readAsDataURL(f);
+    });
+    document.querySelector("[data-photo-reset]")?.addEventListener("click", () => {
+      setPhoto(DEFAULT_PHOTO);
+      const inp = document.querySelector("[data-photo-input]"); if (inp) inp.value = "";
+      document.getElementById("photo-msg").textContent = "";
+    });
+    const applyPageSize = (n) => {
+      SETTINGS.pageSize = n;
+      try { if (n === PAGE_SIZE.std) localStorage.removeItem("od.pageSize"); else localStorage.setItem("od.pageSize", String(n)); } catch { /* session only */ }
+      Object.values(TABLES).forEach((T) => { T.view.limit = null; });
+      const rb = document.querySelector("[data-pagesize-reset]");
+      if (rb) rb.disabled = n === PAGE_SIZE.std;
+    };
+    document.querySelector("[data-pagesize]")?.addEventListener("change", (e) => {
+      const msg = document.getElementById("page-msg");
+      const n = Number(e.target.value);
+      if (!Number.isInteger(n) || n < PAGE_SIZE.min || n > PAGE_SIZE.max) {
+        msg.textContent = `${PAGE_SIZE.min}〜${PAGE_SIZE.max}の整数で入力してください。${SETTINGS.pageSize}件のままにしています。`;
+        e.target.setAttribute("aria-invalid", "true");
+        return;
+      }
+      msg.textContent = "";
+      e.target.removeAttribute("aria-invalid");
+      applyPageSize(n);
+    });
+    document.querySelector("[data-pagesize-reset]")?.addEventListener("click", () => {
+      applyPageSize(PAGE_SIZE.std);
+      const inp = document.querySelector("[data-pagesize]"); if (inp) { inp.value = String(PAGE_SIZE.std); inp.removeAttribute("aria-invalid"); }
+      document.getElementById("page-msg").textContent = "";
+    });
+    document.querySelector("[data-err=conn]")?.addEventListener("click", () => { gErr = { title: "認証サーバーに接続できません", msg: "ネットワークの状態を確認して、もう一度お試しください。", code: "KC-503" }; });
+    const lf = document.getElementById("login-form");
+    if (lf) lf.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const u = lf.elements.user.value.trim();
+      const p = lf.elements.pass.value;
+      if (!u || !p) { loginMsg = "ユーザー名とパスワードを入力してください。"; render(); document.getElementById(u ? "lg-pass" : "lg-user").focus(); return; }
+      if (p !== "demo-password") { loginMsg = "ユーザー名またはパスワードが正しくありません。"; render(); document.getElementById("lg-pass").focus(); return; }
+      const btn = document.getElementById("login-btn");
+      btn.disabled = true;
+      btn.textContent = "サインインしています…";
+      loginMsg = "";
+      clearTimeout(timer);
+      timer = setTimeout(() => { location.hash = "#/home"; }, 700);
+    });
+    if (currentRoute() === "boot") { clearTimeout(timer); timer = setTimeout(() => { location.hash = "#/login"; }, 1500); }
+  }
+
   /* ---------- shell ---------- */
   /* Side navigation: plain items and groups. A group has children; "soon" children are reserved entries without a screen yet. */
   const NAV = [
-    { id: "home", icon: "home", label: "ホーム" },
-    { id: "customers", icon: "star", label: "顧客" },
-    { id: "orders", icon: "orders", label: "受注・出荷" },
-    { id: "production", icon: "production", label: "生産計画" },
+    { id: "home", icon: "home", label: "ダッシュボード" },
     { group: "resources", icon: "box", label: "資源", children: [
       { id: "capabilities", icon: "briefcase", label: "力量" },
       { id: "licenses", icon: "check", label: "資格" },
@@ -2023,12 +2639,13 @@
       { id: "equipment", icon: "factory", label: "設備" },
       { id: "maintenance", icon: "wrench", label: "保全" },
     ] },
+    ...DOM.groups.map((g) => ({ group: `g_${g.id}`, icon: g.icon, label: g.label,
+      children: g.screens.map((sid) => ({ id: `g/${sid}`, icon: GS[sid].icon, label: GS[sid].label })) })),
     { id: "company", icon: "building", label: "会社情報" },
-    { id: "logout", icon: "logout", label: "ログアウト" },
   ];
   const navOpen = new Set(); // expanded groups (PC / drawer)
   let navPop = null; // group whose fly-out is open (icon-only tablet sidebar)
-  const isCurNav = (id, r) => (id === "company" ? /^(company|sites|departments|staff|approval|offerings)/.test(r) : r === id || r.startsWith(id + "/"));
+  const isCurNav = (id, r) => (id.startsWith("g/") ? gCurScreen() === id.slice(2) : id === "company" ? /^(company|sites|departments|staff|approval|offerings)/.test(r) : id === "home" ? ["home", "orders", "production"].includes(r) : r === id || r.startsWith(id + "/"));
   const navHtml = () => {
     const r = currentRoute();
     const link = (n, cls = "") =>
@@ -2050,11 +2667,10 @@
   /* mobile bottom navigation: 5 items, 組織 / 会社情報 / ログアウト live under その他 */
   const mobileNavHtml = () => {
     const r = currentRoute();
-    const cur = ["home", "customers", "orders", "production"].includes(r) ? r : "more";
+    const cur = ["home", "orders", "production"].includes(r) ? "home" : "more";
     const item = (id, ic, label) =>
       `<a class="m-nav-item" href="#/${id}" ${cur === id ? 'aria-current="page"' : ""}>${icon(ic)}<span>${label}</span></a>`;
-    return item("home", "home", "ホーム") + item("customers", "star", "顧客") + item("orders", "orders", "受注") +
-      item("production", "production", "生産") + item("more", "more", "その他");
+    return item("home", "home", "ダッシュボード") + item("more", "more", "その他");
   };
 
   const root = document.getElementById("app");
@@ -2064,29 +2680,31 @@
     const drawer = `<div class="drawer-root" id="drawer-root">
         <div class="scrim" data-drawer-close></div>
         <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="メニュー">
-          <div class="drawer-head"><div class="brand"><span class="brand-mark">${icon("factory")}</span><span class="brand-name">生産管理</span></div>
+          <div class="drawer-head"><div class="brand"><span class="brand-mark">${icon("emblem")}</span><span class="brand-name">生産管理</span></div>
             <button class="icon-btn" type="button" id="drawer-close" data-drawer-close aria-label="メニューを閉じる">${icon("close")}</button></div>
-          <nav class="nav" aria-label="メイン"></nav>
-          <div class="side-foot"><div class="user"><span class="user-name">${D.user.name}</span><span class="user-role">${D.user.role}</span></div></div>
+          ${userCard()}<nav class="nav" aria-label="メイン"></nav>
+          
         </div>
       </div>`;
     if (mobile) {
       root.innerHTML = `<div class="m-app od-screen">
-        <header class="m-head"><div class="m-head-text"><div class="crumb"></div><h1 id="page-title" tabindex="-1">ホーム</h1></div></header>
+        <header class="appbar" role="banner">${hamburger}<span class="appbar-title od-truncate">生産管理</span><div class="user-menu"><button class="appbar-user" type="button" id="user-menu-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="user-menu-list">${avatarImg()}<span class="appbar-name od-truncate">${D.user.name}</span>${icon("chevron")}</button><div class="user-menu-list" id="user-menu-list" role="menu" aria-label="${D.user.name}のメニュー" hidden><a role="menuitem" class="user-menu-item" href="#/settings">${icon("gear")}<span>設定</span></a><a role="menuitem" class="user-menu-item" href="#/logout">${icon("logout")}<span>ログアウト</span></a></div></div></header>
+        <div class="m-head"><div class="m-head-text"><div class="crumb"></div><h1 id="page-title" tabindex="-1">ダッシュボード</h1></div></div>
         <main class="od-scroll" id="screen" tabindex="-1"></main>
         <nav class="m-nav" id="m-nav" aria-label="メイン"></nav>
         <div class="sheet-root" id="sheet-root"></div>
+        ${drawer}
       </div>`;
     } else {
       const side = `<aside class="side">
-          <div class="brand"><span class="brand-mark">${icon("factory")}</span><span class="brand-name">生産管理</span></div>
-          <nav class="nav" aria-label="メイン"></nav>
-          <div class="side-foot"><div class="user"><span class="user-name">${D.user.name}</span><span class="user-role">${D.user.role}</span></div></div>
+          <div class="brand"><span class="brand-mark">${icon("emblem")}</span><span class="brand-name">生産管理</span></div>
+          ${userCard()}<nav class="nav" aria-label="メイン"></nav>
+          
         </aside>`;
       root.innerHTML = `<div class="app">
         ${side}
         <div class="main-col">
-          <div class="topbar">${hamburger}<span class="brand-name">生産管理</span></div>
+          <div class="topbar"><header class="appbar" role="banner">${hamburger}<span class="appbar-title od-truncate">生産管理</span><div class="user-menu"><button class="appbar-user" type="button" id="user-menu-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="user-menu-list">${avatarImg()}<span class="appbar-name od-truncate">${D.user.name}</span>${icon("chevron")}</button><div class="user-menu-list" id="user-menu-list" role="menu" aria-label="${D.user.name}のメニュー" hidden><a role="menuitem" class="user-menu-item" href="#/settings">${icon("gear")}<span>設定</span></a><a role="menuitem" class="user-menu-item" href="#/logout">${icon("logout")}<span>ログアウト</span></a></div></div></header></div>
           <main class="main" id="screen" tabindex="-1"></main>
         </div>
       </div>
@@ -2094,6 +2712,8 @@
       ${device === "pc" ? drawer : ""}`;
     }
   }
+
+  const dashTabs = (route) => `<nav class="dash-tabs" aria-label="ダッシュボード">${[["home", "概要"], ["orders", "出荷"], ["production", "生産計画"]].map(([id, l]) => `<a class="dash-tab" href="#/${id}" ${route === id ? 'aria-current="page"' : ""}>${l}</a>`).join("")}</nav>`;
 
   function pageHead(title, crumb = D.company.name) {
     if (mobile) return "";
@@ -2107,13 +2727,17 @@
     const P = parseRoute();
     const route = P.name;
     const isLogout = route === "logout";
-    const title = route === "maintenance/entity" ? `${ENT[P.ent]?.label ?? "保全"}の編集` : ROUTES[route];
+    const title = route === "maintenance/entity" ? `${ENT[P.ent]?.label ?? "保全"}の編集`
+      : route === "g" ? GS[P.sid]?.label ?? "業務画面"
+      : route === "g/entity" ? `${G[P.ent]?.label ?? "業務"}の編集`
+      : ROUTES[route];
+    const bare = ["boot", "login", "error"].includes(route);
     navPop = null;
     NAV.forEach((n) => { if (n.group && (n.children.some((c) => c.id && isCurNav(c.id, route)) || route === "resources")) navOpen.add(n.group); });
     if (route === "company") draft = null;
     if (!["departments/dept", "departments/kind", "departments/kindedit"].includes(route)) deptDraft = null;
     if (!["staff/person", "staff/capability", "staff/license"].includes(route)) staffDraft = null;
-    document.body.classList.toggle("signed-out", isLogout && logoutState === "done");
+    document.body.classList.toggle("signed-out", (isLogout && logoutState === "done") || bare);
     const screen = document.getElementById("screen");
     closeDrawer(false);
     document.querySelectorAll(".nav").forEach((n) => { n.innerHTML = navHtml(); });
@@ -2124,6 +2748,8 @@
     }
     if (isLogout) {
       screen.innerHTML = (!mobile ? pageHead(title) : "") + logoutScreen(logoutState);
+    } else if (bare) {
+      screen.innerHTML = { boot: bootScreen, login: loginScreen, error: errorScreen }[route]();
     } else {
       const body = {
         home: homeScreen,
@@ -2174,8 +2800,12 @@
         "staff/capability": () => capEditScreen(P.pid, P.id),
         "staff/license": () => licEditScreen(P.pid, P.id),
         offerings: offeringsScreen,
+        g: () => gScreen(P.sid, P.tab, P.edit),
+        "g/entity": () => gEntityScreen(P.ent, P.id, P.parentId),
+        menu: menuScreen,
+        settings: settingsScreen,
       }[route]();
-      screen.innerHTML = pageHead(title, crumbOf(route)) + `<div class="${mobile ? "m-body" : "page-body"}">${body}</div>`;
+      screen.innerHTML = pageHead(title, crumbOf(route)) + `<div class="${mobile ? "m-body" : "page-body"}">${["home", "orders", "production"].includes(route) ? dashTabs(route) : ""}${body}</div>`;
     }
     document.title = `${title} | 生産管理`;
     flash = "";
@@ -2437,6 +3067,10 @@
       h.querySelectorAll("tr[data-href]").forEach((tr) => tr.addEventListener("click", (e) => {
         if (!e.target.closest("a")) location.hash = tr.dataset.href;
       }));
+      h.querySelectorAll("[data-more]").forEach((b) => b.addEventListener("click", () => {
+        T2.view.limit = (T2.view.limit ?? SETTINGS.pageSize) + SETTINGS.pageSize;
+        rerender(`[data-more="${T2.key}"]`);
+      }));
       h.querySelectorAll("[data-pickrow]").forEach((b) => b.addEventListener("click", () => {
         T2.pick.set(b.dataset.pickrow);
         rerender(`[data-pickrow="${b.dataset.pickrow}"]`);
@@ -2445,6 +3079,7 @@
     document.querySelectorAll(".tbl-host").forEach(bindHost);
     document.querySelectorAll("[data-tq]").forEach((inp) => inp.addEventListener("input", () => {
       TABLES[inp.dataset.tq].view.q = inp.value.trim();
+      TABLES[inp.dataset.tq].view.limit = null;
       const h = document.querySelector(`.tbl-host[data-tkey="${inp.dataset.tq}"]`);
       h.innerHTML = TABLES[inp.dataset.tq].html(h.dataset.edit === "1");
       bindHost(h);
@@ -2508,9 +3143,10 @@
       logoutState = "loading";
       render();
       clearTimeout(timer);
-      timer = setTimeout(() => { logoutState = "done"; render(); document.getElementById("resignin")?.focus(); }, 1300);
+      timer = setTimeout(() => { logoutState = "done"; render(); document.getElementById("resignin")?.focus(); startCountdown(); }, 1300);
     });
-    q("resignin")?.addEventListener("click", () => { logoutState = "confirm"; location.hash = "#/home"; });
+    q("resignin")?.addEventListener("click", () => { clearInterval(cdTimer); logoutState = "confirm"; location.hash = "#/login"; });
+    bindG();
   }
 
   /* ---------- customer / order detail sheets ---------- */
@@ -2584,11 +3220,24 @@
       return;
     }
     if (navPop && !e.target.closest(".nav-group")) { navPop = null; refreshNav(); }
+    const um = document.getElementById("user-menu-btn");
+    if (um) {
+      const open = e.target.closest("#user-menu-btn") ? um.getAttribute("aria-expanded") !== "true" : false;
+      if (open || um.getAttribute("aria-expanded") === "true") setUserMenu(open && true, false);
+    }
     if (e.target.closest("#menu-btn")) openDrawer();
     else if (e.target.closest("[data-drawer-close]")) closeDrawer();
     else if (e.target.closest("#drawer .nav-item")) closeDrawer(false);
   });
+  function setUserMenu(open) {
+    const b = document.getElementById("user-menu-btn"), l = document.getElementById("user-menu-list");
+    if (!b || !l) return;
+    b.setAttribute("aria-expanded", String(open));
+    l.hidden = !open;
+    if (open) l.querySelector("a")?.focus();
+  }
   document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && document.getElementById("user-menu-btn")?.getAttribute("aria-expanded") === "true") { setUserMenu(false); document.getElementById("user-menu-btn").focus(); return; }
     if (e.key === "Escape" && navPop) { const g = navPop; navPop = null; refreshNav(g); return; }
     const dr = drawerRoot();
     if (dr && dr.classList.contains("open")) {
@@ -2629,13 +3278,15 @@
 
   /* ---------- boot ---------- */
   buildShell();
-  if (!location.hash) location.hash = "#/home";
+  if (!location.hash) location.hash = "#/boot";
   let prevRoute = null;
   let savedScroll = 0;
-  window.addEventListener("hashchange", () => {
+  window.addEventListener("hashchange", (e) => {
     const route = currentRoute();
     if (isTop(prevRoute) && !isTop(route)) savedScroll = scroller().scrollTop;
+    clearInterval(cdTimer);
     if (route !== "logout") logoutState = "confirm";
+    gPrev = e && e.oldURL ? e.oldURL.slice(e.oldURL.indexOf("#")) : "";
     render();
     const back = isTop(route) && !isTop(prevRoute) && prevRoute !== "logout";
     scroller().scrollTop = back ? savedScroll : 0;

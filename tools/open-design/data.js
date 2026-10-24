@@ -1,6 +1,6 @@
 /* サンプルデータ（実在しない架空の値）。実運用では API から取得する。 */
 window.OD_DATA = {
-  user: { name: "鈴木 一郎", role: "生産管理部" },
+  user: { name: "鈴木 一郎", role: "生産管理部", photo: "avatar.svg" },
   asOf: "2026年10月19日 時点",
   company: {
     name: "サンプル精工株式会社",

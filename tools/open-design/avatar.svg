@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="顔写真（イメージ）">
+  <rect width="120" height="120" fill="#cfe3e4"/>
+  <path d="M18 120c2-24 20-36 42-36s40 12 42 36z" fill="#2f4a58"/>
+  <path d="M48 80h24v14c0 5-5 9-12 9s-12-4-12-9z" fill="#e0b99a"/>
+  <ellipse cx="60" cy="52" rx="20" ry="24" fill="#efc9aa"/>
+  <path d="M39 50c-2-18 9-28 22-28 14 0 22 10 20 28-4-8-9-12-14-13-8 3-19 4-28 13z" fill="#1d2a31"/>
+  <path d="M52 94l8 14 8-14z" fill="#fff"/>
+</svg>
