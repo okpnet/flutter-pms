@@ -49,7 +49,7 @@ class FilterExpressionAdapter<R> implements IFilterExpressionAdapter<R> {
     return PredicateModel(
       take: state.fetchLimit,
       skip: skip,
-      pridicate: expressions == null ? null : AndExpression(expressions),
+      predicate: expressions == null ? null : AndExpression(expressions),
       orders: sortEx == null ? null : SortListExpression(sortOrderList: sortEx),
     );
   }

@@ -36,14 +36,14 @@ mixin GridPagenationMixin<R> implements IGridExtMixinShared<R> {
     final rows = stateManager.filterRows;
     final skip = (request.page - 1) * queryState.fetchLimit;
 
-    final pridicateModel = filterAdapter.build(
+    final predicateModel = filterAdapter.build(
       queryState,
       filterRows: rows,
       columns: columns,
       skip: skip,
     );
 
-    final result = await queryState.facade.execute(pridicateModel);
+    final result = await queryState.facade.execute(predicateModel);
     final summary = converter.convertTo(result);
 
     final addRows = summary.rows.map((map) => buildTrinaRow(map)).toList();
