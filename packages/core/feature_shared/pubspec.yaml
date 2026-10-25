@@ -18,6 +18,8 @@ dependencies:
   go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   logger_provider:
     path: ../../infra/logger_provider
+  settings_keeper:
+    path: ../settings_keeper
   entity_screens:
     path: ../../ui/entity_screens
 

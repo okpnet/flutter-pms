@@ -60,6 +60,12 @@ class EntityScreenStrings with BaseTranslations<EntityScreenLocale, EntityScreen
 	/// ja: '未選択'
 	String get unselected => '未選択';
 
+	/// ja: '選択'
+	String get pick => '選択';
+
+	/// ja: '解除'
+	String get clear => '解除';
+
 	/// ja: 'データが見つかりません'
 	String get notFound => 'データが見つかりません';
 
@@ -79,6 +85,7 @@ class EntityScreenStrings with BaseTranslations<EntityScreenLocale, EntityScreen
 	String get children => '件';
 
 	late final EntityScreenStrings$confirmDelete$ja confirmDelete = EntityScreenStrings$confirmDelete$ja.internal(_root);
+	late final EntityScreenStrings$condition$ja condition = EntityScreenStrings$condition$ja.internal(_root);
 	late final EntityScreenStrings$validation$ja validation = EntityScreenStrings$validation$ja.internal(_root);
 }
 
@@ -95,6 +102,36 @@ class EntityScreenStrings$confirmDelete$ja {
 
 	/// ja: '「$name」を削除します。'
 	String message({required Object name}) => '「${name}」を削除します。';
+}
+
+// Path: condition
+class EntityScreenStrings$condition$ja {
+	EntityScreenStrings$condition$ja.internal(this._root);
+
+	final EntityScreenStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '範囲'
+	String get between => '範囲';
+
+	/// ja: '二値(Yes / No)'
+	String get yesNo => '二値(Yes / No)';
+
+	/// ja: '値を入力'
+	String get value => '値を入力';
+
+	/// ja: '下限'
+	String get lower => '下限';
+
+	/// ja: '上限'
+	String get upper => '上限';
+
+	/// ja: 'Yes'
+	String get yes => 'Yes';
+
+	/// ja: 'No'
+	String get no => 'No';
 }
 
 // Path: validation
@@ -117,6 +154,9 @@ class EntityScreenStrings$validation$ja {
 	/// ja: '選択肢にない値です'
 	String get invalidChoice => '選択肢にない値です';
 
+	/// ja: '演算子と値を入力してください'
+	String get invalidCondition => '演算子と値を入力してください';
+
 	/// ja: '自分または配下は親にできません'
 	String get parentCycle => '自分または配下は親にできません';
 
@@ -125,6 +165,9 @@ class EntityScreenStrings$validation$ja {
 
 	/// ja: '他で使用中のため削除できません'
 	String get referenced => '他で使用中のため削除できません';
+
+	/// ja: '重複しています'
+	String get duplicate => '重複しています';
 }
 
 /// The flat map containing all translations for locale <ja>.
@@ -143,6 +186,8 @@ extension on EntityScreenStrings {
 			'parent' => '親',
 			'noParent' => '最上位(親なし)',
 			'unselected' => '未選択',
+			'pick' => '選択',
+			'clear' => '解除',
 			'notFound' => 'データが見つかりません',
 			'loadFailed' => '読み込めません',
 			'saveFailed' => '保存に失敗しました',
@@ -151,13 +196,22 @@ extension on EntityScreenStrings {
 			'children' => '件',
 			'confirmDelete.title' => '削除の確認',
 			'confirmDelete.message' => ({required Object name}) => '「${name}」を削除します。',
+			'condition.between' => '範囲',
+			'condition.yesNo' => '二値(Yes / No)',
+			'condition.value' => '値を入力',
+			'condition.lower' => '下限',
+			'condition.upper' => '上限',
+			'condition.yes' => 'Yes',
+			'condition.no' => 'No',
 			'validation.required' => '必須です',
 			'validation.invalidNumber' => '数値で入力してください',
 			'validation.invalidDate' => '日付を yyyy-MM-dd で入力してください',
 			'validation.invalidChoice' => '選択肢にない値です',
+			'validation.invalidCondition' => '演算子と値を入力してください',
 			'validation.parentCycle' => '自分または配下は親にできません',
 			'validation.hasChildren' => '配下があるため削除できません',
 			'validation.referenced' => '他で使用中のため削除できません',
+			'validation.duplicate' => '重複しています',
 			_ => null,
 		};
 	}

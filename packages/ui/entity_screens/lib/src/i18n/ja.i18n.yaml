@@ -7,6 +7,8 @@ add: 追加
 parent: 親
 noParent: 最上位(親なし)
 unselected: 未選択
+pick: 選択
+clear: 解除
 notFound: データが見つかりません
 loadFailed: 読み込めません
 saveFailed: 保存に失敗しました
@@ -16,11 +18,21 @@ children: 件
 confirmDelete:
   title: 削除の確認
   message: 「$name」を削除します。
+condition:
+  between: 範囲
+  yesNo: 二値(Yes / No)
+  value: 値を入力
+  lower: 下限
+  upper: 上限
+  yes: Yes
+  no: No
 validation:
   required: 必須です
   invalidNumber: 数値で入力してください
   invalidDate: 日付を yyyy-MM-dd で入力してください
   invalidChoice: 選択肢にない値です
+  invalidCondition: 演算子と値を入力してください
   parentCycle: 自分または配下は親にできません
   hasChildren: 配下があるため削除できません
   referenced: 他で使用中のため削除できません
+  duplicate: 重複しています

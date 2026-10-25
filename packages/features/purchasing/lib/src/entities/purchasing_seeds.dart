@@ -3,13 +3,6 @@ import 'package:entity_screens/entity_screens.dart';
 
 /// 購買のサンプルデータ(架空の値)。参照は参照先の id(UUID の文字列)。
 const Map<String, List<EntityRecord>> purchasingSeeds = {
-    'supplier': [
-      EntityRecord(id: 'b51c3109-0000-4000-8000-000000000001', values: {'code': 'S-001', 'control_code': 'SUP-001', 'name': '北斗ファスナー株式会社', 'pronunciation': 'ホクトファスナー', 'nickname': '', 'is_customer': 'はい', 'is_supplier': 'はい', 'is_logistics': 'はい', 'mail': '', 'mstr_shipping_kind_id': '5b1f0c1e-0000-4000-8000-000000000001', 'remarks': ''}),
-      EntityRecord(id: 'b51c3109-0000-4000-8000-000000000002', values: {'code': 'S-002', 'control_code': 'SUP-002', 'name': '大和鋼材株式会社', 'pronunciation': 'ヤマトコウザイ', 'nickname': '', 'is_customer': 'いいえ', 'is_supplier': 'いいえ', 'is_logistics': 'いいえ', 'mail': '', 'mstr_shipping_kind_id': '5b1f0c1e-0000-4000-8000-000000000001', 'remarks': ''}),
-    ],
-    'suppcontact': [
-
-    ],
     'unrec': [
       EntityRecord(id: '0a6aac0c-0000-4000-8000-000000000001', values: {'decision_date': '2026-10-05', 'deadline': '2026-10-10', 'expected_completion_date': '2026-10-10', 'planned_shipping_date': '2026-10-10', 'remarks': ''}),
     ],

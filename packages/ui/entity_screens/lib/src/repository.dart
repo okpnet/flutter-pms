@@ -1,3 +1,4 @@
+import 'condition.dart';
 import 'package:data_strategist/lib.dart';
 import 'package:uuid/uuid.dart';
 
@@ -74,6 +75,19 @@ class InMemoryEntityRepository implements IEntityRepository {
             EntityFieldError.parentCycle;
       }
     }
+    for (final key in definition.uniqueKeys) {
+      if (key.any((k) => (values[k] ?? '').isEmpty)) continue;
+      final duplicated = _records.any(
+        (r) =>
+            r.id != record.id &&
+            // 所有される実体は同じ親の中、それ以外は全体で調べる
+            (definition.owner == null || r.parentId == record.parentId) &&
+            key.every((k) => r.valueOf(k) == values[k]),
+      );
+      if (duplicated) {
+        errors.putIfAbsent(key.first, () => EntityFieldError.duplicate);
+      }
+    }
     if (errors.isNotEmpty) throw EntityValidationException(errors);
 
     final saved = EntityRecord(
@@ -113,6 +127,10 @@ class InMemoryEntityRepository implements IEntityRepository {
       FieldKind.date => _isDate(value) ? null : EntityFieldError.invalidDate,
       FieldKind.choice =>
         f.options.contains(value) ? null : EntityFieldError.invalidChoice,
+      FieldKind.condition =>
+        ConditionValue.tryParse(value) == null
+            ? EntityFieldError.invalidCondition
+            : null,
       _ => null,
     };
   }

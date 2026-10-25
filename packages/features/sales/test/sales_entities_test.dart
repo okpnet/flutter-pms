@@ -1,12 +1,12 @@
 import 'package:entity_screens/entity_screens.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sales/src/sales_entity_module.dart';
+import 'package:sales/sales.dart';
 import 'package:sales/src/entities/sales_definitions.dart';
 import 'package:sales/src/entities/sales_seeds.dart';
 
 void main() {
-  const module = SalesEntityModule();
+  const module = SalesModule();
 
   test('台帳を持つ実体のルートがある(子の台帳は編集だけ)', () {
     expect(module.entityKeys, ['order']);

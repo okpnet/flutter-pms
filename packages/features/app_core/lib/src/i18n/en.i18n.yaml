@@ -1,0 +1,39 @@
+app:
+  title: Production management
+shell:
+  dashboard: Dashboard
+  openMenu: Open menu
+  userMenu: User menu
+  settings: Settings
+  logout: Sign out
+boot:
+  loading: Loading...
+logout:
+  title: Signed out
+  message: You have been signed out.
+  signIn: Sign in (temporary)
+error:
+  title: Error
+  message: An error occurred in the application
+  back: Back
+settings:
+  title: Settings
+  note: These settings affect only the user who is signed in, not all users.
+  language:
+    title: Language
+    system: Follow the system
+    ja: 日本語
+    en: English
+  layout:
+    title: Screen
+    sidebarIconOnly: Show only icons in the sidebar
+  user:
+    title: Signed-in user
+    note: The user name and role shown on screen. Not saved; reverts to the standard values on every start.
+    name: User name
+    role: Role / department
+    apply: Apply
+    reset: Reset to standard
+  about:
+    title: About
+    version: Application version

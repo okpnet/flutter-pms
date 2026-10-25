@@ -1,3 +1,4 @@
+import 'package:app_shell/app_shell.dart';
 import 'package:data_strategist/lib.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flgtable_lib/flgtable_lib.dart';
@@ -51,19 +52,17 @@ class ShippingKindListPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final strings = ref.watch(sharedMasterStringsProvider);
     final facade = ref.watch(shippingKindQueryStateProvider).facade;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(strings.shippingKind.title),
-        actions: [
-          IconButton(
-            tooltip: strings.shippingKind.create,
-            icon: const Icon(Icons.add),
-            onPressed: () => ref
-                .read(commandBusProvider)
-                .execute(const ShippingKindEditDestination()),
-          ),
-        ],
-      ),
+    return ScreenScaffold(
+      title: strings.shippingKind.title,
+      actions: [
+        IconButton(
+          tooltip: strings.shippingKind.create,
+          icon: const Icon(Icons.add),
+          onPressed: () => ref
+              .read(commandBusProvider)
+              .execute(const ShippingKindEditDestination()),
+        ),
+      ],
       body: FlgTable<ShippingKind>(
         // 言語が変わったら列を作り直す
         key: ValueKey(strings.runtimeType),

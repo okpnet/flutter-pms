@@ -23,4 +23,11 @@ class ItemModule extends EntityFeatureModule {
   @override
   EntityLabels labelsOf(WidgetRef ref) =>
       ItemLabels(ref.watch(itemStringsProvider));
+
+  @override
+  String get menuGroupId => 'item';
+
+  @override
+  String menuGroupLabel(WidgetRef ref) =>
+      ItemLabels(ref.watch(itemStringsProvider)).menuGroup;
 }

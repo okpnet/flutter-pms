@@ -25,21 +25,21 @@
 ## 実体の画面(生成)
 台帳(テーブル/ツリー)と編集の画面は、`tools/entity_gen/gen.js` が `tools/open-design` の画面定義から生成する(定義・サンプル・表示名・モジュール・テスト)。
 生成物は直接編集しない(再生成: リポジトリのルートで `node tools/entity_gen/gen.js`)。画面の作りは `packages/ui/entity_screens`、機能への組み込みは `feature_shared` の `EntityFeatureModule`。
-専用の画面が必要な実体は、生成の対象から外して手書きする(`sales` の顧客、`shared_master` の配送区分を参考にする)。
+専用の画面が必要な実体は、生成の対象から外して手書きする(`shared_master` の配送区分を参考にする)。
 
 | 実体 | キー | 構造 | 項目数 | 参照先 |
 |---|---|---|---|---|
 | 力量 | `capability` | テーブル構造 | 9 |  |
 | 資格 | `license` | テーブル構造 | 8 |  |
-| 場所 | `location` | ツリー構造 | 7 |  |
+| 場所 | `location` | ツリー構造 | 6 |  |
 | 設備分類 | `equipmentcategory` | テーブル構造 | 6 |  |
-| 設備 | `equipment` | テーブル構造 | 8 | `equipmentcategory`, `location` |
+| 設備 | `equipment` | テーブル構造 | 6 | `item`, `equipmentcategory`, `location` |
 | 点検整備区分 | `inspectionkind` | テーブル構造 | 5 |  |
-| 点検整備項目 | `inspectionitem` | テーブル構造 | 6 | `inspectionkind` |
-| 点検整備算式 | `inspectionformula` | 子の台帳(親: 点検整備項目) | 4 |  |
-| 設備点検整備運用 | `inspectionoperation` | テーブル構造 | 5 | `equipment`, `inspectionkind` |
+| 点検整備項目 | `inspectionitem` | テーブル構造 | 4 | `inspectionkind` |
+| 点検整備算式 | `inspectionformula` | 子の台帳(親: 点検整備項目) | 1 |  |
+| 設備点検整備運用 | `inspectionoperation` | テーブル構造 | 4 | `equipment`, `inspectionkind` |
 | 運用明細 | `operationline` | 子の台帳(親: 設備点検整備運用) | 3 | `inspectionitem` |
-| 点検予定 | `inspectionschedule` | テーブル構造 | 5 | `inspectionoperation` |
+| 点検予定 | `inspectionschedule` | テーブル構造 | 3 | `inspectionoperation` |
 | 予定明細 | `scheduledetail` | 子の台帳(親: 点検予定) | 4 | `inspectionitem`, `staff` |
 | 点検実施 | `inspectionresult` | 子の台帳(親: 予定明細) | 5 | `staff` |
 | ファイル | `inspectionfile` | 子の台帳(親: 点検実施) | 3 |  |

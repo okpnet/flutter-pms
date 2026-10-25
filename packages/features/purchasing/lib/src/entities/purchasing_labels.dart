@@ -16,4 +16,12 @@ class PurchasingLabels implements EntityLabels {
   @override
   String field(String entityKey, String fieldKey) =>
       (_t['entity.$entityKey.fields.f_$fieldKey'] as String?) ?? fieldKey;
+
+  @override
+  String reverse(String entityKey, String reverseEntityKey) =>
+      (_t['entity.$entityKey.reverse.$reverseEntityKey'] as String?) ??
+      reverseEntityKey;
+
+  /// トップメニューのグループの表示名。
+  String get menuGroup => (_t['menu.group'] as String?) ?? '';
 }

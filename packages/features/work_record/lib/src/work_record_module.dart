@@ -23,4 +23,11 @@ class WorkRecordModule extends EntityFeatureModule {
   @override
   EntityLabels labelsOf(WidgetRef ref) =>
       WorkRecordLabels(ref.watch(workRecordStringsProvider));
+
+  @override
+  String get menuGroupId => 'work_record';
+
+  @override
+  String menuGroupLabel(WidgetRef ref) =>
+      WorkRecordLabels(ref.watch(workRecordStringsProvider)).menuGroup;
 }

@@ -35,7 +35,20 @@ class ResourceStrings with BaseTranslations<ResourceLocale, ResourceStrings> {
 	ResourceStrings $copyWith({TranslationMetadata<ResourceLocale, ResourceStrings>? meta}) => ResourceStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final ResourceStrings$menu$ja menu = ResourceStrings$menu$ja.internal(_root);
 	late final ResourceStrings$entity$ja entity = ResourceStrings$entity$ja.internal(_root);
+}
+
+// Path: menu
+class ResourceStrings$menu$ja {
+	ResourceStrings$menu$ja.internal(this._root);
+
+	final ResourceStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '資源'
+	String get group => '資源';
 }
 
 // Path: entity
@@ -73,6 +86,7 @@ class ResourceStrings$entity$capability$ja {
 	String get title => '力量';
 
 	late final ResourceStrings$entity$capability$fields$ja fields = ResourceStrings$entity$capability$fields$ja.internal(_root);
+	late final ResourceStrings$entity$capability$reverse$ja reverse = ResourceStrings$entity$capability$reverse$ja.internal(_root);
 }
 
 // Path: entity.license
@@ -87,6 +101,7 @@ class ResourceStrings$entity$license$ja {
 	String get title => '資格';
 
 	late final ResourceStrings$entity$license$fields$ja fields = ResourceStrings$entity$license$fields$ja.internal(_root);
+	late final ResourceStrings$entity$license$reverse$ja reverse = ResourceStrings$entity$license$reverse$ja.internal(_root);
 }
 
 // Path: entity.location
@@ -293,6 +308,18 @@ class ResourceStrings$entity$capability$fields$ja {
 	String get f_remarks => '備考';
 }
 
+// Path: entity.capability.reverse
+class ResourceStrings$entity$capability$reverse$ja {
+	ResourceStrings$entity$capability$reverse$ja.internal(this._root);
+
+	final ResourceStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '保持者'
+	String get staffcapability => '保持者';
+}
+
 // Path: entity.license.fields
 class ResourceStrings$entity$license$fields$ja {
 	ResourceStrings$entity$license$fields$ja.internal(this._root);
@@ -326,6 +353,18 @@ class ResourceStrings$entity$license$fields$ja {
 	String get f_remarks => '備考';
 }
 
+// Path: entity.license.reverse
+class ResourceStrings$entity$license$reverse$ja {
+	ResourceStrings$entity$license$reverse$ja.internal(this._root);
+
+	final ResourceStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '保持者'
+	String get stafflicense => '保持者';
+}
+
 // Path: entity.location.fields
 class ResourceStrings$entity$location$fields$ja {
 	ResourceStrings$entity$location$fields$ja.internal(this._root);
@@ -345,9 +384,6 @@ class ResourceStrings$entity$location$fields$ja {
 
 	/// ja: '読み'
 	String get f_pronunciation => '読み';
-
-	/// ja: '種別'
-	String get f_type => '種別';
 
 	/// ja: '使用'
 	String get f_use => '使用';
@@ -400,20 +436,14 @@ class ResourceStrings$entity$equipment$fields$ja {
 	/// ja: '表示コード'
 	String get f_label_code => '表示コード';
 
-	/// ja: '設備名'
-	String get f_name => '設備名';
+	/// ja: '品目(設備名)'
+	String get f_item => '品目(設備名)';
 
 	/// ja: '設備分類'
 	String get f_category => '設備分類';
 
 	/// ja: '場所'
 	String get f_location => '場所';
-
-	/// ja: '設置日'
-	String get f_installed => '設置日';
-
-	/// ja: '状態'
-	String get f_status => '状態';
 }
 
 // Path: entity.inspectionkind.fields
@@ -459,12 +489,6 @@ class ResourceStrings$entity$inspectionitem$fields$ja {
 
 	/// ja: '点検区分'
 	String get f_kind => '点検区分';
-
-	/// ja: '対象部位'
-	String get f_part => '対象部位';
-
-	/// ja: '判定基準'
-	String get f_criteria => '判定基準';
 }
 
 // Path: entity.inspectionformula.fields
@@ -475,17 +499,8 @@ class ResourceStrings$entity$inspectionformula$fields$ja {
 
 	// Translations
 
-	/// ja: '算式名'
-	String get f_name => '算式名';
-
 	/// ja: '式'
 	String get f_expr => '式';
-
-	/// ja: '単位'
-	String get f_unit => '単位';
-
-	/// ja: '基準値'
-	String get f_base => '基準値';
 }
 
 // Path: entity.inspectionoperation.fields
@@ -507,9 +522,6 @@ class ResourceStrings$entity$inspectionoperation$fields$ja {
 
 	/// ja: '点検整備区分'
 	String get f_kind => '点検整備区分';
-
-	/// ja: '周期'
-	String get f_cycle => '周期';
 }
 
 // Path: entity.operationline.fields
@@ -546,12 +558,6 @@ class ResourceStrings$entity$inspectionschedule$fields$ja {
 
 	/// ja: '点検整備運用'
 	String get f_operation => '点検整備運用';
-
-	/// ja: '予定月'
-	String get f_month => '予定月';
-
-	/// ja: '状態'
-	String get f_status => '状態';
 }
 
 // Path: entity.scheduledetail.fields
@@ -625,6 +631,7 @@ class ResourceStrings$entity$inspectionfile$fields$ja {
 extension on ResourceStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'menu.group' => '資源',
 			'entity.capability.title' => '力量',
 			'entity.capability.fields.f_code' => '力量コード',
 			'entity.capability.fields.f_name' => '力量名称',
@@ -635,6 +642,7 @@ extension on ResourceStrings {
 			'entity.capability.fields.f_min' => '最小',
 			'entity.capability.fields.f_step' => '刻み',
 			'entity.capability.fields.f_remarks' => '備考',
+			'entity.capability.reverse.staffcapability' => '保持者',
 			'entity.license.title' => '資格',
 			'entity.license.fields.f_code' => '資格コード',
 			'entity.license.fields.f_name' => '資格名称',
@@ -644,12 +652,12 @@ extension on ResourceStrings {
 			'entity.license.fields.f_customer_license' => '顧客',
 			'entity.license.fields.f_organization_license' => '内部',
 			'entity.license.fields.f_remarks' => '備考',
+			'entity.license.reverse.stafflicense' => '保持者',
 			'entity.location.title' => '場所',
 			'entity.location.fields.f_code' => '場所コード',
 			'entity.location.fields.f_control_code' => '管理コード',
 			'entity.location.fields.f_name' => '場所名称',
 			'entity.location.fields.f_pronunciation' => '読み',
-			'entity.location.fields.f_type' => '種別',
 			'entity.location.fields.f_use' => '使用',
 			'entity.location.fields.f_remarks' => '備考',
 			'entity.equipmentcategory.title' => '設備分類',
@@ -663,11 +671,9 @@ extension on ResourceStrings {
 			'entity.equipment.fields.f_code' => '設備コード',
 			'entity.equipment.fields.f_control_code' => '管理コード',
 			'entity.equipment.fields.f_label_code' => '表示コード',
-			'entity.equipment.fields.f_name' => '設備名',
+			'entity.equipment.fields.f_item' => '品目(設備名)',
 			'entity.equipment.fields.f_category' => '設備分類',
 			'entity.equipment.fields.f_location' => '場所',
-			'entity.equipment.fields.f_installed' => '設置日',
-			'entity.equipment.fields.f_status' => '状態',
 			'entity.inspectionkind.title' => '点検整備区分',
 			'entity.inspectionkind.fields.f_code' => '区分コード',
 			'entity.inspectionkind.fields.f_name' => '区分名称',
@@ -679,19 +685,13 @@ extension on ResourceStrings {
 			'entity.inspectionitem.fields.f_name' => '点検名称',
 			'entity.inspectionitem.fields.f_pronunciation' => '読み',
 			'entity.inspectionitem.fields.f_kind' => '点検区分',
-			'entity.inspectionitem.fields.f_part' => '対象部位',
-			'entity.inspectionitem.fields.f_criteria' => '判定基準',
 			'entity.inspectionformula.title' => '点検整備算式',
-			'entity.inspectionformula.fields.f_name' => '算式名',
 			'entity.inspectionformula.fields.f_expr' => '式',
-			'entity.inspectionformula.fields.f_unit' => '単位',
-			'entity.inspectionformula.fields.f_base' => '基準値',
 			'entity.inspectionoperation.title' => '設備点検整備運用',
 			'entity.inspectionoperation.fields.f_code' => '運用コード',
 			'entity.inspectionoperation.fields.f_name' => '運用名称',
 			'entity.inspectionoperation.fields.f_equipment' => '設備',
 			'entity.inspectionoperation.fields.f_kind' => '点検整備区分',
-			'entity.inspectionoperation.fields.f_cycle' => '周期',
 			'entity.operationline.title' => '運用明細',
 			'entity.operationline.fields.f_item' => '点検整備',
 			'entity.operationline.fields.f_seq' => '順',
@@ -700,8 +700,6 @@ extension on ResourceStrings {
 			'entity.inspectionschedule.fields.f_code' => '管理コード',
 			'entity.inspectionschedule.fields.f_name' => '予定名称',
 			'entity.inspectionschedule.fields.f_operation' => '点検整備運用',
-			'entity.inspectionschedule.fields.f_month' => '予定月',
-			'entity.inspectionschedule.fields.f_status' => '状態',
 			'entity.scheduledetail.title' => '予定明細',
 			'entity.scheduledetail.fields.f_item' => '点検整備項目',
 			'entity.scheduledetail.fields.f_start' => '開始予定日',

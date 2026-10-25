@@ -35,7 +35,20 @@ class ProductionPlanStrings with BaseTranslations<ProductionPlanLocale, Producti
 	ProductionPlanStrings $copyWith({TranslationMetadata<ProductionPlanLocale, ProductionPlanStrings>? meta}) => ProductionPlanStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final ProductionPlanStrings$menu$ja menu = ProductionPlanStrings$menu$ja.internal(_root);
 	late final ProductionPlanStrings$entity$ja entity = ProductionPlanStrings$entity$ja.internal(_root);
+}
+
+// Path: menu
+class ProductionPlanStrings$menu$ja {
+	ProductionPlanStrings$menu$ja.internal(this._root);
+
+	final ProductionPlanStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '生産計画'
+	String get group => '生産計画';
 }
 
 // Path: entity
@@ -235,6 +248,7 @@ class ProductionPlanStrings$entity$purrez$fields$ja {
 extension on ProductionPlanStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'menu.group' => '生産計画',
 			'entity.resplan.title' => '資材計画',
 			'entity.resplan.fields.f_trans_order_detail_id' => '受注明細',
 			'entity.resplan.fields.f_trans_unrecognized_detail_id' => '非計上明細',

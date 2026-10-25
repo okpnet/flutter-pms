@@ -35,7 +35,20 @@ class QualityCommonStrings with BaseTranslations<QualityCommonLocale, QualityCom
 	QualityCommonStrings $copyWith({TranslationMetadata<QualityCommonLocale, QualityCommonStrings>? meta}) => QualityCommonStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final QualityCommonStrings$menu$ja menu = QualityCommonStrings$menu$ja.internal(_root);
 	late final QualityCommonStrings$entity$ja entity = QualityCommonStrings$entity$ja.internal(_root);
+}
+
+// Path: menu
+class QualityCommonStrings$menu$ja {
+	QualityCommonStrings$menu$ja.internal(this._root);
+
+	final QualityCommonStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '品質共通'
+	String get group => '品質共通';
 }
 
 // Path: entity
@@ -397,6 +410,7 @@ class QualityCommonStrings$entity$auditstdcheck$fields$ja {
 extension on QualityCommonStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'menu.group' => '品質共通',
 			'entity.disposal.title' => '異常処置',
 			'entity.disposal.fields.f_trans_complaint_id' => '異常',
 			'entity.disposal.fields.f_disposal_at' => '処置年月日',

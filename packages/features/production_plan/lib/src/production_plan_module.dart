@@ -23,4 +23,11 @@ class ProductionPlanModule extends EntityFeatureModule {
   @override
   EntityLabels labelsOf(WidgetRef ref) =>
       ProductionPlanLabels(ref.watch(productionPlanStringsProvider));
+
+  @override
+  String get menuGroupId => 'production_plan';
+
+  @override
+  String menuGroupLabel(WidgetRef ref) =>
+      ProductionPlanLabels(ref.watch(productionPlanStringsProvider)).menuGroup;
 }

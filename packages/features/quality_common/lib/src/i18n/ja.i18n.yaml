@@ -1,6 +1,8 @@
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 品質共通の実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
+menu:
+  group: "品質共通"
 entity:
   disposal:
     title: "異常処置"

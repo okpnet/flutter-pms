@@ -35,7 +35,20 @@ class ProductionProcessStrings with BaseTranslations<ProductionProcessLocale, Pr
 	ProductionProcessStrings $copyWith({TranslationMetadata<ProductionProcessLocale, ProductionProcessStrings>? meta}) => ProductionProcessStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final ProductionProcessStrings$menu$ja menu = ProductionProcessStrings$menu$ja.internal(_root);
 	late final ProductionProcessStrings$entity$ja entity = ProductionProcessStrings$entity$ja.internal(_root);
+}
+
+// Path: menu
+class ProductionProcessStrings$menu$ja {
+	ProductionProcessStrings$menu$ja.internal(this._root);
+
+	final ProductionProcessStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '工程'
+	String get group => '工程';
 }
 
 // Path: entity
@@ -265,6 +278,7 @@ class ProductionProcessStrings$entity$opapply$fields$ja {
 extension on ProductionProcessStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'menu.group' => '工程',
 			'entity.taskgroup.title' => '工程グループ',
 			'entity.taskgroup.fields.f_name' => 'グループ名',
 			'entity.taskgroup.fields.f_desc' => '説明',

@@ -6,6 +6,7 @@ import 'package:production_process/production_process.dart';
 import 'package:quality/quality.dart';
 import 'package:quality_common/quality_common.dart';
 import 'package:sales/sales.dart';
+import 'package:shared_master/shared_master.dart';
 import 'package:theme_lib/theme_lib.dart';
 
 Future<void> main() async {
@@ -26,25 +27,8 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FeatureHost(
     title: '品質管理 (example)',
-    modules: const [
-      QualityModule(),
-      OrganizationModule(),
-      ProductionProcessModule(),
-      QualityCommonModule(),
-      SalesModule(),
-    ],
-    entries: const [
-      FeatureHostEntry('異常', EntityListDestination('complaint')),
-      FeatureHostEntry('注文苦情', EntityListDestination('corder')),
-      FeatureHostEntry('工程苦情', EntityListDestination('cproc')),
-      FeatureHostEntry('設備苦情', EntityListDestination('cequip')),
-      FeatureHostEntry('注文リスク', EntityListDestination('orderrisk')),
-      FeatureHostEntry('受注明細リスク', EntityListDestination('orderdetailrisk')),
-      FeatureHostEntry('工程リスク', EntityListDestination('taskrisk')),
-      FeatureHostEntry('監査標準', EntityListDestination('auditstd')),
-      FeatureHostEntry('監査チーム', EntityListDestination('auditteam')),
-      FeatureHostEntry('監査', EntityListDestination('audit')),
-    ],
+    modules: const [QualityModule(), OrganizationModule(), ProductionProcessModule(), QualityCommonModule(), SalesModule(), SharedMasterModule()],
+    entries: const [FeatureHostEntry('異常', EntityListDestination('complaint')), FeatureHostEntry('注文苦情', EntityListDestination('corder')), FeatureHostEntry('工程苦情', EntityListDestination('cproc')), FeatureHostEntry('設備苦情', EntityListDestination('cequip')), FeatureHostEntry('注文リスク', EntityListDestination('orderrisk')), FeatureHostEntry('受注明細リスク', EntityListDestination('orderdetailrisk')), FeatureHostEntry('工程リスク', EntityListDestination('taskrisk')), FeatureHostEntry('監査標準', EntityListDestination('auditstd')), FeatureHostEntry('監査チーム', EntityListDestination('auditteam')), FeatureHostEntry('監査', EntityListDestination('audit'))],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー
     overrides: [themeLoggerProvider.overrideWithValue(logger)],

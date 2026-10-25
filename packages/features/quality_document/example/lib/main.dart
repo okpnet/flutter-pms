@@ -23,12 +23,7 @@ class ExampleApp extends StatelessWidget {
   Widget build(BuildContext context) => FeatureHost(
     title: '品質管理文書 (example)',
     modules: const [QualityDocumentModule()],
-    entries: const [
-      FeatureHostEntry('文書階層', EntityListDestination('doctier')),
-      FeatureHostEntry('文書', EntityListDestination('doc')),
-      FeatureHostEntry('文書コンテンツ', EntityListDestination('doccontent')),
-      FeatureHostEntry('レポート', EntityListDestination('report')),
-    ],
+    entries: const [FeatureHostEntry('文書階層', EntityListDestination('doctier')), FeatureHostEntry('文書', EntityListDestination('doc')), FeatureHostEntry('文書コンテンツ', EntityListDestination('doccontent')), FeatureHostEntry('レポート', EntityListDestination('report'))],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー
     overrides: [themeLoggerProvider.overrideWithValue(logger)],

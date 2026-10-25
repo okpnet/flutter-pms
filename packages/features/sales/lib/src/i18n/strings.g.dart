@@ -3,10 +3,10 @@
 /// Source: lib/src/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 2
-/// Strings: 41 (20 per locale)
+/// Locales: 1
+/// Strings: 14
 ///
-/// Built on 2026-10-25 at 02:54 UTC
+/// Built on 2026-10-25 at 11:59 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -17,7 +17,6 @@ import 'package:slang/generated.dart';
 import 'package:slang/slang.dart';
 export 'package:slang/slang.dart';
 
-import 'strings_en.g.dart' deferred as l_en;
 part 'strings_ja.g.dart';
 
 /// Supported locales.
@@ -27,8 +26,7 @@ part 'strings_ja.g.dart';
 /// - Locale locale = SalesLocale.ja.flutterLocale // get flutter locale from enum
 /// - if (LocaleSettings.currentLocale == SalesLocale.ja) // locale check
 enum SalesLocale with BaseAppLocale<SalesLocale, SalesStrings> {
-	ja(languageCode: 'ja'),
-	en(languageCode: 'en');
+	ja(languageCode: 'ja');
 
 	const SalesLocale({
 		required this.languageCode,
@@ -53,13 +51,6 @@ enum SalesLocale with BaseAppLocale<SalesLocale, SalesStrings> {
 					cardinalResolver: cardinalResolver,
 					ordinalResolver: ordinalResolver,
 				);
-			case SalesLocale.en:
-				await l_en.loadLibrary();
-				return l_en.SalesStringsEn(
-					overrides: overrides,
-					cardinalResolver: cardinalResolver,
-					ordinalResolver: ordinalResolver,
-				);
 		}
 	}
 
@@ -72,12 +63,6 @@ enum SalesLocale with BaseAppLocale<SalesLocale, SalesStrings> {
 		switch (this) {
 			case SalesLocale.ja:
 				return SalesStringsJa(
-					overrides: overrides,
-					cardinalResolver: cardinalResolver,
-					ordinalResolver: ordinalResolver,
-				);
-			case SalesLocale.en:
-				return l_en.SalesStringsEn(
 					overrides: overrides,
 					cardinalResolver: cardinalResolver,
 					ordinalResolver: ordinalResolver,

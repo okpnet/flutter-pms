@@ -11,7 +11,9 @@ export 'strings.g.dart' show OrganizationStrings;
 /// 基準言語以外は遅延読み込み(slang の生成物)のため、読み込みが終わるまでは
 /// 基準言語の文字列を返し、終わった時点で差し替える。
 final organizationStringsProvider =
-    NotifierProvider<OrganizationStringsNotifier, OrganizationStrings>(OrganizationStringsNotifier.new);
+    NotifierProvider<OrganizationStringsNotifier, OrganizationStrings>(
+      OrganizationStringsNotifier.new,
+    );
 
 class OrganizationStringsNotifier extends Notifier<OrganizationStrings> {
   @override

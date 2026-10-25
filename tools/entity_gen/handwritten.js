@@ -14,10 +14,40 @@ const f = (key, label, kind = 'text', o = {}) => ({
   required: o.req !== false,
   options: o.options,
   ref: o.ref,
+  picker: o.picker,
 });
+
+/** 住所(info_address の複数列): 郵便番号・都道府県・市町村番地・建物・電話・FAX */
+const addressFields = () => [
+  f('postal_code', '郵便番号', 'text', { req: false }),
+  f('prefecture', '都道府県', 'text', { req: false }),
+  f('city', '市町村番地', 'text', { req: false }),
+  f('building', '建物', 'text', { req: false }),
+  f('tel', '電話', 'text', { req: false }),
+  f('fax', 'FAX', 'text', { req: false }),
+];
+/** 1つの文字列の住所を、上の項目に分ける(画面案のサンプル用)。 */
+const splitAddress = (text = '', tel = '', fax = '') => {
+  let rest = String(text ?? '').trim();
+  const zip = rest.match(/〒?\s*(\d{3}-?\d{4})/);
+  if (zip) rest = rest.replace(zip[0], '').trim();
+  const pref = rest.match(/^(北海道|東京都|(?:京都|大阪)府|.{2,3}県)/);
+  if (pref) rest = rest.slice(pref[0].length).trim();
+  return { postal_code: zip ? zip[1] : '', prefecture: pref ? pref[0] : '', city: rest, building: '', tel, fax };
+};
 
 module.exports = function build(D, X) {
   const rd = (name) => X.reading?.[name] ?? '';
+  /** 画面案の式(例「値 >= 10」「0.5 〜 1.0」)を条件の JSON にする。読み取れないときは「= 式の文字列」。 */
+  const condOf = (expr = '') => {
+    const t = String(expr).trim();
+    const m = t.match(/(>=|<=|≠|!=|=|>|<|≥|≦|≧|≤)\s*(-?[\d.]+)/);
+    const OP = { '!=': '≠', '≥': '>=', '≦': '<=', '≧': '>=', '≤': '<=' };
+    if (m) return JSON.stringify({ operator: OP[m[1]] ?? m[1], value: m[2] });
+    const r = t.match(/(-?[\d.]+)\s*[〜~-]\s*(-?[\d.]+)/);
+    if (r) return JSON.stringify({ operator: 'between', value: [r[1], r[2]] });
+    return JSON.stringify({ operator: '=', value: t });
+  };
   const seq = (pfx, i, w = 3) => `${pfx}${String(i + 1).padStart(w, '0')}`;
   const row = (legacy, values, parent = null) => ({ legacy, parent, values });
   const out = [];
@@ -30,8 +60,8 @@ module.exports = function build(D, X) {
 
   out.push({
     key: 'company', label: '会社情報', project: 'organization',
-    fields: [f('name', '会社名'), f('pronunciation', '会社名の読み', 'text', { req: false }), f('nickname', '略称', 'text', { req: false }), f('ceo', '代表者名'), f('ceo_title', '代表者の役職'), f('web_page', 'ホームページ', 'text', { req: false }), f('address', 'メインサイト(本社)所在地'), f('remarks', '備考', 'multiline', { req: false })],
-    rows: [row('company1', { name: C.name, pronunciation: C.pronunciation ?? '', nickname: C.nickname ?? '', ceo: C.ceo, ceo_title: C.ceoTitle, web_page: C.web_page ?? '', address: C.address, remarks: C.remarks ?? '' })],
+    fields: [f('name', '会社名'), f('pronunciation', '会社名の読み', 'text', { req: false }), f('nickname', '略称', 'text', { req: false }), f('ceo', '代表者名'), f('web_page', 'ホームページ', 'text', { req: false }), ...addressFields(), f('remarks', '備考', 'multiline', { req: false })],
+    rows: [row('company1', { name: C.name, pronunciation: C.pronunciation ?? '', nickname: C.nickname ?? '', ceo: C.ceo, web_page: C.web_page ?? '', ...splitAddress(C.address, C.tel ?? '', C.fax ?? ''), remarks: C.remarks ?? '' })],
   });
   out.push({
     key: 'provision', label: '提供', project: 'organization', owner: 'company',
@@ -45,23 +75,23 @@ module.exports = function build(D, X) {
   });
   out.push({
     key: 'assignment', label: '割当', project: 'organization', owner: 'position',
-    fields: [f('staff', '担当者', 'reference', { ref: 'staff' })],
-    rows: D.assignments.map((a) => row(a.id, { staff: a.emp }, a.pos)),
+    fields: [f('staff', '担当者', 'reference', { ref: 'staff' }), f('enable', '有効', 'choice', { options: YN }), f('priority', '優先順位', 'number', { req: false }), f('office', '事業所', 'reference', { ref: 'site', req: false }), f('department', '部署', 'reference', { ref: 'department', req: false })],
+    rows: D.assignments.map((a, i) => row(a.id, { staff: a.emp, enable: 'はい', priority: String(i + 1), office: '', department: '' }, a.pos)),
   });
   out.push({
     key: 'site', label: '事業所', project: 'organization',
-    fields: [f('code', '事業所コード'), f('name', '事業所名称'), f('pronunciation', '読み', 'text', { req: false }), f('type', '種別', 'choice', { options: ['本社', '工場', '物流', '営業所'] }), f('address', '所在地')],
-    rows: D.sites.map((s) => row(s.id, { code: (X.siteCode?.[s.id] ?? ['', ''])[0] || s.id.toUpperCase(), name: s.name, pronunciation: (X.siteCode?.[s.id] ?? ['', ''])[1], type: s.type, address: s.address })),
+    fields: [f('code', '事業所コード'), f('name', '事業所名称'), f('pronunciation', '読み', 'text', { req: false }), f('nickname', '略称', 'text', { req: false }), ...addressFields()],
+    rows: D.sites.map((s) => row(s.id, { code: (X.siteCode?.[s.id] ?? ['', ''])[0] || s.id.toUpperCase(), name: s.name, pronunciation: (X.siteCode?.[s.id] ?? ['', ''])[1], nickname: '', ...splitAddress(s.address) })),
   });
   out.push({
     key: 'deptkind', label: '部署区分', project: 'organization',
-    fields: [f('name', '区分名')],
-    rows: D.deptKinds.map((k) => row(k.id, { name: k.name })),
+    fields: [f('name', '区分名'), f('detail', '区分詳細', 'multiline', { req: false })],
+    rows: D.deptKinds.map((k) => row(k.id, { name: k.name, detail: '' })),
   });
   out.push({
     key: 'department', label: '部署', project: 'organization', isTree: true,
-    fields: [f('code', '組織コード'), f('name', '組織名称'), f('pronunciation', '読み', 'text', { req: false }), f('site', '事業所', 'reference', { ref: 'site', req: false })],
-    rows: D.departments.map((d, i) => row(d.id, { code: seq('DP', i), name: d.name, pronunciation: rd(d.name), site: DEPT_OFFICE[d.id] ?? '' }, d.parent)),
+    fields: [f('code', '組織コード'), f('name', '組織名称'), f('pronunciation', '読み', 'text', { req: false }), f('nickname', '略称', 'text', { req: false }), f('site', '事業所', 'reference', { ref: 'site', req: false })],
+    rows: D.departments.map((d, i) => row(d.id, { code: seq('DP', i), name: d.name, pronunciation: rd(d.name), nickname: '', site: DEPT_OFFICE[d.id] ?? '' }, d.parent)),
   });
   out.push({
     key: 'departmentkind', label: '部署区分の割当', project: 'organization', owner: 'department',
@@ -70,8 +100,8 @@ module.exports = function build(D, X) {
   });
   out.push({
     key: 'staff', label: '作業者', project: 'organization',
-    fields: [f('no', '担当者コード'), f('name', '名前'), f('pronunciation', '読み', 'text', { req: false }), f('sex', '性別', 'choice', { options: ['男性', '女性', 'その他'], req: false }), f('phone', '電話', 'text', { req: false }), f('private_phone', '緊急電話', 'text', { req: false }), f('site', '所属事業所', 'reference', { ref: 'site' }), f('type', '区分', 'choice', { options: ['社員', 'パート', '派遣'] }), f('dept', '部署', 'reference', { ref: 'department', req: false }), f('remarks', '備考', 'multiline', { req: false })],
-    rows: D.employees.map((e) => row(e.no, { no: e.no, name: e.name, pronunciation: rd(e.name), sex: '', phone: '', private_phone: '', site: bySiteName[e.site] ?? '', type: e.type, dept: EMP_DEPT[e.no] ?? '', remarks: '' })),
+    fields: [f('no', '担当者コード'), f('name', '名前'), f('pronunciation', '読み', 'text', { req: false }), f('sex', '性別', 'choice', { options: ['男性', '女性', 'その他'], req: false }), f('phone', '電話', 'text', { req: false }), f('private_phone', '緊急電話', 'text', { req: false }), f('symbol', '記号', 'text', { req: false }), f('remarks', '備考', 'multiline', { req: false })],
+    rows: D.employees.map((e) => row(e.no, { no: e.no, name: e.name, pronunciation: rd(e.name), sex: '', phone: '', private_phone: '', symbol: '', remarks: '' })),
   });
 
   /* 力量・資格のマスタ(資源)と、作業者が持つ分(組織) */
@@ -84,13 +114,13 @@ module.exports = function build(D, X) {
 
   out.push({
     key: 'staffcapability', label: '作業者の力量', project: 'organization', owner: 'staff',
-    fields: [f('capability', '力量', 'reference', { ref: 'capability' }), f('level', '値(習熟度)', 'choice', { options: ['見習い', '一人で作業可', '他者の指導可'] })],
-    rows: D.capabilities.map((c) => row(c.id, { capability: capId(c.name), level: c.level }, c.staff)),
+    fields: [f('capability', '力量', 'reference', { ref: 'capability' }), f('value', '値', 'number'), f('stop', '停止', 'choice', { options: YN })],
+    rows: D.capabilities.map((c) => row(c.id, { capability: capId(c.name), value: String({ '見習い': 1, '一人で作業可': 2, '他者の指導可': 3 }[c.level] ?? 2), stop: 'いいえ' }, c.staff)),
   });
   out.push({
     key: 'stafflicense', label: '作業者の資格', project: 'organization', owner: 'staff',
-    fields: [f('license', '資格', 'reference', { ref: 'license' }), f('number', '資格番号', 'text', { req: false }), f('acquired', '適用開始', 'date'), f('expires', '適用終了', 'date', { req: false })],
-    rows: D.licenses.map((l) => row(l.id, { license: licId(l.name), number: l.number ?? '', acquired: l.acquired, expires: l.expires ?? '' }, l.staff)),
+    fields: [f('license', '資格', 'reference', { ref: 'license' }), f('number', '資格番号', 'text', { req: false }), f('acquired', '適用開始', 'date'), f('expires', '適用終了', 'date', { req: false }), f('abeyance', '保留(停止)', 'choice', { options: YN }), f('abeyance_at', '保留日', 'date', { req: false }), f('revocation', '取り消し', 'choice', { options: YN }), f('revocation_at', '取り消し日', 'date', { req: false })],
+    rows: D.licenses.map((l) => row(l.id, { license: licId(l.name), number: l.number ?? '', acquired: l.acquired, expires: l.expires ?? '', abeyance: 'いいえ', abeyance_at: '', revocation: 'いいえ', revocation_at: '' }, l.staff)),
   });
 
   out.push({
@@ -98,15 +128,13 @@ module.exports = function build(D, X) {
     fields: [f('name', 'パターン名称'), f('pronunciation', '読み', 'text', { req: false }), f('remarks', '備考', 'multiline', { req: false })],
     rows: D.apPatterns.map((p) => row(p.id, { name: p.name, pronunciation: rd(p.name), remarks: p.desc })),
   });
+
+  const posName = Object.fromEntries(D.positions.map((p) => [p.id, p.name]));
+  const deptName = Object.fromEntries(D.departments.map((d) => [d.id, d.name]));
   out.push({
-    key: 'approvalscope', label: '承認の範囲', project: 'organization', owner: 'approvalpattern',
-    fields: [f('step', '段階', 'number'), f('position', '承認する役職', 'reference', { ref: 'position' }), f('department', '対象の組織', 'reference', { ref: 'department' }), f('include_children', '配下の部署を含む', 'choice', { options: YN })],
-    rows: D.apScopes.map((s) => row(s.id, { step: String(s.step), position: s.pos, department: s.dept, include_children: s.incl ? 'はい' : 'いいえ' }, s.ap)),
-  });
-  out.push({
-    key: 'approver', label: '承認できる人', project: 'organization', owner: 'approvalscope',
-    fields: [f('staff', '担当者', 'reference', { ref: 'staff' }), f('kind', '種別', 'choice', { options: ['承認者', '代理承認者'] }), f('valid_from', '有効開始日', 'date'), f('valid_to', '有効終了日', 'date', { req: false })],
-    rows: D.apApprovers.map((a) => row(a.id, { staff: a.staff, kind: a.kind, valid_from: a.from, valid_to: a.to ?? '' }, a.scope)),
+    key: 'approver', label: '承認できる人', project: 'organization', owner: 'approvalpattern',
+    fields: [f('name', '名称'), f('pronunciation', '読み', 'text', { req: false }), f('nickname', '略称', 'text', { req: false }), f('department', '部署', 'reference', { ref: 'department', req: false }), f('position', '役職', 'reference', { ref: 'position', req: false }), f('priority', '優先順位', 'number', { req: false }), f('remarks', '備考', 'multiline', { req: false })],
+    rows: D.apScopes.map((a) => row(a.id, { name: `${deptName[a.dept] ?? ''} ${posName[a.pos] ?? ''}`.trim(), pronunciation: '', nickname: '', department: a.dept, position: a.pos, priority: String(a.step), remarks: '' }, a.ap)),
   });
 
   /* ---------------------------------------------------------------- resource */
@@ -125,8 +153,8 @@ module.exports = function build(D, X) {
   });
   out.push({
     key: 'location', label: '場所', project: 'resource', isTree: true,
-    fields: [f('code', '場所コード'), f('control_code', '管理コード', 'text', { req: false }), f('name', '場所名称'), f('pronunciation', '読み', 'text', { req: false }), f('type', '種別', 'choice', { options: ['サイト', 'エリア', '区画', 'ライン', 'その他'] }), f('use', '使用', 'choice', { options: ['使用中', '使用停止'] }), f('remarks', '備考', 'multiline', { req: false })],
-    rows: D.locations.map((l, i) => row(l.id, { code: seq('LC-', i), control_code: '', name: l.name, pronunciation: rd(l.name), type: l.type, use: '使用中', remarks: l.desc ?? '' }, l.parent)),
+    fields: [f('code', '場所コード'), f('control_code', '管理コード', 'text', { req: false }), f('name', '場所名称'), f('pronunciation', '読み', 'text', { req: false }), f('use', '使用', 'choice', { options: ['使用中', '使用停止'] }), f('remarks', '備考', 'multiline', { req: false })],
+    rows: D.locations.map((l, i) => row(l.id, { code: seq('LC-', i), control_code: '', name: l.name, pronunciation: rd(l.name), use: '使用中', remarks: l.desc ?? '' }, l.parent)),
   });
   out.push({
     key: 'equipmentcategory', label: '設備分類', project: 'resource',
@@ -135,8 +163,8 @@ module.exports = function build(D, X) {
   });
   out.push({
     key: 'equipment', label: '設備', project: 'resource',
-    fields: [f('code', '設備コード'), f('control_code', '管理コード', 'text', { req: false }), f('label_code', '表示コード', 'text', { req: false }), f('name', '設備名'), f('category', '設備分類', 'reference', { ref: 'equipmentcategory' }), f('location', '場所', 'reference', { ref: 'location' }), f('installed', '設置日', 'date', { req: false }), f('status', '状態', 'choice', { options: ['稼働中', '休止'] })],
-    rows: D.equipments.map((e) => row(e.id, { code: e.code, control_code: '', label_code: '', name: e.name, category: e.cat, location: e.loc, installed: e.installed ?? '', status: e.status })),
+    fields: [f('code', '設備コード'), f('control_code', '管理コード', 'text', { req: false }), f('label_code', '表示コード', 'text', { req: false }), f('item', '品目(設備名)', 'reference', { ref: 'item', picker: true }), f('category', '設備分類', 'reference', { ref: 'equipmentcategory' }), f('location', '場所', 'reference', { ref: 'location' })],
+    rows: D.equipments.map((e, i) => row(e.id, { code: e.code, control_code: '', label_code: '', item: `item${(i % 5) + 1}`, category: e.cat, location: e.loc })),
   });
   out.push({
     key: 'inspectionkind', label: '点検整備区分', project: 'resource',
@@ -145,20 +173,20 @@ module.exports = function build(D, X) {
   });
   out.push({
     key: 'inspectionitem', label: '点検整備項目', project: 'resource',
-    fields: [f('code', '点検コード'), f('name', '点検名称'), f('pronunciation', '読み', 'text', { req: false }), f('kind', '点検区分', 'reference', { ref: 'inspectionkind' }), f('part', '対象部位'), f('criteria', '判定基準', 'multiline', { req: false })],
-    rows: D.inspItems.map((it, i) => row(it.id, { code: seq('II-', i), name: it.name, pronunciation: rd(it.name), kind: it.kind, part: it.part ?? '', criteria: it.criteria ?? '' })),
+    fields: [f('code', '点検コード'), f('name', '点検名称'), f('pronunciation', '読み', 'text', { req: false }), f('kind', '点検区分', 'reference', { ref: 'inspectionkind' })],
+    rows: D.inspItems.map((it, i) => row(it.id, { code: seq('II-', i), name: it.name, pronunciation: rd(it.name), kind: it.kind })),
   });
   out.push({
     key: 'inspectionformula', label: '点検整備算式', project: 'resource', owner: 'inspectionitem',
-    fields: [f('name', '算式名'), f('expr', '式'), f('unit', '単位', 'text', { req: false }), f('base', '基準値', 'text', { req: false })],
-    rows: D.inspFormulas.map((m) => row(m.id, { name: m.name, expr: m.expr, unit: m.unit ?? '', base: m.base ?? '' }, m.item)),
+    fields: [f('expr', '式', 'condition')],
+    rows: D.inspFormulas.map((m) => row(m.id, { expr: condOf(m.expr) }, m.item)),
   });
   const equipName = Object.fromEntries(D.equipments.map((e) => [e.id, e.name]));
   const kindName = Object.fromEntries(D.inspKinds.map((k) => [k.id, k.name]));
   out.push({
     key: 'inspectionoperation', label: '設備点検整備運用', project: 'resource',
-    fields: [f('code', '運用コード'), f('name', '運用名称'), f('equipment', '設備', 'reference', { ref: 'equipment' }), f('kind', '点検整備区分', 'reference', { ref: 'inspectionkind' }), f('cycle', '周期', 'choice', { options: ['日', '月', '年'] })],
-    rows: D.inspOps.map((o, i) => row(o.id, { code: seq('IO-', i), name: `${equipName[o.equip] ?? ''} ${kindName[o.kind] ?? ''}`.trim(), equipment: o.equip, kind: o.kind, cycle: o.cycle })),
+    fields: [f('code', '運用コード'), f('name', '運用名称'), f('equipment', '設備', 'reference', { ref: 'equipment' }), f('kind', '点検整備区分', 'reference', { ref: 'inspectionkind' })],
+    rows: D.inspOps.map((o, i) => row(o.id, { code: seq('IO-', i), name: `${equipName[o.equip] ?? ''} ${kindName[o.kind] ?? ''}`.trim(), equipment: o.equip, kind: o.kind })),
   });
   out.push({
     key: 'operationline', label: '運用明細', project: 'resource', owner: 'inspectionoperation',
@@ -167,8 +195,8 @@ module.exports = function build(D, X) {
   });
   out.push({
     key: 'inspectionschedule', label: '点検予定', project: 'resource',
-    fields: [f('code', '管理コード'), f('name', '予定名称'), f('operation', '点検整備運用', 'reference', { ref: 'inspectionoperation' }), f('month', '予定月'), f('status', '状態', 'choice', { options: ['計画', '実施中', '完了'] })],
-    rows: D.inspSchs.map((s, i) => row(s.id, { code: seq('IS-', i), name: `${s.month} 点検`, operation: s.op, month: s.month, status: s.status })),
+    fields: [f('code', '管理コード'), f('name', '予定名称'), f('operation', '点検整備運用', 'reference', { ref: 'inspectionoperation' })],
+    rows: D.inspSchs.map((s, i) => row(s.id, { code: seq('IS-', i), name: `${s.month} 点検`, operation: s.op })),
   });
   out.push({
     key: 'scheduledetail', label: '予定明細', project: 'resource', owner: 'inspectionschedule',

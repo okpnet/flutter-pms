@@ -29,3 +29,9 @@ common:
   save: Save
   delete: Delete
   cancel: Cancel
+menu:
+  sales: Sales
+  purchasing: Purchasing
+stakeholder:
+  customerLedger: Customers
+  supplierLedger: Suppliers

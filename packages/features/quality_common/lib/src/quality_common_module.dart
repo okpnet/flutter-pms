@@ -23,4 +23,11 @@ class QualityCommonModule extends EntityFeatureModule {
   @override
   EntityLabels labelsOf(WidgetRef ref) =>
       QualityCommonLabels(ref.watch(qualityCommonStringsProvider));
+
+  @override
+  String get menuGroupId => 'quality_common';
+
+  @override
+  String menuGroupLabel(WidgetRef ref) =>
+      QualityCommonLabels(ref.watch(qualityCommonStringsProvider)).menuGroup;
 }

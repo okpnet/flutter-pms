@@ -1,7 +1,8 @@
+import 'condition_editor.dart';
+import 'package:app_shell/app_shell.dart';
 import 'package:flgtable_lib/flgtable_lib.dart';
 import 'package:flutter/material.dart';
 
-import '../catalog.dart';
 import '../definition.dart';
 import '../i18n/strings.g.dart';
 import '../record.dart';
@@ -18,8 +19,10 @@ class EntityEditPage extends StatefulWidget {
     required this.entityKey,
     required this.scope,
     required this.onOpenChild,
+    this.onPick,
     this.id,
     this.parentId,
+    this.initialValues = const {},
   });
 
   final String entityKey;
@@ -30,6 +33,13 @@ class EntityEditPage extends StatefulWidget {
 
   /// 子の台帳の新規登録のとき、所有する親の id。
   final String? parentId;
+
+  /// 新規登録のときの初期値(項目のキー → 値)。台帳の絞り込みを引き継ぐ。
+  final Map<String, String> initialValues;
+
+  /// 参照先の台帳の画面を開いて1件を選び、その id を返す(取り消しは null)。
+  /// [FieldDefinition.picker] の項目で使う。null のときは選択ボタンを無効にする。
+  final Future<String?> Function(String entityKey)? onPick;
 
   /// 子の編集を開く。[id] が null なら新規(親は [ownerId])。
   final Future<void> Function(String childKey, String? id, String ownerId)
@@ -43,6 +53,9 @@ class _EntityEditPageState extends State<EntityEditPage> {
   final Map<String, TextEditingController> _text = {};
   final Map<String, String> _chosen = {};
   String? _treeParent;
+
+  /// 削除の確認などに出す表示名(名称を参照先から借りる実体は、参照先の表示を含む)。
+  String _name = '';
 
   EntityDefinition? _definition;
   EntityRecord? _original;
@@ -81,12 +94,15 @@ class _EntityEditPageState extends State<EntityEditPage> {
       final record = widget.id == null
           ? null
           : await repository.findById(widget.id!);
+      final name = record == null
+          ? ''
+          : await _scope.catalog.labelOf(definition, record);
       var parentOptions = <EntityOption>[];
       if (definition.isTree) {
         parentOptions = [
           for (final r in await repository.find(take: 100000))
             if (r.id != widget.id)
-              EntityOption(r.id, EntityCatalog.displayLabel(definition, r)),
+              EntityOption(r.id, await _scope.catalog.labelOf(definition, r)),
         ];
       }
       if (!mounted) return;
@@ -95,9 +111,11 @@ class _EntityEditPageState extends State<EntityEditPage> {
         _options = options;
         _parentOptions = parentOptions;
         _original = record;
+        _name = record == null ? '' : name;
         _notFound = widget.id != null && record == null;
         for (final f in definition.fields) {
-          final value = record?.valueOf(f.key) ?? '';
+          final value =
+              record?.valueOf(f.key) ?? widget.initialValues[f.key] ?? '';
           if (f.kind == FieldKind.choice || f.kind == FieldKind.reference) {
             _chosen[f.key] = value;
           } else {
@@ -194,12 +212,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
     if (mounted) Navigator.of(context).pop();
   }
 
-  String _displayName() {
-    final definition = _definition;
-    final record = _original;
-    if (definition == null || record == null) return '';
-    return EntityCatalog.displayLabel(definition, record);
-  }
+  String _displayName() => _name;
 
   String _errorText(EntityScreenStrings s, EntityFieldError error) =>
       switch (error) {
@@ -207,15 +220,17 @@ class _EntityEditPageState extends State<EntityEditPage> {
         EntityFieldError.invalidNumber => s.validation.invalidNumber,
         EntityFieldError.invalidDate => s.validation.invalidDate,
         EntityFieldError.invalidChoice => s.validation.invalidChoice,
+        EntityFieldError.invalidCondition => s.validation.invalidCondition,
         EntityFieldError.parentCycle => s.validation.parentCycle,
+        EntityFieldError.duplicate => s.validation.duplicate,
       };
 
   @override
   Widget build(BuildContext context) {
     final scope = _scope;
     final strings = scope.strings;
-    return Scaffold(
-      appBar: AppBar(title: Text(scope.labels.entity(widget.entityKey))),
+    return ScreenScaffold(
+      title: scope.labels.entity(widget.entityKey),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _loadError != null
@@ -249,6 +264,16 @@ class _EntityEditPageState extends State<EntityEditPage> {
                 OutlinedButton(onPressed: _delete, child: Text(strings.delete)),
             ],
           ),
+          if (!_isNew)
+            for (final reverse in definition.reverseLists)
+              _ReverseSection(
+                key: ValueKey('reverse:${reverse.entity}'),
+                entityKey: widget.entityKey,
+                reverse: reverse,
+                targetId: widget.id!,
+                scope: scope,
+                onOpen: widget.onOpenChild,
+              ),
           if (!_isNew)
             for (final child in scope.catalog.childrenOf(widget.entityKey))
               _ChildSection(
@@ -303,13 +328,63 @@ class _EntityEditPageState extends State<EntityEditPage> {
             ),
           ),
         );
+      case FieldKind.condition:
+        return ConditionEditor(
+          controller: _text[f.key]!,
+          strings: strings,
+          label: _label(f),
+          errorText: _error(f.key),
+        );
       case FieldKind.choice:
         return _dropdown(f, [
           for (final o in f.options) EntityOption(o, o),
         ], strings);
       case FieldKind.reference:
+        if (f.picker) return _pickerField(f, strings);
         return _dropdown(f, _options[f.key] ?? const [], strings);
     }
+  }
+
+  /// 参照先の画面で選ぶ項目。選んだ 1 件の表示名と、選択・解除のボタン。
+  Widget _pickerField(FieldDefinition f, EntityScreenStrings strings) {
+    final value = _chosen[f.key] ?? '';
+    final options = _options[f.key] ?? const <EntityOption>[];
+    final label = value.isEmpty
+        ? strings.unselected
+        : options.where((o) => o.id == value).firstOrNull?.label ?? value;
+    return InputDecorator(
+      decoration: InputDecoration(
+        labelText: _label(f),
+        errorText: _error(f.key),
+      ),
+      child: Row(
+        children: [
+          Expanded(child: Text(label)),
+          TextButton(
+            onPressed: widget.onPick == null
+                ? null
+                : () async {
+                    final id = await widget.onPick!(f.reference!);
+                    if (id == null || !mounted) return;
+                    // 選んだ 1 件の表示名を引けるように、選択肢を読み直す
+                    final fresh = await _scope.catalog.options(f.reference!);
+                    if (!mounted) return;
+                    setState(() {
+                      _options[f.key] = fresh;
+                      _chosen[f.key] = id;
+                    });
+                  },
+            child: Text(strings.pick),
+          ),
+          if (!f.required && value.isNotEmpty)
+            IconButton(
+              tooltip: strings.clear,
+              icon: const Icon(Icons.clear),
+              onPressed: () => setState(() => _chosen[f.key] = ''),
+            ),
+        ],
+      ),
+    );
   }
 
   Widget _dropdown(
@@ -476,4 +551,128 @@ class _ChildData {
 
   final List<EntityRecord> records;
   final ReferenceNames names;
+}
+
+/// この実体を参照している一覧(例: 力量を持つ作業者)。読み取り専用で、
+/// 行を開くと参照している側の編集へ進む。
+class _ReverseSection extends StatefulWidget {
+  const _ReverseSection({
+    super.key,
+    required this.entityKey,
+    required this.reverse,
+    required this.targetId,
+    required this.scope,
+    required this.onOpen,
+  });
+
+  final String entityKey;
+  final ReverseList reverse;
+  final String targetId;
+  final EntityScope scope;
+  final Future<void> Function(String childKey, String? id, String ownerId)
+  onOpen;
+
+  @override
+  State<_ReverseSection> createState() => _ReverseSectionState();
+}
+
+class _ReverseSectionState extends State<_ReverseSection> {
+  late Future<_ReverseData> _future = _load();
+  int _generation = 0;
+
+  static const _ownerKey = '_owner';
+
+  Future<_ReverseData> _load() async {
+    final catalog = widget.scope.catalog;
+    final repository = catalog.repository(widget.reverse.entity);
+    if (repository == null) return const _ReverseData(null, [], {}, {});
+    final definition = repository.definition;
+    final options = await loadReferenceOptions(catalog, definition);
+    final all = await repository.find(take: 100000);
+    final records = [
+      for (final r in all)
+        if (r.valueOf(widget.reverse.field) == widget.targetId) r,
+    ];
+    // 所有する親(例: 作業者)の表示名
+    final owners = <String, String>{};
+    final ownerKey = definition.owner;
+    if (ownerKey != null) {
+      for (final o in await catalog.options(ownerKey)) {
+        owners[o.id] = o.label;
+      }
+    }
+    return _ReverseData(definition, records, namesOf(options), owners);
+  }
+
+  Future<void> _open(EntityRecord record) async {
+    final ownerId = record.parentId;
+    if (ownerId == null) return;
+    await widget.onOpen(widget.reverse.entity, record.id, ownerId);
+    if (mounted) {
+      setState(() {
+        _generation++;
+        _future = _load();
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final scope = widget.scope;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Divider(),
+        Text(
+          scope.labels.reverse(widget.entityKey, widget.reverse.entity),
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        SizedBox(
+          height: 240,
+          child: FutureBuilder<_ReverseData>(
+            future: _future,
+            builder: (context, snapshot) {
+              final data = snapshot.data;
+              if (snapshot.hasError) {
+                return Center(child: Text(scope.strings.loadFailed));
+              }
+              if (data == null) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              final definition = data.definition;
+              if (definition == null) {
+                return Center(child: Text(scope.strings.noData));
+              }
+              final columns = [
+                if (definition.owner != null)
+                  ColumnDefinition<EntityRecord>(
+                    key: _ownerKey,
+                    label: scope.labels.entity(definition.owner!),
+                    getter: (r) => data.owners[r.parentId] ?? '',
+                  ),
+                ...columnsOf(definition, scope.labels, data.names),
+              ];
+              return FlgTable<EntityRecord>(
+                key: ValueKey('${widget.reverse.entity}:$_generation'),
+                columns: columns,
+                items: data.records,
+                rowKey: (r) => r.id,
+                config: const TableConfig(sortEnabled: true),
+                events: TableEvents<EntityRecord>(onRowActivated: _open),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ReverseData {
+  const _ReverseData(this.definition, this.records, this.names, this.owners);
+
+  final EntityDefinition? definition;
+  final List<EntityRecord> records;
+  final ReferenceNames names;
+  final Map<String, String> owners;
 }

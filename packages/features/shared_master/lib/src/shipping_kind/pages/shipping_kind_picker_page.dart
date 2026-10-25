@@ -1,3 +1,4 @@
+import 'package:app_shell/app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -13,8 +14,8 @@ class ShippingKindPickerPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(sharedMasterStringsProvider).shippingKind;
     final kinds = ref.watch(shippingKindsProvider);
-    return Scaffold(
-      appBar: AppBar(title: Text(t.pickerTitle)),
+    return ScreenScaffold(
+      title: t.pickerTitle,
       body: kinds.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text('${t.loadFailed}: $e')),

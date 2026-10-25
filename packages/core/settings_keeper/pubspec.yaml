@@ -1,0 +1,23 @@
+name: settings_keeper
+description: "ローカル設定の保存と復元(Memento)。保存の手段はアプリ側で差し替えられる(Strategy)。"
+version: 0.0.1
+homepage:
+publish_to: "none"
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  logger_provider:
+    path: ../../infra/logger_provider
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

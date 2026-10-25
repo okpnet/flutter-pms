@@ -52,8 +52,9 @@
 6.  削除の参照チェック
     1.  他の画面・テーブルから使用されているデータは削除できない。リポジトリの`remove`は、使用中のとき専用の例外(例: `ShippingKindInUseException`)を投げ、画面はログに残さず利用者に表示だけする。GraphQL版は、DBの外部キー違反をこの例外に変換する。
 7.  共有マスタ(`shared_master`)の利用条件
-    1.  `sales`の顧客の編集画面を拡張するときは、配送区分の選択を`shared_master_api.dart`の`ShippingKindPickerDestination`で接続する(`sales`から`shared_master`の実装は参照しない)。
-    2.  配送区分は、トップメニューの「営業」「購買」のどちらからも選択して開く。メニューの項目は共通の画面(`shared_master`)へ遷移する。
+    1.  利害関係者(`stakeholder`)と担当者(`contact`)は`shared_master`が持つ。顧客・外部供給者・配送サービサーは同じ利害関係者をフラグで見分けるだけで、取得元・編集画面は1つにする。顧客台帳は顧客のフラグ、外部供給者台帳は外部供給者のフラグでの絞り込み(`EntityListDestination`の`filter`)とする。
+    2.  利害関係者の配送区分の選択は、同じプロジェクトの配送区分(`shipkind`)で行う。
+    3.  配送区分は、トップメニューの「営業」「購買」のどちらからも選択して開く。メニューの項目は共通の画面(`shared_master`)へ遷移する。顧客台帳は「営業」、外部供給者台帳は「購買」のメニューから開く。
 
 ## 参照するライブラリ
 1. テーマライブラリ
@@ -214,13 +215,13 @@ GraphQLから取得したデータのうち、イミュータブルな更新者�
 `tools/open-design` のトップメニュー(ダッシュボード → 資源 → 業務グループ → 会社情報)の単位で、`flutter-pms\packages\features` に1メニュー1プロジェクトを置く。各プロジェクトの`CLAUDE.md`に画面・参照するモデルをまとめる。
 | メニュー | プロジェクト |
 |---|---|
-| ダッシュボード | AppCore(アプリ側) |
+| ダッシュボード・設定・エラー | `app_core`(ブート・エラー・設定。ログイン・ログアウトは認証の導入後) |
 | 資源(力量・資格・場所・設備・保全) | `resource` |
 | システム | `system` |
 | 品目 | `item` |
 | 工程 | `production_process` |
-| 営業 | `sales`(顧客台帳を含む) |
-| 営業・購買に共通(配送区分) | `shared_master` |
+| 営業 | `sales` |
+| 営業・購買に共通(配送区分・利害関係者) | `shared_master` |
 | 購買 | `purchasing` |
 | 生産計画 | `production_plan` |
 | 作業実績 | `work_record` |
@@ -233,10 +234,29 @@ GraphQLから取得したデータのうち、イミュータブルな更新者�
 別パッケージ `xxx_api` は作らない。1機能=1パッケージとし、`lib/xxx.dart`(実装の入口。アプリだけが読み込み、公開は `XxxModule` のみ)と `lib/xxx_api.dart`(遷移先・命令の型だけ。他の機能・アプリが読み込む)の2つのバレルに分ける。他の機能は `lib/src` や `xxx.dart` を読み込まない。
 
 ### 実体の画面(entity_screens)
-1.  顧客・配送区分のような専用の画面を除く、台帳(テーブル構造/ツリー構造)と編集(編集構造)の画面は、実体の定義から作る。定義は`tools/open-design`の画面定義(`domains.base.js`・`schema.gen.js`)と手書きの定義(`tools/entity_gen/handwritten.js`、会社情報・資源)から`tools/entity_gen/gen.js`が生成する。再生成はリポジトリのルートで`node tools/entity_gen/gen.js`。
+1.  配送区分のような専用の画面を除く、台帳(テーブル構造/ツリー構造)と編集(編集構造)の画面は、実体の定義から作る。定義は`tools/open-design`の画面定義(`domains.base.js`・`schema.gen.js`)と手書きの定義(`tools/entity_gen/handwritten.js`、会社情報・資源)から`tools/entity_gen/gen.js`が生成する。再生成はリポジトリのルートで`node tools/entity_gen/gen.js`。
 2.  生成物(各プロジェクトの`lib/src/entities`・`lib/src/i18n/ja.i18n.yaml`の生成部分・`lib/src/<名前>_module.dart`・`test/<名前>_entities_test.dart`、`example`の`main.dart`、`apps/pms_app/lib/entity_menu.dart`)は直接編集しない。直したいときは生成元(Htmlの画面定義、`handwritten.js`、`gen.js`)を直して再生成する。
 3.  画面の作りは`packages/ui/entity_screens`、機能への組み込みは`feature_shared`の`EntityFeatureModule`(Template Method)。各機能のモジュールは、定義・サンプル・表示名を渡すだけにする。
 4.  実体のキーは全体で一意。パスは台帳`/e/<キー>`、新規`/e/<キー>/new`、編集`/e/<キー>/<id>`。遷移は`feature_shared`の`EntityListDestination`・`EntityEditDestination`で行う。
-5.  項目の種類は文字・複数行・数値・日付・選択・参照。必須・形式・選択肢の検証は取得元(リポジトリ)が行い、エラーは種類(enum)で返して画面が文字列にする。参照の選択肢、使用中・配下がある場合の削除不可、所有する子の台帳の連動削除は登録簿(`EntityCatalog`)が行う。
-6.  参照先が別の機能にあっても、機能同士はコンパイル時に依存しない。各機能が実体を登録簿へ登録し、実行時にキーで引く。専用の画面を持つ実体(顧客・配送区分)は選択肢(lookup)だけを登録する。`example`は、参照先の機能も一緒に載せる。
+5.  項目の種類は文字・複数行・数値・日付・選択・参照・条件。条件は、演算子(`=`・`≠`・`>`・`<`・`>=`・`<=`・範囲(`between`)・二値(`yesno`))をリストから選び、値を手で入力する。値は JSON の文字列(例 `{"operator":">=","value":"10"}`、範囲は値が2つ、二値は真偽)で持つ。必須・形式・選択肢の検証は取得元(リポジトリ)が行い、エラーは種類(enum)で返して画面が文字列にする。参照の選択肢、使用中・配下がある場合の削除不可、所有する子の台帳の連動削除は登録簿(`EntityCatalog`)が行う。
+6.  参照先が別の機能にあっても、機能同士はコンパイル時に依存しない。各機能が実体を登録簿へ登録し、実行時にキーで引く。専用の画面を持つ実体(配送区分)は選択肢(lookup)だけを登録する。同じ実体を別名で参照させたいとき(利害関係者を顧客・外部供給者として)は、別名の選択肢を役割で絞って登録し、元の実体(`backing`)の削除の使用中判定に含める。`example`は、参照先の機能も一緒に載せる。
 7.  取得元は暫定でメモリ上のサンプル(`InMemoryEntityRepository`)。GraphQL版は`IEntityRepository`を実装して差し替える。
+8.  重複不可は、実体の定義の`uniqueKeys`(項目の組)で持たせ、取得元が保存時に検証する(所有される実体は同じ親の中、それ以外は全体)。出典はDBの一意制約と画面案の「重複不可」。一意性の真実はDB側にある。定義は、画面の事前検証とメモリ上のサンプルの検証に使う。GraphQL版は、DBの一意制約違反を重複のエラー(`EntityFieldError.duplicate`)に変換する。
+9.  参照項目は、リストから選ぶ方式のほかに、参照先の台帳の画面で選んで戻る方式(`FieldDefinition.picker`)を持つ。参照先が多い・検索して選びたいときに使う(例: 設備の品目は品目の台帳で選ぶ)。選択は CommandBus の`EntityPickerDestination(entityKey)`(結果は選んだ行の id または null)で行い、機能同士はコンパイル時に依存しない。選択画面は新規登録のボタンを持たず、行の操作(ダブルクリック・長押し)で選んで戻る。名称(`name`)を持たず、この方式の参照で名称を借りる実体は、他の実体から選ぶときの表示をコード + 参照先の表示にする。
+10. ツリーの台帳の親の付け替え(ドラッグ&ドロップ)は、更新と検証(循環・権限)を利用者が実装するハンドラ(`EntityFeatureModule.reparentHandler`)で行う。ハンドラが無い実体では付け替えを有効にしない。ハンドラの完了(失敗を含む)後に台帳を再読み込みして、実際のデータに合わせる。
+11. 他の実体から参照されている一覧(力量・資格の保持者など)は、定義の`reverseLists`で持たせ、編集画面の下に読み取り専用で表示する。
+12. 項目名は`schema.graphql`のコメントを使う。コメントで裏付けられない項目名(画面案の名称を日本語として推論したもの)は、生成時に`tools/entity_gen/out/labels_inferred.md`へ一覧にし、`doc/log`に記録する(後で差し替えるため)。
+
+### アプリの枠(app_shell)とメニュー
+1.  タイトルバー・サイドバー・ハンバーガーメニュー・ログインユーザーは、見た目の部品として`packages/ui/app_shell`(1パッケージ)にまとめる。機能・認証の実体は知らず、表示用のモデル(`AppMenu`・`AppUser`)だけを受け取る。フレームは`MultiMainFrame`(タイトルバー + サイドバー + メイン)、`SingleMainFrame`、`SelectionFrame`。
+2.  サイドバーとハンバーガーメニューは同じメニューを共有する。モバイルはハンバーガー、タブレットと設定が有効のときはアイコンだけのサイドバー、PCは通常のサイドバー。ログインしていない(ユーザーが無い)ときは、メニューもユーザーも出さない。
+3.  メニューの項目は各機能が提供する(`feature_shared`の`MenuContributor`を`FeatureModule`と合わせて実装し、`MenuEntry`(グループの識別子・表示名・項目名・遷移先)を返す)。同じグループの識別子の項目は1つのグループにまとまる。グループの並びとアイコンはアプリ(`pms_app`の`shell_frame.dart`)が決める。権限の判定もアプリが行う。
+4.  機能の画面は、`AppBar`を使わず、`app_shell`の`ScreenScaffold`(画面の見出し + 本体。戻れるときは戻るボタン)で作る。タイトルバーはアプリの枠(`AppTitleBar`)だけが持ち、枠の中に入れても二重にならない。`FeatureHost`の起点の一覧(example用)は例外とする。
+5.  ログインユーザーの実体は`feature_shared`の`userSummaryProvider`(`UserSummaryNotifier`)で提供する。標準値はアプリが差し込む(認証(Keycloak)が無いあいだは固定の利用者)。設定画面でユーザー名・役割を設定値として与えられ、「標準に戻す」で標準値へ戻る。ログアウトでユーザーなしになり、メニューとユーザーは出さない。設定値(使用言語・サイドバーをアイコンだけにする設定・ユーザー名と役割)の保存と復元は`packages/core/settings_keeper`で行う。ライブラリは保存先を知らず、保存先(`SettingsStorage`)はアプリが`settingsStorageProvider`で決める(`pms_app`は`%APPDATA%\pms_app`のファイル)。起動時に復元してから、変更を保存し始める(`userSettingsAutoSaveProvider`)。ログアウト中はユーザーを保存しない。
+6.  ユーザーメニューは「設定」と「ログアウト」を持つ。ログアウトはログアウト画面(`LogoutDestination`)へ遷移する。ログインは認証の導入後に追加し、それまでは仮のボタンで標準のユーザーに戻す。
+7.  `app_core`は、ブート・エラー・設定(使用言語、サイドバーをアイコンだけにする設定、ログインユーザー、バージョン情報)・ログアウトを持つ。
+8.  アプリの枠のメニューの項目も CommandBus で開く(`feature_shared`の`TopLevelDestination`で包み、積まずに枠の中の画面を入れ替える)。`example`は CommandBus を通さずに開いてよい。
+
+### 使用言語
+1.  使用言語の既定は実行環境(OS)の言語。アプリが`localeProvider`を`SystemLocaleNotifier`へ差し替える。設定画面で「実行環境に従う」「日本語」「English」から選べる。対応していない言語は、各機能の文字列が基準言語(日本語)にする。
+2.  各機能の文字列は、機能内の`lib/src/i18n`の言語ファイル(Yaml)に置く。`feature_shared`の`localeProvider`だけを共通の入口にする。

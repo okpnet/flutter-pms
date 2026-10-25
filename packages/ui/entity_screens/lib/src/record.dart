@@ -47,7 +47,13 @@ enum EntityFieldError {
   invalidNumber,
   invalidDate,
   invalidChoice,
+
+  /// 条件(演算子 + 値)として読めない。
+  invalidCondition,
   parentCycle,
+
+  /// 重複を認めない項目の組([EntityDefinition.uniqueKeys])が、ほかの1件と同じ。
+  duplicate,
 }
 
 /// 入力の検証に失敗したときの例外。項目のキー(親は `_parent`)ごとのエラーを持つ。

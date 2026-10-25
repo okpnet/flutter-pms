@@ -4,3 +4,4 @@ library;
 
 export 'src/shipping_kind/shipping_kind_commands.dart';
 export 'src/shipping_kind/shipping_kind_destinations.dart';
+export 'src/stakeholder/stakeholder_destinations.dart';

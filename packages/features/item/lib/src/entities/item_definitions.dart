@@ -56,7 +56,7 @@ const List<EntityDefinition> itemDefinitions = [
       ],
     ),
     EntityDefinition(
-      key: 'itemsize', owner: 'item',
+      key: 'itemsize', owner: 'item', uniqueKeys: [['mstr_item_size_kind_id']],
       fields: [
         FieldDefinition(key: 'mstr_item_size_kind_id', kind: FieldKind.reference, reference: 'itemsizekind'),
         FieldDefinition(key: 'detail', kind: FieldKind.multiline, required: false),

@@ -37,6 +37,9 @@ class SharedMasterStrings with BaseTranslations<SharedMasterLocale, SharedMaster
 	// Translations
 	late final SharedMasterStrings$shippingKind$ja shippingKind = SharedMasterStrings$shippingKind$ja.internal(_root);
 	late final SharedMasterStrings$common$ja common = SharedMasterStrings$common$ja.internal(_root);
+	late final SharedMasterStrings$menu$ja menu = SharedMasterStrings$menu$ja.internal(_root);
+	late final SharedMasterStrings$stakeholder$ja stakeholder = SharedMasterStrings$stakeholder$ja.internal(_root);
+	late final SharedMasterStrings$entity$ja entity = SharedMasterStrings$entity$ja.internal(_root);
 }
 
 // Path: shippingKind
@@ -96,6 +99,47 @@ class SharedMasterStrings$common$ja {
 
 	/// ja: 'キャンセル'
 	String get cancel => 'キャンセル';
+}
+
+// Path: menu
+class SharedMasterStrings$menu$ja {
+	SharedMasterStrings$menu$ja.internal(this._root);
+
+	final SharedMasterStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '営業'
+	String get sales => '営業';
+
+	/// ja: '購買'
+	String get purchasing => '購買';
+}
+
+// Path: stakeholder
+class SharedMasterStrings$stakeholder$ja {
+	SharedMasterStrings$stakeholder$ja.internal(this._root);
+
+	final SharedMasterStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '顧客台帳'
+	String get customerLedger => '顧客台帳';
+
+	/// ja: '外部供給者台帳'
+	String get supplierLedger => '外部供給者台帳';
+}
+
+// Path: entity
+class SharedMasterStrings$entity$ja {
+	SharedMasterStrings$entity$ja.internal(this._root);
+
+	final SharedMasterStrings _root; // ignore: unused_field
+
+	// Translations
+	late final SharedMasterStrings$entity$stakeholder$ja stakeholder = SharedMasterStrings$entity$stakeholder$ja.internal(_root);
+	late final SharedMasterStrings$entity$contact$ja contact = SharedMasterStrings$entity$contact$ja.internal(_root);
 }
 
 // Path: shippingKind.columns
@@ -173,6 +217,97 @@ class SharedMasterStrings$shippingKind$confirmDelete$ja {
 	String message({required Object name}) => '「${name}」を削除します。';
 }
 
+// Path: entity.stakeholder
+class SharedMasterStrings$entity$stakeholder$ja {
+	SharedMasterStrings$entity$stakeholder$ja.internal(this._root);
+
+	final SharedMasterStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '利害関係者'
+	String get title => '利害関係者';
+
+	late final SharedMasterStrings$entity$stakeholder$fields$ja fields = SharedMasterStrings$entity$stakeholder$fields$ja.internal(_root);
+}
+
+// Path: entity.contact
+class SharedMasterStrings$entity$contact$ja {
+	SharedMasterStrings$entity$contact$ja.internal(this._root);
+
+	final SharedMasterStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '担当者'
+	String get title => '担当者';
+
+	late final SharedMasterStrings$entity$contact$fields$ja fields = SharedMasterStrings$entity$contact$fields$ja.internal(_root);
+}
+
+// Path: entity.stakeholder.fields
+class SharedMasterStrings$entity$stakeholder$fields$ja {
+	SharedMasterStrings$entity$stakeholder$fields$ja.internal(this._root);
+
+	final SharedMasterStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '利害関係者コード'
+	String get f_code => '利害関係者コード';
+
+	/// ja: '管理コード'
+	String get f_control_code => '管理コード';
+
+	/// ja: '名称'
+	String get f_name => '名称';
+
+	/// ja: '読み'
+	String get f_pronunciation => '読み';
+
+	/// ja: '略称'
+	String get f_nickname => '略称';
+
+	/// ja: '顧客'
+	String get f_is_customer => '顧客';
+
+	/// ja: '外部供給者'
+	String get f_is_supplier => '外部供給者';
+
+	/// ja: '配送サービサー'
+	String get f_is_logistics => '配送サービサー';
+
+	/// ja: 'メール'
+	String get f_mail => 'メール';
+
+	/// ja: '配送区分'
+	String get f_mstr_shipping_kind_id => '配送区分';
+
+	/// ja: '備考'
+	String get f_remarks => '備考';
+}
+
+// Path: entity.contact.fields
+class SharedMasterStrings$entity$contact$fields$ja {
+	SharedMasterStrings$entity$contact$fields$ja.internal(this._root);
+
+	final SharedMasterStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '氏名'
+	String get f_name => '氏名';
+
+	/// ja: '部署'
+	String get f_dept => '部署';
+
+	/// ja: '電話番号'
+	String get f_tel => '電話番号';
+
+	/// ja: 'メール'
+	String get f_mail => 'メール';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -206,6 +341,27 @@ extension on SharedMasterStrings {
 			'common.save' => '保存',
 			'common.delete' => '削除',
 			'common.cancel' => 'キャンセル',
+			'menu.sales' => '営業',
+			'menu.purchasing' => '購買',
+			'stakeholder.customerLedger' => '顧客台帳',
+			'stakeholder.supplierLedger' => '外部供給者台帳',
+			'entity.stakeholder.title' => '利害関係者',
+			'entity.stakeholder.fields.f_code' => '利害関係者コード',
+			'entity.stakeholder.fields.f_control_code' => '管理コード',
+			'entity.stakeholder.fields.f_name' => '名称',
+			'entity.stakeholder.fields.f_pronunciation' => '読み',
+			'entity.stakeholder.fields.f_nickname' => '略称',
+			'entity.stakeholder.fields.f_is_customer' => '顧客',
+			'entity.stakeholder.fields.f_is_supplier' => '外部供給者',
+			'entity.stakeholder.fields.f_is_logistics' => '配送サービサー',
+			'entity.stakeholder.fields.f_mail' => 'メール',
+			'entity.stakeholder.fields.f_mstr_shipping_kind_id' => '配送区分',
+			'entity.stakeholder.fields.f_remarks' => '備考',
+			'entity.contact.title' => '担当者',
+			'entity.contact.fields.f_name' => '氏名',
+			'entity.contact.fields.f_dept' => '部署',
+			'entity.contact.fields.f_tel' => '電話番号',
+			'entity.contact.fields.f_mail' => 'メール',
 			_ => null,
 		};
 	}

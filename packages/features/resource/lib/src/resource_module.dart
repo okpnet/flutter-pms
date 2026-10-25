@@ -23,4 +23,11 @@ class ResourceModule extends EntityFeatureModule {
   @override
   EntityLabels labelsOf(WidgetRef ref) =>
       ResourceLabels(ref.watch(resourceStringsProvider));
+
+  @override
+  String get menuGroupId => 'resource';
+
+  @override
+  String menuGroupLabel(WidgetRef ref) =>
+      ResourceLabels(ref.watch(resourceStringsProvider)).menuGroup;
 }

@@ -7,6 +7,7 @@
 library;
 
 export 'src/catalog.dart';
+export 'src/condition.dart';
 export 'src/definition.dart';
 export 'src/i18n/strings.g.dart' show EntityScreenStrings, EntityScreenLocale;
 export 'src/pages/entity_edit_page.dart';

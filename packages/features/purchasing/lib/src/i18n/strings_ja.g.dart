@@ -35,7 +35,20 @@ class PurchasingStrings with BaseTranslations<PurchasingLocale, PurchasingString
 	PurchasingStrings $copyWith({TranslationMetadata<PurchasingLocale, PurchasingStrings>? meta}) => PurchasingStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final PurchasingStrings$menu$ja menu = PurchasingStrings$menu$ja.internal(_root);
 	late final PurchasingStrings$entity$ja entity = PurchasingStrings$entity$ja.internal(_root);
+}
+
+// Path: menu
+class PurchasingStrings$menu$ja {
+	PurchasingStrings$menu$ja.internal(this._root);
+
+	final PurchasingStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '購買'
+	String get group => '購買';
 }
 
 // Path: entity
@@ -45,8 +58,6 @@ class PurchasingStrings$entity$ja {
 	final PurchasingStrings _root; // ignore: unused_field
 
 	// Translations
-	late final PurchasingStrings$entity$supplier$ja supplier = PurchasingStrings$entity$supplier$ja.internal(_root);
-	late final PurchasingStrings$entity$suppcontact$ja suppcontact = PurchasingStrings$entity$suppcontact$ja.internal(_root);
 	late final PurchasingStrings$entity$unrec$ja unrec = PurchasingStrings$entity$unrec$ja.internal(_root);
 	late final PurchasingStrings$entity$unrecdetail$ja unrecdetail = PurchasingStrings$entity$unrecdetail$ja.internal(_root);
 	late final PurchasingStrings$entity$purchase$ja purchase = PurchasingStrings$entity$purchase$ja.internal(_root);
@@ -54,34 +65,6 @@ class PurchasingStrings$entity$ja {
 	late final PurchasingStrings$entity$purchaserec$ja purchaserec = PurchasingStrings$entity$purchaserec$ja.internal(_root);
 	late final PurchasingStrings$entity$purchaseline$ja purchaseline = PurchasingStrings$entity$purchaseline$ja.internal(_root);
 	late final PurchasingStrings$entity$purcert$ja purcert = PurchasingStrings$entity$purcert$ja.internal(_root);
-}
-
-// Path: entity.supplier
-class PurchasingStrings$entity$supplier$ja {
-	PurchasingStrings$entity$supplier$ja.internal(this._root);
-
-	final PurchasingStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '利害関係者'
-	String get title => '利害関係者';
-
-	late final PurchasingStrings$entity$supplier$fields$ja fields = PurchasingStrings$entity$supplier$fields$ja.internal(_root);
-}
-
-// Path: entity.suppcontact
-class PurchasingStrings$entity$suppcontact$ja {
-	PurchasingStrings$entity$suppcontact$ja.internal(this._root);
-
-	final PurchasingStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '担当者'
-	String get title => '担当者';
-
-	late final PurchasingStrings$entity$suppcontact$fields$ja fields = PurchasingStrings$entity$suppcontact$fields$ja.internal(_root);
 }
 
 // Path: entity.unrec
@@ -180,69 +163,6 @@ class PurchasingStrings$entity$purcert$ja {
 	String get title => '発注品目成績書';
 
 	late final PurchasingStrings$entity$purcert$fields$ja fields = PurchasingStrings$entity$purcert$fields$ja.internal(_root);
-}
-
-// Path: entity.supplier.fields
-class PurchasingStrings$entity$supplier$fields$ja {
-	PurchasingStrings$entity$supplier$fields$ja.internal(this._root);
-
-	final PurchasingStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '利害関係者コード'
-	String get f_code => '利害関係者コード';
-
-	/// ja: '管理コード'
-	String get f_control_code => '管理コード';
-
-	/// ja: '名称'
-	String get f_name => '名称';
-
-	/// ja: '読み'
-	String get f_pronunciation => '読み';
-
-	/// ja: '略称'
-	String get f_nickname => '略称';
-
-	/// ja: '顧客'
-	String get f_is_customer => '顧客';
-
-	/// ja: '外部供給者'
-	String get f_is_supplier => '外部供給者';
-
-	/// ja: '配送サービサー'
-	String get f_is_logistics => '配送サービサー';
-
-	/// ja: 'メール'
-	String get f_mail => 'メール';
-
-	/// ja: '配送区分'
-	String get f_mstr_shipping_kind_id => '配送区分';
-
-	/// ja: '備考'
-	String get f_remarks => '備考';
-}
-
-// Path: entity.suppcontact.fields
-class PurchasingStrings$entity$suppcontact$fields$ja {
-	PurchasingStrings$entity$suppcontact$fields$ja.internal(this._root);
-
-	final PurchasingStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '氏名'
-	String get f_name => '氏名';
-
-	/// ja: '部署'
-	String get f_dept => '部署';
-
-	/// ja: '電話番号'
-	String get f_tel => '電話番号';
-
-	/// ja: 'メール'
-	String get f_mail => 'メール';
 }
 
 // Path: entity.unrec.fields
@@ -397,23 +317,7 @@ class PurchasingStrings$entity$purcert$fields$ja {
 extension on PurchasingStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'entity.supplier.title' => '利害関係者',
-			'entity.supplier.fields.f_code' => '利害関係者コード',
-			'entity.supplier.fields.f_control_code' => '管理コード',
-			'entity.supplier.fields.f_name' => '名称',
-			'entity.supplier.fields.f_pronunciation' => '読み',
-			'entity.supplier.fields.f_nickname' => '略称',
-			'entity.supplier.fields.f_is_customer' => '顧客',
-			'entity.supplier.fields.f_is_supplier' => '外部供給者',
-			'entity.supplier.fields.f_is_logistics' => '配送サービサー',
-			'entity.supplier.fields.f_mail' => 'メール',
-			'entity.supplier.fields.f_mstr_shipping_kind_id' => '配送区分',
-			'entity.supplier.fields.f_remarks' => '備考',
-			'entity.suppcontact.title' => '担当者',
-			'entity.suppcontact.fields.f_name' => '氏名',
-			'entity.suppcontact.fields.f_dept' => '部署',
-			'entity.suppcontact.fields.f_tel' => '電話番号',
-			'entity.suppcontact.fields.f_mail' => 'メール',
+			'menu.group' => '購買',
 			'entity.unrec.title' => '非計上',
 			'entity.unrec.fields.f_decision_date' => '決定日',
 			'entity.unrec.fields.f_deadline' => '納期',

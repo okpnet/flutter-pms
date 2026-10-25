@@ -7,10 +7,32 @@ import 'package:go_router/go_router.dart';
 import 'command_bus_provider.dart';
 import 'feature_module.dart';
 import 'locale_provider.dart';
+import 'menu.dart';
 
 /// 実体の台帳へ。[entityKey] は実体のキー(例: `unit`)。
+///
+/// [filter] は絞り込み(項目のキー → 値)。同じ実体を役割ごとの台帳として開くときに使う
+/// (例: 利害関係者のうち `is_customer: はい` が顧客台帳)。新規登録の初期値にも引き継ぐ。
 final class EntityListDestination extends PageDestination<void> {
-  const EntityListDestination(this.entityKey);
+  const EntityListDestination(this.entityKey, {this.filter = const {}});
+
+  final String entityKey;
+  final Map<String, String> filter;
+
+  @override
+  Map<String, Object?> toJson() => {
+    ...super.toJson(),
+    'entityKey': entityKey,
+    'filter': filter,
+  };
+}
+
+/// 実体の台帳を開いて 1 件を選び、その id を返す(取り消しは null)。
+///
+/// 別の機能の実体を選ぶとき(例: 設備が品目を選ぶ)に、機能同士がコンパイル時に依存せず、
+/// 実体のキーだけで使う。選択の結果は CommandBus で受け取る。
+final class EntityPickerDestination extends PageDestination<String?> {
+  const EntityPickerDestination(this.entityKey);
 
   final String entityKey;
 
@@ -19,12 +41,19 @@ final class EntityListDestination extends PageDestination<void> {
 }
 
 /// 実体の編集へ。[id] が null なら新規。子の台帳の新規は [parentId] に所有する親の id。
+/// 新規のとき、[initialValues] が項目の初期値になる。
 final class EntityEditDestination extends PageDestination<void> {
-  const EntityEditDestination(this.entityKey, {this.id, this.parentId});
+  const EntityEditDestination(
+    this.entityKey, {
+    this.id,
+    this.parentId,
+    this.initialValues = const {},
+  });
 
   final String entityKey;
   final String? id;
   final String? parentId;
+  final Map<String, String> initialValues;
 
   @override
   Map<String, Object?> toJson() => {
@@ -32,6 +61,7 @@ final class EntityEditDestination extends PageDestination<void> {
     'entityKey': entityKey,
     'id': id,
     'parentId': parentId,
+    'initialValues': initialValues,
   };
 }
 
@@ -71,7 +101,7 @@ class EntityScreenStringsNotifier extends Notifier<EntityScreenStrings> {
 /// (子の台帳の新規は `?parent=<親のid>`。子の台帳に一覧のパスは無い)。
 ///
 /// パターン: Template Method(画面の流れは土台、実体の中身は継承側が差し込む)
-abstract class EntityFeatureModule implements FeatureModule {
+abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
   const EntityFeatureModule();
 
   /// この機能の全実体の定義(子の台帳を含む)。
@@ -82,6 +112,40 @@ abstract class EntityFeatureModule implements FeatureModule {
 
   /// 表示名。言語ごとの文字列は [ref] から読む。
   EntityLabels labelsOf(WidgetRef ref);
+
+  /// 台帳の見出し。絞り込み([filter])ごとに変えたいときに差し替える。null は実体の名称。
+  String? listTitle(
+    WidgetRef ref,
+    String entityKey,
+    Map<String, String> filter,
+  ) => null;
+
+  /// ツリーの台帳の親の付け替え(ドラッグ&ドロップ)を受けるハンドラ。null なら付け替えを有効にしない。
+  /// 更新と検証(循環・権限)は、継承する側が実装する。
+  Future<void> Function(EntityRecord item, EntityRecord? newParent)?
+  reparentHandler(WidgetRef ref, String entityKey) => null;
+
+  /// トップメニューのグループの識別子。空のときはメニューに出さない。
+  String get menuGroupId => '';
+
+  /// トップメニューのグループの表示名(言語ごと)。
+  String menuGroupLabel(WidgetRef ref) => '';
+
+  @override
+  List<MenuEntry> menuEntries(WidgetRef ref) {
+    if (menuGroupId.isEmpty) return const [];
+    final labels = labelsOf(ref);
+    final group = menuGroupLabel(ref);
+    return [
+      for (final key in entityKeys)
+        MenuEntry(
+          groupId: menuGroupId,
+          groupLabel: group,
+          label: labels.entity(key),
+          destination: EntityListDestination(key),
+        ),
+    ];
+  }
 
   /// 台帳から開ける実体(子の台帳を除く)のキー。
   List<String> get entityKeys => [
@@ -97,12 +161,39 @@ abstract class EntityFeatureModule implements FeatureModule {
   /// 登録簿へ、この機能の実体を登録した後に行う追加の登録(参照先の選択肢など)。
   void registerLookups(EntityCatalog catalog, Ref ref) {}
 
-  static String listPath(String entityKey) => '/e/$entityKey';
-  static String newPath(String entityKey, {String? parentId}) =>
-      parentId == null
-      ? '/e/$entityKey/new'
-      : '/e/$entityKey/new?parent=$parentId';
+  static const _filterPrefix = 'f.';
+  static const _initialPrefix = 'd.';
+
+  static String listPath(
+    String entityKey, {
+    Map<String, String> filter = const {},
+  }) => Uri(
+    path: '/e/$entityKey',
+    queryParameters: filter.isEmpty
+        ? null
+        : {for (final e in filter.entries) '$_filterPrefix${e.key}': e.value},
+  ).toString();
+  static String newPath(
+    String entityKey, {
+    String? parentId,
+    Map<String, String> initialValues = const {},
+  }) {
+    final query = {
+      'parent': ?parentId,
+      for (final e in initialValues.entries) '$_initialPrefix${e.key}': e.value,
+    };
+    return Uri(
+      path: '/e/$entityKey/new',
+      queryParameters: query.isEmpty ? null : query,
+    ).toString();
+  }
+
+  static Map<String, String> _withPrefix(Uri uri, String prefix) => {
+    for (final e in uri.queryParameters.entries)
+      if (e.key.startsWith(prefix)) e.key.substring(prefix.length): e.value,
+  };
   static String editPath(String entityKey, String id) => '/e/$entityKey/$id';
+  static String pickPath(String entityKey) => '/e/$entityKey/pick';
 
   @override
   List<RouteBase> get routes => [
@@ -110,13 +201,19 @@ abstract class EntityFeatureModule implements FeatureModule {
       if (!d.isChild)
         GoRoute(
           path: listPath(d.key),
-          builder: (context, state) => _list(d.key),
+          builder: (context, state) =>
+              _list(d.key, _withPrefix(state.uri, _filterPrefix)),
           routes: [
-            // ':id' より先に置く('new' が id として解釈されないように)
+            // ':id' より先に置く('new'・'pick' が id として解釈されないように)
+            GoRoute(path: 'pick', builder: (context, state) => _pick(d.key)),
             GoRoute(
               path: 'new',
-              builder: (context, state) =>
-                  _edit(d.key, null, state.uri.queryParameters['parent']),
+              builder: (context, state) => _edit(
+                d.key,
+                null,
+                state.uri.queryParameters['parent'],
+                _withPrefix(state.uri, _initialPrefix),
+              ),
             ),
             GoRoute(
               path: ':id',
@@ -142,13 +239,25 @@ abstract class EntityFeatureModule implements FeatureModule {
   @override
   String? locationOf(PageDestination<Object?> destination) =>
       switch (destination) {
-        EntityListDestination(:final entityKey)
+        EntityListDestination(:final entityKey, :final filter)
             when entityKeys.contains(entityKey) =>
-          listPath(entityKey),
-        EntityEditDestination(:final entityKey, :final id, :final parentId)
+          listPath(entityKey, filter: filter),
+        EntityPickerDestination(:final entityKey)
+            when entityKeys.contains(entityKey) =>
+          pickPath(entityKey),
+        EntityEditDestination(
+          :final entityKey,
+          :final id,
+          :final parentId,
+          :final initialValues,
+        )
             when definitions.any((d) => d.key == entityKey) =>
           id == null
-              ? newPath(entityKey, parentId: parentId)
+              ? newPath(
+                  entityKey,
+                  parentId: parentId,
+                  initialValues: initialValues,
+                )
               : editPath(entityKey, id),
         _ => null,
       };
@@ -162,25 +271,49 @@ abstract class EntityFeatureModule implements FeatureModule {
     registerLookups(catalog, ref);
   }
 
-  Widget _list(String key) => Consumer(
+  Widget _list(String key, Map<String, String> filter) => Consumer(
     builder: (context, ref, _) {
       final bus = ref.read(commandBusProvider);
       return EntityListPage(
+        // 絞り込みが変わったら(顧客台帳 ↔ 外部供給者台帳)画面を作り直す
+        key: ValueKey('$key?$filter'),
         entityKey: key,
         scope: _scope(ref),
+        filter: filter,
+        title: listTitle(ref, key, filter),
+        onReparent: reparentHandler(ref, key),
         onOpen: (r) => bus.execute(EntityEditDestination(key, id: r.id)),
-        onCreate: () => bus.execute(EntityEditDestination(key)),
+        onCreate: () =>
+            bus.execute(EntityEditDestination(key, initialValues: filter)),
       );
     },
   );
 
-  Widget _edit(String key, String? id, String? parentId) => Consumer(
+  /// 選択画面。台帳の行を選ぶと、その id を返して閉じる。
+  Widget _pick(String key) => Consumer(
+    builder: (context, ref, _) => EntityListPage(
+      entityKey: key,
+      scope: _scope(ref),
+      showCreate: false,
+      onOpen: (r) async => Navigator.of(context).pop(r.id),
+      onCreate: () async {},
+    ),
+  );
+
+  Widget _edit(
+    String key,
+    String? id,
+    String? parentId, [
+    Map<String, String> initialValues = const {},
+  ]) => Consumer(
     builder: (context, ref, _) {
       final bus = ref.read(commandBusProvider);
       return EntityEditPage(
         entityKey: key,
         id: id,
         parentId: parentId,
+        initialValues: initialValues,
+        onPick: (entityKey) => bus.execute(EntityPickerDestination(entityKey)),
         scope: _scope(ref),
         onOpenChild: (childKey, childId, ownerId) => bus.execute(
           EntityEditDestination(childKey, id: childId, parentId: ownerId),

@@ -9,7 +9,7 @@ void main() {
   const module = PurchasingModule();
 
   test('台帳を持つ実体のルートがある(子の台帳は編集だけ)', () {
-    expect(module.entityKeys, ['supplier','unrec','purchase','purchaserec']);
+    expect(module.entityKeys, ['unrec','purchase','purchaserec']);
     expect(module.routes, isNotEmpty);
   });
 

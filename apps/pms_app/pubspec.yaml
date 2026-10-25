@@ -13,7 +13,9 @@ dependencies:
     sdk: flutter
   feature_shared:
     path: ../../packages/core/feature_shared
-  # 機能(実装)。アプリだけが依存してよい。契約は sales_api.dart、実装は sales.dart を読み込む
+  settings_keeper:
+    path: ../../packages/core/settings_keeper
+  # 機能(実装)。アプリだけが依存してよい。契約は xxx_api.dart、実装は xxx.dart を読み込む
   sales:
     path: ../../packages/features/sales
   system:
@@ -38,6 +40,12 @@ dependencies:
     path: ../../packages/features/resource
   organization:
     path: ../../packages/features/organization
+  app_core:
+    path: ../../packages/features/app_core
+  app_shell:
+    path: ../../packages/ui/app_shell
+  flutter_localizations:
+    sdk: flutter
   shared_master:
     path: ../../packages/features/shared_master
   # アプリ全体のロガー(共有の loggerProvider へ差し込む)
@@ -50,6 +58,8 @@ dependencies:
     path: ../../packages/ui/theme_lib
 
 dev_dependencies:
+  entity_screens:
+    path: ../../packages/ui/entity_screens
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

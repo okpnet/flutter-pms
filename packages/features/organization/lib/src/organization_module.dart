@@ -23,4 +23,11 @@ class OrganizationModule extends EntityFeatureModule {
   @override
   EntityLabels labelsOf(WidgetRef ref) =>
       OrganizationLabels(ref.watch(organizationStringsProvider));
+
+  @override
+  String get menuGroupId => 'organization';
+
+  @override
+  String menuGroupLabel(WidgetRef ref) =>
+      OrganizationLabels(ref.watch(organizationStringsProvider)).menuGroup;
 }

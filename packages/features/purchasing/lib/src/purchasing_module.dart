@@ -23,4 +23,11 @@ class PurchasingModule extends EntityFeatureModule {
   @override
   EntityLabels labelsOf(WidgetRef ref) =>
       PurchasingLabels(ref.watch(purchasingStringsProvider));
+
+  @override
+  String get menuGroupId => 'purchasing';
+
+  @override
+  String menuGroupLabel(WidgetRef ref) =>
+      PurchasingLabels(ref.watch(purchasingStringsProvider)).menuGroup;
 }

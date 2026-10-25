@@ -1,37 +1,33 @@
+import 'package:entity_screens/entity_screens.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
-import 'customer/customer_module.dart';
-import 'sales_entity_module.dart';
+import 'entities/sales_definitions.dart';
+import 'entities/sales_labels.dart';
+import 'entities/sales_seeds.dart';
+import 'i18n/strings_provider.dart';
 
-/// 営業機能をアプリへ組み込むための口。区分(顧客台帳など)のモジュールを束ねる。
+/// 営業をアプリへ組み込むための口。
 ///
-/// パターン: Composite(同じ [FeatureModule] の窓口で区分のモジュールを1つに見せる)
-class SalesModule implements FeatureModule {
+/// 台帳・編集の画面は実体の定義から作る([EntityFeatureModule])。
+/// 取得元はサンプル(メモリ上)で、GraphQL 版は [repositories] を差し替える。
+class SalesModule extends EntityFeatureModule {
   const SalesModule();
 
-  static const List<FeatureModule> _parts = [
-    CustomerModule(),
-    SalesEntityModule(),
-  ];
+  @override
+  List<EntityDefinition> get definitions => salesDefinitions;
 
   @override
-  List<RouteBase> get routes => [for (final p in _parts) ...p.routes];
+  Map<String, List<EntityRecord>> get seeds => salesSeeds;
 
   @override
-  String? locationOf(PageDestination<Object?> destination) {
-    for (final p in _parts) {
-      final location = p.locationOf(destination);
-      if (location != null) return location;
-    }
-    return null;
-  }
+  EntityLabels labelsOf(WidgetRef ref) =>
+      SalesLabels(ref.watch(salesStringsProvider));
 
   @override
-  void registerHandlers(CommandHandlerRegistry registry, Ref ref) {
-    for (final p in _parts) {
-      p.registerHandlers(registry, ref);
-    }
-  }
+  String get menuGroupId => 'sales';
+
+  @override
+  String menuGroupLabel(WidgetRef ref) =>
+      SalesLabels(ref.watch(salesStringsProvider)).menuGroup;
 }

@@ -23,4 +23,11 @@ class QualityModule extends EntityFeatureModule {
   @override
   EntityLabels labelsOf(WidgetRef ref) =>
       QualityLabels(ref.watch(qualityStringsProvider));
+
+  @override
+  String get menuGroupId => 'quality';
+
+  @override
+  String menuGroupLabel(WidgetRef ref) =>
+      QualityLabels(ref.watch(qualityStringsProvider)).menuGroup;
 }

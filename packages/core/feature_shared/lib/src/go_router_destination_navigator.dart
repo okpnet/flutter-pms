@@ -21,6 +21,12 @@ class GoRouterDestinationNavigator implements DestinationNavigator {
 
   @override
   Future<R> navigate<R>(PageDestination<R> destination) async {
+    // メニューの項目: 積まずに、枠の中の画面を入れ替える
+    final Object target = destination;
+    if (target is TopLevelDestination) {
+      router.go(resolve(target.inner));
+      return null as R;
+    }
     final result = await router.push<R>(resolve(destination));
     return result as R;
   }

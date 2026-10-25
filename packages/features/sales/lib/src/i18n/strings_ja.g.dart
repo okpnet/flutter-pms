@@ -35,51 +35,20 @@ class SalesStrings with BaseTranslations<SalesLocale, SalesStrings> {
 	SalesStrings $copyWith({TranslationMetadata<SalesLocale, SalesStrings>? meta}) => SalesStrings(meta: meta ?? this.$meta);
 
 	// Translations
-	late final SalesStrings$customer$ja customer = SalesStrings$customer$ja.internal(_root);
-	late final SalesStrings$common$ja common = SalesStrings$common$ja.internal(_root);
+	late final SalesStrings$menu$ja menu = SalesStrings$menu$ja.internal(_root);
 	late final SalesStrings$entity$ja entity = SalesStrings$entity$ja.internal(_root);
 }
 
-// Path: customer
-class SalesStrings$customer$ja {
-	SalesStrings$customer$ja.internal(this._root);
+// Path: menu
+class SalesStrings$menu$ja {
+	SalesStrings$menu$ja.internal(this._root);
 
 	final SalesStrings _root; // ignore: unused_field
 
 	// Translations
 
-	/// ja: '顧客台帳'
-	String get title => '顧客台帳';
-
-	/// ja: '顧客を選択'
-	String get pickerTitle => '顧客を選択';
-
-	/// ja: '顧客の編集'
-	String get editTitle => '顧客の編集';
-
-	/// ja: '顧客が見つかりません'
-	String get notFound => '顧客が見つかりません';
-
-	/// ja: '顧客を取得できません'
-	String get loadFailed => '顧客を取得できません';
-
-	/// ja: '保存に失敗しました'
-	String get saveFailed => '保存に失敗しました';
-
-	late final SalesStrings$customer$columns$ja columns = SalesStrings$customer$columns$ja.internal(_root);
-	late final SalesStrings$customer$fields$ja fields = SalesStrings$customer$fields$ja.internal(_root);
-}
-
-// Path: common
-class SalesStrings$common$ja {
-	SalesStrings$common$ja.internal(this._root);
-
-	final SalesStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '保存'
-	String get save => '保存';
+	/// ja: '営業'
+	String get group => '営業';
 }
 
 // Path: entity
@@ -91,45 +60,6 @@ class SalesStrings$entity$ja {
 	// Translations
 	late final SalesStrings$entity$order$ja order = SalesStrings$entity$order$ja.internal(_root);
 	late final SalesStrings$entity$orderdetail$ja orderdetail = SalesStrings$entity$orderdetail$ja.internal(_root);
-}
-
-// Path: customer.columns
-class SalesStrings$customer$columns$ja {
-	SalesStrings$customer$columns$ja.internal(this._root);
-
-	final SalesStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'コード'
-	String get code => 'コード';
-
-	/// ja: '名称'
-	String get name => '名称';
-
-	/// ja: 'メール'
-	String get mail => 'メール';
-
-	/// ja: '電話番号'
-	String get phone => '電話番号';
-}
-
-// Path: customer.fields
-class SalesStrings$customer$fields$ja {
-	SalesStrings$customer$fields$ja.internal(this._root);
-
-	final SalesStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '顧客名'
-	String get name => '顧客名';
-
-	/// ja: 'ID'
-	String get id => 'ID';
-
-	/// ja: 'コード'
-	String get code => 'コード';
 }
 
 // Path: entity.order
@@ -219,20 +149,7 @@ class SalesStrings$entity$orderdetail$fields$ja {
 extension on SalesStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'customer.title' => '顧客台帳',
-			'customer.pickerTitle' => '顧客を選択',
-			'customer.editTitle' => '顧客の編集',
-			'customer.notFound' => '顧客が見つかりません',
-			'customer.loadFailed' => '顧客を取得できません',
-			'customer.saveFailed' => '保存に失敗しました',
-			'customer.columns.code' => 'コード',
-			'customer.columns.name' => '名称',
-			'customer.columns.mail' => 'メール',
-			'customer.columns.phone' => '電話番号',
-			'customer.fields.name' => '顧客名',
-			'customer.fields.id' => 'ID',
-			'customer.fields.code' => 'コード',
-			'common.save' => '保存',
+			'menu.group' => '営業',
 			'entity.order.title' => '受注',
 			'entity.order.fields.f_order_number' => '注文番号',
 			'entity.order.fields.f_customer_order_number' => '顧客発注番号',

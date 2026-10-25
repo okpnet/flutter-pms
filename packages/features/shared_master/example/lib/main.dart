@@ -26,6 +26,8 @@ class ExampleApp extends StatelessWidget {
     entries: const [
       FeatureHostEntry('配送区分台帳', ShippingKindListDestination()),
       FeatureHostEntry('配送区分の登録', ShippingKindEditDestination()),
+      FeatureHostEntry('顧客台帳', customerLedgerDestination),
+      FeatureHostEntry('外部供給者台帳', supplierLedgerDestination),
     ],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー

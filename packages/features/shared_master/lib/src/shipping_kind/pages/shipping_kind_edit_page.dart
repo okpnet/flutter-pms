@@ -1,3 +1,4 @@
+import 'package:app_shell/app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -176,8 +177,8 @@ class _ShippingKindEditPageState extends ConsumerState<ShippingKindEditPage> {
     final t = ref.watch(sharedMasterStringsProvider);
     final k = t.shippingKind;
     final error = _error?.call(t);
-    return Scaffold(
-      appBar: AppBar(title: Text(_isNew ? k.createTitle : k.editTitle)),
+    return ScreenScaffold(
+      title: _isNew ? k.createTitle : k.editTitle,
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _notFound

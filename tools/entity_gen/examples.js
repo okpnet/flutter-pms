@@ -15,19 +15,12 @@ module.exports = function writeExamples({ PROJECTS, rootsOf, dependsOn, features
     const dir = path.join(features, pkg, 'example');
     if (!fs.existsSync(path.join(dir, 'pubspec.yaml'))) continue;
 
+    if (pkg === 'shared_master') continue; // 配送区分(手書き)を含むため、example は手書き
     const roots = rootsOf[pkg];
     const deps = new Set(dependsOn[pkg]);
-    if (pkg === 'sales') deps.add('shared_master'); // 受注の配送区分の選択肢
     const mods = [pkg, ...[...deps].sort()];
     const imports = mods.map((m) => `import 'package:${m}/${m}.dart';`);
     const entries = [];
-    if (pkg === 'sales') {
-      imports.push("import 'package:sales/sales_api.dart';");
-      entries.push(
-        "FeatureHostEntry('顧客台帳', CustomerListDestination())",
-        "FeatureHostEntry('顧客を選択', CustomerPickerDestination())",
-      );
-    }
     for (const r of roots) {
       entries.push(`FeatureHostEntry(${dq(r.label)}, EntityListDestination(${dq(r.key)}))`);
     }
@@ -72,8 +65,8 @@ module.exports = function writeExamples({ PROJECTS, rootsOf, dependsOn, features
     write(path.join(dir, 'lib', 'main.dart'), main);
 
     const first = roots[0];
-    const tapLabel = pkg === 'sales' ? '顧客台帳' : first.label;
-    const expectText = pkg === 'sales' ? '東京精機' : first.first || first.label;
+    const tapLabel = first.label;
+    const expectText = first.first || first.label;
     const test = [
       "import 'package:flutter/material.dart' show Size;",
       "import 'package:flutter_test/flutter_test.dart';",

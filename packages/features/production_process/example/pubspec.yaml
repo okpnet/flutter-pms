@@ -28,6 +28,9 @@ dependencies:
   sales:
     path: ../../sales
 
+  shared_master:
+    path: ../../shared_master
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

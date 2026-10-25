@@ -1,0 +1,29 @@
+import 'package:baton_lib/baton_lib.dart';
+
+/// 設定へ。
+final class SettingsDestination extends PageDestination<void> {
+  const SettingsDestination();
+}
+
+/// ログアウト画面へ。
+final class LogoutDestination extends PageDestination<void> {
+  const LogoutDestination();
+}
+
+/// エラー画面へ。[message] はアプリケーションエラーの内容(省略可)。
+final class ErrorDestination extends PageDestination<void> {
+  const ErrorDestination({this.message});
+
+  final String? message;
+
+  @override
+  Map<String, Object?> toJson() => {...super.toJson(), 'message': message};
+}
+
+/// 登録漏れ検出用の見本。遷移先を追加したら、ここにも1件足す。
+const List<PageDestination<Object?>> appCoreDestinationSamples = [
+  SettingsDestination(),
+  LogoutDestination(),
+  ErrorDestination(),
+  ErrorDestination(message: 'sample'),
+];

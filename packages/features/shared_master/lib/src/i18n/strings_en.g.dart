@@ -40,6 +40,8 @@ class SharedMasterStringsEn extends SharedMasterStrings with BaseTranslations<Sh
 	// Translations
 	@override late final _SharedMasterStrings$shippingKind$en shippingKind = _SharedMasterStrings$shippingKind$en._(_root);
 	@override late final _SharedMasterStrings$common$en common = _SharedMasterStrings$common$en._(_root);
+	@override late final _SharedMasterStrings$menu$en menu = _SharedMasterStrings$menu$en._(_root);
+	@override late final _SharedMasterStrings$stakeholder$en stakeholder = _SharedMasterStrings$stakeholder$en._(_root);
 }
 
 // Path: shippingKind
@@ -74,6 +76,28 @@ class _SharedMasterStrings$common$en extends SharedMasterStrings$common$ja {
 	@override String get save => 'Save';
 	@override String get delete => 'Delete';
 	@override String get cancel => 'Cancel';
+}
+
+// Path: menu
+class _SharedMasterStrings$menu$en extends SharedMasterStrings$menu$ja {
+	_SharedMasterStrings$menu$en._(SharedMasterStringsEn root) : this._root = root, super.internal(root);
+
+	final SharedMasterStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get sales => 'Sales';
+	@override String get purchasing => 'Purchasing';
+}
+
+// Path: stakeholder
+class _SharedMasterStrings$stakeholder$en extends SharedMasterStrings$stakeholder$ja {
+	_SharedMasterStrings$stakeholder$en._(SharedMasterStringsEn root) : this._root = root, super.internal(root);
+
+	final SharedMasterStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get customerLedger => 'Customers';
+	@override String get supplierLedger => 'Suppliers';
 }
 
 // Path: shippingKind.columns
@@ -158,6 +182,10 @@ extension on SharedMasterStringsEn {
 			'common.save' => 'Save',
 			'common.delete' => 'Delete',
 			'common.cancel' => 'Cancel',
+			'menu.sales' => 'Sales',
+			'menu.purchasing' => 'Purchasing',
+			'stakeholder.customerLedger' => 'Customers',
+			'stakeholder.supplierLedger' => 'Suppliers',
 			_ => null,
 		};
 	}

@@ -10,8 +10,8 @@ void main() {
     await tester.pumpWidget(const ExampleApp(logger: NoopLoggerProvider()));
     await tester.pumpAndSettle();
     expect(find.text('営業 (example)'), findsOneWidget);
-    await tester.tap(find.text('顧客台帳'));
+    await tester.tap(find.text('受注'));
     await tester.pumpAndSettle();
-    expect(find.text('東京精機'), findsWidgets);
+    expect(find.text('SO-2610-001'), findsWidgets);
   });
 }

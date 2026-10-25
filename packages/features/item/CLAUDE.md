@@ -23,7 +23,7 @@
 ## 実体の画面(生成)
 台帳(テーブル/ツリー)と編集の画面は、`tools/entity_gen/gen.js` が `tools/open-design` の画面定義から生成する(定義・サンプル・表示名・モジュール・テスト)。
 生成物は直接編集しない(再生成: リポジトリのルートで `node tools/entity_gen/gen.js`)。画面の作りは `packages/ui/entity_screens`、機能への組み込みは `feature_shared` の `EntityFeatureModule`。
-専用の画面が必要な実体は、生成の対象から外して手書きする(`sales` の顧客、`shared_master` の配送区分を参考にする)。
+専用の画面が必要な実体は、生成の対象から外して手書きする(`shared_master` の配送区分を参考にする)。
 
 | 実体 | キー | 構造 | 項目数 | 参照先 |
 |---|---|---|---|---|

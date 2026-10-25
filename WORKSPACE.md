@@ -68,8 +68,8 @@ melos bootstrap
 2. **バージョンの集中管理**: `melos bootstrap` 後、`theme_lib` などの `sdk: ^3.10.8` が
    `^3.12.2` に変わり、`# Managed by Melos ...` のコメントが付く。
    以後、バージョンを変えるときはルート `pubspec.yaml` の `melos > command > bootstrap` だけを直す。
-3. **機能の分離**: `pms_app` のホーム画面は `sales/sales_api.dart` の型だけで
-   「一覧へ遷移」「選択して結果(id)を受け取る」「命令で顧客名を引く」を行う。
+3. **機能の分離**: `pms_app` のホーム画面は `shared_master/shared_master_api.dart` の型だけで
+   「顧客台帳・外部供給者台帳・配送区分台帳へ遷移」を行う。
 
 ## 機能を追加するとき
 

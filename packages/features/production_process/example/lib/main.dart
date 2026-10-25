@@ -4,7 +4,7 @@ import 'package:logger_provider/logger_provider.dart';
 import 'package:item/item.dart';
 import 'package:organization/organization.dart';
 import 'package:production_process/production_process.dart';
-import 'package:sales/sales.dart';
+import 'package:shared_master/shared_master.dart';
 import 'package:theme_lib/theme_lib.dart';
 
 Future<void> main() async {
@@ -25,7 +25,7 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FeatureHost(
     title: '工程 (example)',
-    modules: const [ProductionProcessModule(), ItemModule(), OrganizationModule(), SalesModule()],
+    modules: const [ProductionProcessModule(), ItemModule(), OrganizationModule(), SharedMasterModule()],
     entries: const [FeatureHostEntry('工程グループ', EntityListDestination('taskgroup')), FeatureHostEntry('工程', EntityListDestination('task')), FeatureHostEntry('工程運用', EntityListDestination('operation'))],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー

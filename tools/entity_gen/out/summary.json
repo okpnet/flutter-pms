@@ -53,12 +53,14 @@
         "first": "SO-2610-001"
       }
     ],
-    "purchasing": [
+    "shared_master": [
       {
-        "key": "supplier",
+        "key": "stakeholder",
         "label": "利害関係者",
-        "first": "S-001"
-      },
+        "first": "C-001"
+      }
+    ],
+    "purchasing": [
       {
         "key": "unrec",
         "label": "非計上",
@@ -314,13 +316,13 @@
     "production_process": [
       "item",
       "organization",
-      "sales"
+      "shared_master"
     ],
     "sales": [],
+    "shared_master": [],
     "purchasing": [
       "item",
       "production_plan",
-      "shared_master",
       "system",
       "work_record"
     ],
@@ -341,9 +343,11 @@
       "organization",
       "production_process",
       "quality_common",
-      "sales"
+      "sales",
+      "shared_master"
     ],
     "resource": [
+      "item",
       "organization"
     ],
     "organization": [

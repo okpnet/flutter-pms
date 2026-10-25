@@ -1,3 +1,4 @@
+import '../condition.dart';
 import 'package:flgtable_lib/flgtable_lib.dart';
 
 import '../catalog.dart';
@@ -55,6 +56,9 @@ List<ColumnDefinition<EntityRecord>> columnsOf(
         final value = r.valueOf(f.key);
         if (f.kind == FieldKind.reference) {
           return names[f.key]?[value] ?? value;
+        }
+        if (f.kind == FieldKind.condition && value.isNotEmpty) {
+          return ConditionValue.displayOf(value);
         }
         return value;
       },

@@ -1,6 +1,7 @@
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:logger_provider/logger_provider.dart';
+import 'package:item/item.dart';
 import 'package:organization/organization.dart';
 import 'package:resource/resource.dart';
 import 'package:theme_lib/theme_lib.dart';
@@ -23,21 +24,8 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FeatureHost(
     title: '資源 (example)',
-    modules: const [ResourceModule(), OrganizationModule()],
-    entries: const [
-      FeatureHostEntry('力量', EntityListDestination('capability')),
-      FeatureHostEntry('資格', EntityListDestination('license')),
-      FeatureHostEntry('場所', EntityListDestination('location')),
-      FeatureHostEntry('設備分類', EntityListDestination('equipmentcategory')),
-      FeatureHostEntry('設備', EntityListDestination('equipment')),
-      FeatureHostEntry('点検整備区分', EntityListDestination('inspectionkind')),
-      FeatureHostEntry('点検整備項目', EntityListDestination('inspectionitem')),
-      FeatureHostEntry(
-        '設備点検整備運用',
-        EntityListDestination('inspectionoperation'),
-      ),
-      FeatureHostEntry('点検予定', EntityListDestination('inspectionschedule')),
-    ],
+    modules: const [ResourceModule(), ItemModule(), OrganizationModule()],
+    entries: const [FeatureHostEntry('力量', EntityListDestination('capability')), FeatureHostEntry('資格', EntityListDestination('license')), FeatureHostEntry('場所', EntityListDestination('location')), FeatureHostEntry('設備分類', EntityListDestination('equipmentcategory')), FeatureHostEntry('設備', EntityListDestination('equipment')), FeatureHostEntry('点検整備区分', EntityListDestination('inspectionkind')), FeatureHostEntry('点検整備項目', EntityListDestination('inspectionitem')), FeatureHostEntry('設備点検整備運用', EntityListDestination('inspectionoperation')), FeatureHostEntry('点検予定', EntityListDestination('inspectionschedule'))],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー
     overrides: [themeLoggerProvider.overrideWithValue(logger)],

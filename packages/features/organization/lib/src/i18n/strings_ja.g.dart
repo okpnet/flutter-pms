@@ -35,7 +35,20 @@ class OrganizationStrings with BaseTranslations<OrganizationLocale, Organization
 	OrganizationStrings $copyWith({TranslationMetadata<OrganizationLocale, OrganizationStrings>? meta}) => OrganizationStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final OrganizationStrings$menu$ja menu = OrganizationStrings$menu$ja.internal(_root);
 	late final OrganizationStrings$entity$ja entity = OrganizationStrings$entity$ja.internal(_root);
+}
+
+// Path: menu
+class OrganizationStrings$menu$ja {
+	OrganizationStrings$menu$ja.internal(this._root);
+
+	final OrganizationStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '会社情報'
+	String get group => '会社情報';
 }
 
 // Path: entity
@@ -57,7 +70,6 @@ class OrganizationStrings$entity$ja {
 	late final OrganizationStrings$entity$staffcapability$ja staffcapability = OrganizationStrings$entity$staffcapability$ja.internal(_root);
 	late final OrganizationStrings$entity$stafflicense$ja stafflicense = OrganizationStrings$entity$stafflicense$ja.internal(_root);
 	late final OrganizationStrings$entity$approvalpattern$ja approvalpattern = OrganizationStrings$entity$approvalpattern$ja.internal(_root);
-	late final OrganizationStrings$entity$approvalscope$ja approvalscope = OrganizationStrings$entity$approvalscope$ja.internal(_root);
 	late final OrganizationStrings$entity$approver$ja approver = OrganizationStrings$entity$approver$ja.internal(_root);
 }
 
@@ -229,20 +241,6 @@ class OrganizationStrings$entity$approvalpattern$ja {
 	late final OrganizationStrings$entity$approvalpattern$fields$ja fields = OrganizationStrings$entity$approvalpattern$fields$ja.internal(_root);
 }
 
-// Path: entity.approvalscope
-class OrganizationStrings$entity$approvalscope$ja {
-	OrganizationStrings$entity$approvalscope$ja.internal(this._root);
-
-	final OrganizationStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '承認の範囲'
-	String get title => '承認の範囲';
-
-	late final OrganizationStrings$entity$approvalscope$fields$ja fields = OrganizationStrings$entity$approvalscope$fields$ja.internal(_root);
-}
-
 // Path: entity.approver
 class OrganizationStrings$entity$approver$ja {
 	OrganizationStrings$entity$approver$ja.internal(this._root);
@@ -277,14 +275,26 @@ class OrganizationStrings$entity$company$fields$ja {
 	/// ja: '代表者名'
 	String get f_ceo => '代表者名';
 
-	/// ja: '代表者の役職'
-	String get f_ceo_title => '代表者の役職';
-
 	/// ja: 'ホームページ'
 	String get f_web_page => 'ホームページ';
 
-	/// ja: 'メインサイト(本社)所在地'
-	String get f_address => 'メインサイト(本社)所在地';
+	/// ja: '郵便番号'
+	String get f_postal_code => '郵便番号';
+
+	/// ja: '都道府県'
+	String get f_prefecture => '都道府県';
+
+	/// ja: '市町村番地'
+	String get f_city => '市町村番地';
+
+	/// ja: '建物'
+	String get f_building => '建物';
+
+	/// ja: '電話'
+	String get f_tel => '電話';
+
+	/// ja: 'FAX'
+	String get f_fax => 'FAX';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
@@ -342,6 +352,18 @@ class OrganizationStrings$entity$assignment$fields$ja {
 
 	/// ja: '担当者'
 	String get f_staff => '担当者';
+
+	/// ja: '有効'
+	String get f_enable => '有効';
+
+	/// ja: '優先順位'
+	String get f_priority => '優先順位';
+
+	/// ja: '事業所'
+	String get f_office => '事業所';
+
+	/// ja: '部署'
+	String get f_department => '部署';
 }
 
 // Path: entity.site.fields
@@ -361,11 +383,26 @@ class OrganizationStrings$entity$site$fields$ja {
 	/// ja: '読み'
 	String get f_pronunciation => '読み';
 
-	/// ja: '種別'
-	String get f_type => '種別';
+	/// ja: '略称'
+	String get f_nickname => '略称';
 
-	/// ja: '所在地'
-	String get f_address => '所在地';
+	/// ja: '郵便番号'
+	String get f_postal_code => '郵便番号';
+
+	/// ja: '都道府県'
+	String get f_prefecture => '都道府県';
+
+	/// ja: '市町村番地'
+	String get f_city => '市町村番地';
+
+	/// ja: '建物'
+	String get f_building => '建物';
+
+	/// ja: '電話'
+	String get f_tel => '電話';
+
+	/// ja: 'FAX'
+	String get f_fax => 'FAX';
 }
 
 // Path: entity.deptkind.fields
@@ -378,6 +415,9 @@ class OrganizationStrings$entity$deptkind$fields$ja {
 
 	/// ja: '区分名'
 	String get f_name => '区分名';
+
+	/// ja: '区分詳細'
+	String get f_detail => '区分詳細';
 }
 
 // Path: entity.department.fields
@@ -396,6 +436,9 @@ class OrganizationStrings$entity$department$fields$ja {
 
 	/// ja: '読み'
 	String get f_pronunciation => '読み';
+
+	/// ja: '略称'
+	String get f_nickname => '略称';
 
 	/// ja: '事業所'
 	String get f_site => '事業所';
@@ -439,14 +482,8 @@ class OrganizationStrings$entity$staff$fields$ja {
 	/// ja: '緊急電話'
 	String get f_private_phone => '緊急電話';
 
-	/// ja: '所属事業所'
-	String get f_site => '所属事業所';
-
-	/// ja: '区分'
-	String get f_type => '区分';
-
-	/// ja: '部署'
-	String get f_dept => '部署';
+	/// ja: '記号'
+	String get f_symbol => '記号';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
@@ -463,8 +500,11 @@ class OrganizationStrings$entity$staffcapability$fields$ja {
 	/// ja: '力量'
 	String get f_capability => '力量';
 
-	/// ja: '値(習熟度)'
-	String get f_level => '値(習熟度)';
+	/// ja: '値'
+	String get f_value => '値';
+
+	/// ja: '停止'
+	String get f_stop => '停止';
 }
 
 // Path: entity.stafflicense.fields
@@ -486,6 +526,18 @@ class OrganizationStrings$entity$stafflicense$fields$ja {
 
 	/// ja: '適用終了'
 	String get f_expires => '適用終了';
+
+	/// ja: '保留(停止)'
+	String get f_abeyance => '保留(停止)';
+
+	/// ja: '保留日'
+	String get f_abeyance_at => '保留日';
+
+	/// ja: '取り消し'
+	String get f_revocation => '取り消し';
+
+	/// ja: '取り消し日'
+	String get f_revocation_at => '取り消し日';
 }
 
 // Path: entity.approvalpattern.fields
@@ -506,27 +558,6 @@ class OrganizationStrings$entity$approvalpattern$fields$ja {
 	String get f_remarks => '備考';
 }
 
-// Path: entity.approvalscope.fields
-class OrganizationStrings$entity$approvalscope$fields$ja {
-	OrganizationStrings$entity$approvalscope$fields$ja.internal(this._root);
-
-	final OrganizationStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '段階'
-	String get f_step => '段階';
-
-	/// ja: '承認する役職'
-	String get f_position => '承認する役職';
-
-	/// ja: '対象の組織'
-	String get f_department => '対象の組織';
-
-	/// ja: '配下の部署を含む'
-	String get f_include_children => '配下の部署を含む';
-}
-
 // Path: entity.approver.fields
 class OrganizationStrings$entity$approver$fields$ja {
 	OrganizationStrings$entity$approver$fields$ja.internal(this._root);
@@ -535,17 +566,26 @@ class OrganizationStrings$entity$approver$fields$ja {
 
 	// Translations
 
-	/// ja: '担当者'
-	String get f_staff => '担当者';
+	/// ja: '名称'
+	String get f_name => '名称';
 
-	/// ja: '種別'
-	String get f_kind => '種別';
+	/// ja: '読み'
+	String get f_pronunciation => '読み';
 
-	/// ja: '有効開始日'
-	String get f_valid_from => '有効開始日';
+	/// ja: '略称'
+	String get f_nickname => '略称';
 
-	/// ja: '有効終了日'
-	String get f_valid_to => '有効終了日';
+	/// ja: '部署'
+	String get f_department => '部署';
+
+	/// ja: '役職'
+	String get f_position => '役職';
+
+	/// ja: '優先順位'
+	String get f_priority => '優先順位';
+
+	/// ja: '備考'
+	String get f_remarks => '備考';
 }
 
 /// The flat map containing all translations for locale <ja>.
@@ -556,14 +596,19 @@ class OrganizationStrings$entity$approver$fields$ja {
 extension on OrganizationStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'menu.group' => '会社情報',
 			'entity.company.title' => '会社情報',
 			'entity.company.fields.f_name' => '会社名',
 			'entity.company.fields.f_pronunciation' => '会社名の読み',
 			'entity.company.fields.f_nickname' => '略称',
 			'entity.company.fields.f_ceo' => '代表者名',
-			'entity.company.fields.f_ceo_title' => '代表者の役職',
 			'entity.company.fields.f_web_page' => 'ホームページ',
-			'entity.company.fields.f_address' => 'メインサイト(本社)所在地',
+			'entity.company.fields.f_postal_code' => '郵便番号',
+			'entity.company.fields.f_prefecture' => '都道府県',
+			'entity.company.fields.f_city' => '市町村番地',
+			'entity.company.fields.f_building' => '建物',
+			'entity.company.fields.f_tel' => '電話',
+			'entity.company.fields.f_fax' => 'FAX',
 			'entity.company.fields.f_remarks' => '備考',
 			'entity.provision.title' => '提供',
 			'entity.provision.fields.f_kind' => '種別',
@@ -577,18 +622,29 @@ extension on OrganizationStrings {
 			'entity.position.fields.f_remarks' => '備考',
 			'entity.assignment.title' => '割当',
 			'entity.assignment.fields.f_staff' => '担当者',
+			'entity.assignment.fields.f_enable' => '有効',
+			'entity.assignment.fields.f_priority' => '優先順位',
+			'entity.assignment.fields.f_office' => '事業所',
+			'entity.assignment.fields.f_department' => '部署',
 			'entity.site.title' => '事業所',
 			'entity.site.fields.f_code' => '事業所コード',
 			'entity.site.fields.f_name' => '事業所名称',
 			'entity.site.fields.f_pronunciation' => '読み',
-			'entity.site.fields.f_type' => '種別',
-			'entity.site.fields.f_address' => '所在地',
+			'entity.site.fields.f_nickname' => '略称',
+			'entity.site.fields.f_postal_code' => '郵便番号',
+			'entity.site.fields.f_prefecture' => '都道府県',
+			'entity.site.fields.f_city' => '市町村番地',
+			'entity.site.fields.f_building' => '建物',
+			'entity.site.fields.f_tel' => '電話',
+			'entity.site.fields.f_fax' => 'FAX',
 			'entity.deptkind.title' => '部署区分',
 			'entity.deptkind.fields.f_name' => '区分名',
+			'entity.deptkind.fields.f_detail' => '区分詳細',
 			'entity.department.title' => '部署',
 			'entity.department.fields.f_code' => '組織コード',
 			'entity.department.fields.f_name' => '組織名称',
 			'entity.department.fields.f_pronunciation' => '読み',
+			'entity.department.fields.f_nickname' => '略称',
 			'entity.department.fields.f_site' => '事業所',
 			'entity.departmentkind.title' => '部署区分の割当',
 			'entity.departmentkind.fields.f_kind' => '部署区分',
@@ -599,32 +655,33 @@ extension on OrganizationStrings {
 			'entity.staff.fields.f_sex' => '性別',
 			'entity.staff.fields.f_phone' => '電話',
 			'entity.staff.fields.f_private_phone' => '緊急電話',
-			'entity.staff.fields.f_site' => '所属事業所',
-			'entity.staff.fields.f_type' => '区分',
-			'entity.staff.fields.f_dept' => '部署',
+			'entity.staff.fields.f_symbol' => '記号',
 			'entity.staff.fields.f_remarks' => '備考',
 			'entity.staffcapability.title' => '作業者の力量',
 			'entity.staffcapability.fields.f_capability' => '力量',
-			'entity.staffcapability.fields.f_level' => '値(習熟度)',
+			'entity.staffcapability.fields.f_value' => '値',
+			'entity.staffcapability.fields.f_stop' => '停止',
 			'entity.stafflicense.title' => '作業者の資格',
 			'entity.stafflicense.fields.f_license' => '資格',
 			'entity.stafflicense.fields.f_number' => '資格番号',
 			'entity.stafflicense.fields.f_acquired' => '適用開始',
 			'entity.stafflicense.fields.f_expires' => '適用終了',
+			'entity.stafflicense.fields.f_abeyance' => '保留(停止)',
+			'entity.stafflicense.fields.f_abeyance_at' => '保留日',
+			'entity.stafflicense.fields.f_revocation' => '取り消し',
+			'entity.stafflicense.fields.f_revocation_at' => '取り消し日',
 			'entity.approvalpattern.title' => '承認パターン',
 			'entity.approvalpattern.fields.f_name' => 'パターン名称',
 			'entity.approvalpattern.fields.f_pronunciation' => '読み',
 			'entity.approvalpattern.fields.f_remarks' => '備考',
-			'entity.approvalscope.title' => '承認の範囲',
-			'entity.approvalscope.fields.f_step' => '段階',
-			'entity.approvalscope.fields.f_position' => '承認する役職',
-			'entity.approvalscope.fields.f_department' => '対象の組織',
-			'entity.approvalscope.fields.f_include_children' => '配下の部署を含む',
 			'entity.approver.title' => '承認できる人',
-			'entity.approver.fields.f_staff' => '担当者',
-			'entity.approver.fields.f_kind' => '種別',
-			'entity.approver.fields.f_valid_from' => '有効開始日',
-			'entity.approver.fields.f_valid_to' => '有効終了日',
+			'entity.approver.fields.f_name' => '名称',
+			'entity.approver.fields.f_pronunciation' => '読み',
+			'entity.approver.fields.f_nickname' => '略称',
+			'entity.approver.fields.f_department' => '部署',
+			'entity.approver.fields.f_position' => '役職',
+			'entity.approver.fields.f_priority' => '優先順位',
+			'entity.approver.fields.f_remarks' => '備考',
 			_ => null,
 		};
 	}

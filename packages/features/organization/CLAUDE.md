@@ -7,24 +7,23 @@
 ## 実体の画面(生成)
 台帳(テーブル/ツリー)と編集の画面は、`tools/entity_gen/gen.js` が `tools/open-design` の画面定義から生成する(定義・サンプル・表示名・モジュール・テスト)。
 生成物は直接編集しない(再生成: リポジトリのルートで `node tools/entity_gen/gen.js`)。画面の作りは `packages/ui/entity_screens`、機能への組み込みは `feature_shared` の `EntityFeatureModule`。
-専用の画面が必要な実体は、生成の対象から外して手書きする(`sales` の顧客、`shared_master` の配送区分を参考にする)。
+専用の画面が必要な実体は、生成の対象から外して手書きする(`shared_master` の配送区分を参考にする)。
 
 | 実体 | キー | 構造 | 項目数 | 参照先 |
 |---|---|---|---|---|
-| 会社情報 | `company` | テーブル構造 | 8 |  |
+| 会社情報 | `company` | テーブル構造 | 12 |  |
 | 提供 | `provision` | 子の台帳(親: 会社情報) | 4 |  |
 | 役割(役職) | `position` | 子の台帳(親: 会社情報) | 4 |  |
-| 割当 | `assignment` | 子の台帳(親: 役割(役職)) | 1 | `staff` |
-| 事業所 | `site` | テーブル構造 | 5 |  |
-| 部署区分 | `deptkind` | テーブル構造 | 1 |  |
-| 部署 | `department` | ツリー構造 | 4 | `site` |
+| 割当 | `assignment` | 子の台帳(親: 役割(役職)) | 5 | `staff`, `site`, `department` |
+| 事業所 | `site` | テーブル構造 | 10 |  |
+| 部署区分 | `deptkind` | テーブル構造 | 2 |  |
+| 部署 | `department` | ツリー構造 | 5 | `site` |
 | 部署区分の割当 | `departmentkind` | 子の台帳(親: 部署) | 1 | `deptkind` |
-| 作業者 | `staff` | テーブル構造 | 10 | `site`, `department` |
-| 作業者の力量 | `staffcapability` | 子の台帳(親: 作業者) | 2 | `capability` |
-| 作業者の資格 | `stafflicense` | 子の台帳(親: 作業者) | 4 | `license` |
+| 作業者 | `staff` | テーブル構造 | 8 |  |
+| 作業者の力量 | `staffcapability` | 子の台帳(親: 作業者) | 3 | `capability` |
+| 作業者の資格 | `stafflicense` | 子の台帳(親: 作業者) | 8 | `license` |
 | 承認パターン | `approvalpattern` | テーブル構造 | 3 |  |
-| 承認の範囲 | `approvalscope` | 子の台帳(親: 承認パターン) | 4 | `position`, `department` |
-| 承認できる人 | `approver` | 子の台帳(親: 承認の範囲) | 4 | `staff` |
+| 承認できる人 | `approver` | 子の台帳(親: 承認パターン) | 7 | `department`, `position` |
 <!-- entity_gen:end -->
 
 ## example と多言語
@@ -105,9 +104,8 @@
 | 作業者 | 作業者台帳[StaffPage] / 情報[StaffPageEdit] | テーブル / 編集 | `/staff`, `/staff/:id` |
 | | 作業者力量明細[StaffCapabilityPage] / 情報[StaffCapabilityPageEdit,StaffCapabilityEditFields] | リスト / 編集 | 作業者情報内 |
 | | 作業者資格明細[StaffHeldLicensePage] / 情報[StaffHeldLicensePageEdit,StaffLicenseEditFields] | リスト / 編集 | 作業者情報内 |
-| 承認 | 承認パターン台帳[ApprovalOperationPage] / 情報[ApprovalOperationPageEdit] | テーブル / 編集 | `/approval`, `/approval/:id` |
-| | 承認範囲明細[ApprovalScopePage] / 情報[ApprovalScopePageEdit] | リスト / 編集 | 承認パターン情報内 |
-| | 承認者明細[ApprovalReadFields] / 権限情報[ApprovalEditFields] | リスト / 編集 | 承認パターン情報内 |
+| 承認 | 承認パターン台帳[ApprovalOperationPage] / 情報[ApprovalOperationPageEdit] | テーブル / 編集 |
+| | 承認者明細[ApprovalReadFields] / 承認権限情報[ApprovalEditFields](`mstr_approval`: 部署・役職・優先順位・名称) | 承認パターンの子の台帳 / 編集 | `/approval`, `/approval/:id` |
 
 ## 明細の操作
 追加=既存子の割り当て(新規作成は子の情報へ遷移)、削除=解除または論理削除、順の変更(`sequence`)。削除方式と順は `page.md` の明細タグに従う。順を変更・追加・削除したら同じ親の `sequence` を1からの連番に振り直す。

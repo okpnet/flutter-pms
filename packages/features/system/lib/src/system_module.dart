@@ -23,4 +23,11 @@ class SystemModule extends EntityFeatureModule {
   @override
   EntityLabels labelsOf(WidgetRef ref) =>
       SystemLabels(ref.watch(systemStringsProvider));
+
+  @override
+  String get menuGroupId => 'system';
+
+  @override
+  String menuGroupLabel(WidgetRef ref) =>
+      SystemLabels(ref.watch(systemStringsProvider)).menuGroup;
 }

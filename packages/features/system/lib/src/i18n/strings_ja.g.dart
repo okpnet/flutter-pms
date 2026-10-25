@@ -35,7 +35,20 @@ class SystemStrings with BaseTranslations<SystemLocale, SystemStrings> {
 	SystemStrings $copyWith({TranslationMetadata<SystemLocale, SystemStrings>? meta}) => SystemStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final SystemStrings$menu$ja menu = SystemStrings$menu$ja.internal(_root);
 	late final SystemStrings$entity$ja entity = SystemStrings$entity$ja.internal(_root);
+}
+
+// Path: menu
+class SystemStrings$menu$ja {
+	SystemStrings$menu$ja.internal(this._root);
+
+	final SystemStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'システム'
+	String get group => 'システム';
 }
 
 // Path: entity
@@ -97,6 +110,7 @@ class SystemStrings$entity$unit$fields$ja {
 extension on SystemStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'menu.group' => 'システム',
 			'entity.unit.title' => '単位',
 			'entity.unit.fields.f_name' => '単位名称',
 			'entity.unit.fields.f_pronunciation' => '読み',

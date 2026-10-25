@@ -16,10 +16,18 @@ class _Labels implements EntityLabels {
 
   @override
   String field(String entityKey, String fieldKey) => '$entityKey.$fieldKey';
+
+  @override
+  String reverse(String entityKey, String reverseEntityKey) =>
+      '使っているもの:$reverseEntityKey';
 }
 
 const _kind = EntityDefinition(
   key: 'kind',
+  uniqueKeys: [
+    ['code'],
+  ],
+  reverseLists: [ReverseList(entity: 'node', field: 'kind')],
   fields: [
     FieldDefinition(key: 'code'),
     FieldDefinition(key: 'name'),
@@ -113,6 +121,40 @@ void main() {
       final saved = await repo.save(_r('', {'code': ' A ', 'name': 'x'}));
       expect(saved.id, matches(RegExp(r'^[0-9a-f-]{36}$')));
       expect(saved.valueOf('code'), 'A');
+    });
+
+    test('重複を認めない項目の組は、同じ値の別の1件を拒否する(自分自身は除く)', () async {
+      final repo = _catalog().repository('kind')!;
+      await expectLater(
+        repo.save(_r('', {'code': 'K1', 'name': '別の名前'})),
+        throwsA(
+          isA<EntityValidationException>().having(
+            (e) => e.errors['code'],
+            'code',
+            EntityFieldError.duplicate,
+          ),
+        ),
+      );
+      // 自分自身の更新は重複にならない
+      await repo.save(_r('k1', {'code': 'K1', 'name': '製品(更新)'}));
+    });
+
+    test('所有される実体の重複は、同じ親の中だけで調べる', () async {
+      const owned = EntityDefinition(
+        key: 'line',
+        owner: 'node',
+        uniqueKeys: [
+          ['text'],
+        ],
+        fields: [FieldDefinition(key: 'text')],
+      );
+      final repo = InMemoryEntityRepository(owned);
+      await repo.save(_r('', {'text': 'A'}, 'n1'));
+      await repo.save(_r('', {'text': 'A'}, 'n2')); // 別の親ならよい
+      await expectLater(
+        repo.save(_r('', {'text': 'A'}, 'n1')),
+        throwsA(isA<EntityValidationException>()),
+      );
     });
 
     test('ツリーは自分や子孫を親にできない', () async {
@@ -238,6 +280,24 @@ void main() {
       await tester.tap(find.text('保存'));
       await tester.pumpAndSettle();
       expect(find.text('必須です'), findsOneWidget);
+    });
+
+    testWidgets('編集: この実体を参照している一覧(逆引き)が下に出る', (tester) async {
+      await tester.binding.setSurfaceSize(const Size(900, 1800));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      await tester.pumpWidget(
+        _host(
+          EntityEditPage(
+            entityKey: 'kind',
+            id: 'k1',
+            scope: _scope(_catalog()),
+            onOpenChild: (_, _, _) async {},
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('使っているもの:node'), findsOneWidget);
+      expect(find.text('ルート'), findsOneWidget);
     });
 
     testWidgets('編集: 使用中は削除確認のあとエラーを表示する', (tester) async {

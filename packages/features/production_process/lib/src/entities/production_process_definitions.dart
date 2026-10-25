@@ -43,7 +43,7 @@ const List<EntityDefinition> productionProcessDefinitions = [
       ],
     ),
     EntityDefinition(
-      key: 'optask', owner: 'operation',
+      key: 'optask', owner: 'operation', uniqueKeys: [['task', 'seq']],
       fields: [
         FieldDefinition(key: 'task', kind: FieldKind.reference, reference: 'task'),
         FieldDefinition(key: 'seq', kind: FieldKind.number),

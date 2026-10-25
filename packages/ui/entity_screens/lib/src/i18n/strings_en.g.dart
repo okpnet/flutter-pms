@@ -45,6 +45,8 @@ class EntityScreenStringsEn extends EntityScreenStrings with BaseTranslations<En
 	@override String get add => 'Add';
 	@override String get parent => 'Parent';
 	@override String get noParent => 'Top level (no parent)';
+	@override String get pick => 'Select';
+	@override String get clear => 'Clear';
 	@override String get unselected => 'Not selected';
 	@override String get notFound => 'Data not found';
 	@override String get loadFailed => 'Could not load';
@@ -53,6 +55,7 @@ class EntityScreenStringsEn extends EntityScreenStrings with BaseTranslations<En
 	@override String get noData => 'No data';
 	@override String get children => 'items';
 	@override late final _EntityScreenStrings$confirmDelete$en confirmDelete = _EntityScreenStrings$confirmDelete$en._(_root);
+	@override late final _EntityScreenStrings$condition$en condition = _EntityScreenStrings$condition$en._(_root);
 	@override late final _EntityScreenStrings$validation$en validation = _EntityScreenStrings$validation$en._(_root);
 }
 
@@ -67,6 +70,22 @@ class _EntityScreenStrings$confirmDelete$en extends EntityScreenStrings$confirmD
 	@override String message({required Object name}) => 'Delete "${name}"?';
 }
 
+// Path: condition
+class _EntityScreenStrings$condition$en extends EntityScreenStrings$condition$ja {
+	_EntityScreenStrings$condition$en._(EntityScreenStringsEn root) : this._root = root, super.internal(root);
+
+	final EntityScreenStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get between => 'Range';
+	@override String get yesNo => 'Yes / No';
+	@override String get value => 'Enter a value';
+	@override String get lower => 'Lower';
+	@override String get upper => 'Upper';
+	@override String get yes => 'Yes';
+	@override String get no => 'No';
+}
+
 // Path: validation
 class _EntityScreenStrings$validation$en extends EntityScreenStrings$validation$ja {
 	_EntityScreenStrings$validation$en._(EntityScreenStringsEn root) : this._root = root, super.internal(root);
@@ -77,10 +96,12 @@ class _EntityScreenStrings$validation$en extends EntityScreenStrings$validation$
 	@override String get required => 'Required';
 	@override String get invalidNumber => 'Enter a number';
 	@override String get invalidDate => 'Enter a date as yyyy-MM-dd';
+	@override String get invalidCondition => 'Select an operator and enter a value';
 	@override String get invalidChoice => 'Not one of the choices';
 	@override String get parentCycle => 'Itself or its descendants cannot be the parent';
 	@override String get hasChildren => 'It has child items and cannot be deleted';
 	@override String get referenced => 'It is in use and cannot be deleted';
+	@override String get duplicate => 'Already exists';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -98,6 +119,8 @@ extension on EntityScreenStringsEn {
 			'add' => 'Add',
 			'parent' => 'Parent',
 			'noParent' => 'Top level (no parent)',
+			'pick' => 'Select',
+			'clear' => 'Clear',
 			'unselected' => 'Not selected',
 			'notFound' => 'Data not found',
 			'loadFailed' => 'Could not load',
@@ -107,13 +130,22 @@ extension on EntityScreenStringsEn {
 			'children' => 'items',
 			'confirmDelete.title' => 'Confirm deletion',
 			'confirmDelete.message' => ({required Object name}) => 'Delete "${name}"?',
+			'condition.between' => 'Range',
+			'condition.yesNo' => 'Yes / No',
+			'condition.value' => 'Enter a value',
+			'condition.lower' => 'Lower',
+			'condition.upper' => 'Upper',
+			'condition.yes' => 'Yes',
+			'condition.no' => 'No',
 			'validation.required' => 'Required',
 			'validation.invalidNumber' => 'Enter a number',
 			'validation.invalidDate' => 'Enter a date as yyyy-MM-dd',
+			'validation.invalidCondition' => 'Select an operator and enter a value',
 			'validation.invalidChoice' => 'Not one of the choices',
 			'validation.parentCycle' => 'Itself or its descendants cannot be the parent',
 			'validation.hasChildren' => 'It has child items and cannot be deleted',
 			'validation.referenced' => 'It is in use and cannot be deleted',
+			'validation.duplicate' => 'Already exists',
 			_ => null,
 		};
 	}

@@ -35,7 +35,20 @@ class QualityStrings with BaseTranslations<QualityLocale, QualityStrings> {
 	QualityStrings $copyWith({TranslationMetadata<QualityLocale, QualityStrings>? meta}) => QualityStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final QualityStrings$menu$ja menu = QualityStrings$menu$ja.internal(_root);
 	late final QualityStrings$entity$ja entity = QualityStrings$entity$ja.internal(_root);
+}
+
+// Path: menu
+class QualityStrings$menu$ja {
+	QualityStrings$menu$ja.internal(this._root);
+
+	final QualityStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '品質管理'
+	String get group => '品質管理';
 }
 
 // Path: entity
@@ -772,6 +785,7 @@ class QualityStrings$entity$auditmember$fields$ja {
 extension on QualityStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'menu.group' => '品質管理',
 			'entity.complaint.title' => '異常',
 			'entity.complaint.fields.f_occurent_at' => '発生年月日',
 			'entity.complaint.fields.f_title' => '件名',

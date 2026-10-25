@@ -33,12 +33,17 @@ cd apps\pms_app; flutter run -d windows          # アプリ起動
 
 - `apps/pms_app`: シェルアプリ。機能を組み立てるだけ。機能追加は `lib/app.dart` の `featureModules` に1行足す。
 - `packages/features/`: 1機能=1パッケージ `xxx`(実装=画面・ルート・ハンドラ、`XxxModule implements FeatureModule`)。契約(遷移先・命令の型)は同じパッケージの `lib/xxx_api.dart`(契約だけのバレル)で公開し、実装の入口 `lib/xxx.dart` はアプリだけが読み込む。機能同士・アプリは `xxx_api.dart` の型だけを使い、`lib/src` や実装の入口は読み込まない。
-- `packages/core/`: `baton_lib`(コマンドバス)と `feature_shared`(機能とアプリの仲介)。
-- `packages/ui/`, `packages/infra/`(graphql, logger_provider), `packages/foundation/`(画面を持たない汎用部品)。
+- `packages/core/`: `baton_lib`(コマンドバス)、`feature_shared`(機能とアプリの仲介)、`settings_keeper`(ローカル設定の保存と復元)。
+- `packages/ui/`: UI基盤。`entity_screens`(実体の定義から台帳・編集の画面を作る)、`app_shell`(タイトルバー・サイドバー・ハンバーガー・ログインユーザーの枠)を含む。
+- `packages/infra/`(graphql, logger_provider), `packages/foundation/`(画面を持たない汎用部品)。
 
 ### baton_lib(コマンドバス)
 
 機能パッケージ間・アプリ間のやりとりは文字列ではなく `Command<R>` オブジェクトで行う。画面遷移も `Destination<R> extends Command<R>` として同じ入口(`CommandBus.execute`)に通し、ログ・権限などの横断処理は Middleware で差し込む。アプリ側で `Destination` かどうかでナビゲーションとハンドラに振り分ける。詳細仕様・命名規則・ドキュメント配置ルールは [packages/core/baton_lib/CLAUDE.md](packages/core/baton_lib/CLAUDE.md) を参照(同パッケージで作業するときは必読。レポートは `doc/log`、使い方は `doc/contents`、指示は `issue/` に置く規則)。
+
+### settings_keeper(設定の保存と復元)
+
+テーマ・ウィンドウの位置など、ローカルに持つ設定を保存・復元する。設定の持ち主(`SettingsOriginator`)が自分の状態を `SettingsMemento` にして `SettingsKeeper` に預ける(Memento)。保存の手段は `SettingsStorage` で、標準の `FileSettingsStorage`(JSONファイル)と `InMemorySettingsStorage`(既定)から、アプリが `settingsStorageProvider` を上書きして選ぶ・独自実装に差し替える(Strategy)。保存・復元の失敗は例外にせず、`[settings_keeper]` 付きでログに残して `false` を返す。詳細は [packages/core/settings_keeper/CLAUDE.md](packages/core/settings_keeper/CLAUDE.md)、使い方は同パッケージの `doc/contents/usage.md` を参照。
 
 ## バージョン管理
 

@@ -1,5 +1,5 @@
-/// 営業機能(実装)。アプリだけが読み込み、公開するのは [SalesModule] だけ。
-/// 他の機能が使う遷移先・命令の型は `sales_api.dart` を読み込む。
+/// 営業 機能。外へ公開するのは [SalesModule] だけ。
+/// 顧客は利害関係者として共有マスタ(`shared_master`)にある。
 library;
 
 export 'src/sales_module.dart' show SalesModule;

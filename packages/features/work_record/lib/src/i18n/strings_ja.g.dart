@@ -35,7 +35,20 @@ class WorkRecordStrings with BaseTranslations<WorkRecordLocale, WorkRecordString
 	WorkRecordStrings $copyWith({TranslationMetadata<WorkRecordLocale, WorkRecordStrings>? meta}) => WorkRecordStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final WorkRecordStrings$menu$ja menu = WorkRecordStrings$menu$ja.internal(_root);
 	late final WorkRecordStrings$entity$ja entity = WorkRecordStrings$entity$ja.internal(_root);
+}
+
+// Path: menu
+class WorkRecordStrings$menu$ja {
+	WorkRecordStrings$menu$ja.internal(this._root);
+
+	final WorkRecordStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '作業実績'
+	String get group => '作業実績';
 }
 
 // Path: entity
@@ -271,6 +284,7 @@ class WorkRecordStrings$entity$wrcert$fields$ja {
 extension on WorkRecordStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'menu.group' => '作業実績',
 			'entity.container.title' => 'コンテナ',
 			'entity.container.fields.f_code' => 'コード',
 			'entity.container.fields.f_name' => 'コンテナ名称',

@@ -4,7 +4,6 @@ import 'package:logger_provider/logger_provider.dart';
 import 'package:item/item.dart';
 import 'package:production_plan/production_plan.dart';
 import 'package:purchasing/purchasing.dart';
-import 'package:shared_master/shared_master.dart';
 import 'package:system/system.dart';
 import 'package:work_record/work_record.dart';
 import 'package:theme_lib/theme_lib.dart';
@@ -27,8 +26,8 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FeatureHost(
     title: '購買 (example)',
-    modules: const [PurchasingModule(), ItemModule(), ProductionPlanModule(), SharedMasterModule(), SystemModule(), WorkRecordModule()],
-    entries: const [FeatureHostEntry('利害関係者', EntityListDestination('supplier')), FeatureHostEntry('非計上', EntityListDestination('unrec')), FeatureHostEntry('発注', EntityListDestination('purchase')), FeatureHostEntry('受入実績', EntityListDestination('purchaserec'))],
+    modules: const [PurchasingModule(), ItemModule(), ProductionPlanModule(), SystemModule(), WorkRecordModule()],
+    entries: const [FeatureHostEntry('非計上', EntityListDestination('unrec')), FeatureHostEntry('発注', EntityListDestination('purchase')), FeatureHostEntry('受入実績', EntityListDestination('purchaserec'))],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー
     overrides: [themeLoggerProvider.overrideWithValue(logger)],

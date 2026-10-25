@@ -16,6 +16,7 @@ typedef EntityOptionsLoader = Future<List<EntityOption>> Function();
 class EntityCatalog {
   final Map<String, IEntityRepository> _repositories = {};
   final Map<String, EntityOptionsLoader> _lookups = {};
+  final Map<String, String> _lookupBacking = {};
 
   /// 実体を登録する。同じキーは後から登録したもので置き換える(GraphQL 版への差し替え)。
   void register(IEntityRepository repository) {
@@ -23,8 +24,16 @@ class EntityCatalog {
   }
 
   /// 専用の画面を持つ実体を、参照先として登録する(選択肢だけ返す)。
-  void registerLookup(String entityKey, EntityOptionsLoader loader) {
+  ///
+  /// [backing] は、選択肢の元になっている実体のキー(例: 顧客・外部供給者は利害関係者)。
+  /// 指定すると、参照している側の使用中の判定を [backing] の実体の削除に反映する。
+  void registerLookup(
+    String entityKey,
+    EntityOptionsLoader loader, {
+    String? backing,
+  }) {
     _lookups[entityKey] = loader;
+    if (backing != null) _lookupBacking[entityKey] = backing;
   }
 
   EntityDefinition? definition(String entityKey) =>
@@ -50,8 +59,36 @@ class EntityCatalog {
     final records = await repository.find(take: _all);
     return [
       for (final r in records)
-        EntityOption(r.id, displayLabel(repository.definition, r)),
+        EntityOption(r.id, await labelOf(repository.definition, r)),
     ];
+  }
+
+  /// 他の実体から選ぶときの表示。名称を参照先から借りる実体([EntityDefinition.nameReference])は、
+  /// コード + 参照先の表示(例「E-001 I-1000 ユニットA」)。それ以外は [displayLabel]。
+  Future<String> labelOf(
+    EntityDefinition definition,
+    EntityRecord record,
+  ) async {
+    final source = definition.nameReference;
+    if (source == null) return displayLabel(definition, record);
+    final target = _repositories[source.reference];
+    final id = record.valueOf(source.key);
+    final borrowed = target == null || id.isEmpty
+        ? ''
+        : await _borrowedLabel(target, id);
+    final code = record.valueOf('code').isNotEmpty
+        ? record.valueOf('code')
+        : record.valueOf('no');
+    final parts = [
+      if (code.isNotEmpty) code,
+      if (borrowed.isNotEmpty) borrowed,
+    ];
+    return parts.isEmpty ? displayLabel(definition, record) : parts.join(' ');
+  }
+
+  Future<String> _borrowedLabel(IEntityRepository target, String id) async {
+    final record = await target.findById(id);
+    return record == null ? '' : await labelOf(target.definition, record);
   }
 
   /// 他の実体から選ぶときの表示(先頭の2項目をつなぐ。例「I-1000 ユニットA」)。
@@ -83,7 +120,10 @@ class EntityCatalog {
     for (final r in _repositories.values) {
       final fields = [
         for (final f in r.definition.fields)
-          if (f.kind == FieldKind.reference && f.reference == entityKey) f,
+          if (f.kind == FieldKind.reference &&
+              (f.reference == entityKey ||
+                  _lookupBacking[f.reference] == entityKey))
+            f,
       ];
       if (fields.isEmpty) continue;
       for (final record in await r.find(take: _all)) {

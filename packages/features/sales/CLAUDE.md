@@ -5,35 +5,31 @@
 
 ## 画面(Html のメニュー)
 1.  配送区分: 共有プロジェクト `shared_master` が持つ(購買と共通)
-2.  顧客台帳 [テーブル構造](子: 担当者)。`lib/src/customer/` に実装済み(旧 `customer` / `customer_api` を統合済み)
-3.  受注: 受注台帳 [テーブル構造](子: 受注明細)。実体の画面(生成)で実装済み。参照する顧客・配送区分は、それぞれの専用の画面が選択肢を登録簿へ登録する
+2.  顧客台帳 [テーブル構造](子: 担当者): 利害関係者(`stakeholder`)のうち顧客のフラグ(`is_customer`)がオンの行。利害関係者は共有プロジェクト `shared_master` が持ち、このメニューの項目はそこへ遷移する(`shared_master_api.dart` の `customerLedgerDestination`)
+3.  受注: 受注台帳 [テーブル構造](子: 受注明細)。実体の画面(生成)で実装済み。参照する顧客(`customer`)・配送区分(`shipkind`)は、`shared_master` が選択肢を登録簿へ登録する
 
 ## 構成
 | 種別 | ファイル | 内容 |
 |---|---|---|
 | 実装の入口 | `lib/sales.dart` | 公開は `SalesModule` だけ。アプリだけが読み込む |
-| 契約の入口 | `lib/sales_api.dart` | 遷移先・命令の型だけ。他の機能・アプリはこちらだけを読み込む(実装側は読み込まない) |
-| モジュール | `lib/src/sales_module.dart` | 区分のモジュールを束ねる(Composite) |
-| 顧客 | `lib/src/customer/` | `customer_{module,paths,handlers,model,repository}.dart`、`customers_provider.dart`、契約 `customer_{commands,destinations}.dart`、`pages/` |
+| モジュール | `lib/src/sales_module.dart` | 実体の画面(生成。`EntityFeatureModule`) |
 
-契約: `CustomerListDestination`、`CustomerEditDestination(id)`、`CustomerPickerDestination`(id の文字列または null を返す)、`FindCustomerNameCommand(id)`。遷移先・命令を足したら `customerDestinationSamples` / `customerCommandSamples` にも1件足し、`sales_api.dart` から公開する。
+専用の画面・契約(`sales_api.dart`)は持たない。顧客は `shared_master_api.dart` の型で開く。
 
 ## 参照するモデル
-`packages/infra/graphql_provider_lib/source/views/` の次を列・フィールドの参照元とし、モデルは `lib/postgraphile` のクラスを使う。
-+  `sales/customer.yaml`, `sales/stakeholder.yaml`, `sales/order.yaml`(配送区分は `sales/shipping_kind.yaml`)
+`packages/infra/graphql_provider_lib/source/views/` の `sales/order.yaml` を列・フィールドの参照元とし、モデルは `lib/postgraphile` のクラスを使う(顧客・利害関係者は `shared_master`)。
 
 ## 実装の指針
-1.  他の機能・アプリは `sales_api.dart` の型だけを使う。遷移・連携は `baton_lib` の `Destination` / `Command` で行い、文字列のパスを公開しない。`lib/src` を直接 import しない。
-2.  データの取得は`riverpod`をとおして`packages/foundation/data_strategist`を使用する。GraphQL 版は `ICustomerRepository` を実装し、アプリで `customerRepositoryProvider` を差し替える。
+1.  他の機能の画面は `xxx_api.dart` の型だけを使う。遷移・連携は `baton_lib` の `Destination` / `Command` で行い、文字列のパスを公開しない。`lib/src` を直接 import しない。
+2.  データの取得は`riverpod`をとおして`packages/foundation/data_strategist`を使用する。
 3.  テーブル構造・ツリー構造は`packages/ui/flgtable_lib`、色・サイズは`theme_lib`、レスポンシブは`view_responsiveness`を使用する。
-4.  ログは `logger_provider` の `loggerProvider` を `ref` から直接取得し、この機能が発生元のエラーだけを出す。顧客機能は `[customer]` を付ける。
-5.  ラベルは slang で多言語化し、列名は `schema.graphql` のコメントを使う。推論・仮置きしたラベルは `doc/log` に残す。
+4.  ラベルは slang で多言語化し、列名は `schema.graphql` のコメントを使う。推論・仮置きしたラベルは `doc/log` に残す。
 
 <!-- entity_gen:begin -->
 ## 実体の画面(生成)
 台帳(テーブル/ツリー)と編集の画面は、`tools/entity_gen/gen.js` が `tools/open-design` の画面定義から生成する(定義・サンプル・表示名・モジュール・テスト)。
 生成物は直接編集しない(再生成: リポジトリのルートで `node tools/entity_gen/gen.js`)。画面の作りは `packages/ui/entity_screens`、機能への組み込みは `feature_shared` の `EntityFeatureModule`。
-専用の画面が必要な実体は、生成の対象から外して手書きする(`sales` の顧客、`shared_master` の配送区分を参考にする)。
+専用の画面が必要な実体は、生成の対象から外して手書きする(`shared_master` の配送区分を参考にする)。
 
 | 実体 | キー | 構造 | 項目数 | 参照先 |
 |---|---|---|---|---|
