@@ -222,7 +222,25 @@ final class GraphQLClientProvider {
       return Ok<Map<String, dynamic>>(resultValue.data!);
     }
 
-    final exception = resultValue.exception?.linkException?.originalException;
+    final linkException = resultValue.exception?.linkException;
+    final exception = linkException?.originalException;
+
+    // GraphQLサーバーがHTTP 4xxと共にGraphQLエラー(クエリ検証エラーなど)を返した場合は
+    // 原因の例外を持たない [ServerException] になるため、開発者側の誤りとして扱う。
+    final responseErrors = linkException is ServerException
+        ? linkException.parsedResponse?.errors
+        : null;
+    if (exception == null &&
+        responseErrors != null &&
+        responseErrors.isNotEmpty) {
+      return Err<Map<String, dynamic>>(
+        DeveloperError(
+          linkException.toString(),
+          internalExeption: linkException,
+        ),
+        graphqlErrors: responseErrors.map((e) => e.message).join('\r'),
+      );
+    }
 
     if (exception == null &&
         resultValue.exception != null &&

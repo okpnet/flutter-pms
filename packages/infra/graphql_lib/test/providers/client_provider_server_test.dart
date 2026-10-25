@@ -1,0 +1,112 @@
+// 検証用GraphQLサーバー(Postgraphile)への実接続テスト。
+//
+// クエリ文書とレスポンスの型は `graphql_provider_lib`(gqlprvlib) が生成したものを使う。
+// 接続できないときはテストを中止(skip)する。ネットワークが無い環境では
+//   flutter test --exclude-tags server
+// で除外できる。読み取りのみで、サーバーのデータは変更しない。
+import 'dart:io';
+
+import 'package:flutter_test/flutter_test.dart';
+import 'package:gqlib/gqlib.dart';
+import 'package:graphql/client.dart';
+import 'package:gqlprvlib/postgraphile/position_page/position_page_read.graphql.dart';
+
+const _serverUrl = 'http://192.168.1.100:5000/graphql';
+const _serverTag = 'server';
+const _anyLanguageCodeId = '00000000-0000-0000-0000-000000000000';
+
+Future<bool> _canConnect() async {
+  final uri = Uri.parse(_serverUrl);
+  try {
+    final socket = await Socket.connect(
+      uri.host,
+      uri.port,
+      timeout: const Duration(seconds: 3),
+    );
+    socket.destroy();
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+void main() {
+  late bool connected;
+
+  setUpAll(() async {
+    connected = await _canConnect();
+  });
+
+  Future<void> Function() onServer(Future<void> Function() body) => () async {
+    if (!connected) {
+      markTestSkipped('$_serverUrl に接続できないためテストを中止した');
+      return;
+    }
+    await body();
+  };
+
+  group('GraphQLClientProvider.query against the test server', () {
+    test(
+      'PositionPageRead returns Ok with the totalCount',
+      onServer(() async {
+        final provider = GraphQLClientProvider(_serverUrl, timeLimit: 20);
+
+        final result = await provider.query(
+          QueryOptions(
+            document: documentNodeQueryPositionPageRead,
+            variables: Variables$Query$PositionPageRead(
+              first: 5,
+              languageCodeId: _anyLanguageCodeId,
+            ).toJson(),
+          ),
+        );
+
+        expect(result, isA<Ok<Map<dynamic, dynamic>>>());
+        final data = (result as Ok<Map<dynamic, dynamic>>).value;
+        final parsed = Query$PositionPageRead.fromJson(
+          Map<String, dynamic>.from(data),
+        );
+        expect(parsed.allInfoPositions, isNotNull);
+        expect(parsed.allInfoPositions!.totalCount, greaterThanOrEqualTo(0));
+        expect(parsed.allInfoPositions!.nodes.length, lessThanOrEqualTo(5));
+      }),
+      tags: _serverTag,
+    );
+
+    test(
+      'an unknown field returns Err(DeveloperError)',
+      onServer(() async {
+        final provider = GraphQLClientProvider(_serverUrl, timeLimit: 20);
+
+        final result = await provider.query(
+          QueryOptions(
+            document: gql('{ allInfoPositions { thisFieldDoesNotExist } }'),
+          ),
+        );
+
+        expect(result, isA<Err<Map<dynamic, dynamic>>>());
+        final err = result as Err<Map<dynamic, dynamic>>;
+        expect(err.error, isA<DeveloperError>());
+        expect(err.graphqlErrors, contains('thisFieldDoesNotExist'));
+      }),
+      tags: _serverTag,
+    );
+
+    test(
+      'a wrong port returns Err(NetworkError)',
+      onServer(() async {
+        final provider = GraphQLClientProvider(
+          'http://192.168.1.100:1/graphql',
+          timeLimit: 10,
+        );
+
+        final result = await provider.query(
+          QueryOptions(document: gql('{ __typename }')),
+        );
+
+        expect(result, isA<Err<Map<dynamic, dynamic>>>());
+      }),
+      tags: _serverTag,
+    );
+  });
+}

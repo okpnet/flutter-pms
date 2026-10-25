@@ -8,3 +8,6 @@ tags:
   network:
     description: >-
       Requires outbound internet access (hits a real public GraphQL API).
+  server:
+    description: >-
+      Requires the test GraphQL server (http://192.168.1.100:5000/graphql).
