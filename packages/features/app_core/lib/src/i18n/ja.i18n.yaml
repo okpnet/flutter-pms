@@ -1,0 +1,40 @@
+# アプリの基盤(AppCore)の文字列(日本語。基準言語)。アプリの枠(タイトルバー・メニュー)の文字列も含む。
+app:
+  title: 生産管理
+shell:
+  dashboard: ダッシュボード
+  openMenu: メニューを開く
+  userMenu: ユーザーメニュー
+  settings: 設定
+  logout: ログアウト
+boot:
+  loading: 読み込み中...
+logout:
+  title: ログアウト
+  message: ログアウトしました。
+  signIn: ログインする(仮)
+error:
+  title: エラー
+  message: アプリケーションでエラーが発生しました
+  back: 戻る
+settings:
+  title: 設定
+  note: 使用者全体ではなく、使用しているユーザーにだけ影響する設定です。
+  language:
+    title: 使用言語
+    system: 実行環境に従う
+    ja: 日本語
+    en: English
+  layout:
+    title: 画面
+    sidebarIconOnly: サイドバーをアイコンだけにする
+  user:
+    title: ログインユーザー
+    note: 画面に表示するユーザー名と役割です。保存はされず、起動のたびに標準の値へ戻ります。
+    name: ユーザー名
+    role: 役割・所属
+    apply: 設定する
+    reset: 標準に戻す
+  about:
+    title: バージョン情報
+    version: アプリケーションのバージョン

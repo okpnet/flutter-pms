@@ -1,0 +1,15 @@
+# --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
+# システムの実体と項目の表示名(日本語。基準言語)。
+# 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
+menu:
+  group: "システム"
+entity:
+  unit:
+    title: "単位"
+    fields:
+      f_name: "単位名称"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_detail: "詳細"
+      f_symbol: "記号"
+      f_remarks: "備考"

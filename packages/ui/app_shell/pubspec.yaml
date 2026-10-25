@@ -1,0 +1,23 @@
+name: app_shell
+description: アプリ全体の枠(タイトルバー・サイドバー・ハンバーガーメニュー・ログインユーザー)の見た目の部品。機能・認証の実体は知らない。
+version: 0.0.1
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  view_responsiveness:
+    path: ../view_responsiveness
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+
+flutter:

@@ -1,0 +1,30 @@
+name: app_core
+description: アプリの基盤の画面(ブート・エラー・設定)の実装。ログイン・ログアウトは認証(Keycloak)の導入後に追加する。
+version: 0.0.1
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  app_shell:
+    path: ../../ui/app_shell
+  feature_shared:
+    path: ../../core/feature_shared
+  baton_lib:
+    path: ../../core/baton_lib
+  flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+
+flutter:

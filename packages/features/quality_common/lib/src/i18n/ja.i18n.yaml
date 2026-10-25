@@ -1,0 +1,80 @@
+# --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
+# 品質共通の実体と項目の表示名(日本語。基準言語)。
+# 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
+menu:
+  group: "品質共通"
+entity:
+  disposal:
+    title: "異常処置"
+    fields:
+      f_trans_complaint_id: "異常"
+      f_disposal_at: "処置年月日"
+      f_title: "件名"
+      f_detail: "詳細"
+      f_approvals: "承認"
+      f_approval_at: "承認日"
+      f_remarks: "備考"
+  recur:
+    title: "再発防止処置"
+    fields:
+      f_trans_disposal_id: "異常処置"
+      f_occurent_at: "発生年月日"
+      f_approvals: "承認"
+      f_title: "件名"
+      f_detail: "詳細"
+      f_remarks: "備考"
+  obsdisp:
+    title: "処置監視"
+    fields:
+      f_enable: "有効性"
+      f_observe_schedule: "監視測定予定日"
+      f_observe_at: "監視測定日"
+      f_remarks: "備考"
+  obsprev:
+    title: "再発防止監視"
+    fields:
+      f_trans_observer_disposal_id: "監視"
+      f_trans_recurrence_prevention_id: "再発防止"
+      f_remarks: "備考"
+  risk:
+    title: "リスク"
+    fields:
+      f_title: "件名"
+      f_detail: "詳細"
+      f_frequency: "発生頻度"
+      f_momentous: "重大度"
+      f_action: "対応可否"
+      f_residual_risk_id: "残留リスク"
+      f_remarks: "備考"
+  prevention:
+    title: "未然防止"
+    fields:
+      f_number: "番号"
+      f_title: "件名"
+      f_detail: "詳細"
+      f_remarks: "備考"
+  preventiondetail:
+    title: "未然防止処置"
+    fields:
+      f_number: "番号"
+      f_trans_risk_id: "リスク"
+      f_info_department_id: "組織情報"
+      f_start_at: "開始日"
+      f_stop_at: "終了日"
+      f_title: "件名"
+      f_detail: "詳細"
+      f_remarks: "備考"
+  auditstdcheck:
+    title: "監査標準項目"
+    fields:
+      f_code: "監査標準項目コード"
+      f_control_code: "管理コード"
+      f_name: "標準項目名称"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_mstr_audit_std_id: "監査標準"
+      f_detail: "詳細"
+      f_type_class: "型"
+      f_formula_class: "式"
+      f_arg_class: "引数"
+      f_remarks: "備考"

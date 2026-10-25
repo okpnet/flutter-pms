@@ -1,0 +1,119 @@
+# --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
+# 資源の実体と項目の表示名(日本語。基準言語)。
+# 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
+menu:
+  group: "資源"
+entity:
+  capability:
+    title: "力量"
+    fields:
+      f_code: "力量コード"
+      f_name: "力量名称"
+      f_pronunciation: "読み"
+      f_detail: "詳細"
+      f_reference_value: "基準"
+      f_max: "最大"
+      f_min: "最小"
+      f_step: "刻み"
+      f_remarks: "備考"
+    reverse:
+      staffcapability: "保持者"
+  license:
+    title: "資格"
+    fields:
+      f_code: "資格コード"
+      f_name: "資格名称"
+      f_pronunciation: "読み"
+      f_detail: "詳細"
+      f_public_license: "公的"
+      f_customer_license: "顧客"
+      f_organization_license: "内部"
+      f_remarks: "備考"
+    reverse:
+      stafflicense: "保持者"
+  location:
+    title: "場所"
+    fields:
+      f_code: "場所コード"
+      f_control_code: "管理コード"
+      f_name: "場所名称"
+      f_pronunciation: "読み"
+      f_use: "使用"
+      f_remarks: "備考"
+  equipmentcategory:
+    title: "設備分類"
+    fields:
+      f_code: "分類コード"
+      f_name: "分類名称"
+      f_pronunciation: "読み"
+      f_start: "適用開始"
+      f_end: "適用終了"
+      f_remarks: "備考"
+  equipment:
+    title: "設備"
+    fields:
+      f_code: "設備コード"
+      f_control_code: "管理コード"
+      f_label_code: "表示コード"
+      f_item: "品目(設備名)"
+      f_category: "設備分類"
+      f_location: "場所"
+  inspectionkind:
+    title: "点検整備区分"
+    fields:
+      f_code: "区分コード"
+      f_name: "区分名称"
+      f_pronunciation: "読み"
+      f_cycle: "周期の目安"
+      f_remarks: "備考"
+  inspectionitem:
+    title: "点検整備項目"
+    fields:
+      f_code: "点検コード"
+      f_name: "点検名称"
+      f_pronunciation: "読み"
+      f_kind: "点検区分"
+  inspectionformula:
+    title: "点検整備算式"
+    fields:
+      f_expr: "式"
+  inspectionoperation:
+    title: "設備点検整備運用"
+    fields:
+      f_code: "運用コード"
+      f_name: "運用名称"
+      f_equipment: "設備"
+      f_kind: "点検整備区分"
+  operationline:
+    title: "運用明細"
+    fields:
+      f_item: "点検整備"
+      f_seq: "順"
+      f_role: "担当の役職"
+  inspectionschedule:
+    title: "点検予定"
+    fields:
+      f_code: "管理コード"
+      f_name: "予定名称"
+      f_operation: "点検整備運用"
+  scheduledetail:
+    title: "予定明細"
+    fields:
+      f_item: "点検整備項目"
+      f_start: "開始予定日"
+      f_end: "終了予定日"
+      f_staff: "担当者"
+  inspectionresult:
+    title: "点検実施"
+    fields:
+      f_date: "実施日"
+      f_staff: "実施者"
+      f_result: "結果"
+      f_value: "測定値・所見"
+      f_note: "備考"
+  inspectionfile:
+    title: "ファイル"
+    fields:
+      f_fname: "ファイル名"
+      f_ftype: "種類"
+      f_regdate: "登録日"

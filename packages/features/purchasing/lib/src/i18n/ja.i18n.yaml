@@ -1,0 +1,54 @@
+# --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
+# 購買の実体と項目の表示名(日本語。基準言語)。
+# 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
+menu:
+  group: "購買"
+entity:
+  unrec:
+    title: "非計上"
+    fields:
+      f_decision_date: "決定日"
+      f_deadline: "納期"
+      f_expected_completion_date: "完了予定日"
+      f_planned_shipping_date: "出荷予定日"
+      f_remarks: "備考"
+  unrecdetail:
+    title: "非計上明細"
+    fields:
+      f_quantity: "数量"
+      f_cost: "単価"
+      f_deadline: "個別納期"
+      f_remarks: "備考"
+  purchase:
+    title: "発注"
+    fields:
+      f_register_at: "登録日"
+      f_purchase_order_date: "発注日"
+      f_deadline: "発注期限"
+      f_remarks: "備考"
+  purdetail:
+    title: "発注明細"
+    fields:
+      f_trans_resource_plan_id: "資材計画"
+      f_restocking_purchase: "在庫発注"
+      f_quantity: "数量"
+      f_period: "納期"
+      f_remarks: "備考"
+  purchaserec:
+    title: "受入実績"
+    fields:
+      f_trans_purchase_detail_id: "発注明細"
+      f_receive_at: "受入日時"
+      f_quantity: "数量"
+      f_remarks: "備考"
+  purchaseline:
+    title: "受入明細"
+    fields:
+      f_item: "品目"
+      f_qty: "受入数量"
+      f_unit: "単位"
+  purcert:
+    title: "発注品目成績書"
+    fields:
+      f_trans_certificate_id: "成績書"
+      f_remarks: "備考"

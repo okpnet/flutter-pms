@@ -1,0 +1,37 @@
+shippingKind:
+  title: Shipping kinds
+  pickerTitle: Select a shipping kind
+  createTitle: New shipping kind
+  editTitle: Edit shipping kind
+  create: New
+  notFound: Shipping kind not found
+  loadFailed: Could not load the shipping kind
+  saveFailed: Could not save
+  deleteFailed: Could not delete
+  columns:
+    code: Code
+    name: Name
+    pronunciation: Reading
+    nickname: Short name
+    remarks: Remarks
+  fields:
+    code: Code *
+    name: Name *
+  validation:
+    codeRequired: Code is required
+    nameRequired: Name is required
+    codeDuplicated: The code is already in use
+    inUse: It is in use and cannot be deleted
+  confirmDelete:
+    title: Confirm deletion
+    message: Delete "$name"?
+common:
+  save: Save
+  delete: Delete
+  cancel: Cancel
+menu:
+  sales: Sales
+  purchasing: Purchasing
+stakeholder:
+  customerLedger: Customers
+  supplierLedger: Suppliers

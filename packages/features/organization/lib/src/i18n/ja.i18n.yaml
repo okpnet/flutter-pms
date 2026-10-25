@@ -1,0 +1,117 @@
+# --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
+# 会社情報の実体と項目の表示名(日本語。基準言語)。
+# 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
+menu:
+  group: "会社情報"
+entity:
+  company:
+    title: "会社情報"
+    fields:
+      f_name: "会社名"
+      f_pronunciation: "会社名の読み"
+      f_nickname: "略称"
+      f_ceo: "代表者名"
+      f_web_page: "ホームページ"
+      f_postal_code: "郵便番号"
+      f_prefecture: "都道府県"
+      f_city: "市町村番地"
+      f_building: "建物"
+      f_tel: "電話"
+      f_fax: "FAX"
+      f_remarks: "備考"
+  provision:
+    title: "提供"
+    fields:
+      f_kind: "種別"
+      f_code: "提供コード"
+      f_name: "名称"
+      f_detail: "詳細"
+  position:
+    title: "役割(役職)"
+    fields:
+      f_name: "役割名称"
+      f_pronunciation: "読み"
+      f_priority: "順位"
+      f_remarks: "備考"
+  assignment:
+    title: "割当"
+    fields:
+      f_staff: "担当者"
+      f_enable: "有効"
+      f_priority: "優先順位"
+      f_office: "事業所"
+      f_department: "部署"
+  site:
+    title: "事業所"
+    fields:
+      f_code: "事業所コード"
+      f_name: "事業所名称"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_postal_code: "郵便番号"
+      f_prefecture: "都道府県"
+      f_city: "市町村番地"
+      f_building: "建物"
+      f_tel: "電話"
+      f_fax: "FAX"
+  deptkind:
+    title: "部署区分"
+    fields:
+      f_name: "区分名"
+      f_detail: "区分詳細"
+  department:
+    title: "部署"
+    fields:
+      f_code: "組織コード"
+      f_name: "組織名称"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_site: "事業所"
+  departmentkind:
+    title: "部署区分の割当"
+    fields:
+      f_kind: "部署区分"
+  staff:
+    title: "作業者"
+    fields:
+      f_no: "担当者コード"
+      f_name: "名前"
+      f_pronunciation: "読み"
+      f_sex: "性別"
+      f_phone: "電話"
+      f_private_phone: "緊急電話"
+      f_symbol: "記号"
+      f_remarks: "備考"
+  staffcapability:
+    title: "作業者の力量"
+    fields:
+      f_capability: "力量"
+      f_value: "値"
+      f_stop: "停止"
+  stafflicense:
+    title: "作業者の資格"
+    fields:
+      f_license: "資格"
+      f_number: "資格番号"
+      f_acquired: "適用開始"
+      f_expires: "適用終了"
+      f_abeyance: "保留(停止)"
+      f_abeyance_at: "保留日"
+      f_revocation: "取り消し"
+      f_revocation_at: "取り消し日"
+  approvalpattern:
+    title: "承認パターン"
+    fields:
+      f_name: "パターン名称"
+      f_pronunciation: "読み"
+      f_remarks: "備考"
+  approver:
+    title: "承認できる人"
+    fields:
+      f_name: "名称"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_department: "部署"
+      f_position: "役職"
+      f_priority: "優先順位"
+      f_remarks: "備考"

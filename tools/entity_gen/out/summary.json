@@ -1,0 +1,360 @@
+{
+  "projects": {
+    "system": [
+      {
+        "key": "unit",
+        "label": "単位",
+        "first": "キログラム"
+      }
+    ],
+    "item": [
+      {
+        "key": "itemkind",
+        "label": "品目区分",
+        "first": "PRD"
+      },
+      {
+        "key": "hscode",
+        "label": "HSコード",
+        "first": "8466.93"
+      },
+      {
+        "key": "item",
+        "label": "品目",
+        "first": "I-1000"
+      },
+      {
+        "key": "itemsizekind",
+        "label": "品目大きさ区分",
+        "first": "ITE-001"
+      }
+    ],
+    "production_process": [
+      {
+        "key": "taskgroup",
+        "label": "工程グループ",
+        "first": "切削加工"
+      },
+      {
+        "key": "task",
+        "label": "工程",
+        "first": "T-100"
+      },
+      {
+        "key": "operation",
+        "label": "工程運用",
+        "first": "OPE-001"
+      }
+    ],
+    "sales": [
+      {
+        "key": "order",
+        "label": "受注",
+        "first": "SO-2610-001"
+      }
+    ],
+    "shared_master": [
+      {
+        "key": "stakeholder",
+        "label": "利害関係者",
+        "first": "C-001"
+      }
+    ],
+    "purchasing": [
+      {
+        "key": "unrec",
+        "label": "非計上",
+        "first": ""
+      },
+      {
+        "key": "purchase",
+        "label": "発注",
+        "first": ""
+      },
+      {
+        "key": "purchaserec",
+        "label": "受入実績",
+        "first": "10"
+      }
+    ],
+    "production_plan": [
+      {
+        "key": "resplan",
+        "label": "資材計画",
+        "first": "10"
+      },
+      {
+        "key": "prodrez",
+        "label": "生産引き当て予約",
+        "first": "200"
+      },
+      {
+        "key": "purrez",
+        "label": "購買引き当て予約",
+        "first": "800"
+      }
+    ],
+    "work_record": [
+      {
+        "key": "container",
+        "label": "コンテナ",
+        "first": "CN-01"
+      },
+      {
+        "key": "invapply",
+        "label": "引き当て",
+        "first": ""
+      },
+      {
+        "key": "invreq",
+        "label": "引き当て予約",
+        "first": "300"
+      },
+      {
+        "key": "certificate",
+        "label": "成績書",
+        "first": "CT-2610-01"
+      },
+      {
+        "key": "workrec",
+        "label": "作業実績",
+        "first": "40"
+      }
+    ],
+    "quality_common": [
+      {
+        "key": "disposal",
+        "label": "異常処置",
+        "first": "寸法不良品の選別"
+      },
+      {
+        "key": "recur",
+        "label": "再発防止処置",
+        "first": ""
+      },
+      {
+        "key": "obsdisp",
+        "label": "処置監視",
+        "first": ""
+      },
+      {
+        "key": "obsprev",
+        "label": "再発防止監視",
+        "first": ""
+      },
+      {
+        "key": "risk",
+        "label": "リスク",
+        "first": "主要材料の納期遅延"
+      },
+      {
+        "key": "auditstdcheck",
+        "label": "監査標準項目",
+        "first": "AC-01"
+      }
+    ],
+    "quality_document": [
+      {
+        "key": "doctier",
+        "label": "文書階層",
+        "first": "DOC-001"
+      },
+      {
+        "key": "doc",
+        "label": "文書",
+        "first": "QM-01"
+      },
+      {
+        "key": "doccontent",
+        "label": "文書コンテンツ",
+        "first": "DOC-001"
+      },
+      {
+        "key": "report",
+        "label": "レポート",
+        "first": "RT-01"
+      }
+    ],
+    "quality": [
+      {
+        "key": "complaint",
+        "label": "異常",
+        "first": "寸法公差の外れ"
+      },
+      {
+        "key": "corder",
+        "label": "注文苦情",
+        "first": ""
+      },
+      {
+        "key": "cproc",
+        "label": "工程苦情",
+        "first": ""
+      },
+      {
+        "key": "cequip",
+        "label": "設備苦情",
+        "first": ""
+      },
+      {
+        "key": "orderrisk",
+        "label": "注文リスク",
+        "first": ""
+      },
+      {
+        "key": "orderdetailrisk",
+        "label": "受注明細リスク",
+        "first": ""
+      },
+      {
+        "key": "taskrisk",
+        "label": "工程リスク",
+        "first": ""
+      },
+      {
+        "key": "auditstd",
+        "label": "監査標準",
+        "first": "AS-01"
+      },
+      {
+        "key": "auditteam",
+        "label": "監査チーム",
+        "first": "品質監査チームA"
+      },
+      {
+        "key": "audit",
+        "label": "監査",
+        "first": "件名1"
+      }
+    ],
+    "resource": [
+      {
+        "key": "capability",
+        "label": "力量",
+        "first": "CAP-001"
+      },
+      {
+        "key": "license",
+        "label": "資格",
+        "first": "LIC-001"
+      },
+      {
+        "key": "location",
+        "label": "場所",
+        "first": "LC-001"
+      },
+      {
+        "key": "equipmentcategory",
+        "label": "設備分類",
+        "first": "EC-001"
+      },
+      {
+        "key": "equipment",
+        "label": "設備",
+        "first": "EQ-0001"
+      },
+      {
+        "key": "inspectionkind",
+        "label": "点検整備区分",
+        "first": "IK-001"
+      },
+      {
+        "key": "inspectionitem",
+        "label": "点検整備項目",
+        "first": "II-001"
+      },
+      {
+        "key": "inspectionoperation",
+        "label": "設備点検整備運用",
+        "first": "IO-001"
+      },
+      {
+        "key": "inspectionschedule",
+        "label": "点検予定",
+        "first": "IS-001"
+      }
+    ],
+    "organization": [
+      {
+        "key": "company",
+        "label": "会社情報",
+        "first": "サンプル精工株式会社"
+      },
+      {
+        "key": "site",
+        "label": "事業所",
+        "first": "HQ"
+      },
+      {
+        "key": "deptkind",
+        "label": "部署区分",
+        "first": "管理部門"
+      },
+      {
+        "key": "department",
+        "label": "部署",
+        "first": "DP001"
+      },
+      {
+        "key": "staff",
+        "label": "作業者",
+        "first": "E-0012"
+      },
+      {
+        "key": "approvalpattern",
+        "label": "承認パターン",
+        "first": "購買申請"
+      }
+    ]
+  },
+  "dependsOn": {
+    "system": [],
+    "item": [
+      "production_process",
+      "system"
+    ],
+    "production_process": [
+      "item",
+      "organization",
+      "shared_master"
+    ],
+    "sales": [],
+    "shared_master": [],
+    "purchasing": [
+      "item",
+      "production_plan",
+      "system",
+      "work_record"
+    ],
+    "production_plan": [
+      "production_process",
+      "purchasing",
+      "sales"
+    ],
+    "work_record": [
+      "production_plan"
+    ],
+    "quality_common": [
+      "organization",
+      "quality"
+    ],
+    "quality_document": [],
+    "quality": [
+      "organization",
+      "production_process",
+      "quality_common",
+      "sales",
+      "shared_master"
+    ],
+    "resource": [
+      "item",
+      "organization"
+    ],
+    "organization": [
+      "resource"
+    ]
+  },
+  "warnings": [
+    "補完: preventiondetail.info_department_id の空を department の先頭で補った"
+  ]
+}

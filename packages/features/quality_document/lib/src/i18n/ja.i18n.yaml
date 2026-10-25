@@ -1,0 +1,48 @@
+# --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
+# 品質管理文書の実体と項目の表示名(日本語。基準言語)。
+# 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
+menu:
+  group: "品質管理文書"
+entity:
+  doctier:
+    title: "文書階層"
+    fields:
+      f_code: "コード"
+      f_name: "名前"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_attributive_noun: "限定名詞"
+      f_tier_number: "階層番号"
+      f_remarks: "備考"
+  doc:
+    title: "文書"
+    fields:
+      f_code: "コード"
+      f_control_number: "管理番号"
+      f_version_code: "版コード"
+      f_name: "文書名"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_mstr_document_tier_id: "文書階層"
+      f_remarks: "備考"
+  doccontent:
+    title: "文書コンテンツ"
+    fields:
+      f_doc: "文書"
+      f_code: "コード"
+      f_name: "文書コンテンツ名"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_detail: "詳細"
+      f_sequence: "シーケンス"
+      f_image_content: "イメージコンテンツ"
+      f_remarks: "備考"
+  report:
+    title: "レポート"
+    fields:
+      f_code: "コード"
+      f_name: "名前"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_is_default: "デフォルト"
+      f_remarks: "備考"

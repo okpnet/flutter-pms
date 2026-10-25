@@ -1,0 +1,64 @@
+# 共有マスタの文字列(日本語。基準言語)。
+# 列のラベルは本来 schema.graphql のコメントを使う。コメントが無いものは仮(doc/log に記録)。
+shippingKind:
+  title: 配送区分台帳
+  pickerTitle: 配送区分を選択
+  createTitle: 配送区分の登録
+  editTitle: 配送区分の編集
+  create: 新規
+  notFound: 配送区分が見つかりません
+  loadFailed: 配送区分を取得できません
+  saveFailed: 保存に失敗しました
+  deleteFailed: 削除に失敗しました
+  columns:
+    code: 配送区分コード
+    name: 配送区分名称
+    pronunciation: 読み
+    nickname: 略称
+    remarks: 備考
+  fields:
+    code: 配送区分コード *
+    name: 配送区分名称 *
+  validation:
+    codeRequired: 配送区分コードは必須です
+    nameRequired: 配送区分名称は必須です
+    codeDuplicated: 配送区分コードが重複しています
+    inUse: 使用中のため削除できません
+  confirmDelete:
+    title: 削除の確認
+    message: 「$name」を削除します。
+common:
+  save: 保存
+  delete: 削除
+  cancel: キャンセル
+menu:
+  sales: 営業
+  purchasing: 購買
+stakeholder:
+  customerLedger: 顧客台帳
+  supplierLedger: 外部供給者台帳
+# --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
+# 共有マスタの実体と項目の表示名(日本語。基準言語)。
+# 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
+entity:
+  stakeholder:
+    title: "利害関係者"
+    fields:
+      f_code: "利害関係者コード"
+      f_control_code: "管理コード"
+      f_name: "名称"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_is_customer: "顧客"
+      f_is_supplier: "外部供給者"
+      f_is_logistics: "配送サービサー"
+      f_mail: "メール"
+      f_mstr_shipping_kind_id: "配送区分"
+      f_remarks: "備考"
+  contact:
+    title: "担当者"
+    fields:
+      f_name: "氏名"
+      f_dept: "部署"
+      f_tel: "電話番号"
+      f_mail: "メール"

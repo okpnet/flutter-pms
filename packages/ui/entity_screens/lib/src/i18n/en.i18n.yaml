@@ -1,0 +1,37 @@
+create: New
+save: Save
+delete: Delete
+cancel: Cancel
+add: Add
+parent: Parent
+noParent: Top level (no parent)
+pick: Select
+clear: Clear
+unselected: Not selected
+notFound: Data not found
+loadFailed: Could not load
+saveFailed: Could not save
+deleteFailed: Could not delete
+noData: No data
+children: items
+confirmDelete:
+  title: Confirm deletion
+  message: Delete "$name"?
+condition:
+  between: Range
+  yesNo: Yes / No
+  value: Enter a value
+  lower: Lower
+  upper: Upper
+  yes: Yes
+  no: No
+validation:
+  required: Required
+  invalidNumber: Enter a number
+  invalidDate: Enter a date as yyyy-MM-dd
+  invalidCondition: Select an operator and enter a value
+  invalidChoice: Not one of the choices
+  parentCycle: Itself or its descendants cannot be the parent
+  hasChildren: It has child items and cannot be deleted
+  referenced: It is in use and cannot be deleted
+  duplicate: Already exists

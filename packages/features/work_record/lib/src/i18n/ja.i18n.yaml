@@ -1,0 +1,48 @@
+# --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
+# 作業実績の実体と項目の表示名(日本語。基準言語)。
+# 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
+menu:
+  group: "作業実績"
+entity:
+  container:
+    title: "コンテナ"
+    fields:
+      f_code: "コード"
+      f_name: "コンテナ名称"
+      f_remarks: "備考"
+  invapply:
+    title: "引き当て"
+    fields:
+      f_register_at: "引当日"
+      f_trans_inventory_request_id: "引当予約"
+      f_remarks: "備考"
+  invreq:
+    title: "引き当て予約"
+    fields:
+      f_register_at: "引当予約日"
+      f_register_plan_at: "引当予定日"
+      f_trans_purchase_rez_id: "購買引き当て"
+      f_trans_product_rez_id: "生産引き当て"
+      f_quantity: "引当数量"
+      f_remarks: "備考"
+  certificate:
+    title: "成績書"
+    fields:
+      f_serial: "シリアル番号"
+      f_title: "件名"
+      f_class: "区分"
+      f_remarks: "備考"
+  workrec:
+    title: "作業実績"
+    fields:
+      f_trans_work_plan_id: "生産計画詳細"
+      f_nth_time: "回数"
+      f_start_at: "開始"
+      f_stop_at: "終了"
+      f_qty: "作業数量"
+      f_remarks: "備考"
+  wrcert:
+    title: "作業成績書"
+    fields:
+      f_trans_certificate_id: "成績書"
+      f_remarks: "備考"

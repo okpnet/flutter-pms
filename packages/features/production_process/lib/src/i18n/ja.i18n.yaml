@@ -1,0 +1,46 @@
+# --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
+# 工程の実体と項目の表示名(日本語。基準言語)。
+# 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
+menu:
+  group: "工程"
+entity:
+  taskgroup:
+    title: "工程グループ"
+    fields:
+      f_name: "グループ名"
+      f_desc: "説明"
+  task:
+    title: "工程"
+    fields:
+      f_code: "工程コード"
+      f_name: "工程名称"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_detail: "詳細"
+      f_class: "区分"
+      f_default_time: "標準時間"
+      f_remarks: "備考"
+  taskres:
+    title: "工程場所"
+    fields:
+      f_info_department_id: "組織情報"
+      f_mstr_stakeholder_id: "利害関係者"
+      f_remarks: "備考"
+  operation:
+    title: "工程運用"
+    fields:
+      f_control_code: "管理コード"
+      f_name: "運用名称"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_detail: "詳細"
+      f_remarks: "備考"
+  optask:
+    title: "工程の選択"
+    fields:
+      f_task: "工程"
+      f_seq: "順"
+  opapply:
+    title: "適用する品目の工程計画"
+    fields:
+      f_item: "品目"
