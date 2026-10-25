@@ -1,0 +1,40 @@
+name: quality_example
+description: "品質管理 のビジュアルテスト(Windows 向けの単体確認アプリ)。"
+publish_to: none
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.4.3
+  feature_shared:
+    path: ../../../core/feature_shared
+  logger_provider:
+    path: ../../../infra/logger_provider
+  theme_lib:
+    path: ../../../ui/theme_lib
+  quality:
+    path: ..
+
+  organization:
+    path: ../../organization
+
+  production_process:
+    path: ../../production_process
+
+  quality_common:
+    path: ../../quality_common
+
+  sales:
+    path: ../../sales
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

@@ -1,0 +1,82 @@
+# --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
+# 品目の実体と項目の表示名(日本語。基準言語)。
+# 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
+entity:
+  itemkind:
+    title: "品目区分"
+    fields:
+      f_code: "品目コード"
+      f_name: "品目区分名称"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_remarks: "備考"
+  hscode:
+    title: "HSコード"
+    fields:
+      f_code: "コード"
+      f_mstr_item_id: "品目"
+      f_iso3166_3: "国"
+      f_remarks: "備考"
+  item:
+    title: "品目"
+    fields:
+      f_code: "品目コード"
+      f_identification: "識別コード"
+      f_control_code: "管理コード"
+      f_label_code: "表示コード"
+      f_name: "品目名称"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_mstr_item_kind_id: "品目種類"
+      f_detail: "詳細"
+      f_shared_unit_id: "個別単位"
+      f_remarks: "備考"
+  itemhs:
+    title: "HSコード"
+    fields:
+      f_hs: "HSコード"
+  itemsizekind:
+    title: "品目大きさ区分"
+    fields:
+      f_code: "大きさ区分コード"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_names: "サイズ区分名称"
+      f_shared_unit_id: "単位"
+      f_remarks: "備考"
+  itemsize:
+    title: "品目大きさ"
+    fields:
+      f_mstr_item_size_kind_id: "品目大きさ区分"
+      f_detail: "詳細"
+      f_remarks: "備考"
+  itempack:
+    title: "梱包サイズ"
+    fields:
+      f_label: "梱包区分"
+      f_w: "幅"
+      f_d: "奥行"
+      f_h: "高さ"
+      f_unit: "単位"
+  itemop:
+    title: "品目工程運用"
+    fields:
+      f_control_code: "管理コード"
+      f_name: "運用名称"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_mstr_operation_id: "工程運用"
+      f_detail: "詳細"
+      f_remarks: "備考"
+  itemmaker:
+    title: "製造元"
+    fields:
+      f_maker: "製造元名"
+      f_partno: "製造元品番"
+  itemoptask:
+    title: "品目工程運用明細"
+    fields:
+      f_mstr_item_id: "品目"
+      f_sequence: "順"
+      f_default_interval: "標準時間"
+      f_remarks: "備考"

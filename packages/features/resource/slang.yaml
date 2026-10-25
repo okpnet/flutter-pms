@@ -1,0 +1,12 @@
+# 多言語(slang)。言語ファイルは Yaml。生成: dart run slang
+base_locale: ja
+fallback_strategy: base_locale
+input_directory: lib/src/i18n
+input_file_pattern: .i18n.yaml
+output_directory: lib/src/i18n
+output_file_name: strings.g.dart
+class_name: ResourceStrings
+enum_name: ResourceLocale
+# 言語の選択は Riverpod(feature_shared の localeProvider)で行う。slang の Flutter 連携とグローバル変数は使わない。
+flutter_integration: false
+locale_handling: false

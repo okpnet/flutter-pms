@@ -3,6 +3,34 @@
 `packages/features/CLAUDE.md` の「organization」(単位・会社・事業所・部門部署・作業者・承認)を実装する機能プロジェクト。`packages/features/CLAUDE.md` の[規則/仕様]を必ず適用する。
 画面の参照元は `packages/infra/graphql_provider_lib/source/page.md`、列は `source/views/{system,company}`、モデルは `lib/postgraphile` のクラスとする。
 
+<!-- entity_gen:begin -->
+## 実体の画面(生成)
+台帳(テーブル/ツリー)と編集の画面は、`tools/entity_gen/gen.js` が `tools/open-design` の画面定義から生成する(定義・サンプル・表示名・モジュール・テスト)。
+生成物は直接編集しない(再生成: リポジトリのルートで `node tools/entity_gen/gen.js`)。画面の作りは `packages/ui/entity_screens`、機能への組み込みは `feature_shared` の `EntityFeatureModule`。
+専用の画面が必要な実体は、生成の対象から外して手書きする(`sales` の顧客、`shared_master` の配送区分を参考にする)。
+
+| 実体 | キー | 構造 | 項目数 | 参照先 |
+|---|---|---|---|---|
+| 会社情報 | `company` | テーブル構造 | 8 |  |
+| 提供 | `provision` | 子の台帳(親: 会社情報) | 4 |  |
+| 役割(役職) | `position` | 子の台帳(親: 会社情報) | 4 |  |
+| 割当 | `assignment` | 子の台帳(親: 役割(役職)) | 1 | `staff` |
+| 事業所 | `site` | テーブル構造 | 5 |  |
+| 部署区分 | `deptkind` | テーブル構造 | 1 |  |
+| 部署 | `department` | ツリー構造 | 4 | `site` |
+| 部署区分の割当 | `departmentkind` | 子の台帳(親: 部署) | 1 | `deptkind` |
+| 作業者 | `staff` | テーブル構造 | 10 | `site`, `department` |
+| 作業者の力量 | `staffcapability` | 子の台帳(親: 作業者) | 2 | `capability` |
+| 作業者の資格 | `stafflicense` | 子の台帳(親: 作業者) | 4 | `license` |
+| 承認パターン | `approvalpattern` | テーブル構造 | 3 |  |
+| 承認の範囲 | `approvalscope` | 子の台帳(親: 承認パターン) | 4 | `position`, `department` |
+| 承認できる人 | `approver` | 子の台帳(親: 承認の範囲) | 4 | `staff` |
+<!-- entity_gen:end -->
+
+## example と多言語
+1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。
+2.  表示する文字列は`lib/src/i18n`の言語ファイル(Yaml)に置く。画面を作るときに`slang.yaml`と言語ファイルを追加する(`sales`・`shared_master`を参考にする)。idは`String`(UUID)で扱う。
+
 ## 規則/仕様
 1.  ディリクトリ/ファイル
     1.  生成結果のレポートは`doc/log`ディリクトリにファイル名`年月日_4桁ゼロ埋の番号.md`として保存する。
@@ -11,6 +39,26 @@
     3.  最終的にこの`CLAUDE.md`へ統合される追加、変更の指示は`issue`ディリクトリに`年月日_4桁ゼロ埋の番号.md`として保存する。
         1.  つまり`生成結果のレポート`と連動する。
         2.  `CLAUDE.md`への統合も指示に含める。統合時、削除指示が無い限り`issue`ディリクトリ`doc/log`ディリクトリの中を削除しない。`CLAUDE.md`には変更や追加、削除であることについて記録しない(生成時に`issue`ディリクトリ`doc/log`ディリクトリを参照するため)。
+2.  命名規則
+    1.  ファイル名、クラス名など名前付けのルールはFlutterの規則、慣例に従う。
+    2.  クラス名はデザインパターンがわかる、または意味が通る英語の名詞とする。ただし、`はい/いいえ`のような`isXxxx`などの`is/as/has`の慣例を優先する。
+        1.  `Command`などデザインパターンのみの名前だと誤解や衝突を招くため、機能、動きの名詞化したものと組み合わせる。
+    3.  プリフィクスにライブラリ名をつけない(BatonLibXXのような)。
+3.  バレルファイルを使用する
+    1.  バレルファイルにまとめ、このライブラリを使用する側は1行を読み込むだけで解決できるようにする。ただし、相互に関連が無い独立した機能の場合はバレルファイルを分けて、仕様側が機能に応じて選択できるようにする。ただし、ユーザーの使用体験を優先する。ライブラリ全体の機能が少ない(10以下)ときにインポートするファイルを分ける必要はない。
+4.  インスタンスのJSON化
+    1.  生成するこのライブラリのインターフェイス、クラスのインスタンスをJSONにコンバートできる。ただし、エラー追跡のためであり、現時点で機能を復元する目的では使用しない。
+5.  ログを残す
+    1.  ライブラリは実行したときのログを残す。ただし、このライブラリ側のエラーログだけを残し、機能毎のライブラリ側なのかを切り分け可能にするために、適切に選別する。
+    2.  ロガーはRiverpodから提供され、アプリケーション全体をとおして同じ仕様のログ出力を行う。
+6.  GOFデザインパターン
+    1.  クラス名やファイル名にデザインパターンを含めない場合は、コメントに該当するパターン名を追加する。
+    2.  必ずしもデザインパターンに割り当てる必要はない。
+
+## データ・デザイン
+1.  データの取得は`riverpod`をとおして`packages/foundation/data_strategist`を使用する。
+2.  デザインは`tools/open-design`のHtml、テーブル・ツリーは`packages/ui/flgtable_lib`、列・フィールドは`graphql_provider_lib`を参照する。
+3.  評価結果に対する提案、問題/課題は`doc/log`に追加し、プロジェクト毎に解決する。
 
 ## mock_up との対応
 配置は `legacy/fultter_main/mock_up/lib/contents` を参考にする(コードの流用はしない)。
@@ -39,7 +87,7 @@
 3.  ラベルは slang(riverpod 注入、日本語主)。列ラベルは `schema.graphql` のコメント。不足分は推論し、仮のものは `doc/log` に残す。
 4.  更新者・更新日はイミュータブルで編集不可。削除は論理削除(`remove`)。台帳の既定絞り込みは `remove = false`。
 5.  台帳の1行クリックで情報(編集構造)へ遷移する。明細は親の情報ページの部品であり独立ページではない。
-6.  baton_lib の `Destination` で遷移し、機能間は `xxx_api` の型だけに依存する。
+6.  baton_lib の `Destination` で遷移し、機能間は他機能の `xxx_api.dart`(契約だけのバレル)の型だけに依存する。
 
 ## 画面一覧(ルート接頭辞 `/organization`)
 | 区分 | 画面[ページID] | 構造 | ルート |
@@ -66,3 +114,6 @@
 
 ## 画面イメージ
 `doc/contents/organization_screens.html`(PC/タブレット/モバイルの切り替え付き)。実装はこのHTMLを基に `issue/` へ追加・変更をまとめてから行う。
+
+## 契約の公開
+他の機能・アプリに公開する遷移先・命令の型は、別パッケージ `organization_api` を作らず、`lib/organization_api.dart`(契約だけのバレル)から公開する。実装の入口 `lib/organization.dart` は `OrganizationModule` だけを公開し、アプリだけが読み込む。

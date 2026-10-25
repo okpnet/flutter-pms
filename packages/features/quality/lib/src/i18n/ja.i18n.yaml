@@ -1,0 +1,133 @@
+# --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
+# 品質管理の実体と項目の表示名(日本語。基準言語)。
+# 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
+entity:
+  complaint:
+    title: "異常"
+    fields:
+      f_occurent_at: "発生年月日"
+      f_title: "件名"
+      f_detail: "詳細"
+      f_approvals: "承認"
+      f_remarks: "備考"
+  compreceive:
+    title: "異常報告受領"
+    fields:
+      f_receive_at: "受領日"
+      f_detail: "詳細"
+      f_remarks: "備考"
+  compstake:
+    title: "利害関係者苦情"
+    fields:
+      f_remarks: "備考"
+  compfile:
+    title: "異常報告ファイル"
+    fields:
+      f_fname: "ファイル名"
+      f_date: "登録日"
+  corder:
+    title: "注文苦情"
+    fields:
+      f_trans_complaint_id: "異常"
+      f_trans_order_id: "注文"
+      f_remarks: "備考"
+  corderimp:
+    title: "取込"
+    fields:
+      f_kind: "取込種別"
+      f_title: "取込内容"
+      f_date: "取込日"
+  cproc:
+    title: "工程苦情"
+    fields:
+      f_trans_complaint_id: "異常"
+      f_mstr_task_id: "工程"
+      f_remarks: "備考"
+  cprocimp:
+    title: "取込"
+    fields:
+      f_kind: "取込種別"
+      f_title: "取込内容"
+      f_date: "取込日"
+  cequip:
+    title: "設備苦情"
+    fields:
+      f_trans_complaint_id: "異常"
+      f_remarks: "備考"
+  cequipimp:
+    title: "取込"
+    fields:
+      f_kind: "取込種別"
+      f_title: "取込内容"
+      f_date: "取込日"
+  orderrisk:
+    title: "注文リスク"
+    fields:
+      f_trans_order_id: "注文"
+      f_trans_risk_id: "リスク"
+      f_remarks: "備考"
+  orderdetailrisk:
+    title: "受注明細リスク"
+    fields:
+      f_trans_order_detail_id: "受注明細"
+      f_risk_id: "リスク"
+      f_remarks: "備考"
+  odrimp:
+    title: "取込：リスク"
+    fields:
+      f_risk: "リスク"
+  taskrisk:
+    title: "工程リスク"
+    fields:
+      f_mstr_task_id: "工程"
+      f_risk_id: "リスク"
+      f_remarks: "備考"
+  trimp:
+    title: "取込：リスク"
+    fields:
+      f_risk: "リスク"
+  auditstd:
+    title: "監査標準"
+    fields:
+      f_code: "監査標準コード"
+      f_control_code: "管理コード"
+      f_name: "監査標準名称"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_category: "区分"
+      f_detail: "詳細"
+      f_remarks: "備考"
+  auditstdimp:
+    title: "取込：監査標準項目"
+    fields:
+      f_check: "監査標準項目"
+  auditteam:
+    title: "監査チーム"
+    fields:
+      f_name: "チーム名"
+      f_trans_audit_id: "監査"
+      f_remarks: "備考"
+  auditor:
+    title: "監査員"
+    fields:
+      f_ccategory: "メンバー区分"
+      f_remarks: "備考"
+  audit:
+    title: "監査"
+    fields:
+      f_scheduled_start_date: "開始予定日"
+      f_expected_end_date: "終了予定日"
+      f_title: "件名"
+      f_detail: "詳細"
+      f_info_department_id: "組織情報"
+      f_mstr_stakeholder_id: "利害関係者"
+      f_remarks: "備考"
+  auditteamlink:
+    title: "監査チーム"
+    fields:
+      f_team: "監査チーム"
+  auditmember:
+    title: "監査参加者"
+    fields:
+      f_class: "参加区分"
+      f_remarks: "備考"

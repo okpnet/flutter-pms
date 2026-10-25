@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger_provider/logger_provider.dart';
+import 'package:theme_lib/theme_lib.dart';
 
 import 'app.dart';
 
@@ -16,6 +17,8 @@ Future<void> main() async {
     ProviderScope(
       overrides: [
         loggerProvider.overrideWithValue(logger),
+        // theme_lib / flgtable_lib(顧客台帳)が使うテーマ側のロガー
+        themeLoggerProvider.overrideWithValue(logger),
         ...appOverrides,
       ],
       child: const PmsApp(),

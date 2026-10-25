@@ -1,5 +1,4 @@
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+/// 会社情報機能。外へ公開するのは [OrganizationModule] だけ。
+library;
+
+export 'src/organization_module.dart' show OrganizationModule;

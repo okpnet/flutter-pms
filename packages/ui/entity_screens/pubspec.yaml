@@ -1,0 +1,32 @@
+name: entity_screens
+description: 実体の定義(項目・種類・親子)から、台帳(テーブル/ツリー)と編集の画面を作る共通部品。
+version: 0.0.1
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  data_strategist:
+    path: ../../foundation/data_strategist
+  flgtable_lib:
+    path: ../flgtable_lib
+  logger_provider:
+    path: ../../infra/logger_provider
+  slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  uuid: ^4.6.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  theme_lib:
+    path: ../theme_lib
+
+flutter:

@@ -17,10 +17,11 @@ dependencies:
     sdk: flutter
   feature_shared:
     path: ../../core/feature_shared
-  customer_api:
-    path: ../customer_api
   flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  entity_screens:
+    path: ../../ui/entity_screens
 
 dev_dependencies:
   flutter_test:

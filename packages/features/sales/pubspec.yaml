@@ -1,0 +1,38 @@
+name: sales
+description: 営業 機能の実装(画面・ルート・ハンドラ)。アプリだけがこのパッケージに依存する。
+version: 0.0.1
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  feature_shared:
+    path: ../../core/feature_shared
+  flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  entity_screens:
+    path: ../../ui/entity_screens
+  slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  baton_lib:
+    path: ../../core/baton_lib
+  data_strategist:
+    path: ../../foundation/data_strategist
+  flgtable_lib:
+    path: ../../ui/flgtable_lib
+  logger_provider:
+    path: ../../infra/logger_provider
+
+dev_dependencies:
+  theme_lib:
+    path: ../../ui/theme_lib
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+
+flutter:

@@ -1,0 +1,33 @@
+# 共有マスタの文字列(日本語。基準言語)。
+# 列のラベルは本来 schema.graphql のコメントを使う。コメントが無いものは仮(doc/log に記録)。
+shippingKind:
+  title: 配送区分台帳
+  pickerTitle: 配送区分を選択
+  createTitle: 配送区分の登録
+  editTitle: 配送区分の編集
+  create: 新規
+  notFound: 配送区分が見つかりません
+  loadFailed: 配送区分を取得できません
+  saveFailed: 保存に失敗しました
+  deleteFailed: 削除に失敗しました
+  columns:
+    code: 配送区分コード
+    name: 配送区分名称
+    pronunciation: 読み
+    nickname: 略称
+    remarks: 備考
+  fields:
+    code: 配送区分コード *
+    name: 配送区分名称 *
+  validation:
+    codeRequired: 配送区分コードは必須です
+    nameRequired: 配送区分名称は必須です
+    codeDuplicated: 配送区分コードが重複しています
+    inUse: 使用中のため削除できません
+  confirmDelete:
+    title: 削除の確認
+    message: 「$name」を削除します。
+common:
+  save: 保存
+  delete: 削除
+  cancel: キャンセル

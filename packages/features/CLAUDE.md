@@ -13,6 +13,47 @@
     3.  最終的にこの`CLAUDE.md`へ統合される追加、変更の指示は`issue`ディリクトリに`年月日_4桁ゼロ埋の番号.md`として保存する。
         1.  つまり`生成結果のレポート`と連動する。
         2.  `CLAUDE.md`への統合も指示に含める。統合時、削除指示が無い限り`issue`ディリクトリ`doc/log`ディリクトリの中を削除しない。`CLAUDE.md`には変更や追加、削除であることについて記録しない(生成時に`issue`ディリクトリ`doc/log`ディリクトリを参照するため)。
+2.  命名規則
+    1.  ファイル名、クラス名など名前付けのルールはFlutterの規則、慣例に従う。
+    2.  クラス名はデザインパターンがわかる、または意味が通る英語の名詞とする。ただし、`はい/いいえ`のような`isXxxx`などの`is/as/has`の慣例を優先する。
+        1.  `Command`などデザインパターンのみの名前だと誤解や衝突を招くため、機能、動きの名詞化したものと組み合わせる。
+    3.  プリフィクスにライブラリ名をつけない(BatonLibXXのような)。
+3.  バレルファイルを使用する
+    1.  バレルファイルにまとめ、このライブラリを使用する側は1行を読み込むだけで解決できるようにする。ただし、相互に関連が無い独立した機能の場合はバレルファイルを分けて、仕様側が機能に応じて選択できるようにする(例えば、ファイル参照機能と計算機能があり、計算機能がファイル参照を行わない場合は別々にする)。ただし、ユーザーの使用体験を優先する。ライブラリ全体の機能が少ない(10以下)ときにインポートするファイルを分ける必要はない。
+4.  インスタンスのJSON化
+    1.  生成するこのライブラリのインターフェイス、クラスのインスタンスをJSONにコンバートできる。ただし、エラー追跡のためであり、現時点で機能を復元する目的では使用しない。
+5.  ログを残す
+    1.  ライブラリは実行したときのログを残す。ただし、このライブラリ側のエラーログだけを残し、実行側のアプリケーションがどの実行でエラーが発生したか調査するとき、機能毎のライブラリ側なのかを切り分け可能にするために、適切に選別する。
+    2.  ロガーはRiverpodから提供され、アプリケーション全体をとおして同じ仕様のログ出力を行う。
+6.  GOFデザインパターン
+    1.  クラス名やファイル名にデザインパターンを含めない場合は、コメントに該当するパターン名を追加する。
+    2.  必ずしもデザインパターンに割り当てる必要はない。
+
+## 機能プロジェクト共通
+1.  画面デザインは`flutter-pms\tools\open-design`のHtmlデザインを原則の基準とする。
+    1.  テーブル構造、ツリー構造は`flutter-pms\packages\ui\flgtable_lib`を使用する。
+    2.  列、フィールドは`graphql_provider_lib`を参照する。
+    3.  プロジェクト(機能)の区分は、Htmlのメニューを参照する。
+2.  各プロジェクトに共通して次を行う。
+    1.  データの取得は`riverpod`をとおして`flutter-pms\packages\foundation\data_strategist`を使用する。
+    2.  プロジェクトごとに`CLAUDE.md`を生成し、このファイルの[規則/仕様](#規則/仕様)を含める。
+    3.  プロジェクトの評価結果に対する提案、問題/課題は、規則に従って`doc/log`に追加する(プロジェクト毎に解決していくため)。
+3.  ビジュアルテスト(example)
+    1.  各プロジェクトは、プロジェクト内の`example`に、Windows向けのビジュアルテスト用アプリを持つ。そのプロジェクトだけを起動して画面を個別に確認できるようにする。
+    2.  `example`は本番のアプリと同じ配線(GoRouter・CommandBus・ハンドラ登録)の`feature_shared`の`FeatureHost`を使い、`lib/main.dart`の`entries`に遷移先を並べる。画面を追加したら`entries`に1行足し、`test/widget_test.dart`で起動と遷移を確認する。
+    3.  `example`は`flutter-pms`のworkspace対象外(ロックファイルは別。`flutter pub get`で一緒に解決される)。起動は`flutter run -d windows`。
+4.  多言語(slang)
+    1.  表示する文字列は、プロジェクト内の`lib/src/i18n`の言語ファイル(Yaml、`ja.i18n.yaml`が基準、`en.i18n.yaml`など)に置く。設定は`slang.yaml`(`class_name`・`enum_name`はプロジェクト固有の名前にする)。生成は`dart run slang`。生成物(`strings*.g.dart`)もコミットする。
+    2.  言語の選択は`riverpod`で行う。`feature_shared`の`localeProvider`を`ref.watch`して`xxxStringsProvider`が文字列を返す。slangのFlutter連携・グローバル変数は使わない。基準言語以外は遅延読み込みのため、読み込みが終わるまでは基準言語(日本語)を返す。
+    3.  エラーは文字列ではなく種類(enum・例外の型)で持ち、画面が表示時に文字列へ変換する。ログの文言は多言語の対象にしない。
+    4.  画面を持つようになったプロジェクトから導入する(画面が空のプロジェクトは、画面を作るときに追加する)。
+5.  IDの扱い
+    1.  GraphQLのUUIDは、アプリ内では文字列(`String`)として扱う。遷移先・命令・モデル・パスのidはすべて`String`にする。
+6.  削除の参照チェック
+    1.  他の画面・テーブルから使用されているデータは削除できない。リポジトリの`remove`は、使用中のとき専用の例外(例: `ShippingKindInUseException`)を投げ、画面はログに残さず利用者に表示だけする。GraphQL版は、DBの外部キー違反をこの例外に変換する。
+7.  共有マスタ(`shared_master`)の利用条件
+    1.  `sales`の顧客の編集画面を拡張するときは、配送区分の選択を`shared_master_api.dart`の`ShippingKindPickerDestination`で接続する(`sales`から`shared_master`の実装は参照しない)。
+    2.  配送区分は、トップメニューの「営業」「購買」のどちらからも選択して開く。メニューの項目は共通の画面(`shared_master`)へ遷移する。
 
 ## 参照するライブラリ
 1. テーマライブラリ
@@ -169,3 +210,33 @@ GraphQLから取得したデータのうち、イミュータブルな更新者�
 	+   承認範囲情報[ApprovalScopePageEdit] [編集構造](#編集構造) 
 	+   承認者明細[ApprovalReadFields] [テーブル構造](#テーブル構造)
 	+   承認権限情報[ApprovalEditFields] [編集構造](#編集構造) 
+### Html のトップメニューに対応する機能プロジェクト
+`tools/open-design` のトップメニュー(ダッシュボード → 資源 → 業務グループ → 会社情報)の単位で、`flutter-pms\packages\features` に1メニュー1プロジェクトを置く。各プロジェクトの`CLAUDE.md`に画面・参照するモデルをまとめる。
+| メニュー | プロジェクト |
+|---|---|
+| ダッシュボード | AppCore(アプリ側) |
+| 資源(力量・資格・場所・設備・保全) | `resource` |
+| システム | `system` |
+| 品目 | `item` |
+| 工程 | `production_process` |
+| 営業 | `sales`(顧客台帳を含む) |
+| 営業・購買に共通(配送区分) | `shared_master` |
+| 購買 | `purchasing` |
+| 生産計画 | `production_plan` |
+| 作業実績 | `work_record` |
+| 品質共通 | `quality_common` |
+| 品質管理文書 | `quality_document` |
+| 品質管理 | `quality` |
+| 会社情報 | `organization` |
+
+### 契約(xxx_api)の置き方
+別パッケージ `xxx_api` は作らない。1機能=1パッケージとし、`lib/xxx.dart`(実装の入口。アプリだけが読み込み、公開は `XxxModule` のみ)と `lib/xxx_api.dart`(遷移先・命令の型だけ。他の機能・アプリが読み込む)の2つのバレルに分ける。他の機能は `lib/src` や `xxx.dart` を読み込まない。
+
+### 実体の画面(entity_screens)
+1.  顧客・配送区分のような専用の画面を除く、台帳(テーブル構造/ツリー構造)と編集(編集構造)の画面は、実体の定義から作る。定義は`tools/open-design`の画面定義(`domains.base.js`・`schema.gen.js`)と手書きの定義(`tools/entity_gen/handwritten.js`、会社情報・資源)から`tools/entity_gen/gen.js`が生成する。再生成はリポジトリのルートで`node tools/entity_gen/gen.js`。
+2.  生成物(各プロジェクトの`lib/src/entities`・`lib/src/i18n/ja.i18n.yaml`の生成部分・`lib/src/<名前>_module.dart`・`test/<名前>_entities_test.dart`、`example`の`main.dart`、`apps/pms_app/lib/entity_menu.dart`)は直接編集しない。直したいときは生成元(Htmlの画面定義、`handwritten.js`、`gen.js`)を直して再生成する。
+3.  画面の作りは`packages/ui/entity_screens`、機能への組み込みは`feature_shared`の`EntityFeatureModule`(Template Method)。各機能のモジュールは、定義・サンプル・表示名を渡すだけにする。
+4.  実体のキーは全体で一意。パスは台帳`/e/<キー>`、新規`/e/<キー>/new`、編集`/e/<キー>/<id>`。遷移は`feature_shared`の`EntityListDestination`・`EntityEditDestination`で行う。
+5.  項目の種類は文字・複数行・数値・日付・選択・参照。必須・形式・選択肢の検証は取得元(リポジトリ)が行い、エラーは種類(enum)で返して画面が文字列にする。参照の選択肢、使用中・配下がある場合の削除不可、所有する子の台帳の連動削除は登録簿(`EntityCatalog`)が行う。
+6.  参照先が別の機能にあっても、機能同士はコンパイル時に依存しない。各機能が実体を登録簿へ登録し、実行時にキーで引く。専用の画面を持つ実体(顧客・配送区分)は選択肢(lookup)だけを登録する。`example`は、参照先の機能も一緒に載せる。
+7.  取得元は暫定でメモリ上のサンプル(`InMemoryEntityRepository`)。GraphQL版は`IEntityRepository`を実装して差し替える。

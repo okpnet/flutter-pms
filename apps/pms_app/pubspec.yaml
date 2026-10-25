@@ -13,17 +13,41 @@ dependencies:
     sdk: flutter
   feature_shared:
     path: ../../packages/core/feature_shared
-  # 機能(実装)。アプリだけが依存してよい
-  customer:
-    path: ../../packages/features/customer
-  # ホーム画面から顧客機能の遷移先・命令を使うため
-  customer_api:
-    path: ../../packages/features/customer_api
+  # 機能(実装)。アプリだけが依存してよい。契約は sales_api.dart、実装は sales.dart を読み込む
+  sales:
+    path: ../../packages/features/sales
+  system:
+    path: ../../packages/features/system
+  item:
+    path: ../../packages/features/item
+  production_process:
+    path: ../../packages/features/production_process
+  purchasing:
+    path: ../../packages/features/purchasing
+  production_plan:
+    path: ../../packages/features/production_plan
+  work_record:
+    path: ../../packages/features/work_record
+  quality_common:
+    path: ../../packages/features/quality_common
+  quality_document:
+    path: ../../packages/features/quality_document
+  quality:
+    path: ../../packages/features/quality
+  resource:
+    path: ../../packages/features/resource
+  organization:
+    path: ../../packages/features/organization
+  shared_master:
+    path: ../../packages/features/shared_master
   # アプリ全体のロガー(共有の loggerProvider へ差し込む)
   logger_provider:
     path: ../../packages/infra/logger_provider
   flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  # テーマ側のロガー(themeLoggerProvider)を差し込むため
+  theme_lib:
+    path: ../../packages/ui/theme_lib
 
 dev_dependencies:
   flutter_test:

@@ -1,0 +1,18 @@
+customer:
+  title: Customers
+  pickerTitle: Select a customer
+  editTitle: Edit customer
+  notFound: Customer not found
+  loadFailed: Could not load customers
+  saveFailed: Could not save
+  columns:
+    code: Code
+    name: Name
+    mail: Mail
+    phone: Phone
+  fields:
+    name: Customer name
+    id: ID
+    code: Code
+common:
+  save: Save

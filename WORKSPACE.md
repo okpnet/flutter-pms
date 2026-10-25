@@ -8,9 +8,8 @@ flutter-pms/
 ├─ apps/
 │   └─ pms_app                ← シェルアプリ:機能を組み立てるだけ
 ├─ packages/
-│   ├─ features/              ← 機能。xxx_api = 契約(遷移先・命令の型) / xxx = 実装(画面・ルート・ハンドラ)
-│   │   ├─ customer_api
-│   │   └─ customer
+│   ├─ features/              ← 機能(1機能=1パッケージ)。lib/xxx_api.dart = 契約(遷移先・命令の型) / lib/xxx.dart = 実装の入口(アプリだけが読む)
+│   │   └─ sales, resource, item, ...
 │   ├─ core/                  ← baton_lib, feature_shared(機能とアプリの仲介)
 │   ├─ ui/                    ← theme_lib, view_responsiveness, ui_mapper, grid_extensions
 │   ├─ infra/                 ← graphql_lib(gqlib), graphql_provider_lib(gqlprvlib), logger_provider
@@ -69,12 +68,12 @@ melos bootstrap
 2. **バージョンの集中管理**: `melos bootstrap` 後、`theme_lib` などの `sdk: ^3.10.8` が
    `^3.12.2` に変わり、`# Managed by Melos ...` のコメントが付く。
    以後、バージョンを変えるときはルート `pubspec.yaml` の `melos > command > bootstrap` だけを直す。
-3. **機能の分離**: `pms_app` のホーム画面は `customer_api` の型だけで
+3. **機能の分離**: `pms_app` のホーム画面は `sales/sales_api.dart` の型だけで
    「一覧へ遷移」「選択して結果(id)を受け取る」「命令で顧客名を引く」を行う。
 
 ## 機能を追加するとき
 
-1. `packages/features/xxx_api` と `packages/features/xxx`(`XxxModule implements FeatureModule`)を作る
+1. `packages/features/xxx`(`XxxModule implements FeatureModule`)を作り、他の機能から使う型は `lib/xxx_api.dart` で公開する
 2. `apps/pms_app/lib/app.dart` の `featureModules` に1行追加
 
 ## 注意

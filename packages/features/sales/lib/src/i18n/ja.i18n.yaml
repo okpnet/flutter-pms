@@ -1,0 +1,41 @@
+# 営業の文字列(日本語。基準言語)。
+# 列のラベルは本来 schema.graphql のコメントを使う。コメントが無いものは仮(doc/log に記録)。
+customer:
+  title: 顧客台帳
+  pickerTitle: 顧客を選択
+  editTitle: 顧客の編集
+  notFound: 顧客が見つかりません
+  loadFailed: 顧客を取得できません
+  saveFailed: 保存に失敗しました
+  columns:
+    code: コード
+    name: 名称
+    mail: メール
+    phone: 電話番号
+  fields:
+    name: 顧客名
+    id: ID
+    code: コード
+common:
+  save: 保存
+# --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
+# 営業の実体と項目の表示名(日本語。基準言語)。
+# 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
+entity:
+  order:
+    title: "受注"
+    fields:
+      f_order_number: "注文番号"
+      f_customer_order_number: "顧客発注番号"
+      f_order_processing_date: "受注日"
+      f_delivery_date: "納期"
+      f_deadline: "完了期限"
+      f_remarks: "備考"
+  orderdetail:
+    title: "受注明細"
+    fields:
+      f_quantity: "数量"
+      f_cost: "単価"
+      f_delivery_date: "個別納期"
+      f_deadline: "個別完了期限"
+      f_remarks: "備考"
