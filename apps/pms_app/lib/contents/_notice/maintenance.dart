@@ -1,3 +1,6 @@
+import 'package:app_core/app_core.dart';
+import 'package:app_shell/app_shell.dart' show SingleMainFrame;
+import '../../i18n/strings_provider.dart';
 import 'package:pms_app/contents/_models/models.dart';
 import 'package:pms_app/contents/_shared/_shared.dart';
 
@@ -10,17 +13,18 @@ class Maintenance extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppTitleBar(),
+    final t = ref.watch(appStringsProvider);
+    return SingleMainFrame(
+      title: ref.watch(appCoreStringsProvider).app.title,
       body: ResponsiveGrid(
         alignment: .center,
         children: [
           ResponsiveCell(
             layout: CommonResponsive.flexLx,
             child: Text(
-              'メンテナンス中',
+              t.maintenance.title,
               textAlign: .center,
-              style: context.textStyleMode(sizeMode: .headlineLarge),
+              style: context.textStyleMode(size: (t) => t.headlineLarge),
             ),
           ),
           ResponsiveCell(
@@ -32,7 +36,7 @@ class Maintenance extends ConsumerWidget {
             layout: CommonResponsive.flexM.copyWith(mobileFlex: 4),
             child: Card(
               child: Text(
-                'status.messageをキーにしたローカライズされたメッセージの表示。${status.maintenanceCompletionTime}までメンテナンス中です',
+                t.maintenance.message(time: status.maintenanceCompletionTime ?? ""),
                 softWrap: true,
               ),
             ).spaceAll(context),

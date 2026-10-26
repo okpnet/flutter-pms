@@ -20,13 +20,13 @@ class _RegisterShipping extends ConsumerState<RegisterShipping> {
 
     ///データレポジトリへのアクセスを提供
     ///このWidgetのスコープでプロバイダを初期化
-    final queryStateProvider = ref.watch(
+    ref.watch(
       repositoryFetchControllerProvider<MockResult>(),
     );
 
     ///フィルタ条件へのアクセスを提供
     ///このWidgetのスコープでプロバイダを初期化
-    final expressionAdapter = ref.watch(
+    ref.watch(
       gridFilterExpressionProvider<MockResult>(),
     );
 
@@ -69,7 +69,6 @@ class _RegisterShipping extends ConsumerState<RegisterShipping> {
             child: GridList(
               columns: _columns,
               mode: .primaryUse,
-              editPath: EditOfficeConstant.path,
               dropAction: null,
             ),
           ),

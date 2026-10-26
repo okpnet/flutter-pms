@@ -1,29 +1,11 @@
-// Project imports:
-import 'package:pms_app/services/authorization/mock_autorize_service.dart';
-
 import '../../../imports.dart';
-import '../_shared.dart';
+import 'app_main_frame.dart';
 
+///ブランチを持たない枠。タイトルバー・サイドバーは[AppMainFrame]。
 class UnControlContentsFrame extends ConsumerWidget {
   final Widget body;
-  final FloatingActionButton? floatingActionButton;
-  const UnControlContentsFrame({
-    super.key,
-    required this.body,
-    this.floatingActionButton,
-  });
+  const UnControlContentsFrame({super.key, required this.body});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.read(mockAutorizeServiceProvider);
-    return PopScope(
-      canPop: false,
-      child: Scaffold(
-        appBar: AppTitleBar(),
-        drawer: authState.authStateType == .authenticated ? DrawerMenu() : null,
-        body: body,
-        floatingActionButton: floatingActionButton,
-      ),
-    );
-  }
+  Widget build(BuildContext context, WidgetRef ref) => AppMainFrame(body: body);
 }

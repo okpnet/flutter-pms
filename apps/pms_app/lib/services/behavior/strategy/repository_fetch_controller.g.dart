@@ -72,7 +72,7 @@ final class RepositoryFetchControllerProvider<R>
 }
 
 String _$repositoryFetchControllerHash() =>
-    r'15da5cc0a17f8bb3a00cb181787144ebf1a4ee5c';
+    r'8d0faf3482df9357ad23244e18236e0fc2a21967';
 
 final class RepositoryFetchControllerFamily extends $Family {
   RepositoryFetchControllerFamily._()

@@ -5,8 +5,8 @@ class MockRepository<R> implements IDataRepository<R> {
   Future<R> find({
     required int take,
     int skip = 0,
-    Expression? pridicate,
-    SortExpression? order,
+    Expression? predicate,
+    SortExpression? orders,
   }) {
     // TODO: implement find
     throw UnimplementedError();

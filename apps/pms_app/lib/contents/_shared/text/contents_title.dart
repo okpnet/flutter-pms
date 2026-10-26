@@ -11,8 +11,8 @@ class ContentsTitle extends StatelessWidget {
       title,
       textAlign: .left,
       style: context.textStyleMode(
-        colorMode: .defaultMode,
-        sizeMode: .headlineLarge,
+        color: .defaultMode,
+        size: (t) => t.headlineLarge,
       ),
     ).spaceAll(context);
   }

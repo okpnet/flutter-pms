@@ -252,7 +252,7 @@ GraphQLから取得したデータのうち、イミュータブルな更新者�
 2.  サイドバーとハンバーガーメニューは同じメニューを共有する。モバイルはハンバーガー、タブレットと設定が有効のときはアイコンだけのサイドバー、PCは通常のサイドバー。ログインしていない(ユーザーが無い)ときは、メニューもユーザーも出さない。
 3.  メニューの項目は各機能が提供する(`feature_shared`の`MenuContributor`を`FeatureModule`と合わせて実装し、`MenuEntry`(グループの識別子・表示名・項目名・遷移先)を返す)。同じグループの識別子の項目は1つのグループにまとまる。グループの並びとアイコンはアプリ(`pms_app`の`shell_frame.dart`)が決める。権限の判定もアプリが行う。
 4.  機能の画面は、`AppBar`を使わず、`app_shell`の`ScreenScaffold`(画面の見出し + 本体。戻れるときは戻るボタン)で作る。タイトルバーはアプリの枠(`AppTitleBar`)だけが持ち、枠の中に入れても二重にならない。`FeatureHost`の起点の一覧(example用)は例外とする。
-5.  ログインユーザーの実体は`feature_shared`の`userSummaryProvider`(`UserSummaryNotifier`)で提供する。標準値はアプリが差し込む(認証(Keycloak)が無いあいだは固定の利用者)。設定画面でユーザー名・役割を設定値として与えられ、「標準に戻す」で標準値へ戻る。ログアウトでユーザーなしになり、メニューとユーザーは出さない。設定値(使用言語・サイドバーをアイコンだけにする設定・ユーザー名と役割)の保存と復元は`packages/core/settings_keeper`で行う。ライブラリは保存先を知らず、保存先(`SettingsStorage`)はアプリが`settingsStorageProvider`で決める(`pms_app`は`%APPDATA%\pms_app`のファイル)。起動時に復元してから、変更を保存し始める(`userSettingsAutoSaveProvider`)。ログアウト中はユーザーを保存しない。
+5.  ログインユーザーの実体は`feature_shared`の`userSummaryProvider`(`UserSummaryNotifier`)で提供する。標準値はアプリが差し込む(認証(Keycloak)が無いあいだは固定の利用者)。設定画面でユーザー名・役割を設定値として与えられ、「標準に戻す」で標準値へ戻る。ログアウトでユーザーなしになり、メニューとユーザーは出さない。設定値(使用言語・サイドバーをアイコンだけにする設定・ユーザー名と役割)の保存と復元は`packages/core/settings_keeper`で行う。ライブラリは保存先を知らず、保存先(`SettingsStorage`)はアプリが`settingsStorageProvider`で決める(`pms_app`は`%APPDATA%\pms_app`のファイル)。起動時に復元してから、変更を保存し始める(`userSettingsAutoSaveProvider`、`app_core`が持つ)。ログアウト中はユーザーを保存しない。
 6.  ユーザーメニューは「設定」と「ログアウト」を持つ。ログアウトはログアウト画面(`LogoutDestination`)へ遷移する。ログインは認証の導入後に追加し、それまでは仮のボタンで標準のユーザーに戻す。
 7.  `app_core`は、ブート・エラー・設定(使用言語、サイドバーをアイコンだけにする設定、ログインユーザー、バージョン情報)・ログアウトを持つ。
 8.  アプリの枠のメニューの項目も CommandBus で開く(`feature_shared`の`TopLevelDestination`で包み、積まずに枠の中の画面を入れ替える)。`example`は CommandBus を通さずに開いてよい。

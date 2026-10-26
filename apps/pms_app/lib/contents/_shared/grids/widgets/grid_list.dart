@@ -1,6 +1,5 @@
 import 'package:trina_grid/trina_grid.dart';
 import 'package:undo_redo/lib.dart';
-import '../../../../constants/configuration/configration.dart';
 import '../../../../imports.dart';
 import '../../../../services/services.dart';
 import '../grid_scope_service/service.dart';
@@ -72,7 +71,7 @@ class _GridList<R> extends ConsumerState<GridList> with GridPagenationMixin<R> {
   Widget build(BuildContext context) {
     ///コミットするデータ、UndoRedoの管理
     ///親でwatchする
-    final sessionController = ref.read(
+    ref.read(
       editableSessionControllerProvider.notifier,
     );
 

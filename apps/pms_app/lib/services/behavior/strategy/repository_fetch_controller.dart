@@ -20,7 +20,7 @@ QueryState<R> repositoryFetchController<R>(Ref ref) {
   ///ここでRに応じたレポジトリを生成する
   final mockRepository = MockRepository<R>();
   return QueryState<R>(
-    expressionVisitorType: .graphQL,
+    expressionVisitorType: .graphQl,
     repository: mockRepository,
     limit: limit,
   );

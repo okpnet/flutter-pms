@@ -1,6 +1,5 @@
 import 'package:logger_provider/logger_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:logger_provider/logger_provider.dart';
 
 part 'app_logger.g.dart';
 

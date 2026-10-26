@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import 'package:pms_app/contents/_shared/grids/grid_scope_service/grid_drag_drop_controller.dart';
-import 'package:pms_app/contents/_shared/grids/grid_scope_service/grid_drag_drop_event.dart';
 import 'package:trina_grid/trina_grid.dart';
 
-import '../../../../constants/configuration/grid/grid_configuration.dart';
 import '../../../../imports.dart';
 import '../../../../services/services.dart';
 import '../../../contents.dart';
@@ -98,12 +96,12 @@ class _GridTree<R> extends ConsumerState<GridTree> with GridTreeMixin<R> {
   Widget build(BuildContext context) {
     ///コミットするデータ、UndoRedoの管理
     ///親でwatchする
-    final sessionController = ref.read(
+    ref.read(
       editableSessionControllerProvider.notifier,
     );
 
     ///権限を取得する
-    final authorication = ref.read(mockAutorizeServiceProvider);
+    ref.read(mockAutorizeServiceProvider);
 
     return TrinaGrid(
       mode: .select,

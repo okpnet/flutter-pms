@@ -1,8 +1,8 @@
 import 'package:pms_app/contents/_models/error/error.dart';
 import 'package:pms_app/contents/_notice/route/notice_extenssion.dart';
-import 'package:pms_app/contents/_notice/route/_route.dart';
 import 'package:pms_app/contents/contents.dart';
 import 'package:pms_app/services/core/core.dart';
+import 'package:pms_app/services/features/feature_error.dart';
 import 'package:pms_app/services/core/core_service/app_standard_time.dart';
 
 import '../../../contents/_models/authorization/auth_state_type.dart';
@@ -46,22 +46,17 @@ Future<void> mockCoreService(Ref ref) async {
   final router = ref.read(rootRouterProvider);
   ref.listen(mockAutorizeServiceProvider, (prev, next) {
     ///エラーで移動
-    void goError(Map<String, dynamic> argment) => router.go(
-      Uri(
-        path: ContentsErrorConstant.path,
-        queryParameters: argment,
-      ).toString(),
-    );
+    void goError(SpecificError error) => router.go(errorLocationOf(error));
 
     ///時間取得で例外が発生している
     if (timeState.hasException) {
-      goError(timeState.exception!.toMap());
+      goError(timeState.exception!);
       return;
     }
 
     ///標準時間がセットされていない
     if (!timeState.isEnable) {
-      final error = AppError(.standardTimeRelated).toMap();
+      final error = AppError(.standardTimeRelated);
       goError(error);
       return;
     }
@@ -70,7 +65,7 @@ Future<void> mockCoreService(Ref ref) async {
     if (!timeState.timeState!.getNow().isSameTimeWithTolerance(
       DateTime.now().toUtc(),
     )) {
-      final error = ManipulationError(.timeManipulation).toMap();
+      final error = ManipulationError(.timeManipulation);
       goError(error);
       return;
     }
@@ -94,11 +89,7 @@ extension AutoTypeEx on AuthStateType {
         break;
       case .fail:
         final error = ServerError(.authorize, .timeout);
-        final uri = Uri(
-          path: ContentsErrorConstant.path,
-          queryParameters: error.toMap(),
-        );
-        router.go(uri.toString());
+        router.go(errorLocationOf(error));
         break;
       case .authenticated:
         if (router.canPop()) {

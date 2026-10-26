@@ -1,5 +1,4 @@
 // Dart imports:
-import 'dart:io';
 
 // Package imports:
 import 'package:trina_grid/trina_grid.dart';
@@ -37,7 +36,6 @@ class GridConfiguration {
 
   ///ローカライズ
   TrinaGridLocaleText getLocalize() {
-    final locale = Platform.localeName; //現在のロケール
     return TrinaGridLocaleText.japanese();
   }
 }

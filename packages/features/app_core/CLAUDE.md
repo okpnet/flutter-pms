@@ -20,7 +20,7 @@
 | 文字列 | `lib/src/i18n` | slang の Yaml(日本語・英語) |
 
 ## 実装の指針
-1.  設定の変更は `feature_shared` の Provider(`localeProvider`・`sidebarIconOnlyProvider`)へ反映する。保存と復元は`feature_shared`の`UserSettingsOriginator`(`settings_keeper`のメメント)が行い、保存先はアプリが決める。
+1.  設定の変更は `feature_shared` の Provider(`localeProvider`・`sidebarIconOnlyProvider`)へ反映する。保存と復元は`app_core`の`UserSettingsOriginator`(`settings_keeper`のメメント)が行い、保存する形は`app_core`のJSONモデル`UserSettingsModel`。保存先はアプリが決める(`pms_app`は`shared_preferences`)。
 2.  使用言語の既定は実行環境(OS)の言語(アプリが `SystemLocaleNotifier` を差し込む)。
 3.  ログは `logger_provider` の `loggerProvider` を `ref` から直接取得し、この機能が発生元のエラーだけを出す。
 

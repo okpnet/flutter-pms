@@ -1,3 +1,6 @@
+import 'package:app_core/app_core.dart';
+import 'package:app_shell/app_shell.dart' show SingleMainFrame;
+import '../../i18n/strings_provider.dart';
 // Project imports:
 
 import '../../../imports.dart';
@@ -17,12 +20,13 @@ class _Login extends ConsumerState<Login> {
   bool isCredentialInvalid = false;
   @override
   Widget build(BuildContext context) {
+    final t = ref.watch(appStringsProvider);
     Map<String, dynamic> authModel = {'id': null, 'pass': null};
 
     return Stack(
       children: [
-        Scaffold(
-          appBar: AppTitleBar(),
+        SingleMainFrame(
+          title: ref.watch(appCoreStringsProvider).app.title,
           body: Form(
             key: formKey,
             child: ResponsiveGrid(
@@ -34,8 +38,8 @@ class _Login extends ConsumerState<Login> {
                     wrapCellAlignment: .center,
                   ),
                   child: Text(
-                    'ログイン',
-                    style: context.textStyleMode(sizeMode: .headlineLarge),
+                    t.login.title,
+                    style: context.textStyleMode(size: (t) => t.headlineLarge),
                     textAlign: .center,
                   ).spaceAll(context),
                 ),
@@ -43,9 +47,9 @@ class _Login extends ConsumerState<Login> {
                   layout: CommonResponsive.flexLx,
                   child: isCredentialInvalid
                       ? Text(
-                          'IDまたはパスワードが違います',
+                          t.login.invalidCredential,
                           textAlign: .left,
-                          style: context.textStyleMode(colorMode: .error),
+                          style: context.textStyleMode(color: .error),
                         )
                       : Text(' '),
                 ),
@@ -74,18 +78,18 @@ class _Login extends ConsumerState<Login> {
                         layout: CommonResponsive.allOne.copyWith(tabletFlex: 2),
                         child: TextFormField(
                           decoration: InputDecoration(
-                            label: Text('ユーザーID'),
+                            label: Text(t.login.userId),
                             helperText: ' ',
                           ),
                           initialValue: authModel['id'],
                           onSaved: (newValue) => authModel['id'] = newValue,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'ユーザーIDは必須です';
+                              return t.login.userIdRequired;
                             }
                             return null;
                           },
-                        ).toPrimary(context).spaceAll(context),
+                        ).spaceAll(context),
                       ),
                       ResponsiveCell(
                         layout: CommonResponsive.allOne.copyWith(
@@ -103,7 +107,7 @@ class _Login extends ConsumerState<Login> {
                         layout: CommonResponsive.allOne.copyWith(tabletFlex: 2),
                         child: TextFormField(
                           decoration: InputDecoration(
-                            label: Text('パスワード'),
+                            label: Text(t.login.password),
                             helperText: ' ',
                           ),
                           initialValue: authModel['pass'],
@@ -112,11 +116,11 @@ class _Login extends ConsumerState<Login> {
                           onSaved: (newValue) => authModel['pass'] = newValue,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'パスワードは必須です';
+                              return t.login.passwordRequired;
                             }
                             return null;
                           },
-                        ).toPrimary(context).spaceAll(context),
+                        ).spaceAll(context),
                       ),
                       ResponsiveCell(
                         layout: CommonResponsive.allOne.copyWith(
@@ -135,7 +139,7 @@ class _Login extends ConsumerState<Login> {
                         child: SizedBox(
                           width: double.infinity,
                           child: FilledButton.icon(
-                            label: Text('ログイン'),
+                            label: Text(t.login.submit),
                             icon: Icon(Icons.login),
                             onPressed: () async {
                               setState(() => isCredentialInvalid = false);
@@ -146,8 +150,7 @@ class _Login extends ConsumerState<Login> {
                                   debugPrint(
                                     'id=${authModel['id']} pass=${authModel['pass']}',
                                   );
-                                  final result =
-                                      await ref //ここがFalseのとき、ログイン失敗なのでValidationをFalseにしたい
+                                  await ref //ここがFalseのとき、ログイン失敗なのでValidationをFalseにしたい
                                           .read(
                                             mockAutorizeServiceProvider
                                                 .notifier,

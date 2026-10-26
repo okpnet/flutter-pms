@@ -9,7 +9,7 @@ part of 'register_material_transfer_router.dart';
 List<RouteBase> get $appRoutes => [$registerMaterialTransferRouter];
 
 RouteBase get $registerMaterialTransferRouter => GoRouteData.$route(
-  path: '/actual/material_transfer',
+  path: '/actual/material_transfer/register',
   name: 'actual_material_transfer',
   hasOverriddenOnExit: false,
   factory: $RegisterMaterialTransferRouter._fromState,
@@ -20,7 +20,8 @@ mixin $RegisterMaterialTransferRouter on GoRouteData {
       const RegisterMaterialTransferRouter();
 
   @override
-  String get location => GoRouteData.$location('/actual/material_transfer');
+  String get location =>
+      GoRouteData.$location('/actual/material_transfer/register');
 
   @override
   void go(BuildContext context) => context.go(location);

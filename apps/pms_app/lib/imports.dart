@@ -11,3 +11,4 @@ export 'package:data_strategist/lib.dart';
 export 'package:grid_extensions/grid_extensions_lib.dart';
 export 'package:query_builder/query_builder.dart';
 export 'constants/constants.dart';
+export 'package:feature_shared/feature_shared.dart';

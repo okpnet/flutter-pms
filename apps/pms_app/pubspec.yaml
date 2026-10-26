@@ -27,6 +27,42 @@ dependencies:
     path: ../../packages/foundation/data_strategist
   query_builder:
     path: ../../packages/foundation/query_builder
+  app_core:
+    path: ../../packages/features/app_core
+  app_shell:
+    path: ../../packages/ui/app_shell
+  settings_keeper:
+    path: ../../packages/core/settings_keeper
+  shared_preferences: ^2.5.3
+  feature_shared:
+    path: ../../packages/core/feature_shared
+  organization:
+    path: ../../packages/features/organization
+  item:
+    path: ../../packages/features/item
+  resource:
+    path: ../../packages/features/resource
+  sales:
+    path: ../../packages/features/sales
+  purchasing:
+    path: ../../packages/features/purchasing
+  production_plan:
+    path: ../../packages/features/production_plan
+  production_process:
+    path: ../../packages/features/production_process
+  quality:
+    path: ../../packages/features/quality
+  quality_common:
+    path: ../../packages/features/quality_common
+  quality_document:
+    path: ../../packages/features/quality_document
+  system:
+    path: ../../packages/features/system
+  work_record:
+    path: ../../packages/features/work_record
+  shared_master:
+    path: ../../packages/features/shared_master
+  slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   trina_grid:
     git:
       url: https://github.com/okpnet/trina_grid
@@ -42,6 +78,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   build_runner: ^2.9.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  shared_preferences_platform_interface: ^2.4.1
   go_router_builder:
   riverpod_generator:
   dart_mappable_builder: ^4.8.0

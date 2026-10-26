@@ -1,0 +1,25 @@
+splash:
+  initializing: "初期化中"
+common:
+  notImplemented: "未実装"
+login:
+  title: "ログイン"
+  invalidCredential: "IDまたはパスワードが違います"
+  userId: "ユーザーID"
+  userIdRequired: "ユーザーIDは必須です"
+  password: "パスワード"
+  passwordRequired: "パスワードは必須です"
+  submit: "ログイン"
+maintenance:
+  title: "メンテナンス中"
+  message: "$time までメンテナンス中です"
+grid:
+  filtered: "条件適用 $count 件"
+  wait: "お待ちください"
+  total: "全 $count 件"
+company:
+  title: "会社情報"
+  name: "会社名"
+  business: "事業内容"
+  address: "住所"
+  tel: "電話"

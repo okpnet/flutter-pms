@@ -33,3 +33,17 @@ PMS のシェルアプリ。GoRouter を構築済みのモックアップ(旧 `l
 6.  GOFデザインパターン
     1.  クラス名やファイル名にデザインパターンを含めない場合は、コメントに該当するパターン名を追加する。
     2.  必ずしもデザインパターンに割り当てる必要はない。
+
+## 構成
+1.  機能(ライブラリ)の組み込み
+    1.  `packages/features`の機能は`lib/services/features/feature_modules.dart`の`featureModules`に並べる。ルートは`root_router.dart`の`ShellRoute`(`UnControlContentsFrame`)に追加し、命令の窓口は`main()`で`commandBusProvider`へ`createFeatureCommandBus`を差し込む。サイドバーの項目は機能の`MenuContributor`から`DrawerMenu`が集める。
+    2.  アプリのページ(`TypedGoRoute`)と機能のページが同じ役割のときは、対応を`doc/log`に残してから置き換える。設定・ログアウト・エラーは`app_core`のページを使う(エラーへの遷移は`errorLocationOf`)。ルートの`name`は全体で一意にする(重複すると起動時に例外になる)。
+2.  多言語(slang)
+    1.  文字列は`lib/i18n`の言語ファイル(`ja.i18n.yaml`が基準、`en.i18n.yaml`など)に置き、`dart run slang`で生成する(生成物もコミット)。`feature_shared`の`localeProvider`を`ref.watch`する`appStringsProvider`で取得する。slangのグローバル変数は使わない。
+    2.  表示する文字列とメッセージは全て言語ファイルに置く。エラーは文字列ではなく種類(enum・例外の型)で持ち、画面が表示時に文字列へ変換する。ログの文言は多言語の対象にしない。
+    3.  グリッドの列名など、置き換え予定のモック画面の文字列は、置き換え先のライブラリ画面(DBのコメント)に任せ、先に移さない。
+3.  警告
+    1.  未使用の変数・フィールド・インポート・関数は削除する。
+4.  枠と設定
+    1.  タイトルバー・サイドバー・ユーザー表示は`app_shell`の`MultiMainFrame`(`AppMainFrame`)を使い、アプリ独自の枠を作らない。文字列は`app_core`の文字列を使う。
+    1.  ユーザー設定(言語・サイドバー・ユーザー)は`settings_keeper`で`shared_preferences`に保存する(`main()`で`settingsStorageProvider`を差し込む)。保存する形のJSONモデルは`app_core`に定義する。

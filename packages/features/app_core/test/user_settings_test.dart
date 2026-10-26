@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:app_core/app_core.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -24,6 +25,7 @@ Future<void> _settle() =>
     Future<void>.delayed(const Duration(milliseconds: 20));
 
 void main() {
+  modelTests();
   test('変更した設定は保存され、次の起動で復元される', () async {
     final storage = InMemorySettingsStorage();
     final first = _container(storage);
@@ -67,5 +69,22 @@ void main() {
     final memento = await storage.read(UserSettingsOriginator.key);
     expect(memento?.values['userName'], '標準');
     expect(memento?.values['sidebarIconOnly'], isTrue);
+  });
+}
+
+void modelTests() {
+  test('JSONモデルは往復でき、壊れた値は標準値になる', () {
+    const model = UserSettingsModel(
+      followsSystemLocale: false,
+      languageCode: 'en',
+      sidebarIconOnly: true,
+      userName: '田中',
+      userRole: '品質',
+    );
+    expect(UserSettingsModel.fromJson(model.toJson()), model);
+    expect(
+      UserSettingsModel.fromJson({'followsSystemLocale': 'x', 'userName': 1}),
+      const UserSettingsModel(),
+    );
   });
 }

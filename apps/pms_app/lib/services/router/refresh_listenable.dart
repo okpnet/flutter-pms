@@ -10,11 +10,6 @@ part 'refresh_listenable.g.dart';
 @Riverpod(keepAlive: true)
 Raw<ValueNotifier<int>> refreshListenable(Ref ref) {
   final notifier = ValueNotifier<int>(0);
-  void notify() {
-    Future.microtask(() {
-      notifier.value++;
-    });
-  }
 
   // 各状態が変わったときに value を更新して通知をトリガー
   // final maintenanceInfoSub =

@@ -1,0 +1,25 @@
+splash:
+  initializing: "Initializing"
+common:
+  notImplemented: "Not implemented"
+login:
+  title: "Sign in"
+  invalidCredential: "The ID or password is incorrect"
+  userId: "User ID"
+  userIdRequired: "User ID is required"
+  password: "Password"
+  passwordRequired: "Password is required"
+  submit: "Sign in"
+maintenance:
+  title: "Under maintenance"
+  message: "Under maintenance until $time"
+grid:
+  filtered: "$count filtered"
+  wait: "Please wait"
+  total: "$count in total"
+company:
+  title: "Company"
+  name: "Company name"
+  business: "Business"
+  address: "Address"
+  tel: "Phone"

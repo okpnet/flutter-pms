@@ -5,7 +5,6 @@
 /// - [localeProvider]: アプリが使う言語(多言語の文字列を選ぶため)
 /// - [MenuEntry] / [MenuContributor]: トップメニューの項目(機能が提供し、アプリが集める)
 /// - [userSummaryProvider]: ログインユーザーの表示用の情報(AppCore が提供)
-/// - [UserSettingsOriginator] / [userSettingsAutoSaveProvider]: 使用言語・画面・ユーザーの設定の保存と復元(保存先はアプリが settings_keeper で選ぶ)
 /// - [GoRouterDestinationNavigator]: 遷移先を GoRouter で実行する(アプリと example が共用)
 /// - [EntityFeatureModule]: 実体の定義から台帳・編集の画面を提供する機能の土台
 /// - [FeatureHost]: 機能を単体で確認する最小のアプリ(example 用)
@@ -21,4 +20,3 @@ export 'src/go_router_destination_navigator.dart';
 export 'src/locale_provider.dart';
 export 'src/menu.dart';
 export 'src/ui_settings.dart';
-export 'src/user_settings.dart';

@@ -1,12 +1,6 @@
 export '_shared/_shared.dart';
 export 'actual/_actual.dart';
 export 'authorization/autorization.dart';
-export 'corporation/corporation.dart';
-export 'org_resources/equipments/_equipments.dart';
 export '_notice/_notice.dart';
-export 'deliverables/items/_items.dart';
-export 'production/production.dart';
-export 'purchasing/purchasing.dart';
-export 'sales/sales.dart';
 export 'shipping/_shipping.dart';
 export 'controls/_controls.dart';

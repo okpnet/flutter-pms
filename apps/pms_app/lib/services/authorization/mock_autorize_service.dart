@@ -12,7 +12,6 @@ class MockAutorizeService extends _$MockAutorizeService {
 
   ///ログイン処理
   Future<bool> login() async {
-    final result = false;
     //ここでログイン処理
     // return false;
     state = MockAuthState(authStateType: .authenticated);

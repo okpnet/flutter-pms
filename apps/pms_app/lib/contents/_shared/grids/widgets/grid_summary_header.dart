@@ -1,3 +1,4 @@
+import '../../../../i18n/strings_provider.dart';
 import '../../../../imports.dart';
 import '../grid_scope_service/grid_summary_notifier.dart';
 
@@ -6,6 +7,7 @@ class GridSummaryHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(appStringsProvider);
     final summayr = ref.watch(gridSummaryProvider);
     return Row(
       children: [
@@ -16,12 +18,12 @@ class GridSummaryHeader extends ConsumerWidget {
             children: [
               if (summayr?.filteredNumberOfRecords != null)
                 Text(
-                  '条件適用 ${summayr!.filteredNumberOfRecords}件',
+                  t.grid.filtered(count: summayr!.filteredNumberOfRecords ?? 0),
                 ).spaceAll(context),
 
               summayr == null
-                  ? Text('お待ちください').spaceAll(context)
-                  : Text('全 ${summayr.numberOfRecord}件').spaceAll(context),
+                  ? Text(t.grid.wait).spaceAll(context)
+                  : Text(t.grid.total(count: summayr.numberOfRecord)).spaceAll(context),
             ],
           ),
         ),
