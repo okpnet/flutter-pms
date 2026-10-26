@@ -31,7 +31,7 @@ cd apps\pms_app; flutter run -d windows          # アプリ起動
 
 `apps` → `features` → `core` → `ui` / `infra` → `foundation`
 
-- `apps/pms_app`: シェルアプリ。機能を組み立てるだけ。機能追加は `lib/app.dart` の `featureModules` に1行足す。
+- `apps/pms_app`: シェルアプリ。旧 mock_up を移設したもので、GoRouter を構築する。このプロジェクトの規則・指示は [apps/pms_app/CLAUDE.md](apps/pms_app/CLAUDE.md) を参照。
 - `packages/features/`: 1機能=1パッケージ `xxx`(実装=画面・ルート・ハンドラ、`XxxModule implements FeatureModule`)。契約(遷移先・命令の型)は同じパッケージの `lib/xxx_api.dart`(契約だけのバレル)で公開し、実装の入口 `lib/xxx.dart` はアプリだけが読み込む。機能同士・アプリは `xxx_api.dart` の型だけを使い、`lib/src` や実装の入口は読み込まない。
 - `packages/core/`: `baton_lib`(コマンドバス)、`feature_shared`(機能とアプリの仲介)、`settings_keeper`(ローカル設定の保存と復元)。
 - `packages/ui/`: UI基盤。`entity_screens`(実体の定義から台帳・編集の画面を作る)、`app_shell`(タイトルバー・サイドバー・ハンバーガー・ログインユーザーの枠)を含む。

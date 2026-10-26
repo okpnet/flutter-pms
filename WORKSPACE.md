@@ -78,7 +78,7 @@ melos bootstrap
 
 ## 注意
 
-- `legacy/grid_lib`・`legacy/fultter_main/mock_up` は workspace 対象外だが、
+- `legacy/grid_lib` は workspace 対象外だが、
   workspace 内のパッケージを path で参照している。解決エラーが出たら packages/ へ移して workspace に加える。
 - workspace のワイルドカードが SDK で使えない場合は、ルート pubspec.yaml のコメントに従って列挙する。
 - ルートの `.gitignore` に `*.lock` があるため、ルートの `pubspec.lock` もコミットされない。
