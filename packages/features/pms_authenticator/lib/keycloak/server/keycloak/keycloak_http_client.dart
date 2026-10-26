@@ -1,0 +1,125 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:pms_authenticator/constant/uri_constant.dart';
+import 'package:pms_authenticator/core/auth_model/authentication_model.dart';
+import 'package:pms_authenticator/errors/error.dart';
+import 'package:pms_authenticator/keycloak/model/auth_state_kyclaok_model.dart';
+import 'package:pms_authenticator/keycloak/model/keycloak_uri_model.dart';
+import 'package:pms_authenticator/options/results/result.dart';
+import 'package:http/http.dart' as http;
+
+/// POST通信の種類
+enum PostType { token, login, logout }
+
+/// HTTP通信を専門的に担当するクラス
+class KeycloakHttpClient {
+  final KeycloakUriModel uriModel;
+
+  KeycloakHttpClient({required this.uriModel});
+
+  /// POST通信を実行
+  Future<ConnectStateResult<AuthenticationModel>> post(
+    PostType type,
+    String code,
+  ) async {
+    final postFuture = () async {
+      try {
+        if (code.isEmpty) throw Exception('code is empty');
+
+        final body = _buildRequestBody(code);
+        final postUri = _getPostUri(type);
+
+        // 自己証明書エラー可否
+        HttpOverrides.global = PermitInvalidCertification();
+        final res = await http
+            .post(
+              postUri,
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+              body: body,
+            )
+            .timeout(
+              Duration(seconds: uriModel.timeoutSec),
+              onTimeout: () {
+                throw NetworkTimeoutException();
+              },
+            );
+
+        return _handleResponse(type, code, res);
+      } catch (ex) {
+        return ConnectStateResult<AuthenticationModel>.failure(ex as Exception);
+      }
+    }();
+    return postFuture;
+  }
+
+  /// リクエストボディを構築
+  Map<String, String> _buildRequestBody(String code) {
+    return <String, String>{
+      UriConstant.GRANT_TYPE: 'authorization_code',
+      UriConstant.CLIENT_ID: uriModel.clientId,
+      UriConstant.CODE: code,
+      UriConstant.REDIRECT_URI: uriModel.redirectUri,
+      UriConstant.CODE_VERIFIER: uriModel.codeVerifier, // ★ PKCE
+    };
+  }
+
+  /// POST先URIを取得
+  Uri _getPostUri(PostType type) {
+    return switch (type) {
+      PostType.logout => uriModel.logoutUri,
+      _ => uriModel.tokenUri,
+    };
+  }
+
+  /// レスポンスを処理
+  ConnectStateResult<AuthenticationModel> _handleResponse(
+    PostType type,
+    String code,
+    http.Response res,
+  ) {
+    return switch (type) {
+      PostType.token => _handleTokenResponse(code, res),
+      PostType.logout => _handleLogoutResponse(res),
+      _ => ConnectStateResult<AuthenticationModel>.failure(
+        Exception('Unknown post type'),
+      ),
+    };
+  }
+
+  /// トークンレスポンスを処理
+  ConnectStateResult<AuthenticationModel> _handleTokenResponse(
+    String code,
+    http.Response res,
+  ) => res.statusCode == 200
+      ? ConnectStateResult.success(
+          AuthStateKyclaokModel.fromResponse(code, res.body),
+          statusCode: res.statusCode,
+        )
+      : ConnectStateResult.failure(
+          Exception('Failed to get token: ${res.statusCode}'),
+          statusCode: res.statusCode,
+        );
+
+  /// ログアウトレスポンスを処理
+  ConnectStateResult<AuthenticationModel> _handleLogoutResponse(
+    http.Response res,
+  ) => res.statusCode == 204 || res.statusCode == 200
+      ? ConnectStateResult.success(
+          AuthenticationModel(accessToken: null, code: null),
+          statusCode: res.statusCode,
+        )
+      : ConnectStateResult.failure(
+          Exception('Failed to logout: ${res.statusCode}'),
+          statusCode: res.statusCode,
+        );
+}
+
+/// 自己証明書エラーを許可するHTTPクライアント
+class PermitInvalidCertification extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (cert, host, port) => true;
+  }
+}

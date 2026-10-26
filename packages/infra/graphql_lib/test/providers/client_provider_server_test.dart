@@ -11,12 +11,23 @@ import 'package:gqlib/gqlib.dart';
 import 'package:graphql/client.dart';
 import 'package:gqlprvlib/postgraphile/position_page/position_page_read.graphql.dart';
 
-const _serverUrl = 'http://192.168.1.100:5000/graphql';
+const _serverUrls = [
+  'http://192.168.1.100:5000/graphql',
+  'http://192.168.9.245:5000/graphql',
+];
 const _serverTag = 'server';
 const _anyLanguageCodeId = '00000000-0000-0000-0000-000000000000';
 
-Future<bool> _canConnect() async {
-  final uri = Uri.parse(_serverUrl);
+/// 候補のうち最初に接続できたURLを返す。どれも接続できないときは null。
+Future<String?> _findReachableUrl() async {
+  for (final url in _serverUrls) {
+    if (await _canConnect(url)) return url;
+  }
+  return null;
+}
+
+Future<bool> _canConnect(String url) async {
+  final uri = Uri.parse(url);
   try {
     final socket = await Socket.connect(
       uri.host,
@@ -31,15 +42,15 @@ Future<bool> _canConnect() async {
 }
 
 void main() {
-  late bool connected;
+  String? reachableUrl;
 
   setUpAll(() async {
-    connected = await _canConnect();
+    reachableUrl = await _findReachableUrl();
   });
 
   Future<void> Function() onServer(Future<void> Function() body) => () async {
-    if (!connected) {
-      markTestSkipped('$_serverUrl に接続できないためテストを中止した');
+    if (reachableUrl == null) {
+      markTestSkipped('${_serverUrls.join(' / ')} に接続できないためテストを中止した');
       return;
     }
     await body();
@@ -49,7 +60,7 @@ void main() {
     test(
       'PositionPageRead returns Ok with the totalCount',
       onServer(() async {
-        final provider = GraphQLClientProvider(_serverUrl, timeLimit: 20);
+        final provider = GraphQLClientProvider(reachableUrl!, timeLimit: 20);
 
         final result = await provider.query(
           QueryOptions(
@@ -76,7 +87,7 @@ void main() {
     test(
       'an unknown field returns Err(DeveloperError)',
       onServer(() async {
-        final provider = GraphQLClientProvider(_serverUrl, timeLimit: 20);
+        final provider = GraphQLClientProvider(reachableUrl!, timeLimit: 20);
 
         final result = await provider.query(
           QueryOptions(
@@ -96,7 +107,7 @@ void main() {
       'a wrong port returns Err(NetworkError)',
       onServer(() async {
         final provider = GraphQLClientProvider(
-          'http://192.168.1.100:1/graphql',
+          Uri.parse(reachableUrl!).replace(port: 1).toString(),
           timeLimit: 10,
         );
 

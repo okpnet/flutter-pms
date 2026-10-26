@@ -1,0 +1,36 @@
+name: pms_authenticator
+description: "Keycloak による認証(ログイン・トークン保持・更新)のライブラリ。"
+version: 0.0.1
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dart_mappable: ^4.8.0
+  jwt_decode: ^0.3.1
+  flutter_secure_storage: ^10.0.0
+  http: ^1.6.0
+  flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  riverpod_annotation:
+  crypto: ^3.0.7
+  logger_provider:
+    path: ../../infra/logger_provider
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  build_runner: ^2.9.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  dart_mappable_builder: ^4.8.0
+  riverpod_generator:
+  webview_flutter: ^4.8.0
+  webview_win_floating: ^3.0.2
+  integration_test:
+    sdk: flutter
+
+flutter:

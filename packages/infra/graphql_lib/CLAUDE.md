@@ -129,4 +129,4 @@
     2.  必ずしもデザインパターンに割り当てる必要はない。
 7.  テスト
     1.  GraphQLのテストには`graphql_provider_lib`(`gqlprvlib`)が生成したクエリ文書・型を使用する。
-    2.  テスト接続先は`http://192.168.1.100:5000/graphql`を使用する。接続できないときはテストを中止(skip)する。接続を要するテストには`server`タグを付け、`flutter test --exclude-tags server`で除外できる。
+    2.  テスト接続先は`http://192.168.1.100:5000/graphql`または`http://192.168.9.245:5000/graphql`を使用する(先に接続できた方)。どちらにも接続できないときはテストを中止(skip)する。接続を要するテストには`server`タグを付け、`flutter test --exclude-tags server`で除外できる。
