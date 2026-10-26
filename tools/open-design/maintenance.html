@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="robots" content="noindex">
+<title>メンテナンス中 | 生産管理</title>
+<!--
+  メンテナンス中の単独ページ。アプリ本体（app.js）に依存しないので、アプリが動かない状態でも表示できる。
+  メンテナンスフラグがオンのあいだ、サーバー側でこのページを返す（HTTP 503 + Retry-After を推奨）。
+  アプリ内では app.js が同じ内容を表示する（#/maintenance-mode / ?maintenance=1）。
+  時間帯・範囲・メッセージは、このファイルの本文を直接書き換える。
+-->
+<style>
+  :root {
+    --bg: #f2f5f6; --surface: #ffffff; --surface-2: #eaf0f1; --ink: #12202a; --muted: #4f5e69; --line: #d3dce1;
+    --accent: #0b6b6f; --accent-ink: #ffffff; --focus: #1a5fd0;
+    --font: "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", "Meiryo", system-ui, sans-serif;
+    --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px; --sp-6: 32px; --radius: 8px; --radius-lg: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0e171d; --surface: #16232b; --surface-2: #1e2f39; --ink: #e8eff2; --muted: #a5b4bd; --line: #2d4250; --accent: #5cc3c6; --accent-ink: #062a2c; --focus: #8ab4ff; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100dvh; display: grid; place-items: center; padding: var(--sp-5); background: var(--bg); color: var(--ink); font: 16px/1.6 var(--font); }
+  main { width: 100%; max-width: 640px; display: grid; justify-items: center; gap: var(--sp-4); padding: var(--sp-5); text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); }
+  img { display: block; width: 100%; max-width: 480px; height: auto; aspect-ratio: 4 / 3; border-radius: var(--radius-lg); }
+  h1 { margin: 0; font-size: 28px; line-height: 1.3; word-break: keep-all; overflow-wrap: anywhere; }
+  p { margin: 0; max-width: 36em; }
+  dl { display: grid; gap: var(--sp-3); width: 100%; margin: 0; text-align: left; }
+  dl div { padding: var(--sp-3) var(--sp-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface-2); }
+  dt { font-size: 14px; font-weight: 600; color: var(--muted); }
+  dd { margin: 0; font-weight: 600; }
+  .nowrap { white-space: nowrap; }
+  .note { font-size: 14px; color: var(--muted); }
+  button { min-height: 44px; padding: 0 var(--sp-5); border: 1px solid var(--accent); border-radius: var(--radius); background: var(--accent); color: var(--accent-ink); font: inherit; font-weight: 600; cursor: pointer; }
+  button:hover { filter: brightness(1.1); }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  @media (max-width: 480px) { body { padding: var(--sp-4); } main { padding: var(--sp-4); } h1 { font-size: 20px; } }
+</style>
+</head>
+<body>
+<main role="status" aria-labelledby="h">
+  <img src="maintenance.svg" width="480" height="360" alt="歯車とレンチ、縞模様の通行止めバリケードのイラスト。システムのメンテナンス作業中を表しています。">
+  <h1 id="h">ただいま<wbr>メンテナンス中です</h1>
+  <p>システムの保守作業を行っています。作業が終わるまで、ご利用いただけません。ご不便をおかけします。</p>
+  <dl>
+    <div><dt>作業の時間帯</dt><dd class="nowrap">2026年10月27日 22:00</dd><dd class="nowrap">〜 2026年10月28日 06:00（予定）</dd></div>
+    <div><dt>ご利用いただけない範囲</dt><dd>すべての画面（閲覧・編集・ログイン）</dd></div>
+  </dl>
+  <p class="note">終了予定を過ぎても通常の画面に戻らないときは、再読み込みしてください。</p>
+  <button type="button" onclick="location.reload()">再読み込みして確認</button>
+</main>
+</body>
+</html>

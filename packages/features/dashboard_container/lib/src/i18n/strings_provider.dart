@@ -1,0 +1,36 @@
+import 'package:feature_shared/feature_shared.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'strings.g.dart';
+
+export 'strings.g.dart' show DashboardContainerStrings;
+
+/// 件数コンテナの文字列。言語は feature_shared の [localeProvider] に従い、
+/// 対応していない言語のときは基準言語(日本語)にする。
+///
+/// 基準言語以外は遅延読み込み(slang の生成物)のため、読み込みが終わるまでは
+/// 基準言語の文字列を返し、終わった時点で差し替える。
+final dashboardContainerStringsProvider =
+    NotifierProvider<
+      DashboardContainerStringsNotifier,
+      DashboardContainerStrings
+    >(DashboardContainerStringsNotifier.new);
+
+class DashboardContainerStringsNotifier
+    extends Notifier<DashboardContainerStrings> {
+  @override
+  DashboardContainerStrings build() {
+    final languageCode = ref.watch(localeProvider).languageCode;
+    final locale =
+        DashboardContainerLocale.values
+            .where((l) => l.languageCode == languageCode)
+            .firstOrNull ??
+        DashboardContainerLocale.ja;
+    if (locale != DashboardContainerLocale.ja) {
+      locale.build().then((strings) {
+        if (ref.mounted) state = strings;
+      });
+    }
+    return DashboardContainerLocale.ja.buildSync();
+  }
+}

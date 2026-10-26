@@ -1,0 +1,6 @@
+all: All
+unit: records
+loading: Loading...
+failed: Could not load
+unavailable: Not configured
+filter: Filter

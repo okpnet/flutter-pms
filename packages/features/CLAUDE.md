@@ -38,20 +38,21 @@
     1.  データの取得は`riverpod`をとおして`flutter-pms\packages\foundation\data_strategist`を使用する。
     2.  プロジェクトごとに`CLAUDE.md`を生成し、このファイルの[規則/仕様](#規則/仕様)を含める。
     3.  プロジェクトの評価結果に対する提案、問題/課題は、規則に従って`doc/log`に追加する(プロジェクト毎に解決していくため)。
-3.  ビジュアルテスト(example)
+3.  ページ用の拡張(`packages/core/page_mediator`)。ページが、データ取得(`data_strategist`)・設定の保存(`settings_keeper`)・セッション確認(認証・メンテナンス)を使うときは、実装を直接参照せず、窓口(`IPageDataMediator`・`IPageSettingsMediator`・`IPageSessionMediator`)を`PageMediatorMixin`(`ConsumerStatefulWidget`)または`WidgetRef`の拡張(`ref.pageData`など)から使う。実体はアプリが Riverpod で差し込み(`pageSessionMediatorProvider`など)、テストでは差し込まない(セッション確認は何もしない既定の実装)。
+4.  ビジュアルテスト(example)
     1.  各プロジェクトは、プロジェクト内の`example`に、Windows向けのビジュアルテスト用アプリを持つ。そのプロジェクトだけを起動して画面を個別に確認できるようにする。
     2.  `example`は本番のアプリと同じ配線(GoRouter・CommandBus・ハンドラ登録)の`feature_shared`の`FeatureHost`を使い、`lib/main.dart`の`entries`に遷移先を並べる。画面を追加したら`entries`に1行足し、`test/widget_test.dart`で起動と遷移を確認する。
     3.  `example`は`flutter-pms`のworkspace対象外(ロックファイルは別。`flutter pub get`で一緒に解決される)。起動は`flutter run -d windows`。
-4.  多言語(slang)
+5.  多言語(slang)
     1.  表示する文字列は、プロジェクト内の`lib/src/i18n`の言語ファイル(Yaml、`ja.i18n.yaml`が基準、`en.i18n.yaml`など)に置く。設定は`slang.yaml`(`class_name`・`enum_name`はプロジェクト固有の名前にする)。生成は`dart run slang`。生成物(`strings*.g.dart`)もコミットする。
     2.  言語の選択は`riverpod`で行う。`feature_shared`の`localeProvider`を`ref.watch`して`xxxStringsProvider`が文字列を返す。slangのFlutter連携・グローバル変数は使わない。基準言語以外は遅延読み込みのため、読み込みが終わるまでは基準言語(日本語)を返す。
     3.  エラーは文字列ではなく種類(enum・例外の型)で持ち、画面が表示時に文字列へ変換する。ログの文言は多言語の対象にしない。
     4.  画面を持つようになったプロジェクトから導入する(画面が空のプロジェクトは、画面を作るときに追加する)。
-5.  IDの扱い
+6.  IDの扱い
     1.  GraphQLのUUIDは、アプリ内では文字列(`String`)として扱う。遷移先・命令・モデル・パスのidはすべて`String`にする。
-6.  削除の参照チェック
+7.  削除の参照チェック
     1.  他の画面・テーブルから使用されているデータは削除できない。リポジトリの`remove`は、使用中のとき専用の例外(例: `ShippingKindInUseException`)を投げ、画面はログに残さず利用者に表示だけする。GraphQL版は、DBの外部キー違反をこの例外に変換する。
-7.  共有マスタ(`shared_master`)の利用条件
+8.  共有マスタ(`shared_master`)の利用条件
     1.  利害関係者(`stakeholder`)と担当者(`contact`)は`shared_master`が持つ。顧客・外部供給者・配送サービサーは同じ利害関係者をフラグで見分けるだけで、取得元・編集画面は1つにする。顧客台帳は顧客のフラグ、外部供給者台帳は外部供給者のフラグでの絞り込み(`EntityListDestination`の`filter`)とする。
     2.  利害関係者の配送区分の選択は、同じプロジェクトの配送区分(`shipkind`)で行う。
     3.  配送区分は、トップメニューの「営業」「購買」のどちらからも選択して開く。メニューの項目は共通の画面(`shared_master`)へ遷移する。顧客台帳は「営業」、外部供給者台帳は「購買」のメニューから開く。
@@ -216,6 +217,8 @@ GraphQLから取得したデータのうち、イミュータブルな更新者�
 | メニュー | プロジェクト |
 |---|---|
 | ダッシュボード・設定・エラー | `app_core`(ブート・エラー・設定。ログイン・ログアウトは認証の導入後) |
+| メンテナンス中のページ | `maintenance`(サーバーの応答がメンテナンス中のときに表示。他のページへはリンクしない) |
+| ダッシュボードの件数のコンテナ | `dashboard_container`(Full・1/2・1/4。配置は設定として保存) |
 | 資源(力量・資格・場所・設備・保全) | `resource` |
 | システム | `system` |
 | 品目 | `item` |

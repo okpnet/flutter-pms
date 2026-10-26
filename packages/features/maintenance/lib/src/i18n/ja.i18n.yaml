@@ -1,0 +1,13 @@
+# メンテナンス中のページの文字列(日本語。基準言語)。
+title: メンテナンス中です
+defaultMessage: ただいまメンテナンスを行っています。終了までしばらくお待ちください。
+period:
+  title: 実施時間
+  start: 開始
+  end: 終了
+  undecided: 未定
+retry:
+  label: 再確認
+  checking: 確認中...
+  stillUnder: まだメンテナンス中です。
+  failed: 確認できませんでした。しばらくしてからもう一度お試しください。

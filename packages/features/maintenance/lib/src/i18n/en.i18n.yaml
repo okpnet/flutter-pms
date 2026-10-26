@@ -1,0 +1,12 @@
+title: Under maintenance
+defaultMessage: The system is under maintenance. Please wait until it finishes.
+period:
+  title: Maintenance window
+  start: Start
+  end: End
+  undecided: To be announced
+retry:
+  label: Check again
+  checking: Checking...
+  stillUnder: The system is still under maintenance.
+  failed: Could not check the status. Please try again later.

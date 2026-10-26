@@ -1,0 +1,7 @@
+# ダッシュボードの件数コンテナの文字列(日本語。基準言語)。
+all: すべて
+unit: 件
+loading: 取得中...
+failed: 取得できません
+unavailable: 未設定の項目です
+filter: 絞り込み
