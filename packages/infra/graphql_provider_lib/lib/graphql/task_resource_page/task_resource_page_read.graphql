@@ -6,7 +6,7 @@
 query TaskResourcePageRead(
   $first: Int!
   $offset: Int
-  $filter: MstrTaskLocationFilter = {}
+  $filter: MstrTaskLocationFilter = {and: []}
   $orderBy: [MstrTaskLocationsOrderBy!]
   $languageCodeId: UUID!
   $mstrTaskId: UUID!

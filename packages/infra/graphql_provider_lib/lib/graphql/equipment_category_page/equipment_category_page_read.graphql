@@ -6,7 +6,7 @@
 query EquipmentCategoryPageRead(
   $first: Int!
   $offset: Int
-  $filter: MstrEquipmentKindFilter = {}
+  $filter: MstrEquipmentKindFilter = {and: []}
   $orderBy: [MstrEquipmentKindsOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false

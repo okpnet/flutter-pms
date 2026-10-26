@@ -6,7 +6,7 @@
 query TaskPageRead(
   $first: Int!
   $offset: Int
-  $filter: MstrTaskFilter = {}
+  $filter: MstrTaskFilter = {and: []}
   $orderBy: [MstrTasksOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false

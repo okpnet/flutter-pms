@@ -89,7 +89,7 @@ class ReadGenerator {
       ..declare('first', 'Int!')
       ..declare('offset', 'Int');
     final hasFilter = node['filter'] == true;
-    if (hasFilter) vars.declare('filter', '${root.filterType} = {}');
+    if (hasFilter) vars.declare('filter', '${root.filterType} = {and: []}');
     // 並び順(要件0053): defaultSortが引数の既定値になる。noneは既定値なし(引数がnullなら並べない)。
     final rootSort = _defaultOrder(node, type, path);
     vars.declare('orderBy', '[${root.orderByType}!]${rootSort == null ? '' : ' = [$rootSort]'}');

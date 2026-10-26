@@ -6,7 +6,7 @@
 query ItemPageRead(
   $first: Int!
   $offset: Int
-  $filter: MstrItemFilter = {}
+  $filter: MstrItemFilter = {and: []}
   $orderBy: [MstrItemsOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false

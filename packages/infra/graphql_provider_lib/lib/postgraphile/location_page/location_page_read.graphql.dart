@@ -469,7 +469,16 @@ const documentNodeQueryLocationPageRead = DocumentNode(
             name: NameNode(value: 'MstrLocationFilter'),
             isNonNull: false,
           ),
-          defaultValue: DefaultValueNode(value: ObjectValueNode(fields: [])),
+          defaultValue: DefaultValueNode(
+            value: ObjectValueNode(
+              fields: [
+                ObjectFieldNode(
+                  name: NameNode(value: 'and'),
+                  value: ListValueNode(values: []),
+                ),
+              ],
+            ),
+          ),
           directives: [],
         ),
         VariableDefinitionNode(

@@ -477,7 +477,16 @@ const documentNodeQueryStaffHeldLicensePageRead = DocumentNode(
             name: NameNode(value: 'InfoStaffFilter'),
             isNonNull: false,
           ),
-          defaultValue: DefaultValueNode(value: ObjectValueNode(fields: [])),
+          defaultValue: DefaultValueNode(
+            value: ObjectValueNode(
+              fields: [
+                ObjectFieldNode(
+                  name: NameNode(value: 'and'),
+                  value: ListValueNode(values: []),
+                ),
+              ],
+            ),
+          ),
           directives: [],
         ),
         VariableDefinitionNode(

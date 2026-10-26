@@ -60,7 +60,7 @@ class FlatFilterConverter {
   /// - 値がnullまたは空のMapの条件は、条件なしとして無視する。
   /// - [spec]に無いキー、演算子のMapでない値は[ArgumentError]とする。
   /// - 経路に条件の変数(`languageCodeId`等)が必要なのに[variables]に無い場合は[ArgumentError]とする。
-  /// - 条件が1つも無ければ空のMap(絞り込みなし)を返す。
+  /// - 条件が1つも無ければ`{and: []}`(絞り込みなし)を返す。connection-filterは空のMap`{}`を拒否するため。
   Map<String, dynamic> convert(
     Map<String, dynamic> flat, {
     Map<String, dynamic> variables = const {},
@@ -111,7 +111,7 @@ class FlatFilterConverter {
       }
       _put(node, path.column, Map<String, dynamic>.from(operators));
     }
-    return root;
+    return root.isEmpty ? <String, dynamic>{'and': <dynamic>[]} : root;
   }
 
   Map<String, dynamic> _child(Map<String, dynamic> parent, String key) {

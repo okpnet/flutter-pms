@@ -6,7 +6,7 @@
 query StaffHeldLicensePageRead(
   $first: Int!
   $offset: Int
-  $filter: InfoStaffFilter = {}
+  $filter: InfoStaffFilter = {and: []}
   $orderBy: [InfoStaffsOrderBy!]
   $languageCodeId: UUID!
   $holdeLicenseOrderBy: [MstrStaffLicensesOrderBy!]

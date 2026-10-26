@@ -493,7 +493,16 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
             name: NameNode(value: 'MstrApprovalPatternFilter'),
             isNonNull: false,
           ),
-          defaultValue: DefaultValueNode(value: ObjectValueNode(fields: [])),
+          defaultValue: DefaultValueNode(
+            value: ObjectValueNode(
+              fields: [
+                ObjectFieldNode(
+                  name: NameNode(value: 'and'),
+                  value: ListValueNode(values: []),
+                ),
+              ],
+            ),
+          ),
           directives: [],
         ),
         VariableDefinitionNode(

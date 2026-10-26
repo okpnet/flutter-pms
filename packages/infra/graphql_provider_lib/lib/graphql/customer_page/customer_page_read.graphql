@@ -6,7 +6,7 @@
 query CustomerPageRead(
   $first: Int!
   $offset: Int
-  $filter: MstrStakeholderFilter = {}
+  $filter: MstrStakeholderFilter = {and: []}
   $orderBy: [MstrStakeholdersOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false

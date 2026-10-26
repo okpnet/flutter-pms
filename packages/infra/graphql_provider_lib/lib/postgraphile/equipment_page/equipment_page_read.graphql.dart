@@ -417,7 +417,16 @@ const documentNodeQueryEquipmentPageRead = DocumentNode(
             name: NameNode(value: 'MstrEquipmentFilter'),
             isNonNull: false,
           ),
-          defaultValue: DefaultValueNode(value: ObjectValueNode(fields: [])),
+          defaultValue: DefaultValueNode(
+            value: ObjectValueNode(
+              fields: [
+                ObjectFieldNode(
+                  name: NameNode(value: 'and'),
+                  value: ListValueNode(values: []),
+                ),
+              ],
+            ),
+          ),
           directives: [],
         ),
         VariableDefinitionNode(

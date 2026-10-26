@@ -6,7 +6,7 @@
 query CapableStaffPageRead(
   $first: Int!
   $offset: Int
-  $filter: MstrCapabilityFilter = {}
+  $filter: MstrCapabilityFilter = {and: []}
   $orderBy: [MstrCapabilitiesOrderBy!]
   $languageCodeId: UUID!
   $staffCapabilityOrderBy: [MstrStaffCapabilitiesOrderBy!]

@@ -6,7 +6,7 @@
 query DepartmentPageRead(
   $first: Int!
   $offset: Int
-  $filter: InfoDepartmentFilter = {}
+  $filter: InfoDepartmentFilter = {and: []}
   $orderBy: [InfoDepartmentsOrderBy!]
   $languageCodeId: UUID!
   $departmentKindsOrderBy: [InfoDepartmentKindsOrderBy!]

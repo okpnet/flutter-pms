@@ -6,7 +6,7 @@
 query CompanyPageRead(
   $first: Int!
   $offset: Int
-  $filter: InfoCompanyFilter = {}
+  $filter: InfoCompanyFilter = {and: []}
   $orderBy: [InfoCompaniesOrderBy!]
   $languageCodeId: UUID!
   $provisionsOrderBy: [InfoProvisionsOrderBy!]

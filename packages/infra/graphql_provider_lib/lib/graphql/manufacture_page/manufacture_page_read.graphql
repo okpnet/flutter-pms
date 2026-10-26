@@ -6,7 +6,7 @@
 query ManufacturePageRead(
   $first: Int!
   $offset: Int
-  $filter: MstrManufacturerFilter = {}
+  $filter: MstrManufacturerFilter = {and: []}
   $orderBy: [MstrManufacturersOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false

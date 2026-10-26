@@ -153,11 +153,12 @@ void main() {
       );
     });
 
-    test('nullまたは空の条件は無視し、条件が無ければ空のMapを返す', () {
-      expect(converter.convert({}), isEmpty);
+    test('nullまたは空の条件は無視し、条件が無ければ{and: []}を返す(空のMapはサーバーが拒否する)', () {
+      const none = {'and': <dynamic>[]};
+      expect(converter.convert({}), none);
       expect(
         converter.convert({'code': null, 'name': <String, dynamic>{}}),
-        isEmpty,
+        none,
       );
     });
 

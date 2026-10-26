@@ -6,7 +6,7 @@
 query OfficePageRead(
   $first: Int!
   $offset: Int
-  $filter: InfoOfficeFilter = {}
+  $filter: InfoOfficeFilter = {and: []}
   $orderBy: [InfoOfficesOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false

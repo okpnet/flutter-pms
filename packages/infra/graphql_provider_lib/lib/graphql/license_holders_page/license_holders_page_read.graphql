@@ -6,7 +6,7 @@
 query LicenseHoldersPageRead(
   $first: Int!
   $offset: Int
-  $filter: MstrLicenseFilter = {}
+  $filter: MstrLicenseFilter = {and: []}
   $orderBy: [MstrLicensesOrderBy!]
   $languageCodeId: UUID!
   $licensesOrderBy: [MstrStaffLicensesOrderBy!]

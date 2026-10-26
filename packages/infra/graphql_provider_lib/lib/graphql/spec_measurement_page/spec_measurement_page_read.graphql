@@ -6,7 +6,7 @@
 query SpecMeasurementPageRead(
   $first: Int!
   $offset: Int
-  $filter: MstrSpecMeasurementFilter = {}
+  $filter: MstrSpecMeasurementFilter = {and: []}
   $orderBy: [MstrSpecMeasurementsOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false

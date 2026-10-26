@@ -405,7 +405,16 @@ const documentNodeQueryItemPageRead = DocumentNode(
             name: NameNode(value: 'MstrItemFilter'),
             isNonNull: false,
           ),
-          defaultValue: DefaultValueNode(value: ObjectValueNode(fields: [])),
+          defaultValue: DefaultValueNode(
+            value: ObjectValueNode(
+              fields: [
+                ObjectFieldNode(
+                  name: NameNode(value: 'and'),
+                  value: ListValueNode(values: []),
+                ),
+              ],
+            ),
+          ),
           directives: [],
         ),
         VariableDefinitionNode(

@@ -6,7 +6,7 @@
 query InspectionItemPageRead(
   $first: Int!
   $offset: Int
-  $filter: MstrInspectionFilter = {}
+  $filter: MstrInspectionFilter = {and: []}
   $orderBy: [MstrInspectionsOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false

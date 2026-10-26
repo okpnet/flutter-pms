@@ -6,7 +6,7 @@
 query ProvisionPageRead(
   $first: Int!
   $offset: Int
-  $filter: InfoProvisionFilter = {}
+  $filter: InfoProvisionFilter = {and: []}
   $orderBy: [InfoProvisionsOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false

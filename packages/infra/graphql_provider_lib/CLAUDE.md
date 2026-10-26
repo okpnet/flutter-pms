@@ -104,7 +104,8 @@ doc/log/                     要件ごとの実施ログ(生成結果のレポ�
 
 ### 4-5. 検索条件(平坦なMap → Filter)(0050)
 
-- readの`$filter: <テーブル>Filter`(= {}が既定値)は、`filter: { and: [{ remove: { equalTo: $removed } }, $filter] }`の形で渡す。`$filter`が省略されても、`remove`の条件は常に効く。
+- readの`$filter: <テーブル>Filter`(= {and: []}が既定値)は、`filter: { and: [{ remove: { equalTo: $removed } }, $filter] }`の形で渡す。`$filter`が省略されても、`remove`の条件は常に効く。
+  - connection-filterは空のMap`{}`を拒否する(`Empty objects are forbidden in filter argument input.`)ため、既定値と「条件なし」は`{and: []}`とする。変数のnullの明示も拒否されるため、省略する(生成モデルのVariablesはnullを渡すとキーを省略する)。
 - 呼び出し側は、検索条件を平坦なMap(キーは平坦化キーの定数、値はconnection-filterの演算子のMap)で渡す。`FlatFilterConverter`(`lib/extensions/flat_filter_converter.dart`)が、入れ子の`<テーブル>Filter`のMapへ展開する。結果は`Input$<テーブル>Filter.fromJson`へ渡せる。
   ```dart
   final filter = FlatFilterConverter(OfficePageFilterSpec.spec).convert(
