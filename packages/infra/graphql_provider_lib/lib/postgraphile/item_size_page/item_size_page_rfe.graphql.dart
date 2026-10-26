@@ -1485,6 +1485,33 @@ const documentNodeQueryItemSizePageRfe = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(
+                          value:
+                              'vItemSizeKindItemActualSizeCountByMstrItemSizeKindId',
+                        ),
+                        alias: NameNode(value: 'item_actual_size_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrItemSizeKindId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -2864,6 +2891,7 @@ class Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds {
     this.unit,
     this.symbol,
     this.remarks,
+    this.item_actual_size_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -2881,6 +2909,7 @@ class Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds {
     final l$unit = json['unit'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$item_actual_size_count = json['item_actual_size_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -2902,6 +2931,11 @@ class Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds {
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      item_actual_size_count: l$item_actual_size_count == null
+          ? null
+          : Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count.fromJson(
+              (l$item_actual_size_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -2931,6 +2965,9 @@ class Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds {
 
   final String? remarks;
 
+  final Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count?
+  item_actual_size_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -2958,6 +2995,8 @@ class Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$item_actual_size_count = item_actual_size_count;
+    _resultData['item_actual_size_count'] = l$item_actual_size_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -2979,6 +3018,7 @@ class Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds {
     final l$unit = unit;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$item_actual_size_count = item_actual_size_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -2992,6 +3032,7 @@ class Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds {
       l$unit,
       l$symbol,
       l$remarks,
+      l$item_actual_size_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -3047,6 +3088,11 @@ class Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds {
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$item_actual_size_count = item_actual_size_count;
+    final lOther$item_actual_size_count = other.item_actual_size_count;
+    if (l$item_actual_size_count != lOther$item_actual_size_count) {
       return false;
     }
     final l$updateAt = updateAt;
@@ -3112,6 +3158,8 @@ abstract class CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActual
     unit,
     String? symbol,
     String? remarks,
+    Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count?
+    item_actual_size_count,
     String? updateAt,
     bool? remove,
     Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$update_user?
@@ -3126,6 +3174,10 @@ abstract class CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActual
     TRes
   >
   get unit;
+  CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count<
+    TRes
+  >
+  get item_actual_size_count;
   CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$update_user<
     TRes
   >
@@ -3163,6 +3215,7 @@ class _CopyWithImpl$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSize
     Object? unit = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? item_actual_size_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -3192,6 +3245,10 @@ class _CopyWithImpl$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSize
                 as Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$unit?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      item_actual_size_count: item_actual_size_count == _undefined
+          ? _instance.item_actual_size_count
+          : (item_actual_size_count
+                as Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -3236,6 +3293,21 @@ class _CopyWithImpl$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSize
           );
   }
 
+  CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count<
+    TRes
+  >
+  get item_actual_size_count {
+    final local$item_actual_size_count = _instance.item_actual_size_count;
+    return local$item_actual_size_count == null
+        ? CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count(
+            local$item_actual_size_count,
+            (e) => call(item_actual_size_count: e),
+          );
+  }
+
   CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$update_user<
     TRes
   >
@@ -3276,6 +3348,8 @@ class _CopyWithStubImpl$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActual
     unit,
     String? symbol,
     String? remarks,
+    Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count?
+    item_actual_size_count,
     String? updateAt,
     bool? remove,
     Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$update_user?
@@ -3296,6 +3370,14 @@ class _CopyWithStubImpl$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActual
   >
   get unit =>
       CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$unit.stub(
+        _res,
+      );
+
+  CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count<
+    TRes
+  >
+  get item_actual_size_count =>
+      CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count.stub(
         _res,
       );
 
@@ -10128,6 +10210,152 @@ class _CopyWithStubImpl$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActual
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count {
+  Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count({
+    this.mstrItemSizeKindId,
+    this.$__typename = 'VItemSizeKindItemActualSizeCount',
+  });
+
+  factory Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrItemSizeKindId = json['mstrItemSizeKindId'];
+    final l$$__typename = json['__typename'];
+    return Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count(
+      mstrItemSizeKindId: (l$mstrItemSizeKindId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrItemSizeKindId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrItemSizeKindId = mstrItemSizeKindId;
+    _resultData['mstrItemSizeKindId'] = l$mstrItemSizeKindId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrItemSizeKindId = mstrItemSizeKindId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrItemSizeKindId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrItemSizeKindId = mstrItemSizeKindId;
+    final lOther$mstrItemSizeKindId = other.mstrItemSizeKindId;
+    if (l$mstrItemSizeKindId != lOther$mstrItemSizeKindId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count
+    on
+        Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count {
+  CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count<
+    Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count
+  >
+  get copyWith =>
+      CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count<
+  TRes
+> {
+  factory CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count(
+    Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count
+    instance,
+    TRes Function(
+      Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count;
+
+  factory CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count;
+
+  TRes call({String? mstrItemSizeKindId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count
+  _instance;
+
+  final TRes Function(
+    Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrItemSizeKindId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count(
+      mstrItemSizeKindId: mstrItemSizeKindId == _undefined
+          ? _instance.mstrItemSizeKindId
+          : (mstrItemSizeKindId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$item_actual_size_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrItemSizeKindId, String? $__typename}) => _res;
 }
 
 class Query$ItemSizePageRfe$mstrItemActualSizeByMstrItemActualSizeId$kinds$update_user {

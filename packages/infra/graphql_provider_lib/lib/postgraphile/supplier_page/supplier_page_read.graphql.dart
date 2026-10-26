@@ -932,7 +932,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                               selectionSet: null,
                             ),
                             FieldNode(
-                              name: NameNode(value: 'iso31663'),
+                              name: NameNode(value: 'iso31662'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -2799,6 +2799,87 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(
+                          value:
+                              'vStakeholderOutsourceAvailableCountByMstrStakeholderId',
+                        ),
+                        alias: NameNode(value: 'outsource_available_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrStakeholderId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value:
+                              'vStakeholderStakeholderProvisionCountByMstrStakeholderId',
+                        ),
+                        alias: NameNode(value: 'stakeholder_provision_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrStakeholderId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value:
+                              'vStakeholderStakeholderContactCountByMstrStakeholderId',
+                        ),
+                        alias: NameNode(value: 'stakeholder_contact_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrStakeholderId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -3794,6 +3875,9 @@ class Query$SupplierPageRead$allMstrStakeholders$nodes {
     this.shippingKinds,
     this.symbol,
     this.remarks,
+    this.outsource_available_count,
+    this.stakeholder_provision_count,
+    this.stakeholder_contact_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -3816,6 +3900,9 @@ class Query$SupplierPageRead$allMstrStakeholders$nodes {
     final l$shippingKinds = json['shippingKinds'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$outsource_available_count = json['outsource_available_count'];
+    final l$stakeholder_provision_count = json['stakeholder_provision_count'];
+    final l$stakeholder_contact_count = json['stakeholder_contact_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -3846,6 +3933,21 @@ class Query$SupplierPageRead$allMstrStakeholders$nodes {
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      outsource_available_count: l$outsource_available_count == null
+          ? null
+          : Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count.fromJson(
+              (l$outsource_available_count as Map<String, dynamic>),
+            ),
+      stakeholder_provision_count: l$stakeholder_provision_count == null
+          ? null
+          : Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count.fromJson(
+              (l$stakeholder_provision_count as Map<String, dynamic>),
+            ),
+      stakeholder_contact_count: l$stakeholder_contact_count == null
+          ? null
+          : Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count.fromJson(
+              (l$stakeholder_contact_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -3884,6 +3986,15 @@ class Query$SupplierPageRead$allMstrStakeholders$nodes {
 
   final String? remarks;
 
+  final Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count?
+  outsource_available_count;
+
+  final Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count?
+  stakeholder_provision_count;
+
+  final Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count?
+  stakeholder_contact_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -3921,6 +4032,15 @@ class Query$SupplierPageRead$allMstrStakeholders$nodes {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$outsource_available_count = outsource_available_count;
+    _resultData['outsource_available_count'] = l$outsource_available_count
+        ?.toJson();
+    final l$stakeholder_provision_count = stakeholder_provision_count;
+    _resultData['stakeholder_provision_count'] = l$stakeholder_provision_count
+        ?.toJson();
+    final l$stakeholder_contact_count = stakeholder_contact_count;
+    _resultData['stakeholder_contact_count'] = l$stakeholder_contact_count
+        ?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -3947,6 +4067,9 @@ class Query$SupplierPageRead$allMstrStakeholders$nodes {
     final l$shippingKinds = shippingKinds;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$outsource_available_count = outsource_available_count;
+    final l$stakeholder_provision_count = stakeholder_provision_count;
+    final l$stakeholder_contact_count = stakeholder_contact_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -3965,6 +4088,9 @@ class Query$SupplierPageRead$allMstrStakeholders$nodes {
       l$shippingKinds,
       l$symbol,
       l$remarks,
+      l$outsource_available_count,
+      l$stakeholder_provision_count,
+      l$stakeholder_contact_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -4046,6 +4172,22 @@ class Query$SupplierPageRead$allMstrStakeholders$nodes {
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$outsource_available_count = outsource_available_count;
+    final lOther$outsource_available_count = other.outsource_available_count;
+    if (l$outsource_available_count != lOther$outsource_available_count) {
+      return false;
+    }
+    final l$stakeholder_provision_count = stakeholder_provision_count;
+    final lOther$stakeholder_provision_count =
+        other.stakeholder_provision_count;
+    if (l$stakeholder_provision_count != lOther$stakeholder_provision_count) {
+      return false;
+    }
+    final l$stakeholder_contact_count = stakeholder_contact_count;
+    final lOther$stakeholder_contact_count = other.stakeholder_contact_count;
+    if (l$stakeholder_contact_count != lOther$stakeholder_contact_count) {
+      return false;
+    }
     final l$updateAt = updateAt;
     final lOther$updateAt = other.updateAt;
     if (l$updateAt != lOther$updateAt) {
@@ -4104,6 +4246,12 @@ abstract class CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes<TRes> {
     shippingKinds,
     String? symbol,
     String? remarks,
+    Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count?
+    outsource_available_count,
+    Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count?
+    stakeholder_provision_count,
+    Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count?
+    stakeholder_contact_count,
     String? updateAt,
     bool? remove,
     Query$SupplierPageRead$allMstrStakeholders$nodes$update_user? update_user,
@@ -4115,6 +4263,18 @@ abstract class CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes<TRes> {
   get address;
   CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$shippingKinds<TRes>
   get shippingKinds;
+  CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count<
+    TRes
+  >
+  get outsource_available_count;
+  CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count<
+    TRes
+  >
+  get stakeholder_provision_count;
+  CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count<
+    TRes
+  >
+  get stakeholder_contact_count;
   CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$update_user<TRes>
   get update_user;
 }
@@ -4146,6 +4306,9 @@ class _CopyWithImpl$Query$SupplierPageRead$allMstrStakeholders$nodes<TRes>
     Object? shippingKinds = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? outsource_available_count = _undefined,
+    Object? stakeholder_provision_count = _undefined,
+    Object? stakeholder_contact_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -4189,6 +4352,18 @@ class _CopyWithImpl$Query$SupplierPageRead$allMstrStakeholders$nodes<TRes>
                 as Query$SupplierPageRead$allMstrStakeholders$nodes$shippingKinds?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      outsource_available_count: outsource_available_count == _undefined
+          ? _instance.outsource_available_count
+          : (outsource_available_count
+                as Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count?),
+      stakeholder_provision_count: stakeholder_provision_count == _undefined
+          ? _instance.stakeholder_provision_count
+          : (stakeholder_provision_count
+                as Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count?),
+      stakeholder_contact_count: stakeholder_contact_count == _undefined
+          ? _instance.stakeholder_contact_count
+          : (stakeholder_contact_count
+                as Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -4242,6 +4417,52 @@ class _CopyWithImpl$Query$SupplierPageRead$allMstrStakeholders$nodes<TRes>
           );
   }
 
+  CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count<
+    TRes
+  >
+  get outsource_available_count {
+    final local$outsource_available_count = _instance.outsource_available_count;
+    return local$outsource_available_count == null
+        ? CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count(
+            local$outsource_available_count,
+            (e) => call(outsource_available_count: e),
+          );
+  }
+
+  CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count<
+    TRes
+  >
+  get stakeholder_provision_count {
+    final local$stakeholder_provision_count =
+        _instance.stakeholder_provision_count;
+    return local$stakeholder_provision_count == null
+        ? CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count(
+            local$stakeholder_provision_count,
+            (e) => call(stakeholder_provision_count: e),
+          );
+  }
+
+  CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count<
+    TRes
+  >
+  get stakeholder_contact_count {
+    final local$stakeholder_contact_count = _instance.stakeholder_contact_count;
+    return local$stakeholder_contact_count == null
+        ? CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count(
+            local$stakeholder_contact_count,
+            (e) => call(stakeholder_contact_count: e),
+          );
+  }
+
   CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$update_user<TRes>
   get update_user {
     final local$update_user = _instance.update_user;
@@ -4277,6 +4498,12 @@ class _CopyWithStubImpl$Query$SupplierPageRead$allMstrStakeholders$nodes<TRes>
     shippingKinds,
     String? symbol,
     String? remarks,
+    Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count?
+    outsource_available_count,
+    Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count?
+    stakeholder_provision_count,
+    Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count?
+    stakeholder_contact_count,
     String? updateAt,
     bool? remove,
     Query$SupplierPageRead$allMstrStakeholders$nodes$update_user? update_user,
@@ -4298,6 +4525,30 @@ class _CopyWithStubImpl$Query$SupplierPageRead$allMstrStakeholders$nodes<TRes>
   CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$shippingKinds<TRes>
   get shippingKinds =>
       CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$shippingKinds.stub(
+        _res,
+      );
+
+  CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count<
+    TRes
+  >
+  get outsource_available_count =>
+      CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count<
+    TRes
+  >
+  get stakeholder_provision_count =>
+      CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count<
+    TRes
+  >
+  get stakeholder_contact_count =>
+      CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count.stub(
         _res,
       );
 
@@ -6362,7 +6613,7 @@ class _CopyWithStubImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$labels$
 class Query$SupplierPageRead$allMstrStakeholders$nodes$address {
   Query$SupplierPageRead$allMstrStakeholders$nodes$address({
     required this.infoAddressId,
-    this.iso31663,
+    this.iso31662,
     this.zipCode,
     this.address1,
     this.address2,
@@ -6376,7 +6627,7 @@ class Query$SupplierPageRead$allMstrStakeholders$nodes$address {
     Map<String, dynamic> json,
   ) {
     final l$infoAddressId = json['infoAddressId'];
-    final l$iso31663 = json['iso31663'];
+    final l$iso31662 = json['iso31662'];
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
@@ -6386,7 +6637,7 @@ class Query$SupplierPageRead$allMstrStakeholders$nodes$address {
     final l$$__typename = json['__typename'];
     return Query$SupplierPageRead$allMstrStakeholders$nodes$address(
       infoAddressId: (l$infoAddressId as String),
-      iso31663: (l$iso31663 as String?),
+      iso31662: (l$iso31662 as String?),
       zipCode: (l$zipCode as String?),
       address1: l$address1 == null
           ? null
@@ -6411,7 +6662,7 @@ class Query$SupplierPageRead$allMstrStakeholders$nodes$address {
 
   final String infoAddressId;
 
-  final String? iso31663;
+  final String? iso31662;
 
   final String? zipCode;
 
@@ -6434,8 +6685,8 @@ class Query$SupplierPageRead$allMstrStakeholders$nodes$address {
     final _resultData = <String, dynamic>{};
     final l$infoAddressId = infoAddressId;
     _resultData['infoAddressId'] = l$infoAddressId;
-    final l$iso31663 = iso31663;
-    _resultData['iso31663'] = l$iso31663;
+    final l$iso31662 = iso31662;
+    _resultData['iso31662'] = l$iso31662;
     final l$zipCode = zipCode;
     _resultData['zipCode'] = l$zipCode;
     final l$address1 = address1;
@@ -6456,7 +6707,7 @@ class Query$SupplierPageRead$allMstrStakeholders$nodes$address {
   @override
   int get hashCode {
     final l$infoAddressId = infoAddressId;
-    final l$iso31663 = iso31663;
+    final l$iso31662 = iso31662;
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
@@ -6466,7 +6717,7 @@ class Query$SupplierPageRead$allMstrStakeholders$nodes$address {
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
-      l$iso31663,
+      l$iso31662,
       l$zipCode,
       l$address1,
       l$address2,
@@ -6491,9 +6742,9 @@ class Query$SupplierPageRead$allMstrStakeholders$nodes$address {
     if (l$infoAddressId != lOther$infoAddressId) {
       return false;
     }
-    final l$iso31663 = iso31663;
-    final lOther$iso31663 = other.iso31663;
-    if (l$iso31663 != lOther$iso31663) {
+    final l$iso31662 = iso31662;
+    final lOther$iso31662 = other.iso31662;
+    if (l$iso31662 != lOther$iso31662) {
       return false;
     }
     final l$zipCode = zipCode;
@@ -6562,7 +6813,7 @@ abstract class CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$address
 
   TRes call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$SupplierPageRead$allMstrStakeholders$nodes$address$address1? address1,
     Query$SupplierPageRead$allMstrStakeholders$nodes$address$address2? address2,
@@ -6606,7 +6857,7 @@ class _CopyWithImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$address<
 
   TRes call({
     Object? infoAddressId = _undefined,
-    Object? iso31663 = _undefined,
+    Object? iso31662 = _undefined,
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
@@ -6619,9 +6870,9 @@ class _CopyWithImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$address<
       infoAddressId: infoAddressId == _undefined || infoAddressId == null
           ? _instance.infoAddressId
           : (infoAddressId as String),
-      iso31663: iso31663 == _undefined
-          ? _instance.iso31663
-          : (iso31663 as String?),
+      iso31662: iso31662 == _undefined
+          ? _instance.iso31662
+          : (iso31662 as String?),
       zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
       address1: address1 == _undefined
           ? _instance.address1
@@ -6706,7 +6957,7 @@ class _CopyWithStubImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$address
 
   call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$SupplierPageRead$allMstrStakeholders$nodes$address$address1? address1,
     Query$SupplierPageRead$allMstrStakeholders$nodes$address$address2? address2,
@@ -17751,6 +18002,441 @@ class _CopyWithStubImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$shippin
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count {
+  Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count({
+    this.mstrStakeholderId,
+    this.$__typename = 'VStakeholderOutsourceAvailableCount',
+  });
+
+  factory Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrStakeholderId = json['mstrStakeholderId'];
+    final l$$__typename = json['__typename'];
+    return Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count(
+      mstrStakeholderId: (l$mstrStakeholderId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrStakeholderId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrStakeholderId = mstrStakeholderId;
+    _resultData['mstrStakeholderId'] = l$mstrStakeholderId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrStakeholderId = mstrStakeholderId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrStakeholderId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrStakeholderId = mstrStakeholderId;
+    final lOther$mstrStakeholderId = other.mstrStakeholderId;
+    if (l$mstrStakeholderId != lOther$mstrStakeholderId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count
+    on Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count {
+  CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count<
+    Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count
+  >
+  get copyWith =>
+      CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count<
+  TRes
+> {
+  factory CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count(
+    Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count
+    instance,
+    TRes Function(
+      Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count;
+
+  factory CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count;
+
+  TRes call({String? mstrStakeholderId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count<
+  TRes
+>
+    implements
+        CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count
+  _instance;
+
+  final TRes Function(
+    Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrStakeholderId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count(
+      mstrStakeholderId: mstrStakeholderId == _undefined
+          ? _instance.mstrStakeholderId
+          : (mstrStakeholderId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count<
+  TRes
+>
+    implements
+        CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$outsource_available_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrStakeholderId, String? $__typename}) => _res;
+}
+
+class Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count {
+  Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count({
+    this.mstrStakeholderId,
+    this.$__typename = 'VStakeholderStakeholderProvisionCount',
+  });
+
+  factory Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrStakeholderId = json['mstrStakeholderId'];
+    final l$$__typename = json['__typename'];
+    return Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count(
+      mstrStakeholderId: (l$mstrStakeholderId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrStakeholderId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrStakeholderId = mstrStakeholderId;
+    _resultData['mstrStakeholderId'] = l$mstrStakeholderId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrStakeholderId = mstrStakeholderId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrStakeholderId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrStakeholderId = mstrStakeholderId;
+    final lOther$mstrStakeholderId = other.mstrStakeholderId;
+    if (l$mstrStakeholderId != lOther$mstrStakeholderId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count
+    on Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count {
+  CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count<
+    Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count
+  >
+  get copyWith =>
+      CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count<
+  TRes
+> {
+  factory CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count(
+    Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count
+    instance,
+    TRes Function(
+      Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count;
+
+  factory CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count;
+
+  TRes call({String? mstrStakeholderId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count
+  _instance;
+
+  final TRes Function(
+    Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrStakeholderId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count(
+      mstrStakeholderId: mstrStakeholderId == _undefined
+          ? _instance.mstrStakeholderId
+          : (mstrStakeholderId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_provision_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrStakeholderId, String? $__typename}) => _res;
+}
+
+class Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count {
+  Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count({
+    this.mstrStakeholderId,
+    this.$__typename = 'VStakeholderStakeholderContactCount',
+  });
+
+  factory Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrStakeholderId = json['mstrStakeholderId'];
+    final l$$__typename = json['__typename'];
+    return Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count(
+      mstrStakeholderId: (l$mstrStakeholderId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrStakeholderId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrStakeholderId = mstrStakeholderId;
+    _resultData['mstrStakeholderId'] = l$mstrStakeholderId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrStakeholderId = mstrStakeholderId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrStakeholderId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrStakeholderId = mstrStakeholderId;
+    final lOther$mstrStakeholderId = other.mstrStakeholderId;
+    if (l$mstrStakeholderId != lOther$mstrStakeholderId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count
+    on Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count {
+  CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count<
+    Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count
+  >
+  get copyWith =>
+      CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count<
+  TRes
+> {
+  factory CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count(
+    Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count
+    instance,
+    TRes Function(
+      Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count;
+
+  factory CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count;
+
+  TRes call({String? mstrStakeholderId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count<
+  TRes
+>
+    implements
+        CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count
+  _instance;
+
+  final TRes Function(
+    Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrStakeholderId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count(
+      mstrStakeholderId: mstrStakeholderId == _undefined
+          ? _instance.mstrStakeholderId
+          : (mstrStakeholderId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count<
+  TRes
+>
+    implements
+        CopyWith$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$SupplierPageRead$allMstrStakeholders$nodes$stakeholder_contact_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrStakeholderId, String? $__typename}) => _res;
 }
 
 class Query$SupplierPageRead$allMstrStakeholders$nodes$update_user {

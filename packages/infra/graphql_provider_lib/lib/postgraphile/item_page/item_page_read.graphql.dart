@@ -2964,6 +2964,188 @@ const documentNodeQueryItemPageRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(
+                          value: 'vItemItemProvisionCountByMstrItemId',
+                        ),
+                        alias: NameNode(value: 'item_provision_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrItemId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vItemItemOperationTaskCountByMstrItemId',
+                        ),
+                        alias: NameNode(value: 'item_operation_task_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrItemId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vItemItemOperationCountByMstrItemId',
+                        ),
+                        alias: NameNode(value: 'item_operation_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrItemId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vItemItemHcdcsCountByMstrItemId',
+                        ),
+                        alias: NameNode(value: 'item_hcdcs_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrItemId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vItemItemActualSizeCountByMstrItemId',
+                        ),
+                        alias: NameNode(value: 'item_actual_size_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrItemId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vItemInspectionCountByMstrItemId',
+                        ),
+                        alias: NameNode(value: 'inspection_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrItemId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vItemEquipmentCountByMstrItemId',
+                        ),
+                        alias: NameNode(value: 'equipment_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrItemId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -3936,6 +4118,13 @@ class Query$ItemPageRead$allMstrItems$nodes {
     this.lots,
     this.symbol,
     this.remarks,
+    this.item_provision_count,
+    this.item_operation_task_count,
+    this.item_operation_count,
+    this.item_hcdcs_count,
+    this.item_actual_size_count,
+    this.inspection_count,
+    this.equipment_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -3964,6 +4153,13 @@ class Query$ItemPageRead$allMstrItems$nodes {
     final l$lots = json['lots'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$item_provision_count = json['item_provision_count'];
+    final l$item_operation_task_count = json['item_operation_task_count'];
+    final l$item_operation_count = json['item_operation_count'];
+    final l$item_hcdcs_count = json['item_hcdcs_count'];
+    final l$item_actual_size_count = json['item_actual_size_count'];
+    final l$inspection_count = json['inspection_count'];
+    final l$equipment_count = json['equipment_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -4024,6 +4220,41 @@ class Query$ItemPageRead$allMstrItems$nodes {
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      item_provision_count: l$item_provision_count == null
+          ? null
+          : Query$ItemPageRead$allMstrItems$nodes$item_provision_count.fromJson(
+              (l$item_provision_count as Map<String, dynamic>),
+            ),
+      item_operation_task_count: l$item_operation_task_count == null
+          ? null
+          : Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count.fromJson(
+              (l$item_operation_task_count as Map<String, dynamic>),
+            ),
+      item_operation_count: l$item_operation_count == null
+          ? null
+          : Query$ItemPageRead$allMstrItems$nodes$item_operation_count.fromJson(
+              (l$item_operation_count as Map<String, dynamic>),
+            ),
+      item_hcdcs_count: l$item_hcdcs_count == null
+          ? null
+          : Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count.fromJson(
+              (l$item_hcdcs_count as Map<String, dynamic>),
+            ),
+      item_actual_size_count: l$item_actual_size_count == null
+          ? null
+          : Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count.fromJson(
+              (l$item_actual_size_count as Map<String, dynamic>),
+            ),
+      inspection_count: l$inspection_count == null
+          ? null
+          : Query$ItemPageRead$allMstrItems$nodes$inspection_count.fromJson(
+              (l$inspection_count as Map<String, dynamic>),
+            ),
+      equipment_count: l$equipment_count == null
+          ? null
+          : Query$ItemPageRead$allMstrItems$nodes$equipment_count.fromJson(
+              (l$equipment_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -4073,6 +4304,26 @@ class Query$ItemPageRead$allMstrItems$nodes {
 
   final String? remarks;
 
+  final Query$ItemPageRead$allMstrItems$nodes$item_provision_count?
+  item_provision_count;
+
+  final Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count?
+  item_operation_task_count;
+
+  final Query$ItemPageRead$allMstrItems$nodes$item_operation_count?
+  item_operation_count;
+
+  final Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count?
+  item_hcdcs_count;
+
+  final Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count?
+  item_actual_size_count;
+
+  final Query$ItemPageRead$allMstrItems$nodes$inspection_count?
+  inspection_count;
+
+  final Query$ItemPageRead$allMstrItems$nodes$equipment_count? equipment_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -4121,6 +4372,21 @@ class Query$ItemPageRead$allMstrItems$nodes {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$item_provision_count = item_provision_count;
+    _resultData['item_provision_count'] = l$item_provision_count?.toJson();
+    final l$item_operation_task_count = item_operation_task_count;
+    _resultData['item_operation_task_count'] = l$item_operation_task_count
+        ?.toJson();
+    final l$item_operation_count = item_operation_count;
+    _resultData['item_operation_count'] = l$item_operation_count?.toJson();
+    final l$item_hcdcs_count = item_hcdcs_count;
+    _resultData['item_hcdcs_count'] = l$item_hcdcs_count?.toJson();
+    final l$item_actual_size_count = item_actual_size_count;
+    _resultData['item_actual_size_count'] = l$item_actual_size_count?.toJson();
+    final l$inspection_count = inspection_count;
+    _resultData['inspection_count'] = l$inspection_count?.toJson();
+    final l$equipment_count = equipment_count;
+    _resultData['equipment_count'] = l$equipment_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -4153,6 +4419,13 @@ class Query$ItemPageRead$allMstrItems$nodes {
     final l$lots = lots;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$item_provision_count = item_provision_count;
+    final l$item_operation_task_count = item_operation_task_count;
+    final l$item_operation_count = item_operation_count;
+    final l$item_hcdcs_count = item_hcdcs_count;
+    final l$item_actual_size_count = item_actual_size_count;
+    final l$inspection_count = inspection_count;
+    final l$equipment_count = equipment_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -4177,6 +4450,13 @@ class Query$ItemPageRead$allMstrItems$nodes {
       l$lots,
       l$symbol,
       l$remarks,
+      l$item_provision_count,
+      l$item_operation_task_count,
+      l$item_operation_count,
+      l$item_hcdcs_count,
+      l$item_actual_size_count,
+      l$inspection_count,
+      l$equipment_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -4288,6 +4568,41 @@ class Query$ItemPageRead$allMstrItems$nodes {
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$item_provision_count = item_provision_count;
+    final lOther$item_provision_count = other.item_provision_count;
+    if (l$item_provision_count != lOther$item_provision_count) {
+      return false;
+    }
+    final l$item_operation_task_count = item_operation_task_count;
+    final lOther$item_operation_task_count = other.item_operation_task_count;
+    if (l$item_operation_task_count != lOther$item_operation_task_count) {
+      return false;
+    }
+    final l$item_operation_count = item_operation_count;
+    final lOther$item_operation_count = other.item_operation_count;
+    if (l$item_operation_count != lOther$item_operation_count) {
+      return false;
+    }
+    final l$item_hcdcs_count = item_hcdcs_count;
+    final lOther$item_hcdcs_count = other.item_hcdcs_count;
+    if (l$item_hcdcs_count != lOther$item_hcdcs_count) {
+      return false;
+    }
+    final l$item_actual_size_count = item_actual_size_count;
+    final lOther$item_actual_size_count = other.item_actual_size_count;
+    if (l$item_actual_size_count != lOther$item_actual_size_count) {
+      return false;
+    }
+    final l$inspection_count = inspection_count;
+    final lOther$inspection_count = other.inspection_count;
+    if (l$inspection_count != lOther$inspection_count) {
+      return false;
+    }
+    final l$equipment_count = equipment_count;
+    final lOther$equipment_count = other.equipment_count;
+    if (l$equipment_count != lOther$equipment_count) {
+      return false;
+    }
     final l$updateAt = updateAt;
     final lOther$updateAt = other.updateAt;
     if (l$updateAt != lOther$updateAt) {
@@ -4350,6 +4665,17 @@ abstract class CopyWith$Query$ItemPageRead$allMstrItems$nodes<TRes> {
     Query$ItemPageRead$allMstrItems$nodes$lots? lots,
     String? symbol,
     String? remarks,
+    Query$ItemPageRead$allMstrItems$nodes$item_provision_count?
+    item_provision_count,
+    Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count?
+    item_operation_task_count,
+    Query$ItemPageRead$allMstrItems$nodes$item_operation_count?
+    item_operation_count,
+    Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count? item_hcdcs_count,
+    Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count?
+    item_actual_size_count,
+    Query$ItemPageRead$allMstrItems$nodes$inspection_count? inspection_count,
+    Query$ItemPageRead$allMstrItems$nodes$equipment_count? equipment_count,
     String? updateAt,
     bool? remove,
     Query$ItemPageRead$allMstrItems$nodes$update_user? update_user,
@@ -4367,6 +4693,20 @@ abstract class CopyWith$Query$ItemPageRead$allMstrItems$nodes<TRes> {
   CopyWith$Query$ItemPageRead$allMstrItems$nodes$unit<TRes> get unit;
   CopyWith$Query$ItemPageRead$allMstrItems$nodes$units<TRes> get units;
   CopyWith$Query$ItemPageRead$allMstrItems$nodes$lots<TRes> get lots;
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_provision_count<TRes>
+  get item_provision_count;
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count<TRes>
+  get item_operation_task_count;
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_count<TRes>
+  get item_operation_count;
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count<TRes>
+  get item_hcdcs_count;
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count<TRes>
+  get item_actual_size_count;
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$inspection_count<TRes>
+  get inspection_count;
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$equipment_count<TRes>
+  get equipment_count;
   CopyWith$Query$ItemPageRead$allMstrItems$nodes$update_user<TRes>
   get update_user;
 }
@@ -4404,6 +4744,13 @@ class _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes<TRes>
     Object? lots = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? item_provision_count = _undefined,
+    Object? item_operation_task_count = _undefined,
+    Object? item_operation_count = _undefined,
+    Object? item_hcdcs_count = _undefined,
+    Object? item_actual_size_count = _undefined,
+    Object? inspection_count = _undefined,
+    Object? equipment_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -4463,6 +4810,34 @@ class _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes<TRes>
           : (lots as Query$ItemPageRead$allMstrItems$nodes$lots?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      item_provision_count: item_provision_count == _undefined
+          ? _instance.item_provision_count
+          : (item_provision_count
+                as Query$ItemPageRead$allMstrItems$nodes$item_provision_count?),
+      item_operation_task_count: item_operation_task_count == _undefined
+          ? _instance.item_operation_task_count
+          : (item_operation_task_count
+                as Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count?),
+      item_operation_count: item_operation_count == _undefined
+          ? _instance.item_operation_count
+          : (item_operation_count
+                as Query$ItemPageRead$allMstrItems$nodes$item_operation_count?),
+      item_hcdcs_count: item_hcdcs_count == _undefined
+          ? _instance.item_hcdcs_count
+          : (item_hcdcs_count
+                as Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count?),
+      item_actual_size_count: item_actual_size_count == _undefined
+          ? _instance.item_actual_size_count
+          : (item_actual_size_count
+                as Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count?),
+      inspection_count: inspection_count == _undefined
+          ? _instance.inspection_count
+          : (inspection_count
+                as Query$ItemPageRead$allMstrItems$nodes$inspection_count?),
+      equipment_count: equipment_count == _undefined
+          ? _instance.equipment_count
+          : (equipment_count
+                as Query$ItemPageRead$allMstrItems$nodes$equipment_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -4587,6 +4962,97 @@ class _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes<TRes>
           );
   }
 
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_provision_count<TRes>
+  get item_provision_count {
+    final local$item_provision_count = _instance.item_provision_count;
+    return local$item_provision_count == null
+        ? CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_provision_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_provision_count(
+            local$item_provision_count,
+            (e) => call(item_provision_count: e),
+          );
+  }
+
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count<TRes>
+  get item_operation_task_count {
+    final local$item_operation_task_count = _instance.item_operation_task_count;
+    return local$item_operation_task_count == null
+        ? CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count(
+            local$item_operation_task_count,
+            (e) => call(item_operation_task_count: e),
+          );
+  }
+
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_count<TRes>
+  get item_operation_count {
+    final local$item_operation_count = _instance.item_operation_count;
+    return local$item_operation_count == null
+        ? CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_count(
+            local$item_operation_count,
+            (e) => call(item_operation_count: e),
+          );
+  }
+
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count<TRes>
+  get item_hcdcs_count {
+    final local$item_hcdcs_count = _instance.item_hcdcs_count;
+    return local$item_hcdcs_count == null
+        ? CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count(
+            local$item_hcdcs_count,
+            (e) => call(item_hcdcs_count: e),
+          );
+  }
+
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count<TRes>
+  get item_actual_size_count {
+    final local$item_actual_size_count = _instance.item_actual_size_count;
+    return local$item_actual_size_count == null
+        ? CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count(
+            local$item_actual_size_count,
+            (e) => call(item_actual_size_count: e),
+          );
+  }
+
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$inspection_count<TRes>
+  get inspection_count {
+    final local$inspection_count = _instance.inspection_count;
+    return local$inspection_count == null
+        ? CopyWith$Query$ItemPageRead$allMstrItems$nodes$inspection_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ItemPageRead$allMstrItems$nodes$inspection_count(
+            local$inspection_count,
+            (e) => call(inspection_count: e),
+          );
+  }
+
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$equipment_count<TRes>
+  get equipment_count {
+    final local$equipment_count = _instance.equipment_count;
+    return local$equipment_count == null
+        ? CopyWith$Query$ItemPageRead$allMstrItems$nodes$equipment_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ItemPageRead$allMstrItems$nodes$equipment_count(
+            local$equipment_count,
+            (e) => call(equipment_count: e),
+          );
+  }
+
   CopyWith$Query$ItemPageRead$allMstrItems$nodes$update_user<TRes>
   get update_user {
     final local$update_user = _instance.update_user;
@@ -4627,6 +5093,17 @@ class _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes<TRes>
     Query$ItemPageRead$allMstrItems$nodes$lots? lots,
     String? symbol,
     String? remarks,
+    Query$ItemPageRead$allMstrItems$nodes$item_provision_count?
+    item_provision_count,
+    Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count?
+    item_operation_task_count,
+    Query$ItemPageRead$allMstrItems$nodes$item_operation_count?
+    item_operation_count,
+    Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count? item_hcdcs_count,
+    Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count?
+    item_actual_size_count,
+    Query$ItemPageRead$allMstrItems$nodes$inspection_count? inspection_count,
+    Query$ItemPageRead$allMstrItems$nodes$equipment_count? equipment_count,
     String? updateAt,
     bool? remove,
     Query$ItemPageRead$allMstrItems$nodes$update_user? update_user,
@@ -4662,6 +5139,46 @@ class _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes<TRes>
 
   CopyWith$Query$ItemPageRead$allMstrItems$nodes$lots<TRes> get lots =>
       CopyWith$Query$ItemPageRead$allMstrItems$nodes$lots.stub(_res);
+
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_provision_count<TRes>
+  get item_provision_count =>
+      CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_provision_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count<TRes>
+  get item_operation_task_count =>
+      CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_count<TRes>
+  get item_operation_count =>
+      CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count<TRes>
+  get item_hcdcs_count =>
+      CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count<TRes>
+  get item_actual_size_count =>
+      CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$inspection_count<TRes>
+  get inspection_count =>
+      CopyWith$Query$ItemPageRead$allMstrItems$nodes$inspection_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$equipment_count<TRes>
+  get equipment_count =>
+      CopyWith$Query$ItemPageRead$allMstrItems$nodes$equipment_count.stub(_res);
 
   CopyWith$Query$ItemPageRead$allMstrItems$nodes$update_user<TRes>
   get update_user =>
@@ -19038,6 +19555,964 @@ class _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$lots<TRes>
   TRes _res;
 
   call({String? mstrItemLotId, String? $__typename}) => _res;
+}
+
+class Query$ItemPageRead$allMstrItems$nodes$item_provision_count {
+  Query$ItemPageRead$allMstrItems$nodes$item_provision_count({
+    this.mstrItemId,
+    this.$__typename = 'VItemItemProvisionCount',
+  });
+
+  factory Query$ItemPageRead$allMstrItems$nodes$item_provision_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrItemId = json['mstrItemId'];
+    final l$$__typename = json['__typename'];
+    return Query$ItemPageRead$allMstrItems$nodes$item_provision_count(
+      mstrItemId: (l$mstrItemId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrItemId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrItemId = mstrItemId;
+    _resultData['mstrItemId'] = l$mstrItemId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrItemId = mstrItemId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrItemId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$ItemPageRead$allMstrItems$nodes$item_provision_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrItemId = mstrItemId;
+    final lOther$mstrItemId = other.mstrItemId;
+    if (l$mstrItemId != lOther$mstrItemId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ItemPageRead$allMstrItems$nodes$item_provision_count
+    on Query$ItemPageRead$allMstrItems$nodes$item_provision_count {
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_provision_count<
+    Query$ItemPageRead$allMstrItems$nodes$item_provision_count
+  >
+  get copyWith =>
+      CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_provision_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_provision_count<
+  TRes
+> {
+  factory CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_provision_count(
+    Query$ItemPageRead$allMstrItems$nodes$item_provision_count instance,
+    TRes Function(Query$ItemPageRead$allMstrItems$nodes$item_provision_count)
+    then,
+  ) = _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$item_provision_count;
+
+  factory CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_provision_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$item_provision_count;
+
+  TRes call({String? mstrItemId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$item_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_provision_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$item_provision_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ItemPageRead$allMstrItems$nodes$item_provision_count _instance;
+
+  final TRes Function(
+    Query$ItemPageRead$allMstrItems$nodes$item_provision_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrItemId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ItemPageRead$allMstrItems$nodes$item_provision_count(
+      mstrItemId: mstrItemId == _undefined
+          ? _instance.mstrItemId
+          : (mstrItemId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$item_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_provision_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$item_provision_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrItemId, String? $__typename}) => _res;
+}
+
+class Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count {
+  Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count({
+    this.mstrItemId,
+    this.$__typename = 'VItemItemOperationTaskCount',
+  });
+
+  factory Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrItemId = json['mstrItemId'];
+    final l$$__typename = json['__typename'];
+    return Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count(
+      mstrItemId: (l$mstrItemId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrItemId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrItemId = mstrItemId;
+    _resultData['mstrItemId'] = l$mstrItemId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrItemId = mstrItemId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrItemId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrItemId = mstrItemId;
+    final lOther$mstrItemId = other.mstrItemId;
+    if (l$mstrItemId != lOther$mstrItemId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count
+    on Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count {
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count<
+    Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count
+  >
+  get copyWith =>
+      CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count<
+  TRes
+> {
+  factory CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count(
+    Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count instance,
+    TRes Function(
+      Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count;
+
+  factory CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count;
+
+  TRes call({String? mstrItemId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count
+  _instance;
+
+  final TRes Function(
+    Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrItemId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count(
+      mstrItemId: mstrItemId == _undefined
+          ? _instance.mstrItemId
+          : (mstrItemId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$item_operation_task_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrItemId, String? $__typename}) => _res;
+}
+
+class Query$ItemPageRead$allMstrItems$nodes$item_operation_count {
+  Query$ItemPageRead$allMstrItems$nodes$item_operation_count({
+    this.mstrItemId,
+    this.$__typename = 'VItemItemOperationCount',
+  });
+
+  factory Query$ItemPageRead$allMstrItems$nodes$item_operation_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrItemId = json['mstrItemId'];
+    final l$$__typename = json['__typename'];
+    return Query$ItemPageRead$allMstrItems$nodes$item_operation_count(
+      mstrItemId: (l$mstrItemId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrItemId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrItemId = mstrItemId;
+    _resultData['mstrItemId'] = l$mstrItemId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrItemId = mstrItemId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrItemId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$ItemPageRead$allMstrItems$nodes$item_operation_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrItemId = mstrItemId;
+    final lOther$mstrItemId = other.mstrItemId;
+    if (l$mstrItemId != lOther$mstrItemId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ItemPageRead$allMstrItems$nodes$item_operation_count
+    on Query$ItemPageRead$allMstrItems$nodes$item_operation_count {
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_count<
+    Query$ItemPageRead$allMstrItems$nodes$item_operation_count
+  >
+  get copyWith =>
+      CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_count<
+  TRes
+> {
+  factory CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_count(
+    Query$ItemPageRead$allMstrItems$nodes$item_operation_count instance,
+    TRes Function(Query$ItemPageRead$allMstrItems$nodes$item_operation_count)
+    then,
+  ) = _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$item_operation_count;
+
+  factory CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$item_operation_count;
+
+  TRes call({String? mstrItemId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$item_operation_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$item_operation_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ItemPageRead$allMstrItems$nodes$item_operation_count _instance;
+
+  final TRes Function(
+    Query$ItemPageRead$allMstrItems$nodes$item_operation_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrItemId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ItemPageRead$allMstrItems$nodes$item_operation_count(
+      mstrItemId: mstrItemId == _undefined
+          ? _instance.mstrItemId
+          : (mstrItemId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$item_operation_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_operation_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$item_operation_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrItemId, String? $__typename}) => _res;
+}
+
+class Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count {
+  Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count({
+    this.mstrItemId,
+    this.$__typename = 'VItemItemHcdcsCount',
+  });
+
+  factory Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrItemId = json['mstrItemId'];
+    final l$$__typename = json['__typename'];
+    return Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count(
+      mstrItemId: (l$mstrItemId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrItemId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrItemId = mstrItemId;
+    _resultData['mstrItemId'] = l$mstrItemId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrItemId = mstrItemId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrItemId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrItemId = mstrItemId;
+    final lOther$mstrItemId = other.mstrItemId;
+    if (l$mstrItemId != lOther$mstrItemId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count
+    on Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count {
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count<
+    Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count
+  >
+  get copyWith =>
+      CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count<
+  TRes
+> {
+  factory CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count(
+    Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count instance,
+    TRes Function(Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count) then,
+  ) = _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count;
+
+  factory CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count;
+
+  TRes call({String? mstrItemId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count<TRes>
+    implements
+        CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count<TRes> {
+  _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count _instance;
+
+  final TRes Function(Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrItemId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count(
+      mstrItemId: mstrItemId == _undefined
+          ? _instance.mstrItemId
+          : (mstrItemId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count<TRes> {
+  _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$item_hcdcs_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrItemId, String? $__typename}) => _res;
+}
+
+class Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count {
+  Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count({
+    this.mstrItemId,
+    this.$__typename = 'VItemItemActualSizeCount',
+  });
+
+  factory Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrItemId = json['mstrItemId'];
+    final l$$__typename = json['__typename'];
+    return Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count(
+      mstrItemId: (l$mstrItemId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrItemId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrItemId = mstrItemId;
+    _resultData['mstrItemId'] = l$mstrItemId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrItemId = mstrItemId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrItemId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrItemId = mstrItemId;
+    final lOther$mstrItemId = other.mstrItemId;
+    if (l$mstrItemId != lOther$mstrItemId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count
+    on Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count {
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count<
+    Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count
+  >
+  get copyWith =>
+      CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count<
+  TRes
+> {
+  factory CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count(
+    Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count instance,
+    TRes Function(Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count)
+    then,
+  ) = _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count;
+
+  factory CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count;
+
+  TRes call({String? mstrItemId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count _instance;
+
+  final TRes Function(
+    Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrItemId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count(
+      mstrItemId: mstrItemId == _undefined
+          ? _instance.mstrItemId
+          : (mstrItemId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$item_actual_size_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrItemId, String? $__typename}) => _res;
+}
+
+class Query$ItemPageRead$allMstrItems$nodes$inspection_count {
+  Query$ItemPageRead$allMstrItems$nodes$inspection_count({
+    this.mstrItemId,
+    this.$__typename = 'VItemInspectionCount',
+  });
+
+  factory Query$ItemPageRead$allMstrItems$nodes$inspection_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrItemId = json['mstrItemId'];
+    final l$$__typename = json['__typename'];
+    return Query$ItemPageRead$allMstrItems$nodes$inspection_count(
+      mstrItemId: (l$mstrItemId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrItemId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrItemId = mstrItemId;
+    _resultData['mstrItemId'] = l$mstrItemId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrItemId = mstrItemId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrItemId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$ItemPageRead$allMstrItems$nodes$inspection_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrItemId = mstrItemId;
+    final lOther$mstrItemId = other.mstrItemId;
+    if (l$mstrItemId != lOther$mstrItemId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ItemPageRead$allMstrItems$nodes$inspection_count
+    on Query$ItemPageRead$allMstrItems$nodes$inspection_count {
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$inspection_count<
+    Query$ItemPageRead$allMstrItems$nodes$inspection_count
+  >
+  get copyWith =>
+      CopyWith$Query$ItemPageRead$allMstrItems$nodes$inspection_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ItemPageRead$allMstrItems$nodes$inspection_count<
+  TRes
+> {
+  factory CopyWith$Query$ItemPageRead$allMstrItems$nodes$inspection_count(
+    Query$ItemPageRead$allMstrItems$nodes$inspection_count instance,
+    TRes Function(Query$ItemPageRead$allMstrItems$nodes$inspection_count) then,
+  ) = _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$inspection_count;
+
+  factory CopyWith$Query$ItemPageRead$allMstrItems$nodes$inspection_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$inspection_count;
+
+  TRes call({String? mstrItemId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$inspection_count<TRes>
+    implements
+        CopyWith$Query$ItemPageRead$allMstrItems$nodes$inspection_count<TRes> {
+  _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$inspection_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ItemPageRead$allMstrItems$nodes$inspection_count _instance;
+
+  final TRes Function(Query$ItemPageRead$allMstrItems$nodes$inspection_count)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrItemId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ItemPageRead$allMstrItems$nodes$inspection_count(
+      mstrItemId: mstrItemId == _undefined
+          ? _instance.mstrItemId
+          : (mstrItemId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$inspection_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ItemPageRead$allMstrItems$nodes$inspection_count<TRes> {
+  _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$inspection_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrItemId, String? $__typename}) => _res;
+}
+
+class Query$ItemPageRead$allMstrItems$nodes$equipment_count {
+  Query$ItemPageRead$allMstrItems$nodes$equipment_count({
+    this.mstrItemId,
+    this.$__typename = 'VItemEquipmentCount',
+  });
+
+  factory Query$ItemPageRead$allMstrItems$nodes$equipment_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrItemId = json['mstrItemId'];
+    final l$$__typename = json['__typename'];
+    return Query$ItemPageRead$allMstrItems$nodes$equipment_count(
+      mstrItemId: (l$mstrItemId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrItemId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrItemId = mstrItemId;
+    _resultData['mstrItemId'] = l$mstrItemId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrItemId = mstrItemId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrItemId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$ItemPageRead$allMstrItems$nodes$equipment_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrItemId = mstrItemId;
+    final lOther$mstrItemId = other.mstrItemId;
+    if (l$mstrItemId != lOther$mstrItemId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ItemPageRead$allMstrItems$nodes$equipment_count
+    on Query$ItemPageRead$allMstrItems$nodes$equipment_count {
+  CopyWith$Query$ItemPageRead$allMstrItems$nodes$equipment_count<
+    Query$ItemPageRead$allMstrItems$nodes$equipment_count
+  >
+  get copyWith =>
+      CopyWith$Query$ItemPageRead$allMstrItems$nodes$equipment_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ItemPageRead$allMstrItems$nodes$equipment_count<
+  TRes
+> {
+  factory CopyWith$Query$ItemPageRead$allMstrItems$nodes$equipment_count(
+    Query$ItemPageRead$allMstrItems$nodes$equipment_count instance,
+    TRes Function(Query$ItemPageRead$allMstrItems$nodes$equipment_count) then,
+  ) = _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$equipment_count;
+
+  factory CopyWith$Query$ItemPageRead$allMstrItems$nodes$equipment_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$equipment_count;
+
+  TRes call({String? mstrItemId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$equipment_count<TRes>
+    implements
+        CopyWith$Query$ItemPageRead$allMstrItems$nodes$equipment_count<TRes> {
+  _CopyWithImpl$Query$ItemPageRead$allMstrItems$nodes$equipment_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ItemPageRead$allMstrItems$nodes$equipment_count _instance;
+
+  final TRes Function(Query$ItemPageRead$allMstrItems$nodes$equipment_count)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrItemId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ItemPageRead$allMstrItems$nodes$equipment_count(
+      mstrItemId: mstrItemId == _undefined
+          ? _instance.mstrItemId
+          : (mstrItemId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$equipment_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ItemPageRead$allMstrItems$nodes$equipment_count<TRes> {
+  _CopyWithStubImpl$Query$ItemPageRead$allMstrItems$nodes$equipment_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrItemId, String? $__typename}) => _res;
 }
 
 class Query$ItemPageRead$allMstrItems$nodes$update_user {

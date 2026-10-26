@@ -5022,7 +5022,7 @@ const documentNodeQueryInspectionOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value: 'iso31663',
+                                                  value: 'iso31662',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -7206,7 +7206,7 @@ const documentNodeQueryInspectionOperationPageRead = DocumentNode(
                                           selectionSet: null,
                                         ),
                                         FieldNode(
-                                          name: NameNode(value: 'iso31663'),
+                                          name: NameNode(value: 'iso31662'),
                                           alias: null,
                                           arguments: [],
                                           directives: [],
@@ -8884,6 +8884,93 @@ const documentNodeQueryInspectionOperationPageRead = DocumentNode(
                               selectionSet: null,
                             ),
                             FieldNode(
+                              name: NameNode(
+                                value:
+                                    'vEquipmentEquipmentAvailableCountByMstrEquipmentId',
+                              ),
+                              alias: NameNode(
+                                value: 'equipment_available_count',
+                              ),
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'mstrEquipmentId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value:
+                                    'vEquipmentInspectionOperationCountByMstrEquipmentId',
+                              ),
+                              alias: NameNode(
+                                value: 'inspection_operation_count',
+                              ),
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'mstrEquipmentId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value:
+                                    'vEquipmentEquipmentProvisionCountByMstrEquipmentId',
+                              ),
+                              alias: NameNode(
+                                value: 'equipment_provision_count',
+                              ),
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'mstrEquipmentId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
                               name: NameNode(value: 'updateAt'),
                               alias: null,
                               arguments: [],
@@ -9345,6 +9432,37 @@ const documentNodeQueryInspectionOperationPageRead = DocumentNode(
                         arguments: [],
                         directives: [],
                         selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value:
+                              'vInspectionOperationInspectionOperationTaskCountByMstrInspectionOperationId',
+                        ),
+                        alias: NameNode(
+                          value: 'inspection_operation_task_count',
+                        ),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(
+                                value: 'mstrInspectionOperationId',
+                              ),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
                       ),
                       FieldNode(
                         name: NameNode(value: 'updateAt'),
@@ -10416,6 +10534,7 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes {
     this.equipments,
     this.symbol,
     this.remarks,
+    this.inspection_operation_task_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -10431,6 +10550,8 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes {
     final l$equipments = json['equipments'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$inspection_operation_task_count =
+        json['inspection_operation_task_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -10450,6 +10571,11 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes {
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      inspection_operation_task_count: l$inspection_operation_task_count == null
+          ? null
+          : Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count.fromJson(
+              (l$inspection_operation_task_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -10475,6 +10601,9 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes {
 
   final String? remarks;
 
+  final Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count?
+  inspection_operation_task_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -10498,6 +10627,9 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$inspection_operation_task_count = inspection_operation_task_count;
+    _resultData['inspection_operation_task_count'] =
+        l$inspection_operation_task_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -10517,6 +10649,7 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes {
     final l$equipments = equipments;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$inspection_operation_task_count = inspection_operation_task_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -10528,6 +10661,7 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes {
       l$equipments,
       l$symbol,
       l$remarks,
+      l$inspection_operation_task_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -10573,6 +10707,13 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes {
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$inspection_operation_task_count = inspection_operation_task_count;
+    final lOther$inspection_operation_task_count =
+        other.inspection_operation_task_count;
+    if (l$inspection_operation_task_count !=
+        lOther$inspection_operation_task_count) {
       return false;
     }
     final l$updateAt = updateAt;
@@ -10636,6 +10777,8 @@ abstract class CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOpera
     equipments,
     String? symbol,
     String? remarks,
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count?
+    inspection_operation_task_count,
     String? updateAt,
     bool? remove,
     Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$update_user?
@@ -10650,6 +10793,10 @@ abstract class CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOpera
     TRes
   >
   get equipments;
+  CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count<
+    TRes
+  >
+  get inspection_operation_task_count;
   CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$update_user<
     TRes
   >
@@ -10685,6 +10832,7 @@ class _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperation
     Object? equipments = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? inspection_operation_task_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -10709,6 +10857,11 @@ class _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperation
                 as Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      inspection_operation_task_count:
+          inspection_operation_task_count == _undefined
+          ? _instance.inspection_operation_task_count
+          : (inspection_operation_task_count
+                as Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -10753,6 +10906,22 @@ class _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperation
           );
   }
 
+  CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count<
+    TRes
+  >
+  get inspection_operation_task_count {
+    final local$inspection_operation_task_count =
+        _instance.inspection_operation_task_count;
+    return local$inspection_operation_task_count == null
+        ? CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count(
+            local$inspection_operation_task_count,
+            (e) => call(inspection_operation_task_count: e),
+          );
+  }
+
   CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$update_user<
     TRes
   >
@@ -10791,6 +10960,8 @@ class _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOpera
     equipments,
     String? symbol,
     String? remarks,
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count?
+    inspection_operation_task_count,
     String? updateAt,
     bool? remove,
     Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$update_user?
@@ -10811,6 +10982,14 @@ class _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOpera
   >
   get equipments =>
       CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments.stub(
+        _res,
+      );
+
+  CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count<
+    TRes
+  >
+  get inspection_operation_task_count =>
+      CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count.stub(
         _res,
       );
 
@@ -12900,6 +13079,9 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
     this.locations,
     this.symbol,
     this.remarks,
+    this.equipment_available_count,
+    this.inspection_operation_count,
+    this.equipment_provision_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -12921,6 +13103,9 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
     final l$locations = json['locations'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$equipment_available_count = json['equipment_available_count'];
+    final l$inspection_operation_count = json['inspection_operation_count'];
+    final l$equipment_provision_count = json['equipment_provision_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -12950,6 +13135,21 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      equipment_available_count: l$equipment_available_count == null
+          ? null
+          : Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count.fromJson(
+              (l$equipment_available_count as Map<String, dynamic>),
+            ),
+      inspection_operation_count: l$inspection_operation_count == null
+          ? null
+          : Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count.fromJson(
+              (l$inspection_operation_count as Map<String, dynamic>),
+            ),
+      equipment_provision_count: l$equipment_provision_count == null
+          ? null
+          : Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count.fromJson(
+              (l$equipment_provision_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -12988,6 +13188,15 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
 
   final String? remarks;
 
+  final Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count?
+  equipment_available_count;
+
+  final Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count?
+  inspection_operation_count;
+
+  final Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count?
+  equipment_provision_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -13023,6 +13232,15 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$equipment_available_count = equipment_available_count;
+    _resultData['equipment_available_count'] = l$equipment_available_count
+        ?.toJson();
+    final l$inspection_operation_count = inspection_operation_count;
+    _resultData['inspection_operation_count'] = l$inspection_operation_count
+        ?.toJson();
+    final l$equipment_provision_count = equipment_provision_count;
+    _resultData['equipment_provision_count'] = l$equipment_provision_count
+        ?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -13048,6 +13266,9 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
     final l$locations = locations;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$equipment_available_count = equipment_available_count;
+    final l$inspection_operation_count = inspection_operation_count;
+    final l$equipment_provision_count = equipment_provision_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -13065,6 +13286,9 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
       l$locations,
       l$symbol,
       l$remarks,
+      l$equipment_available_count,
+      l$inspection_operation_count,
+      l$equipment_provision_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -13142,6 +13366,21 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$equipment_available_count = equipment_available_count;
+    final lOther$equipment_available_count = other.equipment_available_count;
+    if (l$equipment_available_count != lOther$equipment_available_count) {
+      return false;
+    }
+    final l$inspection_operation_count = inspection_operation_count;
+    final lOther$inspection_operation_count = other.inspection_operation_count;
+    if (l$inspection_operation_count != lOther$inspection_operation_count) {
+      return false;
+    }
+    final l$equipment_provision_count = equipment_provision_count;
+    final lOther$equipment_provision_count = other.equipment_provision_count;
+    if (l$equipment_provision_count != lOther$equipment_provision_count) {
+      return false;
+    }
     final l$updateAt = updateAt;
     final lOther$updateAt = other.updateAt;
     if (l$updateAt != lOther$updateAt) {
@@ -13210,6 +13449,12 @@ abstract class CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOpera
     locations,
     String? symbol,
     String? remarks,
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count?
+    equipment_available_count,
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count?
+    inspection_operation_count,
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count?
+    equipment_provision_count,
     String? updateAt,
     bool? remove,
     Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$update_user?
@@ -13228,6 +13473,18 @@ abstract class CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOpera
     TRes
   >
   get locations;
+  CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count<
+    TRes
+  >
+  get equipment_available_count;
+  CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count<
+    TRes
+  >
+  get inspection_operation_count;
+  CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count<
+    TRes
+  >
+  get equipment_provision_count;
   CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$update_user<
     TRes
   >
@@ -13269,6 +13526,9 @@ class _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperation
     Object? locations = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? equipment_available_count = _undefined,
+    Object? inspection_operation_count = _undefined,
+    Object? equipment_provision_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -13310,6 +13570,18 @@ class _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperation
                 as Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$locations?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      equipment_available_count: equipment_available_count == _undefined
+          ? _instance.equipment_available_count
+          : (equipment_available_count
+                as Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count?),
+      inspection_operation_count: inspection_operation_count == _undefined
+          ? _instance.inspection_operation_count
+          : (inspection_operation_count
+                as Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count?),
+      equipment_provision_count: equipment_provision_count == _undefined
+          ? _instance.equipment_provision_count
+          : (equipment_provision_count
+                as Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -13369,6 +13641,52 @@ class _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperation
           );
   }
 
+  CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count<
+    TRes
+  >
+  get equipment_available_count {
+    final local$equipment_available_count = _instance.equipment_available_count;
+    return local$equipment_available_count == null
+        ? CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count(
+            local$equipment_available_count,
+            (e) => call(equipment_available_count: e),
+          );
+  }
+
+  CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count<
+    TRes
+  >
+  get inspection_operation_count {
+    final local$inspection_operation_count =
+        _instance.inspection_operation_count;
+    return local$inspection_operation_count == null
+        ? CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count(
+            local$inspection_operation_count,
+            (e) => call(inspection_operation_count: e),
+          );
+  }
+
+  CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count<
+    TRes
+  >
+  get equipment_provision_count {
+    final local$equipment_provision_count = _instance.equipment_provision_count;
+    return local$equipment_provision_count == null
+        ? CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count(
+            local$equipment_provision_count,
+            (e) => call(equipment_provision_count: e),
+          );
+  }
+
   CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$update_user<
     TRes
   >
@@ -13414,6 +13732,12 @@ class _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOpera
     locations,
     String? symbol,
     String? remarks,
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count?
+    equipment_available_count,
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count?
+    inspection_operation_count,
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count?
+    equipment_provision_count,
     String? updateAt,
     bool? remove,
     Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$update_user?
@@ -13442,6 +13766,30 @@ class _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOpera
   >
   get locations =>
       CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$locations.stub(
+        _res,
+      );
+
+  CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count<
+    TRes
+  >
+  get equipment_available_count =>
+      CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count<
+    TRes
+  >
+  get inspection_operation_count =>
+      CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count<
+    TRes
+  >
+  get equipment_provision_count =>
+      CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count.stub(
         _res,
       );
 
@@ -36469,7 +36817,7 @@ class _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOpera
 class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$locations$department$address {
   Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$locations$department$address({
     required this.infoAddressId,
-    this.iso31663,
+    this.iso31662,
     this.zipCode,
     this.address1,
     this.address2,
@@ -36483,7 +36831,7 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
     Map<String, dynamic> json,
   ) {
     final l$infoAddressId = json['infoAddressId'];
-    final l$iso31663 = json['iso31663'];
+    final l$iso31662 = json['iso31662'];
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
@@ -36493,7 +36841,7 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
     final l$$__typename = json['__typename'];
     return Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$locations$department$address(
       infoAddressId: (l$infoAddressId as String),
-      iso31663: (l$iso31663 as String?),
+      iso31662: (l$iso31662 as String?),
       zipCode: (l$zipCode as String?),
       address1: l$address1 == null
           ? null
@@ -36518,7 +36866,7 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
 
   final String infoAddressId;
 
-  final String? iso31663;
+  final String? iso31662;
 
   final String? zipCode;
 
@@ -36541,8 +36889,8 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
     final _resultData = <String, dynamic>{};
     final l$infoAddressId = infoAddressId;
     _resultData['infoAddressId'] = l$infoAddressId;
-    final l$iso31663 = iso31663;
-    _resultData['iso31663'] = l$iso31663;
+    final l$iso31662 = iso31662;
+    _resultData['iso31662'] = l$iso31662;
     final l$zipCode = zipCode;
     _resultData['zipCode'] = l$zipCode;
     final l$address1 = address1;
@@ -36563,7 +36911,7 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
   @override
   int get hashCode {
     final l$infoAddressId = infoAddressId;
-    final l$iso31663 = iso31663;
+    final l$iso31662 = iso31662;
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
@@ -36573,7 +36921,7 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
-      l$iso31663,
+      l$iso31662,
       l$zipCode,
       l$address1,
       l$address2,
@@ -36599,9 +36947,9 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
     if (l$infoAddressId != lOther$infoAddressId) {
       return false;
     }
-    final l$iso31663 = iso31663;
-    final lOther$iso31663 = other.iso31663;
-    if (l$iso31663 != lOther$iso31663) {
+    final l$iso31662 = iso31662;
+    final lOther$iso31662 = other.iso31662;
+    if (l$iso31662 != lOther$iso31662) {
       return false;
     }
     final l$zipCode = zipCode;
@@ -36674,7 +37022,7 @@ abstract class CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOpera
 
   TRes call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$locations$department$address$address1?
     address1,
@@ -36724,7 +37072,7 @@ class _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperation
 
   TRes call({
     Object? infoAddressId = _undefined,
-    Object? iso31663 = _undefined,
+    Object? iso31662 = _undefined,
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
@@ -36737,9 +37085,9 @@ class _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperation
       infoAddressId: infoAddressId == _undefined || infoAddressId == null
           ? _instance.infoAddressId
           : (infoAddressId as String),
-      iso31663: iso31663 == _undefined
-          ? _instance.iso31663
-          : (iso31663 as String?),
+      iso31662: iso31662 == _undefined
+          ? _instance.iso31662
+          : (iso31662 as String?),
       zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
       address1: address1 == _undefined
           ? _instance.address1
@@ -36824,7 +37172,7 @@ class _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOpera
 
   call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$locations$department$address$address1?
     address1,
@@ -47527,7 +47875,7 @@ class _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOpera
 class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$locations$address {
   Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$locations$address({
     required this.infoAddressId,
-    this.iso31663,
+    this.iso31662,
     this.zipCode,
     this.address1,
     this.address2,
@@ -47541,7 +47889,7 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
     Map<String, dynamic> json,
   ) {
     final l$infoAddressId = json['infoAddressId'];
-    final l$iso31663 = json['iso31663'];
+    final l$iso31662 = json['iso31662'];
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
@@ -47551,7 +47899,7 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
     final l$$__typename = json['__typename'];
     return Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$locations$address(
       infoAddressId: (l$infoAddressId as String),
-      iso31663: (l$iso31663 as String?),
+      iso31662: (l$iso31662 as String?),
       zipCode: (l$zipCode as String?),
       address1: l$address1 == null
           ? null
@@ -47576,7 +47924,7 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
 
   final String infoAddressId;
 
-  final String? iso31663;
+  final String? iso31662;
 
   final String? zipCode;
 
@@ -47599,8 +47947,8 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
     final _resultData = <String, dynamic>{};
     final l$infoAddressId = infoAddressId;
     _resultData['infoAddressId'] = l$infoAddressId;
-    final l$iso31663 = iso31663;
-    _resultData['iso31663'] = l$iso31663;
+    final l$iso31662 = iso31662;
+    _resultData['iso31662'] = l$iso31662;
     final l$zipCode = zipCode;
     _resultData['zipCode'] = l$zipCode;
     final l$address1 = address1;
@@ -47621,7 +47969,7 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
   @override
   int get hashCode {
     final l$infoAddressId = infoAddressId;
-    final l$iso31663 = iso31663;
+    final l$iso31662 = iso31662;
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
@@ -47631,7 +47979,7 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
-      l$iso31663,
+      l$iso31662,
       l$zipCode,
       l$address1,
       l$address2,
@@ -47657,9 +48005,9 @@ class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipm
     if (l$infoAddressId != lOther$infoAddressId) {
       return false;
     }
-    final l$iso31663 = iso31663;
-    final lOther$iso31663 = other.iso31663;
-    if (l$iso31663 != lOther$iso31663) {
+    final l$iso31662 = iso31662;
+    final lOther$iso31662 = other.iso31662;
+    if (l$iso31662 != lOther$iso31662) {
       return false;
     }
     final l$zipCode = zipCode;
@@ -47732,7 +48080,7 @@ abstract class CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOpera
 
   TRes call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$locations$address$address1?
     address1,
@@ -47782,7 +48130,7 @@ class _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperation
 
   TRes call({
     Object? infoAddressId = _undefined,
-    Object? iso31663 = _undefined,
+    Object? iso31662 = _undefined,
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
@@ -47795,9 +48143,9 @@ class _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperation
       infoAddressId: infoAddressId == _undefined || infoAddressId == null
           ? _instance.infoAddressId
           : (infoAddressId as String),
-      iso31663: iso31663 == _undefined
-          ? _instance.iso31663
-          : (iso31663 as String?),
+      iso31662: iso31662 == _undefined
+          ? _instance.iso31662
+          : (iso31662 as String?),
       zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
       address1: address1 == _undefined
           ? _instance.address1
@@ -47882,7 +48230,7 @@ class _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOpera
 
   call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$locations$address$address1?
     address1,
@@ -56518,6 +56866,444 @@ class _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOpera
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
+class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count {
+  Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count({
+    this.mstrEquipmentId,
+    this.$__typename = 'VEquipmentEquipmentAvailableCount',
+  });
+
+  factory Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrEquipmentId = json['mstrEquipmentId'];
+    final l$$__typename = json['__typename'];
+    return Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count(
+      mstrEquipmentId: (l$mstrEquipmentId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrEquipmentId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrEquipmentId = mstrEquipmentId;
+    _resultData['mstrEquipmentId'] = l$mstrEquipmentId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrEquipmentId = mstrEquipmentId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrEquipmentId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrEquipmentId = mstrEquipmentId;
+    final lOther$mstrEquipmentId = other.mstrEquipmentId;
+    if (l$mstrEquipmentId != lOther$mstrEquipmentId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count
+    on
+        Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count {
+  CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count<
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count
+  >
+  get copyWith =>
+      CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count<
+  TRes
+> {
+  factory CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count(
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count
+    instance,
+    TRes Function(
+      Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count;
+
+  factory CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count;
+
+  TRes call({String? mstrEquipmentId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count<
+  TRes
+>
+    implements
+        CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count
+  _instance;
+
+  final TRes Function(
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrEquipmentId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count(
+      mstrEquipmentId: mstrEquipmentId == _undefined
+          ? _instance.mstrEquipmentId
+          : (mstrEquipmentId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count<
+  TRes
+>
+    implements
+        CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_available_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrEquipmentId, String? $__typename}) => _res;
+}
+
+class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count {
+  Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count({
+    this.mstrEquipmentId,
+    this.$__typename = 'VEquipmentInspectionOperationCount',
+  });
+
+  factory Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrEquipmentId = json['mstrEquipmentId'];
+    final l$$__typename = json['__typename'];
+    return Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count(
+      mstrEquipmentId: (l$mstrEquipmentId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrEquipmentId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrEquipmentId = mstrEquipmentId;
+    _resultData['mstrEquipmentId'] = l$mstrEquipmentId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrEquipmentId = mstrEquipmentId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrEquipmentId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrEquipmentId = mstrEquipmentId;
+    final lOther$mstrEquipmentId = other.mstrEquipmentId;
+    if (l$mstrEquipmentId != lOther$mstrEquipmentId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count
+    on
+        Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count {
+  CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count<
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count
+  >
+  get copyWith =>
+      CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count<
+  TRes
+> {
+  factory CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count(
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count
+    instance,
+    TRes Function(
+      Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count;
+
+  factory CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count;
+
+  TRes call({String? mstrEquipmentId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count<
+  TRes
+>
+    implements
+        CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count
+  _instance;
+
+  final TRes Function(
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrEquipmentId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count(
+      mstrEquipmentId: mstrEquipmentId == _undefined
+          ? _instance.mstrEquipmentId
+          : (mstrEquipmentId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count<
+  TRes
+>
+    implements
+        CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$inspection_operation_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrEquipmentId, String? $__typename}) => _res;
+}
+
+class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count {
+  Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count({
+    this.mstrEquipmentId,
+    this.$__typename = 'VEquipmentEquipmentProvisionCount',
+  });
+
+  factory Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrEquipmentId = json['mstrEquipmentId'];
+    final l$$__typename = json['__typename'];
+    return Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count(
+      mstrEquipmentId: (l$mstrEquipmentId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrEquipmentId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrEquipmentId = mstrEquipmentId;
+    _resultData['mstrEquipmentId'] = l$mstrEquipmentId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrEquipmentId = mstrEquipmentId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrEquipmentId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrEquipmentId = mstrEquipmentId;
+    final lOther$mstrEquipmentId = other.mstrEquipmentId;
+    if (l$mstrEquipmentId != lOther$mstrEquipmentId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count
+    on
+        Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count {
+  CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count<
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count
+  >
+  get copyWith =>
+      CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count<
+  TRes
+> {
+  factory CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count(
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count
+    instance,
+    TRes Function(
+      Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count;
+
+  factory CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count;
+
+  TRes call({String? mstrEquipmentId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count
+  _instance;
+
+  final TRes Function(
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrEquipmentId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count(
+      mstrEquipmentId: mstrEquipmentId == _undefined
+          ? _instance.mstrEquipmentId
+          : (mstrEquipmentId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$equipment_provision_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrEquipmentId, String? $__typename}) => _res;
+}
+
 class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$update_user {
   Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$equipments$update_user({
     required this.historyId,
@@ -58922,6 +59708,152 @@ class _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOpera
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count {
+  Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count({
+    this.mstrInspectionOperationId,
+    this.$__typename = 'VInspectionOperationInspectionOperationTaskCount',
+  });
+
+  factory Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrInspectionOperationId = json['mstrInspectionOperationId'];
+    final l$$__typename = json['__typename'];
+    return Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count(
+      mstrInspectionOperationId: (l$mstrInspectionOperationId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrInspectionOperationId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrInspectionOperationId = mstrInspectionOperationId;
+    _resultData['mstrInspectionOperationId'] = l$mstrInspectionOperationId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrInspectionOperationId = mstrInspectionOperationId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrInspectionOperationId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrInspectionOperationId = mstrInspectionOperationId;
+    final lOther$mstrInspectionOperationId = other.mstrInspectionOperationId;
+    if (l$mstrInspectionOperationId != lOther$mstrInspectionOperationId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count
+    on
+        Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count {
+  CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count<
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count
+  >
+  get copyWith =>
+      CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count<
+  TRes
+> {
+  factory CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count(
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count
+    instance,
+    TRes Function(
+      Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count;
+
+  factory CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count;
+
+  TRes call({String? mstrInspectionOperationId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count<
+  TRes
+>
+    implements
+        CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count
+  _instance;
+
+  final TRes Function(
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrInspectionOperationId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count(
+      mstrInspectionOperationId: mstrInspectionOperationId == _undefined
+          ? _instance.mstrInspectionOperationId
+          : (mstrInspectionOperationId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count<
+  TRes
+>
+    implements
+        CopyWith$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$inspection_operation_task_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrInspectionOperationId, String? $__typename}) => _res;
 }
 
 class Query$InspectionOperationPageRead$allMstrInspectionOperations$nodes$update_user {

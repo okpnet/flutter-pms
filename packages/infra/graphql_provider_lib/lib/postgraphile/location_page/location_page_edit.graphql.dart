@@ -25,7 +25,7 @@ class Variables$Mutation$LocationPageEdit {
     required String nicknameEn,
     String? infoAddressId,
     required String infoAddressIdInfoAddressId,
-    String? infoAddressIdIso31663,
+    String? infoAddressIdIso31662,
     String? infoAddressIdZipCode,
     required String infoAddressIdAddress1SharedAppellationsId,
     required String infoAddressIdAddress1NameSharedDictionaryId,
@@ -82,8 +82,8 @@ class Variables$Mutation$LocationPageEdit {
     r'nicknameEn': nicknameEn,
     if (infoAddressId != null) r'infoAddressId': infoAddressId,
     r'infoAddressIdInfoAddressId': infoAddressIdInfoAddressId,
-    if (infoAddressIdIso31663 != null)
-      r'infoAddressIdIso31663': infoAddressIdIso31663,
+    if (infoAddressIdIso31662 != null)
+      r'infoAddressIdIso31662': infoAddressIdIso31662,
     if (infoAddressIdZipCode != null)
       r'infoAddressIdZipCode': infoAddressIdZipCode,
     r'infoAddressIdAddress1SharedAppellationsId':
@@ -200,10 +200,10 @@ class Variables$Mutation$LocationPageEdit {
     final l$infoAddressIdInfoAddressId = data['infoAddressIdInfoAddressId'];
     result$data['infoAddressIdInfoAddressId'] =
         (l$infoAddressIdInfoAddressId as String);
-    if (data.containsKey('infoAddressIdIso31663')) {
-      final l$infoAddressIdIso31663 = data['infoAddressIdIso31663'];
-      result$data['infoAddressIdIso31663'] =
-          (l$infoAddressIdIso31663 as String?);
+    if (data.containsKey('infoAddressIdIso31662')) {
+      final l$infoAddressIdIso31662 = data['infoAddressIdIso31662'];
+      result$data['infoAddressIdIso31662'] =
+          (l$infoAddressIdIso31662 as String?);
     }
     if (data.containsKey('infoAddressIdZipCode')) {
       final l$infoAddressIdZipCode = data['infoAddressIdZipCode'];
@@ -398,8 +398,8 @@ class Variables$Mutation$LocationPageEdit {
   String get infoAddressIdInfoAddressId =>
       (_$data['infoAddressIdInfoAddressId'] as String);
 
-  String? get infoAddressIdIso31663 =>
-      (_$data['infoAddressIdIso31663'] as String?);
+  String? get infoAddressIdIso31662 =>
+      (_$data['infoAddressIdIso31662'] as String?);
 
   String? get infoAddressIdZipCode =>
       (_$data['infoAddressIdZipCode'] as String?);
@@ -560,9 +560,9 @@ class Variables$Mutation$LocationPageEdit {
     }
     final l$infoAddressIdInfoAddressId = infoAddressIdInfoAddressId;
     result$data['infoAddressIdInfoAddressId'] = l$infoAddressIdInfoAddressId;
-    if (_$data.containsKey('infoAddressIdIso31663')) {
-      final l$infoAddressIdIso31663 = infoAddressIdIso31663;
-      result$data['infoAddressIdIso31663'] = l$infoAddressIdIso31663;
+    if (_$data.containsKey('infoAddressIdIso31662')) {
+      final l$infoAddressIdIso31662 = infoAddressIdIso31662;
+      result$data['infoAddressIdIso31662'] = l$infoAddressIdIso31662;
     }
     if (_$data.containsKey('infoAddressIdZipCode')) {
       final l$infoAddressIdZipCode = infoAddressIdZipCode;
@@ -820,13 +820,13 @@ class Variables$Mutation$LocationPageEdit {
     if (l$infoAddressIdInfoAddressId != lOther$infoAddressIdInfoAddressId) {
       return false;
     }
-    final l$infoAddressIdIso31663 = infoAddressIdIso31663;
-    final lOther$infoAddressIdIso31663 = other.infoAddressIdIso31663;
-    if (_$data.containsKey('infoAddressIdIso31663') !=
-        other._$data.containsKey('infoAddressIdIso31663')) {
+    final l$infoAddressIdIso31662 = infoAddressIdIso31662;
+    final lOther$infoAddressIdIso31662 = other.infoAddressIdIso31662;
+    if (_$data.containsKey('infoAddressIdIso31662') !=
+        other._$data.containsKey('infoAddressIdIso31662')) {
       return false;
     }
-    if (l$infoAddressIdIso31663 != lOther$infoAddressIdIso31663) {
+    if (l$infoAddressIdIso31662 != lOther$infoAddressIdIso31662) {
       return false;
     }
     final l$infoAddressIdZipCode = infoAddressIdZipCode;
@@ -1151,7 +1151,7 @@ class Variables$Mutation$LocationPageEdit {
     final l$nicknameEn = nicknameEn;
     final l$infoAddressId = infoAddressId;
     final l$infoAddressIdInfoAddressId = infoAddressIdInfoAddressId;
-    final l$infoAddressIdIso31663 = infoAddressIdIso31663;
+    final l$infoAddressIdIso31662 = infoAddressIdIso31662;
     final l$infoAddressIdZipCode = infoAddressIdZipCode;
     final l$infoAddressIdAddress1SharedAppellationsId =
         infoAddressIdAddress1SharedAppellationsId;
@@ -1226,8 +1226,8 @@ class Variables$Mutation$LocationPageEdit {
       l$nicknameEn,
       _$data.containsKey('infoAddressId') ? l$infoAddressId : const {},
       l$infoAddressIdInfoAddressId,
-      _$data.containsKey('infoAddressIdIso31663')
-          ? l$infoAddressIdIso31663
+      _$data.containsKey('infoAddressIdIso31662')
+          ? l$infoAddressIdIso31662
           : const {},
       _$data.containsKey('infoAddressIdZipCode')
           ? l$infoAddressIdZipCode
@@ -1310,7 +1310,7 @@ abstract class CopyWith$Variables$Mutation$LocationPageEdit<TRes> {
     String? nicknameEn,
     String? infoAddressId,
     String? infoAddressIdInfoAddressId,
-    String? infoAddressIdIso31663,
+    String? infoAddressIdIso31662,
     String? infoAddressIdZipCode,
     String? infoAddressIdAddress1SharedAppellationsId,
     String? infoAddressIdAddress1NameSharedDictionaryId,
@@ -1380,7 +1380,7 @@ class _CopyWithImpl$Variables$Mutation$LocationPageEdit<TRes>
     Object? nicknameEn = _undefined,
     Object? infoAddressId = _undefined,
     Object? infoAddressIdInfoAddressId = _undefined,
-    Object? infoAddressIdIso31663 = _undefined,
+    Object? infoAddressIdIso31662 = _undefined,
     Object? infoAddressIdZipCode = _undefined,
     Object? infoAddressIdAddress1SharedAppellationsId = _undefined,
     Object? infoAddressIdAddress1NameSharedDictionaryId = _undefined,
@@ -1458,8 +1458,8 @@ class _CopyWithImpl$Variables$Mutation$LocationPageEdit<TRes>
       if (infoAddressIdInfoAddressId != _undefined &&
           infoAddressIdInfoAddressId != null)
         'infoAddressIdInfoAddressId': (infoAddressIdInfoAddressId as String),
-      if (infoAddressIdIso31663 != _undefined)
-        'infoAddressIdIso31663': (infoAddressIdIso31663 as String?),
+      if (infoAddressIdIso31662 != _undefined)
+        'infoAddressIdIso31662': (infoAddressIdIso31662 as String?),
       if (infoAddressIdZipCode != _undefined)
         'infoAddressIdZipCode': (infoAddressIdZipCode as String?),
       if (infoAddressIdAddress1SharedAppellationsId != _undefined &&
@@ -1616,7 +1616,7 @@ class _CopyWithStubImpl$Variables$Mutation$LocationPageEdit<TRes>
     String? nicknameEn,
     String? infoAddressId,
     String? infoAddressIdInfoAddressId,
-    String? infoAddressIdIso31663,
+    String? infoAddressIdIso31662,
     String? infoAddressIdZipCode,
     String? infoAddressIdAddress1SharedAppellationsId,
     String? infoAddressIdAddress1NameSharedDictionaryId,
@@ -1945,7 +1945,7 @@ const documentNodeMutationLocationPageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(
-            name: NameNode(value: 'infoAddressIdIso31663'),
+            name: NameNode(value: 'infoAddressIdIso31662'),
           ),
           type: NamedTypeNode(
             name: NameNode(value: 'String'),
@@ -2746,11 +2746,11 @@ const documentNodeMutationLocationPageEdit = DocumentNode(
                                         value: ObjectValueNode(
                                           fields: [
                                             ObjectFieldNode(
-                                              name: NameNode(value: 'iso31663'),
+                                              name: NameNode(value: 'iso31662'),
                                               value: VariableNode(
                                                 name: NameNode(
                                                   value:
-                                                      'infoAddressIdIso31663',
+                                                      'infoAddressIdIso31662',
                                                 ),
                                               ),
                                             ),
@@ -4733,7 +4733,7 @@ const documentNodeMutationLocationPageEdit = DocumentNode(
                                           selectionSet: null,
                                         ),
                                         FieldNode(
-                                          name: NameNode(value: 'iso31663'),
+                                          name: NameNode(value: 'iso31662'),
                                           alias: null,
                                           arguments: [],
                                           directives: [],
@@ -7960,7 +7960,7 @@ const documentNodeMutationLocationPageEdit = DocumentNode(
                                     selectionSet: null,
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'iso31663'),
+                                    name: NameNode(value: 'iso31662'),
                                     alias: null,
                                     arguments: [],
                                     directives: [],
@@ -10552,6 +10552,41 @@ const documentNodeMutationLocationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
+                                                  value:
+                                                      'vDepartmentKindValueDepartmentKindCountByInfoDepartmentKindValueId',
+                                                ),
+                                                alias: NameNode(
+                                                  value:
+                                                      'department_kind_count',
+                                                ),
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'infoDepartmentKindValueId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
                                                   value: 'updateAt',
                                                 ),
                                                 alias: null,
@@ -12183,6 +12218,116 @@ const documentNodeMutationLocationPageEdit = DocumentNode(
                               selectionSet: null,
                             ),
                             FieldNode(
+                              name: NameNode(
+                                value:
+                                    'vDepartmentAssignCountByInfoDepartmentId',
+                              ),
+                              alias: NameNode(value: 'assign_count'),
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'infoDepartmentId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value:
+                                    'vDepartmentPreventionDetailCountByInfoDepartmentId',
+                              ),
+                              alias: NameNode(value: 'prevention_detail_count'),
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'infoDepartmentId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value:
+                                    'vDepartmentDepartmentKindCountByInfoDepartmentId',
+                              ),
+                              alias: NameNode(value: 'department_kind_count'),
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'infoDepartmentId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value:
+                                    'vDepartmentDepartmentAccessPermissionCountByInfoDepartmentId',
+                              ),
+                              alias: NameNode(
+                                value: 'department_access_permission_count',
+                              ),
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'infoDepartmentId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
                               name: NameNode(value: 'updateAt'),
                               alias: null,
                               arguments: [],
@@ -13389,7 +13534,7 @@ const documentNodeMutationLocationPageEdit = DocumentNode(
                               selectionSet: null,
                             ),
                             FieldNode(
-                              name: NameNode(value: 'iso31663'),
+                              name: NameNode(value: 'iso31662'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -15980,6 +16125,10 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     required this.departmentKinds,
     this.symbol,
     this.remarks,
+    this.assign_count,
+    this.prevention_detail_count,
+    this.department_kind_count,
+    this.department_access_permission_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -16001,6 +16150,11 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     final l$departmentKinds = json['departmentKinds'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$assign_count = json['assign_count'];
+    final l$prevention_detail_count = json['prevention_detail_count'];
+    final l$department_kind_count = json['department_kind_count'];
+    final l$department_access_permission_count =
+        json['department_access_permission_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -16040,6 +16194,27 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
           ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      assign_count: l$assign_count == null
+          ? null
+          : Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count.fromJson(
+              (l$assign_count as Map<String, dynamic>),
+            ),
+      prevention_detail_count: l$prevention_detail_count == null
+          ? null
+          : Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count.fromJson(
+              (l$prevention_detail_count as Map<String, dynamic>),
+            ),
+      department_kind_count: l$department_kind_count == null
+          ? null
+          : Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count.fromJson(
+              (l$department_kind_count as Map<String, dynamic>),
+            ),
+      department_access_permission_count:
+          l$department_access_permission_count == null
+          ? null
+          : Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count.fromJson(
+              (l$department_access_permission_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -16081,6 +16256,18 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
 
   final String? remarks;
 
+  final Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count?
+  assign_count;
+
+  final Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count?
+  prevention_detail_count;
+
+  final Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count?
+  department_kind_count;
+
+  final Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count?
+  department_access_permission_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -16116,6 +16303,17 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$assign_count = assign_count;
+    _resultData['assign_count'] = l$assign_count?.toJson();
+    final l$prevention_detail_count = prevention_detail_count;
+    _resultData['prevention_detail_count'] = l$prevention_detail_count
+        ?.toJson();
+    final l$department_kind_count = department_kind_count;
+    _resultData['department_kind_count'] = l$department_kind_count?.toJson();
+    final l$department_access_permission_count =
+        department_access_permission_count;
+    _resultData['department_access_permission_count'] =
+        l$department_access_permission_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -16141,6 +16339,11 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     final l$departmentKinds = departmentKinds;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$assign_count = assign_count;
+    final l$prevention_detail_count = prevention_detail_count;
+    final l$department_kind_count = department_kind_count;
+    final l$department_access_permission_count =
+        department_access_permission_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -16158,6 +16361,10 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
       l$departmentKinds,
       l$symbol,
       l$remarks,
+      l$assign_count,
+      l$prevention_detail_count,
+      l$department_kind_count,
+      l$department_access_permission_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -16235,6 +16442,29 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$assign_count = assign_count;
+    final lOther$assign_count = other.assign_count;
+    if (l$assign_count != lOther$assign_count) {
+      return false;
+    }
+    final l$prevention_detail_count = prevention_detail_count;
+    final lOther$prevention_detail_count = other.prevention_detail_count;
+    if (l$prevention_detail_count != lOther$prevention_detail_count) {
+      return false;
+    }
+    final l$department_kind_count = department_kind_count;
+    final lOther$department_kind_count = other.department_kind_count;
+    if (l$department_kind_count != lOther$department_kind_count) {
+      return false;
+    }
+    final l$department_access_permission_count =
+        department_access_permission_count;
+    final lOther$department_access_permission_count =
+        other.department_access_permission_count;
+    if (l$department_access_permission_count !=
+        lOther$department_access_permission_count) {
+      return false;
+    }
     final l$updateAt = updateAt;
     final lOther$updateAt = other.updateAt;
     if (l$updateAt != lOther$updateAt) {
@@ -16307,6 +16537,14 @@ abstract class CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
     departmentKinds,
     String? symbol,
     String? remarks,
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count?
+    assign_count,
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count?
+    prevention_detail_count,
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count?
+    department_kind_count,
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count?
+    department_access_permission_count,
     String? updateAt,
     bool? remove,
     Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$update_user?
@@ -16337,6 +16575,22 @@ abstract class CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
     TRes
   >
   get departmentKinds;
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count<
+    TRes
+  >
+  get assign_count;
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count<
+    TRes
+  >
+  get prevention_detail_count;
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count<
+    TRes
+  >
+  get department_kind_count;
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count<
+    TRes
+  >
+  get department_access_permission_count;
   CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$update_user<
     TRes
   >
@@ -16378,6 +16632,10 @@ class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId
     Object? departmentKinds = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? assign_count = _undefined,
+    Object? prevention_detail_count = _undefined,
+    Object? department_kind_count = _undefined,
+    Object? department_access_permission_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -16423,6 +16681,23 @@ class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId
                 as Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      assign_count: assign_count == _undefined
+          ? _instance.assign_count
+          : (assign_count
+                as Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count?),
+      prevention_detail_count: prevention_detail_count == _undefined
+          ? _instance.prevention_detail_count
+          : (prevention_detail_count
+                as Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count?),
+      department_kind_count: department_kind_count == _undefined
+          ? _instance.department_kind_count
+          : (department_kind_count
+                as Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count?),
+      department_access_permission_count:
+          department_access_permission_count == _undefined
+          ? _instance.department_access_permission_count
+          : (department_access_permission_count
+                as Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -16519,6 +16794,67 @@ class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId
     );
   }
 
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count<
+    TRes
+  >
+  get assign_count {
+    final local$assign_count = _instance.assign_count;
+    return local$assign_count == null
+        ? CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count(
+            local$assign_count,
+            (e) => call(assign_count: e),
+          );
+  }
+
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count<
+    TRes
+  >
+  get prevention_detail_count {
+    final local$prevention_detail_count = _instance.prevention_detail_count;
+    return local$prevention_detail_count == null
+        ? CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count(
+            local$prevention_detail_count,
+            (e) => call(prevention_detail_count: e),
+          );
+  }
+
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count<
+    TRes
+  >
+  get department_kind_count {
+    final local$department_kind_count = _instance.department_kind_count;
+    return local$department_kind_count == null
+        ? CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count(
+            local$department_kind_count,
+            (e) => call(department_kind_count: e),
+          );
+  }
+
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count<
+    TRes
+  >
+  get department_access_permission_count {
+    final local$department_access_permission_count =
+        _instance.department_access_permission_count;
+    return local$department_access_permission_count == null
+        ? CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count(
+            local$department_access_permission_count,
+            (e) => call(department_access_permission_count: e),
+          );
+  }
+
   CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$update_user<
     TRes
   >
@@ -16567,6 +16903,14 @@ class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
     departmentKinds,
     String? symbol,
     String? remarks,
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count?
+    assign_count,
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count?
+    prevention_detail_count,
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count?
+    department_kind_count,
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count?
+    department_access_permission_count,
     String? updateAt,
     bool? remove,
     Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$update_user?
@@ -16619,6 +16963,38 @@ class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
   >
   get departmentKinds =>
       CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count<
+    TRes
+  >
+  get assign_count =>
+      CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count<
+    TRes
+  >
+  get prevention_detail_count =>
+      CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count<
+    TRes
+  >
+  get department_kind_count =>
+      CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count<
+    TRes
+  >
+  get department_access_permission_count =>
+      CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count.stub(
         _res,
       );
 
@@ -20921,7 +21297,7 @@ class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
 class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$office$address {
   Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$office$address({
     required this.infoAddressId,
-    this.iso31663,
+    this.iso31662,
     this.zipCode,
     this.address1,
     this.address2,
@@ -20935,7 +21311,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     Map<String, dynamic> json,
   ) {
     final l$infoAddressId = json['infoAddressId'];
-    final l$iso31663 = json['iso31663'];
+    final l$iso31662 = json['iso31662'];
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
@@ -20945,7 +21321,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     final l$$__typename = json['__typename'];
     return Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$office$address(
       infoAddressId: (l$infoAddressId as String),
-      iso31663: (l$iso31663 as String?),
+      iso31662: (l$iso31662 as String?),
       zipCode: (l$zipCode as String?),
       address1: l$address1 == null
           ? null
@@ -20970,7 +21346,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
 
   final String infoAddressId;
 
-  final String? iso31663;
+  final String? iso31662;
 
   final String? zipCode;
 
@@ -20993,8 +21369,8 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     final _resultData = <String, dynamic>{};
     final l$infoAddressId = infoAddressId;
     _resultData['infoAddressId'] = l$infoAddressId;
-    final l$iso31663 = iso31663;
-    _resultData['iso31663'] = l$iso31663;
+    final l$iso31662 = iso31662;
+    _resultData['iso31662'] = l$iso31662;
     final l$zipCode = zipCode;
     _resultData['zipCode'] = l$zipCode;
     final l$address1 = address1;
@@ -21015,7 +21391,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
   @override
   int get hashCode {
     final l$infoAddressId = infoAddressId;
-    final l$iso31663 = iso31663;
+    final l$iso31662 = iso31662;
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
@@ -21025,7 +21401,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
-      l$iso31663,
+      l$iso31662,
       l$zipCode,
       l$address1,
       l$address2,
@@ -21051,9 +21427,9 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     if (l$infoAddressId != lOther$infoAddressId) {
       return false;
     }
-    final l$iso31663 = iso31663;
-    final lOther$iso31663 = other.iso31663;
-    if (l$iso31663 != lOther$iso31663) {
+    final l$iso31662 = iso31662;
+    final lOther$iso31662 = other.iso31662;
+    if (l$iso31662 != lOther$iso31662) {
       return false;
     }
     final l$zipCode = zipCode;
@@ -21126,7 +21502,7 @@ abstract class CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
 
   TRes call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$office$address$address1?
     address1,
@@ -21176,7 +21552,7 @@ class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId
 
   TRes call({
     Object? infoAddressId = _undefined,
-    Object? iso31663 = _undefined,
+    Object? iso31662 = _undefined,
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
@@ -21189,9 +21565,9 @@ class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId
       infoAddressId: infoAddressId == _undefined || infoAddressId == null
           ? _instance.infoAddressId
           : (infoAddressId as String),
-      iso31663: iso31663 == _undefined
-          ? _instance.iso31663
-          : (iso31663 as String?),
+      iso31662: iso31662 == _undefined
+          ? _instance.iso31662
+          : (iso31662 as String?),
       zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
       address1: address1 == _undefined
           ? _instance.address1
@@ -21276,7 +21652,7 @@ class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
 
   call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$office$address$address1?
     address1,
@@ -38204,7 +38580,7 @@ class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
 class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$address {
   Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$address({
     required this.infoAddressId,
-    this.iso31663,
+    this.iso31662,
     this.zipCode,
     this.address1,
     this.address2,
@@ -38218,7 +38594,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     Map<String, dynamic> json,
   ) {
     final l$infoAddressId = json['infoAddressId'];
-    final l$iso31663 = json['iso31663'];
+    final l$iso31662 = json['iso31662'];
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
@@ -38228,7 +38604,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     final l$$__typename = json['__typename'];
     return Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$address(
       infoAddressId: (l$infoAddressId as String),
-      iso31663: (l$iso31663 as String?),
+      iso31662: (l$iso31662 as String?),
       zipCode: (l$zipCode as String?),
       address1: l$address1 == null
           ? null
@@ -38253,7 +38629,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
 
   final String infoAddressId;
 
-  final String? iso31663;
+  final String? iso31662;
 
   final String? zipCode;
 
@@ -38276,8 +38652,8 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     final _resultData = <String, dynamic>{};
     final l$infoAddressId = infoAddressId;
     _resultData['infoAddressId'] = l$infoAddressId;
-    final l$iso31663 = iso31663;
-    _resultData['iso31663'] = l$iso31663;
+    final l$iso31662 = iso31662;
+    _resultData['iso31662'] = l$iso31662;
     final l$zipCode = zipCode;
     _resultData['zipCode'] = l$zipCode;
     final l$address1 = address1;
@@ -38298,7 +38674,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
   @override
   int get hashCode {
     final l$infoAddressId = infoAddressId;
-    final l$iso31663 = iso31663;
+    final l$iso31662 = iso31662;
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
@@ -38308,7 +38684,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
-      l$iso31663,
+      l$iso31662,
       l$zipCode,
       l$address1,
       l$address2,
@@ -38334,9 +38710,9 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     if (l$infoAddressId != lOther$infoAddressId) {
       return false;
     }
-    final l$iso31663 = iso31663;
-    final lOther$iso31663 = other.iso31663;
-    if (l$iso31663 != lOther$iso31663) {
+    final l$iso31662 = iso31662;
+    final lOther$iso31662 = other.iso31662;
+    if (l$iso31662 != lOther$iso31662) {
       return false;
     }
     final l$zipCode = zipCode;
@@ -38409,7 +38785,7 @@ abstract class CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
 
   TRes call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$address$address1?
     address1,
@@ -38459,7 +38835,7 @@ class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId
 
   TRes call({
     Object? infoAddressId = _undefined,
-    Object? iso31663 = _undefined,
+    Object? iso31662 = _undefined,
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
@@ -38472,9 +38848,9 @@ class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId
       infoAddressId: infoAddressId == _undefined || infoAddressId == null
           ? _instance.infoAddressId
           : (infoAddressId as String),
-      iso31663: iso31663 == _undefined
-          ? _instance.iso31663
-          : (iso31663 as String?),
+      iso31662: iso31662 == _undefined
+          ? _instance.iso31662
+          : (iso31662 as String?),
       zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
       address1: address1 == _undefined
           ? _instance.address1
@@ -38559,7 +38935,7 @@ class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
 
   call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$address$address1?
     address1,
@@ -49368,6 +49744,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     this.labels,
     this.symbol,
     this.remarks,
+    this.department_kind_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -49381,6 +49758,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     final l$labels = json['labels'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$department_kind_count = json['department_kind_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -49394,6 +49772,11 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      department_kind_count: l$department_kind_count == null
+          ? null
+          : Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count.fromJson(
+              (l$department_kind_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -49414,6 +49797,9 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
 
   final String? remarks;
 
+  final Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count?
+  department_kind_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -49433,6 +49819,8 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$department_kind_count = department_kind_count;
+    _resultData['department_kind_count'] = l$department_kind_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -49450,6 +49838,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     final l$labels = labels;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$department_kind_count = department_kind_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -49459,6 +49848,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
       l$labels,
       l$symbol,
       l$remarks,
+      l$department_kind_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -49494,6 +49884,11 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$department_kind_count = department_kind_count;
+    final lOther$department_kind_count = other.department_kind_count;
+    if (l$department_kind_count != lOther$department_kind_count) {
       return false;
     }
     final l$updateAt = updateAt;
@@ -49555,6 +49950,8 @@ abstract class CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
     labels,
     String? symbol,
     String? remarks,
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count?
+    department_kind_count,
     String? updateAt,
     bool? remove,
     Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$update_user?
@@ -49565,6 +49962,10 @@ abstract class CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
     TRes
   >
   get labels;
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count<
+    TRes
+  >
+  get department_kind_count;
   CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$update_user<
     TRes
   >
@@ -49598,6 +49999,7 @@ class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId
     Object? labels = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? department_kind_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -49615,6 +50017,10 @@ class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId
                 as Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$labels?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      department_kind_count: department_kind_count == _undefined
+          ? _instance.department_kind_count
+          : (department_kind_count
+                as Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -49641,6 +50047,21 @@ class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId
         : CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count<
+    TRes
+  >
+  get department_kind_count {
+    final local$department_kind_count = _instance.department_kind_count;
+    return local$department_kind_count == null
+        ? CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count(
+            local$department_kind_count,
+            (e) => call(department_kind_count: e),
           );
   }
 
@@ -49679,6 +50100,8 @@ class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
     labels,
     String? symbol,
     String? remarks,
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count?
+    department_kind_count,
     String? updateAt,
     bool? remove,
     Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$update_user?
@@ -49691,6 +50114,14 @@ class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
   >
   get labels =>
       CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$labels.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count<
+    TRes
+  >
+  get department_kind_count =>
+      CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count.stub(
         _res,
       );
 
@@ -53010,6 +53441,152 @@ class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count {
+  Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count({
+    this.infoDepartmentKindValueId,
+    this.$__typename = 'VDepartmentKindValueDepartmentKindCount',
+  });
+
+  factory Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoDepartmentKindValueId = json['infoDepartmentKindValueId'];
+    final l$$__typename = json['__typename'];
+    return Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count(
+      infoDepartmentKindValueId: (l$infoDepartmentKindValueId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoDepartmentKindValueId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoDepartmentKindValueId = infoDepartmentKindValueId;
+    _resultData['infoDepartmentKindValueId'] = l$infoDepartmentKindValueId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoDepartmentKindValueId = infoDepartmentKindValueId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoDepartmentKindValueId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoDepartmentKindValueId = infoDepartmentKindValueId;
+    final lOther$infoDepartmentKindValueId = other.infoDepartmentKindValueId;
+    if (l$infoDepartmentKindValueId != lOther$infoDepartmentKindValueId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count
+    on
+        Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count {
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count<
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count
+  >
+  get copyWith =>
+      CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count<
+  TRes
+> {
+  factory CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count(
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count
+    instance,
+    TRes Function(
+      Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count;
+
+  factory CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count;
+
+  TRes call({String? infoDepartmentKindValueId, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count
+  _instance;
+
+  final TRes Function(
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoDepartmentKindValueId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count(
+      infoDepartmentKindValueId: infoDepartmentKindValueId == _undefined
+          ? _instance.infoDepartmentKindValueId
+          : (infoDepartmentKindValueId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$department_kind_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoDepartmentKindValueId, String? $__typename}) => _res;
 }
 
 class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$departmentKinds$nodes$kinds$update_user {
@@ -60314,6 +60891,590 @@ class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
+class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count {
+  Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count({
+    this.infoDepartmentId,
+    this.$__typename = 'VDepartmentAssignCount',
+  });
+
+  factory Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoDepartmentId = json['infoDepartmentId'];
+    final l$$__typename = json['__typename'];
+    return Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count(
+      infoDepartmentId: (l$infoDepartmentId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoDepartmentId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoDepartmentId = infoDepartmentId;
+    _resultData['infoDepartmentId'] = l$infoDepartmentId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoDepartmentId = infoDepartmentId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoDepartmentId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoDepartmentId = infoDepartmentId;
+    final lOther$infoDepartmentId = other.infoDepartmentId;
+    if (l$infoDepartmentId != lOther$infoDepartmentId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count
+    on
+        Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count {
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count<
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count
+  >
+  get copyWith =>
+      CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count<
+  TRes
+> {
+  factory CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count(
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count
+    instance,
+    TRes Function(
+      Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count;
+
+  factory CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count;
+
+  TRes call({String? infoDepartmentId, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count
+  _instance;
+
+  final TRes Function(
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoDepartmentId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count(
+      infoDepartmentId: infoDepartmentId == _undefined
+          ? _instance.infoDepartmentId
+          : (infoDepartmentId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$assign_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoDepartmentId, String? $__typename}) => _res;
+}
+
+class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count {
+  Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count({
+    this.infoDepartmentId,
+    this.$__typename = 'VDepartmentPreventionDetailCount',
+  });
+
+  factory Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoDepartmentId = json['infoDepartmentId'];
+    final l$$__typename = json['__typename'];
+    return Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count(
+      infoDepartmentId: (l$infoDepartmentId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoDepartmentId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoDepartmentId = infoDepartmentId;
+    _resultData['infoDepartmentId'] = l$infoDepartmentId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoDepartmentId = infoDepartmentId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoDepartmentId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoDepartmentId = infoDepartmentId;
+    final lOther$infoDepartmentId = other.infoDepartmentId;
+    if (l$infoDepartmentId != lOther$infoDepartmentId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count
+    on
+        Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count {
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count<
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count
+  >
+  get copyWith =>
+      CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count<
+  TRes
+> {
+  factory CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count(
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count
+    instance,
+    TRes Function(
+      Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count;
+
+  factory CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count;
+
+  TRes call({String? infoDepartmentId, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count
+  _instance;
+
+  final TRes Function(
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoDepartmentId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count(
+      infoDepartmentId: infoDepartmentId == _undefined
+          ? _instance.infoDepartmentId
+          : (infoDepartmentId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$prevention_detail_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoDepartmentId, String? $__typename}) => _res;
+}
+
+class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count {
+  Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count({
+    this.infoDepartmentId,
+    this.$__typename = 'VDepartmentDepartmentKindCount',
+  });
+
+  factory Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoDepartmentId = json['infoDepartmentId'];
+    final l$$__typename = json['__typename'];
+    return Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count(
+      infoDepartmentId: (l$infoDepartmentId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoDepartmentId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoDepartmentId = infoDepartmentId;
+    _resultData['infoDepartmentId'] = l$infoDepartmentId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoDepartmentId = infoDepartmentId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoDepartmentId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoDepartmentId = infoDepartmentId;
+    final lOther$infoDepartmentId = other.infoDepartmentId;
+    if (l$infoDepartmentId != lOther$infoDepartmentId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count
+    on
+        Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count {
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count<
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count
+  >
+  get copyWith =>
+      CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count<
+  TRes
+> {
+  factory CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count(
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count
+    instance,
+    TRes Function(
+      Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count;
+
+  factory CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count;
+
+  TRes call({String? infoDepartmentId, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count
+  _instance;
+
+  final TRes Function(
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoDepartmentId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count(
+      infoDepartmentId: infoDepartmentId == _undefined
+          ? _instance.infoDepartmentId
+          : (infoDepartmentId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_kind_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoDepartmentId, String? $__typename}) => _res;
+}
+
+class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count {
+  Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count({
+    this.infoDepartmentId,
+    this.$__typename = 'VDepartmentDepartmentAccessPermissionCount',
+  });
+
+  factory Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoDepartmentId = json['infoDepartmentId'];
+    final l$$__typename = json['__typename'];
+    return Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count(
+      infoDepartmentId: (l$infoDepartmentId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoDepartmentId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoDepartmentId = infoDepartmentId;
+    _resultData['infoDepartmentId'] = l$infoDepartmentId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoDepartmentId = infoDepartmentId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoDepartmentId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoDepartmentId = infoDepartmentId;
+    final lOther$infoDepartmentId = other.infoDepartmentId;
+    if (l$infoDepartmentId != lOther$infoDepartmentId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count
+    on
+        Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count {
+  CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count<
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count
+  >
+  get copyWith =>
+      CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count<
+  TRes
+> {
+  factory CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count(
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count
+    instance,
+    TRes Function(
+      Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count;
+
+  factory CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count;
+
+  TRes call({String? infoDepartmentId, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count
+  _instance;
+
+  final TRes Function(
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoDepartmentId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count(
+      infoDepartmentId: infoDepartmentId == _undefined
+          ? _instance.infoDepartmentId
+          : (infoDepartmentId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$department_access_permission_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoDepartmentId, String? $__typename}) => _res;
+}
+
 class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$update_user {
   Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$department$update_user({
     required this.historyId,
@@ -67277,7 +68438,7 @@ class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
 class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$info_address_id {
   Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$info_address_id({
     required this.infoAddressId,
-    this.iso31663,
+    this.iso31662,
     this.zipCode,
     this.address1,
     this.address2,
@@ -67292,7 +68453,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     Map<String, dynamic> json,
   ) {
     final l$infoAddressId = json['infoAddressId'];
-    final l$iso31663 = json['iso31663'];
+    final l$iso31662 = json['iso31662'];
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
@@ -67303,7 +68464,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     final l$$__typename = json['__typename'];
     return Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$info_address_id(
       infoAddressId: (l$infoAddressId as String),
-      iso31663: (l$iso31663 as String?),
+      iso31662: (l$iso31662 as String?),
       zipCode: (l$zipCode as String?),
       address1: l$address1 == null
           ? null
@@ -67329,7 +68490,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
 
   final String infoAddressId;
 
-  final String? iso31663;
+  final String? iso31662;
 
   final String? zipCode;
 
@@ -67354,8 +68515,8 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     final _resultData = <String, dynamic>{};
     final l$infoAddressId = infoAddressId;
     _resultData['infoAddressId'] = l$infoAddressId;
-    final l$iso31663 = iso31663;
-    _resultData['iso31663'] = l$iso31663;
+    final l$iso31662 = iso31662;
+    _resultData['iso31662'] = l$iso31662;
     final l$zipCode = zipCode;
     _resultData['zipCode'] = l$zipCode;
     final l$address1 = address1;
@@ -67378,7 +68539,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
   @override
   int get hashCode {
     final l$infoAddressId = infoAddressId;
-    final l$iso31663 = iso31663;
+    final l$iso31662 = iso31662;
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
@@ -67389,7 +68550,7 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
-      l$iso31663,
+      l$iso31662,
       l$zipCode,
       l$address1,
       l$address2,
@@ -67416,9 +68577,9 @@ class Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$
     if (l$infoAddressId != lOther$infoAddressId) {
       return false;
     }
-    final l$iso31663 = iso31663;
-    final lOther$iso31663 = other.iso31663;
-    if (l$iso31663 != lOther$iso31663) {
+    final l$iso31662 = iso31662;
+    final lOther$iso31662 = other.iso31662;
+    if (l$iso31662 != lOther$iso31662) {
       return false;
     }
     final l$zipCode = zipCode;
@@ -67496,7 +68657,7 @@ abstract class CopyWith$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
 
   TRes call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$info_address_id$address1?
     address1,
@@ -67547,7 +68708,7 @@ class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId
 
   TRes call({
     Object? infoAddressId = _undefined,
-    Object? iso31663 = _undefined,
+    Object? iso31662 = _undefined,
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
@@ -67561,9 +68722,9 @@ class _CopyWithImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId
       infoAddressId: infoAddressId == _undefined || infoAddressId == null
           ? _instance.infoAddressId
           : (infoAddressId as String),
-      iso31663: iso31663 == _undefined
-          ? _instance.iso31663
-          : (iso31663 as String?),
+      iso31662: iso31662 == _undefined
+          ? _instance.iso31662
+          : (iso31662 as String?),
       zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
       address1: address1 == _undefined
           ? _instance.address1
@@ -67649,7 +68810,7 @@ class _CopyWithStubImpl$Mutation$LocationPageEdit$updateMstrLocationByMstrLocati
 
   call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Mutation$LocationPageEdit$updateMstrLocationByMstrLocationId$mstrLocation$info_address_id$address1?
     address1,

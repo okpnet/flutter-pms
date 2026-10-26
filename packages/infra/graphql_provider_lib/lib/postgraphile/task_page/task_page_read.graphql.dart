@@ -1925,6 +1925,132 @@ const documentNodeQueryTaskPageRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(value: 'vTaskWorkPlanCountByMstrTaskId'),
+                        alias: NameNode(value: 'work_plan_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrTaskId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'vTaskTaskRiskCountByMstrTaskId'),
+                        alias: NameNode(value: 'task_risk_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrTaskId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vTaskComplaintProcessCountByMstrTaskId',
+                        ),
+                        alias: NameNode(value: 'complaint_process_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrTaskId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vTaskTaskLocationCountByMstrTaskId',
+                        ),
+                        alias: NameNode(value: 'task_location_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrTaskId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vTaskOperationTaskCountByMstrTaskId',
+                        ),
+                        alias: NameNode(value: 'operation_task_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrTaskId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -2889,6 +3015,11 @@ class Query$TaskPageRead$allMstrTasks$nodes {
     this.defaultTime,
     this.symbol,
     this.remarks,
+    this.work_plan_count,
+    this.task_risk_count,
+    this.complaint_process_count,
+    this.task_location_count,
+    this.operation_task_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -2909,6 +3040,11 @@ class Query$TaskPageRead$allMstrTasks$nodes {
     final l$defaultTime = json['defaultTime'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$work_plan_count = json['work_plan_count'];
+    final l$task_risk_count = json['task_risk_count'];
+    final l$complaint_process_count = json['complaint_process_count'];
+    final l$task_location_count = json['task_location_count'];
+    final l$operation_task_count = json['operation_task_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -2947,6 +3083,31 @@ class Query$TaskPageRead$allMstrTasks$nodes {
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      work_plan_count: l$work_plan_count == null
+          ? null
+          : Query$TaskPageRead$allMstrTasks$nodes$work_plan_count.fromJson(
+              (l$work_plan_count as Map<String, dynamic>),
+            ),
+      task_risk_count: l$task_risk_count == null
+          ? null
+          : Query$TaskPageRead$allMstrTasks$nodes$task_risk_count.fromJson(
+              (l$task_risk_count as Map<String, dynamic>),
+            ),
+      complaint_process_count: l$complaint_process_count == null
+          ? null
+          : Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count.fromJson(
+              (l$complaint_process_count as Map<String, dynamic>),
+            ),
+      task_location_count: l$task_location_count == null
+          ? null
+          : Query$TaskPageRead$allMstrTasks$nodes$task_location_count.fromJson(
+              (l$task_location_count as Map<String, dynamic>),
+            ),
+      operation_task_count: l$operation_task_count == null
+          ? null
+          : Query$TaskPageRead$allMstrTasks$nodes$operation_task_count.fromJson(
+              (l$operation_task_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -2980,6 +3141,19 @@ class Query$TaskPageRead$allMstrTasks$nodes {
 
   final String? remarks;
 
+  final Query$TaskPageRead$allMstrTasks$nodes$work_plan_count? work_plan_count;
+
+  final Query$TaskPageRead$allMstrTasks$nodes$task_risk_count? task_risk_count;
+
+  final Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count?
+  complaint_process_count;
+
+  final Query$TaskPageRead$allMstrTasks$nodes$task_location_count?
+  task_location_count;
+
+  final Query$TaskPageRead$allMstrTasks$nodes$operation_task_count?
+  operation_task_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -3012,6 +3186,17 @@ class Query$TaskPageRead$allMstrTasks$nodes {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$work_plan_count = work_plan_count;
+    _resultData['work_plan_count'] = l$work_plan_count?.toJson();
+    final l$task_risk_count = task_risk_count;
+    _resultData['task_risk_count'] = l$task_risk_count?.toJson();
+    final l$complaint_process_count = complaint_process_count;
+    _resultData['complaint_process_count'] = l$complaint_process_count
+        ?.toJson();
+    final l$task_location_count = task_location_count;
+    _resultData['task_location_count'] = l$task_location_count?.toJson();
+    final l$operation_task_count = operation_task_count;
+    _resultData['operation_task_count'] = l$operation_task_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -3036,6 +3221,11 @@ class Query$TaskPageRead$allMstrTasks$nodes {
     final l$defaultTime = defaultTime;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$work_plan_count = work_plan_count;
+    final l$task_risk_count = task_risk_count;
+    final l$complaint_process_count = complaint_process_count;
+    final l$task_location_count = task_location_count;
+    final l$operation_task_count = operation_task_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -3052,6 +3242,11 @@ class Query$TaskPageRead$allMstrTasks$nodes {
       l$defaultTime,
       l$symbol,
       l$remarks,
+      l$work_plan_count,
+      l$task_risk_count,
+      l$complaint_process_count,
+      l$task_location_count,
+      l$operation_task_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -3123,6 +3318,31 @@ class Query$TaskPageRead$allMstrTasks$nodes {
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$work_plan_count = work_plan_count;
+    final lOther$work_plan_count = other.work_plan_count;
+    if (l$work_plan_count != lOther$work_plan_count) {
+      return false;
+    }
+    final l$task_risk_count = task_risk_count;
+    final lOther$task_risk_count = other.task_risk_count;
+    if (l$task_risk_count != lOther$task_risk_count) {
+      return false;
+    }
+    final l$complaint_process_count = complaint_process_count;
+    final lOther$complaint_process_count = other.complaint_process_count;
+    if (l$complaint_process_count != lOther$complaint_process_count) {
+      return false;
+    }
+    final l$task_location_count = task_location_count;
+    final lOther$task_location_count = other.task_location_count;
+    if (l$task_location_count != lOther$task_location_count) {
+      return false;
+    }
+    final l$operation_task_count = operation_task_count;
+    final lOther$operation_task_count = other.operation_task_count;
+    if (l$operation_task_count != lOther$operation_task_count) {
+      return false;
+    }
     final l$updateAt = updateAt;
     final lOther$updateAt = other.updateAt;
     if (l$updateAt != lOther$updateAt) {
@@ -3177,6 +3397,14 @@ abstract class CopyWith$Query$TaskPageRead$allMstrTasks$nodes<TRes> {
     Query$TaskPageRead$allMstrTasks$nodes$defaultTime? defaultTime,
     String? symbol,
     String? remarks,
+    Query$TaskPageRead$allMstrTasks$nodes$work_plan_count? work_plan_count,
+    Query$TaskPageRead$allMstrTasks$nodes$task_risk_count? task_risk_count,
+    Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count?
+    complaint_process_count,
+    Query$TaskPageRead$allMstrTasks$nodes$task_location_count?
+    task_location_count,
+    Query$TaskPageRead$allMstrTasks$nodes$operation_task_count?
+    operation_task_count,
     String? updateAt,
     bool? remove,
     Query$TaskPageRead$allMstrTasks$nodes$update_user? update_user,
@@ -3191,6 +3419,16 @@ abstract class CopyWith$Query$TaskPageRead$allMstrTasks$nodes<TRes> {
   get detailTexts;
   CopyWith$Query$TaskPageRead$allMstrTasks$nodes$defaultTime<TRes>
   get defaultTime;
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count<TRes>
+  get work_plan_count;
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count<TRes>
+  get task_risk_count;
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count<TRes>
+  get complaint_process_count;
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_location_count<TRes>
+  get task_location_count;
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count<TRes>
+  get operation_task_count;
   CopyWith$Query$TaskPageRead$allMstrTasks$nodes$update_user<TRes>
   get update_user;
 }
@@ -3220,6 +3458,11 @@ class _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes<TRes>
     Object? defaultTime = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? work_plan_count = _undefined,
+    Object? task_risk_count = _undefined,
+    Object? complaint_process_count = _undefined,
+    Object? task_location_count = _undefined,
+    Object? operation_task_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -3253,6 +3496,26 @@ class _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes<TRes>
           : (defaultTime as Query$TaskPageRead$allMstrTasks$nodes$defaultTime?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      work_plan_count: work_plan_count == _undefined
+          ? _instance.work_plan_count
+          : (work_plan_count
+                as Query$TaskPageRead$allMstrTasks$nodes$work_plan_count?),
+      task_risk_count: task_risk_count == _undefined
+          ? _instance.task_risk_count
+          : (task_risk_count
+                as Query$TaskPageRead$allMstrTasks$nodes$task_risk_count?),
+      complaint_process_count: complaint_process_count == _undefined
+          ? _instance.complaint_process_count
+          : (complaint_process_count
+                as Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count?),
+      task_location_count: task_location_count == _undefined
+          ? _instance.task_location_count
+          : (task_location_count
+                as Query$TaskPageRead$allMstrTasks$nodes$task_location_count?),
+      operation_task_count: operation_task_count == _undefined
+          ? _instance.operation_task_count
+          : (operation_task_count
+                as Query$TaskPageRead$allMstrTasks$nodes$operation_task_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -3337,6 +3600,71 @@ class _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes<TRes>
           );
   }
 
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count<TRes>
+  get work_plan_count {
+    final local$work_plan_count = _instance.work_plan_count;
+    return local$work_plan_count == null
+        ? CopyWith$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count(
+            local$work_plan_count,
+            (e) => call(work_plan_count: e),
+          );
+  }
+
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count<TRes>
+  get task_risk_count {
+    final local$task_risk_count = _instance.task_risk_count;
+    return local$task_risk_count == null
+        ? CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count(
+            local$task_risk_count,
+            (e) => call(task_risk_count: e),
+          );
+  }
+
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count<TRes>
+  get complaint_process_count {
+    final local$complaint_process_count = _instance.complaint_process_count;
+    return local$complaint_process_count == null
+        ? CopyWith$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count(
+            local$complaint_process_count,
+            (e) => call(complaint_process_count: e),
+          );
+  }
+
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_location_count<TRes>
+  get task_location_count {
+    final local$task_location_count = _instance.task_location_count;
+    return local$task_location_count == null
+        ? CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_location_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_location_count(
+            local$task_location_count,
+            (e) => call(task_location_count: e),
+          );
+  }
+
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count<TRes>
+  get operation_task_count {
+    final local$operation_task_count = _instance.operation_task_count;
+    return local$operation_task_count == null
+        ? CopyWith$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count(
+            local$operation_task_count,
+            (e) => call(operation_task_count: e),
+          );
+  }
+
   CopyWith$Query$TaskPageRead$allMstrTasks$nodes$update_user<TRes>
   get update_user {
     final local$update_user = _instance.update_user;
@@ -3369,6 +3697,14 @@ class _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes<TRes>
     Query$TaskPageRead$allMstrTasks$nodes$defaultTime? defaultTime,
     String? symbol,
     String? remarks,
+    Query$TaskPageRead$allMstrTasks$nodes$work_plan_count? work_plan_count,
+    Query$TaskPageRead$allMstrTasks$nodes$task_risk_count? task_risk_count,
+    Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count?
+    complaint_process_count,
+    Query$TaskPageRead$allMstrTasks$nodes$task_location_count?
+    task_location_count,
+    Query$TaskPageRead$allMstrTasks$nodes$operation_task_count?
+    operation_task_count,
     String? updateAt,
     bool? remove,
     Query$TaskPageRead$allMstrTasks$nodes$update_user? update_user,
@@ -3395,6 +3731,32 @@ class _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes<TRes>
   CopyWith$Query$TaskPageRead$allMstrTasks$nodes$defaultTime<TRes>
   get defaultTime =>
       CopyWith$Query$TaskPageRead$allMstrTasks$nodes$defaultTime.stub(_res);
+
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count<TRes>
+  get work_plan_count =>
+      CopyWith$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count.stub(_res);
+
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count<TRes>
+  get task_risk_count =>
+      CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count.stub(_res);
+
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count<TRes>
+  get complaint_process_count =>
+      CopyWith$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_location_count<TRes>
+  get task_location_count =>
+      CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_location_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count<TRes>
+  get operation_task_count =>
+      CopyWith$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count.stub(
+        _res,
+      );
 
   CopyWith$Query$TaskPageRead$allMstrTasks$nodes$update_user<TRes>
   get update_user =>
@@ -11404,6 +11766,687 @@ class _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes$defaultTime<TRes>
     int? years,
     String? $__typename,
   }) => _res;
+}
+
+class Query$TaskPageRead$allMstrTasks$nodes$work_plan_count {
+  Query$TaskPageRead$allMstrTasks$nodes$work_plan_count({
+    this.mstrTaskId,
+    this.$__typename = 'VTaskWorkPlanCount',
+  });
+
+  factory Query$TaskPageRead$allMstrTasks$nodes$work_plan_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrTaskId = json['mstrTaskId'];
+    final l$$__typename = json['__typename'];
+    return Query$TaskPageRead$allMstrTasks$nodes$work_plan_count(
+      mstrTaskId: (l$mstrTaskId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrTaskId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrTaskId = mstrTaskId;
+    _resultData['mstrTaskId'] = l$mstrTaskId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrTaskId = mstrTaskId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrTaskId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$TaskPageRead$allMstrTasks$nodes$work_plan_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrTaskId = mstrTaskId;
+    final lOther$mstrTaskId = other.mstrTaskId;
+    if (l$mstrTaskId != lOther$mstrTaskId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count
+    on Query$TaskPageRead$allMstrTasks$nodes$work_plan_count {
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count<
+    Query$TaskPageRead$allMstrTasks$nodes$work_plan_count
+  >
+  get copyWith =>
+      CopyWith$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count<
+  TRes
+> {
+  factory CopyWith$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count(
+    Query$TaskPageRead$allMstrTasks$nodes$work_plan_count instance,
+    TRes Function(Query$TaskPageRead$allMstrTasks$nodes$work_plan_count) then,
+  ) = _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count;
+
+  factory CopyWith$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count;
+
+  TRes call({String? mstrTaskId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count<TRes>
+    implements
+        CopyWith$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count<TRes> {
+  _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$TaskPageRead$allMstrTasks$nodes$work_plan_count _instance;
+
+  final TRes Function(Query$TaskPageRead$allMstrTasks$nodes$work_plan_count)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrTaskId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$TaskPageRead$allMstrTasks$nodes$work_plan_count(
+      mstrTaskId: mstrTaskId == _undefined
+          ? _instance.mstrTaskId
+          : (mstrTaskId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count<
+  TRes
+>
+    implements
+        CopyWith$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count<TRes> {
+  _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes$work_plan_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrTaskId, String? $__typename}) => _res;
+}
+
+class Query$TaskPageRead$allMstrTasks$nodes$task_risk_count {
+  Query$TaskPageRead$allMstrTasks$nodes$task_risk_count({
+    this.mstrTaskId,
+    this.$__typename = 'VTaskTaskRiskCount',
+  });
+
+  factory Query$TaskPageRead$allMstrTasks$nodes$task_risk_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrTaskId = json['mstrTaskId'];
+    final l$$__typename = json['__typename'];
+    return Query$TaskPageRead$allMstrTasks$nodes$task_risk_count(
+      mstrTaskId: (l$mstrTaskId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrTaskId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrTaskId = mstrTaskId;
+    _resultData['mstrTaskId'] = l$mstrTaskId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrTaskId = mstrTaskId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrTaskId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$TaskPageRead$allMstrTasks$nodes$task_risk_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrTaskId = mstrTaskId;
+    final lOther$mstrTaskId = other.mstrTaskId;
+    if (l$mstrTaskId != lOther$mstrTaskId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count
+    on Query$TaskPageRead$allMstrTasks$nodes$task_risk_count {
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count<
+    Query$TaskPageRead$allMstrTasks$nodes$task_risk_count
+  >
+  get copyWith =>
+      CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count<
+  TRes
+> {
+  factory CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count(
+    Query$TaskPageRead$allMstrTasks$nodes$task_risk_count instance,
+    TRes Function(Query$TaskPageRead$allMstrTasks$nodes$task_risk_count) then,
+  ) = _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count;
+
+  factory CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count;
+
+  TRes call({String? mstrTaskId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count<TRes>
+    implements
+        CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count<TRes> {
+  _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$TaskPageRead$allMstrTasks$nodes$task_risk_count _instance;
+
+  final TRes Function(Query$TaskPageRead$allMstrTasks$nodes$task_risk_count)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrTaskId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$TaskPageRead$allMstrTasks$nodes$task_risk_count(
+      mstrTaskId: mstrTaskId == _undefined
+          ? _instance.mstrTaskId
+          : (mstrTaskId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count<
+  TRes
+>
+    implements
+        CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count<TRes> {
+  _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes$task_risk_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrTaskId, String? $__typename}) => _res;
+}
+
+class Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count {
+  Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count({
+    this.mstrTaskId,
+    this.$__typename = 'VTaskComplaintProcessCount',
+  });
+
+  factory Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrTaskId = json['mstrTaskId'];
+    final l$$__typename = json['__typename'];
+    return Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count(
+      mstrTaskId: (l$mstrTaskId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrTaskId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrTaskId = mstrTaskId;
+    _resultData['mstrTaskId'] = l$mstrTaskId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrTaskId = mstrTaskId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrTaskId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrTaskId = mstrTaskId;
+    final lOther$mstrTaskId = other.mstrTaskId;
+    if (l$mstrTaskId != lOther$mstrTaskId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count
+    on Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count {
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count<
+    Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count
+  >
+  get copyWith =>
+      CopyWith$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count<
+  TRes
+> {
+  factory CopyWith$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count(
+    Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count instance,
+    TRes Function(Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count)
+    then,
+  ) = _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count;
+
+  factory CopyWith$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count;
+
+  TRes call({String? mstrTaskId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count<
+  TRes
+>
+    implements
+        CopyWith$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count _instance;
+
+  final TRes Function(
+    Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrTaskId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count(
+      mstrTaskId: mstrTaskId == _undefined
+          ? _instance.mstrTaskId
+          : (mstrTaskId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count<
+  TRes
+>
+    implements
+        CopyWith$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes$complaint_process_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrTaskId, String? $__typename}) => _res;
+}
+
+class Query$TaskPageRead$allMstrTasks$nodes$task_location_count {
+  Query$TaskPageRead$allMstrTasks$nodes$task_location_count({
+    this.mstrTaskId,
+    this.$__typename = 'VTaskTaskLocationCount',
+  });
+
+  factory Query$TaskPageRead$allMstrTasks$nodes$task_location_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrTaskId = json['mstrTaskId'];
+    final l$$__typename = json['__typename'];
+    return Query$TaskPageRead$allMstrTasks$nodes$task_location_count(
+      mstrTaskId: (l$mstrTaskId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrTaskId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrTaskId = mstrTaskId;
+    _resultData['mstrTaskId'] = l$mstrTaskId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrTaskId = mstrTaskId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrTaskId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$TaskPageRead$allMstrTasks$nodes$task_location_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrTaskId = mstrTaskId;
+    final lOther$mstrTaskId = other.mstrTaskId;
+    if (l$mstrTaskId != lOther$mstrTaskId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$TaskPageRead$allMstrTasks$nodes$task_location_count
+    on Query$TaskPageRead$allMstrTasks$nodes$task_location_count {
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_location_count<
+    Query$TaskPageRead$allMstrTasks$nodes$task_location_count
+  >
+  get copyWith =>
+      CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_location_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_location_count<
+  TRes
+> {
+  factory CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_location_count(
+    Query$TaskPageRead$allMstrTasks$nodes$task_location_count instance,
+    TRes Function(Query$TaskPageRead$allMstrTasks$nodes$task_location_count)
+    then,
+  ) = _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes$task_location_count;
+
+  factory CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_location_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes$task_location_count;
+
+  TRes call({String? mstrTaskId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes$task_location_count<
+  TRes
+>
+    implements
+        CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_location_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes$task_location_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$TaskPageRead$allMstrTasks$nodes$task_location_count _instance;
+
+  final TRes Function(Query$TaskPageRead$allMstrTasks$nodes$task_location_count)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrTaskId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$TaskPageRead$allMstrTasks$nodes$task_location_count(
+      mstrTaskId: mstrTaskId == _undefined
+          ? _instance.mstrTaskId
+          : (mstrTaskId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes$task_location_count<
+  TRes
+>
+    implements
+        CopyWith$Query$TaskPageRead$allMstrTasks$nodes$task_location_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes$task_location_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrTaskId, String? $__typename}) => _res;
+}
+
+class Query$TaskPageRead$allMstrTasks$nodes$operation_task_count {
+  Query$TaskPageRead$allMstrTasks$nodes$operation_task_count({
+    this.mstrTaskId,
+    this.$__typename = 'VTaskOperationTaskCount',
+  });
+
+  factory Query$TaskPageRead$allMstrTasks$nodes$operation_task_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrTaskId = json['mstrTaskId'];
+    final l$$__typename = json['__typename'];
+    return Query$TaskPageRead$allMstrTasks$nodes$operation_task_count(
+      mstrTaskId: (l$mstrTaskId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrTaskId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrTaskId = mstrTaskId;
+    _resultData['mstrTaskId'] = l$mstrTaskId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrTaskId = mstrTaskId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrTaskId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$TaskPageRead$allMstrTasks$nodes$operation_task_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrTaskId = mstrTaskId;
+    final lOther$mstrTaskId = other.mstrTaskId;
+    if (l$mstrTaskId != lOther$mstrTaskId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count
+    on Query$TaskPageRead$allMstrTasks$nodes$operation_task_count {
+  CopyWith$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count<
+    Query$TaskPageRead$allMstrTasks$nodes$operation_task_count
+  >
+  get copyWith =>
+      CopyWith$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count<
+  TRes
+> {
+  factory CopyWith$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count(
+    Query$TaskPageRead$allMstrTasks$nodes$operation_task_count instance,
+    TRes Function(Query$TaskPageRead$allMstrTasks$nodes$operation_task_count)
+    then,
+  ) = _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count;
+
+  factory CopyWith$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count;
+
+  TRes call({String? mstrTaskId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count<
+  TRes
+>
+    implements
+        CopyWith$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$TaskPageRead$allMstrTasks$nodes$operation_task_count _instance;
+
+  final TRes Function(
+    Query$TaskPageRead$allMstrTasks$nodes$operation_task_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrTaskId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$TaskPageRead$allMstrTasks$nodes$operation_task_count(
+      mstrTaskId: mstrTaskId == _undefined
+          ? _instance.mstrTaskId
+          : (mstrTaskId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count<
+  TRes
+>
+    implements
+        CopyWith$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$TaskPageRead$allMstrTasks$nodes$operation_task_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrTaskId, String? $__typename}) => _res;
 }
 
 class Query$TaskPageRead$allMstrTasks$nodes$update_user {

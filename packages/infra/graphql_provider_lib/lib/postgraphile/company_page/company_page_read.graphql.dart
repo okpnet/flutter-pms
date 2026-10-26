@@ -1849,6 +1849,99 @@ const documentNodeQueryCompanyPageRead = DocumentNode(
                                     selectionSet: null,
                                   ),
                                   FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'vProvisionStakeholderProvisionCountByInfoProvisionId',
+                                    ),
+                                    alias: NameNode(
+                                      value: 'stakeholder_provision_count',
+                                    ),
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(
+                                            value: 'infoProvisionId',
+                                          ),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'vProvisionItemProvisionCountByInfoProvisionId',
+                                    ),
+                                    alias: NameNode(
+                                      value: 'item_provision_count',
+                                    ),
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(
+                                            value: 'infoProvisionId',
+                                          ),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'vProvisionEquipmentProvisionCountByInfoProvisionId',
+                                    ),
+                                    alias: NameNode(
+                                      value: 'equipment_provision_count',
+                                    ),
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(
+                                            value: 'infoProvisionId',
+                                          ),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
                                     name: NameNode(value: 'updateAt'),
                                     alias: null,
                                     arguments: [],
@@ -2364,7 +2457,7 @@ const documentNodeQueryCompanyPageRead = DocumentNode(
                               selectionSet: null,
                             ),
                             FieldNode(
-                              name: NameNode(value: 'iso31663'),
+                              name: NameNode(value: 'iso31662'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -3864,7 +3957,7 @@ const documentNodeQueryCompanyPageRead = DocumentNode(
                                           selectionSet: null,
                                         ),
                                         FieldNode(
-                                          name: NameNode(value: 'iso31663'),
+                                          name: NameNode(value: 'iso31662'),
                                           alias: null,
                                           arguments: [],
                                           directives: [],
@@ -5531,6 +5624,110 @@ const documentNodeQueryCompanyPageRead = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(
+                          value: 'vCompanyStaffCountByInfoCompanyId',
+                        ),
+                        alias: NameNode(value: 'staff_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'infoCompanyId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vCompanyProvisionCountByInfoCompanyId',
+                        ),
+                        alias: NameNode(value: 'provision_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'infoCompanyId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vCompanyOfficeCountByInfoCompanyId',
+                        ),
+                        alias: NameNode(value: 'office_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'infoCompanyId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vCompanyDepartmentCountByInfoCompanyId',
+                        ),
+                        alias: NameNode(value: 'department_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'infoCompanyId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -6508,6 +6705,10 @@ class Query$CompanyPageRead$allInfoCompanies$nodes {
     this.remarks,
     this.address,
     required this.offices,
+    this.staff_count,
+    this.provision_count,
+    this.office_count,
+    this.department_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -6526,6 +6727,10 @@ class Query$CompanyPageRead$allInfoCompanies$nodes {
     final l$remarks = json['remarks'];
     final l$address = json['address'];
     final l$offices = json['offices'];
+    final l$staff_count = json['staff_count'];
+    final l$provision_count = json['provision_count'];
+    final l$office_count = json['office_count'];
+    final l$department_count = json['department_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -6557,6 +6762,26 @@ class Query$CompanyPageRead$allInfoCompanies$nodes {
       offices: Query$CompanyPageRead$allInfoCompanies$nodes$offices.fromJson(
         (l$offices as Map<String, dynamic>),
       ),
+      staff_count: l$staff_count == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$staff_count.fromJson(
+              (l$staff_count as Map<String, dynamic>),
+            ),
+      provision_count: l$provision_count == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$provision_count.fromJson(
+              (l$provision_count as Map<String, dynamic>),
+            ),
+      office_count: l$office_count == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$office_count.fromJson(
+              (l$office_count as Map<String, dynamic>),
+            ),
+      department_count: l$department_count == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$department_count.fromJson(
+              (l$department_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -6586,6 +6811,16 @@ class Query$CompanyPageRead$allInfoCompanies$nodes {
 
   final Query$CompanyPageRead$allInfoCompanies$nodes$offices offices;
 
+  final Query$CompanyPageRead$allInfoCompanies$nodes$staff_count? staff_count;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$provision_count?
+  provision_count;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$office_count? office_count;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$department_count?
+  department_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -6614,6 +6849,14 @@ class Query$CompanyPageRead$allInfoCompanies$nodes {
     _resultData['address'] = l$address?.toJson();
     final l$offices = offices;
     _resultData['offices'] = l$offices.toJson();
+    final l$staff_count = staff_count;
+    _resultData['staff_count'] = l$staff_count?.toJson();
+    final l$provision_count = provision_count;
+    _resultData['provision_count'] = l$provision_count?.toJson();
+    final l$office_count = office_count;
+    _resultData['office_count'] = l$office_count?.toJson();
+    final l$department_count = department_count;
+    _resultData['department_count'] = l$department_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -6636,6 +6879,10 @@ class Query$CompanyPageRead$allInfoCompanies$nodes {
     final l$remarks = remarks;
     final l$address = address;
     final l$offices = offices;
+    final l$staff_count = staff_count;
+    final l$provision_count = provision_count;
+    final l$office_count = office_count;
+    final l$department_count = department_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -6650,6 +6897,10 @@ class Query$CompanyPageRead$allInfoCompanies$nodes {
       l$remarks,
       l$address,
       l$offices,
+      l$staff_count,
+      l$provision_count,
+      l$office_count,
+      l$department_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -6711,6 +6962,26 @@ class Query$CompanyPageRead$allInfoCompanies$nodes {
     if (l$offices != lOther$offices) {
       return false;
     }
+    final l$staff_count = staff_count;
+    final lOther$staff_count = other.staff_count;
+    if (l$staff_count != lOther$staff_count) {
+      return false;
+    }
+    final l$provision_count = provision_count;
+    final lOther$provision_count = other.provision_count;
+    if (l$provision_count != lOther$provision_count) {
+      return false;
+    }
+    final l$office_count = office_count;
+    final lOther$office_count = other.office_count;
+    if (l$office_count != lOther$office_count) {
+      return false;
+    }
+    final l$department_count = department_count;
+    final lOther$department_count = other.department_count;
+    if (l$department_count != lOther$department_count) {
+      return false;
+    }
     final l$updateAt = updateAt;
     final lOther$updateAt = other.updateAt;
     if (l$updateAt != lOther$updateAt) {
@@ -6763,6 +7034,12 @@ abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes<TRes> {
     String? remarks,
     Query$CompanyPageRead$allInfoCompanies$nodes$address? address,
     Query$CompanyPageRead$allInfoCompanies$nodes$offices? offices,
+    Query$CompanyPageRead$allInfoCompanies$nodes$staff_count? staff_count,
+    Query$CompanyPageRead$allInfoCompanies$nodes$provision_count?
+    provision_count,
+    Query$CompanyPageRead$allInfoCompanies$nodes$office_count? office_count,
+    Query$CompanyPageRead$allInfoCompanies$nodes$department_count?
+    department_count,
     String? updateAt,
     bool? remove,
     Query$CompanyPageRead$allInfoCompanies$nodes$update_user? update_user,
@@ -6777,6 +7054,14 @@ abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes<TRes> {
   get address;
   CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$offices<TRes>
   get offices;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count<TRes>
+  get staff_count;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count<TRes>
+  get provision_count;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$office_count<TRes>
+  get office_count;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$department_count<TRes>
+  get department_count;
   CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$update_user<TRes>
   get update_user;
 }
@@ -6804,6 +7089,10 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes<TRes>
     Object? remarks = _undefined,
     Object? address = _undefined,
     Object? offices = _undefined,
+    Object? staff_count = _undefined,
+    Object? provision_count = _undefined,
+    Object? office_count = _undefined,
+    Object? department_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -6833,6 +7122,22 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes<TRes>
       offices: offices == _undefined || offices == null
           ? _instance.offices
           : (offices as Query$CompanyPageRead$allInfoCompanies$nodes$offices),
+      staff_count: staff_count == _undefined
+          ? _instance.staff_count
+          : (staff_count
+                as Query$CompanyPageRead$allInfoCompanies$nodes$staff_count?),
+      provision_count: provision_count == _undefined
+          ? _instance.provision_count
+          : (provision_count
+                as Query$CompanyPageRead$allInfoCompanies$nodes$provision_count?),
+      office_count: office_count == _undefined
+          ? _instance.office_count
+          : (office_count
+                as Query$CompanyPageRead$allInfoCompanies$nodes$office_count?),
+      department_count: department_count == _undefined
+          ? _instance.department_count
+          : (department_count
+                as Query$CompanyPageRead$allInfoCompanies$nodes$department_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -6904,6 +7209,58 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes<TRes>
     );
   }
 
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count<TRes>
+  get staff_count {
+    final local$staff_count = _instance.staff_count;
+    return local$staff_count == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count(
+            local$staff_count,
+            (e) => call(staff_count: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count<TRes>
+  get provision_count {
+    final local$provision_count = _instance.provision_count;
+    return local$provision_count == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count(
+            local$provision_count,
+            (e) => call(provision_count: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$office_count<TRes>
+  get office_count {
+    final local$office_count = _instance.office_count;
+    return local$office_count == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$office_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$office_count(
+            local$office_count,
+            (e) => call(office_count: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$department_count<TRes>
+  get department_count {
+    final local$department_count = _instance.department_count;
+    return local$department_count == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$department_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$department_count(
+            local$department_count,
+            (e) => call(department_count: e),
+          );
+  }
+
   CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$update_user<TRes>
   get update_user {
     final local$update_user = _instance.update_user;
@@ -6934,6 +7291,12 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes<TRes>
     String? remarks,
     Query$CompanyPageRead$allInfoCompanies$nodes$address? address,
     Query$CompanyPageRead$allInfoCompanies$nodes$offices? offices,
+    Query$CompanyPageRead$allInfoCompanies$nodes$staff_count? staff_count,
+    Query$CompanyPageRead$allInfoCompanies$nodes$provision_count?
+    provision_count,
+    Query$CompanyPageRead$allInfoCompanies$nodes$office_count? office_count,
+    Query$CompanyPageRead$allInfoCompanies$nodes$department_count?
+    department_count,
     String? updateAt,
     bool? remove,
     Query$CompanyPageRead$allInfoCompanies$nodes$update_user? update_user,
@@ -6963,6 +7326,30 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes<TRes>
   CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$offices<TRes>
   get offices =>
       CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$offices.stub(_res);
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count<TRes>
+  get staff_count =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count<TRes>
+  get provision_count =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$office_count<TRes>
+  get office_count =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$office_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$department_count<TRes>
+  get department_count =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$department_count.stub(
+        _res,
+      );
 
   CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$update_user<TRes>
   get update_user =>
@@ -11505,6 +11892,9 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes {
     this.detailTexts,
     this.symbol,
     this.remarks,
+    this.stakeholder_provision_count,
+    this.item_provision_count,
+    this.equipment_provision_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -11521,6 +11911,9 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes {
     final l$detailTexts = json['detailTexts'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$stakeholder_provision_count = json['stakeholder_provision_count'];
+    final l$item_provision_count = json['item_provision_count'];
+    final l$equipment_provision_count = json['equipment_provision_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -11541,6 +11934,21 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes {
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      stakeholder_provision_count: l$stakeholder_provision_count == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count.fromJson(
+              (l$stakeholder_provision_count as Map<String, dynamic>),
+            ),
+      item_provision_count: l$item_provision_count == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count.fromJson(
+              (l$item_provision_count as Map<String, dynamic>),
+            ),
+      equipment_provision_count: l$equipment_provision_count == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count.fromJson(
+              (l$equipment_provision_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -11568,6 +11976,15 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes {
 
   final String? remarks;
 
+  final Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count?
+  stakeholder_provision_count;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count?
+  item_provision_count;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count?
+  equipment_provision_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -11593,6 +12010,14 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$stakeholder_provision_count = stakeholder_provision_count;
+    _resultData['stakeholder_provision_count'] = l$stakeholder_provision_count
+        ?.toJson();
+    final l$item_provision_count = item_provision_count;
+    _resultData['item_provision_count'] = l$item_provision_count?.toJson();
+    final l$equipment_provision_count = equipment_provision_count;
+    _resultData['equipment_provision_count'] = l$equipment_provision_count
+        ?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -11613,6 +12038,9 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes {
     final l$detailTexts = detailTexts;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$stakeholder_provision_count = stakeholder_provision_count;
+    final l$item_provision_count = item_provision_count;
+    final l$equipment_provision_count = equipment_provision_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -11625,6 +12053,9 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes {
       l$detailTexts,
       l$symbol,
       l$remarks,
+      l$stakeholder_provision_count,
+      l$item_provision_count,
+      l$equipment_provision_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -11675,6 +12106,22 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes {
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$stakeholder_provision_count = stakeholder_provision_count;
+    final lOther$stakeholder_provision_count =
+        other.stakeholder_provision_count;
+    if (l$stakeholder_provision_count != lOther$stakeholder_provision_count) {
+      return false;
+    }
+    final l$item_provision_count = item_provision_count;
+    final lOther$item_provision_count = other.item_provision_count;
+    if (l$item_provision_count != lOther$item_provision_count) {
+      return false;
+    }
+    final l$equipment_provision_count = equipment_provision_count;
+    final lOther$equipment_provision_count = other.equipment_provision_count;
+    if (l$equipment_provision_count != lOther$equipment_provision_count) {
       return false;
     }
     final l$updateAt = updateAt;
@@ -11736,6 +12183,12 @@ abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$
     detailTexts,
     String? symbol,
     String? remarks,
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count?
+    stakeholder_provision_count,
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count?
+    item_provision_count,
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count?
+    equipment_provision_count,
     String? updateAt,
     bool? remove,
     Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$update_user?
@@ -11750,6 +12203,18 @@ abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$
     TRes
   >
   get detailTexts;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count<
+    TRes
+  >
+  get stakeholder_provision_count;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count<
+    TRes
+  >
+  get item_provision_count;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count<
+    TRes
+  >
+  get equipment_provision_count;
   CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$update_user<
     TRes
   >
@@ -11785,6 +12250,9 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$node
     Object? detailTexts = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? stakeholder_provision_count = _undefined,
+    Object? item_provision_count = _undefined,
+    Object? equipment_provision_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -11810,6 +12278,18 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$node
                 as Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$detailTexts?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      stakeholder_provision_count: stakeholder_provision_count == _undefined
+          ? _instance.stakeholder_provision_count
+          : (stakeholder_provision_count
+                as Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count?),
+      item_provision_count: item_provision_count == _undefined
+          ? _instance.item_provision_count
+          : (item_provision_count
+                as Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count?),
+      equipment_provision_count: equipment_provision_count == _undefined
+          ? _instance.equipment_provision_count
+          : (equipment_provision_count
+                as Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -11854,6 +12334,52 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$node
           );
   }
 
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count<
+    TRes
+  >
+  get stakeholder_provision_count {
+    final local$stakeholder_provision_count =
+        _instance.stakeholder_provision_count;
+    return local$stakeholder_provision_count == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count(
+            local$stakeholder_provision_count,
+            (e) => call(stakeholder_provision_count: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count<
+    TRes
+  >
+  get item_provision_count {
+    final local$item_provision_count = _instance.item_provision_count;
+    return local$item_provision_count == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count(
+            local$item_provision_count,
+            (e) => call(item_provision_count: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count<
+    TRes
+  >
+  get equipment_provision_count {
+    final local$equipment_provision_count = _instance.equipment_provision_count;
+    return local$equipment_provision_count == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count(
+            local$equipment_provision_count,
+            (e) => call(equipment_provision_count: e),
+          );
+  }
+
   CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$update_user<
     TRes
   >
@@ -11893,6 +12419,12 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$
     detailTexts,
     String? symbol,
     String? remarks,
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count?
+    stakeholder_provision_count,
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count?
+    item_provision_count,
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count?
+    equipment_provision_count,
     String? updateAt,
     bool? remove,
     Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$update_user?
@@ -11913,6 +12445,30 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$
   >
   get detailTexts =>
       CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$detailTexts.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count<
+    TRes
+  >
+  get stakeholder_provision_count =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count<
+    TRes
+  >
+  get item_provision_count =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count<
+    TRes
+  >
+  get equipment_provision_count =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count.stub(
         _res,
       );
 
@@ -14573,6 +15129,444 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$
   call({int? charCount, String? leadText, String? $__typename}) => _res;
 }
 
+class Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count {
+  Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count({
+    this.infoProvisionId,
+    this.$__typename = 'VProvisionStakeholderProvisionCount',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoProvisionId = json['infoProvisionId'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count(
+      infoProvisionId: (l$infoProvisionId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoProvisionId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoProvisionId = infoProvisionId;
+    _resultData['infoProvisionId'] = l$infoProvisionId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoProvisionId = infoProvisionId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoProvisionId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoProvisionId = infoProvisionId;
+    final lOther$infoProvisionId = other.infoProvisionId;
+    if (l$infoProvisionId != lOther$infoProvisionId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count<
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count(
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count;
+
+  TRes call({String? infoProvisionId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoProvisionId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count(
+      infoProvisionId: infoProvisionId == _undefined
+          ? _instance.infoProvisionId
+          : (infoProvisionId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$stakeholder_provision_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoProvisionId, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count {
+  Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count({
+    this.infoProvisionId,
+    this.$__typename = 'VProvisionItemProvisionCount',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoProvisionId = json['infoProvisionId'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count(
+      infoProvisionId: (l$infoProvisionId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoProvisionId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoProvisionId = infoProvisionId;
+    _resultData['infoProvisionId'] = l$infoProvisionId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoProvisionId = infoProvisionId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoProvisionId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoProvisionId = infoProvisionId;
+    final lOther$infoProvisionId = other.infoProvisionId;
+    if (l$infoProvisionId != lOther$infoProvisionId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count<
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count(
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count;
+
+  TRes call({String? infoProvisionId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoProvisionId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count(
+      infoProvisionId: infoProvisionId == _undefined
+          ? _instance.infoProvisionId
+          : (infoProvisionId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$item_provision_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoProvisionId, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count {
+  Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count({
+    this.infoProvisionId,
+    this.$__typename = 'VProvisionEquipmentProvisionCount',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoProvisionId = json['infoProvisionId'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count(
+      infoProvisionId: (l$infoProvisionId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoProvisionId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoProvisionId = infoProvisionId;
+    _resultData['infoProvisionId'] = l$infoProvisionId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoProvisionId = infoProvisionId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoProvisionId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoProvisionId = infoProvisionId;
+    final lOther$infoProvisionId = other.infoProvisionId;
+    if (l$infoProvisionId != lOther$infoProvisionId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count<
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count(
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count;
+
+  TRes call({String? infoProvisionId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoProvisionId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count(
+      infoProvisionId: infoProvisionId == _undefined
+          ? _instance.infoProvisionId
+          : (infoProvisionId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$equipment_provision_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoProvisionId, String? $__typename}) => _res;
+}
+
 class Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$update_user {
   Query$CompanyPageRead$allInfoCompanies$nodes$provisions$nodes$update_user({
     required this.historyId,
@@ -16980,7 +17974,7 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provisions$
 class Query$CompanyPageRead$allInfoCompanies$nodes$address {
   Query$CompanyPageRead$allInfoCompanies$nodes$address({
     required this.infoAddressId,
-    this.iso31663,
+    this.iso31662,
     this.zipCode,
     this.address1,
     this.address2,
@@ -16994,7 +17988,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$address {
     Map<String, dynamic> json,
   ) {
     final l$infoAddressId = json['infoAddressId'];
-    final l$iso31663 = json['iso31663'];
+    final l$iso31662 = json['iso31662'];
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
@@ -17004,7 +17998,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$address {
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRead$allInfoCompanies$nodes$address(
       infoAddressId: (l$infoAddressId as String),
-      iso31663: (l$iso31663 as String?),
+      iso31662: (l$iso31662 as String?),
       zipCode: (l$zipCode as String?),
       address1: l$address1 == null
           ? null
@@ -17029,7 +18023,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$address {
 
   final String infoAddressId;
 
-  final String? iso31663;
+  final String? iso31662;
 
   final String? zipCode;
 
@@ -17049,8 +18043,8 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$address {
     final _resultData = <String, dynamic>{};
     final l$infoAddressId = infoAddressId;
     _resultData['infoAddressId'] = l$infoAddressId;
-    final l$iso31663 = iso31663;
-    _resultData['iso31663'] = l$iso31663;
+    final l$iso31662 = iso31662;
+    _resultData['iso31662'] = l$iso31662;
     final l$zipCode = zipCode;
     _resultData['zipCode'] = l$zipCode;
     final l$address1 = address1;
@@ -17071,7 +18065,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$address {
   @override
   int get hashCode {
     final l$infoAddressId = infoAddressId;
-    final l$iso31663 = iso31663;
+    final l$iso31662 = iso31662;
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
@@ -17081,7 +18075,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$address {
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
-      l$iso31663,
+      l$iso31662,
       l$zipCode,
       l$address1,
       l$address2,
@@ -17106,9 +18100,9 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$address {
     if (l$infoAddressId != lOther$infoAddressId) {
       return false;
     }
-    final l$iso31663 = iso31663;
-    final lOther$iso31663 = other.iso31663;
-    if (l$iso31663 != lOther$iso31663) {
+    final l$iso31662 = iso31662;
+    final lOther$iso31662 = other.iso31662;
+    if (l$iso31662 != lOther$iso31662) {
       return false;
     }
     final l$zipCode = zipCode;
@@ -17175,7 +18169,7 @@ abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$address<
 
   TRes call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$CompanyPageRead$allInfoCompanies$nodes$address$address1? address1,
     Query$CompanyPageRead$allInfoCompanies$nodes$address$address2? address2,
@@ -17209,7 +18203,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$address<TRes>
 
   TRes call({
     Object? infoAddressId = _undefined,
-    Object? iso31663 = _undefined,
+    Object? iso31662 = _undefined,
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
@@ -17222,9 +18216,9 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$address<TRes>
       infoAddressId: infoAddressId == _undefined || infoAddressId == null
           ? _instance.infoAddressId
           : (infoAddressId as String),
-      iso31663: iso31663 == _undefined
-          ? _instance.iso31663
-          : (iso31663 as String?),
+      iso31662: iso31662 == _undefined
+          ? _instance.iso31662
+          : (iso31662 as String?),
       zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
       address1: address1 == _undefined
           ? _instance.address1
@@ -17301,7 +18295,7 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$address<
 
   call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$CompanyPageRead$allInfoCompanies$nodes$address$address1? address1,
     Query$CompanyPageRead$allInfoCompanies$nodes$address$address2? address2,
@@ -26408,7 +27402,7 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$offices$nod
 class Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$address {
   Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$address({
     required this.infoAddressId,
-    this.iso31663,
+    this.iso31662,
     this.zipCode,
     this.address1,
     this.address2,
@@ -26422,7 +27416,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$address {
     Map<String, dynamic> json,
   ) {
     final l$infoAddressId = json['infoAddressId'];
-    final l$iso31663 = json['iso31663'];
+    final l$iso31662 = json['iso31662'];
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
@@ -26432,7 +27426,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$address {
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$address(
       infoAddressId: (l$infoAddressId as String),
-      iso31663: (l$iso31663 as String?),
+      iso31662: (l$iso31662 as String?),
       zipCode: (l$zipCode as String?),
       address1: l$address1 == null
           ? null
@@ -26457,7 +27451,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$address {
 
   final String infoAddressId;
 
-  final String? iso31663;
+  final String? iso31662;
 
   final String? zipCode;
 
@@ -26480,8 +27474,8 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$address {
     final _resultData = <String, dynamic>{};
     final l$infoAddressId = infoAddressId;
     _resultData['infoAddressId'] = l$infoAddressId;
-    final l$iso31663 = iso31663;
-    _resultData['iso31663'] = l$iso31663;
+    final l$iso31662 = iso31662;
+    _resultData['iso31662'] = l$iso31662;
     final l$zipCode = zipCode;
     _resultData['zipCode'] = l$zipCode;
     final l$address1 = address1;
@@ -26502,7 +27496,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$address {
   @override
   int get hashCode {
     final l$infoAddressId = infoAddressId;
-    final l$iso31663 = iso31663;
+    final l$iso31662 = iso31662;
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
@@ -26512,7 +27506,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$address {
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
-      l$iso31663,
+      l$iso31662,
       l$zipCode,
       l$address1,
       l$address2,
@@ -26538,9 +27532,9 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$address {
     if (l$infoAddressId != lOther$infoAddressId) {
       return false;
     }
-    final l$iso31663 = iso31663;
-    final lOther$iso31663 = other.iso31663;
-    if (l$iso31663 != lOther$iso31663) {
+    final l$iso31662 = iso31662;
+    final lOther$iso31662 = other.iso31662;
+    if (l$iso31662 != lOther$iso31662) {
       return false;
     }
     final l$zipCode = zipCode;
@@ -26611,7 +27605,7 @@ abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$offices$nod
 
   TRes call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$address$address1?
     address1,
@@ -26661,7 +27655,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$a
 
   TRes call({
     Object? infoAddressId = _undefined,
-    Object? iso31663 = _undefined,
+    Object? iso31662 = _undefined,
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
@@ -26674,9 +27668,9 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$a
       infoAddressId: infoAddressId == _undefined || infoAddressId == null
           ? _instance.infoAddressId
           : (infoAddressId as String),
-      iso31663: iso31663 == _undefined
-          ? _instance.iso31663
-          : (iso31663 as String?),
+      iso31662: iso31662 == _undefined
+          ? _instance.iso31662
+          : (iso31662 as String?),
       zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
       address1: address1 == _undefined
           ? _instance.address1
@@ -26761,7 +27755,7 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$offices$nod
 
   call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$CompanyPageRead$allInfoCompanies$nodes$offices$nodes$address$address1?
     address1,
@@ -35390,6 +36384,564 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$offices$nod
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$staff_count {
+  Query$CompanyPageRead$allInfoCompanies$nodes$staff_count({
+    this.infoCompanyId,
+    this.$__typename = 'VCompanyStaffCount',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$staff_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoCompanyId = json['infoCompanyId'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$staff_count(
+      infoCompanyId: (l$infoCompanyId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoCompanyId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoCompanyId = infoCompanyId;
+    _resultData['infoCompanyId'] = l$infoCompanyId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoCompanyId = infoCompanyId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoCompanyId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$CompanyPageRead$allInfoCompanies$nodes$staff_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoCompanyId = infoCompanyId;
+    final lOther$infoCompanyId = other.infoCompanyId;
+    if (l$infoCompanyId != lOther$infoCompanyId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count
+    on Query$CompanyPageRead$allInfoCompanies$nodes$staff_count {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count<
+    Query$CompanyPageRead$allInfoCompanies$nodes$staff_count
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count(
+    Query$CompanyPageRead$allInfoCompanies$nodes$staff_count instance,
+    TRes Function(Query$CompanyPageRead$allInfoCompanies$nodes$staff_count)
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count;
+
+  TRes call({String? infoCompanyId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$staff_count _instance;
+
+  final TRes Function(Query$CompanyPageRead$allInfoCompanies$nodes$staff_count)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoCompanyId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$staff_count(
+      infoCompanyId: infoCompanyId == _undefined
+          ? _instance.infoCompanyId
+          : (infoCompanyId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$staff_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoCompanyId, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$provision_count {
+  Query$CompanyPageRead$allInfoCompanies$nodes$provision_count({
+    this.infoCompanyId,
+    this.$__typename = 'VCompanyProvisionCount',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$provision_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoCompanyId = json['infoCompanyId'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$provision_count(
+      infoCompanyId: (l$infoCompanyId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoCompanyId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoCompanyId = infoCompanyId;
+    _resultData['infoCompanyId'] = l$infoCompanyId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoCompanyId = infoCompanyId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoCompanyId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$provision_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoCompanyId = infoCompanyId;
+    final lOther$infoCompanyId = other.infoCompanyId;
+    if (l$infoCompanyId != lOther$infoCompanyId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count
+    on Query$CompanyPageRead$allInfoCompanies$nodes$provision_count {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count<
+    Query$CompanyPageRead$allInfoCompanies$nodes$provision_count
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count(
+    Query$CompanyPageRead$allInfoCompanies$nodes$provision_count instance,
+    TRes Function(Query$CompanyPageRead$allInfoCompanies$nodes$provision_count)
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count;
+
+  TRes call({String? infoCompanyId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$provision_count _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$provision_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoCompanyId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$provision_count(
+      infoCompanyId: infoCompanyId == _undefined
+          ? _instance.infoCompanyId
+          : (infoCompanyId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$provision_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoCompanyId, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$office_count {
+  Query$CompanyPageRead$allInfoCompanies$nodes$office_count({
+    this.infoCompanyId,
+    this.$__typename = 'VCompanyOfficeCount',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$office_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoCompanyId = json['infoCompanyId'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$office_count(
+      infoCompanyId: (l$infoCompanyId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoCompanyId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoCompanyId = infoCompanyId;
+    _resultData['infoCompanyId'] = l$infoCompanyId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoCompanyId = infoCompanyId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoCompanyId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$CompanyPageRead$allInfoCompanies$nodes$office_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoCompanyId = infoCompanyId;
+    final lOther$infoCompanyId = other.infoCompanyId;
+    if (l$infoCompanyId != lOther$infoCompanyId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$office_count
+    on Query$CompanyPageRead$allInfoCompanies$nodes$office_count {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$office_count<
+    Query$CompanyPageRead$allInfoCompanies$nodes$office_count
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$office_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$office_count<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$office_count(
+    Query$CompanyPageRead$allInfoCompanies$nodes$office_count instance,
+    TRes Function(Query$CompanyPageRead$allInfoCompanies$nodes$office_count)
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$office_count;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$office_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$office_count;
+
+  TRes call({String? infoCompanyId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$office_count<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$office_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$office_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$office_count _instance;
+
+  final TRes Function(Query$CompanyPageRead$allInfoCompanies$nodes$office_count)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoCompanyId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$office_count(
+      infoCompanyId: infoCompanyId == _undefined
+          ? _instance.infoCompanyId
+          : (infoCompanyId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$office_count<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$office_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$office_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoCompanyId, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$department_count {
+  Query$CompanyPageRead$allInfoCompanies$nodes$department_count({
+    this.infoCompanyId,
+    this.$__typename = 'VCompanyDepartmentCount',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$department_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoCompanyId = json['infoCompanyId'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$department_count(
+      infoCompanyId: (l$infoCompanyId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoCompanyId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoCompanyId = infoCompanyId;
+    _resultData['infoCompanyId'] = l$infoCompanyId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoCompanyId = infoCompanyId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoCompanyId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$department_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoCompanyId = infoCompanyId;
+    final lOther$infoCompanyId = other.infoCompanyId;
+    if (l$infoCompanyId != lOther$infoCompanyId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$department_count
+    on Query$CompanyPageRead$allInfoCompanies$nodes$department_count {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$department_count<
+    Query$CompanyPageRead$allInfoCompanies$nodes$department_count
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$department_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$department_count<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$department_count(
+    Query$CompanyPageRead$allInfoCompanies$nodes$department_count instance,
+    TRes Function(Query$CompanyPageRead$allInfoCompanies$nodes$department_count)
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$department_count;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$department_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$department_count;
+
+  TRes call({String? infoCompanyId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$department_count<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$department_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$department_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$department_count _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$department_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoCompanyId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$department_count(
+      infoCompanyId: infoCompanyId == _undefined
+          ? _instance.infoCompanyId
+          : (infoCompanyId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$department_count<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$department_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$department_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoCompanyId, String? $__typename}) => _res;
 }
 
 class Query$CompanyPageRead$allInfoCompanies$nodes$update_user {

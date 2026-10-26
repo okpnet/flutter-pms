@@ -26,7 +26,7 @@ class Variables$Mutation$CustomerPageEdit {
     required String nicknameEn,
     String? mail,
     required String infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     required String address1SharedAppellationsId,
     required String address1NameSharedDictionaryId,
@@ -87,7 +87,7 @@ class Variables$Mutation$CustomerPageEdit {
     r'nicknameEn': nicknameEn,
     if (mail != null) r'mail': mail,
     r'infoAddressId': infoAddressId,
-    if (iso31663 != null) r'iso31663': iso31663,
+    if (iso31662 != null) r'iso31662': iso31662,
     if (zipCode != null) r'zipCode': zipCode,
     r'address1SharedAppellationsId': address1SharedAppellationsId,
     r'address1NameSharedDictionaryId': address1NameSharedDictionaryId,
@@ -195,9 +195,9 @@ class Variables$Mutation$CustomerPageEdit {
     }
     final l$infoAddressId = data['infoAddressId'];
     result$data['infoAddressId'] = (l$infoAddressId as String);
-    if (data.containsKey('iso31663')) {
-      final l$iso31663 = data['iso31663'];
-      result$data['iso31663'] = (l$iso31663 as String?);
+    if (data.containsKey('iso31662')) {
+      final l$iso31662 = data['iso31662'];
+      result$data['iso31662'] = (l$iso31662 as String?);
     }
     if (data.containsKey('zipCode')) {
       final l$zipCode = data['zipCode'];
@@ -370,7 +370,7 @@ class Variables$Mutation$CustomerPageEdit {
 
   String get infoAddressId => (_$data['infoAddressId'] as String);
 
-  String? get iso31663 => (_$data['iso31663'] as String?);
+  String? get iso31662 => (_$data['iso31662'] as String?);
 
   String? get zipCode => (_$data['zipCode'] as String?);
 
@@ -525,9 +525,9 @@ class Variables$Mutation$CustomerPageEdit {
     }
     final l$infoAddressId = infoAddressId;
     result$data['infoAddressId'] = l$infoAddressId;
-    if (_$data.containsKey('iso31663')) {
-      final l$iso31663 = iso31663;
-      result$data['iso31663'] = l$iso31663;
+    if (_$data.containsKey('iso31662')) {
+      final l$iso31662 = iso31662;
+      result$data['iso31662'] = l$iso31662;
     }
     if (_$data.containsKey('zipCode')) {
       final l$zipCode = zipCode;
@@ -783,13 +783,13 @@ class Variables$Mutation$CustomerPageEdit {
     if (l$infoAddressId != lOther$infoAddressId) {
       return false;
     }
-    final l$iso31663 = iso31663;
-    final lOther$iso31663 = other.iso31663;
-    if (_$data.containsKey('iso31663') !=
-        other._$data.containsKey('iso31663')) {
+    final l$iso31662 = iso31662;
+    final lOther$iso31662 = other.iso31662;
+    if (_$data.containsKey('iso31662') !=
+        other._$data.containsKey('iso31662')) {
       return false;
     }
-    if (l$iso31663 != lOther$iso31663) {
+    if (l$iso31662 != lOther$iso31662) {
       return false;
     }
     final l$zipCode = zipCode;
@@ -1070,7 +1070,7 @@ class Variables$Mutation$CustomerPageEdit {
     final l$nicknameEn = nicknameEn;
     final l$mail = mail;
     final l$infoAddressId = infoAddressId;
-    final l$iso31663 = iso31663;
+    final l$iso31662 = iso31662;
     final l$zipCode = zipCode;
     final l$address1SharedAppellationsId = address1SharedAppellationsId;
     final l$address1NameSharedDictionaryId = address1NameSharedDictionaryId;
@@ -1137,7 +1137,7 @@ class Variables$Mutation$CustomerPageEdit {
       l$nicknameEn,
       _$data.containsKey('mail') ? l$mail : const {},
       l$infoAddressId,
-      _$data.containsKey('iso31663') ? l$iso31663 : const {},
+      _$data.containsKey('iso31662') ? l$iso31662 : const {},
       _$data.containsKey('zipCode') ? l$zipCode : const {},
       l$address1SharedAppellationsId,
       l$address1NameSharedDictionaryId,
@@ -1217,7 +1217,7 @@ abstract class CopyWith$Variables$Mutation$CustomerPageEdit<TRes> {
     String? nicknameEn,
     String? mail,
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     String? address1SharedAppellationsId,
     String? address1NameSharedDictionaryId,
@@ -1291,7 +1291,7 @@ class _CopyWithImpl$Variables$Mutation$CustomerPageEdit<TRes>
     Object? nicknameEn = _undefined,
     Object? mail = _undefined,
     Object? infoAddressId = _undefined,
-    Object? iso31663 = _undefined,
+    Object? iso31662 = _undefined,
     Object? zipCode = _undefined,
     Object? address1SharedAppellationsId = _undefined,
     Object? address1NameSharedDictionaryId = _undefined,
@@ -1370,7 +1370,7 @@ class _CopyWithImpl$Variables$Mutation$CustomerPageEdit<TRes>
       if (mail != _undefined) 'mail': (mail as String?),
       if (infoAddressId != _undefined && infoAddressId != null)
         'infoAddressId': (infoAddressId as String),
-      if (iso31663 != _undefined) 'iso31663': (iso31663 as String?),
+      if (iso31662 != _undefined) 'iso31662': (iso31662 as String?),
       if (zipCode != _undefined) 'zipCode': (zipCode as String?),
       if (address1SharedAppellationsId != _undefined &&
           address1SharedAppellationsId != null)
@@ -1508,7 +1508,7 @@ class _CopyWithStubImpl$Variables$Mutation$CustomerPageEdit<TRes>
     String? nicknameEn,
     String? mail,
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     String? address1SharedAppellationsId,
     String? address1NameSharedDictionaryId,
@@ -1867,7 +1867,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'iso31663')),
+          variable: VariableNode(name: NameNode(value: 'iso31662')),
           type: NamedTypeNode(
             name: NameNode(value: 'String'),
             isNonNull: false,
@@ -2639,10 +2639,10 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         value: ObjectValueNode(
                                           fields: [
                                             ObjectFieldNode(
-                                              name: NameNode(value: 'iso31663'),
+                                              name: NameNode(value: 'iso31662'),
                                               value: VariableNode(
                                                 name: NameNode(
-                                                  value: 'iso31663',
+                                                  value: 'iso31662',
                                                 ),
                                               ),
                                             ),
@@ -4486,7 +4486,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                               selectionSet: null,
                             ),
                             FieldNode(
-                              name: NameNode(value: 'iso31663'),
+                              name: NameNode(value: 'iso31662'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -11011,7 +11011,7 @@ class _CopyWithStubImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrSta
 class Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address {
   Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address({
     required this.infoAddressId,
-    this.iso31663,
+    this.iso31662,
     this.zipCode,
     this.address1,
     this.address2,
@@ -11026,7 +11026,7 @@ class Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrSta
     Map<String, dynamic> json,
   ) {
     final l$infoAddressId = json['infoAddressId'];
-    final l$iso31663 = json['iso31663'];
+    final l$iso31662 = json['iso31662'];
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
@@ -11037,7 +11037,7 @@ class Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrSta
     final l$$__typename = json['__typename'];
     return Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address(
       infoAddressId: (l$infoAddressId as String),
-      iso31663: (l$iso31663 as String?),
+      iso31662: (l$iso31662 as String?),
       zipCode: (l$zipCode as String?),
       address1: l$address1 == null
           ? null
@@ -11063,7 +11063,7 @@ class Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrSta
 
   final String infoAddressId;
 
-  final String? iso31663;
+  final String? iso31662;
 
   final String? zipCode;
 
@@ -11088,8 +11088,8 @@ class Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrSta
     final _resultData = <String, dynamic>{};
     final l$infoAddressId = infoAddressId;
     _resultData['infoAddressId'] = l$infoAddressId;
-    final l$iso31663 = iso31663;
-    _resultData['iso31663'] = l$iso31663;
+    final l$iso31662 = iso31662;
+    _resultData['iso31662'] = l$iso31662;
     final l$zipCode = zipCode;
     _resultData['zipCode'] = l$zipCode;
     final l$address1 = address1;
@@ -11112,7 +11112,7 @@ class Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrSta
   @override
   int get hashCode {
     final l$infoAddressId = infoAddressId;
-    final l$iso31663 = iso31663;
+    final l$iso31662 = iso31662;
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
@@ -11123,7 +11123,7 @@ class Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrSta
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
-      l$iso31663,
+      l$iso31662,
       l$zipCode,
       l$address1,
       l$address2,
@@ -11150,9 +11150,9 @@ class Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrSta
     if (l$infoAddressId != lOther$infoAddressId) {
       return false;
     }
-    final l$iso31663 = iso31663;
-    final lOther$iso31663 = other.iso31663;
-    if (l$iso31663 != lOther$iso31663) {
+    final l$iso31662 = iso31662;
+    final lOther$iso31662 = other.iso31662;
+    if (l$iso31662 != lOther$iso31662) {
       return false;
     }
     final l$zipCode = zipCode;
@@ -11230,7 +11230,7 @@ abstract class CopyWith$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrSta
 
   TRes call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address1?
     address1,
@@ -11281,7 +11281,7 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
 
   TRes call({
     Object? infoAddressId = _undefined,
-    Object? iso31663 = _undefined,
+    Object? iso31662 = _undefined,
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
@@ -11295,9 +11295,9 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
       infoAddressId: infoAddressId == _undefined || infoAddressId == null
           ? _instance.infoAddressId
           : (infoAddressId as String),
-      iso31663: iso31663 == _undefined
-          ? _instance.iso31663
-          : (iso31663 as String?),
+      iso31662: iso31662 == _undefined
+          ? _instance.iso31662
+          : (iso31662 as String?),
       zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
       address1: address1 == _undefined
           ? _instance.address1
@@ -11383,7 +11383,7 @@ class _CopyWithStubImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrSta
 
   call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address1?
     address1,

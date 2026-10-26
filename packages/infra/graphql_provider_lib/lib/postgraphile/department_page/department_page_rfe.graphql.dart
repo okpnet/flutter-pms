@@ -999,7 +999,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                               selectionSet: null,
                             ),
                             FieldNode(
-                              name: NameNode(value: 'iso31663'),
+                              name: NameNode(value: 'iso31662'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -3228,7 +3228,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
-                        name: NameNode(value: 'iso31663'),
+                        name: NameNode(value: 'iso31662'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -5467,6 +5467,37 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                     arguments: [],
                                     directives: [],
                                     selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'vDepartmentKindValueDepartmentKindCountByInfoDepartmentKindValueId',
+                                    ),
+                                    alias: NameNode(
+                                      value: 'department_kind_count',
+                                    ),
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(
+                                            value: 'infoDepartmentKindValueId',
+                                          ),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   FieldNode(
                                     name: NameNode(value: 'updateAt'),
@@ -10529,7 +10560,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId
 class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address {
   Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address({
     required this.infoAddressId,
-    this.iso31663,
+    this.iso31662,
     this.zipCode,
     this.address1,
     this.address2,
@@ -10544,7 +10575,7 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address {
     Map<String, dynamic> json,
   ) {
     final l$infoAddressId = json['infoAddressId'];
-    final l$iso31663 = json['iso31663'];
+    final l$iso31662 = json['iso31662'];
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
@@ -10555,7 +10586,7 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address {
     final l$$__typename = json['__typename'];
     return Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address(
       infoAddressId: (l$infoAddressId as String),
-      iso31663: (l$iso31663 as String?),
+      iso31662: (l$iso31662 as String?),
       zipCode: (l$zipCode as String?),
       address1: l$address1 == null
           ? null
@@ -10581,7 +10612,7 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address {
 
   final String infoAddressId;
 
-  final String? iso31663;
+  final String? iso31662;
 
   final String? zipCode;
 
@@ -10606,8 +10637,8 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address {
     final _resultData = <String, dynamic>{};
     final l$infoAddressId = infoAddressId;
     _resultData['infoAddressId'] = l$infoAddressId;
-    final l$iso31663 = iso31663;
-    _resultData['iso31663'] = l$iso31663;
+    final l$iso31662 = iso31662;
+    _resultData['iso31662'] = l$iso31662;
     final l$zipCode = zipCode;
     _resultData['zipCode'] = l$zipCode;
     final l$address1 = address1;
@@ -10630,7 +10661,7 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address {
   @override
   int get hashCode {
     final l$infoAddressId = infoAddressId;
-    final l$iso31663 = iso31663;
+    final l$iso31662 = iso31662;
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
@@ -10641,7 +10672,7 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address {
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
-      l$iso31663,
+      l$iso31662,
       l$zipCode,
       l$address1,
       l$address2,
@@ -10668,9 +10699,9 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address {
     if (l$infoAddressId != lOther$infoAddressId) {
       return false;
     }
-    final l$iso31663 = iso31663;
-    final lOther$iso31663 = other.iso31663;
-    if (l$iso31663 != lOther$iso31663) {
+    final l$iso31662 = iso31662;
+    final lOther$iso31662 = other.iso31662;
+    if (l$iso31662 != lOther$iso31662) {
       return false;
     }
     final l$zipCode = zipCode;
@@ -10747,7 +10778,7 @@ abstract class CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId
 
   TRes call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address1?
     address1,
@@ -10798,7 +10829,7 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$off
 
   TRes call({
     Object? infoAddressId = _undefined,
-    Object? iso31663 = _undefined,
+    Object? iso31662 = _undefined,
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
@@ -10812,9 +10843,9 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$off
       infoAddressId: infoAddressId == _undefined || infoAddressId == null
           ? _instance.infoAddressId
           : (infoAddressId as String),
-      iso31663: iso31663 == _undefined
-          ? _instance.iso31663
-          : (iso31663 as String?),
+      iso31662: iso31662 == _undefined
+          ? _instance.iso31662
+          : (iso31662 as String?),
       zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
       address1: address1 == _undefined
           ? _instance.address1
@@ -10900,7 +10931,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId
 
   call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address1?
     address1,
@@ -24176,7 +24207,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId
 class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address {
   Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address({
     required this.infoAddressId,
-    this.iso31663,
+    this.iso31662,
     this.zipCode,
     this.address1,
     this.address2,
@@ -24191,7 +24222,7 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address {
     Map<String, dynamic> json,
   ) {
     final l$infoAddressId = json['infoAddressId'];
-    final l$iso31663 = json['iso31663'];
+    final l$iso31662 = json['iso31662'];
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
@@ -24202,7 +24233,7 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address {
     final l$$__typename = json['__typename'];
     return Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address(
       infoAddressId: (l$infoAddressId as String),
-      iso31663: (l$iso31663 as String?),
+      iso31662: (l$iso31662 as String?),
       zipCode: (l$zipCode as String?),
       address1: l$address1 == null
           ? null
@@ -24228,7 +24259,7 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address {
 
   final String infoAddressId;
 
-  final String? iso31663;
+  final String? iso31662;
 
   final String? zipCode;
 
@@ -24253,8 +24284,8 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address {
     final _resultData = <String, dynamic>{};
     final l$infoAddressId = infoAddressId;
     _resultData['infoAddressId'] = l$infoAddressId;
-    final l$iso31663 = iso31663;
-    _resultData['iso31663'] = l$iso31663;
+    final l$iso31662 = iso31662;
+    _resultData['iso31662'] = l$iso31662;
     final l$zipCode = zipCode;
     _resultData['zipCode'] = l$zipCode;
     final l$address1 = address1;
@@ -24277,7 +24308,7 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address {
   @override
   int get hashCode {
     final l$infoAddressId = infoAddressId;
-    final l$iso31663 = iso31663;
+    final l$iso31662 = iso31662;
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
@@ -24288,7 +24319,7 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address {
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
-      l$iso31663,
+      l$iso31662,
       l$zipCode,
       l$address1,
       l$address2,
@@ -24315,9 +24346,9 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address {
     if (l$infoAddressId != lOther$infoAddressId) {
       return false;
     }
-    final l$iso31663 = iso31663;
-    final lOther$iso31663 = other.iso31663;
-    if (l$iso31663 != lOther$iso31663) {
+    final l$iso31662 = iso31662;
+    final lOther$iso31662 = other.iso31662;
+    if (l$iso31662 != lOther$iso31662) {
       return false;
     }
     final l$zipCode = zipCode;
@@ -24393,7 +24424,7 @@ abstract class CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId
 
   TRes call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address1?
     address1,
@@ -24444,7 +24475,7 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$add
 
   TRes call({
     Object? infoAddressId = _undefined,
-    Object? iso31663 = _undefined,
+    Object? iso31662 = _undefined,
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
@@ -24458,9 +24489,9 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$add
       infoAddressId: infoAddressId == _undefined || infoAddressId == null
           ? _instance.infoAddressId
           : (infoAddressId as String),
-      iso31663: iso31663 == _undefined
-          ? _instance.iso31663
-          : (iso31663 as String?),
+      iso31662: iso31662 == _undefined
+          ? _instance.iso31662
+          : (iso31662 as String?),
       zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
       address1: address1 == _undefined
           ? _instance.address1
@@ -24546,7 +24577,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId
 
   call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address1?
     address1,
@@ -35240,6 +35271,7 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$n
     this.labels,
     this.symbol,
     this.remarks,
+    this.department_kind_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -35253,6 +35285,7 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$n
     final l$labels = json['labels'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$department_kind_count = json['department_kind_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -35266,6 +35299,11 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$n
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      department_kind_count: l$department_kind_count == null
+          ? null
+          : Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count.fromJson(
+              (l$department_kind_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -35286,6 +35324,9 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$n
 
   final String? remarks;
 
+  final Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count?
+  department_kind_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -35305,6 +35346,8 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$n
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$department_kind_count = department_kind_count;
+    _resultData['department_kind_count'] = l$department_kind_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -35322,6 +35365,7 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$n
     final l$labels = labels;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$department_kind_count = department_kind_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -35331,6 +35375,7 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$n
       l$labels,
       l$symbol,
       l$remarks,
+      l$department_kind_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -35366,6 +35411,11 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$n
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$department_kind_count = department_kind_count;
+    final lOther$department_kind_count = other.department_kind_count;
+    if (l$department_kind_count != lOther$department_kind_count) {
       return false;
     }
     final l$updateAt = updateAt;
@@ -35427,6 +35477,8 @@ abstract class CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId
     labels,
     String? symbol,
     String? remarks,
+    Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count?
+    department_kind_count,
     String? updateAt,
     bool? remove,
     Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$update_user?
@@ -35437,6 +35489,10 @@ abstract class CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId
     TRes
   >
   get labels;
+  CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count<
+    TRes
+  >
+  get department_kind_count;
   CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$update_user<
     TRes
   >
@@ -35470,6 +35526,7 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$dep
     Object? labels = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? department_kind_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -35487,6 +35544,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$dep
                 as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$labels?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      department_kind_count: department_kind_count == _undefined
+          ? _instance.department_kind_count
+          : (department_kind_count
+                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -35513,6 +35574,21 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$dep
         : CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count<
+    TRes
+  >
+  get department_kind_count {
+    final local$department_kind_count = _instance.department_kind_count;
+    return local$department_kind_count == null
+        ? CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count(
+            local$department_kind_count,
+            (e) => call(department_kind_count: e),
           );
   }
 
@@ -35551,6 +35627,8 @@ class _CopyWithStubImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId
     labels,
     String? symbol,
     String? remarks,
+    Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count?
+    department_kind_count,
     String? updateAt,
     bool? remove,
     Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$update_user?
@@ -35563,6 +35641,14 @@ class _CopyWithStubImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId
   >
   get labels =>
       CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$labels.stub(
+        _res,
+      );
+
+  CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count<
+    TRes
+  >
+  get department_kind_count =>
+      CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count.stub(
         _res,
       );
 
@@ -38882,6 +38968,152 @@ class _CopyWithStubImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count {
+  Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count({
+    this.infoDepartmentKindValueId,
+    this.$__typename = 'VDepartmentKindValueDepartmentKindCount',
+  });
+
+  factory Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoDepartmentKindValueId = json['infoDepartmentKindValueId'];
+    final l$$__typename = json['__typename'];
+    return Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count(
+      infoDepartmentKindValueId: (l$infoDepartmentKindValueId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoDepartmentKindValueId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoDepartmentKindValueId = infoDepartmentKindValueId;
+    _resultData['infoDepartmentKindValueId'] = l$infoDepartmentKindValueId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoDepartmentKindValueId = infoDepartmentKindValueId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoDepartmentKindValueId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoDepartmentKindValueId = infoDepartmentKindValueId;
+    final lOther$infoDepartmentKindValueId = other.infoDepartmentKindValueId;
+    if (l$infoDepartmentKindValueId != lOther$infoDepartmentKindValueId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count
+    on
+        Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count {
+  CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count<
+    Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count
+  >
+  get copyWith =>
+      CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count<
+  TRes
+> {
+  factory CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count(
+    Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count
+    instance,
+    TRes Function(
+      Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count;
+
+  factory CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count;
+
+  TRes call({String? infoDepartmentKindValueId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count<
+  TRes
+>
+    implements
+        CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count
+  _instance;
+
+  final TRes Function(
+    Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoDepartmentKindValueId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count(
+      infoDepartmentKindValueId: infoDepartmentKindValueId == _undefined
+          ? _instance.infoDepartmentKindValueId
+          : (infoDepartmentKindValueId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count<
+  TRes
+>
+    implements
+        CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$department_kind_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoDepartmentKindValueId, String? $__typename}) => _res;
 }
 
 class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$update_user {

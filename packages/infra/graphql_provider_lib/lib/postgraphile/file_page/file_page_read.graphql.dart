@@ -574,6 +574,58 @@ const documentNodeQueryFilePageRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(
+                          value: 'vFileComplaintFileCountByTransFileId',
+                        ),
+                        alias: NameNode(value: 'complaint_file_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'transFileId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vFileStaffIconCountByTransFileId',
+                        ),
+                        alias: NameNode(value: 'staff_icon_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'transFileId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -1532,6 +1584,8 @@ class Query$FilePageRead$allTransFiles$nodes {
     this.mediaType,
     this.symbol,
     this.remarks,
+    this.complaint_file_count,
+    this.staff_icon_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -1546,6 +1600,8 @@ class Query$FilePageRead$allTransFiles$nodes {
     final l$mediaType = json['mediaType'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$complaint_file_count = json['complaint_file_count'];
+    final l$staff_icon_count = json['staff_icon_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -1556,6 +1612,16 @@ class Query$FilePageRead$allTransFiles$nodes {
       mediaType: (l$mediaType as String?),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      complaint_file_count: l$complaint_file_count == null
+          ? null
+          : Query$FilePageRead$allTransFiles$nodes$complaint_file_count.fromJson(
+              (l$complaint_file_count as Map<String, dynamic>),
+            ),
+      staff_icon_count: l$staff_icon_count == null
+          ? null
+          : Query$FilePageRead$allTransFiles$nodes$staff_icon_count.fromJson(
+              (l$staff_icon_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -1577,6 +1643,12 @@ class Query$FilePageRead$allTransFiles$nodes {
 
   final String? remarks;
 
+  final Query$FilePageRead$allTransFiles$nodes$complaint_file_count?
+  complaint_file_count;
+
+  final Query$FilePageRead$allTransFiles$nodes$staff_icon_count?
+  staff_icon_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -1597,6 +1669,10 @@ class Query$FilePageRead$allTransFiles$nodes {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$complaint_file_count = complaint_file_count;
+    _resultData['complaint_file_count'] = l$complaint_file_count?.toJson();
+    final l$staff_icon_count = staff_icon_count;
+    _resultData['staff_icon_count'] = l$staff_icon_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -1615,6 +1691,8 @@ class Query$FilePageRead$allTransFiles$nodes {
     final l$mediaType = mediaType;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$complaint_file_count = complaint_file_count;
+    final l$staff_icon_count = staff_icon_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -1625,6 +1703,8 @@ class Query$FilePageRead$allTransFiles$nodes {
       l$mediaType,
       l$symbol,
       l$remarks,
+      l$complaint_file_count,
+      l$staff_icon_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -1664,6 +1744,16 @@ class Query$FilePageRead$allTransFiles$nodes {
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$complaint_file_count = complaint_file_count;
+    final lOther$complaint_file_count = other.complaint_file_count;
+    if (l$complaint_file_count != lOther$complaint_file_count) {
+      return false;
+    }
+    final l$staff_icon_count = staff_icon_count;
+    final lOther$staff_icon_count = other.staff_icon_count;
+    if (l$staff_icon_count != lOther$staff_icon_count) {
       return false;
     }
     final l$updateAt = updateAt;
@@ -1714,11 +1804,18 @@ abstract class CopyWith$Query$FilePageRead$allTransFiles$nodes<TRes> {
     String? mediaType,
     String? symbol,
     String? remarks,
+    Query$FilePageRead$allTransFiles$nodes$complaint_file_count?
+    complaint_file_count,
+    Query$FilePageRead$allTransFiles$nodes$staff_icon_count? staff_icon_count,
     String? updateAt,
     bool? remove,
     Query$FilePageRead$allTransFiles$nodes$update_user? update_user,
     String? $__typename,
   });
+  CopyWith$Query$FilePageRead$allTransFiles$nodes$complaint_file_count<TRes>
+  get complaint_file_count;
+  CopyWith$Query$FilePageRead$allTransFiles$nodes$staff_icon_count<TRes>
+  get staff_icon_count;
   CopyWith$Query$FilePageRead$allTransFiles$nodes$update_user<TRes>
   get update_user;
 }
@@ -1742,6 +1839,8 @@ class _CopyWithImpl$Query$FilePageRead$allTransFiles$nodes<TRes>
     Object? mediaType = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? complaint_file_count = _undefined,
+    Object? staff_icon_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -1759,6 +1858,14 @@ class _CopyWithImpl$Query$FilePageRead$allTransFiles$nodes<TRes>
           : (mediaType as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      complaint_file_count: complaint_file_count == _undefined
+          ? _instance.complaint_file_count
+          : (complaint_file_count
+                as Query$FilePageRead$allTransFiles$nodes$complaint_file_count?),
+      staff_icon_count: staff_icon_count == _undefined
+          ? _instance.staff_icon_count
+          : (staff_icon_count
+                as Query$FilePageRead$allTransFiles$nodes$staff_icon_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -1772,6 +1879,32 @@ class _CopyWithImpl$Query$FilePageRead$allTransFiles$nodes<TRes>
           : ($__typename as String),
     ),
   );
+
+  CopyWith$Query$FilePageRead$allTransFiles$nodes$complaint_file_count<TRes>
+  get complaint_file_count {
+    final local$complaint_file_count = _instance.complaint_file_count;
+    return local$complaint_file_count == null
+        ? CopyWith$Query$FilePageRead$allTransFiles$nodes$complaint_file_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$FilePageRead$allTransFiles$nodes$complaint_file_count(
+            local$complaint_file_count,
+            (e) => call(complaint_file_count: e),
+          );
+  }
+
+  CopyWith$Query$FilePageRead$allTransFiles$nodes$staff_icon_count<TRes>
+  get staff_icon_count {
+    final local$staff_icon_count = _instance.staff_icon_count;
+    return local$staff_icon_count == null
+        ? CopyWith$Query$FilePageRead$allTransFiles$nodes$staff_icon_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$FilePageRead$allTransFiles$nodes$staff_icon_count(
+            local$staff_icon_count,
+            (e) => call(staff_icon_count: e),
+          );
+  }
 
   CopyWith$Query$FilePageRead$allTransFiles$nodes$update_user<TRes>
   get update_user {
@@ -1799,15 +1932,303 @@ class _CopyWithStubImpl$Query$FilePageRead$allTransFiles$nodes<TRes>
     String? mediaType,
     String? symbol,
     String? remarks,
+    Query$FilePageRead$allTransFiles$nodes$complaint_file_count?
+    complaint_file_count,
+    Query$FilePageRead$allTransFiles$nodes$staff_icon_count? staff_icon_count,
     String? updateAt,
     bool? remove,
     Query$FilePageRead$allTransFiles$nodes$update_user? update_user,
     String? $__typename,
   }) => _res;
 
+  CopyWith$Query$FilePageRead$allTransFiles$nodes$complaint_file_count<TRes>
+  get complaint_file_count =>
+      CopyWith$Query$FilePageRead$allTransFiles$nodes$complaint_file_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$FilePageRead$allTransFiles$nodes$staff_icon_count<TRes>
+  get staff_icon_count =>
+      CopyWith$Query$FilePageRead$allTransFiles$nodes$staff_icon_count.stub(
+        _res,
+      );
+
   CopyWith$Query$FilePageRead$allTransFiles$nodes$update_user<TRes>
   get update_user =>
       CopyWith$Query$FilePageRead$allTransFiles$nodes$update_user.stub(_res);
+}
+
+class Query$FilePageRead$allTransFiles$nodes$complaint_file_count {
+  Query$FilePageRead$allTransFiles$nodes$complaint_file_count({
+    this.transFileId,
+    this.$__typename = 'VFileComplaintFileCount',
+  });
+
+  factory Query$FilePageRead$allTransFiles$nodes$complaint_file_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$transFileId = json['transFileId'];
+    final l$$__typename = json['__typename'];
+    return Query$FilePageRead$allTransFiles$nodes$complaint_file_count(
+      transFileId: (l$transFileId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? transFileId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$transFileId = transFileId;
+    _resultData['transFileId'] = l$transFileId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$transFileId = transFileId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$transFileId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$FilePageRead$allTransFiles$nodes$complaint_file_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$transFileId = transFileId;
+    final lOther$transFileId = other.transFileId;
+    if (l$transFileId != lOther$transFileId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$FilePageRead$allTransFiles$nodes$complaint_file_count
+    on Query$FilePageRead$allTransFiles$nodes$complaint_file_count {
+  CopyWith$Query$FilePageRead$allTransFiles$nodes$complaint_file_count<
+    Query$FilePageRead$allTransFiles$nodes$complaint_file_count
+  >
+  get copyWith =>
+      CopyWith$Query$FilePageRead$allTransFiles$nodes$complaint_file_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$FilePageRead$allTransFiles$nodes$complaint_file_count<
+  TRes
+> {
+  factory CopyWith$Query$FilePageRead$allTransFiles$nodes$complaint_file_count(
+    Query$FilePageRead$allTransFiles$nodes$complaint_file_count instance,
+    TRes Function(Query$FilePageRead$allTransFiles$nodes$complaint_file_count)
+    then,
+  ) = _CopyWithImpl$Query$FilePageRead$allTransFiles$nodes$complaint_file_count;
+
+  factory CopyWith$Query$FilePageRead$allTransFiles$nodes$complaint_file_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$FilePageRead$allTransFiles$nodes$complaint_file_count;
+
+  TRes call({String? transFileId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$FilePageRead$allTransFiles$nodes$complaint_file_count<
+  TRes
+>
+    implements
+        CopyWith$Query$FilePageRead$allTransFiles$nodes$complaint_file_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$FilePageRead$allTransFiles$nodes$complaint_file_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$FilePageRead$allTransFiles$nodes$complaint_file_count _instance;
+
+  final TRes Function(
+    Query$FilePageRead$allTransFiles$nodes$complaint_file_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? transFileId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$FilePageRead$allTransFiles$nodes$complaint_file_count(
+      transFileId: transFileId == _undefined
+          ? _instance.transFileId
+          : (transFileId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$FilePageRead$allTransFiles$nodes$complaint_file_count<
+  TRes
+>
+    implements
+        CopyWith$Query$FilePageRead$allTransFiles$nodes$complaint_file_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$FilePageRead$allTransFiles$nodes$complaint_file_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? transFileId, String? $__typename}) => _res;
+}
+
+class Query$FilePageRead$allTransFiles$nodes$staff_icon_count {
+  Query$FilePageRead$allTransFiles$nodes$staff_icon_count({
+    this.transFileId,
+    this.$__typename = 'VFileStaffIconCount',
+  });
+
+  factory Query$FilePageRead$allTransFiles$nodes$staff_icon_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$transFileId = json['transFileId'];
+    final l$$__typename = json['__typename'];
+    return Query$FilePageRead$allTransFiles$nodes$staff_icon_count(
+      transFileId: (l$transFileId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? transFileId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$transFileId = transFileId;
+    _resultData['transFileId'] = l$transFileId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$transFileId = transFileId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$transFileId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$FilePageRead$allTransFiles$nodes$staff_icon_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$transFileId = transFileId;
+    final lOther$transFileId = other.transFileId;
+    if (l$transFileId != lOther$transFileId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$FilePageRead$allTransFiles$nodes$staff_icon_count
+    on Query$FilePageRead$allTransFiles$nodes$staff_icon_count {
+  CopyWith$Query$FilePageRead$allTransFiles$nodes$staff_icon_count<
+    Query$FilePageRead$allTransFiles$nodes$staff_icon_count
+  >
+  get copyWith =>
+      CopyWith$Query$FilePageRead$allTransFiles$nodes$staff_icon_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$FilePageRead$allTransFiles$nodes$staff_icon_count<
+  TRes
+> {
+  factory CopyWith$Query$FilePageRead$allTransFiles$nodes$staff_icon_count(
+    Query$FilePageRead$allTransFiles$nodes$staff_icon_count instance,
+    TRes Function(Query$FilePageRead$allTransFiles$nodes$staff_icon_count) then,
+  ) = _CopyWithImpl$Query$FilePageRead$allTransFiles$nodes$staff_icon_count;
+
+  factory CopyWith$Query$FilePageRead$allTransFiles$nodes$staff_icon_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$FilePageRead$allTransFiles$nodes$staff_icon_count;
+
+  TRes call({String? transFileId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$FilePageRead$allTransFiles$nodes$staff_icon_count<
+  TRes
+>
+    implements
+        CopyWith$Query$FilePageRead$allTransFiles$nodes$staff_icon_count<TRes> {
+  _CopyWithImpl$Query$FilePageRead$allTransFiles$nodes$staff_icon_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$FilePageRead$allTransFiles$nodes$staff_icon_count _instance;
+
+  final TRes Function(Query$FilePageRead$allTransFiles$nodes$staff_icon_count)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? transFileId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$FilePageRead$allTransFiles$nodes$staff_icon_count(
+      transFileId: transFileId == _undefined
+          ? _instance.transFileId
+          : (transFileId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$FilePageRead$allTransFiles$nodes$staff_icon_count<
+  TRes
+>
+    implements
+        CopyWith$Query$FilePageRead$allTransFiles$nodes$staff_icon_count<TRes> {
+  _CopyWithStubImpl$Query$FilePageRead$allTransFiles$nodes$staff_icon_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? transFileId, String? $__typename}) => _res;
 }
 
 class Query$FilePageRead$allTransFiles$nodes$update_user {

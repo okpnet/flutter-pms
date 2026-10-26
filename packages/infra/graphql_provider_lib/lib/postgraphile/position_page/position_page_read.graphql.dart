@@ -822,6 +822,58 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(
+                          value: 'vPositionApprovalCountByInfoPositionId',
+                        ),
+                        alias: NameNode(value: 'approval_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'infoPositionId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value: 'vPositionAssignCountByInfoPositionId',
+                        ),
+                        alias: NameNode(value: 'assign_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'infoPositionId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -1796,6 +1848,8 @@ class Query$PositionPageRead$allInfoPositions$nodes {
     this.labels,
     this.symbol,
     this.remarks,
+    this.approval_count,
+    this.assign_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -1810,6 +1864,8 @@ class Query$PositionPageRead$allInfoPositions$nodes {
     final l$labels = json['labels'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$approval_count = json['approval_count'];
+    final l$assign_count = json['assign_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -1824,6 +1880,16 @@ class Query$PositionPageRead$allInfoPositions$nodes {
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      approval_count: l$approval_count == null
+          ? null
+          : Query$PositionPageRead$allInfoPositions$nodes$approval_count.fromJson(
+              (l$approval_count as Map<String, dynamic>),
+            ),
+      assign_count: l$assign_count == null
+          ? null
+          : Query$PositionPageRead$allInfoPositions$nodes$assign_count.fromJson(
+              (l$assign_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -1845,6 +1911,12 @@ class Query$PositionPageRead$allInfoPositions$nodes {
 
   final String? remarks;
 
+  final Query$PositionPageRead$allInfoPositions$nodes$approval_count?
+  approval_count;
+
+  final Query$PositionPageRead$allInfoPositions$nodes$assign_count?
+  assign_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -1865,6 +1937,10 @@ class Query$PositionPageRead$allInfoPositions$nodes {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$approval_count = approval_count;
+    _resultData['approval_count'] = l$approval_count?.toJson();
+    final l$assign_count = assign_count;
+    _resultData['assign_count'] = l$assign_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -1883,6 +1959,8 @@ class Query$PositionPageRead$allInfoPositions$nodes {
     final l$labels = labels;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$approval_count = approval_count;
+    final l$assign_count = assign_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -1893,6 +1971,8 @@ class Query$PositionPageRead$allInfoPositions$nodes {
       l$labels,
       l$symbol,
       l$remarks,
+      l$approval_count,
+      l$assign_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -1932,6 +2012,16 @@ class Query$PositionPageRead$allInfoPositions$nodes {
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$approval_count = approval_count;
+    final lOther$approval_count = other.approval_count;
+    if (l$approval_count != lOther$approval_count) {
+      return false;
+    }
+    final l$assign_count = assign_count;
+    final lOther$assign_count = other.assign_count;
+    if (l$assign_count != lOther$assign_count) {
       return false;
     }
     final l$updateAt = updateAt;
@@ -1983,6 +2073,9 @@ abstract class CopyWith$Query$PositionPageRead$allInfoPositions$nodes<TRes> {
     Query$PositionPageRead$allInfoPositions$nodes$labels? labels,
     String? symbol,
     String? remarks,
+    Query$PositionPageRead$allInfoPositions$nodes$approval_count?
+    approval_count,
+    Query$PositionPageRead$allInfoPositions$nodes$assign_count? assign_count,
     String? updateAt,
     bool? remove,
     Query$PositionPageRead$allInfoPositions$nodes$update_user? update_user,
@@ -1990,6 +2083,10 @@ abstract class CopyWith$Query$PositionPageRead$allInfoPositions$nodes<TRes> {
   });
   CopyWith$Query$PositionPageRead$allInfoPositions$nodes$labels<TRes>
   get labels;
+  CopyWith$Query$PositionPageRead$allInfoPositions$nodes$approval_count<TRes>
+  get approval_count;
+  CopyWith$Query$PositionPageRead$allInfoPositions$nodes$assign_count<TRes>
+  get assign_count;
   CopyWith$Query$PositionPageRead$allInfoPositions$nodes$update_user<TRes>
   get update_user;
 }
@@ -2013,6 +2110,8 @@ class _CopyWithImpl$Query$PositionPageRead$allInfoPositions$nodes<TRes>
     Object? labels = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? approval_count = _undefined,
+    Object? assign_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -2030,6 +2129,14 @@ class _CopyWithImpl$Query$PositionPageRead$allInfoPositions$nodes<TRes>
           : (labels as Query$PositionPageRead$allInfoPositions$nodes$labels?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      approval_count: approval_count == _undefined
+          ? _instance.approval_count
+          : (approval_count
+                as Query$PositionPageRead$allInfoPositions$nodes$approval_count?),
+      assign_count: assign_count == _undefined
+          ? _instance.assign_count
+          : (assign_count
+                as Query$PositionPageRead$allInfoPositions$nodes$assign_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -2054,6 +2161,32 @@ class _CopyWithImpl$Query$PositionPageRead$allInfoPositions$nodes<TRes>
         : CopyWith$Query$PositionPageRead$allInfoPositions$nodes$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Query$PositionPageRead$allInfoPositions$nodes$approval_count<TRes>
+  get approval_count {
+    final local$approval_count = _instance.approval_count;
+    return local$approval_count == null
+        ? CopyWith$Query$PositionPageRead$allInfoPositions$nodes$approval_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$PositionPageRead$allInfoPositions$nodes$approval_count(
+            local$approval_count,
+            (e) => call(approval_count: e),
+          );
+  }
+
+  CopyWith$Query$PositionPageRead$allInfoPositions$nodes$assign_count<TRes>
+  get assign_count {
+    final local$assign_count = _instance.assign_count;
+    return local$assign_count == null
+        ? CopyWith$Query$PositionPageRead$allInfoPositions$nodes$assign_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$PositionPageRead$allInfoPositions$nodes$assign_count(
+            local$assign_count,
+            (e) => call(assign_count: e),
           );
   }
 
@@ -2083,6 +2216,9 @@ class _CopyWithStubImpl$Query$PositionPageRead$allInfoPositions$nodes<TRes>
     Query$PositionPageRead$allInfoPositions$nodes$labels? labels,
     String? symbol,
     String? remarks,
+    Query$PositionPageRead$allInfoPositions$nodes$approval_count?
+    approval_count,
+    Query$PositionPageRead$allInfoPositions$nodes$assign_count? assign_count,
     String? updateAt,
     bool? remove,
     Query$PositionPageRead$allInfoPositions$nodes$update_user? update_user,
@@ -2092,6 +2228,18 @@ class _CopyWithStubImpl$Query$PositionPageRead$allInfoPositions$nodes<TRes>
   CopyWith$Query$PositionPageRead$allInfoPositions$nodes$labels<TRes>
   get labels =>
       CopyWith$Query$PositionPageRead$allInfoPositions$nodes$labels.stub(_res);
+
+  CopyWith$Query$PositionPageRead$allInfoPositions$nodes$approval_count<TRes>
+  get approval_count =>
+      CopyWith$Query$PositionPageRead$allInfoPositions$nodes$approval_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$PositionPageRead$allInfoPositions$nodes$assign_count<TRes>
+  get assign_count =>
+      CopyWith$Query$PositionPageRead$allInfoPositions$nodes$assign_count.stub(
+        _res,
+      );
 
   CopyWith$Query$PositionPageRead$allInfoPositions$nodes$update_user<TRes>
   get update_user =>
@@ -4146,6 +4294,287 @@ class _CopyWithStubImpl$Query$PositionPageRead$allInfoPositions$nodes$labels$sha
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$PositionPageRead$allInfoPositions$nodes$approval_count {
+  Query$PositionPageRead$allInfoPositions$nodes$approval_count({
+    this.infoPositionId,
+    this.$__typename = 'VPositionApprovalCount',
+  });
+
+  factory Query$PositionPageRead$allInfoPositions$nodes$approval_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoPositionId = json['infoPositionId'];
+    final l$$__typename = json['__typename'];
+    return Query$PositionPageRead$allInfoPositions$nodes$approval_count(
+      infoPositionId: (l$infoPositionId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoPositionId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoPositionId = infoPositionId;
+    _resultData['infoPositionId'] = l$infoPositionId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoPositionId = infoPositionId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoPositionId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$PositionPageRead$allInfoPositions$nodes$approval_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoPositionId = infoPositionId;
+    final lOther$infoPositionId = other.infoPositionId;
+    if (l$infoPositionId != lOther$infoPositionId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$PositionPageRead$allInfoPositions$nodes$approval_count
+    on Query$PositionPageRead$allInfoPositions$nodes$approval_count {
+  CopyWith$Query$PositionPageRead$allInfoPositions$nodes$approval_count<
+    Query$PositionPageRead$allInfoPositions$nodes$approval_count
+  >
+  get copyWith =>
+      CopyWith$Query$PositionPageRead$allInfoPositions$nodes$approval_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$PositionPageRead$allInfoPositions$nodes$approval_count<
+  TRes
+> {
+  factory CopyWith$Query$PositionPageRead$allInfoPositions$nodes$approval_count(
+    Query$PositionPageRead$allInfoPositions$nodes$approval_count instance,
+    TRes Function(Query$PositionPageRead$allInfoPositions$nodes$approval_count)
+    then,
+  ) = _CopyWithImpl$Query$PositionPageRead$allInfoPositions$nodes$approval_count;
+
+  factory CopyWith$Query$PositionPageRead$allInfoPositions$nodes$approval_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$PositionPageRead$allInfoPositions$nodes$approval_count;
+
+  TRes call({String? infoPositionId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$PositionPageRead$allInfoPositions$nodes$approval_count<
+  TRes
+>
+    implements
+        CopyWith$Query$PositionPageRead$allInfoPositions$nodes$approval_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$PositionPageRead$allInfoPositions$nodes$approval_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$PositionPageRead$allInfoPositions$nodes$approval_count _instance;
+
+  final TRes Function(
+    Query$PositionPageRead$allInfoPositions$nodes$approval_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoPositionId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$PositionPageRead$allInfoPositions$nodes$approval_count(
+      infoPositionId: infoPositionId == _undefined
+          ? _instance.infoPositionId
+          : (infoPositionId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$PositionPageRead$allInfoPositions$nodes$approval_count<
+  TRes
+>
+    implements
+        CopyWith$Query$PositionPageRead$allInfoPositions$nodes$approval_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$PositionPageRead$allInfoPositions$nodes$approval_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoPositionId, String? $__typename}) => _res;
+}
+
+class Query$PositionPageRead$allInfoPositions$nodes$assign_count {
+  Query$PositionPageRead$allInfoPositions$nodes$assign_count({
+    this.infoPositionId,
+    this.$__typename = 'VPositionAssignCount',
+  });
+
+  factory Query$PositionPageRead$allInfoPositions$nodes$assign_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoPositionId = json['infoPositionId'];
+    final l$$__typename = json['__typename'];
+    return Query$PositionPageRead$allInfoPositions$nodes$assign_count(
+      infoPositionId: (l$infoPositionId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoPositionId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoPositionId = infoPositionId;
+    _resultData['infoPositionId'] = l$infoPositionId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoPositionId = infoPositionId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoPositionId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$PositionPageRead$allInfoPositions$nodes$assign_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoPositionId = infoPositionId;
+    final lOther$infoPositionId = other.infoPositionId;
+    if (l$infoPositionId != lOther$infoPositionId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$PositionPageRead$allInfoPositions$nodes$assign_count
+    on Query$PositionPageRead$allInfoPositions$nodes$assign_count {
+  CopyWith$Query$PositionPageRead$allInfoPositions$nodes$assign_count<
+    Query$PositionPageRead$allInfoPositions$nodes$assign_count
+  >
+  get copyWith =>
+      CopyWith$Query$PositionPageRead$allInfoPositions$nodes$assign_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$PositionPageRead$allInfoPositions$nodes$assign_count<
+  TRes
+> {
+  factory CopyWith$Query$PositionPageRead$allInfoPositions$nodes$assign_count(
+    Query$PositionPageRead$allInfoPositions$nodes$assign_count instance,
+    TRes Function(Query$PositionPageRead$allInfoPositions$nodes$assign_count)
+    then,
+  ) = _CopyWithImpl$Query$PositionPageRead$allInfoPositions$nodes$assign_count;
+
+  factory CopyWith$Query$PositionPageRead$allInfoPositions$nodes$assign_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$PositionPageRead$allInfoPositions$nodes$assign_count;
+
+  TRes call({String? infoPositionId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$PositionPageRead$allInfoPositions$nodes$assign_count<
+  TRes
+>
+    implements
+        CopyWith$Query$PositionPageRead$allInfoPositions$nodes$assign_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$PositionPageRead$allInfoPositions$nodes$assign_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$PositionPageRead$allInfoPositions$nodes$assign_count _instance;
+
+  final TRes Function(
+    Query$PositionPageRead$allInfoPositions$nodes$assign_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoPositionId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$PositionPageRead$allInfoPositions$nodes$assign_count(
+      infoPositionId: infoPositionId == _undefined
+          ? _instance.infoPositionId
+          : (infoPositionId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$PositionPageRead$allInfoPositions$nodes$assign_count<
+  TRes
+>
+    implements
+        CopyWith$Query$PositionPageRead$allInfoPositions$nodes$assign_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$PositionPageRead$allInfoPositions$nodes$assign_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoPositionId, String? $__typename}) => _res;
 }
 
 class Query$PositionPageRead$allInfoPositions$nodes$update_user {

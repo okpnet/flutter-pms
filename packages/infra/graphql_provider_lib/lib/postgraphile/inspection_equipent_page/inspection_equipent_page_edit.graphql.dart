@@ -7803,6 +7803,35 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                               selectionSet: null,
                             ),
                             FieldNode(
+                              name: NameNode(
+                                value:
+                                    'vInspectionInspectionOperationTaskCountByMstrInspectionId',
+                              ),
+                              alias: NameNode(
+                                value: 'inspection_operation_task_count',
+                              ),
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'mstrInspectionId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
                               name: NameNode(value: 'updateAt'),
                               alias: null,
                               arguments: [],
@@ -9375,6 +9404,7 @@ class Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMst
     this.items,
     this.symbol,
     this.remarks,
+    this.inspection_operation_task_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -9395,6 +9425,8 @@ class Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMst
     final l$items = json['items'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$inspection_operation_task_count =
+        json['inspection_operation_task_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -9431,6 +9463,11 @@ class Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMst
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      inspection_operation_task_count: l$inspection_operation_task_count == null
+          ? null
+          : Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count.fromJson(
+              (l$inspection_operation_task_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -9469,6 +9506,9 @@ class Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMst
 
   final String? remarks;
 
+  final Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count?
+  inspection_operation_task_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -9502,6 +9542,9 @@ class Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMst
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$inspection_operation_task_count = inspection_operation_task_count;
+    _resultData['inspection_operation_task_count'] =
+        l$inspection_operation_task_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -9526,6 +9569,7 @@ class Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMst
     final l$items = items;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$inspection_operation_task_count = inspection_operation_task_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -9542,6 +9586,7 @@ class Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMst
       l$items,
       l$symbol,
       l$remarks,
+      l$inspection_operation_task_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -9614,6 +9659,13 @@ class Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMst
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$inspection_operation_task_count = inspection_operation_task_count;
+    final lOther$inspection_operation_task_count =
+        other.inspection_operation_task_count;
+    if (l$inspection_operation_task_count !=
+        lOther$inspection_operation_task_count) {
+      return false;
+    }
     final l$updateAt = updateAt;
     final lOther$updateAt = other.updateAt;
     if (l$updateAt != lOther$updateAt) {
@@ -9684,6 +9736,8 @@ abstract class CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspection
     items,
     String? symbol,
     String? remarks,
+    Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count?
+    inspection_operation_task_count,
     String? updateAt,
     bool? remove,
     Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user?
@@ -9710,6 +9764,10 @@ abstract class CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspection
     TRes
   >
   get items;
+  CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count<
+    TRes
+  >
+  get inspection_operation_task_count;
   CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user<
     TRes
   >
@@ -9750,6 +9808,7 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
     Object? items = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? inspection_operation_task_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -9791,6 +9850,11 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
                 as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      inspection_operation_task_count:
+          inspection_operation_task_count == _undefined
+          ? _instance.inspection_operation_task_count
+          : (inspection_operation_task_count
+                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -9880,6 +9944,22 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           );
   }
 
+  CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count<
+    TRes
+  >
+  get inspection_operation_task_count {
+    final local$inspection_operation_task_count =
+        _instance.inspection_operation_task_count;
+    return local$inspection_operation_task_count == null
+        ? CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count(
+            local$inspection_operation_task_count,
+            (e) => call(inspection_operation_task_count: e),
+          );
+  }
+
   CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user<
     TRes
   >
@@ -9926,6 +10006,8 @@ class _CopyWithStubImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspection
     items,
     String? symbol,
     String? remarks,
+    Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count?
+    inspection_operation_task_count,
     String? updateAt,
     bool? remove,
     Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user?
@@ -9970,6 +10052,14 @@ class _CopyWithStubImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspection
   >
   get items =>
       CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count<
+    TRes
+  >
+  get inspection_operation_task_count =>
+      CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count.stub(
         _res,
       );
 
@@ -47871,6 +47961,152 @@ class _CopyWithStubImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspection
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count {
+  Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count({
+    this.mstrInspectionId,
+    this.$__typename = 'VInspectionInspectionOperationTaskCount',
+  });
+
+  factory Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrInspectionId = json['mstrInspectionId'];
+    final l$$__typename = json['__typename'];
+    return Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count(
+      mstrInspectionId: (l$mstrInspectionId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrInspectionId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrInspectionId = mstrInspectionId;
+    _resultData['mstrInspectionId'] = l$mstrInspectionId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrInspectionId = mstrInspectionId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrInspectionId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrInspectionId = mstrInspectionId;
+    final lOther$mstrInspectionId = other.mstrInspectionId;
+    if (l$mstrInspectionId != lOther$mstrInspectionId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count
+    on
+        Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count {
+  CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count<
+    Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count
+  >
+  get copyWith =>
+      CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count<
+  TRes
+> {
+  factory CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count(
+    Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count
+    instance,
+    TRes Function(
+      Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count;
+
+  factory CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count;
+
+  TRes call({String? mstrInspectionId, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count<
+  TRes
+>
+    implements
+        CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count
+  _instance;
+
+  final TRes Function(
+    Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrInspectionId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count(
+      mstrInspectionId: mstrInspectionId == _undefined
+          ? _instance.mstrInspectionId
+          : (mstrInspectionId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count<
+  TRes
+>
+    implements
+        CopyWith$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$inspection_operation_task_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrInspectionId, String? $__typename}) => _res;
 }
 
 class Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user {

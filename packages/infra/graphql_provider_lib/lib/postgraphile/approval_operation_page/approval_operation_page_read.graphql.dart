@@ -1536,7 +1536,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value: 'iso31663',
+                                                        value: 'iso31662',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -3799,6 +3799,72 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                 arguments: [],
                                                 directives: [],
                                                 selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'vPositionApprovalCountByInfoPositionId',
+                                                ),
+                                                alias: NameNode(
+                                                  value: 'approval_count',
+                                                ),
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: 'infoPositionId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'vPositionAssignCountByInfoPositionId',
+                                                ),
+                                                alias: NameNode(
+                                                  value: 'assign_count',
+                                                ),
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: 'infoPositionId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                               FieldNode(
                                                 name: NameNode(
@@ -5735,7 +5801,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value: 'iso31663',
+                                                        value: 'iso31662',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -7998,6 +8064,72 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                 arguments: [],
                                                 directives: [],
                                                 selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'vPositionApprovalCountByInfoPositionId',
+                                                ),
+                                                alias: NameNode(
+                                                  value: 'approval_count',
+                                                ),
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: 'infoPositionId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'vPositionAssignCountByInfoPositionId',
+                                                ),
+                                                alias: NameNode(
+                                                  value: 'assign_count',
+                                                ),
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: 'infoPositionId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                               FieldNode(
                                                 name: NameNode(
@@ -9965,6 +10097,60 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(
+                          value:
+                              'vApprovalPatternApprovalPatternCountByMstrApprovalPatternId',
+                        ),
+                        alias: NameNode(value: 'approval_pattern_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrApprovalPatternId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(
+                          value:
+                              'vApprovalPatternApprovalPatternDetailCountByMstrApprovalPatternId',
+                        ),
+                        alias: NameNode(value: 'approval_pattern_detail_count'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrApprovalPatternId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -11014,6 +11200,8 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes {
     required this.pattern_detail,
     this.symbol,
     this.remarks,
+    this.approval_pattern_count,
+    this.approval_pattern_detail_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -11028,6 +11216,9 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes {
     final l$pattern_detail = json['pattern_detail'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$approval_pattern_count = json['approval_pattern_count'];
+    final l$approval_pattern_detail_count =
+        json['approval_pattern_detail_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -11045,6 +11236,16 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes {
           ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      approval_pattern_count: l$approval_pattern_count == null
+          ? null
+          : Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count.fromJson(
+              (l$approval_pattern_count as Map<String, dynamic>),
+            ),
+      approval_pattern_detail_count: l$approval_pattern_detail_count == null
+          ? null
+          : Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count.fromJson(
+              (l$approval_pattern_detail_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -11068,6 +11269,12 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes {
 
   final String? remarks;
 
+  final Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count?
+  approval_pattern_count;
+
+  final Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count?
+  approval_pattern_detail_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -11089,6 +11296,11 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$approval_pattern_count = approval_pattern_count;
+    _resultData['approval_pattern_count'] = l$approval_pattern_count?.toJson();
+    final l$approval_pattern_detail_count = approval_pattern_detail_count;
+    _resultData['approval_pattern_detail_count'] =
+        l$approval_pattern_detail_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -11107,6 +11319,8 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes {
     final l$pattern_detail = pattern_detail;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$approval_pattern_count = approval_pattern_count;
+    final l$approval_pattern_detail_count = approval_pattern_detail_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -11117,6 +11331,8 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes {
       l$pattern_detail,
       l$symbol,
       l$remarks,
+      l$approval_pattern_count,
+      l$approval_pattern_detail_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -11157,6 +11373,18 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes {
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$approval_pattern_count = approval_pattern_count;
+    final lOther$approval_pattern_count = other.approval_pattern_count;
+    if (l$approval_pattern_count != lOther$approval_pattern_count) {
+      return false;
+    }
+    final l$approval_pattern_detail_count = approval_pattern_detail_count;
+    final lOther$approval_pattern_detail_count =
+        other.approval_pattern_detail_count;
+    if (l$approval_pattern_detail_count !=
+        lOther$approval_pattern_detail_count) {
       return false;
     }
     final l$updateAt = updateAt;
@@ -11216,6 +11444,10 @@ abstract class CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
     pattern_detail,
     String? symbol,
     String? remarks,
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count?
+    approval_pattern_count,
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count?
+    approval_pattern_detail_count,
     String? updateAt,
     bool? remove,
     Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$update_user?
@@ -11230,6 +11462,14 @@ abstract class CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
     TRes
   >
   get pattern_detail;
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count<
+    TRes
+  >
+  get approval_pattern_count;
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count<
+    TRes
+  >
+  get approval_pattern_detail_count;
   CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$update_user<
     TRes
   >
@@ -11263,6 +11503,8 @@ class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$node
     Object? pattern_detail = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? approval_pattern_count = _undefined,
+    Object? approval_pattern_detail_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -11283,6 +11525,14 @@ class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$node
                 as Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      approval_pattern_count: approval_pattern_count == _undefined
+          ? _instance.approval_pattern_count
+          : (approval_pattern_count
+                as Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count?),
+      approval_pattern_detail_count: approval_pattern_detail_count == _undefined
+          ? _instance.approval_pattern_detail_count
+          : (approval_pattern_detail_count
+                as Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -11323,6 +11573,37 @@ class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$node
     );
   }
 
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count<
+    TRes
+  >
+  get approval_pattern_count {
+    final local$approval_pattern_count = _instance.approval_pattern_count;
+    return local$approval_pattern_count == null
+        ? CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count(
+            local$approval_pattern_count,
+            (e) => call(approval_pattern_count: e),
+          );
+  }
+
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count<
+    TRes
+  >
+  get approval_pattern_detail_count {
+    final local$approval_pattern_detail_count =
+        _instance.approval_pattern_detail_count;
+    return local$approval_pattern_detail_count == null
+        ? CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count(
+            local$approval_pattern_detail_count,
+            (e) => call(approval_pattern_detail_count: e),
+          );
+  }
+
   CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$update_user<
     TRes
   >
@@ -11360,6 +11641,10 @@ class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
     pattern_detail,
     String? symbol,
     String? remarks,
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count?
+    approval_pattern_count,
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count?
+    approval_pattern_detail_count,
     String? updateAt,
     bool? remove,
     Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$update_user?
@@ -11380,6 +11665,22 @@ class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
   >
   get pattern_detail =>
       CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail.stub(
+        _res,
+      );
+
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count<
+    TRes
+  >
+  get approval_pattern_count =>
+      CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count<
+    TRes
+  >
+  get approval_pattern_detail_count =>
+      CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count.stub(
         _res,
       );
 
@@ -17358,7 +17659,7 @@ class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
 class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$department$address {
   Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$department$address({
     required this.infoAddressId,
-    this.iso31663,
+    this.iso31662,
     this.zipCode,
     this.address1,
     this.address2,
@@ -17372,7 +17673,7 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     Map<String, dynamic> json,
   ) {
     final l$infoAddressId = json['infoAddressId'];
-    final l$iso31663 = json['iso31663'];
+    final l$iso31662 = json['iso31662'];
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
@@ -17382,7 +17683,7 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     final l$$__typename = json['__typename'];
     return Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$department$address(
       infoAddressId: (l$infoAddressId as String),
-      iso31663: (l$iso31663 as String?),
+      iso31662: (l$iso31662 as String?),
       zipCode: (l$zipCode as String?),
       address1: l$address1 == null
           ? null
@@ -17407,7 +17708,7 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
 
   final String infoAddressId;
 
-  final String? iso31663;
+  final String? iso31662;
 
   final String? zipCode;
 
@@ -17430,8 +17731,8 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     final _resultData = <String, dynamic>{};
     final l$infoAddressId = infoAddressId;
     _resultData['infoAddressId'] = l$infoAddressId;
-    final l$iso31663 = iso31663;
-    _resultData['iso31663'] = l$iso31663;
+    final l$iso31662 = iso31662;
+    _resultData['iso31662'] = l$iso31662;
     final l$zipCode = zipCode;
     _resultData['zipCode'] = l$zipCode;
     final l$address1 = address1;
@@ -17452,7 +17753,7 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
   @override
   int get hashCode {
     final l$infoAddressId = infoAddressId;
-    final l$iso31663 = iso31663;
+    final l$iso31662 = iso31662;
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
@@ -17462,7 +17763,7 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
-      l$iso31663,
+      l$iso31662,
       l$zipCode,
       l$address1,
       l$address2,
@@ -17488,9 +17789,9 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     if (l$infoAddressId != lOther$infoAddressId) {
       return false;
     }
-    final l$iso31663 = iso31663;
-    final lOther$iso31663 = other.iso31663;
-    if (l$iso31663 != lOther$iso31663) {
+    final l$iso31662 = iso31662;
+    final lOther$iso31662 = other.iso31662;
+    if (l$iso31662 != lOther$iso31662) {
       return false;
     }
     final l$zipCode = zipCode;
@@ -17563,7 +17864,7 @@ abstract class CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
 
   TRes call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$department$address$address1?
     address1,
@@ -17613,7 +17914,7 @@ class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$node
 
   TRes call({
     Object? infoAddressId = _undefined,
-    Object? iso31663 = _undefined,
+    Object? iso31662 = _undefined,
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
@@ -17626,9 +17927,9 @@ class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$node
       infoAddressId: infoAddressId == _undefined || infoAddressId == null
           ? _instance.infoAddressId
           : (infoAddressId as String),
-      iso31663: iso31663 == _undefined
-          ? _instance.iso31663
-          : (iso31663 as String?),
+      iso31662: iso31662 == _undefined
+          ? _instance.iso31662
+          : (iso31662 as String?),
       zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
       address1: address1 == _undefined
           ? _instance.address1
@@ -17713,7 +18014,7 @@ class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
 
   call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$department$address$address1?
     address1,
@@ -26356,6 +26657,8 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     this.labels,
     this.symbol,
     this.remarks,
+    this.approval_count,
+    this.assign_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -26370,6 +26673,8 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     final l$labels = json['labels'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$approval_count = json['approval_count'];
+    final l$assign_count = json['assign_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -26384,6 +26689,16 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      approval_count: l$approval_count == null
+          ? null
+          : Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count.fromJson(
+              (l$approval_count as Map<String, dynamic>),
+            ),
+      assign_count: l$assign_count == null
+          ? null
+          : Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count.fromJson(
+              (l$assign_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -26406,6 +26721,12 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
 
   final String? remarks;
 
+  final Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count?
+  approval_count;
+
+  final Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count?
+  assign_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -26427,6 +26748,10 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$approval_count = approval_count;
+    _resultData['approval_count'] = l$approval_count?.toJson();
+    final l$assign_count = assign_count;
+    _resultData['assign_count'] = l$assign_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -26445,6 +26770,8 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     final l$labels = labels;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$approval_count = approval_count;
+    final l$assign_count = assign_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -26455,6 +26782,8 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
       l$labels,
       l$symbol,
       l$remarks,
+      l$approval_count,
+      l$assign_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -26495,6 +26824,16 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$approval_count = approval_count;
+    final lOther$approval_count = other.approval_count;
+    if (l$approval_count != lOther$approval_count) {
+      return false;
+    }
+    final l$assign_count = assign_count;
+    final lOther$assign_count = other.assign_count;
+    if (l$assign_count != lOther$assign_count) {
       return false;
     }
     final l$updateAt = updateAt;
@@ -26557,6 +26896,10 @@ abstract class CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
     labels,
     String? symbol,
     String? remarks,
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count?
+    approval_count,
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count?
+    assign_count,
     String? updateAt,
     bool? remove,
     Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$update_user?
@@ -26567,6 +26910,14 @@ abstract class CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
     TRes
   >
   get labels;
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count<
+    TRes
+  >
+  get approval_count;
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count<
+    TRes
+  >
+  get assign_count;
   CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$update_user<
     TRes
   >
@@ -26601,6 +26952,8 @@ class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$node
     Object? labels = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? approval_count = _undefined,
+    Object? assign_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -26619,6 +26972,14 @@ class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$node
                 as Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$labels?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      approval_count: approval_count == _undefined
+          ? _instance.approval_count
+          : (approval_count
+                as Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count?),
+      assign_count: assign_count == _undefined
+          ? _instance.assign_count
+          : (assign_count
+                as Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -26645,6 +27006,36 @@ class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$node
         : CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count<
+    TRes
+  >
+  get approval_count {
+    final local$approval_count = _instance.approval_count;
+    return local$approval_count == null
+        ? CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count(
+            local$approval_count,
+            (e) => call(approval_count: e),
+          );
+  }
+
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count<
+    TRes
+  >
+  get assign_count {
+    final local$assign_count = _instance.assign_count;
+    return local$assign_count == null
+        ? CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count(
+            local$assign_count,
+            (e) => call(assign_count: e),
           );
   }
 
@@ -26684,6 +27075,10 @@ class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
     labels,
     String? symbol,
     String? remarks,
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count?
+    approval_count,
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count?
+    assign_count,
     String? updateAt,
     bool? remove,
     Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$update_user?
@@ -26696,6 +27091,22 @@ class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
   >
   get labels =>
       CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$labels.stub(
+        _res,
+      );
+
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count<
+    TRes
+  >
+  get approval_count =>
+      CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count<
+    TRes
+  >
+  get assign_count =>
+      CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count.stub(
         _res,
       );
 
@@ -28770,6 +29181,298 @@ class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count {
+  Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count({
+    this.infoPositionId,
+    this.$__typename = 'VPositionApprovalCount',
+  });
+
+  factory Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoPositionId = json['infoPositionId'];
+    final l$$__typename = json['__typename'];
+    return Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count(
+      infoPositionId: (l$infoPositionId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoPositionId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoPositionId = infoPositionId;
+    _resultData['infoPositionId'] = l$infoPositionId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoPositionId = infoPositionId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoPositionId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoPositionId = infoPositionId;
+    final lOther$infoPositionId = other.infoPositionId;
+    if (l$infoPositionId != lOther$infoPositionId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count
+    on
+        Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count {
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count<
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count
+  >
+  get copyWith =>
+      CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count<
+  TRes
+> {
+  factory CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count
+    instance,
+    TRes Function(
+      Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count;
+
+  factory CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count;
+
+  TRes call({String? infoPositionId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count
+  _instance;
+
+  final TRes Function(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoPositionId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count(
+      infoPositionId: infoPositionId == _undefined
+          ? _instance.infoPositionId
+          : (infoPositionId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$approval_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoPositionId, String? $__typename}) => _res;
+}
+
+class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count {
+  Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count({
+    this.infoPositionId,
+    this.$__typename = 'VPositionAssignCount',
+  });
+
+  factory Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoPositionId = json['infoPositionId'];
+    final l$$__typename = json['__typename'];
+    return Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count(
+      infoPositionId: (l$infoPositionId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoPositionId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoPositionId = infoPositionId;
+    _resultData['infoPositionId'] = l$infoPositionId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoPositionId = infoPositionId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoPositionId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoPositionId = infoPositionId;
+    final lOther$infoPositionId = other.infoPositionId;
+    if (l$infoPositionId != lOther$infoPositionId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count
+    on
+        Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count {
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count<
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count
+  >
+  get copyWith =>
+      CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count<
+  TRes
+> {
+  factory CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count
+    instance,
+    TRes Function(
+      Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count;
+
+  factory CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count;
+
+  TRes call({String? infoPositionId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count
+  _instance;
+
+  final TRes Function(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoPositionId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count(
+      infoPositionId: infoPositionId == _undefined
+          ? _instance.infoPositionId
+          : (infoPositionId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$assign_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoPositionId, String? $__typename}) => _res;
 }
 
 class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approvals$positions$update_user {
@@ -38659,7 +39362,7 @@ class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
 class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$department$address {
   Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$department$address({
     required this.infoAddressId,
-    this.iso31663,
+    this.iso31662,
     this.zipCode,
     this.address1,
     this.address2,
@@ -38673,7 +39376,7 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     Map<String, dynamic> json,
   ) {
     final l$infoAddressId = json['infoAddressId'];
-    final l$iso31663 = json['iso31663'];
+    final l$iso31662 = json['iso31662'];
     final l$zipCode = json['zipCode'];
     final l$address1 = json['address1'];
     final l$address2 = json['address2'];
@@ -38683,7 +39386,7 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     final l$$__typename = json['__typename'];
     return Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$department$address(
       infoAddressId: (l$infoAddressId as String),
-      iso31663: (l$iso31663 as String?),
+      iso31662: (l$iso31662 as String?),
       zipCode: (l$zipCode as String?),
       address1: l$address1 == null
           ? null
@@ -38708,7 +39411,7 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
 
   final String infoAddressId;
 
-  final String? iso31663;
+  final String? iso31662;
 
   final String? zipCode;
 
@@ -38731,8 +39434,8 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     final _resultData = <String, dynamic>{};
     final l$infoAddressId = infoAddressId;
     _resultData['infoAddressId'] = l$infoAddressId;
-    final l$iso31663 = iso31663;
-    _resultData['iso31663'] = l$iso31663;
+    final l$iso31662 = iso31662;
+    _resultData['iso31662'] = l$iso31662;
     final l$zipCode = zipCode;
     _resultData['zipCode'] = l$zipCode;
     final l$address1 = address1;
@@ -38753,7 +39456,7 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
   @override
   int get hashCode {
     final l$infoAddressId = infoAddressId;
-    final l$iso31663 = iso31663;
+    final l$iso31662 = iso31662;
     final l$zipCode = zipCode;
     final l$address1 = address1;
     final l$address2 = address2;
@@ -38763,7 +39466,7 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAddressId,
-      l$iso31663,
+      l$iso31662,
       l$zipCode,
       l$address1,
       l$address2,
@@ -38789,9 +39492,9 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     if (l$infoAddressId != lOther$infoAddressId) {
       return false;
     }
-    final l$iso31663 = iso31663;
-    final lOther$iso31663 = other.iso31663;
-    if (l$iso31663 != lOther$iso31663) {
+    final l$iso31662 = iso31662;
+    final lOther$iso31662 = other.iso31662;
+    if (l$iso31662 != lOther$iso31662) {
       return false;
     }
     final l$zipCode = zipCode;
@@ -38864,7 +39567,7 @@ abstract class CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
 
   TRes call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$department$address$address1?
     address1,
@@ -38914,7 +39617,7 @@ class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$node
 
   TRes call({
     Object? infoAddressId = _undefined,
-    Object? iso31663 = _undefined,
+    Object? iso31662 = _undefined,
     Object? zipCode = _undefined,
     Object? address1 = _undefined,
     Object? address2 = _undefined,
@@ -38927,9 +39630,9 @@ class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$node
       infoAddressId: infoAddressId == _undefined || infoAddressId == null
           ? _instance.infoAddressId
           : (infoAddressId as String),
-      iso31663: iso31663 == _undefined
-          ? _instance.iso31663
-          : (iso31663 as String?),
+      iso31662: iso31662 == _undefined
+          ? _instance.iso31662
+          : (iso31662 as String?),
       zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
       address1: address1 == _undefined
           ? _instance.address1
@@ -39014,7 +39717,7 @@ class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
 
   call({
     String? infoAddressId,
-    String? iso31663,
+    String? iso31662,
     String? zipCode,
     Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$department$address$address1?
     address1,
@@ -47657,6 +48360,8 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     this.labels,
     this.symbol,
     this.remarks,
+    this.approval_count,
+    this.assign_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -47671,6 +48376,8 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     final l$labels = json['labels'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$approval_count = json['approval_count'];
+    final l$assign_count = json['assign_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -47685,6 +48392,16 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      approval_count: l$approval_count == null
+          ? null
+          : Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count.fromJson(
+              (l$approval_count as Map<String, dynamic>),
+            ),
+      assign_count: l$assign_count == null
+          ? null
+          : Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count.fromJson(
+              (l$assign_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -47707,6 +48424,12 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
 
   final String? remarks;
 
+  final Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count?
+  approval_count;
+
+  final Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count?
+  assign_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -47728,6 +48451,10 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$approval_count = approval_count;
+    _resultData['approval_count'] = l$approval_count?.toJson();
+    final l$assign_count = assign_count;
+    _resultData['assign_count'] = l$assign_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -47746,6 +48473,8 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     final l$labels = labels;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$approval_count = approval_count;
+    final l$assign_count = assign_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -47756,6 +48485,8 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
       l$labels,
       l$symbol,
       l$remarks,
+      l$approval_count,
+      l$assign_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -47796,6 +48527,16 @@ class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_deta
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$approval_count = approval_count;
+    final lOther$approval_count = other.approval_count;
+    if (l$approval_count != lOther$approval_count) {
+      return false;
+    }
+    final l$assign_count = assign_count;
+    final lOther$assign_count = other.assign_count;
+    if (l$assign_count != lOther$assign_count) {
       return false;
     }
     final l$updateAt = updateAt;
@@ -47858,6 +48599,10 @@ abstract class CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
     labels,
     String? symbol,
     String? remarks,
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count?
+    approval_count,
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count?
+    assign_count,
     String? updateAt,
     bool? remove,
     Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$update_user?
@@ -47868,6 +48613,14 @@ abstract class CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
     TRes
   >
   get labels;
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count<
+    TRes
+  >
+  get approval_count;
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count<
+    TRes
+  >
+  get assign_count;
   CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$update_user<
     TRes
   >
@@ -47902,6 +48655,8 @@ class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$node
     Object? labels = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? approval_count = _undefined,
+    Object? assign_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -47920,6 +48675,14 @@ class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$node
                 as Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$labels?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      approval_count: approval_count == _undefined
+          ? _instance.approval_count
+          : (approval_count
+                as Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count?),
+      assign_count: assign_count == _undefined
+          ? _instance.assign_count
+          : (assign_count
+                as Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -47946,6 +48709,36 @@ class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$node
         : CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count<
+    TRes
+  >
+  get approval_count {
+    final local$approval_count = _instance.approval_count;
+    return local$approval_count == null
+        ? CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count(
+            local$approval_count,
+            (e) => call(approval_count: e),
+          );
+  }
+
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count<
+    TRes
+  >
+  get assign_count {
+    final local$assign_count = _instance.assign_count;
+    return local$assign_count == null
+        ? CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count(
+            local$assign_count,
+            (e) => call(assign_count: e),
           );
   }
 
@@ -47985,6 +48778,10 @@ class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
     labels,
     String? symbol,
     String? remarks,
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count?
+    approval_count,
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count?
+    assign_count,
     String? updateAt,
     bool? remove,
     Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$update_user?
@@ -47997,6 +48794,22 @@ class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
   >
   get labels =>
       CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$labels.stub(
+        _res,
+      );
+
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count<
+    TRes
+  >
+  get approval_count =>
+      CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count.stub(
+        _res,
+      );
+
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count<
+    TRes
+  >
+  get assign_count =>
+      CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count.stub(
         _res,
       );
 
@@ -50071,6 +50884,298 @@ class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count {
+  Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count({
+    this.infoPositionId,
+    this.$__typename = 'VPositionApprovalCount',
+  });
+
+  factory Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoPositionId = json['infoPositionId'];
+    final l$$__typename = json['__typename'];
+    return Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count(
+      infoPositionId: (l$infoPositionId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoPositionId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoPositionId = infoPositionId;
+    _resultData['infoPositionId'] = l$infoPositionId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoPositionId = infoPositionId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoPositionId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoPositionId = infoPositionId;
+    final lOther$infoPositionId = other.infoPositionId;
+    if (l$infoPositionId != lOther$infoPositionId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count
+    on
+        Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count {
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count<
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count
+  >
+  get copyWith =>
+      CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count<
+  TRes
+> {
+  factory CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count
+    instance,
+    TRes Function(
+      Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count;
+
+  factory CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count;
+
+  TRes call({String? infoPositionId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count
+  _instance;
+
+  final TRes Function(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoPositionId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count(
+      infoPositionId: infoPositionId == _undefined
+          ? _instance.infoPositionId
+          : (infoPositionId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$approval_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoPositionId, String? $__typename}) => _res;
+}
+
+class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count {
+  Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count({
+    this.infoPositionId,
+    this.$__typename = 'VPositionAssignCount',
+  });
+
+  factory Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoPositionId = json['infoPositionId'];
+    final l$$__typename = json['__typename'];
+    return Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count(
+      infoPositionId: (l$infoPositionId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? infoPositionId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoPositionId = infoPositionId;
+    _resultData['infoPositionId'] = l$infoPositionId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoPositionId = infoPositionId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$infoPositionId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoPositionId = infoPositionId;
+    final lOther$infoPositionId = other.infoPositionId;
+    if (l$infoPositionId != lOther$infoPositionId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count
+    on
+        Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count {
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count<
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count
+  >
+  get copyWith =>
+      CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count<
+  TRes
+> {
+  factory CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count
+    instance,
+    TRes Function(
+      Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count;
+
+  factory CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count;
+
+  TRes call({String? infoPositionId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count
+  _instance;
+
+  final TRes Function(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoPositionId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count(
+      infoPositionId: infoPositionId == _undefined
+          ? _instance.infoPositionId
+          : (infoPositionId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$assign_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? infoPositionId, String? $__typename}) => _res;
 }
 
 class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$pattern_detail$nodes$approval$positions$update_user {
@@ -59353,6 +60458,298 @@ class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count {
+  Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count({
+    this.mstrApprovalPatternId,
+    this.$__typename = 'VApprovalPatternApprovalPatternCount',
+  });
+
+  factory Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrApprovalPatternId = json['mstrApprovalPatternId'];
+    final l$$__typename = json['__typename'];
+    return Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count(
+      mstrApprovalPatternId: (l$mstrApprovalPatternId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrApprovalPatternId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrApprovalPatternId = mstrApprovalPatternId;
+    _resultData['mstrApprovalPatternId'] = l$mstrApprovalPatternId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrApprovalPatternId = mstrApprovalPatternId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrApprovalPatternId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrApprovalPatternId = mstrApprovalPatternId;
+    final lOther$mstrApprovalPatternId = other.mstrApprovalPatternId;
+    if (l$mstrApprovalPatternId != lOther$mstrApprovalPatternId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count
+    on
+        Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count {
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count<
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count
+  >
+  get copyWith =>
+      CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count<
+  TRes
+> {
+  factory CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count
+    instance,
+    TRes Function(
+      Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count;
+
+  factory CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count;
+
+  TRes call({String? mstrApprovalPatternId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count
+  _instance;
+
+  final TRes Function(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrApprovalPatternId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count(
+      mstrApprovalPatternId: mstrApprovalPatternId == _undefined
+          ? _instance.mstrApprovalPatternId
+          : (mstrApprovalPatternId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrApprovalPatternId, String? $__typename}) => _res;
+}
+
+class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count {
+  Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count({
+    this.mstrApprovalPatternId,
+    this.$__typename = 'VApprovalPatternApprovalPatternDetailCount',
+  });
+
+  factory Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrApprovalPatternId = json['mstrApprovalPatternId'];
+    final l$$__typename = json['__typename'];
+    return Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count(
+      mstrApprovalPatternId: (l$mstrApprovalPatternId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrApprovalPatternId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrApprovalPatternId = mstrApprovalPatternId;
+    _resultData['mstrApprovalPatternId'] = l$mstrApprovalPatternId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrApprovalPatternId = mstrApprovalPatternId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrApprovalPatternId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrApprovalPatternId = mstrApprovalPatternId;
+    final lOther$mstrApprovalPatternId = other.mstrApprovalPatternId;
+    if (l$mstrApprovalPatternId != lOther$mstrApprovalPatternId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count
+    on
+        Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count {
+  CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count<
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count
+  >
+  get copyWith =>
+      CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count<
+  TRes
+> {
+  factory CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count
+    instance,
+    TRes Function(
+      Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count;
+
+  factory CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count;
+
+  TRes call({String? mstrApprovalPatternId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count
+  _instance;
+
+  final TRes Function(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrApprovalPatternId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count(
+      mstrApprovalPatternId: mstrApprovalPatternId == _undefined
+          ? _instance.mstrApprovalPatternId
+          : (mstrApprovalPatternId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count<
+  TRes
+>
+    implements
+        CopyWith$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$approval_pattern_detail_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrApprovalPatternId, String? $__typename}) => _res;
 }
 
 class Query$ApprovalOperationPageRead$allMstrApprovalPatterns$nodes$update_user {

@@ -4844,6 +4844,35 @@ const documentNodeQueryInspectionItemPageRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(
+                          value:
+                              'vInspectionInspectionOperationTaskCountByMstrInspectionId',
+                        ),
+                        alias: NameNode(
+                          value: 'inspection_operation_task_count',
+                        ),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'mstrInspectionId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'updateAt'),
                         alias: null,
                         arguments: [],
@@ -5867,6 +5896,7 @@ class Query$InspectionItemPageRead$allMstrInspections$nodes {
     this.items,
     this.symbol,
     this.remarks,
+    this.inspection_operation_task_count,
     this.updateAt,
     this.remove,
     this.update_user,
@@ -5887,6 +5917,8 @@ class Query$InspectionItemPageRead$allMstrInspections$nodes {
     final l$items = json['items'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
+    final l$inspection_operation_task_count =
+        json['inspection_operation_task_count'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$update_user = json['update_user'];
@@ -5923,6 +5955,11 @@ class Query$InspectionItemPageRead$allMstrInspections$nodes {
             ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
+      inspection_operation_task_count: l$inspection_operation_task_count == null
+          ? null
+          : Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count.fromJson(
+              (l$inspection_operation_task_count as Map<String, dynamic>),
+            ),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       update_user: l$update_user == null
@@ -5958,6 +5995,9 @@ class Query$InspectionItemPageRead$allMstrInspections$nodes {
 
   final String? remarks;
 
+  final Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count?
+  inspection_operation_task_count;
+
   final String? updateAt;
 
   final bool? remove;
@@ -5991,6 +6031,9 @@ class Query$InspectionItemPageRead$allMstrInspections$nodes {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$inspection_operation_task_count = inspection_operation_task_count;
+    _resultData['inspection_operation_task_count'] =
+        l$inspection_operation_task_count?.toJson();
     final l$updateAt = updateAt;
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
@@ -6015,6 +6058,7 @@ class Query$InspectionItemPageRead$allMstrInspections$nodes {
     final l$items = items;
     final l$symbol = symbol;
     final l$remarks = remarks;
+    final l$inspection_operation_task_count = inspection_operation_task_count;
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$update_user = update_user;
@@ -6031,6 +6075,7 @@ class Query$InspectionItemPageRead$allMstrInspections$nodes {
       l$items,
       l$symbol,
       l$remarks,
+      l$inspection_operation_task_count,
       l$updateAt,
       l$remove,
       l$update_user,
@@ -6102,6 +6147,13 @@ class Query$InspectionItemPageRead$allMstrInspections$nodes {
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$inspection_operation_task_count = inspection_operation_task_count;
+    final lOther$inspection_operation_task_count =
+        other.inspection_operation_task_count;
+    if (l$inspection_operation_task_count !=
+        lOther$inspection_operation_task_count) {
+      return false;
+    }
     final l$updateAt = updateAt;
     final lOther$updateAt = other.updateAt;
     if (l$updateAt != lOther$updateAt) {
@@ -6163,6 +6215,8 @@ abstract class CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes<
     Query$InspectionItemPageRead$allMstrInspections$nodes$items? items,
     String? symbol,
     String? remarks,
+    Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count?
+    inspection_operation_task_count,
     String? updateAt,
     bool? remove,
     Query$InspectionItemPageRead$allMstrInspections$nodes$update_user?
@@ -6181,6 +6235,10 @@ abstract class CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes<
   get formulas;
   CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$items<TRes>
   get items;
+  CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count<
+    TRes
+  >
+  get inspection_operation_task_count;
   CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$update_user<
     TRes
   >
@@ -6214,6 +6272,7 @@ class _CopyWithImpl$Query$InspectionItemPageRead$allMstrInspections$nodes<TRes>
     Object? items = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
+    Object? inspection_operation_task_count = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? update_user = _undefined,
@@ -6255,6 +6314,11 @@ class _CopyWithImpl$Query$InspectionItemPageRead$allMstrInspections$nodes<TRes>
                 as Query$InspectionItemPageRead$allMstrInspections$nodes$items?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      inspection_operation_task_count:
+          inspection_operation_task_count == _undefined
+          ? _instance.inspection_operation_task_count
+          : (inspection_operation_task_count
+                as Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
@@ -6336,6 +6400,22 @@ class _CopyWithImpl$Query$InspectionItemPageRead$allMstrInspections$nodes<TRes>
           );
   }
 
+  CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count<
+    TRes
+  >
+  get inspection_operation_task_count {
+    final local$inspection_operation_task_count =
+        _instance.inspection_operation_task_count;
+    return local$inspection_operation_task_count == null
+        ? CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count(
+            local$inspection_operation_task_count,
+            (e) => call(inspection_operation_task_count: e),
+          );
+  }
+
   CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$update_user<
     TRes
   >
@@ -6376,6 +6456,8 @@ class _CopyWithStubImpl$Query$InspectionItemPageRead$allMstrInspections$nodes<
     Query$InspectionItemPageRead$allMstrInspections$nodes$items? items,
     String? symbol,
     String? remarks,
+    Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count?
+    inspection_operation_task_count,
     String? updateAt,
     bool? remove,
     Query$InspectionItemPageRead$allMstrInspections$nodes$update_user?
@@ -6412,6 +6494,14 @@ class _CopyWithStubImpl$Query$InspectionItemPageRead$allMstrInspections$nodes<
   CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$items<TRes>
   get items =>
       CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$items.stub(
+        _res,
+      );
+
+  CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count<
+    TRes
+  >
+  get inspection_operation_task_count =>
+      CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count.stub(
         _res,
       );
 
@@ -31382,6 +31472,152 @@ class _CopyWithStubImpl$Query$InspectionItemPageRead$allMstrInspections$nodes$it
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count {
+  Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count({
+    this.mstrInspectionId,
+    this.$__typename = 'VInspectionInspectionOperationTaskCount',
+  });
+
+  factory Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$mstrInspectionId = json['mstrInspectionId'];
+    final l$$__typename = json['__typename'];
+    return Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count(
+      mstrInspectionId: (l$mstrInspectionId as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? mstrInspectionId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$mstrInspectionId = mstrInspectionId;
+    _resultData['mstrInspectionId'] = l$mstrInspectionId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$mstrInspectionId = mstrInspectionId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$mstrInspectionId, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$mstrInspectionId = mstrInspectionId;
+    final lOther$mstrInspectionId = other.mstrInspectionId;
+    if (l$mstrInspectionId != lOther$mstrInspectionId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count
+    on
+        Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count {
+  CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count<
+    Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count
+  >
+  get copyWith =>
+      CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count<
+  TRes
+> {
+  factory CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count(
+    Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count
+    instance,
+    TRes Function(
+      Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count,
+    )
+    then,
+  ) = _CopyWithImpl$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count;
+
+  factory CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count;
+
+  TRes call({String? mstrInspectionId, String? $__typename});
+}
+
+class _CopyWithImpl$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count<
+  TRes
+>
+    implements
+        CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count<
+          TRes
+        > {
+  _CopyWithImpl$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count(
+    this._instance,
+    this._then,
+  );
+
+  final Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count
+  _instance;
+
+  final TRes Function(
+    Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? mstrInspectionId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count(
+      mstrInspectionId: mstrInspectionId == _undefined
+          ? _instance.mstrInspectionId
+          : (mstrInspectionId as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count<
+  TRes
+>
+    implements
+        CopyWith$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$InspectionItemPageRead$allMstrInspections$nodes$inspection_operation_task_count(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? mstrInspectionId, String? $__typename}) => _res;
 }
 
 class Query$InspectionItemPageRead$allMstrInspections$nodes$update_user {
