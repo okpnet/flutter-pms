@@ -1,5 +1,7 @@
 import '../schema.graphql.dart';
+
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -649,8 +651,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'value'),
                                     arguments: [
@@ -725,8 +726,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -742,8 +742,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'value'),
                                     arguments: [
@@ -818,8 +817,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -835,8 +833,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'value'),
                                     arguments: [
@@ -974,8 +971,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -993,8 +989,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -1006,8 +1001,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1075,8 +1069,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1094,8 +1087,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -1107,8 +1099,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1176,8 +1167,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1195,8 +1185,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -1208,8 +1197,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1305,8 +1293,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1324,8 +1311,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -1337,8 +1323,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1406,8 +1391,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1425,8 +1409,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -1438,8 +1421,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1507,8 +1489,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1526,8 +1507,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -1539,8 +1519,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1636,8 +1615,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1655,8 +1633,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -1668,8 +1645,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1737,8 +1713,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1756,8 +1731,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -1769,8 +1743,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1838,8 +1811,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1857,8 +1829,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -1870,8 +1841,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2019,8 +1989,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -2038,8 +2007,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -2051,8 +2019,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2120,8 +2087,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -2139,8 +2105,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -2152,8 +2117,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2221,8 +2185,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -2240,8 +2203,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -2253,8 +2215,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2360,8 +2321,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                               ),
                               alias: NameNode(value: 'update_user'),
                               arguments: [],
@@ -2416,8 +2376,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNameId',
+                                            value: 'sharedDictionaryBySharedDictionaryNameId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -2435,8 +2394,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'value'),
                                                 arguments: [
@@ -2448,13 +2406,11 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'languageCodeId',
+                                                              value: 'languageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -2472,30 +2428,31 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -2523,8 +2480,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryPronunciationId',
+                                            value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -2542,8 +2498,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'value'),
                                                 arguments: [
@@ -2555,13 +2510,11 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'languageCodeId',
+                                                              value: 'languageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -2579,30 +2532,31 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -2630,8 +2584,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNicknameId',
+                                            value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -2649,8 +2602,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'value'),
                                                 arguments: [
@@ -2662,13 +2614,11 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'languageCodeId',
+                                                              value: 'languageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -2686,30 +2636,31 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -2809,8 +2760,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'vStakeholderOutsourceAvailableCountByMstrStakeholderId',
+                          value: 'vStakeholderOutsourceAvailableCountByMstrStakeholderId',
                         ),
                         alias: NameNode(value: 'outsource_available_count'),
                         arguments: [],
@@ -2836,8 +2786,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'vStakeholderStakeholderProvisionCountByMstrStakeholderId',
+                          value: 'vStakeholderStakeholderProvisionCountByMstrStakeholderId',
                         ),
                         alias: NameNode(value: 'stakeholder_provision_count'),
                         arguments: [],
@@ -2863,8 +2812,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'vStakeholderStakeholderContactCountByMstrStakeholderId',
+                          value: 'vStakeholderStakeholderContactCountByMstrStakeholderId',
                         ),
                         alias: NameNode(value: 'stakeholder_contact_count'),
                         arguments: [],
@@ -2904,8 +2852,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                          value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                         ),
                         alias: NameNode(value: 'update_user'),
                         arguments: [],
@@ -2958,8 +2905,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -2977,8 +2923,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -2990,8 +2935,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3059,8 +3003,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -3078,8 +3021,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -3091,8 +3033,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3160,8 +3101,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -3179,8 +3119,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -3192,8 +3131,7 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3342,8 +3280,10 @@ const documentNodeQuerySupplierPageRead = DocumentNode(
 Query$SupplierPageRead _parserFn$Query$SupplierPageRead(
   Map<String, dynamic> data,
 ) => Query$SupplierPageRead.fromJson(data);
-typedef OnQueryComplete$Query$SupplierPageRead =
-    FutureOr<void> Function(Map<String, dynamic>?, Query$SupplierPageRead?);
+typedef OnQueryComplete$Query$SupplierPageRead = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$SupplierPageRead?,
+);
 
 class Options$Query$SupplierPageRead
     extends graphql.QueryOptions<Query$SupplierPageRead> {

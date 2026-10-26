@@ -1,5 +1,7 @@
 import '../schema.graphql.dart';
+
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -537,8 +539,7 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'value'),
                                     arguments: [
@@ -613,8 +614,7 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -630,8 +630,7 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'value'),
                                     arguments: [
@@ -706,8 +705,7 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -723,8 +721,7 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'value'),
                                     arguments: [
@@ -889,8 +886,7 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                          value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                         ),
                         alias: NameNode(value: 'update_user'),
                         arguments: [],
@@ -943,8 +939,7 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -962,8 +957,7 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -975,8 +969,7 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1044,8 +1037,7 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1063,8 +1055,7 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -1076,8 +1067,7 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1145,8 +1135,7 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1164,8 +1153,7 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -1177,8 +1165,7 @@ const documentNodeQueryPositionPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1327,8 +1314,10 @@ const documentNodeQueryPositionPageRead = DocumentNode(
 Query$PositionPageRead _parserFn$Query$PositionPageRead(
   Map<String, dynamic> data,
 ) => Query$PositionPageRead.fromJson(data);
-typedef OnQueryComplete$Query$PositionPageRead =
-    FutureOr<void> Function(Map<String, dynamic>?, Query$PositionPageRead?);
+typedef OnQueryComplete$Query$PositionPageRead = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$PositionPageRead?,
+);
 
 class Options$Query$PositionPageRead
     extends graphql.QueryOptions<Query$PositionPageRead> {

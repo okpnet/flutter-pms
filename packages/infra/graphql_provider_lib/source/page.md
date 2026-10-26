@@ -210,12 +210,18 @@
             +   受注明細[OrderDetailPage]
                 +   受注明細情報[OrderDetailPageEdit]
 1.  出荷
+    +   利害関係者履歴項目[StakeholderHistoryReadFields]<!--出荷オーダーの利害関係者(履歴)と区分。出荷オーダー台帳・当日出荷台帳が子として使う(要件20261026_0004)-->
     +   出荷オーダー台帳[ShippingOrderPage]
         +   出荷オーダー情報[ShippingOrderPageEdit]
             +   出荷オーダー明細[ShippingOrderDetailPage]
                 +   出荷オーダー明細情報[ShippingOrderDetailPageEdit]
                 +   出荷実績明細[ShippingOrderDetailRecordPage]
                     +   出荷実績登録[ShippingOrderDetailRecordPageEdit]
+1.  ダッシュボード<!--要件20261026_0004。件数はtotalCountと$filterで得る。合計・率は集計のビュー・プラグインが無いためDB要。doc/log/20261026_0004.md-->
+    +   当日出荷台帳[ShippingTodayPage]<!--出荷オーダーより。$filterにestimatedShippingDateの範囲、区分・利害関係者(顧客、外部)を指定-->
+    +   売上合計(受注より)<!--DB要: 受注明細の金額合計のビューが無い-->
+    +   買付合計(発注、非計上発注より)<!--DB要: 発注・非計上発注明細の金額合計のビューが無い-->
+    +   納期遵守率(出荷オーダー、工程計画、発注より)<!--DB要: 納期と実績日の比較・率のビューが無い-->
 ##  購買
 1.  配送区分
     +   配送区分項目[ShippingKindReadFields]
@@ -255,6 +261,8 @@
         +   品目工程情報[ItemOperationPageEdit]
         +   品目工程明細[ItemOperationTaskPage]
             +   品目工程明細情報[ItemOperationTaskPageEdit]
+1.  進捗遅延<!--要件20261026_0004。件数はtotalCountと$filterで得る-->
+    +   進捗遅延台帳[WorkPlanDelayPage]<!--工程計画(trans_work_plan)より。$filterにcompletionAtの上限(現在)を指定-->
 
 ##  作業実績
 1.  コンテナ

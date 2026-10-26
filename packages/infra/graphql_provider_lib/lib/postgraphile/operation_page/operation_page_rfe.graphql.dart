@@ -1,5 +1,7 @@
 import '../schema.graphql.dart';
+
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -493,8 +495,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -557,8 +558,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -631,8 +631,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'sharedDictionaryBySharedDictionaryPronunciationId',
+                          value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                         ),
                         alias: null,
                         arguments: [],
@@ -648,8 +647,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -712,8 +710,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -802,8 +799,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -866,8 +862,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -1227,8 +1222,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -1237,8 +1231,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -1247,8 +1240,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -1262,14 +1254,13 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -1289,10 +1280,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1301,10 +1292,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1330,8 +1321,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -1345,14 +1335,13 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -1372,10 +1361,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1384,10 +1373,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1425,8 +1414,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                  value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -1435,8 +1423,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -1445,8 +1432,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -1460,14 +1446,13 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -1487,10 +1472,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1499,10 +1484,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1528,8 +1513,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -1543,14 +1527,13 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -1570,10 +1553,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1582,10 +1565,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1623,8 +1606,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -1633,8 +1615,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -1643,8 +1624,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -1658,14 +1638,13 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -1685,10 +1664,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1697,10 +1676,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1726,8 +1705,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -1741,14 +1719,13 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -1768,10 +1745,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1780,10 +1757,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1868,8 +1845,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                            value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                           ),
                                           alias: NameNode(value: 'update_user'),
                                           arguments: [],
@@ -1912,8 +1888,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedAppellationByNames',
+                                                  value: 'sharedAppellationByNames',
                                                 ),
                                                 alias: NameNode(value: 'name'),
                                                 arguments: [],
@@ -1922,8 +1897,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationsId',
+                                                        value: 'sharedAppellationsId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -1932,8 +1906,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -1942,8 +1915,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -1952,8 +1924,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -1961,20 +1932,17 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -1998,8 +1966,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2012,8 +1979,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2028,10 +1994,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2044,8 +2010,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -2053,20 +2018,17 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -2090,8 +2052,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2104,8 +2065,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2120,10 +2080,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2149,8 +2109,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                        value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -2159,8 +2118,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -2169,8 +2127,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -2178,20 +2135,17 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -2215,8 +2169,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2229,8 +2182,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2245,10 +2197,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2261,8 +2213,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -2270,20 +2221,17 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -2307,8 +2255,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2321,8 +2268,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2337,10 +2283,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2366,8 +2312,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNicknameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -2376,8 +2321,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -2386,8 +2330,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -2395,20 +2338,17 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -2432,8 +2372,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2446,8 +2385,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2462,10 +2400,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2478,8 +2416,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -2487,20 +2424,17 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -2524,8 +2458,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2538,8 +2471,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2554,10 +2486,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2672,8 +2604,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNameId',
+                                            value: 'sharedDictionaryBySharedDictionaryNameId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -2691,8 +2622,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -2704,13 +2634,11 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -2728,30 +2656,31 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -2767,8 +2696,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -2780,13 +2708,11 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -2804,30 +2730,31 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -2855,8 +2782,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryPronunciationId',
+                                            value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -2874,8 +2800,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -2887,13 +2812,11 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -2911,30 +2834,31 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -2950,8 +2874,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -2963,13 +2886,11 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -2987,30 +2908,31 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -3038,8 +2960,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNicknameId',
+                                            value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -3057,8 +2978,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -3070,13 +2990,11 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -3094,30 +3012,31 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -3133,8 +3052,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -3146,13 +3064,11 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -3170,30 +3086,31 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -3247,8 +3164,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedTextValuesBySharedTextId',
+                                            value: 'sharedTextValuesBySharedTextId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -3260,8 +3176,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3328,8 +3243,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedTextValuesBySharedTextId',
+                                            value: 'sharedTextValuesBySharedTextId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -3341,8 +3255,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3513,8 +3426,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                      value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                     ),
                                     alias: NameNode(value: 'update_user'),
                                     arguments: [],
@@ -3571,8 +3483,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -3581,8 +3492,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -3591,8 +3501,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -3606,14 +3515,13 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -3633,10 +3541,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3645,10 +3553,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3674,8 +3582,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -3689,14 +3596,13 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -3716,10 +3622,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3728,10 +3634,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3769,8 +3675,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                  value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -3779,8 +3684,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -3789,8 +3693,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -3804,14 +3707,13 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -3831,10 +3733,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3843,10 +3745,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3872,8 +3774,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -3887,14 +3788,13 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -3914,10 +3814,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3926,10 +3826,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3967,8 +3867,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -3977,8 +3876,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -3987,8 +3885,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -4002,14 +3899,13 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -4029,10 +3925,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4041,10 +3937,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4070,8 +3966,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -4085,14 +3980,13 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -4112,10 +4006,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4124,10 +4018,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4255,8 +4149,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -4274,8 +4167,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -4287,8 +4179,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -4347,8 +4238,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -4360,8 +4250,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -4430,8 +4319,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -4449,8 +4337,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -4462,8 +4349,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -4522,8 +4408,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -4535,8 +4420,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -4605,8 +4489,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -4624,8 +4507,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -4637,8 +4519,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -4697,8 +4578,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -4710,8 +4590,7 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -5029,8 +4908,10 @@ const documentNodeQueryOperationPageRfe = DocumentNode(
 Query$OperationPageRfe _parserFn$Query$OperationPageRfe(
   Map<String, dynamic> data,
 ) => Query$OperationPageRfe.fromJson(data);
-typedef OnQueryComplete$Query$OperationPageRfe =
-    FutureOr<void> Function(Map<String, dynamic>?, Query$OperationPageRfe?);
+typedef OnQueryComplete$Query$OperationPageRfe = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$OperationPageRfe?,
+);
 
 class Options$Query$OperationPageRfe
     extends graphql.QueryOptions<Query$OperationPageRfe> {
@@ -6107,12 +5988,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$labels
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -7092,12 +6971,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$labels
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -8077,12 +7954,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$labels
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -12176,12 +12051,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -13161,12 +13034,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -14146,12 +14017,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -15827,12 +15696,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -16812,12 +16679,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -17797,12 +17662,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$groups$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -19136,12 +18999,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -20121,12 +19982,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -21106,12 +20965,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -22090,12 +21947,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedTextId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$detailTexts$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$detailTexts$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$detailTexts$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$detailTexts$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -24048,12 +23903,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -25033,12 +24886,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -26018,12 +25869,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$tasks$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -27357,12 +27206,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -28342,12 +28189,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -29327,12 +29172,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -30311,12 +30154,10 @@ class _CopyWithImpl$Query$OperationPageRfe$mstrOperationByMstrOperationId$operat
           : (sharedTextId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$detailTexts$ja),
+          : (ja as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$detailTexts$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$detailTexts$en),
+          : (en as Query$OperationPageRfe$mstrOperationByMstrOperationId$operationTasks$nodes$detailTexts$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

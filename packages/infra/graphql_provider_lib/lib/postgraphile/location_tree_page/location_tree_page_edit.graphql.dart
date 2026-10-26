@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -653,11 +654,10 @@ typedef RunMutation$Mutation$LocationTreePageEdit =
       Object? optimisticResult,
       Mutation$LocationTreePageEdit? typedOptimisticResult,
     });
-typedef Builder$Mutation$LocationTreePageEdit =
-    widgets.Widget Function(
-      RunMutation$Mutation$LocationTreePageEdit,
-      graphql.QueryResult<Mutation$LocationTreePageEdit>?,
-    );
+typedef Builder$Mutation$LocationTreePageEdit = widgets.Widget Function(
+  RunMutation$Mutation$LocationTreePageEdit,
+  graphql.QueryResult<Mutation$LocationTreePageEdit>?,
+);
 
 class Mutation$LocationTreePageEdit$Widget
     extends graphql_flutter.Mutation<Mutation$LocationTreePageEdit> {

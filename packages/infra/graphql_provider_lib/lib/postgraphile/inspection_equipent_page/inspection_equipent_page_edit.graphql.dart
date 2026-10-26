@@ -1,5 +1,7 @@
 import '../schema.graphql.dart';
+
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -597,8 +599,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
         selections: [
           FieldNode(
             name: NameNode(
-              value:
-                  'updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId',
+              value: 'updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId',
             ),
             alias: null,
             arguments: [
@@ -733,8 +734,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -752,8 +752,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -765,8 +764,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -825,8 +823,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -838,8 +835,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -908,8 +904,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -927,8 +922,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -940,8 +934,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1000,8 +993,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -1013,8 +1005,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1083,8 +1074,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1102,8 +1092,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -1115,8 +1104,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1175,8 +1163,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -1188,8 +1175,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1311,8 +1297,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNameId',
+                                            value: 'sharedDictionaryBySharedDictionaryNameId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -1330,8 +1315,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -1343,13 +1327,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -1367,30 +1349,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -1406,8 +1389,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -1419,13 +1401,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -1443,30 +1423,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -1494,8 +1475,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryPronunciationId',
+                                            value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -1513,8 +1493,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -1526,13 +1505,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -1550,30 +1527,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -1589,8 +1567,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -1602,13 +1579,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -1626,30 +1601,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -1677,8 +1653,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNicknameId',
+                                            value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -1696,8 +1671,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -1709,13 +1683,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -1733,30 +1705,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -1772,8 +1745,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -1785,13 +1757,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -1809,30 +1779,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -1898,8 +1869,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                      value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                     ),
                                     alias: NameNode(value: 'update_user'),
                                     arguments: [],
@@ -1956,8 +1926,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -1966,8 +1935,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -1976,8 +1944,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -1991,14 +1958,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -2018,10 +1984,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2030,10 +1996,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2059,8 +2025,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -2074,14 +2039,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -2101,10 +2065,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2113,10 +2077,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2154,8 +2118,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                  value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -2164,8 +2127,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -2174,8 +2136,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -2189,14 +2150,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -2216,10 +2176,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2228,10 +2188,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2257,8 +2217,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -2272,14 +2231,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -2299,10 +2257,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2311,10 +2269,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2352,8 +2310,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -2362,8 +2319,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -2372,8 +2328,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -2387,14 +2342,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -2414,10 +2368,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2426,10 +2380,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2455,8 +2409,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -2470,14 +2423,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -2497,10 +2449,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2509,10 +2461,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2683,8 +2635,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'mstrInspectionFormulaByInspectionFormulaId',
+                                value: 'mstrInspectionFormulaByInspectionFormulaId',
                               ),
                               alias: NameNode(value: 'formulas'),
                               arguments: [],
@@ -2758,8 +2709,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                      value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                     ),
                                     alias: NameNode(value: 'update_user'),
                                     arguments: [],
@@ -2816,8 +2766,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -2826,8 +2775,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -2836,8 +2784,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -2851,14 +2798,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -2878,10 +2824,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2890,10 +2836,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2919,8 +2865,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -2934,14 +2879,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -2961,10 +2905,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2973,10 +2917,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3014,8 +2958,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                  value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -3024,8 +2967,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -3034,8 +2976,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -3049,14 +2990,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -3076,10 +3016,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3088,10 +3028,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3117,8 +3057,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -3132,14 +3071,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -3159,10 +3097,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3171,10 +3109,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3212,8 +3150,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -3222,8 +3159,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -3232,8 +3168,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -3247,14 +3182,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -3274,10 +3208,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3286,10 +3220,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3315,8 +3249,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -3330,14 +3263,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -3357,10 +3289,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3369,10 +3301,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3534,8 +3466,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -3544,8 +3475,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -3554,8 +3484,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -3569,14 +3498,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -3596,10 +3524,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3608,10 +3536,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3637,8 +3565,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -3652,14 +3579,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -3679,10 +3605,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3691,10 +3617,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3732,8 +3658,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                  value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -3742,8 +3667,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -3752,8 +3676,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -3767,14 +3690,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -3794,10 +3716,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3806,10 +3728,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3835,8 +3757,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -3850,14 +3771,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -3877,10 +3797,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3889,10 +3809,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3930,8 +3850,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -3940,8 +3859,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -3950,8 +3868,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -3965,14 +3882,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -3992,10 +3908,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4004,10 +3920,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4033,8 +3949,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -4048,14 +3963,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -4075,10 +3989,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4087,10 +4001,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4171,8 +4085,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'mstrManufacturerByMstrManufacturerId',
+                                      value: 'mstrManufacturerByMstrManufacturerId',
                                     ),
                                     alias: NameNode(value: 'manufacture'),
                                     arguments: [],
@@ -4215,8 +4128,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -4225,8 +4137,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -4235,8 +4146,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -4250,14 +4160,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -4277,10 +4186,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4289,10 +4198,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4318,8 +4227,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -4333,14 +4241,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -4360,10 +4267,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4372,10 +4279,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4413,8 +4320,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                  value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -4423,8 +4329,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -4433,8 +4338,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -4448,14 +4352,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -4475,10 +4378,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4487,10 +4390,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4516,8 +4419,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -4531,14 +4433,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -4558,10 +4459,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4570,10 +4471,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4611,8 +4512,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -4621,8 +4521,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -4631,8 +4530,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -4646,14 +4544,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -4673,10 +4570,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4685,10 +4582,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4714,8 +4611,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -4729,14 +4625,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -4756,10 +4651,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4768,10 +4663,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4849,8 +4744,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                            value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                           ),
                                           alias: NameNode(value: 'update_user'),
                                           arguments: [],
@@ -4893,8 +4787,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedAppellationByNames',
+                                                  value: 'sharedAppellationByNames',
                                                 ),
                                                 alias: NameNode(value: 'name'),
                                                 arguments: [],
@@ -4903,8 +4796,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationsId',
+                                                        value: 'sharedAppellationsId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -4913,8 +4805,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -4923,8 +4814,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -4933,8 +4823,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -4942,20 +4831,17 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -4979,8 +4865,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4993,8 +4878,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5009,10 +4893,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5025,8 +4909,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -5034,20 +4917,17 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -5071,8 +4951,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5085,8 +4964,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5101,10 +4979,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5130,8 +5008,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                        value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -5140,8 +5017,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -5150,8 +5026,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -5159,20 +5034,17 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -5196,8 +5068,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5210,8 +5081,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5226,10 +5096,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5242,8 +5112,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -5251,20 +5120,17 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -5288,8 +5154,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5302,8 +5167,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5318,10 +5182,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5347,8 +5211,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNicknameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -5357,8 +5220,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -5367,8 +5229,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -5376,20 +5237,17 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -5413,8 +5271,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5427,8 +5284,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5443,10 +5299,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5459,8 +5315,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -5468,20 +5323,17 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -5505,8 +5357,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5519,8 +5370,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5535,10 +5385,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5646,8 +5496,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNameId',
+                                            value: 'sharedDictionaryBySharedDictionaryNameId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -5665,8 +5514,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -5678,13 +5526,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -5702,30 +5548,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -5741,8 +5588,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -5754,13 +5600,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -5778,30 +5622,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -5829,8 +5674,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryPronunciationId',
+                                            value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -5848,8 +5692,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -5861,13 +5704,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -5885,30 +5726,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -5924,8 +5766,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -5937,13 +5778,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -5961,30 +5800,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -6012,8 +5852,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNicknameId',
+                                            value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -6031,8 +5870,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -6044,13 +5882,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -6068,30 +5904,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -6107,8 +5944,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -6120,13 +5956,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -6144,30 +5978,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -6228,8 +6063,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedTextValuesBySharedTextId',
+                                            value: 'sharedTextValuesBySharedTextId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -6241,8 +6075,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -6309,8 +6142,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedTextValuesBySharedTextId',
+                                            value: 'sharedTextValuesBySharedTextId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -6322,8 +6154,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -6434,8 +6265,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -6444,8 +6274,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -6454,8 +6283,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -6469,14 +6297,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -6496,10 +6323,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6508,10 +6335,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6537,8 +6364,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -6552,14 +6378,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -6579,10 +6404,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6591,10 +6416,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6632,8 +6457,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                  value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -6642,8 +6466,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -6652,8 +6475,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -6667,14 +6489,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -6694,10 +6515,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6706,10 +6527,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6735,8 +6556,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -6750,14 +6570,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -6777,10 +6596,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6789,10 +6608,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6830,8 +6649,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -6840,8 +6658,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -6850,8 +6667,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -6865,14 +6681,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -6892,10 +6707,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6904,10 +6719,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6933,8 +6748,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -6948,14 +6762,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -6975,10 +6788,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6987,10 +6800,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7078,8 +6891,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                      value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                     ),
                                     alias: NameNode(value: 'update_user'),
                                     arguments: [],
@@ -7136,8 +6948,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -7146,8 +6957,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -7156,8 +6966,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -7171,14 +6980,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -7198,10 +7006,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7210,10 +7018,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7239,8 +7047,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -7254,14 +7061,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -7281,10 +7087,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7293,10 +7099,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7334,8 +7140,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                  value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -7344,8 +7149,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -7354,8 +7158,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -7369,14 +7172,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -7396,10 +7198,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7408,10 +7210,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7437,8 +7239,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -7452,14 +7253,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -7479,10 +7279,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7491,10 +7291,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7532,8 +7332,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -7542,8 +7341,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -7552,8 +7350,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -7567,14 +7364,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -7594,10 +7390,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7606,10 +7402,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7635,8 +7431,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -7650,14 +7445,13 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -7677,10 +7471,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7689,10 +7483,10 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7804,8 +7598,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'vInspectionInspectionOperationTaskCountByMstrInspectionId',
+                                value: 'vInspectionInspectionOperationTaskCountByMstrInspectionId',
                               ),
                               alias: NameNode(
                                 value: 'inspection_operation_task_count',
@@ -7847,8 +7640,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                               ),
                               alias: NameNode(value: 'update_user'),
                               arguments: [],
@@ -7903,8 +7695,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNameId',
+                                            value: 'sharedDictionaryBySharedDictionaryNameId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -7922,8 +7713,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -7935,13 +7725,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -7959,30 +7747,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -7998,8 +7787,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -8011,13 +7799,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -8035,30 +7821,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -8086,8 +7873,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryPronunciationId',
+                                            value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -8105,8 +7891,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -8118,13 +7903,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -8142,30 +7925,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -8181,8 +7965,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -8194,13 +7977,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -8218,30 +7999,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -8269,8 +8051,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNicknameId',
+                                            value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -8288,8 +8069,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -8301,13 +8081,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -8325,30 +8103,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -8364,8 +8143,7 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -8377,13 +8155,11 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -8401,30 +8177,31 @@ const documentNodeMutationInspectionEquipentPageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -8806,11 +8583,10 @@ typedef RunMutation$Mutation$InspectionEquipentPageEdit =
       Object? optimisticResult,
       Mutation$InspectionEquipentPageEdit? typedOptimisticResult,
     });
-typedef Builder$Mutation$InspectionEquipentPageEdit =
-    widgets.Widget Function(
-      RunMutation$Mutation$InspectionEquipentPageEdit,
-      graphql.QueryResult<Mutation$InspectionEquipentPageEdit>?,
-    );
+typedef Builder$Mutation$InspectionEquipentPageEdit = widgets.Widget Function(
+  RunMutation$Mutation$InspectionEquipentPageEdit,
+  graphql.QueryResult<Mutation$InspectionEquipentPageEdit>?,
+);
 
 class Mutation$InspectionEquipentPageEdit$Widget
     extends graphql_flutter.Mutation<Mutation$InspectionEquipentPageEdit> {
@@ -10601,12 +10377,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -11586,12 +11360,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -12571,12 +12343,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -14270,12 +14040,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -15255,12 +15023,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -16240,12 +16006,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -17921,12 +17685,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -18906,12 +18668,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -19891,12 +19651,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -22181,12 +21939,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$formulas$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$formulas$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$formulas$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$formulas$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -23166,12 +22922,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$formulas$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$formulas$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$formulas$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$formulas$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -24151,12 +23905,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$formulas$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$formulas$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$formulas$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$formulas$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -26372,12 +26124,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$kinds$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$kinds$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$kinds$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$kinds$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -27357,12 +27107,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -28342,12 +28090,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -30039,12 +29785,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -31024,12 +30768,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -32009,12 +31751,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -33690,12 +33430,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -34675,12 +34413,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -35660,12 +35396,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$manufacture$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -36999,12 +36733,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -37984,12 +37716,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -38969,12 +38699,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -39953,12 +39681,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedTextId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$detailTexts$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$detailTexts$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$detailTexts$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$detailTexts$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -41532,12 +41258,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$unit$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$unit$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -42517,12 +42241,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -43502,12 +43224,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -45183,12 +44903,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -46168,12 +45886,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -47153,12 +46869,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$items$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -48980,12 +48694,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -49965,12 +49677,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -50950,12 +50660,10 @@ class _CopyWithImpl$Mutation$InspectionEquipentPageEdit$updateMstrInspectionOper
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$InspectionEquipentPageEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$inspections$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

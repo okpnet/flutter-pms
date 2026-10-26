@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -540,8 +541,10 @@ const documentNodeMutationFilePageEdit = DocumentNode(
 Mutation$FilePageEdit _parserFn$Mutation$FilePageEdit(
   Map<String, dynamic> data,
 ) => Mutation$FilePageEdit.fromJson(data);
-typedef OnMutationCompleted$Mutation$FilePageEdit =
-    FutureOr<void> Function(Map<String, dynamic>?, Mutation$FilePageEdit?);
+typedef OnMutationCompleted$Mutation$FilePageEdit = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Mutation$FilePageEdit?,
+);
 
 class Options$Mutation$FilePageEdit
     extends graphql.MutationOptions<Mutation$FilePageEdit> {
@@ -709,11 +712,10 @@ typedef RunMutation$Mutation$FilePageEdit =
       Object? optimisticResult,
       Mutation$FilePageEdit? typedOptimisticResult,
     });
-typedef Builder$Mutation$FilePageEdit =
-    widgets.Widget Function(
-      RunMutation$Mutation$FilePageEdit,
-      graphql.QueryResult<Mutation$FilePageEdit>?,
-    );
+typedef Builder$Mutation$FilePageEdit = widgets.Widget Function(
+  RunMutation$Mutation$FilePageEdit,
+  graphql.QueryResult<Mutation$FilePageEdit>?,
+);
 
 class Mutation$FilePageEdit$Widget
     extends graphql_flutter.Mutation<Mutation$FilePageEdit> {

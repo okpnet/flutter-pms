@@ -1,0 +1,46 @@
+# yaml-language-server: $schema=../../schema.json
+
+##### ダッシュボード(要件20261026_0004)
+# 件数は、$filterを指定したときのtotalCountで得る(集計のビュー・プラグインが無いため)。
+# 当日出荷は、$filterに`estimatedShippingDate`の範囲(greaterThanOrEqualTo / lessThan)を指定する。
+# 区分・利害関係者(顧客、外部)は、`stakeholder||isCustomer`・`stakeholder||master||shippingKinds||...`等で絞り込む。
+
+# 当日出荷の読み込み(出荷オーダーより)
+ShippingTodayPage: &ShippingTodayPage
+  kind: read
+  from: trans_shipping_order
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  defaultSort:
+    asc:
+      sortColumns:
+        - estimated_shipping_date
+  columns:
+    - trans_shipping_order_id
+    - trans_order_id
+    - code
+    - estimated_shipping_date
+    - estimated_arrival_date
+    - stakeholder_history_id
+    - stakeholder_id
+    - name: stakeholder
+      as: stakeholder
+      arrayType: toFirstOne
+      using: [stakeholder_history_id, stakeholder_id]
+      <<: *StakeholderHistoryReadFields
+    # 子のレコード数(要件0056。DBのビュー 1本)
+    - name: shipping_order_detail_count
+      arrayType: toFirstOne
+      as: shipping_order_detail_count
+      using: trans_shipping_order_id
+      from: v_shipping_order_shipping_order_detail_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - update_at

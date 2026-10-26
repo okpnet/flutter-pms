@@ -1,5 +1,7 @@
 import '../schema.graphql.dart';
+
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -957,8 +959,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
           type: ListTypeNode(
             type: NamedTypeNode(
               name: NameNode(
-                value:
-                    'MstrApprovalPatternDetailOnMstrApprovalPatternDetailForMstrApprovalPatternDetailFk1UsingMstrApprovalPatternDetailPkcUpdate',
+                value: 'MstrApprovalPatternDetailOnMstrApprovalPatternDetailForMstrApprovalPatternDetailFk1UsingMstrApprovalPatternDetailPkcUpdate',
               ),
               isNonNull: true,
             ),
@@ -972,8 +973,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
           type: ListTypeNode(
             type: NamedTypeNode(
               name: NameNode(
-                value:
-                    'MstrApprovalPatternDetailFk1MstrApprovalPatternDetailCreateInput',
+                value: 'MstrApprovalPatternDetailFk1MstrApprovalPatternDetailCreateInput',
               ),
               isNonNull: true,
             ),
@@ -987,8 +987,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
           type: ListTypeNode(
             type: NamedTypeNode(
               name: NameNode(
-                value:
-                    'MstrApprovalPatternDetailMstrApprovalPatternDetailPkcDelete',
+                value: 'MstrApprovalPatternDetailMstrApprovalPatternDetailPkcDelete',
               ),
               isNonNull: true,
             ),
@@ -1076,48 +1075,41 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                           fields: [
                                             ObjectFieldNode(
                                               name: NameNode(
-                                                value:
-                                                    'sharedDictionaryToSharedDictionaryNameId',
+                                                value: 'sharedDictionaryToSharedDictionaryNameId',
                                               ),
                                               value: ObjectValueNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'updateBySharedDictionaryId',
+                                                      value: 'updateBySharedDictionaryId',
                                                     ),
                                                     value: ObjectValueNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryId',
+                                                            value: 'sharedDictionaryId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'nameSharedDictionaryId',
+                                                              value: 'nameSharedDictionaryId',
                                                             ),
                                                           ),
                                                         ),
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryPatch',
+                                                            value: 'sharedDictionaryPatch',
                                                           ),
                                                           value: ObjectValueNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryValuesUsingSharedDictionaryId',
+                                                                  value: 'sharedDictionaryValuesUsingSharedDictionaryId',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'deleteOthers',
+                                                                        value: 'deleteOthers',
                                                                       ),
                                                                       value: BooleanValueNode(
                                                                         value:
@@ -1126,8 +1118,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     ),
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'create',
+                                                                        value: 'create',
                                                                       ),
                                                                       value: ListValueNode(
                                                                         values: [
@@ -1147,11 +1138,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                                 name: NameNode(
                                                                                   value: 'dictionaryValue',
                                                                                 ),
-                                                                                value: VariableNode(
-                                                                                  name: NameNode(
-                                                                                    value: 'nameJa',
-                                                                                  ),
-                                                                                ),
+                                                                                value: VariableNode(name: NameNode(value: 'nameJa')),
                                                                               ),
                                                                             ],
                                                                           ),
@@ -1171,11 +1158,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                                 name: NameNode(
                                                                                   value: 'dictionaryValue',
                                                                                 ),
-                                                                                value: VariableNode(
-                                                                                  name: NameNode(
-                                                                                    value: 'nameEn',
-                                                                                  ),
-                                                                                ),
+                                                                                value: VariableNode(name: NameNode(value: 'nameEn')),
                                                                               ),
                                                                             ],
                                                                           ),
@@ -1196,48 +1179,41 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                             ),
                                             ObjectFieldNode(
                                               name: NameNode(
-                                                value:
-                                                    'sharedDictionaryToSharedDictionaryPronunciationId',
+                                                value: 'sharedDictionaryToSharedDictionaryPronunciationId',
                                               ),
                                               value: ObjectValueNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'updateBySharedDictionaryId',
+                                                      value: 'updateBySharedDictionaryId',
                                                     ),
                                                     value: ObjectValueNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryId',
+                                                            value: 'sharedDictionaryId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'pronunciationSharedDictionaryId',
+                                                              value: 'pronunciationSharedDictionaryId',
                                                             ),
                                                           ),
                                                         ),
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryPatch',
+                                                            value: 'sharedDictionaryPatch',
                                                           ),
                                                           value: ObjectValueNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryValuesUsingSharedDictionaryId',
+                                                                  value: 'sharedDictionaryValuesUsingSharedDictionaryId',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'deleteOthers',
+                                                                        value: 'deleteOthers',
                                                                       ),
                                                                       value: BooleanValueNode(
                                                                         value:
@@ -1246,8 +1222,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     ),
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'create',
+                                                                        value: 'create',
                                                                       ),
                                                                       value: ListValueNode(
                                                                         values: [
@@ -1316,48 +1291,41 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                             ),
                                             ObjectFieldNode(
                                               name: NameNode(
-                                                value:
-                                                    'sharedDictionaryToSharedDictionaryNicknameId',
+                                                value: 'sharedDictionaryToSharedDictionaryNicknameId',
                                               ),
                                               value: ObjectValueNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'updateBySharedDictionaryId',
+                                                      value: 'updateBySharedDictionaryId',
                                                     ),
                                                     value: ObjectValueNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryId',
+                                                            value: 'sharedDictionaryId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'nicknameSharedDictionaryId',
+                                                              value: 'nicknameSharedDictionaryId',
                                                             ),
                                                           ),
                                                         ),
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryPatch',
+                                                            value: 'sharedDictionaryPatch',
                                                           ),
                                                           value: ObjectValueNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryValuesUsingSharedDictionaryId',
+                                                                  value: 'sharedDictionaryValuesUsingSharedDictionaryId',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'deleteOthers',
+                                                                        value: 'deleteOthers',
                                                                       ),
                                                                       value: BooleanValueNode(
                                                                         value:
@@ -1366,8 +1334,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     ),
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'create',
+                                                                        value: 'create',
                                                                       ),
                                                                       value: ListValueNode(
                                                                         values: [
@@ -1445,8 +1412,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                           ),
                           ObjectFieldNode(
                             name: NameNode(
-                              value:
-                                  'mstrApprovalPatternDetailsUsingMstrApprovalPatternId',
+                              value: 'mstrApprovalPatternDetailsUsingMstrApprovalPatternId',
                             ),
                             value: ObjectValueNode(
                               fields: [
@@ -1546,8 +1512,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -1612,8 +1577,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -1688,8 +1652,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -1705,8 +1668,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -1771,8 +1733,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -1847,8 +1808,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -1864,8 +1824,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -1930,8 +1889,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -2016,8 +1974,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'mstrApprovalPatternDetailsByMstrApprovalPatternId',
+                          value: 'mstrApprovalPatternDetailsByMstrApprovalPatternId',
                         ),
                         alias: NameNode(value: 'pattern_detail'),
                         arguments: [
@@ -2127,8 +2084,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'infoDepartmentByInfoDepartmentId',
+                                            value: 'infoDepartmentByInfoDepartmentId',
                                           ),
                                           alias: NameNode(value: 'department'),
                                           arguments: [],
@@ -2162,8 +2118,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedAppellationByNames',
+                                                  value: 'sharedAppellationByNames',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'labels',
@@ -2174,8 +2129,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationsId',
+                                                        value: 'sharedAppellationsId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -2184,8 +2138,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -2194,8 +2147,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -2204,8 +2156,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -2213,20 +2164,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -2250,8 +2198,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2264,8 +2211,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2280,10 +2226,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2296,8 +2242,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -2305,20 +2250,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -2342,8 +2284,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2356,8 +2297,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2372,10 +2312,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2401,8 +2341,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                        value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -2411,8 +2350,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -2421,8 +2359,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -2430,20 +2367,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -2467,8 +2401,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2481,8 +2414,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2497,10 +2429,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2513,8 +2445,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -2522,20 +2453,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -2559,8 +2487,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2573,8 +2500,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2589,10 +2515,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2618,8 +2544,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNicknameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -2628,8 +2553,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -2638,8 +2562,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -2647,20 +2570,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -2684,8 +2604,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2698,8 +2617,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2714,10 +2632,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2730,8 +2648,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -2739,20 +2656,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -2776,8 +2690,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2790,8 +2703,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2806,10 +2718,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2847,8 +2759,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'infoAddressByInfoAddressId',
+                                                  value: 'infoAddressByInfoAddressId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'address',
@@ -2886,8 +2797,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByAddress1',
+                                                        value: 'sharedAppellationByAddress1',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'address1',
@@ -2898,8 +2808,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -2908,8 +2817,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -2917,10 +2825,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2929,20 +2837,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -2966,8 +2872,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3000,8 +2905,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3016,20 +2920,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3053,8 +2955,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3087,8 +2988,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3103,10 +3003,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3119,8 +3019,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -3128,10 +3027,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3140,20 +3039,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3177,8 +3074,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3211,8 +3107,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3227,20 +3122,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3264,8 +3157,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3298,8 +3190,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3314,10 +3205,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3330,8 +3221,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -3339,10 +3229,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3351,20 +3241,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3388,8 +3276,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3422,8 +3309,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3438,20 +3324,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3475,8 +3359,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3509,8 +3392,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3525,10 +3407,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3554,8 +3436,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByAddress2',
+                                                        value: 'sharedAppellationByAddress2',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'address2',
@@ -3566,8 +3447,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -3576,8 +3456,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -3585,10 +3464,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3597,20 +3476,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3634,8 +3511,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3668,8 +3544,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3684,20 +3559,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3721,8 +3594,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3755,8 +3627,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3771,10 +3642,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3787,8 +3658,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -3796,10 +3666,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3808,20 +3678,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3845,8 +3713,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3879,8 +3746,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3895,20 +3761,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3932,8 +3796,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3966,8 +3829,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3982,10 +3844,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3998,8 +3860,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -4007,10 +3868,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4019,20 +3880,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -4056,8 +3915,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4090,8 +3948,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4106,20 +3963,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -4143,8 +3998,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4177,8 +4031,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4193,10 +4046,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4222,8 +4075,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByBuilding',
+                                                        value: 'sharedAppellationByBuilding',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'building',
@@ -4234,8 +4086,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -4244,8 +4095,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -4253,10 +4103,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4265,20 +4115,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -4302,8 +4150,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4336,8 +4183,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4352,20 +4198,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -4389,8 +4233,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4423,8 +4266,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4439,10 +4281,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4455,8 +4297,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -4464,10 +4305,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4476,20 +4317,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -4513,8 +4352,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4547,8 +4385,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4563,20 +4400,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -4600,8 +4435,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4634,8 +4468,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4650,10 +4483,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4666,8 +4499,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -4675,10 +4507,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4687,20 +4519,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -4724,8 +4554,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4758,8 +4587,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4774,20 +4602,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -4811,8 +4637,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4845,8 +4670,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4861,10 +4685,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4952,8 +4776,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                                  value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'update_user',
@@ -5000,8 +4823,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByNames',
+                                                        value: 'sharedAppellationByNames',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'name',
@@ -5012,8 +4834,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -5022,8 +4843,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -5031,10 +4851,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5043,20 +4863,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -5080,8 +4898,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5114,8 +4931,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5130,20 +4946,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -5167,8 +4981,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5201,8 +5014,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5217,10 +5029,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5233,8 +5045,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -5242,10 +5053,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5254,20 +5065,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -5291,8 +5100,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5325,8 +5133,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5341,20 +5148,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -5378,8 +5183,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5412,8 +5216,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5428,10 +5231,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5444,8 +5247,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -5453,10 +5255,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5465,20 +5267,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -5502,8 +5302,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5536,8 +5335,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5552,20 +5350,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -5589,8 +5385,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5623,8 +5418,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5639,10 +5433,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5765,8 +5559,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedAppellationByNames',
+                                                  value: 'sharedAppellationByNames',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'labels',
@@ -5777,8 +5570,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationsId',
+                                                        value: 'sharedAppellationsId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -5787,8 +5579,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -5797,8 +5588,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -5807,8 +5597,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -5816,20 +5605,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -5853,8 +5639,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5867,8 +5652,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5883,10 +5667,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5899,8 +5683,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -5908,20 +5691,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -5945,8 +5725,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5959,8 +5738,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5975,10 +5753,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6004,8 +5782,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                        value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -6014,8 +5791,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -6024,8 +5800,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -6033,20 +5808,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -6070,8 +5842,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6084,8 +5855,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6100,10 +5870,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6116,8 +5886,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -6125,20 +5894,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -6162,8 +5928,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6176,8 +5941,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6192,10 +5956,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6221,8 +5985,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNicknameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -6231,8 +5994,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -6241,8 +6003,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -6250,20 +6011,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -6287,8 +6045,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6301,8 +6058,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6317,10 +6073,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6333,8 +6089,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -6342,20 +6097,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -6379,8 +6131,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6393,8 +6144,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6409,10 +6159,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6466,8 +6216,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'vPositionApprovalCountByInfoPositionId',
+                                                  value: 'vPositionApprovalCountByInfoPositionId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'approval_count',
@@ -6499,8 +6248,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'vPositionAssignCountByInfoPositionId',
+                                                  value: 'vPositionAssignCountByInfoPositionId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'assign_count',
@@ -6548,8 +6296,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                                  value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'update_user',
@@ -6596,8 +6343,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByNames',
+                                                        value: 'sharedAppellationByNames',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'name',
@@ -6608,8 +6354,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -6618,8 +6363,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -6627,10 +6371,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6639,20 +6383,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -6676,8 +6418,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6710,8 +6451,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6726,20 +6466,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -6763,8 +6501,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6797,8 +6534,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6813,10 +6549,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6829,8 +6565,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -6838,10 +6573,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6850,20 +6585,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -6887,8 +6620,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6921,8 +6653,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6937,20 +6668,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -6974,8 +6703,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7008,8 +6736,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7024,10 +6751,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7040,8 +6767,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -7049,10 +6775,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7061,20 +6787,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -7098,8 +6822,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7132,8 +6855,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7148,20 +6870,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -7185,8 +6905,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7219,8 +6938,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7235,10 +6953,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7349,8 +7067,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -7359,8 +7076,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -7369,8 +7085,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -7384,14 +7099,13 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -7411,10 +7125,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7423,10 +7137,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7452,8 +7166,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -7467,14 +7180,13 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -7494,10 +7206,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7506,10 +7218,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7547,8 +7259,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                  value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -7557,8 +7268,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -7567,8 +7277,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -7582,14 +7291,13 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -7609,10 +7317,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7621,10 +7329,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7650,8 +7358,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -7665,14 +7372,13 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -7692,10 +7398,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7704,10 +7410,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7745,8 +7451,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -7755,8 +7460,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -7765,8 +7469,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -7780,14 +7483,13 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -7807,10 +7509,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7819,10 +7521,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7848,8 +7550,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -7863,14 +7564,13 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -7890,10 +7590,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7902,10 +7602,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7999,8 +7699,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'infoDepartmentByInfoDepartmentId',
+                                            value: 'infoDepartmentByInfoDepartmentId',
                                           ),
                                           alias: NameNode(value: 'department'),
                                           arguments: [],
@@ -8034,8 +7733,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedAppellationByNames',
+                                                  value: 'sharedAppellationByNames',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'labels',
@@ -8046,8 +7744,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationsId',
+                                                        value: 'sharedAppellationsId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -8056,8 +7753,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -8066,8 +7762,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -8076,8 +7771,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -8085,20 +7779,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -8122,8 +7813,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8136,8 +7826,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8152,10 +7841,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8168,8 +7857,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -8177,20 +7865,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -8214,8 +7899,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8228,8 +7912,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8244,10 +7927,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8273,8 +7956,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                        value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -8283,8 +7965,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -8293,8 +7974,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -8302,20 +7982,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -8339,8 +8016,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8353,8 +8029,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8369,10 +8044,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8385,8 +8060,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -8394,20 +8068,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -8431,8 +8102,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8445,8 +8115,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8461,10 +8130,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8490,8 +8159,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNicknameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -8500,8 +8168,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -8510,8 +8177,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -8519,20 +8185,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -8556,8 +8219,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8570,8 +8232,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8586,10 +8247,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8602,8 +8263,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -8611,20 +8271,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -8648,8 +8305,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8662,8 +8318,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8678,10 +8333,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8719,8 +8374,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'infoAddressByInfoAddressId',
+                                                  value: 'infoAddressByInfoAddressId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'address',
@@ -8758,8 +8412,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByAddress1',
+                                                        value: 'sharedAppellationByAddress1',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'address1',
@@ -8770,8 +8423,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -8780,8 +8432,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -8789,10 +8440,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8801,20 +8452,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -8838,8 +8487,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8872,8 +8520,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8888,20 +8535,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -8925,8 +8570,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8959,8 +8603,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8975,10 +8618,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8991,8 +8634,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -9000,10 +8642,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9012,20 +8654,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -9049,8 +8689,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9083,8 +8722,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9099,20 +8737,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -9136,8 +8772,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9170,8 +8805,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9186,10 +8820,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9202,8 +8836,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -9211,10 +8844,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9223,20 +8856,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -9260,8 +8891,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9294,8 +8924,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9310,20 +8939,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -9347,8 +8974,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9381,8 +9007,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9397,10 +9022,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9426,8 +9051,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByAddress2',
+                                                        value: 'sharedAppellationByAddress2',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'address2',
@@ -9438,8 +9062,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -9448,8 +9071,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -9457,10 +9079,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9469,20 +9091,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -9506,8 +9126,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9540,8 +9159,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9556,20 +9174,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -9593,8 +9209,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9627,8 +9242,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9643,10 +9257,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9659,8 +9273,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -9668,10 +9281,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9680,20 +9293,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -9717,8 +9328,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9751,8 +9361,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9767,20 +9376,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -9804,8 +9411,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9838,8 +9444,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9854,10 +9459,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9870,8 +9475,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -9879,10 +9483,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9891,20 +9495,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -9928,8 +9530,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9962,8 +9563,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9978,20 +9578,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -10015,8 +9613,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -10049,8 +9646,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -10065,10 +9661,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -10094,8 +9690,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByBuilding',
+                                                        value: 'sharedAppellationByBuilding',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'building',
@@ -10106,8 +9701,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -10116,8 +9710,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -10125,10 +9718,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -10137,20 +9730,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -10174,8 +9765,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -10208,8 +9798,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -10224,20 +9813,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -10261,8 +9848,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -10295,8 +9881,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -10311,10 +9896,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -10327,8 +9912,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -10336,10 +9920,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -10348,20 +9932,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -10385,8 +9967,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -10419,8 +10000,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -10435,20 +10015,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -10472,8 +10050,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -10506,8 +10083,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -10522,10 +10098,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -10538,8 +10114,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -10547,10 +10122,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -10559,20 +10134,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -10596,8 +10169,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -10630,8 +10202,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -10646,20 +10217,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -10683,8 +10252,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -10717,8 +10285,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -10733,10 +10300,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -10824,8 +10391,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                                  value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'update_user',
@@ -10872,8 +10438,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByNames',
+                                                        value: 'sharedAppellationByNames',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'name',
@@ -10884,8 +10449,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -10894,8 +10458,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -10903,10 +10466,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -10915,20 +10478,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -10952,8 +10513,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -10986,8 +10546,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11002,20 +10561,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -11039,8 +10596,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11073,8 +10629,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11089,10 +10644,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -11105,8 +10660,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -11114,10 +10668,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -11126,20 +10680,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -11163,8 +10715,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11197,8 +10748,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11213,20 +10763,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -11250,8 +10798,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11284,8 +10831,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11300,10 +10846,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -11316,8 +10862,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -11325,10 +10870,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -11337,20 +10882,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -11374,8 +10917,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11408,8 +10950,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11424,20 +10965,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -11461,8 +11000,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11495,8 +11033,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11511,10 +11048,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -11637,8 +11174,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedAppellationByNames',
+                                                  value: 'sharedAppellationByNames',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'labels',
@@ -11649,8 +11185,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationsId',
+                                                        value: 'sharedAppellationsId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -11659,8 +11194,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -11669,8 +11203,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -11679,8 +11212,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -11688,20 +11220,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -11725,8 +11254,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11739,8 +11267,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11755,10 +11282,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -11771,8 +11298,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -11780,20 +11306,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -11817,8 +11340,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11831,8 +11353,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11847,10 +11368,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -11876,8 +11397,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                        value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -11886,8 +11406,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -11896,8 +11415,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -11905,20 +11423,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -11942,8 +11457,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11956,8 +11470,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -11972,10 +11485,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -11988,8 +11501,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -11997,20 +11509,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -12034,8 +11543,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -12048,8 +11556,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -12064,10 +11571,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -12093,8 +11600,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNicknameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -12103,8 +11609,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -12113,8 +11618,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'ja',
@@ -12122,20 +11626,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'jaLanguageCodeId',
+                                                                          value: 'jaLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -12159,8 +11660,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -12173,8 +11673,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -12189,10 +11688,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -12205,8 +11704,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'en',
@@ -12214,20 +11712,17 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'enLanguageCodeId',
+                                                                          value: 'enLanguageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -12251,8 +11746,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -12265,8 +11759,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -12281,10 +11774,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -12338,8 +11831,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'vPositionApprovalCountByInfoPositionId',
+                                                  value: 'vPositionApprovalCountByInfoPositionId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'approval_count',
@@ -12371,8 +11863,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'vPositionAssignCountByInfoPositionId',
+                                                  value: 'vPositionAssignCountByInfoPositionId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'assign_count',
@@ -12420,8 +11911,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                                  value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'update_user',
@@ -12468,8 +11958,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByNames',
+                                                        value: 'sharedAppellationByNames',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'name',
@@ -12480,8 +11969,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -12490,8 +11978,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -12499,10 +11986,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -12511,20 +11998,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -12548,8 +12033,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -12582,8 +12066,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -12598,20 +12081,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -12635,8 +12116,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -12669,8 +12149,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -12685,10 +12164,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -12701,8 +12180,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -12710,10 +12188,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -12722,20 +12200,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -12759,8 +12235,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -12793,8 +12268,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -12809,20 +12283,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -12846,8 +12318,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -12880,8 +12351,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -12896,10 +12366,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -12912,8 +12382,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -12921,10 +12390,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -12933,20 +12402,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'ja',
+                                                                        value: 'ja',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -12970,8 +12437,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -13004,8 +12470,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -13020,20 +12485,18 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
                                                                   alias:
                                                                       NameNode(
-                                                                        value:
-                                                                            'en',
+                                                                        value: 'en',
                                                                       ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -13057,8 +12520,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -13091,8 +12553,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -13107,10 +12568,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -13221,8 +12682,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -13231,8 +12691,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -13241,8 +12700,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -13256,14 +12714,13 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -13283,10 +12740,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -13295,10 +12752,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -13324,8 +12781,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -13339,14 +12795,13 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -13366,10 +12821,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -13378,10 +12833,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -13419,8 +12874,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                  value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -13429,8 +12883,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -13439,8 +12892,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -13454,14 +12906,13 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -13481,10 +12932,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -13493,10 +12944,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -13522,8 +12973,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -13537,14 +12987,13 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -13564,10 +13013,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -13576,10 +13025,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -13617,8 +13066,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -13627,8 +13075,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -13637,8 +13084,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -13652,14 +13098,13 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -13679,10 +13124,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -13691,10 +13136,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -13720,8 +13165,7 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -13735,14 +13179,13 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -13762,10 +13205,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -13774,10 +13217,10 @@ const documentNodeMutationApprovalOperationPageEdit = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -14103,11 +13546,10 @@ typedef RunMutation$Mutation$ApprovalOperationPageEdit =
       Object? optimisticResult,
       Mutation$ApprovalOperationPageEdit? typedOptimisticResult,
     });
-typedef Builder$Mutation$ApprovalOperationPageEdit =
-    widgets.Widget Function(
-      RunMutation$Mutation$ApprovalOperationPageEdit,
-      graphql.QueryResult<Mutation$ApprovalOperationPageEdit>?,
-    );
+typedef Builder$Mutation$ApprovalOperationPageEdit = widgets.Widget Function(
+  RunMutation$Mutation$ApprovalOperationPageEdit,
+  graphql.QueryResult<Mutation$ApprovalOperationPageEdit>?,
+);
 
 class Mutation$ApprovalOperationPageEdit$Widget
     extends graphql_flutter.Mutation<Mutation$ApprovalOperationPageEdit> {
@@ -15124,12 +14566,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -16109,12 +15549,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -17094,12 +16532,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -20048,12 +19484,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -21033,12 +20467,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -22018,12 +21450,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -23753,12 +23183,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address1$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address1$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address1$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address1$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -24738,12 +24166,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -25723,12 +25149,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address1$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address1$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address1$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address1$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -27062,12 +26486,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address2$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address2$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address2$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address2$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -28047,12 +27469,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -29032,12 +28452,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address2$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address2$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address2$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$address2$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -30371,12 +29789,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$building$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$building$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -31356,12 +30772,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -32341,12 +31755,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -34022,12 +33434,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -35007,12 +34417,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -35992,12 +35400,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$department$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -37800,12 +37206,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -38785,12 +38189,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -39770,12 +39172,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -41743,12 +41143,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -42728,12 +42126,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -43713,12 +43109,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$position$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -45052,12 +44446,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -46037,12 +45429,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -47022,12 +46412,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approvals$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -49194,12 +48582,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -50179,12 +49565,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -51164,12 +50548,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -52899,12 +52281,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address1$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address1$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address1$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address1$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -53884,12 +53264,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -54869,12 +54247,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address1$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address1$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address1$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address1$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -56208,12 +55584,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -57193,12 +56567,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -58178,12 +57550,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$address2$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -59517,12 +58887,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -60502,12 +59870,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -61487,12 +60853,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$address$building$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -63168,12 +62532,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -64153,12 +63515,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -65138,12 +64498,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$department$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -66946,12 +66304,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -67931,12 +67287,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -68916,12 +68270,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -70889,12 +70241,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -71874,12 +71224,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -72859,12 +72207,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$position$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -74198,12 +73544,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -75183,12 +74527,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -76168,12 +75510,10 @@ class _CopyWithImpl$Mutation$ApprovalOperationPageEdit$updateMstrApprovalPattern
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ApprovalOperationPageEdit$updateMstrApprovalPatternByMstrApprovalPatternId$mstrApprovalPattern$pattern_detail$nodes$approval$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

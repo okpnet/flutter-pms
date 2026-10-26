@@ -1,5 +1,7 @@
 import '../schema.graphql.dart';
+
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -560,8 +562,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'value'),
                                     arguments: [
@@ -636,8 +637,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -653,8 +653,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'value'),
                                     arguments: [
@@ -729,8 +728,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -746,8 +744,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'value'),
                                     arguments: [
@@ -869,8 +866,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -888,8 +884,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -901,8 +896,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -970,8 +964,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -989,8 +982,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -1002,8 +994,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1071,8 +1062,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1090,8 +1080,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -1103,8 +1092,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1206,8 +1194,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'vItemSizeKindItemActualSizeCountByMstrItemSizeKindId',
+                          value: 'vItemSizeKindItemActualSizeCountByMstrItemSizeKindId',
                         ),
                         alias: NameNode(value: 'item_actual_size_count'),
                         arguments: [],
@@ -1247,8 +1234,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                          value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                         ),
                         alias: NameNode(value: 'update_user'),
                         arguments: [],
@@ -1301,8 +1287,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1320,8 +1305,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -1333,8 +1317,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1402,8 +1385,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1421,8 +1403,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -1434,8 +1415,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1503,8 +1483,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1522,8 +1501,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -1535,8 +1513,7 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1685,8 +1662,10 @@ const documentNodeQueryItemSizeKindPageRead = DocumentNode(
 Query$ItemSizeKindPageRead _parserFn$Query$ItemSizeKindPageRead(
   Map<String, dynamic> data,
 ) => Query$ItemSizeKindPageRead.fromJson(data);
-typedef OnQueryComplete$Query$ItemSizeKindPageRead =
-    FutureOr<void> Function(Map<String, dynamic>?, Query$ItemSizeKindPageRead?);
+typedef OnQueryComplete$Query$ItemSizeKindPageRead = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$ItemSizeKindPageRead?,
+);
 
 class Options$Query$ItemSizeKindPageRead
     extends graphql.QueryOptions<Query$ItemSizeKindPageRead> {

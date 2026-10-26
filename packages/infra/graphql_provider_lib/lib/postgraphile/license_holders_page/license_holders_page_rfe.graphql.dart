@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -435,8 +436,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -501,8 +501,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -577,8 +576,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -594,8 +592,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -660,8 +657,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -736,8 +732,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -753,8 +748,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -819,8 +813,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -1081,8 +1074,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                          value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                         ),
                         alias: NameNode(value: 'update_user'),
                         arguments: [],
@@ -1135,8 +1127,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1154,8 +1145,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -1167,8 +1157,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1227,8 +1216,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -1240,8 +1228,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1310,8 +1297,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1329,8 +1315,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -1342,8 +1327,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1402,8 +1386,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -1415,8 +1398,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1485,8 +1467,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1504,8 +1485,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -1517,8 +1497,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1577,8 +1556,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -1590,8 +1568,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1777,8 +1754,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -1843,8 +1819,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -1919,8 +1894,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -1936,8 +1910,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -2002,8 +1975,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -2078,8 +2050,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -2095,8 +2066,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -2161,8 +2131,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -2541,8 +2510,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                          value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                         ),
                         alias: NameNode(value: 'update_user'),
                         arguments: [],
@@ -2595,8 +2563,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -2614,8 +2581,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -2627,8 +2593,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2687,8 +2652,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -2700,8 +2664,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2770,8 +2733,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -2789,8 +2751,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -2802,8 +2763,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2862,8 +2822,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -2875,8 +2834,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2945,8 +2903,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -2964,8 +2921,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -2977,8 +2933,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3037,8 +2992,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -3050,8 +3004,7 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3278,11 +3231,10 @@ const documentNodeQueryLicenseHoldersPageRfe = DocumentNode(
 Query$LicenseHoldersPageRfe _parserFn$Query$LicenseHoldersPageRfe(
   Map<String, dynamic> data,
 ) => Query$LicenseHoldersPageRfe.fromJson(data);
-typedef OnQueryComplete$Query$LicenseHoldersPageRfe =
-    FutureOr<void> Function(
-      Map<String, dynamic>?,
-      Query$LicenseHoldersPageRfe?,
-    );
+typedef OnQueryComplete$Query$LicenseHoldersPageRfe = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$LicenseHoldersPageRfe?,
+);
 
 class Options$Query$LicenseHoldersPageRfe
     extends graphql.QueryOptions<Query$LicenseHoldersPageRfe> {
@@ -5194,12 +5146,10 @@ class _CopyWithImpl$Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicen
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -6179,12 +6129,10 @@ class _CopyWithImpl$Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicen
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -7164,12 +7112,10 @@ class _CopyWithImpl$Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicen
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -9575,12 +9521,10 @@ class _CopyWithImpl$Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicen
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -10560,12 +10504,10 @@ class _CopyWithImpl$Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicen
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -11545,12 +11487,10 @@ class _CopyWithImpl$Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicen
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$staff$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -13465,12 +13405,10 @@ class _CopyWithImpl$Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicen
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -14450,12 +14388,10 @@ class _CopyWithImpl$Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicen
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -15435,12 +15371,10 @@ class _CopyWithImpl$Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicen
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -16419,12 +16353,10 @@ class _CopyWithImpl$Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicen
           : (sharedTextId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$ja),
+          : (ja as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$en),
+          : (en as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$detailTexts$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -18523,12 +18455,10 @@ class _CopyWithImpl$Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicen
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -19508,12 +19438,10 @@ class _CopyWithImpl$Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicen
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -20493,12 +20421,10 @@ class _CopyWithImpl$Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicen
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$LicenseHoldersPageRfe$mstrStaffLicenseByMstrStaffLicenseId$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

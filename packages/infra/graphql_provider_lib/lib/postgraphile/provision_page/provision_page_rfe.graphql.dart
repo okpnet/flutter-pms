@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -386,8 +387,7 @@ const documentNodeQueryProvisionPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -450,8 +450,7 @@ const documentNodeQueryProvisionPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -524,8 +523,7 @@ const documentNodeQueryProvisionPageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'sharedDictionaryBySharedDictionaryPronunciationId',
+                          value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                         ),
                         alias: null,
                         arguments: [],
@@ -541,8 +539,7 @@ const documentNodeQueryProvisionPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -605,8 +602,7 @@ const documentNodeQueryProvisionPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -695,8 +691,7 @@ const documentNodeQueryProvisionPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -759,8 +754,7 @@ const documentNodeQueryProvisionPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -1035,8 +1029,10 @@ const documentNodeQueryProvisionPageRfe = DocumentNode(
 Query$ProvisionPageRfe _parserFn$Query$ProvisionPageRfe(
   Map<String, dynamic> data,
 ) => Query$ProvisionPageRfe.fromJson(data);
-typedef OnQueryComplete$Query$ProvisionPageRfe =
-    FutureOr<void> Function(Map<String, dynamic>?, Query$ProvisionPageRfe?);
+typedef OnQueryComplete$Query$ProvisionPageRfe = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$ProvisionPageRfe?,
+);
 
 class Options$Query$ProvisionPageRfe
     extends graphql.QueryOptions<Query$ProvisionPageRfe> {
@@ -2083,12 +2079,10 @@ class _CopyWithImpl$Query$ProvisionPageRfe$infoProvisionByInfoProvisionId$labels
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$ProvisionPageRfe$infoProvisionByInfoProvisionId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$ProvisionPageRfe$infoProvisionByInfoProvisionId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$ProvisionPageRfe$infoProvisionByInfoProvisionId$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$ProvisionPageRfe$infoProvisionByInfoProvisionId$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -3068,12 +3062,10 @@ class _CopyWithImpl$Query$ProvisionPageRfe$infoProvisionByInfoProvisionId$labels
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$ProvisionPageRfe$infoProvisionByInfoProvisionId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$ProvisionPageRfe$infoProvisionByInfoProvisionId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$ProvisionPageRfe$infoProvisionByInfoProvisionId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$ProvisionPageRfe$infoProvisionByInfoProvisionId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -4053,12 +4045,10 @@ class _CopyWithImpl$Query$ProvisionPageRfe$infoProvisionByInfoProvisionId$labels
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$ProvisionPageRfe$infoProvisionByInfoProvisionId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$ProvisionPageRfe$infoProvisionByInfoProvisionId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$ProvisionPageRfe$infoProvisionByInfoProvisionId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$ProvisionPageRfe$infoProvisionByInfoProvisionId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

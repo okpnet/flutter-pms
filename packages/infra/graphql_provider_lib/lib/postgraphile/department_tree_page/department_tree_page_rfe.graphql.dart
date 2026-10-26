@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -375,11 +376,10 @@ const documentNodeQueryDepartmentTreePageRfe = DocumentNode(
 Query$DepartmentTreePageRfe _parserFn$Query$DepartmentTreePageRfe(
   Map<String, dynamic> data,
 ) => Query$DepartmentTreePageRfe.fromJson(data);
-typedef OnQueryComplete$Query$DepartmentTreePageRfe =
-    FutureOr<void> Function(
-      Map<String, dynamic>?,
-      Query$DepartmentTreePageRfe?,
-    );
+typedef OnQueryComplete$Query$DepartmentTreePageRfe = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$DepartmentTreePageRfe?,
+);
 
 class Options$Query$DepartmentTreePageRfe
     extends graphql.QueryOptions<Query$DepartmentTreePageRfe> {

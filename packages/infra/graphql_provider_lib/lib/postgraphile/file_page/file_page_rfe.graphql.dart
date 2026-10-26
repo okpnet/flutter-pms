@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -352,8 +353,10 @@ const documentNodeQueryFilePageRfe = DocumentNode(
 );
 Query$FilePageRfe _parserFn$Query$FilePageRfe(Map<String, dynamic> data) =>
     Query$FilePageRfe.fromJson(data);
-typedef OnQueryComplete$Query$FilePageRfe =
-    FutureOr<void> Function(Map<String, dynamic>?, Query$FilePageRfe?);
+typedef OnQueryComplete$Query$FilePageRfe = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$FilePageRfe?,
+);
 
 class Options$Query$FilePageRfe
     extends graphql.QueryOptions<Query$FilePageRfe> {

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -2243,48 +2244,41 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                           fields: [
                                             ObjectFieldNode(
                                               name: NameNode(
-                                                value:
-                                                    'sharedDictionaryToSharedDictionaryNameId',
+                                                value: 'sharedDictionaryToSharedDictionaryNameId',
                                               ),
                                               value: ObjectValueNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'updateBySharedDictionaryId',
+                                                      value: 'updateBySharedDictionaryId',
                                                     ),
                                                     value: ObjectValueNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryId',
+                                                            value: 'sharedDictionaryId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'nameSharedDictionaryId',
+                                                              value: 'nameSharedDictionaryId',
                                                             ),
                                                           ),
                                                         ),
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryPatch',
+                                                            value: 'sharedDictionaryPatch',
                                                           ),
                                                           value: ObjectValueNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryValuesUsingSharedDictionaryId',
+                                                                  value: 'sharedDictionaryValuesUsingSharedDictionaryId',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'deleteOthers',
+                                                                        value: 'deleteOthers',
                                                                       ),
                                                                       value: BooleanValueNode(
                                                                         value:
@@ -2293,8 +2287,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                                     ),
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'create',
+                                                                        value: 'create',
                                                                       ),
                                                                       value: ListValueNode(
                                                                         values: [
@@ -2314,11 +2307,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                                                 name: NameNode(
                                                                                   value: 'dictionaryValue',
                                                                                 ),
-                                                                                value: VariableNode(
-                                                                                  name: NameNode(
-                                                                                    value: 'nameJa',
-                                                                                  ),
-                                                                                ),
+                                                                                value: VariableNode(name: NameNode(value: 'nameJa')),
                                                                               ),
                                                                             ],
                                                                           ),
@@ -2338,11 +2327,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                                                 name: NameNode(
                                                                                   value: 'dictionaryValue',
                                                                                 ),
-                                                                                value: VariableNode(
-                                                                                  name: NameNode(
-                                                                                    value: 'nameEn',
-                                                                                  ),
-                                                                                ),
+                                                                                value: VariableNode(name: NameNode(value: 'nameEn')),
                                                                               ),
                                                                             ],
                                                                           ),
@@ -2363,48 +2348,41 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                             ),
                                             ObjectFieldNode(
                                               name: NameNode(
-                                                value:
-                                                    'sharedDictionaryToSharedDictionaryPronunciationId',
+                                                value: 'sharedDictionaryToSharedDictionaryPronunciationId',
                                               ),
                                               value: ObjectValueNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'updateBySharedDictionaryId',
+                                                      value: 'updateBySharedDictionaryId',
                                                     ),
                                                     value: ObjectValueNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryId',
+                                                            value: 'sharedDictionaryId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'pronunciationSharedDictionaryId',
+                                                              value: 'pronunciationSharedDictionaryId',
                                                             ),
                                                           ),
                                                         ),
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryPatch',
+                                                            value: 'sharedDictionaryPatch',
                                                           ),
                                                           value: ObjectValueNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryValuesUsingSharedDictionaryId',
+                                                                  value: 'sharedDictionaryValuesUsingSharedDictionaryId',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'deleteOthers',
+                                                                        value: 'deleteOthers',
                                                                       ),
                                                                       value: BooleanValueNode(
                                                                         value:
@@ -2413,8 +2391,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                                     ),
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'create',
+                                                                        value: 'create',
                                                                       ),
                                                                       value: ListValueNode(
                                                                         values: [
@@ -2483,48 +2460,41 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                             ),
                                             ObjectFieldNode(
                                               name: NameNode(
-                                                value:
-                                                    'sharedDictionaryToSharedDictionaryNicknameId',
+                                                value: 'sharedDictionaryToSharedDictionaryNicknameId',
                                               ),
                                               value: ObjectValueNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'updateBySharedDictionaryId',
+                                                      value: 'updateBySharedDictionaryId',
                                                     ),
                                                     value: ObjectValueNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryId',
+                                                            value: 'sharedDictionaryId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'nicknameSharedDictionaryId',
+                                                              value: 'nicknameSharedDictionaryId',
                                                             ),
                                                           ),
                                                         ),
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedDictionaryPatch',
+                                                            value: 'sharedDictionaryPatch',
                                                           ),
                                                           value: ObjectValueNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryValuesUsingSharedDictionaryId',
+                                                                  value: 'sharedDictionaryValuesUsingSharedDictionaryId',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'deleteOthers',
+                                                                        value: 'deleteOthers',
                                                                       ),
                                                                       value: BooleanValueNode(
                                                                         value:
@@ -2533,8 +2503,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                                     ),
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'create',
+                                                                        value: 'create',
                                                                       ),
                                                                       value: ListValueNode(
                                                                         values: [
@@ -2656,48 +2625,41 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                             ),
                                             ObjectFieldNode(
                                               name: NameNode(
-                                                value:
-                                                    'sharedAppellationToAddress1',
+                                                value: 'sharedAppellationToAddress1',
                                               ),
                                               value: ObjectValueNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'updateBySharedAppellationsId',
+                                                      value: 'updateBySharedAppellationsId',
                                                     ),
                                                     value: ObjectValueNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedAppellationsId',
+                                                            value: 'sharedAppellationsId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'address1SharedAppellationsId',
+                                                              value: 'address1SharedAppellationsId',
                                                             ),
                                                           ),
                                                         ),
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedAppellationPatch',
+                                                            value: 'sharedAppellationPatch',
                                                           ),
                                                           value: ObjectValueNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryToSharedDictionaryNameId',
+                                                                  value: 'sharedDictionaryToSharedDictionaryNameId',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'updateBySharedDictionaryId',
+                                                                        value: 'updateBySharedDictionaryId',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -2724,64 +2686,34 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                                                   value: ObjectValueNode(
                                                                                     fields: [
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'deleteOthers',
-                                                                                        ),
-                                                                                        value: BooleanValueNode(
-                                                                                          value: true,
-                                                                                        ),
+                                                                                        name: NameNode(value: 'deleteOthers'),
+                                                                                        value: BooleanValueNode(value: true),
                                                                                       ),
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'create',
-                                                                                        ),
+                                                                                        name: NameNode(value: 'create'),
                                                                                         value: ListValueNode(
                                                                                           values: [
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'jaLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'address1NameJa',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'address1NameJa')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'enLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'address1NameEn',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'address1NameEn')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
@@ -2802,15 +2734,13 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                               ),
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryToSharedDictionaryPronunciationId',
+                                                                  value: 'sharedDictionaryToSharedDictionaryPronunciationId',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'updateBySharedDictionaryId',
+                                                                        value: 'updateBySharedDictionaryId',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -2837,64 +2767,34 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                                                   value: ObjectValueNode(
                                                                                     fields: [
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'deleteOthers',
-                                                                                        ),
-                                                                                        value: BooleanValueNode(
-                                                                                          value: true,
-                                                                                        ),
+                                                                                        name: NameNode(value: 'deleteOthers'),
+                                                                                        value: BooleanValueNode(value: true),
                                                                                       ),
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'create',
-                                                                                        ),
+                                                                                        name: NameNode(value: 'create'),
                                                                                         value: ListValueNode(
                                                                                           values: [
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'jaLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'address1PronunciationJa',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'address1PronunciationJa')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'enLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'address1PronunciationEn',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'address1PronunciationEn')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
@@ -2915,15 +2815,13 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                               ),
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryToSharedDictionaryNicknameId',
+                                                                  value: 'sharedDictionaryToSharedDictionaryNicknameId',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'updateBySharedDictionaryId',
+                                                                        value: 'updateBySharedDictionaryId',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -2950,64 +2848,34 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                                                   value: ObjectValueNode(
                                                                                     fields: [
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'deleteOthers',
-                                                                                        ),
-                                                                                        value: BooleanValueNode(
-                                                                                          value: true,
-                                                                                        ),
+                                                                                        name: NameNode(value: 'deleteOthers'),
+                                                                                        value: BooleanValueNode(value: true),
                                                                                       ),
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'create',
-                                                                                        ),
+                                                                                        name: NameNode(value: 'create'),
                                                                                         value: ListValueNode(
                                                                                           values: [
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'jaLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'address1NicknameJa',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'address1NicknameJa')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'enLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'address1NicknameEn',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'address1NicknameEn')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
@@ -3037,48 +2905,41 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                             ),
                                             ObjectFieldNode(
                                               name: NameNode(
-                                                value:
-                                                    'sharedAppellationToAddress2',
+                                                value: 'sharedAppellationToAddress2',
                                               ),
                                               value: ObjectValueNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'updateBySharedAppellationsId',
+                                                      value: 'updateBySharedAppellationsId',
                                                     ),
                                                     value: ObjectValueNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedAppellationsId',
+                                                            value: 'sharedAppellationsId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'address2SharedAppellationsId',
+                                                              value: 'address2SharedAppellationsId',
                                                             ),
                                                           ),
                                                         ),
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedAppellationPatch',
+                                                            value: 'sharedAppellationPatch',
                                                           ),
                                                           value: ObjectValueNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryToSharedDictionaryNameId',
+                                                                  value: 'sharedDictionaryToSharedDictionaryNameId',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'updateBySharedDictionaryId',
+                                                                        value: 'updateBySharedDictionaryId',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3105,64 +2966,34 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                                                   value: ObjectValueNode(
                                                                                     fields: [
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'deleteOthers',
-                                                                                        ),
-                                                                                        value: BooleanValueNode(
-                                                                                          value: true,
-                                                                                        ),
+                                                                                        name: NameNode(value: 'deleteOthers'),
+                                                                                        value: BooleanValueNode(value: true),
                                                                                       ),
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'create',
-                                                                                        ),
+                                                                                        name: NameNode(value: 'create'),
                                                                                         value: ListValueNode(
                                                                                           values: [
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'jaLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'address2NameJa',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'address2NameJa')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'enLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'address2NameEn',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'address2NameEn')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
@@ -3183,15 +3014,13 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                               ),
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryToSharedDictionaryPronunciationId',
+                                                                  value: 'sharedDictionaryToSharedDictionaryPronunciationId',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'updateBySharedDictionaryId',
+                                                                        value: 'updateBySharedDictionaryId',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3218,64 +3047,34 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                                                   value: ObjectValueNode(
                                                                                     fields: [
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'deleteOthers',
-                                                                                        ),
-                                                                                        value: BooleanValueNode(
-                                                                                          value: true,
-                                                                                        ),
+                                                                                        name: NameNode(value: 'deleteOthers'),
+                                                                                        value: BooleanValueNode(value: true),
                                                                                       ),
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'create',
-                                                                                        ),
+                                                                                        name: NameNode(value: 'create'),
                                                                                         value: ListValueNode(
                                                                                           values: [
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'jaLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'address2PronunciationJa',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'address2PronunciationJa')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'enLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'address2PronunciationEn',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'address2PronunciationEn')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
@@ -3296,15 +3095,13 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                               ),
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryToSharedDictionaryNicknameId',
+                                                                  value: 'sharedDictionaryToSharedDictionaryNicknameId',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'updateBySharedDictionaryId',
+                                                                        value: 'updateBySharedDictionaryId',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3331,64 +3128,34 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                                                   value: ObjectValueNode(
                                                                                     fields: [
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'deleteOthers',
-                                                                                        ),
-                                                                                        value: BooleanValueNode(
-                                                                                          value: true,
-                                                                                        ),
+                                                                                        name: NameNode(value: 'deleteOthers'),
+                                                                                        value: BooleanValueNode(value: true),
                                                                                       ),
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'create',
-                                                                                        ),
+                                                                                        name: NameNode(value: 'create'),
                                                                                         value: ListValueNode(
                                                                                           values: [
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'jaLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'address2NicknameJa',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'address2NicknameJa')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'enLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'address2NicknameEn',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'address2NicknameEn')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
@@ -3418,48 +3185,41 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                             ),
                                             ObjectFieldNode(
                                               name: NameNode(
-                                                value:
-                                                    'sharedAppellationToBuilding',
+                                                value: 'sharedAppellationToBuilding',
                                               ),
                                               value: ObjectValueNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'updateBySharedAppellationsId',
+                                                      value: 'updateBySharedAppellationsId',
                                                     ),
                                                     value: ObjectValueNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedAppellationsId',
+                                                            value: 'sharedAppellationsId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'buildingSharedAppellationsId',
+                                                              value: 'buildingSharedAppellationsId',
                                                             ),
                                                           ),
                                                         ),
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedAppellationPatch',
+                                                            value: 'sharedAppellationPatch',
                                                           ),
                                                           value: ObjectValueNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryToSharedDictionaryNameId',
+                                                                  value: 'sharedDictionaryToSharedDictionaryNameId',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'updateBySharedDictionaryId',
+                                                                        value: 'updateBySharedDictionaryId',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3486,64 +3246,34 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                                                   value: ObjectValueNode(
                                                                                     fields: [
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'deleteOthers',
-                                                                                        ),
-                                                                                        value: BooleanValueNode(
-                                                                                          value: true,
-                                                                                        ),
+                                                                                        name: NameNode(value: 'deleteOthers'),
+                                                                                        value: BooleanValueNode(value: true),
                                                                                       ),
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'create',
-                                                                                        ),
+                                                                                        name: NameNode(value: 'create'),
                                                                                         value: ListValueNode(
                                                                                           values: [
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'jaLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'buildingNameJa',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'buildingNameJa')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'enLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'buildingNameEn',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'buildingNameEn')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
@@ -3564,15 +3294,13 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                               ),
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryToSharedDictionaryPronunciationId',
+                                                                  value: 'sharedDictionaryToSharedDictionaryPronunciationId',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'updateBySharedDictionaryId',
+                                                                        value: 'updateBySharedDictionaryId',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3599,64 +3327,34 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                                                   value: ObjectValueNode(
                                                                                     fields: [
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'deleteOthers',
-                                                                                        ),
-                                                                                        value: BooleanValueNode(
-                                                                                          value: true,
-                                                                                        ),
+                                                                                        name: NameNode(value: 'deleteOthers'),
+                                                                                        value: BooleanValueNode(value: true),
                                                                                       ),
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'create',
-                                                                                        ),
+                                                                                        name: NameNode(value: 'create'),
                                                                                         value: ListValueNode(
                                                                                           values: [
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'jaLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'buildingPronunciationJa',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'buildingPronunciationJa')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'enLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'buildingPronunciationEn',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'buildingPronunciationEn')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
@@ -3677,15 +3375,13 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                               ),
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedDictionaryToSharedDictionaryNicknameId',
+                                                                  value: 'sharedDictionaryToSharedDictionaryNicknameId',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'updateBySharedDictionaryId',
+                                                                        value: 'updateBySharedDictionaryId',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3712,64 +3408,34 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                                                   value: ObjectValueNode(
                                                                                     fields: [
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'deleteOthers',
-                                                                                        ),
-                                                                                        value: BooleanValueNode(
-                                                                                          value: true,
-                                                                                        ),
+                                                                                        name: NameNode(value: 'deleteOthers'),
+                                                                                        value: BooleanValueNode(value: true),
                                                                                       ),
                                                                                       ObjectFieldNode(
-                                                                                        name: NameNode(
-                                                                                          value: 'create',
-                                                                                        ),
+                                                                                        name: NameNode(value: 'create'),
                                                                                         value: ListValueNode(
                                                                                           values: [
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'jaLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'buildingNicknameJa',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'buildingNicknameJa')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
                                                                                             ObjectValueNode(
                                                                                               fields: [
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'sharedLanguageCodeId',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'enLanguageCodeId',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
                                                                                                 ),
                                                                                                 ObjectFieldNode(
-                                                                                                  name: NameNode(
-                                                                                                    value: 'dictionaryValue',
-                                                                                                  ),
-                                                                                                  value: VariableNode(
-                                                                                                    name: NameNode(
-                                                                                                      value: 'buildingNicknameEn',
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                  name: NameNode(value: 'dictionaryValue'),
+                                                                                                  value: VariableNode(name: NameNode(value: 'buildingNicknameEn')),
                                                                                                 ),
                                                                                               ],
                                                                                             ),
@@ -3854,8 +3520,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         value: VariableNode(
                                           name: NameNode(
-                                            value:
-                                                'shippingKindsMstrShippingKindId',
+                                            value: 'shippingKindsMstrShippingKindId',
                                           ),
                                         ),
                                       ),
@@ -3996,8 +3661,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -4062,8 +3726,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -4138,8 +3801,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -4155,8 +3817,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -4221,8 +3882,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -4297,8 +3957,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -4314,8 +3973,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -4380,8 +4038,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -4519,8 +4176,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -4538,8 +4194,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -4551,8 +4206,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -4611,8 +4265,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -4624,8 +4277,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -4694,8 +4346,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -4713,8 +4364,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -4726,8 +4376,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -4786,8 +4435,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -4799,8 +4447,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -4869,8 +4516,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -4888,8 +4534,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -4901,8 +4546,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -4961,8 +4605,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -4974,8 +4617,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -5072,8 +4714,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -5091,8 +4732,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -5104,8 +4744,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -5164,8 +4803,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -5177,8 +4815,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -5247,8 +4884,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -5266,8 +4902,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -5279,8 +4914,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -5339,8 +4973,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -5352,8 +4985,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -5422,8 +5054,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -5441,8 +5072,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -5454,8 +5084,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -5514,8 +5143,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -5527,8 +5155,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -5625,8 +5252,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -5644,8 +5270,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -5657,8 +5282,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -5717,8 +5341,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -5730,8 +5353,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -5800,8 +5422,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -5819,8 +5440,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -5832,8 +5452,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -5892,8 +5511,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -5905,8 +5523,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -5975,8 +5592,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -5994,8 +5610,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -6007,8 +5622,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -6067,8 +5681,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -6080,8 +5693,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -6244,8 +5856,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -6263,8 +5874,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -6276,8 +5886,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -6336,8 +5945,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -6349,8 +5957,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -6419,8 +6026,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -6438,8 +6044,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -6451,8 +6056,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -6511,8 +6115,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -6524,8 +6127,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -6594,8 +6196,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -6613,8 +6214,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -6626,8 +6226,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -6686,8 +6285,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -6699,8 +6297,7 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -6836,8 +6433,10 @@ const documentNodeMutationCustomerPageEdit = DocumentNode(
 Mutation$CustomerPageEdit _parserFn$Mutation$CustomerPageEdit(
   Map<String, dynamic> data,
 ) => Mutation$CustomerPageEdit.fromJson(data);
-typedef OnMutationCompleted$Mutation$CustomerPageEdit =
-    FutureOr<void> Function(Map<String, dynamic>?, Mutation$CustomerPageEdit?);
+typedef OnMutationCompleted$Mutation$CustomerPageEdit = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Mutation$CustomerPageEdit?,
+);
 
 class Options$Mutation$CustomerPageEdit
     extends graphql.MutationOptions<Mutation$CustomerPageEdit> {
@@ -7011,11 +6610,10 @@ typedef RunMutation$Mutation$CustomerPageEdit =
       Object? optimisticResult,
       Mutation$CustomerPageEdit? typedOptimisticResult,
     });
-typedef Builder$Mutation$CustomerPageEdit =
-    widgets.Widget Function(
-      RunMutation$Mutation$CustomerPageEdit,
-      graphql.QueryResult<Mutation$CustomerPageEdit>?,
-    );
+typedef Builder$Mutation$CustomerPageEdit = widgets.Widget Function(
+  RunMutation$Mutation$CustomerPageEdit,
+  graphql.QueryResult<Mutation$CustomerPageEdit>?,
+);
 
 class Mutation$CustomerPageEdit$Widget
     extends graphql_flutter.Mutation<Mutation$CustomerPageEdit> {
@@ -8228,12 +7826,10 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -9213,12 +8809,10 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -10198,12 +9792,10 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -11951,12 +11543,10 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address1$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address1$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address1$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address1$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -12936,12 +12526,10 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -13921,12 +13509,10 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address1$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address1$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address1$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address1$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -15260,12 +14846,10 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address2$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address2$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address2$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address2$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -16245,12 +15829,10 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -17230,12 +16812,10 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address2$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address2$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address2$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$address2$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -18569,12 +18149,10 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$building$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$building$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$building$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$building$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -19554,12 +19132,10 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -20539,12 +20115,10 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$building$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$address$building$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -22147,12 +21721,10 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$shippingKinds$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$shippingKinds$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$shippingKinds$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$shippingKinds$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -23132,12 +22704,10 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$shippingKinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$shippingKinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$shippingKinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$shippingKinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -24117,12 +23687,10 @@ class _CopyWithImpl$Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeho
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$shippingKinds$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$shippingKinds$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$shippingKinds$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$CustomerPageEdit$updateMstrStakeholderByMstrStakeholderId$mstrStakeholder$shippingKinds$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

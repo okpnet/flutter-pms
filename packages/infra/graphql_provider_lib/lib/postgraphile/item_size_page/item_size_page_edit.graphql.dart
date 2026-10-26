@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -586,8 +587,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                           fields: [
                                             ObjectFieldNode(
                                               name: NameNode(
-                                                value:
-                                                    'sharedTextValuesUsingSharedTextId',
+                                                value: 'sharedTextValuesUsingSharedTextId',
                                               ),
                                               value: ObjectValueNode(
                                                 fields: [
@@ -609,27 +609,28 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                           fields: [
                                                             ObjectFieldNode(
                                                               name: NameNode(
-                                                                value:
-                                                                    'sharedLanguageCodeId',
+                                                                value: 'sharedLanguageCodeId',
                                                               ),
-                                                              value: VariableNode(
-                                                                name: NameNode(
-                                                                  value:
-                                                                      'jaLanguageCodeId',
-                                                                ),
-                                                              ),
+                                                              value:
+                                                                  VariableNode(
+                                                                    name:
+                                                                        NameNode(
+                                                                          value: 'jaLanguageCodeId',
+                                                                        ),
+                                                                  ),
                                                             ),
                                                             ObjectFieldNode(
                                                               name: NameNode(
                                                                 value:
                                                                     'textValue',
                                                               ),
-                                                              value: VariableNode(
-                                                                name: NameNode(
-                                                                  value:
-                                                                      'detailTextsJa',
-                                                                ),
-                                                              ),
+                                                              value:
+                                                                  VariableNode(
+                                                                    name:
+                                                                        NameNode(
+                                                                          value: 'detailTextsJa',
+                                                                        ),
+                                                                  ),
                                                             ),
                                                           ],
                                                         ),
@@ -637,27 +638,28 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                           fields: [
                                                             ObjectFieldNode(
                                                               name: NameNode(
-                                                                value:
-                                                                    'sharedLanguageCodeId',
+                                                                value: 'sharedLanguageCodeId',
                                                               ),
-                                                              value: VariableNode(
-                                                                name: NameNode(
-                                                                  value:
-                                                                      'enLanguageCodeId',
-                                                                ),
-                                                              ),
+                                                              value:
+                                                                  VariableNode(
+                                                                    name:
+                                                                        NameNode(
+                                                                          value: 'enLanguageCodeId',
+                                                                        ),
+                                                                  ),
                                                             ),
                                                             ObjectFieldNode(
                                                               name: NameNode(
                                                                 value:
                                                                     'textValue',
                                                               ),
-                                                              value: VariableNode(
-                                                                name: NameNode(
-                                                                  value:
-                                                                      'detailTextsEn',
-                                                                ),
-                                                              ),
+                                                              value:
+                                                                  VariableNode(
+                                                                    name:
+                                                                        NameNode(
+                                                                          value: 'detailTextsEn',
+                                                                        ),
+                                                                  ),
                                                             ),
                                                           ],
                                                         ),
@@ -761,8 +763,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -780,8 +781,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -793,8 +793,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -853,8 +852,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -866,8 +864,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -936,8 +933,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -955,8 +951,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -968,8 +963,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1028,8 +1022,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -1041,8 +1034,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1111,8 +1103,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1130,8 +1121,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -1143,8 +1133,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1203,8 +1192,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -1216,8 +1204,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1335,8 +1322,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNameId',
+                                            value: 'sharedDictionaryBySharedDictionaryNameId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -1354,8 +1340,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -1367,13 +1352,11 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -1391,30 +1374,31 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -1430,8 +1414,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -1443,13 +1426,11 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -1467,30 +1448,31 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -1518,8 +1500,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryPronunciationId',
+                                            value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -1537,8 +1518,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -1550,13 +1530,11 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -1574,30 +1552,31 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -1613,8 +1592,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -1626,13 +1604,11 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -1650,30 +1626,31 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -1701,8 +1678,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNicknameId',
+                                            value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -1720,8 +1696,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -1733,13 +1708,11 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -1757,30 +1730,31 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -1796,8 +1770,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -1809,13 +1782,11 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -1833,30 +1804,31 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -1918,8 +1890,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'vItemSizeKindItemActualSizeCountByMstrItemSizeKindId',
+                                value: 'vItemSizeKindItemActualSizeCountByMstrItemSizeKindId',
                               ),
                               alias: NameNode(value: 'item_actual_size_count'),
                               arguments: [],
@@ -1959,8 +1930,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                               ),
                               alias: NameNode(value: 'update_user'),
                               arguments: [],
@@ -2015,8 +1985,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNameId',
+                                            value: 'sharedDictionaryBySharedDictionaryNameId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -2034,8 +2003,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -2047,13 +2015,11 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -2071,30 +2037,31 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -2110,8 +2077,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -2123,13 +2089,11 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -2147,30 +2111,31 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -2198,8 +2163,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryPronunciationId',
+                                            value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -2217,8 +2181,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -2230,13 +2193,11 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -2254,30 +2215,31 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -2293,8 +2255,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -2306,13 +2267,11 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -2330,30 +2289,31 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -2381,8 +2341,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNicknameId',
+                                            value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -2400,8 +2359,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -2413,13 +2371,11 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -2437,30 +2393,31 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -2476,8 +2433,7 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -2489,13 +2445,11 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -2513,30 +2467,31 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -2808,8 +2763,10 @@ const documentNodeMutationItemSizePageEdit = DocumentNode(
 Mutation$ItemSizePageEdit _parserFn$Mutation$ItemSizePageEdit(
   Map<String, dynamic> data,
 ) => Mutation$ItemSizePageEdit.fromJson(data);
-typedef OnMutationCompleted$Mutation$ItemSizePageEdit =
-    FutureOr<void> Function(Map<String, dynamic>?, Mutation$ItemSizePageEdit?);
+typedef OnMutationCompleted$Mutation$ItemSizePageEdit = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Mutation$ItemSizePageEdit?,
+);
 
 class Options$Mutation$ItemSizePageEdit
     extends graphql.MutationOptions<Mutation$ItemSizePageEdit> {
@@ -2983,11 +2940,10 @@ typedef RunMutation$Mutation$ItemSizePageEdit =
       Object? optimisticResult,
       Mutation$ItemSizePageEdit? typedOptimisticResult,
     });
-typedef Builder$Mutation$ItemSizePageEdit =
-    widgets.Widget Function(
-      RunMutation$Mutation$ItemSizePageEdit,
-      graphql.QueryResult<Mutation$ItemSizePageEdit>?,
-    );
+typedef Builder$Mutation$ItemSizePageEdit = widgets.Widget Function(
+  RunMutation$Mutation$ItemSizePageEdit,
+  graphql.QueryResult<Mutation$ItemSizePageEdit>?,
+);
 
 class Mutation$ItemSizePageEdit$Widget
     extends graphql_flutter.Mutation<Mutation$ItemSizePageEdit> {
@@ -4538,12 +4494,10 @@ class _CopyWithImpl$Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItem
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -5523,12 +5477,10 @@ class _CopyWithImpl$Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItem
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -6508,12 +6460,10 @@ class _CopyWithImpl$Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItem
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -8053,12 +8003,10 @@ class _CopyWithImpl$Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItem
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$unit$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$unit$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -9038,12 +8986,10 @@ class _CopyWithImpl$Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItem
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -10023,12 +9969,10 @@ class _CopyWithImpl$Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItem
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -11850,12 +11794,10 @@ class _CopyWithImpl$Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItem
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -12835,12 +12777,10 @@ class _CopyWithImpl$Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItem
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -13820,12 +13760,10 @@ class _CopyWithImpl$Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItem
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -14804,12 +14742,10 @@ class _CopyWithImpl$Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItem
           : (sharedTextId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$detailTexts$ja),
+          : (ja as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$detailTexts$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$detailTexts$en),
+          : (en as Mutation$ItemSizePageEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize$detailTexts$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

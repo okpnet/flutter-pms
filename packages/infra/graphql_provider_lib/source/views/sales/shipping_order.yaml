@@ -1,5 +1,24 @@
 # yaml-language-server: $schema=../../schema.json
 
+# 出荷オーダーの利害関係者(履歴)と区分の読み込み(要件20261026_0004)
+# 履歴の行(顧客/外部の区分フラグ)と、その元のステークホルダー(呼称・配送区分)を持つ。
+# 区分・利害関係者(顧客、外部)での絞り込みは、これを子にしたページの$filterに展開される(27章・4-5節)。
+StakeholderHistoryReadFields: &StakeholderHistoryReadFields
+  kind: read
+  from: history_mstr_stakeholder
+  columns:
+    - history_id
+    - mstr_stakeholder_id
+    - revision
+    - is_customer
+    - is_supplier
+    - is_logistics
+    - name: master
+      as: master
+      arrayType: toFirstOne
+      using: mstr_stakeholder_id
+      <<: *StakeholderReadFields
+
 # trans_shipping_orderの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
 ShippingOrderPage: &ShippingOrderPage
   kind: read
@@ -19,6 +38,11 @@ ShippingOrderPage: &ShippingOrderPage
     - estimated_arrival_date
     - stakeholder_history_id
     - stakeholder_id
+    - name: stakeholder
+      as: stakeholder
+      arrayType: toFirstOne
+      using: [stakeholder_history_id, stakeholder_id]
+      <<: *StakeholderHistoryReadFields
     - symbol
     - remarks
     - name: shipping_order_detail_count

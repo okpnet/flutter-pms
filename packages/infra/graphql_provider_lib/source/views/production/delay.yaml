@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=../../schema.json
+
+##### 進捗遅延(要件20261026_0004)
+# 件数は、$filterを指定したときのtotalCountで得る(集計のビュー・プラグインが無いため)。
+# 遅延は、$filterに`completionAt`の上限(lessThan: 現在)等を指定して絞り込む。
+
+# 進捗遅延の読み込み(工程計画より)
+WorkPlanDelayPage: &WorkPlanDelayPage
+  kind: read
+  from: trans_work_plan
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  defaultSort:
+    asc:
+      sortColumns:
+        - completion_at
+  columns:
+    - trans_work_plan_id
+    - trans_operations_plan_id
+    - name: operations_plan
+      as: operations_plan
+      arrayType: toFirstOne
+      using: trans_operations_plan_id
+      from: trans_operations_plan
+      columns:
+        - trans_operations_plan_id
+        - trans_resource_plan_id
+        - deadline
+    - mstr_task_id
+    - name: task
+      as: task
+      arrayType: toFirstOne
+      using: mstr_task_id
+      <<: *TaskReadFields
+    - interval_plan
+    - start_at
+    - completion_at
+    # 子のレコード数(要件0056。DBのビュー 2本)
+    - name: work_record_count
+      arrayType: toFirstOne
+      as: work_record_count
+      using: trans_work_plan_id
+      from: v_work_plan_work_record_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: product_rez_count
+      arrayType: toFirstOne
+      as: product_rez_count
+      using: trans_work_plan_id
+      from: v_work_plan_product_rez_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - update_at

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -373,8 +374,7 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -437,8 +437,7 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -511,8 +510,7 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'sharedDictionaryBySharedDictionaryPronunciationId',
+                          value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                         ),
                         alias: null,
                         arguments: [],
@@ -528,8 +526,7 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -592,8 +589,7 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -682,8 +678,7 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -746,8 +741,7 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -1102,8 +1096,10 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
 Query$LicensePageRfe _parserFn$Query$LicensePageRfe(
   Map<String, dynamic> data,
 ) => Query$LicensePageRfe.fromJson(data);
-typedef OnQueryComplete$Query$LicensePageRfe =
-    FutureOr<void> Function(Map<String, dynamic>?, Query$LicensePageRfe?);
+typedef OnQueryComplete$Query$LicensePageRfe = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$LicensePageRfe?,
+);
 
 class Options$Query$LicensePageRfe
     extends graphql.QueryOptions<Query$LicensePageRfe> {
@@ -2204,12 +2200,10 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$share
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -3189,12 +3183,10 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$share
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -4174,12 +4166,10 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$share
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

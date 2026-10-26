@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -678,8 +679,10 @@ const documentNodeMutationAssignPageEdit = DocumentNode(
 Mutation$AssignPageEdit _parserFn$Mutation$AssignPageEdit(
   Map<String, dynamic> data,
 ) => Mutation$AssignPageEdit.fromJson(data);
-typedef OnMutationCompleted$Mutation$AssignPageEdit =
-    FutureOr<void> Function(Map<String, dynamic>?, Mutation$AssignPageEdit?);
+typedef OnMutationCompleted$Mutation$AssignPageEdit = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Mutation$AssignPageEdit?,
+);
 
 class Options$Mutation$AssignPageEdit
     extends graphql.MutationOptions<Mutation$AssignPageEdit> {
@@ -847,11 +850,10 @@ typedef RunMutation$Mutation$AssignPageEdit =
       Object? optimisticResult,
       Mutation$AssignPageEdit? typedOptimisticResult,
     });
-typedef Builder$Mutation$AssignPageEdit =
-    widgets.Widget Function(
-      RunMutation$Mutation$AssignPageEdit,
-      graphql.QueryResult<Mutation$AssignPageEdit>?,
-    );
+typedef Builder$Mutation$AssignPageEdit = widgets.Widget Function(
+  RunMutation$Mutation$AssignPageEdit,
+  graphql.QueryResult<Mutation$AssignPageEdit>?,
+);
 
 class Mutation$AssignPageEdit$Widget
     extends graphql_flutter.Mutation<Mutation$AssignPageEdit> {

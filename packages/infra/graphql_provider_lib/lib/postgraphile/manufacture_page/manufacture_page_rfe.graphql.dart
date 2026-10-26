@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -396,8 +397,7 @@ const documentNodeQueryManufacturePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -460,8 +460,7 @@ const documentNodeQueryManufacturePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -534,8 +533,7 @@ const documentNodeQueryManufacturePageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'sharedDictionaryBySharedDictionaryPronunciationId',
+                          value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                         ),
                         alias: null,
                         arguments: [],
@@ -551,8 +549,7 @@ const documentNodeQueryManufacturePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -615,8 +612,7 @@ const documentNodeQueryManufacturePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -705,8 +701,7 @@ const documentNodeQueryManufacturePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -769,8 +764,7 @@ const documentNodeQueryManufacturePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -911,8 +905,10 @@ const documentNodeQueryManufacturePageRfe = DocumentNode(
 Query$ManufacturePageRfe _parserFn$Query$ManufacturePageRfe(
   Map<String, dynamic> data,
 ) => Query$ManufacturePageRfe.fromJson(data);
-typedef OnQueryComplete$Query$ManufacturePageRfe =
-    FutureOr<void> Function(Map<String, dynamic>?, Query$ManufacturePageRfe?);
+typedef OnQueryComplete$Query$ManufacturePageRfe = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$ManufacturePageRfe?,
+);
 
 class Options$Query$ManufacturePageRfe
     extends graphql.QueryOptions<Query$ManufacturePageRfe> {
@@ -1911,12 +1907,10 @@ class _CopyWithImpl$Query$ManufacturePageRfe$mstrManufacturerByMstrManufacturerI
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$ManufacturePageRfe$mstrManufacturerByMstrManufacturerId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$ManufacturePageRfe$mstrManufacturerByMstrManufacturerId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$ManufacturePageRfe$mstrManufacturerByMstrManufacturerId$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$ManufacturePageRfe$mstrManufacturerByMstrManufacturerId$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -2896,12 +2890,10 @@ class _CopyWithImpl$Query$ManufacturePageRfe$mstrManufacturerByMstrManufacturerI
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$ManufacturePageRfe$mstrManufacturerByMstrManufacturerId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$ManufacturePageRfe$mstrManufacturerByMstrManufacturerId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$ManufacturePageRfe$mstrManufacturerByMstrManufacturerId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$ManufacturePageRfe$mstrManufacturerByMstrManufacturerId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -3881,12 +3873,10 @@ class _CopyWithImpl$Query$ManufacturePageRfe$mstrManufacturerByMstrManufacturerI
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$ManufacturePageRfe$mstrManufacturerByMstrManufacturerId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$ManufacturePageRfe$mstrManufacturerByMstrManufacturerId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$ManufacturePageRfe$mstrManufacturerByMstrManufacturerId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$ManufacturePageRfe$mstrManufacturerByMstrManufacturerId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

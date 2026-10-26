@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -397,8 +398,7 @@ const documentNodeQueryItemTreePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -461,8 +461,7 @@ const documentNodeQueryItemTreePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -535,8 +534,7 @@ const documentNodeQueryItemTreePageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'sharedDictionaryBySharedDictionaryPronunciationId',
+                          value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                         ),
                         alias: null,
                         arguments: [],
@@ -552,8 +550,7 @@ const documentNodeQueryItemTreePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -616,8 +613,7 @@ const documentNodeQueryItemTreePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -706,8 +702,7 @@ const documentNodeQueryItemTreePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -770,8 +765,7 @@ const documentNodeQueryItemTreePageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -1053,8 +1047,10 @@ const documentNodeQueryItemTreePageRfe = DocumentNode(
 Query$ItemTreePageRfe _parserFn$Query$ItemTreePageRfe(
   Map<String, dynamic> data,
 ) => Query$ItemTreePageRfe.fromJson(data);
-typedef OnQueryComplete$Query$ItemTreePageRfe =
-    FutureOr<void> Function(Map<String, dynamic>?, Query$ItemTreePageRfe?);
+typedef OnQueryComplete$Query$ItemTreePageRfe = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$ItemTreePageRfe?,
+);
 
 class Options$Query$ItemTreePageRfe
     extends graphql.QueryOptions<Query$ItemTreePageRfe> {
@@ -2144,12 +2140,10 @@ class _CopyWithImpl$Query$ItemTreePageRfe$mstrItemTreeByMstrItemTreeId$labels$sh
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$ItemTreePageRfe$mstrItemTreeByMstrItemTreeId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$ItemTreePageRfe$mstrItemTreeByMstrItemTreeId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$ItemTreePageRfe$mstrItemTreeByMstrItemTreeId$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$ItemTreePageRfe$mstrItemTreeByMstrItemTreeId$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -3129,12 +3123,10 @@ class _CopyWithImpl$Query$ItemTreePageRfe$mstrItemTreeByMstrItemTreeId$labels$sh
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$ItemTreePageRfe$mstrItemTreeByMstrItemTreeId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$ItemTreePageRfe$mstrItemTreeByMstrItemTreeId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$ItemTreePageRfe$mstrItemTreeByMstrItemTreeId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$ItemTreePageRfe$mstrItemTreeByMstrItemTreeId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -4114,12 +4106,10 @@ class _CopyWithImpl$Query$ItemTreePageRfe$mstrItemTreeByMstrItemTreeId$labels$sh
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$ItemTreePageRfe$mstrItemTreeByMstrItemTreeId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$ItemTreePageRfe$mstrItemTreeByMstrItemTreeId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$ItemTreePageRfe$mstrItemTreeByMstrItemTreeId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$ItemTreePageRfe$mstrItemTreeByMstrItemTreeId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -374,8 +375,7 @@ const documentNodeQueryStaffPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -438,8 +438,7 @@ const documentNodeQueryStaffPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -512,8 +511,7 @@ const documentNodeQueryStaffPageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'sharedDictionaryBySharedDictionaryPronunciationId',
+                          value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                         ),
                         alias: null,
                         arguments: [],
@@ -529,8 +527,7 @@ const documentNodeQueryStaffPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -593,8 +590,7 @@ const documentNodeQueryStaffPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -683,8 +679,7 @@ const documentNodeQueryStaffPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -747,8 +742,7 @@ const documentNodeQueryStaffPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -909,8 +903,10 @@ const documentNodeQueryStaffPageRfe = DocumentNode(
 );
 Query$StaffPageRfe _parserFn$Query$StaffPageRfe(Map<String, dynamic> data) =>
     Query$StaffPageRfe.fromJson(data);
-typedef OnQueryComplete$Query$StaffPageRfe =
-    FutureOr<void> Function(Map<String, dynamic>?, Query$StaffPageRfe?);
+typedef OnQueryComplete$Query$StaffPageRfe = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$StaffPageRfe?,
+);
 
 class Options$Query$StaffPageRfe
     extends graphql.QueryOptions<Query$StaffPageRfe> {
@@ -1913,12 +1909,10 @@ class _CopyWithImpl$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDicti
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -2898,12 +2892,10 @@ class _CopyWithImpl$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDicti
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -3883,12 +3875,10 @@ class _CopyWithImpl$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDicti
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

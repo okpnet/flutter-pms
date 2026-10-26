@@ -1,5 +1,7 @@
 import '../schema.graphql.dart';
+
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -516,8 +518,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -582,8 +583,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -658,8 +658,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -675,8 +674,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -741,8 +739,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -817,8 +814,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -834,8 +830,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -900,8 +895,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -1032,8 +1026,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1051,8 +1044,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -1064,8 +1056,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1124,8 +1115,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -1137,8 +1127,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1207,8 +1196,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1226,8 +1214,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -1239,8 +1226,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1299,8 +1285,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -1312,8 +1297,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1382,8 +1366,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1401,8 +1384,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -1414,8 +1396,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1474,8 +1455,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -1487,8 +1467,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1585,8 +1564,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1604,8 +1582,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -1617,8 +1594,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1677,8 +1653,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -1690,8 +1665,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1760,8 +1734,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1779,8 +1752,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -1792,8 +1764,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1852,8 +1823,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -1865,8 +1835,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1935,8 +1904,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1954,8 +1922,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -1967,8 +1934,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2027,8 +1993,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -2040,8 +2005,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2138,8 +2102,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -2157,8 +2120,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -2170,8 +2132,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2230,8 +2191,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -2243,8 +2203,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2313,8 +2272,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -2332,8 +2290,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -2345,8 +2302,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2405,8 +2361,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -2418,8 +2373,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2488,8 +2442,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -2507,8 +2460,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -2520,8 +2472,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2580,8 +2531,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -2593,8 +2543,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2758,8 +2707,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -2822,8 +2770,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -2896,8 +2843,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'sharedDictionaryBySharedDictionaryPronunciationId',
+                          value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                         ),
                         alias: null,
                         arguments: [],
@@ -2913,8 +2859,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -2977,8 +2922,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -3067,8 +3011,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -3131,8 +3074,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -3274,8 +3216,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -3340,8 +3281,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -3416,8 +3356,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -3433,8 +3372,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -3499,8 +3437,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -3575,8 +3512,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -3592,8 +3528,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -3658,8 +3593,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -3775,8 +3709,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -3841,8 +3774,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -3917,8 +3849,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -3934,8 +3865,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -4000,8 +3930,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -4076,8 +4005,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -4093,8 +4021,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -4159,8 +4086,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -4276,8 +4202,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -4342,8 +4267,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -4418,8 +4342,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -4435,8 +4358,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -4501,8 +4423,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -4577,8 +4498,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -4594,8 +4514,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -4660,8 +4579,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -4860,8 +4778,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'infoDepartmentKindValueByInfoDepartmentKindValueId',
+                                value: 'infoDepartmentKindValueByInfoDepartmentKindValueId',
                               ),
                               alias: NameNode(value: 'kinds'),
                               arguments: [],
@@ -4897,8 +4814,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNameId',
+                                            value: 'sharedDictionaryBySharedDictionaryNameId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -4916,8 +4832,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -4929,13 +4844,11 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -4953,30 +4866,31 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -4992,8 +4906,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -5005,13 +4918,11 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -5029,30 +4940,31 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -5080,8 +4992,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryPronunciationId',
+                                            value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -5099,8 +5010,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -5112,13 +5022,11 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -5136,30 +5044,31 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -5175,8 +5084,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -5188,13 +5096,11 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -5212,30 +5118,31 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -5263,8 +5170,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNicknameId',
+                                            value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -5282,8 +5188,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'ja'),
                                                 arguments: [
@@ -5295,13 +5200,11 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'jaLanguageCodeId',
+                                                              value: 'jaLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -5319,30 +5222,31 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -5358,8 +5262,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                  value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                 ),
                                                 alias: NameNode(value: 'en'),
                                                 arguments: [
@@ -5371,13 +5274,11 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                       fields: [
                                                         ObjectFieldNode(
                                                           name: NameNode(
-                                                            value:
-                                                                'sharedLanguageCodeId',
+                                                            value: 'sharedLanguageCodeId',
                                                           ),
                                                           value: VariableNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'enLanguageCodeId',
+                                                              value: 'enLanguageCodeId',
                                                             ),
                                                           ),
                                                         ),
@@ -5395,30 +5296,31 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                       alias: null,
                                                       arguments: [],
                                                       directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'dictionaryValue',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
+                                                      selectionSet:
+                                                          SelectionSetNode(
+                                                            selections: [
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: 'dictionaryValue',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                              FieldNode(
+                                                                name: NameNode(
+                                                                  value: '__typename',
+                                                                ),
+                                                                alias: null,
+                                                                arguments: [],
+                                                                directives: [],
+                                                                selectionSet:
+                                                                    null,
+                                                              ),
+                                                            ],
                                                           ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
@@ -5470,8 +5372,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'vDepartmentKindValueDepartmentKindCountByInfoDepartmentKindValueId',
+                                      value: 'vDepartmentKindValueDepartmentKindCountByInfoDepartmentKindValueId',
                                     ),
                                     alias: NameNode(
                                       value: 'department_kind_count',
@@ -5515,8 +5416,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                      value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                     ),
                                     alias: NameNode(value: 'update_user'),
                                     arguments: [],
@@ -5573,8 +5473,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -5583,8 +5482,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -5593,8 +5491,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -5608,14 +5505,13 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -5635,10 +5531,10 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5647,10 +5543,10 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5676,8 +5572,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -5691,14 +5586,13 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -5718,10 +5612,10 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5730,10 +5624,10 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5771,8 +5665,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                  value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -5781,8 +5674,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -5791,8 +5683,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -5806,14 +5697,13 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -5833,10 +5723,10 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5845,10 +5735,10 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5874,8 +5764,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -5889,14 +5778,13 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -5916,10 +5804,10 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5928,10 +5816,10 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5969,8 +5857,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -5979,8 +5866,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -5989,8 +5875,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'ja',
@@ -6004,14 +5889,13 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'jaLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'jaLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -6031,10 +5915,10 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6043,10 +5927,10 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6072,8 +5956,7 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'en',
@@ -6087,14 +5970,13 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'enLanguageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'enLanguageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -6114,10 +5996,10 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6126,10 +6008,10 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6319,8 +6201,10 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
 Query$DepartmentPageRfe _parserFn$Query$DepartmentPageRfe(
   Map<String, dynamic> data,
 ) => Query$DepartmentPageRfe.fromJson(data);
-typedef OnQueryComplete$Query$DepartmentPageRfe =
-    FutureOr<void> Function(Map<String, dynamic>?, Query$DepartmentPageRfe?);
+typedef OnQueryComplete$Query$DepartmentPageRfe = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$DepartmentPageRfe?,
+);
 
 class Options$Query$DepartmentPageRfe
     extends graphql.QueryOptions<Query$DepartmentPageRfe> {
@@ -7777,12 +7661,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$off
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -8762,12 +8644,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$off
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -9747,12 +9627,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$off
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -11499,12 +11377,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$off
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address1$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address1$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address1$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address1$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -12484,12 +12360,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$off
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -13469,12 +13343,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$off
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address1$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address1$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address1$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address1$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -14808,12 +14680,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$off
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address2$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address2$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address2$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address2$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -15793,12 +15663,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$off
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -16778,12 +16646,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$off
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address2$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address2$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address2$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$address2$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -18117,12 +17983,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$off
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$building$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$building$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$building$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -19102,12 +18966,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$off
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -20087,12 +19949,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$off
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$office$address$building$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -21424,12 +21284,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$lab
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -22409,12 +22267,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$lab
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -23394,12 +23250,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$lab
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -25144,12 +24998,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$add
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address1$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address1$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address1$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address1$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -26129,12 +25981,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$add
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -27114,12 +26964,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$add
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address1$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address1$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address1$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address1$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -28452,12 +28300,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$add
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address2$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address2$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address2$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address2$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -29437,12 +29283,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$add
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -30422,12 +30266,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$add
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address2$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address2$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address2$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$address2$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -31760,12 +31602,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$add
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$building$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$building$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$building$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$building$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -32745,12 +32585,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$add
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -33730,12 +33568,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$add
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$building$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$address$building$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -36190,12 +36026,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$dep
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -37175,12 +37009,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$dep
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -38160,12 +37992,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$dep
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -39987,12 +39817,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$dep
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -40972,12 +40800,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$dep
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -41957,12 +41783,10 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$dep
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$departmentKinds$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

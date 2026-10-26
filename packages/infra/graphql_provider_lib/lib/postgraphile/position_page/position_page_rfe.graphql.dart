@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -376,8 +377,7 @@ const documentNodeQueryPositionPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -440,8 +440,7 @@ const documentNodeQueryPositionPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -514,8 +513,7 @@ const documentNodeQueryPositionPageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'sharedDictionaryBySharedDictionaryPronunciationId',
+                          value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                         ),
                         alias: null,
                         arguments: [],
@@ -531,8 +529,7 @@ const documentNodeQueryPositionPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -595,8 +592,7 @@ const documentNodeQueryPositionPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -685,8 +681,7 @@ const documentNodeQueryPositionPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -749,8 +744,7 @@ const documentNodeQueryPositionPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -891,8 +885,10 @@ const documentNodeQueryPositionPageRfe = DocumentNode(
 Query$PositionPageRfe _parserFn$Query$PositionPageRfe(
   Map<String, dynamic> data,
 ) => Query$PositionPageRfe.fromJson(data);
-typedef OnQueryComplete$Query$PositionPageRfe =
-    FutureOr<void> Function(Map<String, dynamic>?, Query$PositionPageRfe?);
+typedef OnQueryComplete$Query$PositionPageRfe = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$PositionPageRfe?,
+);
 
 class Options$Query$PositionPageRfe
     extends graphql.QueryOptions<Query$PositionPageRfe> {
@@ -1857,12 +1853,10 @@ class _CopyWithImpl$Query$PositionPageRfe$infoPositionByInfoPositionId$labels$sh
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$PositionPageRfe$infoPositionByInfoPositionId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$PositionPageRfe$infoPositionByInfoPositionId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$PositionPageRfe$infoPositionByInfoPositionId$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$PositionPageRfe$infoPositionByInfoPositionId$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -2842,12 +2836,10 @@ class _CopyWithImpl$Query$PositionPageRfe$infoPositionByInfoPositionId$labels$sh
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$PositionPageRfe$infoPositionByInfoPositionId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$PositionPageRfe$infoPositionByInfoPositionId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$PositionPageRfe$infoPositionByInfoPositionId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$PositionPageRfe$infoPositionByInfoPositionId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -3827,12 +3819,10 @@ class _CopyWithImpl$Query$PositionPageRfe$infoPositionByInfoPositionId$labels$sh
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$PositionPageRfe$infoPositionByInfoPositionId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$PositionPageRfe$infoPositionByInfoPositionId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$PositionPageRfe$infoPositionByInfoPositionId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$PositionPageRfe$infoPositionByInfoPositionId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

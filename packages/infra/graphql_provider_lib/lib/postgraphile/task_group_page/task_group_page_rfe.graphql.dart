@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -379,8 +380,7 @@ const documentNodeQueryTaskGroupPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -443,8 +443,7 @@ const documentNodeQueryTaskGroupPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -517,8 +516,7 @@ const documentNodeQueryTaskGroupPageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'sharedDictionaryBySharedDictionaryPronunciationId',
+                          value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                         ),
                         alias: null,
                         arguments: [],
@@ -534,8 +532,7 @@ const documentNodeQueryTaskGroupPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -598,8 +595,7 @@ const documentNodeQueryTaskGroupPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -688,8 +684,7 @@ const documentNodeQueryTaskGroupPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -752,8 +747,7 @@ const documentNodeQueryTaskGroupPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -901,8 +895,10 @@ const documentNodeQueryTaskGroupPageRfe = DocumentNode(
 Query$TaskGroupPageRfe _parserFn$Query$TaskGroupPageRfe(
   Map<String, dynamic> data,
 ) => Query$TaskGroupPageRfe.fromJson(data);
-typedef OnQueryComplete$Query$TaskGroupPageRfe =
-    FutureOr<void> Function(Map<String, dynamic>?, Query$TaskGroupPageRfe?);
+typedef OnQueryComplete$Query$TaskGroupPageRfe = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$TaskGroupPageRfe?,
+);
 
 class Options$Query$TaskGroupPageRfe
     extends graphql.QueryOptions<Query$TaskGroupPageRfe> {
@@ -1892,12 +1888,10 @@ class _CopyWithImpl$Query$TaskGroupPageRfe$mstrTaskGroupByMstrTaskGroupId$labels
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$TaskGroupPageRfe$mstrTaskGroupByMstrTaskGroupId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$TaskGroupPageRfe$mstrTaskGroupByMstrTaskGroupId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$TaskGroupPageRfe$mstrTaskGroupByMstrTaskGroupId$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$TaskGroupPageRfe$mstrTaskGroupByMstrTaskGroupId$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -2877,12 +2871,10 @@ class _CopyWithImpl$Query$TaskGroupPageRfe$mstrTaskGroupByMstrTaskGroupId$labels
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$TaskGroupPageRfe$mstrTaskGroupByMstrTaskGroupId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$TaskGroupPageRfe$mstrTaskGroupByMstrTaskGroupId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$TaskGroupPageRfe$mstrTaskGroupByMstrTaskGroupId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$TaskGroupPageRfe$mstrTaskGroupByMstrTaskGroupId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -3862,12 +3854,10 @@ class _CopyWithImpl$Query$TaskGroupPageRfe$mstrTaskGroupByMstrTaskGroupId$labels
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$TaskGroupPageRfe$mstrTaskGroupByMstrTaskGroupId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$TaskGroupPageRfe$mstrTaskGroupByMstrTaskGroupId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$TaskGroupPageRfe$mstrTaskGroupByMstrTaskGroupId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$TaskGroupPageRfe$mstrTaskGroupByMstrTaskGroupId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

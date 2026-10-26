@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -384,8 +385,7 @@ const documentNodeQueryCapabilityPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -448,8 +448,7 @@ const documentNodeQueryCapabilityPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -522,8 +521,7 @@ const documentNodeQueryCapabilityPageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'sharedDictionaryBySharedDictionaryPronunciationId',
+                          value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                         ),
                         alias: null,
                         arguments: [],
@@ -539,8 +537,7 @@ const documentNodeQueryCapabilityPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -603,8 +600,7 @@ const documentNodeQueryCapabilityPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -693,8 +689,7 @@ const documentNodeQueryCapabilityPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -757,8 +752,7 @@ const documentNodeQueryCapabilityPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -1061,8 +1055,10 @@ const documentNodeQueryCapabilityPageRfe = DocumentNode(
 Query$CapabilityPageRfe _parserFn$Query$CapabilityPageRfe(
   Map<String, dynamic> data,
 ) => Query$CapabilityPageRfe.fromJson(data);
-typedef OnQueryComplete$Query$CapabilityPageRfe =
-    FutureOr<void> Function(Map<String, dynamic>?, Query$CapabilityPageRfe?);
+typedef OnQueryComplete$Query$CapabilityPageRfe = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$CapabilityPageRfe?,
+);
 
 class Options$Query$CapabilityPageRfe
     extends graphql.QueryOptions<Query$CapabilityPageRfe> {
@@ -2177,12 +2173,10 @@ class _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$lab
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -3162,12 +3156,10 @@ class _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$lab
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -4147,12 +4139,10 @@ class _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$lab
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -5128,12 +5118,10 @@ class _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$det
           : (sharedTextId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja),
+          : (ja as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en),
+          : (en as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

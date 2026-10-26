@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -392,8 +393,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -456,8 +456,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -530,8 +529,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'sharedDictionaryBySharedDictionaryPronunciationId',
+                          value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                         ),
                         alias: null,
                         arguments: [],
@@ -547,8 +545,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -611,8 +608,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -701,8 +697,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -765,8 +760,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -908,8 +902,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -974,8 +967,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -1050,8 +1042,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -1067,8 +1058,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -1133,8 +1123,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -1209,8 +1198,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -1226,8 +1214,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -1292,8 +1279,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -1406,8 +1392,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                          value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                         ),
                         alias: NameNode(value: 'update_user'),
                         arguments: [],
@@ -1460,8 +1445,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1479,8 +1463,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -1492,8 +1475,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1552,8 +1534,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -1565,8 +1546,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1635,8 +1615,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1654,8 +1633,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -1667,8 +1645,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1727,8 +1704,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -1740,8 +1716,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1810,8 +1785,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -1829,8 +1803,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -1842,8 +1815,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -1902,8 +1874,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -1915,8 +1886,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2235,8 +2205,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -2254,8 +2223,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -2267,8 +2235,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2327,8 +2294,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -2340,8 +2306,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2410,8 +2375,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -2429,8 +2393,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -2442,8 +2405,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2502,8 +2464,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -2515,8 +2476,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2585,8 +2545,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -2604,8 +2563,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -2617,8 +2575,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2677,8 +2634,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -2690,8 +2646,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2840,8 +2795,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -2859,8 +2813,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -2872,8 +2825,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -2932,8 +2884,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -2945,8 +2896,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3015,8 +2965,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -3034,8 +2983,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -3047,8 +2995,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3107,8 +3054,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -3120,8 +3066,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3190,8 +3135,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -3209,8 +3153,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -3222,8 +3165,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3282,8 +3224,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -3295,8 +3236,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3423,8 +3363,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -3489,8 +3428,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -3565,8 +3503,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -3582,8 +3519,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -3648,8 +3584,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -3724,8 +3659,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -3741,8 +3675,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -3807,8 +3740,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -4083,8 +4015,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -4102,8 +4033,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -4115,8 +4045,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -4175,8 +4104,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -4188,8 +4116,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -4258,8 +4185,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -4277,8 +4203,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -4290,8 +4215,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -4350,8 +4274,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -4363,8 +4286,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -4433,8 +4355,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -4452,8 +4373,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -4465,8 +4385,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -4525,8 +4444,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -4538,8 +4456,7 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -4703,11 +4620,10 @@ const documentNodeQueryInspectionItemPageRfe = DocumentNode(
 Query$InspectionItemPageRfe _parserFn$Query$InspectionItemPageRfe(
   Map<String, dynamic> data,
 ) => Query$InspectionItemPageRfe.fromJson(data);
-typedef OnQueryComplete$Query$InspectionItemPageRfe =
-    FutureOr<void> Function(
-      Map<String, dynamic>?,
-      Query$InspectionItemPageRfe?,
-    );
+typedef OnQueryComplete$Query$InspectionItemPageRfe = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$InspectionItemPageRfe?,
+);
 
 class Options$Query$InspectionItemPageRfe
     extends graphql.QueryOptions<Query$InspectionItemPageRfe> {
@@ -5985,12 +5901,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -6970,12 +6884,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -7955,12 +7867,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -9651,12 +9561,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -10636,12 +10544,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -11621,12 +11527,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -13301,12 +13205,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -14286,12 +14188,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -15271,12 +15171,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -17894,12 +17792,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$kinds$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$kinds$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$kinds$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$kinds$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -18879,12 +18775,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$kinds$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -19864,12 +19758,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$kinds$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -21449,12 +21341,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$manufacture$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$manufacture$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$manufacture$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$manufacture$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -22434,12 +22324,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$manufacture$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$manufacture$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$manufacture$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$manufacture$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -23419,12 +23307,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$manufacture$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$manufacture$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$manufacture$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$manufacture$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -24757,12 +24643,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -25742,12 +25626,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -26727,12 +26609,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -27710,12 +27590,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedTextId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$detailTexts$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$detailTexts$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$detailTexts$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$detailTexts$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -29253,12 +29131,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$unit$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$unit$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$unit$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -30238,12 +30114,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -31223,12 +31097,10 @@ class _CopyWithImpl$Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$InspectionItemPageRfe$mstrInspectionByMstrInspectionId$items$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

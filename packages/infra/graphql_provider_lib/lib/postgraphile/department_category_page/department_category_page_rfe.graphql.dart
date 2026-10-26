@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -407,8 +408,7 @@ const documentNodeQueryDepartmentCategoryPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -471,8 +471,7 @@ const documentNodeQueryDepartmentCategoryPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -545,8 +544,7 @@ const documentNodeQueryDepartmentCategoryPageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'sharedDictionaryBySharedDictionaryPronunciationId',
+                          value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                         ),
                         alias: null,
                         arguments: [],
@@ -562,8 +560,7 @@ const documentNodeQueryDepartmentCategoryPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -626,8 +623,7 @@ const documentNodeQueryDepartmentCategoryPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -716,8 +712,7 @@ const documentNodeQueryDepartmentCategoryPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -780,8 +775,7 @@ const documentNodeQueryDepartmentCategoryPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -1922,12 +1916,10 @@ class _CopyWithImpl$Query$DepartmentCategoryPageRfe$infoDepartmentKindValueByInf
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentCategoryPageRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$DepartmentCategoryPageRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentCategoryPageRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$DepartmentCategoryPageRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -2907,12 +2899,10 @@ class _CopyWithImpl$Query$DepartmentCategoryPageRfe$infoDepartmentKindValueByInf
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentCategoryPageRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$DepartmentCategoryPageRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentCategoryPageRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$DepartmentCategoryPageRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -3892,12 +3882,10 @@ class _CopyWithImpl$Query$DepartmentCategoryPageRfe$infoDepartmentKindValueByInf
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$DepartmentCategoryPageRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$DepartmentCategoryPageRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$DepartmentCategoryPageRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$DepartmentCategoryPageRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

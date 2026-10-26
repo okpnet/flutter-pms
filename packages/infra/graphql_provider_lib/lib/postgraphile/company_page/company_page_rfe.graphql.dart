@@ -1,5 +1,7 @@
 import '../schema.graphql.dart';
+
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -462,8 +464,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -526,8 +527,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -600,8 +600,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'sharedDictionaryBySharedDictionaryPronunciationId',
+                          value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                         ),
                         alias: null,
                         arguments: [],
@@ -617,8 +616,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -681,8 +679,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -771,8 +768,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -835,8 +831,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -978,8 +973,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -1044,8 +1038,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -1120,8 +1113,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -1137,8 +1129,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -1203,8 +1194,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -1279,8 +1269,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -1296,8 +1285,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -1362,8 +1350,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -1479,8 +1466,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -1545,8 +1531,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -1621,8 +1606,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -1638,8 +1622,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -1704,8 +1687,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -1780,8 +1762,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -1797,8 +1778,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -1863,8 +1843,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -1980,8 +1959,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -2046,8 +2024,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -2122,8 +2099,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -2139,8 +2115,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -2205,8 +2180,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -2281,8 +2255,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -2298,8 +2271,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'ja'),
                                     arguments: [
@@ -2364,8 +2336,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'en'),
                                     arguments: [
@@ -2518,8 +2489,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -2582,8 +2552,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -2656,8 +2625,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'sharedDictionaryBySharedDictionaryPronunciationId',
+                          value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                         ),
                         alias: null,
                         arguments: [],
@@ -2673,8 +2641,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -2737,8 +2704,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -2827,8 +2793,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'ja'),
                               arguments: [
@@ -2891,8 +2856,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryValuesBySharedDictionaryId',
+                                value: 'sharedDictionaryValuesBySharedDictionaryId',
                               ),
                               alias: NameNode(value: 'en'),
                               arguments: [
@@ -3077,8 +3041,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -3096,8 +3059,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -3109,8 +3071,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3169,8 +3130,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -3182,8 +3142,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3252,8 +3211,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -3271,8 +3229,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -3284,8 +3241,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3344,8 +3300,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -3357,8 +3312,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3427,8 +3381,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -3446,8 +3399,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'ja'),
                                           arguments: [
@@ -3459,8 +3411,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3519,8 +3470,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'en'),
                                           arguments: [
@@ -3532,8 +3482,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -3851,8 +3800,10 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
 Query$CompanyPageRfe _parserFn$Query$CompanyPageRfe(
   Map<String, dynamic> data,
 ) => Query$CompanyPageRfe.fromJson(data);
-typedef OnQueryComplete$Query$CompanyPageRfe =
-    FutureOr<void> Function(Map<String, dynamic>?, Query$CompanyPageRfe?);
+typedef OnQueryComplete$Query$CompanyPageRfe = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$CompanyPageRfe?,
+);
 
 class Options$Query$CompanyPageRfe
     extends graphql.QueryOptions<Query$CompanyPageRfe> {
@@ -4924,12 +4875,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$labels$share
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -5909,12 +5858,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$labels$share
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -6894,12 +6841,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$labels$share
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -8626,12 +8571,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$addr
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address1$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address1$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address1$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address1$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -9611,12 +9554,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$addr
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -10596,12 +10537,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$addr
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address1$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address1$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address1$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address1$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -11933,12 +11872,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$addr
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address2$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address2$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address2$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address2$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -12918,12 +12855,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$addr
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -13903,12 +13838,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$addr
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address2$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address2$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address2$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$address2$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -15240,12 +15173,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$buil
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$building$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$building$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$building$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$building$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -16225,12 +16156,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$buil
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$building$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$building$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -17210,12 +17139,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$buil
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$building$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$building$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$address$building$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -18533,12 +18460,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDi
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -19518,12 +19443,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDi
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -20503,12 +20426,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDi
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -22600,12 +22521,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$n
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$nodes$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$nodes$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$nodes$labels$sharedDictionaryBySharedDictionaryNameId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$nodes$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -23585,12 +23504,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$n
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -24570,12 +24487,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$n
           : (sharedDictionaryId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -25553,12 +25468,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$n
           : (sharedTextId as String),
       ja: ja == _undefined || ja == null
           ? _instance.ja
-          : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$nodes$detailTexts$ja),
+          : (ja as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$nodes$detailTexts$ja),
       en: en == _undefined || en == null
           ? _instance.en
-          : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$nodes$detailTexts$en),
+          : (en as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$provisions$nodes$detailTexts$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

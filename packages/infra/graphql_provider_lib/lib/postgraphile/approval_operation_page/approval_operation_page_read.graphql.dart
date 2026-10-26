@@ -1,5 +1,7 @@
 import '../schema.graphql.dart';
+
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -685,8 +687,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'value'),
                                     arguments: [
@@ -761,8 +762,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                                value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                               ),
                               alias: null,
                               arguments: [],
@@ -778,8 +778,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'value'),
                                     arguments: [
@@ -854,8 +853,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                                value: 'sharedDictionaryBySharedDictionaryNicknameId',
                               ),
                               alias: null,
                               arguments: [],
@@ -871,8 +869,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                      value: 'sharedDictionaryValuesBySharedDictionaryId',
                                     ),
                                     alias: NameNode(value: 'value'),
                                     arguments: [
@@ -957,8 +954,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'mstrApprovalPatternDetailsByMstrApprovalPatternId',
+                          value: 'mstrApprovalPatternDetailsByMstrApprovalPatternId',
                         ),
                         alias: NameNode(value: 'pattern_detail'),
                         arguments: [
@@ -1080,8 +1076,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'infoDepartmentByInfoDepartmentId',
+                                            value: 'infoDepartmentByInfoDepartmentId',
                                           ),
                                           alias: NameNode(value: 'department'),
                                           arguments: [],
@@ -1115,8 +1110,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedAppellationByNames',
+                                                  value: 'sharedAppellationByNames',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'labels',
@@ -1127,8 +1121,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationsId',
+                                                        value: 'sharedAppellationsId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -1137,8 +1130,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -1147,8 +1139,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -1157,8 +1148,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -1166,20 +1156,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -1203,8 +1190,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -1217,8 +1203,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -1233,10 +1218,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1262,8 +1247,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                        value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -1272,8 +1256,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -1282,8 +1265,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -1291,20 +1273,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -1328,8 +1307,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -1342,8 +1320,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -1358,10 +1335,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1387,8 +1364,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNicknameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -1397,8 +1373,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -1407,8 +1382,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -1416,20 +1390,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -1453,8 +1424,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -1467,8 +1437,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -1483,10 +1452,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1524,8 +1493,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'infoAddressByInfoAddressId',
+                                                  value: 'infoAddressByInfoAddressId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'address',
@@ -1563,8 +1531,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByAddress1',
+                                                        value: 'sharedAppellationByAddress1',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'address1',
@@ -1575,8 +1542,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -1585,8 +1551,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -1594,10 +1559,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1606,19 +1571,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -1642,8 +1606,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -1676,8 +1639,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -1692,10 +1654,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1708,8 +1670,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -1717,10 +1678,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1729,19 +1690,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -1765,8 +1725,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -1799,8 +1758,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -1815,10 +1773,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1831,8 +1789,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -1840,10 +1797,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1852,19 +1809,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -1888,8 +1844,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -1922,8 +1877,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -1938,10 +1892,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -1967,8 +1921,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByAddress2',
+                                                        value: 'sharedAppellationByAddress2',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'address2',
@@ -1979,8 +1932,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -1989,8 +1941,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -1998,10 +1949,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2010,19 +1961,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -2046,8 +1996,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2080,8 +2029,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2096,10 +2044,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2112,8 +2060,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -2121,10 +2068,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2133,19 +2080,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -2169,8 +2115,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2203,8 +2148,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2219,10 +2163,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2235,8 +2179,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -2244,10 +2187,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2256,19 +2199,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -2292,8 +2234,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2326,8 +2267,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2342,10 +2282,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2371,8 +2311,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByBuilding',
+                                                        value: 'sharedAppellationByBuilding',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'building',
@@ -2383,8 +2322,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -2393,8 +2331,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -2402,10 +2339,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2414,19 +2351,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -2450,8 +2386,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2484,8 +2419,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2500,10 +2434,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2516,8 +2450,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -2525,10 +2458,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2537,19 +2470,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -2573,8 +2505,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2607,8 +2538,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2623,10 +2553,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2639,8 +2569,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -2648,10 +2577,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2660,19 +2589,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -2696,8 +2624,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2730,8 +2657,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2746,10 +2672,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2837,8 +2763,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                                  value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'update_user',
@@ -2885,8 +2810,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByNames',
+                                                        value: 'sharedAppellationByNames',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'name',
@@ -2897,8 +2821,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -2907,8 +2830,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -2916,10 +2838,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -2928,19 +2850,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -2964,8 +2885,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -2998,8 +2918,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3014,10 +2933,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3030,8 +2949,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -3039,10 +2957,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3051,19 +2969,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3087,8 +3004,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3121,8 +3037,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3137,10 +3052,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3153,8 +3068,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -3162,10 +3076,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3174,19 +3088,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -3210,8 +3123,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3244,8 +3156,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3260,10 +3171,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3386,8 +3297,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedAppellationByNames',
+                                                  value: 'sharedAppellationByNames',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'labels',
@@ -3398,8 +3308,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationsId',
+                                                        value: 'sharedAppellationsId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -3408,8 +3317,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -3418,8 +3326,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -3428,8 +3335,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -3437,20 +3343,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -3474,8 +3377,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3488,8 +3390,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3504,10 +3405,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3533,8 +3434,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                        value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -3543,8 +3443,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -3553,8 +3452,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -3562,20 +3460,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -3599,8 +3494,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3613,8 +3507,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3629,10 +3522,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3658,8 +3551,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNicknameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -3668,8 +3560,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -3678,8 +3569,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -3687,20 +3577,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -3724,8 +3611,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3738,8 +3624,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -3754,10 +3639,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3811,8 +3696,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'vPositionApprovalCountByInfoPositionId',
+                                                  value: 'vPositionApprovalCountByInfoPositionId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'approval_count',
@@ -3844,8 +3728,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'vPositionAssignCountByInfoPositionId',
+                                                  value: 'vPositionAssignCountByInfoPositionId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'assign_count',
@@ -3893,8 +3776,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                                  value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'update_user',
@@ -3941,8 +3823,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByNames',
+                                                        value: 'sharedAppellationByNames',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'name',
@@ -3953,8 +3834,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -3963,8 +3843,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -3972,10 +3851,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -3984,19 +3863,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -4020,8 +3898,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4054,8 +3931,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4070,10 +3946,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4086,8 +3962,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -4095,10 +3970,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4107,19 +3982,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -4143,8 +4017,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4177,8 +4050,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4193,10 +4065,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4209,8 +4081,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -4218,10 +4089,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4230,19 +4101,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -4266,8 +4136,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4300,8 +4169,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4316,10 +4184,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4430,8 +4298,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -4440,8 +4307,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -4450,8 +4316,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'value',
@@ -4465,14 +4330,13 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'languageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'languageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -4492,10 +4356,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4504,10 +4368,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4545,8 +4409,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                  value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -4555,8 +4418,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -4565,8 +4427,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'value',
@@ -4580,14 +4441,13 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'languageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'languageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -4607,10 +4467,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4619,10 +4479,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4660,8 +4520,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -4670,8 +4529,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -4680,8 +4538,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'value',
@@ -4695,14 +4552,13 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'languageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'languageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -4722,10 +4578,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4734,10 +4590,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -4815,8 +4671,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                            value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                           ),
                                           alias: NameNode(value: 'update_user'),
                                           arguments: [],
@@ -4859,8 +4714,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedAppellationByNames',
+                                                  value: 'sharedAppellationByNames',
                                                 ),
                                                 alias: NameNode(value: 'name'),
                                                 arguments: [],
@@ -4869,8 +4723,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationsId',
+                                                        value: 'sharedAppellationsId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -4879,8 +4732,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -4889,8 +4741,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -4899,8 +4750,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -4908,20 +4758,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -4945,8 +4792,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4959,8 +4805,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -4975,10 +4820,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5004,8 +4849,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                        value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -5014,8 +4858,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -5024,8 +4867,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -5033,20 +4875,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -5070,8 +4909,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5084,8 +4922,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5100,10 +4937,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5129,8 +4966,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNicknameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -5139,8 +4975,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -5149,8 +4984,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -5158,20 +4992,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -5195,8 +5026,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5209,8 +5039,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5225,10 +5054,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5345,8 +5174,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'infoDepartmentByInfoDepartmentId',
+                                            value: 'infoDepartmentByInfoDepartmentId',
                                           ),
                                           alias: NameNode(value: 'department'),
                                           arguments: [],
@@ -5380,8 +5208,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedAppellationByNames',
+                                                  value: 'sharedAppellationByNames',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'labels',
@@ -5392,8 +5219,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationsId',
+                                                        value: 'sharedAppellationsId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -5402,8 +5228,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -5412,8 +5237,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -5422,8 +5246,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -5431,20 +5254,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -5468,8 +5288,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5482,8 +5301,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5498,10 +5316,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5527,8 +5345,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                        value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -5537,8 +5354,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -5547,8 +5363,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -5556,20 +5371,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -5593,8 +5405,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5607,8 +5418,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5623,10 +5433,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5652,8 +5462,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNicknameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -5662,8 +5471,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -5672,8 +5480,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -5681,20 +5488,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -5718,8 +5522,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5732,8 +5535,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5748,10 +5550,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5789,8 +5591,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'infoAddressByInfoAddressId',
+                                                  value: 'infoAddressByInfoAddressId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'address',
@@ -5828,8 +5629,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByAddress1',
+                                                        value: 'sharedAppellationByAddress1',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'address1',
@@ -5840,8 +5640,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -5850,8 +5649,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -5859,10 +5657,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5871,19 +5669,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -5907,8 +5704,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5941,8 +5737,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -5957,10 +5752,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5973,8 +5768,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -5982,10 +5776,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -5994,19 +5788,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -6030,8 +5823,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6064,8 +5856,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6080,10 +5871,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6096,8 +5887,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -6105,10 +5895,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6117,19 +5907,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -6153,8 +5942,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6187,8 +5975,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6203,10 +5990,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6232,8 +6019,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByAddress2',
+                                                        value: 'sharedAppellationByAddress2',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'address2',
@@ -6244,8 +6030,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -6254,8 +6039,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -6263,10 +6047,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6275,19 +6059,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -6311,8 +6094,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6345,8 +6127,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6361,10 +6142,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6377,8 +6158,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -6386,10 +6166,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6398,19 +6178,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -6434,8 +6213,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6468,8 +6246,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6484,10 +6261,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6500,8 +6277,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -6509,10 +6285,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6521,19 +6297,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -6557,8 +6332,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6591,8 +6365,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6607,10 +6380,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6636,8 +6409,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByBuilding',
+                                                        value: 'sharedAppellationByBuilding',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'building',
@@ -6648,8 +6420,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -6658,8 +6429,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -6667,10 +6437,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6679,19 +6449,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -6715,8 +6484,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6749,8 +6517,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6765,10 +6532,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6781,8 +6548,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -6790,10 +6556,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6802,19 +6568,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -6838,8 +6603,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6872,8 +6636,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6888,10 +6651,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6904,8 +6667,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -6913,10 +6675,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -6925,19 +6687,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -6961,8 +6722,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -6995,8 +6755,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7011,10 +6770,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7102,8 +6861,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                                  value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'update_user',
@@ -7150,8 +6908,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByNames',
+                                                        value: 'sharedAppellationByNames',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'name',
@@ -7162,8 +6919,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -7172,8 +6928,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -7181,10 +6936,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7193,19 +6948,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -7229,8 +6983,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7263,8 +7016,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7279,10 +7031,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7295,8 +7047,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -7304,10 +7055,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7316,19 +7067,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -7352,8 +7102,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7386,8 +7135,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7402,10 +7150,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7418,8 +7166,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -7427,10 +7174,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7439,19 +7186,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -7475,8 +7221,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7509,8 +7254,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7525,10 +7269,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7651,8 +7395,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedAppellationByNames',
+                                                  value: 'sharedAppellationByNames',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'labels',
@@ -7663,8 +7406,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationsId',
+                                                        value: 'sharedAppellationsId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -7673,8 +7415,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -7683,8 +7424,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -7693,8 +7433,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -7702,20 +7441,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -7739,8 +7475,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7753,8 +7488,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7769,10 +7503,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7798,8 +7532,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                        value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -7808,8 +7541,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -7818,8 +7550,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -7827,20 +7558,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -7864,8 +7592,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7878,8 +7605,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -7894,10 +7620,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -7923,8 +7649,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNicknameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -7933,8 +7658,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -7943,8 +7667,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -7952,20 +7675,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -7989,8 +7709,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8003,8 +7722,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8019,10 +7737,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8076,8 +7794,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'vPositionApprovalCountByInfoPositionId',
+                                                  value: 'vPositionApprovalCountByInfoPositionId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'approval_count',
@@ -8109,8 +7826,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'vPositionAssignCountByInfoPositionId',
+                                                  value: 'vPositionAssignCountByInfoPositionId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'assign_count',
@@ -8158,8 +7874,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                                  value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'update_user',
@@ -8206,8 +7921,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationByNames',
+                                                        value: 'sharedAppellationByNames',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'name',
@@ -8218,8 +7932,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedAppellationsId',
+                                                              value: 'sharedAppellationsId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -8228,8 +7941,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -8237,10 +7949,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8249,19 +7961,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -8285,8 +7996,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8319,8 +8029,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8335,10 +8044,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8351,8 +8060,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                              value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -8360,10 +8068,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8372,19 +8080,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -8408,8 +8115,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8442,8 +8148,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8458,10 +8163,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8474,8 +8179,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryBySharedDictionaryNicknameId',
+                                                              value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -8483,10 +8187,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryId',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8495,19 +8199,18 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'sharedDictionaryValuesBySharedDictionaryId',
-                                                                  ),
-                                                                  alias: NameNode(
-                                                                    value:
-                                                                        'value',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
+                                                                      ),
+                                                                  alias:
+                                                                      NameNode(
+                                                                        value: 'value',
+                                                                      ),
                                                                   arguments: [
                                                                     ArgumentNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'condition',
+                                                                        value: 'condition',
                                                                       ),
                                                                       value: ObjectValueNode(
                                                                         fields: [
@@ -8531,8 +8234,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'nodes',
+                                                                          value: 'nodes',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8565,8 +8267,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -8581,10 +8282,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8695,8 +8396,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -8705,8 +8405,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -8715,8 +8414,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'value',
@@ -8730,14 +8428,13 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'languageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'languageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -8757,10 +8454,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8769,10 +8466,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8810,8 +8507,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                  value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -8820,8 +8516,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -8830,8 +8525,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'value',
@@ -8845,14 +8539,13 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'languageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'languageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -8872,10 +8565,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8884,10 +8577,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8925,8 +8618,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -8935,8 +8627,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -8945,8 +8636,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'value',
@@ -8960,14 +8650,13 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'languageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'languageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -8987,10 +8676,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -8999,10 +8688,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9080,8 +8769,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                            value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                           ),
                                           alias: NameNode(value: 'update_user'),
                                           arguments: [],
@@ -9124,8 +8812,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedAppellationByNames',
+                                                  value: 'sharedAppellationByNames',
                                                 ),
                                                 alias: NameNode(value: 'name'),
                                                 arguments: [],
@@ -9134,8 +8821,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedAppellationsId',
+                                                        value: 'sharedAppellationsId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -9144,8 +8830,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -9154,8 +8839,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -9164,8 +8848,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -9173,20 +8856,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -9210,8 +8890,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9224,8 +8903,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9240,10 +8918,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9269,8 +8947,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                        value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -9279,8 +8956,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -9289,8 +8965,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -9298,20 +8973,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -9335,8 +9007,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9349,8 +9020,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9365,10 +9035,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9394,8 +9064,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNicknameId',
+                                                        value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -9404,8 +9073,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                         selections: [
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
+                                                              value: 'sharedDictionaryId',
                                                             ),
                                                             alias: null,
                                                             arguments: [],
@@ -9414,8 +9082,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
+                                                              value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                             ),
                                                             alias: NameNode(
                                                               value: 'value',
@@ -9423,20 +9090,17 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             arguments: [
                                                               ArgumentNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'condition',
+                                                                  value: 'condition',
                                                                 ),
                                                                 value: ObjectValueNode(
                                                                   fields: [
                                                                     ObjectFieldNode(
                                                                       name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
+                                                                        value: 'sharedLanguageCodeId',
                                                                       ),
                                                                       value: VariableNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
+                                                                          value: 'languageCodeId',
                                                                         ),
                                                                       ),
                                                                     ),
@@ -9460,8 +9124,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                     selections: [
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
+                                                                          value: 'dictionaryValue',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9474,8 +9137,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       ),
                                                                       FieldNode(
                                                                         name: NameNode(
-                                                                          value:
-                                                                              '__typename',
+                                                                          value: '__typename',
                                                                         ),
                                                                         alias:
                                                                             null,
@@ -9490,10 +9152,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                   ),
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9620,8 +9282,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                      value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                     ),
                                     alias: NameNode(value: 'update_user'),
                                     arguments: [],
@@ -9678,8 +9339,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -9688,8 +9348,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -9698,8 +9357,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'value',
@@ -9713,14 +9371,13 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'languageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'languageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -9740,10 +9397,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9752,10 +9409,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9793,8 +9450,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                  value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -9803,8 +9459,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -9813,8 +9468,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'value',
@@ -9828,14 +9482,13 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'languageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'languageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -9855,10 +9508,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9867,10 +9520,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9908,8 +9561,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                  value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                                 ),
                                                 alias: null,
                                                 arguments: [],
@@ -9918,8 +9570,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                   selections: [
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
+                                                        value: 'sharedDictionaryId',
                                                       ),
                                                       alias: null,
                                                       arguments: [],
@@ -9928,8 +9579,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                     ),
                                                     FieldNode(
                                                       name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                        value: 'sharedDictionaryValuesBySharedDictionaryId',
                                                       ),
                                                       alias: NameNode(
                                                         value: 'value',
@@ -9943,14 +9593,13 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
+                                                                  value: 'sharedLanguageCodeId',
                                                                 ),
                                                                 value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'languageCodeId',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'languageCodeId',
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ],
@@ -9970,10 +9619,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                             selectionSet: SelectionSetNode(
                                                               selections: [
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: 'dictionaryValue',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -9982,10 +9631,10 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                                       null,
                                                                 ),
                                                                 FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
+                                                                  name:
+                                                                      NameNode(
+                                                                        value: '__typename',
+                                                                      ),
                                                                   alias: null,
                                                                   arguments: [],
                                                                   directives:
@@ -10107,8 +9756,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'vApprovalPatternApprovalPatternCountByMstrApprovalPatternId',
+                          value: 'vApprovalPatternApprovalPatternCountByMstrApprovalPatternId',
                         ),
                         alias: NameNode(value: 'approval_pattern_count'),
                         arguments: [],
@@ -10134,8 +9782,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'vApprovalPatternApprovalPatternDetailCountByMstrApprovalPatternId',
+                          value: 'vApprovalPatternApprovalPatternDetailCountByMstrApprovalPatternId',
                         ),
                         alias: NameNode(value: 'approval_pattern_detail_count'),
                         arguments: [],
@@ -10175,8 +9822,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value:
-                              'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                          value: 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                         ),
                         alias: NameNode(value: 'update_user'),
                         arguments: [],
@@ -10229,8 +9875,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -10248,8 +9893,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -10261,8 +9905,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -10330,8 +9973,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryPronunciationId',
+                                      value: 'sharedDictionaryBySharedDictionaryPronunciationId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -10349,8 +9991,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -10362,8 +10003,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
@@ -10431,8 +10071,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedDictionaryBySharedDictionaryNicknameId',
+                                      value: 'sharedDictionaryBySharedDictionaryNicknameId',
                                     ),
                                     alias: null,
                                     arguments: [],
@@ -10450,8 +10089,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedDictionaryValuesBySharedDictionaryId',
+                                            value: 'sharedDictionaryValuesBySharedDictionaryId',
                                           ),
                                           alias: NameNode(value: 'value'),
                                           arguments: [
@@ -10463,8 +10101,7 @@ const documentNodeQueryApprovalOperationPageRead = DocumentNode(
                                                 fields: [
                                                   ObjectFieldNode(
                                                     name: NameNode(
-                                                      value:
-                                                          'sharedLanguageCodeId',
+                                                      value: 'sharedLanguageCodeId',
                                                     ),
                                                     value: VariableNode(
                                                       name: NameNode(
