@@ -209,6 +209,13 @@
         +   受注情報[OrderPageEdit]
             +   受注明細[OrderDetailPage]
                 +   受注明細情報[OrderDetailPageEdit]
+1.  出荷
+    +   出荷オーダー台帳[ShippingOrderPage]
+        +   出荷オーダー情報[ShippingOrderPageEdit]
+            +   出荷オーダー明細[ShippingOrderDetailPage]
+                +   出荷オーダー明細情報[ShippingOrderDetailPageEdit]
+                +   出荷実績明細[ShippingOrderDetailRecordPage]
+                    +   出荷実績登録[ShippingOrderDetailRecordPageEdit]
 ##  購買
 1.  配送区分
     +   配送区分項目[ShippingKindReadFields]
@@ -254,6 +261,11 @@
     +   コンテナ体系[ContainerPage]
         +   コンテナ情報[ContainerPageEdit]
         +   コンテナ体系情報[ContainerTreePageEdit]<!--親の付け替え(ドラッグ&ドロップ)-->
+1.  在庫状態
+    +   棚ビジター台帳[VisiterPage]
+        +   棚ビジター情報[VisiterPageEdit]
+        +   搬送明細[ConveyPage]
+            +   搬送登録[ConveyPageEdit]
 1.  購入受入
     +   受入登録[PurchaseRecPageEdit]<!--検品の受入登録と共有-->
         +   成績書明細[PurchaseCertificationPage]

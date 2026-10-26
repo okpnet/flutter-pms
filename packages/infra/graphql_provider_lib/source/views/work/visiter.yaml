@@ -1,0 +1,124 @@
+# yaml-language-server: $schema=../../schema.json
+
+# trans_visiterの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+VisiterPage: &VisiterPage
+  kind: read
+  from: trans_visiter
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_visiter_id
+    - trans_container_id
+    - status
+    - quantity
+    - symbol
+    - remarks
+    - name: convey_count
+      arrayType: toFirstOne
+      as: convey_count
+      using: trans_visiter_id
+      from: v_visiter_convey_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: purchase_rec_visiter_count
+      arrayType: toFirstOne
+      as: purchase_rec_visiter_count
+      using: trans_visiter_id
+      from: v_visiter_purchase_rec_visiter_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: work_record_visiter_count
+      arrayType: toFirstOne
+      as: work_record_visiter_count
+      using: trans_visiter_id
+      from: v_visiter_work_record_visiter_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_visiterの書き込み
+VisiterPageEdit:
+  kind: edit
+  from: trans_visiter
+  requiredWhere:
+    - trans_visiter_id
+  generateRfe: true
+  columns:
+    - trans_visiter_id
+    - trans_container_id
+    - status
+    - quantity
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_conveyの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ConveyPage: &ConveyPage
+  kind: read
+  from: trans_convey
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_visiter_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_convey_id
+    - trans_visiter_id
+    - receive
+    - convey_at
+    - quantity
+    - location_history_id
+    - location_id
+    - staff_history_id
+    - staff_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_conveyの書き込み
+ConveyPageEdit:
+  kind: edit
+  from: trans_convey
+  requiredWhere:
+    - trans_convey_id
+  generateRfe: true
+  columns:
+    - trans_convey_id
+    - trans_visiter_id
+    - receive
+    - convey_at
+    - quantity
+    - location_history_id
+    - location_id
+    - staff_history_id
+    - staff_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+

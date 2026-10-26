@@ -1,0 +1,157 @@
+# yaml-language-server: $schema=../../schema.json
+
+# trans_shipping_orderの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ShippingOrderPage: &ShippingOrderPage
+  kind: read
+  from: trans_shipping_order
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_shipping_order_id
+    - trans_order_id
+    - estimated_shipping_date
+    - code
+    - estimated_arrival_date
+    - stakeholder_history_id
+    - stakeholder_id
+    - symbol
+    - remarks
+    - name: shipping_order_detail_count
+      arrayType: toFirstOne
+      as: shipping_order_detail_count
+      using: trans_shipping_order_id
+      from: v_shipping_order_shipping_order_detail_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_shipping_orderの書き込み
+ShippingOrderPageEdit:
+  kind: edit
+  from: trans_shipping_order
+  requiredWhere:
+    - trans_shipping_order_id
+  generateRfe: true
+  columns:
+    - trans_shipping_order_id
+    - trans_order_id
+    - estimated_shipping_date
+    - code
+    - estimated_arrival_date
+    - stakeholder_history_id
+    - stakeholder_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_shipping_order_detailの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ShippingOrderDetailPage: &ShippingOrderDetailPage
+  kind: read
+  from: trans_shipping_order_detail
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_shipping_order_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_shipping_order_detail_id
+    - trans_shipping_order_id
+    - trans_order_detail_id
+    - estimated_shipping_date
+    - estimated_arrival_date
+    - shipping_quantity
+    - symbol
+    - remarks
+    - name: shipping_order_detail_record_count
+      arrayType: toFirstOne
+      as: shipping_order_detail_record_count
+      using: trans_shipping_order_detail_id
+      from: v_shipping_order_detail_shipping_order_detail_record_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_shipping_order_detailの書き込み
+ShippingOrderDetailPageEdit:
+  kind: edit
+  from: trans_shipping_order_detail
+  requiredWhere:
+    - trans_shipping_order_detail_id
+  generateRfe: true
+  columns:
+    - trans_shipping_order_detail_id
+    - trans_shipping_order_id
+    - trans_order_detail_id
+    - estimated_shipping_date
+    - estimated_arrival_date
+    - shipping_quantity
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# trans_shipping_order_detail_recordの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+ShippingOrderDetailRecordPage: &ShippingOrderDetailRecordPage
+  kind: read
+  from: trans_shipping_order_detail_record
+  filter: true
+  requiredWhere:
+    - languageCode
+    - trans_shipping_order_detail_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_shipping_order_detail_record_id
+    - trans_shipping_order_detail_id
+    - shipping_date
+    - shipping_quantity
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_shipping_order_detail_recordの書き込み
+ShippingOrderDetailRecordPageEdit:
+  kind: edit
+  from: trans_shipping_order_detail_record
+  requiredWhere:
+    - trans_shipping_order_detail_record_id
+  generateRfe: true
+  columns:
+    - trans_shipping_order_detail_record_id
+    - trans_shipping_order_detail_id
+    - shipping_date
+    - shipping_quantity
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
