@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" width="480" height="360" role="img" aria-labelledby="t d">
+  <title id="t">メンテナンス中のイメージ</title>
+  <desc id="d">大小2つの歯車とレンチ、手前に縞模様の通行止めバリケード。システムの保守作業中であることを表します。</desc>
+  <style>
+    :root { --bg: #dcefef; --gear: #0b6b6f; --gear2: #3b78a8; --ink: #12202a; --paper: #ffffff; --warn: #f2b705; --ground: #b9d6d7; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #1b3f43; --gear: #5cc3c6; --gear2: #7db4e0; --ink: #e8eff2; --paper: #16232b; --warn: #f0c36b; --ground: #12302f; } }
+    .spin-a { transform-origin: 185px 150px; animation: spin 24s linear infinite; }
+    .spin-b { transform-origin: 318px 232px; animation: spin 18s linear infinite reverse; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .spin-a, .spin-b { animation: none; } }
+  </style>
+  <defs>
+    <pattern id="stripe" width="28" height="28" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="28" height="28" fill="var(--warn)"/><rect width="14" height="28" fill="var(--ink)"/>
+    </pattern>
+    <mask id="jaw"><rect width="100" height="100" fill="#fff"/><rect x="38" y="-2" width="24" height="32" rx="3" fill="#000"/></mask>
+  </defs>
+  <rect width="480" height="360" rx="24" fill="var(--bg)"/>
+  <ellipse cx="240" cy="318" rx="200" ry="14" fill="var(--ground)"/>
+
+  <g class="spin-a">
+    <path d="M170.8 75.3L174.0 54.6L196.0 54.6L199.2 75.3L210.0 78.2L223.1 61.9L242.2 72.9L234.7 92.5L242.5 100.3L262.1 92.8L273.1 111.9L256.8 125.0L259.7 135.8L280.4 139.0L280.4 161.0L259.7 164.2L256.8 175.0L273.1 188.1L262.1 207.2L242.5 199.7L234.7 207.5L242.2 227.1L223.1 238.1L210.0 221.8L199.2 224.7L196.0 245.4L174.0 245.4L170.8 224.7L160.0 221.8L146.9 238.1L127.8 227.1L135.3 207.5L127.5 199.7L107.9 207.2L96.9 188.1L113.2 175.0L110.3 164.2L89.6 161.0L89.6 139.0L110.3 135.8L113.2 125.0L96.9 111.9L107.9 92.8L127.5 100.3L135.3 92.5L127.8 72.9L146.9 61.9L160.0 78.2Z" fill="var(--gear)"/>
+    <circle cx="185" cy="150" r="58" fill="none" stroke="var(--bg)" stroke-width="6" opacity=".55"/>
+    <circle cx="185" cy="150" r="30" fill="var(--bg)"/>
+    <circle cx="185" cy="150" r="12" fill="var(--gear)"/>
+  </g>
+  <g class="spin-b">
+    <path d="M305.6 183.6L308.2 168.8L327.8 168.8L330.4 183.6L339.6 186.9L351.2 177.3L366.2 189.8L358.7 202.9L363.5 211.3L378.6 211.4L382.0 230.7L367.9 235.8L366.2 245.4L377.7 255.1L367.9 272.1L353.7 267.0L346.2 273.3L348.8 288.1L330.4 294.8L322.9 281.8L313.1 281.8L305.6 294.8L287.2 288.1L289.8 273.3L282.3 267.0L268.1 272.1L258.3 255.1L269.8 245.4L268.1 235.8L254.0 230.7L257.4 211.4L272.5 211.3L277.3 202.9L269.8 189.8L284.8 177.3L296.4 186.9Z" fill="var(--gear2)"/>
+    <circle cx="318" cy="232" r="22" fill="var(--bg)"/>
+    <circle cx="318" cy="232" r="8" fill="var(--gear2)"/>
+  </g>
+
+  <!-- レンチ（斜め） -->
+  <g transform="translate(372 70) rotate(35)">
+    <g mask="url(#jaw)" transform="translate(-50 -30)">
+      <circle cx="50" cy="34" r="32" fill="var(--ink)"/>
+    </g>
+    <rect x="-13" y="2" width="26" height="150" rx="13" fill="var(--ink)"/>
+    <circle cx="0" cy="136" r="5" fill="var(--bg)"/>
+  </g>
+
+  <!-- バリケード -->
+  <g>
+    <rect x="70" y="262" width="12" height="56" rx="3" fill="var(--ink)"/>
+    <rect x="398" y="262" width="12" height="56" rx="3" fill="var(--ink)"/>
+    <rect x="52" y="248" width="376" height="34" rx="6" fill="url(#stripe)" stroke="var(--ink)" stroke-width="4"/>
+  </g>
+
+  <!-- 注意標識 -->
+  <g transform="translate(62 44)">
+    <path d="M0 -4 L34 54 H-34 Z" fill="var(--warn)" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round"/>
+    <rect x="-3.5" y="16" width="7" height="22" rx="3" fill="var(--ink)"/><circle cx="0" cy="45" r="4" fill="var(--ink)"/>
+  </g>
+</svg>

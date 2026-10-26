@@ -37,6 +37,7 @@
     search: "M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14M20 20l-4-4",
     more: "M5 12h.01M12 12h.01M19 12h.01",
     alert: "M12 3l10 18H2zM12 10v5M12 18h.01",
+    refresh: "M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7",
     gear: "M12 9a3 3 0 1 0 .01 0M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.9a7 7 0 0 0-2-1.2L14.2 3h-4l-.4 2.6a7 7 0 0 0-2 1.2l-2.3-.9-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 2 1.2l.4 2.6h4l.4-2.6a7 7 0 0 0 2-1.2l2.3.9 2-3.4-2-1.5c.1-.4.1-.8.1-1.2",
     list: "M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01",
   };
@@ -90,6 +91,7 @@
   D.offerings.forEach((o, i) => { o.id ||= `o${i + 1}`; o.code ??= `PV-${String(i + 1).padStart(3, "0")}`; o.updatedBy ||= "鈴木 一郎"; o.updatedAt ||= "2026年10月1日"; });
   const ROUTES = {
     home: "ダッシュボード",
+    "maintenance-mode": "メンテナンス中",
     customers: "顧客",
     orders: "出荷",
     production: "生産計画",
@@ -390,7 +392,7 @@
 
   function moreScreen() {
     const l = (href, ic, label, sub) => `<a class="rowi" href="${href}"><span class="rowi-main"><span class="rowi-name">${icon(ic)}${label}</span><span class="rowi-sub">${sub}</span></span><span class="rowi-right">${icon("chevron")}</span></a>`;
-    return `<div class="card list-card">${l("#/menu", "list", "業務メニュー", "品目・工程・営業・購買・生産計画・作業実績・品質管理")}${l("#/resources", "box", "資源", "力量・資格・場所・設備・保全")}${l("#/company", "building", "会社情報", "概要・サマリ・提供サービス")}${l("#/settings", "gear", "設定", "テーマ・言語・画面の列")}${l("#/logout", "logout", "ログアウト", `${esc(D.user.name)} さんとしてサインイン中`)}</div>`;
+    return `<div class="card list-card">${l("#/menu", "list", "業務メニュー", "品目・工程・営業・購買・生産計画・作業実績・品質管理")}${l("#/resources", "box", "資源", "力量・資格・場所・設備・保全")}${l("#/company", "building", "会社情報", "概要・サマリ・提供サービス")}${l("#/settings", "gear", "設定", "テーマ・言語・画面の列")}${l("#/maintenance-mode", "wrench", "メンテナンス中", "確認用。フラグがオンのときは全画面でこの表示になります")}${l("#/logout", "logout", "ログアウト", `${esc(D.user.name)} さんとしてサインイン中`)}</div>`;
   }
 
   /* ---------- screens ---------- */
@@ -2400,6 +2402,27 @@
   /* ---------- AppCore: boot / login / error / settings ---------- */
   let loginMsg = "";
   let gErr = { title: "認証サーバーに接続できません", msg: "ネットワークの状態を確認して、もう一度お試しください。", code: "KC-503" };
+  /* ---------- maintenance mode ----------
+     メンテナンスフラグがオンのあいだは、どの画面でも「メンテナンス中」だけを表示する（サインイン前も同じ）。
+     フラグ: data.extra.js の maintenance.enabled / localStorage "od.maintenance"="1" / URL の ?maintenance=1。
+     フラグがオフのときは通常表示されないため、確認用にメニューから開ける（サイドバーとモバイルの「その他」）。 */
+  const MNT = { enabled: false, from: "", to: "", scope: "", message: "", ...(X.maintenance ?? {}) };
+  const maintenanceOn = () => {
+    try { if (localStorage.getItem("od.maintenance") === "1") return true; } catch { /* storage unavailable */ }
+    return MNT.enabled === true || /[?&]maintenance=1(&|$)/.test(location.search);
+  };
+  const downtimeScreen = (live) => `<div class="mnt-wrap"><section class="card mnt-card" role="status" aria-labelledby="mnt-h">
+      <img class="mnt-img" src="maintenance.svg" width="480" height="360" alt="歯車とレンチ、縞模様の通行止めバリケードのイラスト。システムのメンテナンス作業中を表しています。">
+      ${live ? `<h1 id="mnt-h" class="od-keep" tabindex="-1">ただいま<wbr>メンテナンス中です</h1>` : `<h2 id="mnt-h" class="od-keep">ただいま<wbr>メンテナンス中です</h2>`}
+      <p class="mnt-msg">${esc(MNT.message)}</p>
+      <dl class="mnt-info">
+        <div class="kv"><dt>作業の時間帯</dt><dd class="od-nowrap">${esc(MNT.from)}</dd><dd class="od-nowrap mnt-to">〜 ${esc(MNT.to)}（予定）</dd></div>
+        <div class="kv"><dt>ご利用いただけない範囲</dt><dd>${esc(MNT.scope)}</dd></div>
+      </dl>
+      <p class="note">作業が終わると、自動で通常の画面に戻ります。終了予定を過ぎても戻らないときは、再読み込みしてください。</p>
+      <div class="logout-actions"><button class="btn btn-primary" type="button" data-mnt-reload>${icon("refresh")}<span>再読み込みして確認</span></button></div>
+      ${live ? "" : `<p class="note mnt-preview">確認用の表示です。メンテナンスフラグがオンのときは、サインイン前を含むすべての画面でこの表示になります。</p>`}
+    </section></div>`;
   const bootScreen = () => `<div class="logout-wrap"><section class="card logout-card" aria-live="polite">
       <div class="spinner" role="status" aria-label="読み込み中"></div><h1>生産管理を起動しています…</h1><p>データと設定を読み込んでいます。</p>
       <div class="progress" aria-hidden="true"><span></span></div></section></div>`;
@@ -2555,6 +2578,7 @@
       move(e);
     }));
     document.querySelectorAll("[data-theme-pick]").forEach((r) => r.addEventListener("change", () => { SETTINGS.theme = r.value; applyTheme(); }));
+    document.querySelector("[data-mnt-reload]")?.addEventListener("click", () => location.reload());
     document.querySelector("[data-lang]")?.addEventListener("change", (e) => { SETTINGS.lang = e.target.value; });
     const setPhoto = (url) => {
       D.user.photo = url;
@@ -2642,6 +2666,7 @@
     ...DOM.groups.map((g) => ({ group: `g_${g.id}`, icon: g.icon, label: g.label,
       children: g.screens.map((sid) => ({ id: `g/${sid}`, icon: GS[sid].icon, label: GS[sid].label })) })),
     { id: "company", icon: "building", label: "会社情報" },
+    { id: "maintenance-mode", icon: "wrench", label: "メンテナンス中" },
   ];
   const navOpen = new Set(); // expanded groups (PC / drawer)
   let navPop = null; // group whose fly-out is open (icon-only tablet sidebar)
@@ -2725,13 +2750,14 @@
 
   function render() {
     const P = parseRoute();
-    const route = P.name;
+    const mntLive = maintenanceOn();
+    const route = mntLive ? "maintenance-mode" : P.name;
     const isLogout = route === "logout";
     const title = route === "maintenance/entity" ? `${ENT[P.ent]?.label ?? "保全"}の編集`
       : route === "g" ? GS[P.sid]?.label ?? "業務画面"
       : route === "g/entity" ? `${G[P.ent]?.label ?? "業務"}の編集`
       : ROUTES[route];
-    const bare = ["boot", "login", "error"].includes(route);
+    const bare = ["boot", "login", "error"].includes(route) || mntLive;
     navPop = null;
     NAV.forEach((n) => { if (n.group && (n.children.some((c) => c.id && isCurNav(c.id, route)) || route === "resources")) navOpen.add(n.group); });
     if (route === "company") draft = null;
@@ -2749,7 +2775,7 @@
     if (isLogout) {
       screen.innerHTML = (!mobile ? pageHead(title) : "") + logoutScreen(logoutState);
     } else if (bare) {
-      screen.innerHTML = { boot: bootScreen, login: loginScreen, error: errorScreen }[route]();
+      screen.innerHTML = mntLive ? downtimeScreen(true) : { boot: bootScreen, login: loginScreen, error: errorScreen }[route]();
     } else {
       const body = {
         home: homeScreen,
@@ -2803,6 +2829,7 @@
         g: () => gScreen(P.sid, P.tab, P.edit),
         "g/entity": () => gEntityScreen(P.ent, P.id, P.parentId),
         menu: menuScreen,
+        "maintenance-mode": () => downtimeScreen(false),
         settings: settingsScreen,
       }[route]();
       screen.innerHTML = pageHead(title, crumbOf(route)) + `<div class="${mobile ? "m-body" : "page-body"}">${["home", "orders", "production"].includes(route) ? dashTabs(route) : ""}${body}</div>`;
