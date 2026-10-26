@@ -21,7 +21,7 @@ mutation DepartmentPageEdit(
   $officeNicknameJa: String!
   $officeNicknameEn: String!
   $officeInfoAddressId: UUID!
-  $officeIso31663: String
+  $officeIso31662: String
   $officeZipCode: String
   $officeAddress1SharedAppellationsId: UUID!
   $officeAddress1NameSharedDictionaryId: UUID!
@@ -68,7 +68,7 @@ mutation DepartmentPageEdit(
   $nicknameJa: String!
   $nicknameEn: String!
   $infoAddressId: UUID!
-  $iso31663: String
+  $iso31662: String
   $zipCode: String
   $address1SharedAppellationsId: UUID!
   $address1NameSharedDictionaryId: UUID!
@@ -177,7 +177,7 @@ mutation DepartmentPageEdit(
                 updateByInfoAddressId: {
                   infoAddressId: $officeInfoAddressId
                   infoAddressPatch: {
-                    iso31663: $officeIso31663
+                    iso31662: $officeIso31662
                     zipCode: $officeZipCode
 
                     sharedAppellationToAddress1: {
@@ -406,7 +406,7 @@ mutation DepartmentPageEdit(
           updateByInfoAddressId: {
             infoAddressId: $infoAddressId
             infoAddressPatch: {
-              iso31663: $iso31663
+              iso31662: $iso31662
               zipCode: $zipCode
 
               sharedAppellationToAddress1: {
@@ -655,7 +655,7 @@ mutation DepartmentPageEdit(
 
         address: infoAddressByInfoAddressId {
           infoAddressId
-          iso31663
+          iso31662
           zipCode
 
           address1: sharedAppellationByAddress1 {
@@ -922,7 +922,7 @@ mutation DepartmentPageEdit(
 
       address: infoAddressByInfoAddressId {
         infoAddressId
-        iso31663
+        iso31662
         zipCode
 
         address1: sharedAppellationByAddress1 {
@@ -1197,6 +1197,11 @@ mutation DepartmentPageEdit(
 
             symbol
             remarks
+
+            department_kind_count: vDepartmentKindValueDepartmentKindCountByInfoDepartmentKindValueId {
+              infoDepartmentKindValueId
+            }
+
             updateAt
             remove
 

@@ -71,7 +71,7 @@ query TaskResourcePageRead(
 
         address: infoAddressByInfoAddressId {
           infoAddressId
-          iso31663
+          iso31662
           zipCode
 
           address1: sharedAppellationByAddress1 {
@@ -684,7 +684,7 @@ query TaskResourcePageRead(
 
             address: infoAddressByInfoAddressId {
               infoAddressId
-              iso31663
+              iso31662
               zipCode
 
               address1: sharedAppellationByAddress1 {
@@ -895,7 +895,7 @@ query TaskResourcePageRead(
 
           address: infoAddressByInfoAddressId {
             infoAddressId
-            iso31663
+            iso31662
             zipCode
 
             address1: sharedAppellationByAddress1 {
@@ -1067,6 +1067,19 @@ query TaskResourcePageRead(
 
         symbol
         remarks
+
+        equipment_available_count: vEquipmentEquipmentAvailableCountByMstrEquipmentId {
+          mstrEquipmentId
+        }
+
+        inspection_operation_count: vEquipmentInspectionOperationCountByMstrEquipmentId {
+          mstrEquipmentId
+        }
+
+        equipment_provision_count: vEquipmentEquipmentProvisionCountByMstrEquipmentId {
+          mstrEquipmentId
+        }
+
         updateAt
         remove
 
@@ -1169,7 +1182,7 @@ query TaskResourcePageRead(
 
         address: infoAddressByInfoAddressId {
           infoAddressId
-          iso31663
+          iso31662
           zipCode
 
           address1: sharedAppellationByAddress1 {
@@ -1382,6 +1395,19 @@ query TaskResourcePageRead(
 
         symbol
         remarks
+
+        outsource_available_count: vStakeholderOutsourceAvailableCountByMstrStakeholderId {
+          mstrStakeholderId
+        }
+
+        stakeholder_provision_count: vStakeholderStakeholderProvisionCountByMstrStakeholderId {
+          mstrStakeholderId
+        }
+
+        stakeholder_contact_count: vStakeholderStakeholderContactCountByMstrStakeholderId {
+          mstrStakeholderId
+        }
+
         updateAt
         remove
 
@@ -1436,6 +1462,15 @@ query TaskResourcePageRead(
 
       symbol
       remarks
+
+      outsource_available_count: vTaskLocationOutsourceAvailableCountByMstrTaskLocationId {
+        mstrTaskLocationId
+      }
+
+      equipment_available_count: vTaskLocationEquipmentAvailableCountByMstrTaskLocationId {
+        mstrTaskLocationId
+      }
+
       updateAt
       remove
 

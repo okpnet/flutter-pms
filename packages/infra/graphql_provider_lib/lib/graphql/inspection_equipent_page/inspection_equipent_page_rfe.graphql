@@ -756,6 +756,11 @@ query InspectionEquipentPageRfe(
 
       symbol
       remarks
+
+      inspection_operation_task_count: vInspectionInspectionOperationTaskCountByMstrInspectionId {
+        mstrInspectionId
+      }
+
       updateAt
       remove
 

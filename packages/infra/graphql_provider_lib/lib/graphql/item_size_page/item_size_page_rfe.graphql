@@ -145,6 +145,11 @@ query ItemSizePageRfe(
 
       symbol
       remarks
+
+      item_actual_size_count: vItemSizeKindItemActualSizeCountByMstrItemSizeKindId {
+        mstrItemSizeKindId
+      }
+
       updateAt
       remove
 

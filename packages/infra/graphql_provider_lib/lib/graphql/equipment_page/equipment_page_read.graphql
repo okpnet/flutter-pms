@@ -464,7 +464,7 @@ query EquipmentPageRead(
 
           address: infoAddressByInfoAddressId {
             infoAddressId
-            iso31663
+            iso31662
             zipCode
 
             address1: sharedAppellationByAddress1 {
@@ -675,7 +675,7 @@ query EquipmentPageRead(
 
         address: infoAddressByInfoAddressId {
           infoAddressId
-          iso31663
+          iso31662
           zipCode
 
           address1: sharedAppellationByAddress1 {
@@ -847,6 +847,19 @@ query EquipmentPageRead(
 
       symbol
       remarks
+
+      equipment_available_count: vEquipmentEquipmentAvailableCountByMstrEquipmentId {
+        mstrEquipmentId
+      }
+
+      inspection_operation_count: vEquipmentInspectionOperationCountByMstrEquipmentId {
+        mstrEquipmentId
+      }
+
+      equipment_provision_count: vEquipmentEquipmentProvisionCountByMstrEquipmentId {
+        mstrEquipmentId
+      }
+
       updateAt
       remove
 

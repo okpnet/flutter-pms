@@ -78,7 +78,7 @@ query CompanyPageRfe(
 
     address: infoAddressByInfoAddressId {
       infoAddressId
-      iso31663
+      iso31662
       zipCode
 
       address1: sharedAppellationByAddress1 {

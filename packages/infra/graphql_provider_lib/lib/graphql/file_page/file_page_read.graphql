@@ -28,6 +28,15 @@ query FilePageRead(
       mediaType
       symbol
       remarks
+
+      complaint_file_count: vFileComplaintFileCountByTransFileId {
+        transFileId
+      }
+
+      staff_icon_count: vFileStaffIconCountByTransFileId {
+        transFileId
+      }
+
       updateAt
       remove
 

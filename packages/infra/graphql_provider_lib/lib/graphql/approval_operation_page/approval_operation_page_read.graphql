@@ -122,7 +122,7 @@ query ApprovalOperationPageRead(
 
               address: infoAddressByInfoAddressId {
                 infoAddressId
-                iso31663
+                iso31662
                 zipCode
 
                 address1: sharedAppellationByAddress1 {
@@ -335,6 +335,15 @@ query ApprovalOperationPageRead(
 
               symbol
               remarks
+
+              approval_count: vPositionApprovalCountByInfoPositionId {
+                infoPositionId
+              }
+
+              assign_count: vPositionAssignCountByInfoPositionId {
+                infoPositionId
+              }
+
               updateAt
               remove
 
@@ -526,7 +535,7 @@ query ApprovalOperationPageRead(
 
               address: infoAddressByInfoAddressId {
                 infoAddressId
-                iso31663
+                iso31662
                 zipCode
 
                 address1: sharedAppellationByAddress1 {
@@ -739,6 +748,15 @@ query ApprovalOperationPageRead(
 
               symbol
               remarks
+
+              approval_count: vPositionApprovalCountByInfoPositionId {
+                infoPositionId
+              }
+
+              assign_count: vPositionAssignCountByInfoPositionId {
+                infoPositionId
+              }
+
               updateAt
               remove
 
@@ -941,6 +959,15 @@ query ApprovalOperationPageRead(
 
       symbol
       remarks
+
+      approval_pattern_count: vApprovalPatternApprovalPatternCountByMstrApprovalPatternId {
+        mstrApprovalPatternId
+      }
+
+      approval_pattern_detail_count: vApprovalPatternApprovalPatternDetailCountByMstrApprovalPatternId {
+        mstrApprovalPatternId
+      }
+
       updateAt
       remove
 

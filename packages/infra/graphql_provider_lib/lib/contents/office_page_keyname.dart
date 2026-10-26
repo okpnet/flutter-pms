@@ -69,8 +69,8 @@ abstract class OfficePageKeyName {
     GraphQLTypeKind.uuid,
   );
 
-  static const ContentVariable address_iso31663 = ContentVariable(
-    'address||iso31663',
+  static const ContentVariable address_iso31662 = ContentVariable(
+    'address||iso31662',
     GraphQLTypeKind.string,
   );
 

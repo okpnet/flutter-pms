@@ -282,9 +282,9 @@ abstract class CompanyPageKeyName {
         GraphQLTypeKind.uuid,
       );
 
-  static const ContentVariable address_iso31663 =
+  static const ContentVariable address_iso31662 =
       ContentVariable(
-        'address||iso31663',
+        'address||iso31662',
         GraphQLTypeKind.string,
       );
 

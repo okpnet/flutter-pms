@@ -154,6 +154,7 @@ abstract class InspectionEquipentPageFilterSpec {
     'inspections||items||update_user||privatePhone': FlatFilterPath([FilterStep('mstrInspectionByMstrInspectionId'), FilterStep('mstrItemByMstrItemId'), FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId')], 'privatePhone'),
     'inspections||symbol': FlatFilterPath([FilterStep('mstrInspectionByMstrInspectionId')], 'symbol'),
     'inspections||remarks': FlatFilterPath([FilterStep('mstrInspectionByMstrInspectionId')], 'remarks'),
+    'inspections||inspection_operation_task_count||mstrInspectionId': FlatFilterPath([FilterStep('mstrInspectionByMstrInspectionId'), FilterStep('vInspectionInspectionOperationTaskCountByMstrInspectionId')], 'mstrInspectionId'),
     'inspections||updateAt': FlatFilterPath([FilterStep('mstrInspectionByMstrInspectionId')], 'updateAt'),
     'inspections||remove': FlatFilterPath([FilterStep('mstrInspectionByMstrInspectionId')], 'remove'),
     'inspections||update_user||historyId': FlatFilterPath([FilterStep('mstrInspectionByMstrInspectionId'), FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId')], 'historyId'),

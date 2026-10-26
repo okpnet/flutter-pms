@@ -6,7 +6,7 @@ AddressReadFields: &AddressReadFields
   kind: read
   from: info_address
   columns:
-    - iso3166_3
+    - iso3166_2
     - zip_code
     - name: address1
       as: address1
@@ -43,7 +43,7 @@ AddressEditFields: &AddressEditFields
   from: info_address
   columns:
     - info_address_id
-    - iso3166_3
+    - iso3166_2
     - zip_code
     - name: address1
       using: address1

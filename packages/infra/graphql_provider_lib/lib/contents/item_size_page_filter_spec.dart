@@ -31,6 +31,7 @@ abstract class ItemSizePageFilterSpec {
     'kinds||unit||labels||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue': FlatFilterPath([FilterStep('mstrItemSizeKindByMstrItemSizeKindId'), FilterStep('sharedUnitBySharedUnitId'), FilterStep('sharedAppellationByNames'), FilterStep('sharedDictionaryBySharedDictionaryNicknameId'), FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {'sharedLanguageCodeId': 'languageCodeId'})], 'dictionaryValue'),
     'kinds||symbol': FlatFilterPath([FilterStep('mstrItemSizeKindByMstrItemSizeKindId')], 'symbol'),
     'kinds||remarks': FlatFilterPath([FilterStep('mstrItemSizeKindByMstrItemSizeKindId')], 'remarks'),
+    'kinds||item_actual_size_count||mstrItemSizeKindId': FlatFilterPath([FilterStep('mstrItemSizeKindByMstrItemSizeKindId'), FilterStep('vItemSizeKindItemActualSizeCountByMstrItemSizeKindId')], 'mstrItemSizeKindId'),
     'kinds||updateAt': FlatFilterPath([FilterStep('mstrItemSizeKindByMstrItemSizeKindId')], 'updateAt'),
     'kinds||remove': FlatFilterPath([FilterStep('mstrItemSizeKindByMstrItemSizeKindId')], 'remove'),
     'kinds||update_user||historyId': FlatFilterPath([FilterStep('mstrItemSizeKindByMstrItemSizeKindId'), FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId')], 'historyId'),

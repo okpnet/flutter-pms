@@ -63,6 +63,15 @@ query PositionPageRead(
 
       symbol
       remarks
+
+      approval_count: vPositionApprovalCountByInfoPositionId {
+        infoPositionId
+      }
+
+      assign_count: vPositionAssignCountByInfoPositionId {
+        infoPositionId
+      }
+
       updateAt
       remove
 

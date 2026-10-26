@@ -100,7 +100,7 @@ query LocationPageRead(
 
           address: infoAddressByInfoAddressId {
             infoAddressId
-            iso31663
+            iso31662
             zipCode
 
             address1: sharedAppellationByAddress1 {
@@ -309,7 +309,7 @@ query LocationPageRead(
 
         address: infoAddressByInfoAddressId {
           infoAddressId
-          iso31663
+          iso31662
           zipCode
 
           address1: sharedAppellationByAddress1 {
@@ -478,6 +478,11 @@ query LocationPageRead(
 
               symbol
               remarks
+
+              department_kind_count: vDepartmentKindValueDepartmentKindCountByInfoDepartmentKindValueId {
+                infoDepartmentKindValueId
+              }
+
               updateAt
               remove
 
@@ -588,6 +593,23 @@ query LocationPageRead(
 
         symbol
         remarks
+
+        assign_count: vDepartmentAssignCountByInfoDepartmentId {
+          infoDepartmentId
+        }
+
+        prevention_detail_count: vDepartmentPreventionDetailCountByInfoDepartmentId {
+          infoDepartmentId
+        }
+
+        department_kind_count: vDepartmentDepartmentKindCountByInfoDepartmentId {
+          infoDepartmentId
+        }
+
+        department_access_permission_count: vDepartmentDepartmentAccessPermissionCountByInfoDepartmentId {
+          infoDepartmentId
+        }
+
         updateAt
         remove
 
@@ -682,7 +704,7 @@ query LocationPageRead(
 
       address: infoAddressByInfoAddressId {
         infoAddressId
-        iso31663
+        iso31662
         zipCode
 
         address1: sharedAppellationByAddress1 {

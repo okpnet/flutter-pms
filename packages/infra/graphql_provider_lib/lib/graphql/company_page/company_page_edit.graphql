@@ -18,7 +18,7 @@ mutation CompanyPageEdit(
   $nicknameJa: String!
   $nicknameEn: String!
   $infoAddressId: UUID!
-  $iso31663: String
+  $iso31662: String
   $zipCode: String
   $address1SharedAppellationsId: UUID!
   $address1NameSharedDictionaryId: UUID!
@@ -130,7 +130,7 @@ mutation CompanyPageEdit(
           updateByInfoAddressId: {
             infoAddressId: $infoAddressId
             infoAddressPatch: {
-              iso31663: $iso31663
+              iso31662: $iso31662
               zipCode: $zipCode
 
               sharedAppellationToAddress1: {
@@ -428,7 +428,7 @@ mutation CompanyPageEdit(
 
       address: infoAddressByInfoAddressId {
         infoAddressId
-        iso31663
+        iso31662
         zipCode
 
         address1: sharedAppellationByAddress1 {

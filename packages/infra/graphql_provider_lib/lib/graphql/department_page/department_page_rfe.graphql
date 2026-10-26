@@ -83,7 +83,7 @@ query DepartmentPageRfe(
 
       address: infoAddressByInfoAddressId {
         infoAddressId
-        iso31663
+        iso31662
         zipCode
 
         address1: sharedAppellationByAddress1 {
@@ -350,7 +350,7 @@ query DepartmentPageRfe(
 
     address: infoAddressByInfoAddressId {
       infoAddressId
-      iso31663
+      iso31662
       zipCode
 
       address1: sharedAppellationByAddress1 {
@@ -625,6 +625,11 @@ query DepartmentPageRfe(
 
           symbol
           remarks
+
+          department_kind_count: vDepartmentKindValueDepartmentKindCountByInfoDepartmentKindValueId {
+            infoDepartmentKindValueId
+          }
+
           updateAt
           remove
 

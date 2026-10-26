@@ -70,7 +70,7 @@ query SupplierPageRead(
 
       address: infoAddressByInfoAddressId {
         infoAddressId
-        iso31663
+        iso31662
         zipCode
 
         address1: sharedAppellationByAddress1 {
@@ -283,6 +283,19 @@ query SupplierPageRead(
 
       symbol
       remarks
+
+      outsource_available_count: vStakeholderOutsourceAvailableCountByMstrStakeholderId {
+        mstrStakeholderId
+      }
+
+      stakeholder_provision_count: vStakeholderStakeholderProvisionCountByMstrStakeholderId {
+        mstrStakeholderId
+      }
+
+      stakeholder_contact_count: vStakeholderStakeholderContactCountByMstrStakeholderId {
+        mstrStakeholderId
+      }
+
       updateAt
       remove
 

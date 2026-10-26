@@ -98,7 +98,7 @@ query LocationPageRfe(
 
         address: infoAddressByInfoAddressId {
           infoAddressId
-          iso31663
+          iso31662
           zipCode
 
           address1: sharedAppellationByAddress1 {
@@ -427,7 +427,7 @@ query LocationPageRfe(
 
       address: infoAddressByInfoAddressId {
         infoAddressId
-        iso31663
+        iso31662
         zipCode
 
         address1: sharedAppellationByAddress1 {
@@ -692,6 +692,11 @@ query LocationPageRfe(
 
             symbol
             remarks
+
+            department_kind_count: vDepartmentKindValueDepartmentKindCountByInfoDepartmentKindValueId {
+              infoDepartmentKindValueId
+            }
+
             updateAt
             remove
 
@@ -850,6 +855,23 @@ query LocationPageRfe(
 
       symbol
       remarks
+
+      assign_count: vDepartmentAssignCountByInfoDepartmentId {
+        infoDepartmentId
+      }
+
+      prevention_detail_count: vDepartmentPreventionDetailCountByInfoDepartmentId {
+        infoDepartmentId
+      }
+
+      department_kind_count: vDepartmentDepartmentKindCountByInfoDepartmentId {
+        infoDepartmentId
+      }
+
+      department_access_permission_count: vDepartmentDepartmentAccessPermissionCountByInfoDepartmentId {
+        infoDepartmentId
+      }
+
       updateAt
       remove
 
@@ -995,7 +1017,7 @@ query LocationPageRfe(
 
     info_address_id: infoAddressByInfoAddressId {
       infoAddressId
-      iso31663
+      iso31662
       zipCode
 
       address1: sharedAppellationByAddress1 {

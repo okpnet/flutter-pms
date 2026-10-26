@@ -12,6 +12,8 @@ abstract class FilePageFilterSpec {
     'mediaType': FlatFilterPath([], 'mediaType'),
     'symbol': FlatFilterPath([], 'symbol'),
     'remarks': FlatFilterPath([], 'remarks'),
+    'complaint_file_count||transFileId': FlatFilterPath([FilterStep('vFileComplaintFileCountByTransFileId')], 'transFileId'),
+    'staff_icon_count||transFileId': FlatFilterPath([FilterStep('vFileStaffIconCountByTransFileId')], 'transFileId'),
     'updateAt': FlatFilterPath([], 'updateAt'),
     'remove': FlatFilterPath([], 'remove'),
     'update_user||historyId': FlatFilterPath([FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId')], 'historyId'),

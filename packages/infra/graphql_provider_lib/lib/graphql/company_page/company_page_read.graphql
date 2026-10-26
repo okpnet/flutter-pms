@@ -165,6 +165,19 @@ query CompanyPageRead(
 
           symbol
           remarks
+
+          stakeholder_provision_count: vProvisionStakeholderProvisionCountByInfoProvisionId {
+            infoProvisionId
+          }
+
+          item_provision_count: vProvisionItemProvisionCountByInfoProvisionId {
+            infoProvisionId
+          }
+
+          equipment_provision_count: vProvisionEquipmentProvisionCountByInfoProvisionId {
+            infoProvisionId
+          }
+
           updateAt
           remove
 
@@ -223,7 +236,7 @@ query CompanyPageRead(
 
       address: infoAddressByInfoAddressId {
         infoAddressId
-        iso31663
+        iso31662
         zipCode
 
         address1: sharedAppellationByAddress1 {
@@ -391,7 +404,7 @@ query CompanyPageRead(
 
           address: infoAddressByInfoAddressId {
             infoAddressId
-            iso31663
+            iso31662
             zipCode
 
             address1: sharedAppellationByAddress1 {
@@ -559,6 +572,22 @@ query CompanyPageRead(
             privatePhone
           }
         }
+      }
+
+      staff_count: vCompanyStaffCountByInfoCompanyId {
+        infoCompanyId
+      }
+
+      provision_count: vCompanyProvisionCountByInfoCompanyId {
+        infoCompanyId
+      }
+
+      office_count: vCompanyOfficeCountByInfoCompanyId {
+        infoCompanyId
+      }
+
+      department_count: vCompanyDepartmentCountByInfoCompanyId {
+        infoCompanyId
       }
 
       updateAt

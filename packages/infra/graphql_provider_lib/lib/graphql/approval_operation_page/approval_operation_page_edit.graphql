@@ -240,7 +240,7 @@ mutation ApprovalOperationPageEdit(
 
               address: infoAddressByInfoAddressId {
                 infoAddressId
-                iso31663
+                iso31662
                 zipCode
 
                 address1: sharedAppellationByAddress1 {
@@ -573,6 +573,15 @@ mutation ApprovalOperationPageEdit(
 
               symbol
               remarks
+
+              approval_count: vPositionApprovalCountByInfoPositionId {
+                infoPositionId
+              }
+
+              assign_count: vPositionAssignCountByInfoPositionId {
+                infoPositionId
+              }
+
               updateAt
               remove
 
@@ -788,7 +797,7 @@ mutation ApprovalOperationPageEdit(
 
               address: infoAddressByInfoAddressId {
                 infoAddressId
-                iso31663
+                iso31662
                 zipCode
 
                 address1: sharedAppellationByAddress1 {
@@ -1121,6 +1130,15 @@ mutation ApprovalOperationPageEdit(
 
               symbol
               remarks
+
+              approval_count: vPositionApprovalCountByInfoPositionId {
+                infoPositionId
+              }
+
+              assign_count: vPositionAssignCountByInfoPositionId {
+                infoPositionId
+              }
+
               updateAt
               remove
 

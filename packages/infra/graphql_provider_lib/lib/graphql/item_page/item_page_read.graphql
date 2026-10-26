@@ -315,6 +315,35 @@ query ItemPageRead(
 
       symbol
       remarks
+
+      item_provision_count: vItemItemProvisionCountByMstrItemId {
+        mstrItemId
+      }
+
+      item_operation_task_count: vItemItemOperationTaskCountByMstrItemId {
+        mstrItemId
+      }
+
+      item_operation_count: vItemItemOperationCountByMstrItemId {
+        mstrItemId
+      }
+
+      item_hcdcs_count: vItemItemHcdcsCountByMstrItemId {
+        mstrItemId
+      }
+
+      item_actual_size_count: vItemItemActualSizeCountByMstrItemId {
+        mstrItemId
+      }
+
+      inspection_count: vItemInspectionCountByMstrItemId {
+        mstrItemId
+      }
+
+      equipment_count: vItemEquipmentCountByMstrItemId {
+        mstrItemId
+      }
+
       updateAt
       remove
 
