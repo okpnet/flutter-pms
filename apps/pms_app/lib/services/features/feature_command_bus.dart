@@ -11,7 +11,7 @@ import 'feature_modules.dart';
 ///パターン: Factory Method(配線済みの CommandBus を作る)
 CommandBus createFeatureCommandBus(Ref ref) {
   final registry = CommandHandlerRegistry();
-  for (final module in featureModules) {
+  for (final module in [...featureModules, ...standaloneFeatureModules]) {
     module.registerHandlers(registry, ref);
   }
   return DefaultCommandBus(
@@ -19,7 +19,7 @@ CommandBus createFeatureCommandBus(Ref ref) {
     logger: ref.watch(loggerProvider),
     navigator: GoRouterDestinationNavigator(
       router: ref.watch(rootRouterProvider),
-      modules: featureModules,
+      modules: [...featureModules, ...standaloneFeatureModules],
     ),
   );
 }

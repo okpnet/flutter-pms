@@ -38,7 +38,6 @@ class AppStrings with BaseTranslations<AppLocale, AppStrings> {
 	late final AppStrings$splash$ja splash = AppStrings$splash$ja.internal(_root);
 	late final AppStrings$common$ja common = AppStrings$common$ja.internal(_root);
 	late final AppStrings$login$ja login = AppStrings$login$ja.internal(_root);
-	late final AppStrings$maintenance$ja maintenance = AppStrings$maintenance$ja.internal(_root);
 	late final AppStrings$grid$ja grid = AppStrings$grid$ja.internal(_root);
 	late final AppStrings$company$ja company = AppStrings$company$ja.internal(_root);
 }
@@ -95,21 +94,6 @@ class AppStrings$login$ja {
 
 	/// ja: 'ログイン'
 	String get submit => 'ログイン';
-}
-
-// Path: maintenance
-class AppStrings$maintenance$ja {
-	AppStrings$maintenance$ja.internal(this._root);
-
-	final AppStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'メンテナンス中'
-	String get title => 'メンテナンス中';
-
-	/// ja: '$time までメンテナンス中です'
-	String message({required Object time}) => '${time} までメンテナンス中です';
 }
 
 // Path: grid
@@ -171,8 +155,6 @@ extension on AppStrings {
 			'login.password' => 'パスワード',
 			'login.passwordRequired' => 'パスワードは必須です',
 			'login.submit' => 'ログイン',
-			'maintenance.title' => 'メンテナンス中',
-			'maintenance.message' => ({required Object time}) => '${time} までメンテナンス中です',
 			'grid.filtered' => ({required Object count}) => '条件適用 ${count} 件',
 			'grid.wait' => 'お待ちください',
 			'grid.total' => ({required Object count}) => '全 ${count} 件',

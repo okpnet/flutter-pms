@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger_provider/logger_provider.dart';
-import 'package:page_mediator/page_mediator.dart';
+import 'package:page_mediator_extension/page_mediator_extension.dart';
 import 'package:dashboard_container/dashboard_container.dart';
 import 'package:settings_keeper/settings_keeper.dart';
 import 'package:theme_lib/theme_lib.dart';
@@ -166,7 +166,7 @@ void main() {
     });
   });
 
-  test('件数を返す取得元から、抽出条件つきで数える(page_mediator のデータ取得)', () async {
+  test('件数を返す取得元から、抽出条件つきで数える(page_mediator_extension のデータ取得)', () async {
     final repository = _CountRepository();
     final container = ProviderContainer(
       overrides: _overrides(InMemorySettingsStorage()),

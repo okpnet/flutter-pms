@@ -102,13 +102,13 @@ class AuthController extends _$AuthController {
       _logger?.debug('The provider registerd dispose function.');
       _logger?.info('PROVIDER INITIALIZE COMPLETE');
     } catch (ex, st) {
-      _logger?.fatal(
-        'PROVIDER INITIALIZE FAILED.',
-        ex: ex as Exception,
-        trace: st,
-      );
+      _logger?.fatal('PROVIDER INITIALIZE FAILED.', ex: ex, trace: st);
     }
   }
+
+  ///サーバー(認証・コールバック)を初期化済みか。ログインしていないとき(未初期化)は false。
+  ///[checkAndApplyExpiration] は未初期化だと例外を投げるため、呼ぶ前に確認できる。
+  bool get isInitialized => _keycloakServer != null && _callbackServer != null;
 
   //トークン更新
   Future<void> refreshToken() async {

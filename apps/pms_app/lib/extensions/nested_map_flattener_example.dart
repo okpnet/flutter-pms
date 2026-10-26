@@ -116,8 +116,9 @@ void main() {
     'historyInfoStaffsByInfoCompanyId||role',
   ];
 
-  final rowCNotCollapsed =
-      withToManyRelationSingleRow.flattenForColumns(toManyColumnFields);
+  final rowCNotCollapsed = withToManyRelationSingleRow.flattenForColumns(
+    toManyColumnFields,
+  );
   print(rowCNotCollapsed);
   // {infoCompanyId: company-3, ceo: 佐藤次郎,
   //  historyInfoStaffsByInfoCompanyId||staffName: null,
@@ -150,7 +151,9 @@ void main() {
   // {infoCompanyId: company-1, ceo: 山田太郎,
   //  sharedAppellationBySharedAppellationsId: {name: 株式会社サンプル, pronunciation: サンプル}}
 
-  assert(restored['sharedAppellationBySharedAppellationsId']['name'] == '株式会社サンプル');
+  assert(
+    restored['sharedAppellationBySharedAppellationsId']['name'] == '株式会社サンプル',
+  );
 
   // 1対多(Connectionオブジェクト)を含むMapも、flatten()→unflatten()で
   // そのまま往復することを確認する(collapseしていない限り、リーフとして
@@ -158,8 +161,7 @@ void main() {
   final flatWithConnection = withToManyRelationSingleRow.flatten();
   final restoredWithConnection = flatWithConnection.unflatten();
   assert(
-    restoredWithConnection['historyInfoStaffsByInfoCompanyId']['nodes'][0]
-            ['staffName'] ==
+    restoredWithConnection['historyInfoStaffsByInfoCompanyId']['nodes'][0]['staffName'] ==
         '田中',
   );
 

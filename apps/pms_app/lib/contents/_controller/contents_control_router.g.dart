@@ -55,18 +55,6 @@ RouteBase get $contentsControlRouter => ShellRouteData.$route(
       hasOverriddenOnExit: false,
       factory: $LoginRouter._fromState,
     ),
-    GoRouteData.$route(
-      path: '/dashboard',
-      name: 'dashboard',
-      hasOverriddenOnExit: false,
-      factory: $DashboardRouter._fromState,
-    ),
-    GoRouteData.$route(
-      path: '/notice/maintenance',
-      name: 'maintenace',
-      hasOverriddenOnExit: false,
-      factory: $MaintenanceRouter._fromState,
-    ),
   ],
 );
 
@@ -170,48 +158,6 @@ mixin $LoginRouter on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/login');
-
-  @override
-  void go(BuildContext context) => context.go(location);
-
-  @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  @override
-  void replace(BuildContext context) => context.replace(location);
-}
-
-mixin $DashboardRouter on GoRouteData {
-  static DashboardRouter _fromState(GoRouterState state) =>
-      const DashboardRouter();
-
-  @override
-  String get location => GoRouteData.$location('/dashboard');
-
-  @override
-  void go(BuildContext context) => context.go(location);
-
-  @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  @override
-  void replace(BuildContext context) => context.replace(location);
-}
-
-mixin $MaintenanceRouter on GoRouteData {
-  static MaintenanceRouter _fromState(GoRouterState state) =>
-      const MaintenanceRouter();
-
-  @override
-  String get location => GoRouteData.$location('/notice/maintenance');
 
   @override
   void go(BuildContext context) => context.go(location);

@@ -148,8 +148,9 @@ extension NestedMapFlattenX on Map<String, dynamic> {
     final result = <String, dynamic>{};
     void walk(String prefix, Map<String, dynamic> map) {
       for (final entry in map.entries) {
-        final key =
-            prefix.isEmpty ? entry.key : '$prefix$separator${entry.key}';
+        final key = prefix.isEmpty
+            ? entry.key
+            : '$prefix$separator${entry.key}';
         final nested = _asStringKeyedMap(entry.value);
         if (nested != null && !_isConnectionShaped(nested)) {
           walk(key, nested);
@@ -219,12 +220,11 @@ extension NestedMapFlattenX on Map<String, dynamic> {
     List<TrinaColumn> columns, {
     String separator = kFlatKeySeparator,
     Set<String> collapseSingleRecordPaths = const {},
-  }) =>
-      flattenForColumns(
-        columns.map((c) => c.field).toList(growable: false),
-        separator: separator,
-        collapseSingleRecordPaths: collapseSingleRecordPaths,
-      );
+  }) => flattenForColumns(
+    columns.map((c) => c.field).toList(growable: false),
+    separator: separator,
+    collapseSingleRecordPaths: collapseSingleRecordPaths,
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -265,9 +265,8 @@ extension FlatMapUnflattenX on Map<String, dynamic> {
   Map<String, dynamic> unflattenForTrinaColumns(
     List<TrinaColumn> columns, {
     String separator = kFlatKeySeparator,
-  }) =>
-      unflattenForFields(
-        columns.map((c) => c.field).toList(growable: false),
-        separator: separator,
-      );
+  }) => unflattenForFields(
+    columns.map((c) => c.field).toList(growable: false),
+    separator: separator,
+  );
 }

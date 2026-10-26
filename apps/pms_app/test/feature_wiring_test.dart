@@ -23,10 +23,7 @@ void main() {
       router: container.read(rootRouterProvider),
       modules: featureModules,
     );
-    expect(
-      navigator.resolve(const EntityListDestination('item')),
-      '/e/item',
-    );
+    expect(navigator.resolve(const EntityListDestination('item')), '/e/item');
     expect(navigator.resolve(const SettingsDestination()), '/settings');
     expect(navigator.resolve(const LogoutDestination()), '/logout');
     expect(

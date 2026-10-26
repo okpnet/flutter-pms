@@ -10,9 +10,6 @@ login:
   password: "パスワード"
   passwordRequired: "パスワードは必須です"
   submit: "ログイン"
-maintenance:
-  title: "メンテナンス中"
-  message: "$time までメンテナンス中です"
 grid:
   filtered: "条件適用 $count 件"
   wait: "お待ちください"

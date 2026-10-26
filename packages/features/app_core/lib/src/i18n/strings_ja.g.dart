@@ -37,6 +37,7 @@ class AppCoreStrings with BaseTranslations<AppCoreLocale, AppCoreStrings> {
 	// Translations
 	late final AppCoreStrings$app$ja app = AppCoreStrings$app$ja.internal(_root);
 	late final AppCoreStrings$shell$ja shell = AppCoreStrings$shell$ja.internal(_root);
+	late final AppCoreStrings$dashboard$ja dashboard = AppCoreStrings$dashboard$ja.internal(_root);
 	late final AppCoreStrings$boot$ja boot = AppCoreStrings$boot$ja.internal(_root);
 	late final AppCoreStrings$logout$ja logout = AppCoreStrings$logout$ja.internal(_root);
 	late final AppCoreStrings$error$ja error = AppCoreStrings$error$ja.internal(_root);
@@ -77,6 +78,24 @@ class AppCoreStrings$shell$ja {
 
 	/// ja: 'ログアウト'
 	String get logout => 'ログアウト';
+}
+
+// Path: dashboard
+class AppCoreStrings$dashboard$ja {
+	AppCoreStrings$dashboard$ja.internal(this._root);
+
+	final AppCoreStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'ダッシュボード'
+	String get title => 'ダッシュボード';
+
+	/// ja: '配置を編集'
+	String get edit => '配置を編集';
+
+	/// ja: '完了'
+	String get done => '完了';
 }
 
 // Path: boot
@@ -239,6 +258,9 @@ extension on AppCoreStrings {
 			'shell.userMenu' => 'ユーザーメニュー',
 			'shell.settings' => '設定',
 			'shell.logout' => 'ログアウト',
+			'dashboard.title' => 'ダッシュボード',
+			'dashboard.edit' => '配置を編集',
+			'dashboard.done' => '完了',
 			'boot.loading' => '読み込み中...',
 			'logout.title' => 'ログアウト',
 			'logout.message' => 'ログアウトしました。',

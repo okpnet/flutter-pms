@@ -96,9 +96,7 @@ class _GridTree<R> extends ConsumerState<GridTree> with GridTreeMixin<R> {
   Widget build(BuildContext context) {
     ///コミットするデータ、UndoRedoの管理
     ///親でwatchする
-    ref.read(
-      editableSessionControllerProvider.notifier,
-    );
+    ref.read(editableSessionControllerProvider.notifier);
 
     ///権限を取得する
     ref.read(mockAutorizeServiceProvider);

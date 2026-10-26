@@ -23,7 +23,9 @@ class GridSummaryHeader extends ConsumerWidget {
 
               summayr == null
                   ? Text(t.grid.wait).spaceAll(context)
-                  : Text(t.grid.total(count: summayr.numberOfRecord)).spaceAll(context),
+                  : Text(
+                      t.grid.total(count: summayr.numberOfRecord),
+                    ).spaceAll(context),
             ],
           ),
         ),

@@ -57,19 +57,8 @@ final shellNavigatorKey = GlobalKey<NavigatorState>();
       name: LoginConstant.name,
     ),
 
-    ///ダッシュボードページ
-    TypedGoRoute<DashboardRouter>(
-      path: DashboardConstant.path,
-      name: DashboardConstant.name,
-    ),
-
-    ///メンテナンスのお知らせページ
-    TypedGoRoute<MaintenanceRouter>(
-      path: MaintenanceConstant.path,
-      name: MaintenanceConstant.name,
-    ),
-
-    ///アプリ設定・個人設定・ログアウト・エラーは app_core(ライブラリ)のページを使う
+    ///ダッシュボード・メンテナンス・アプリ設定・個人設定・ログアウト・エラーは、ライブラリのページを使う
+    ///(app_core・maintenance。`services/router/root_router.dart`で追加する)
   ],
 )
 class ContentsControlRouter extends ShellRouteData {

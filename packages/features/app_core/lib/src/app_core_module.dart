@@ -6,7 +6,7 @@ import 'app_core_destinations.dart';
 import 'app_core_paths.dart';
 import 'pages/app_core_pages.dart';
 
-/// アプリの基盤(ブート・エラー・設定・ログアウト)をアプリへ組み込むための口。
+/// アプリの基盤(ブート・ダッシュボード・エラー・設定・ログアウト)をアプリへ組み込むための口。
 ///
 /// ログイン(Keycloak)は、認証を導入するときに追加する。
 class AppCoreModule implements FeatureModule {
@@ -17,6 +17,10 @@ class AppCoreModule implements FeatureModule {
     GoRoute(
       path: AppCorePaths.boot,
       builder: (context, state) => const BootPage(),
+    ),
+    GoRoute(
+      path: AppCorePaths.dashboard,
+      builder: (context, state) => const DashboardPage(),
     ),
     GoRoute(
       path: AppCorePaths.settings,
@@ -36,6 +40,7 @@ class AppCoreModule implements FeatureModule {
   @override
   String? locationOf(PageDestination<Object?> destination) =>
       switch (destination) {
+        DashboardDestination() => AppCorePaths.dashboard,
         SettingsDestination() => AppCorePaths.settings,
         LogoutDestination() => AppCorePaths.logout,
         ErrorDestination(:final message) => AppCorePaths.errorWith(message),

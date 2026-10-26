@@ -14,7 +14,7 @@
 | `IMaintenanceChecker` | サーバーの状態の確認。`HttpMaintenanceChecker` は HTTP 503 をメンテナンス中とする(`Retry-After`、本文 JSON の `message`・`startAt`・`endAt` を読む)。通信できないときは利用可能として扱い、ログに残す。既定は `AlwaysAvailableMaintenanceChecker`(テスト用) |
 | `maintenanceStatusProvider` | いまの状態。`refresh()`(サーバーへ確認)と `report()`(通常の通信の応答から知らせる) |
 | `maintenanceRedirect` | ルーターの `redirect` に使う判定。メンテナンス中はどのページもメンテナンスページへ向け、終わっていればメンテナンスページから戻す |
-| `MaintenanceAwarePageSession` | `page_mediator` のセッション確認へ、メンテナンスの確認を足す(Decorator)。ページの切り替え・更新で、認証の確認より先にメンテナンスを確認する |
+| `MaintenanceAwarePageSession` | `page_mediator_extension` のセッション確認へ、メンテナンスの確認を足す(Decorator)。ページの切り替え・更新で、認証の確認より先にメンテナンスを確認する |
 
 アプリへの組み込み: `MaintenanceModule` を `ShellRoute` の外のルートへ追加し、ルーターの `redirect` で `maintenanceRedirect` を呼ぶ(`refreshListenable` に `maintenanceStatusProvider` を使う)。`pageSessionMediatorProvider` へ `MaintenanceAwarePageSession`(内側は認証の確認)を差し込む。`maintenanceCheckerProvider` へ `HttpMaintenanceChecker` を差し込む。
 

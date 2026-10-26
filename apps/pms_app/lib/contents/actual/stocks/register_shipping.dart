@@ -20,15 +20,11 @@ class _RegisterShipping extends ConsumerState<RegisterShipping> {
 
     ///データレポジトリへのアクセスを提供
     ///このWidgetのスコープでプロバイダを初期化
-    ref.watch(
-      repositoryFetchControllerProvider<MockResult>(),
-    );
+    ref.watch(repositoryFetchControllerProvider<MockResult>());
 
     ///フィルタ条件へのアクセスを提供
     ///このWidgetのスコープでプロバイダを初期化
-    ref.watch(
-      gridFilterExpressionProvider<MockResult>(),
-    );
+    ref.watch(gridFilterExpressionProvider<MockResult>());
 
     ///TrinaGridからフィルタ生成
     // expressionAdapter.init(expressionAdapter);

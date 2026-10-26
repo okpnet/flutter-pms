@@ -6,6 +6,10 @@ shell:
   userMenu: User menu
   settings: Settings
   logout: Sign out
+dashboard:
+  title: Dashboard
+  edit: Edit layout
+  done: Done
 boot:
   loading: Loading...
 logout:

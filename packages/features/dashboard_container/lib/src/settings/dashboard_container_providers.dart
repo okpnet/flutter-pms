@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:page_mediator/page_mediator.dart';
+import 'package:page_mediator_extension/page_mediator_extension.dart';
 
 import '../model/count_container_spec.dart';
 import '../model/count_sources_provider.dart';
@@ -29,6 +29,39 @@ class DashboardContainersNotifier extends Notifier<List<CountContainerSpec>> {
     state = containers;
     await ref.read(pageSettingsMediatorProvider).save(_originator);
   }
+
+  /// コンテナを末尾へ追加して保存する。
+  Future<void> addContainer(CountContainerSpec container) =>
+      replace([...state, container]);
+
+  /// コンテナを削除して保存する。
+  Future<void> removeContainer(String containerId) => replace([
+    for (final c in state)
+      if (c.id != containerId) c,
+  ]);
+
+  /// コンテナを [delta] だけ並び替えて保存する(-1 で前へ、1 で後ろへ)。範囲外は動かさない。
+  Future<void> moveContainer(String containerId, int delta) {
+    final list = [...state];
+    final from = list.indexWhere((c) => c.id == containerId);
+    final to = from + delta;
+    if (from < 0 || to < 0 || to >= list.length) return Future.value();
+    list.insert(to, list.removeAt(from));
+    return replace(list);
+  }
+
+  /// コンテナの大きさを変えて保存する。
+  Future<void> setSize(String containerId, CountContainerSize size) => replace([
+    for (final c in state)
+      if (c.id == containerId) c.copyWith(size: size) else c,
+  ]);
+
+  /// コンテナの項目(タイル)を置き換えて保存する。
+  Future<void> setTiles(String containerId, List<CountTileSpec> tiles) =>
+      replace([
+        for (final c in state)
+          if (c.id == containerId) c.copyWith(tiles: tiles) else c,
+      ]);
 
   /// タイルの絞り込みの項目を変えて保存する。
   Future<void> selectOption({

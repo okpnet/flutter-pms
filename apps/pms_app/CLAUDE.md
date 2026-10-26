@@ -35,6 +35,10 @@ PMS のシェルアプリ。GoRouter を構築済みのモックアップ(旧 `l
     2.  必ずしもデザインパターンに割り当てる必要はない。
 
 ## 構成
+0.  ページ用の拡張・メンテナンス・ダッシュボード
+    1.  メンテナンス中のページは `maintenance`(ライブラリ)のページを使う。ルートは `ShellRoute` の外に置き(`standaloneFeatureModules`)、ルーターの `redirect` で、ページの切り替え・更新のたびにセッション(`pageSessionMediatorProvider`)を更新して確認し、`maintenanceRedirect` でメンテナンス中はどのページもメンテナンスページへ向ける。確認先は `--dart-define=MAINTENANCE_URL=...`(HTTP 503 をメンテナンス中とする)。未指定のときは常に利用可能とする。
+    2.  セッション確認の実体は `services/session`。メンテナンスの確認を先に行い(`MaintenanceAwarePageSession`)、使えるときだけ認証(`pms_authenticator` の `AuthController`)を確認する(`AuthenticatorPageSession`)。認証が未初期化(ログインしていない)ときは通信せずログアウトとして扱う。テストでは、メンテナンスの確認だけを差し替える。
+    3.  ダッシュボードは `app_core` のページ(`/dashboard`)を使う。件数の元は `services/dashboard` のモック(`mockCountSources`)で、GraphQL の `totalCount` を返す取得元ができたら `RepositoryCountSource` へ置き換える。保存された配置が無いときは `defaultDashboardLayout` にする(`main.dart`)。
 1.  機能(ライブラリ)の組み込み
     1.  `packages/features`の機能は`lib/services/features/feature_modules.dart`の`featureModules`に並べる。ルートは`root_router.dart`の`ShellRoute`(`UnControlContentsFrame`)に追加し、命令の窓口は`main()`で`commandBusProvider`へ`createFeatureCommandBus`を差し込む。サイドバーの項目は機能の`MenuContributor`から`DrawerMenu`が集める。
     2.  アプリのページ(`TypedGoRoute`)と機能のページが同じ役割のときは、対応を`doc/log`に残してから置き換える。設定・ログアウト・エラーは`app_core`のページを使う(エラーへの遷移は`errorLocationOf`)。ルートの`name`は全体で一意にする(重複すると起動時に例外になる)。

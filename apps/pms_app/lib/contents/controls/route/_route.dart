@@ -1,1 +1,1 @@
-export 'dashboard_router.dart' hide $appRoutes;
+export 'dashboard_constant.dart';

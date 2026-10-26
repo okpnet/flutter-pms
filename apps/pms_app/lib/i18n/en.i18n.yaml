@@ -10,9 +10,6 @@ login:
   password: "Password"
   passwordRequired: "Password is required"
   submit: "Sign in"
-maintenance:
-  title: "Under maintenance"
-  message: "Under maintenance until $time"
 grid:
   filtered: "$count filtered"
   wait: "Please wait"

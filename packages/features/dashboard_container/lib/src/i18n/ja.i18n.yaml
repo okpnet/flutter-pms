@@ -5,3 +5,18 @@ loading: 取得中...
 failed: 取得できません
 unavailable: 未設定の項目です
 filter: 絞り込み
+edit:
+  empty: コンテナがありません。追加してください。
+  addContainer: コンテナを追加
+  addTile: 項目を追加
+  moveUp: 前へ
+  moveDown: 後ろへ
+  delete: 削除
+  source: 件数の元
+  group: フィルタグループ
+  noGroup: なし
+  size:
+    full: Full
+    half: 1/2
+    quarter: 1/4
+  hiddenTile: 表示しない(大きさの上限を超えています)

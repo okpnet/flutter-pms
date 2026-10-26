@@ -4,3 +4,18 @@ loading: Loading...
 failed: Could not load
 unavailable: Not configured
 filter: Filter
+edit:
+  empty: No containers. Add one.
+  addContainer: Add container
+  addTile: Add item
+  moveUp: Move up
+  moveDown: Move down
+  delete: Delete
+  source: Source
+  group: Filter group
+  noGroup: None
+  size:
+    full: Full
+    half: 1/2
+    quarter: 1/4
+  hiddenTile: Hidden (over the size limit)

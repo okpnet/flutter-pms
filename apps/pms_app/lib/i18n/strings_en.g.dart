@@ -41,7 +41,6 @@ class AppStringsEn extends AppStrings with BaseTranslations<AppLocale, AppString
 	@override late final _AppStrings$splash$en splash = _AppStrings$splash$en._(_root);
 	@override late final _AppStrings$common$en common = _AppStrings$common$en._(_root);
 	@override late final _AppStrings$login$en login = _AppStrings$login$en._(_root);
-	@override late final _AppStrings$maintenance$en maintenance = _AppStrings$maintenance$en._(_root);
 	@override late final _AppStrings$grid$en grid = _AppStrings$grid$en._(_root);
 	@override late final _AppStrings$company$en company = _AppStrings$company$en._(_root);
 }
@@ -80,17 +79,6 @@ class _AppStrings$login$en extends AppStrings$login$ja {
 	@override String get password => 'Password';
 	@override String get passwordRequired => 'Password is required';
 	@override String get submit => 'Sign in';
-}
-
-// Path: maintenance
-class _AppStrings$maintenance$en extends AppStrings$maintenance$ja {
-	_AppStrings$maintenance$en._(AppStringsEn root) : this._root = root, super.internal(root);
-
-	final AppStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Under maintenance';
-	@override String message({required Object time}) => 'Under maintenance until ${time}';
 }
 
 // Path: grid
@@ -136,8 +124,6 @@ extension on AppStringsEn {
 			'login.password' => 'Password',
 			'login.passwordRequired' => 'Password is required',
 			'login.submit' => 'Sign in',
-			'maintenance.title' => 'Under maintenance',
-			'maintenance.message' => ({required Object time}) => 'Under maintenance until ${time}',
 			'grid.filtered' => ({required Object count}) => '${count} filtered',
 			'grid.wait' => 'Please wait',
 			'grid.total' => ({required Object count}) => '${count} in total',

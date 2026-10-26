@@ -22,10 +22,13 @@ class MaintenanceStatusNotifier extends Notifier<MaintenanceStatus> {
   /// サーバーへ確認して、状態を更新する。
   Future<MaintenanceStatus> refresh() async {
     final status = await ref.read(maintenanceCheckerProvider).check();
-    if (ref.mounted) state = status;
+    // 同じ値なら更新しない(ルーターの再評価が続かないように)
+    if (ref.mounted && state != status) state = status;
     return status;
   }
 
   /// 通常の通信の応答(HTTP 503 など)でメンテナンス中と分かったときに知らせる。
-  void report(MaintenanceStatus status) => state = status;
+  void report(MaintenanceStatus status) {
+    if (state != status) state = status;
+  }
 }

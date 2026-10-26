@@ -44,6 +44,39 @@ class DashboardContainerStringsEn extends DashboardContainerStrings with BaseTra
 	@override String get failed => 'Could not load';
 	@override String get unavailable => 'Not configured';
 	@override String get filter => 'Filter';
+	@override late final _DashboardContainerStrings$edit$en edit = _DashboardContainerStrings$edit$en._(_root);
+}
+
+// Path: edit
+class _DashboardContainerStrings$edit$en extends DashboardContainerStrings$edit$ja {
+	_DashboardContainerStrings$edit$en._(DashboardContainerStringsEn root) : this._root = root, super.internal(root);
+
+	final DashboardContainerStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'No containers. Add one.';
+	@override String get addContainer => 'Add container';
+	@override String get addTile => 'Add item';
+	@override String get moveUp => 'Move up';
+	@override String get moveDown => 'Move down';
+	@override String get delete => 'Delete';
+	@override String get source => 'Source';
+	@override String get group => 'Filter group';
+	@override String get noGroup => 'None';
+	@override late final _DashboardContainerStrings$edit$size$en size = _DashboardContainerStrings$edit$size$en._(_root);
+	@override String get hiddenTile => 'Hidden (over the size limit)';
+}
+
+// Path: edit.size
+class _DashboardContainerStrings$edit$size$en extends DashboardContainerStrings$edit$size$ja {
+	_DashboardContainerStrings$edit$size$en._(DashboardContainerStringsEn root) : this._root = root, super.internal(root);
+
+	final DashboardContainerStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get full => 'Full';
+	@override String get half => '1/2';
+	@override String get quarter => '1/4';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -60,6 +93,19 @@ extension on DashboardContainerStringsEn {
 			'failed' => 'Could not load',
 			'unavailable' => 'Not configured',
 			'filter' => 'Filter',
+			'edit.empty' => 'No containers. Add one.',
+			'edit.addContainer' => 'Add container',
+			'edit.addTile' => 'Add item',
+			'edit.moveUp' => 'Move up',
+			'edit.moveDown' => 'Move down',
+			'edit.delete' => 'Delete',
+			'edit.source' => 'Source',
+			'edit.group' => 'Filter group',
+			'edit.noGroup' => 'None',
+			'edit.size.full' => 'Full',
+			'edit.size.half' => '1/2',
+			'edit.size.quarter' => '1/4',
+			'edit.hiddenTile' => 'Hidden (over the size limit)',
 			_ => null,
 		};
 	}

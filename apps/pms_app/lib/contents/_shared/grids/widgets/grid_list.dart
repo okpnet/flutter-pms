@@ -71,9 +71,7 @@ class _GridList<R> extends ConsumerState<GridList> with GridPagenationMixin<R> {
   Widget build(BuildContext context) {
     ///コミットするデータ、UndoRedoの管理
     ///親でwatchする
-    ref.read(
-      editableSessionControllerProvider.notifier,
-    );
+    ref.read(editableSessionControllerProvider.notifier);
 
     ///合計状態変更
     final summaryProvider = ref.watch(gridSummaryProvider.notifier);

@@ -33,6 +33,14 @@ dependencies:
     path: ../../packages/ui/app_shell
   settings_keeper:
     path: ../../packages/core/settings_keeper
+  page_mediator_extension:
+    path: ../../packages/core/page_mediator_extension
+  maintenance:
+    path: ../../packages/features/maintenance
+  dashboard_container:
+    path: ../../packages/features/dashboard_container
+  pms_authenticator:
+    path: ../../packages/features/pms_authenticator
   shared_preferences: ^2.5.3
   feature_shared:
     path: ../../packages/core/feature_shared

@@ -12,7 +12,10 @@ class StartSplashScreen extends ConsumerWidget {
         children: [
           Scaffold(
             body: Center(
-              child: OverlayIndicator(isShow: true, label: Text(ref.watch(appStringsProvider).splash.initializing)),
+              child: OverlayIndicator(
+                isShow: true,
+                label: Text(ref.watch(appStringsProvider).splash.initializing),
+              ),
             ),
           ),
         ],

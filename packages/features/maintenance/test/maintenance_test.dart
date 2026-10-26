@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:maintenance/maintenance.dart';
 import 'package:maintenance/maintenance_api.dart';
-import 'package:page_mediator/page_mediator.dart';
+import 'package:page_mediator_extension/page_mediator_extension.dart';
 import 'package:theme_lib/theme_lib.dart';
 
 class _Checker implements IMaintenanceChecker {
@@ -104,6 +104,26 @@ void main() {
         ),
         isNull,
       );
+    });
+
+    test('同じ状態は通知しない(ルーターの再評価が続かない)', () async {
+      final checker = _Checker(
+        MaintenanceStatus(isUnderMaintenance: true, message: 'a'),
+      );
+      final container = ProviderContainer(
+        overrides: [maintenanceCheckerProvider.overrideWithValue(checker)],
+      );
+      addTearDown(container.dispose);
+      var notified = 0;
+      container.listen(maintenanceStatusProvider, (_, _) => notified++);
+      final notifier = container.read(maintenanceStatusProvider.notifier);
+      await notifier.refresh();
+      checker.status = MaintenanceStatus(
+        isUnderMaintenance: true,
+        message: 'a',
+      );
+      await notifier.refresh();
+      expect(notified, 1);
     });
 
     test('refresh は確認の結果を状態にする。report は応答からの通知', () async {

@@ -4,7 +4,7 @@
 /// - [maintenanceRedirect]: ルーターの `redirect` に使う判定(メンテナンス中は全ページをメンテナンスページへ)
 /// - [maintenanceStatusProvider] / [maintenanceCheckerProvider]: 状態と確認の実体の差し込み口
 /// - [HttpMaintenanceChecker]: HTTP 503 をメンテナンス中として扱う確認の実装
-/// - [MaintenanceAwarePageSession]: セッション確認(page_mediator)へメンテナンスの確認を足す
+/// - [MaintenanceAwarePageSession]: セッション確認(page_mediator_extension)へメンテナンスの確認を足す
 /// 他の機能が使う遷移先の型は `maintenance_api.dart` を読み込む。
 library;
 

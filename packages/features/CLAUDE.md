@@ -38,7 +38,7 @@
     1.  データの取得は`riverpod`をとおして`flutter-pms\packages\foundation\data_strategist`を使用する。
     2.  プロジェクトごとに`CLAUDE.md`を生成し、このファイルの[規則/仕様](#規則/仕様)を含める。
     3.  プロジェクトの評価結果に対する提案、問題/課題は、規則に従って`doc/log`に追加する(プロジェクト毎に解決していくため)。
-3.  ページ用の拡張(`packages/core/page_mediator`)。ページが、データ取得(`data_strategist`)・設定の保存(`settings_keeper`)・セッション確認(認証・メンテナンス)を使うときは、実装を直接参照せず、窓口(`IPageDataMediator`・`IPageSettingsMediator`・`IPageSessionMediator`)を`PageMediatorMixin`(`ConsumerStatefulWidget`)または`WidgetRef`の拡張(`ref.pageData`など)から使う。実体はアプリが Riverpod で差し込み(`pageSessionMediatorProvider`など)、テストでは差し込まない(セッション確認は何もしない既定の実装)。
+3.  ページ用の拡張(`packages/core/page_mediator_extension`)。ページが、データ取得(`data_strategist`)・設定の保存(`settings_keeper`)・セッション確認(認証・メンテナンス)を使うときは、実装を直接参照せず、窓口(`IPageDataMediator`・`IPageSettingsMediator`・`IPageSessionMediator`)を`PageMediatorMixin`(`ConsumerStatefulWidget`)または`WidgetRef`の拡張(`ref.pageData`など)から使う。実体はアプリが Riverpod で差し込み(`pageSessionMediatorProvider`など)、テストでは差し込まない(セッション確認は何もしない既定の実装)。
 4.  ビジュアルテスト(example)
     1.  各プロジェクトは、プロジェクト内の`example`に、Windows向けのビジュアルテスト用アプリを持つ。そのプロジェクトだけを起動して画面を個別に確認できるようにする。
     2.  `example`は本番のアプリと同じ配線(GoRouter・CommandBus・ハンドラ登録)の`feature_shared`の`FeatureHost`を使い、`lib/main.dart`の`entries`に遷移先を並べる。画面を追加したら`entries`に1行足し、`test/widget_test.dart`で起動と遷移を確認する。
@@ -216,7 +216,7 @@ GraphQLから取得したデータのうち、イミュータブルな更新者�
 `tools/open-design` のトップメニュー(ダッシュボード → 資源 → 業務グループ → 会社情報)の単位で、`flutter-pms\packages\features` に1メニュー1プロジェクトを置く。各プロジェクトの`CLAUDE.md`に画面・参照するモデルをまとめる。
 | メニュー | プロジェクト |
 |---|---|
-| ダッシュボード・設定・エラー | `app_core`(ブート・エラー・設定。ログイン・ログアウトは認証の導入後) |
+| ダッシュボード・設定・エラー | `app_core`(ブート・ダッシュボード・エラー・設定・ログアウト。ログインは認証の導入後) |
 | メンテナンス中のページ | `maintenance`(サーバーの応答がメンテナンス中のときに表示。他のページへはリンクしない) |
 | ダッシュボードの件数のコンテナ | `dashboard_container`(Full・1/2・1/4。配置は設定として保存) |
 | 資源(力量・資格・場所・設備・保全) | `resource` |

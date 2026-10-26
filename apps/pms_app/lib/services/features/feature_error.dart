@@ -16,7 +16,8 @@ String featureLocationOf(PageDestination<Object?> destination) {
 ///エラー画面(app_core)へのパス。エラーは種類(型と番号)で渡し、文言にしない。
 String errorLocationOf(SpecificError error) => featureLocationOf(
   ErrorDestination(
-    message: '${error.type.name}:${error.code}'
+    message:
+        '${error.type.name}:${error.code}'
         '${error.message == null ? '' : ' ${error.message}'}',
   ),
 );

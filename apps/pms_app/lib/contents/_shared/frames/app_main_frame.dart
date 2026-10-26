@@ -4,7 +4,7 @@ import 'package:app_shell/app_shell.dart';
 
 import '../../../imports.dart';
 import '../../../services/features/feature_modules.dart';
-import '../../controls/route/dashboard_router.dart';
+import '../../controls/route/dashboard_constant.dart';
 
 ///アプリの枠。タイトルバー・サイドバー(狭いときはハンバーガー)・ログインユーザーは`app_shell`の部品を使う。
 ///メニューの項目は機能(ライブラリ)の`MenuContributor`が提供し、設定・ログアウトは`app_core`へ遷移する。

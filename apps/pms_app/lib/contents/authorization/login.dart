@@ -151,11 +151,10 @@ class _Login extends ConsumerState<Login> {
                                     'id=${authModel['id']} pass=${authModel['pass']}',
                                   );
                                   await ref //ここがFalseのとき、ログイン失敗なのでValidationをFalseにしたい
-                                          .read(
-                                            mockAutorizeServiceProvider
-                                                .notifier,
-                                          )
-                                          .login(); //ここでStateが変わってページが移動したあとに呼ばれる。存在しないインスタンスの移行のメソッドを実行するために例外が発生
+                                      .read(
+                                        mockAutorizeServiceProvider.notifier,
+                                      )
+                                      .login(); //ここでStateが変わってページが移動したあとに呼ばれる。存在しないインスタンスの移行のメソッドを実行するために例外が発生
                                   // setState(() => isCredentialInvalid = result);
                                 } catch (ex) {
                                   // ref

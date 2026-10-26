@@ -6,16 +6,16 @@
 ## 仕様
 1.  大きさは Full・1/2・1/4(`CountContainerSize`)。1つのコンテナに並べる件数の項目(タイル)は、Full が3つ、1/2 が2つ、1/4 が1つまで表示する(並べた項目の先頭から)。
 2.  項目1つにつき、フィルタグループ(区分、利害関係者(顧客・外部)など)を1つ対にする(`CountTileSpec.groupKey`)。選んだ項目(`optionKey`、null は「すべて」)の件数を表示する。選択は項目のメニューから変える。
-3.  配置(コンテナの並び・大きさ・項目・選んだフィルタ)は設定として保存し(`page_mediator` の設定の窓口、`settings_keeper`)、ダッシュボードを表示するタイミング(`DashboardContainerArea` の表示時)で設定から読み込む。保存する形は `DashboardContainerSettings`(JSON)。保存先はアプリが決める。
+3.  配置(コンテナの並び・大きさ・項目・選んだフィルタ)は設定として保存し(`page_mediator_extension` の設定の窓口、`settings_keeper`)、ダッシュボードを表示するタイミング(`DashboardContainerArea` の表示時)で設定から読み込む。保存する形は `DashboardContainerSettings`(JSON)。保存先はアプリが決める。
 4.  領域の幅に応じて並べる。Full は全幅、1/2 は 1/2、1/4 は 1/4(隙間を除く)。狭い画面(既定は幅 600 未満)では、どのコンテナも全幅にする(項目の数は大きさのとおり)。
-5.  件数の元(`ICountSource`)は、機能・アプリが提供して `countSourcesProvider` へ差し込む。`RepositoryCountSource` は、件数を返す取得元(`IDataRepository<int>`、GraphQL の `totalCount`)から `page_mediator` のデータ取得で数える。元が登録されていない項目は「未設定」と表示する。
-6.  配置の編集(部品の追加・削除・並び替え)は、`dashboardContainersProvider` の `replace` で行う(編集の画面は、ダッシュボードのページが持つ)。
+5.  件数の元(`ICountSource`)は、機能・アプリが提供して `countSourcesProvider` へ差し込む。`RepositoryCountSource` は、件数を返す取得元(`IDataRepository<int>`、GraphQL の `totalCount`)から `page_mediator_extension` のデータ取得で数える。元が登録されていない項目は「未設定」と表示する。
+6.  配置の編集は `DashboardContainerEditor`(コンテナ・項目の追加・削除、コンテナの並び替え・大きさ、項目の元とフィルタグループ)で行い、変更はすぐに設定として保存する(`dashboardContainersProvider` の `addContainer`・`removeContainer`・`moveContainer`・`setSize`・`setTiles`)。1つのコンテナに並べられる項目は 3つまで。大きさの上限を超える項目は「表示しない」と注記する。ダッシュボードのページ(`app_core`)が、領域と編集を切り替えて置く。
 
 ## 構成
 | 種別 | ファイル | 内容 |
 |---|---|---|
-| 実装の入口 | `lib/dashboard_container.dart` | アプリだけが読み込む(領域・コンテナ・配置の状態) |
-| 契約の入口 | `lib/dashboard_container_api.dart` | 件数の元・フィルタグループ・配置の型(件数の元を提供する機能・アプリが読み込む) |
+| 実装の入口 | `lib/dashboard_container.dart` | 契約の入口を公開する |
+| 契約の入口 | `lib/dashboard_container_api.dart` | 件数の元・フィルタグループ・配置の型と、ダッシュボードに置く部品(領域・編集)・配置の状態。このプロジェクトは部品を提供するため、部品も契約に含める(`app_core` などは、こちらだけを読み込む) |
 | 型 | `lib/src/model/` | 配置(`CountContainerSpec` など)・件数の元 |
 | 設定 | `lib/src/settings/` | 保存する形・持ち主・状態(Provider) |
 | 画面 | `lib/src/view/` | 領域・コンテナ・項目 |

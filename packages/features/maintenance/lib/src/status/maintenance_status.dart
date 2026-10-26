@@ -24,6 +24,19 @@ class MaintenanceStatus {
   /// サーバーが示した再試行までの時間(`Retry-After`)。
   final Duration? retryAfter;
 
+  @override
+  bool operator ==(Object other) =>
+      other is MaintenanceStatus &&
+      other.isUnderMaintenance == isUnderMaintenance &&
+      other.message == message &&
+      other.startAt == startAt &&
+      other.endAt == endAt &&
+      other.retryAfter == retryAfter;
+
+  @override
+  int get hashCode =>
+      Object.hash(isUnderMaintenance, message, startAt, endAt, retryAfter);
+
   /// エラー追跡用のJSON。復元には使用しない。
   Map<String, Object?> toJson() => {
     'isUnderMaintenance': isUnderMaintenance,

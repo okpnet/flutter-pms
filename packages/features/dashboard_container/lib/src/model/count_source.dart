@@ -1,5 +1,5 @@
 import 'package:data_strategist/lib.dart';
-import 'package:page_mediator/page_mediator.dart';
+import 'package:page_mediator_extension/page_mediator_extension.dart';
 
 /// フィルタグループの選択肢(例: 区分の「製品」、利害関係者の「顧客」)。
 class CountFilterOption {
@@ -48,7 +48,7 @@ abstract interface class ICountSource {
 
 /// `IDataRepository<int>`(件数を返す取得元)から数える標準の実装。
 ///
-/// 取得は page_mediator のデータ取得([IPageDataMediator])で行う(エラーはログに残る)。
+/// 取得は page_mediator_extension のデータ取得([IPageDataMediator])で行う(エラーはログに残る)。
 /// 取得元は、`take` を件数の上限ではなく「件数を数える」指示として扱う(`totalCount`)。
 class RepositoryCountSource implements ICountSource {
   RepositoryCountSource({

@@ -14,8 +14,8 @@ dependencies:
     sdk: flutter
   feature_shared:
     path: ../../core/feature_shared
-  page_mediator:
-    path: ../../core/page_mediator
+  page_mediator_extension:
+    path: ../../core/page_mediator_extension
   settings_keeper:
     path: ../../core/settings_keeper
   data_strategist:

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../i18n/strings_provider.dart';
+export 'dashboard_page.dart';
 
 /// アプリケーションのバージョン。ビルド時に `--dart-define=APP_VERSION=1.2.3` で渡す。
 const appVersion = String.fromEnvironment('APP_VERSION', defaultValue: '0.0.1');

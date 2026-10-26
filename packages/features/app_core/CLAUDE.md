@@ -1,22 +1,23 @@
 # app_core
 
-アプリの基盤(ブート・エラー・設定・ログアウト)の実装。`packages/features/CLAUDE.md` の[規則/仕様]を必ず適用する。
+アプリの基盤(ブート・ダッシュボード・エラー・設定・ログアウト)の実装。`packages/features/CLAUDE.md` の[規則/仕様]を必ず適用する。
 画面の枠(タイトルバー・サイドバー・ハンバーガー・ログインユーザー)の見た目は `packages/ui/app_shell` が持ち、このプロジェクトはその文字列(アプリ名・メニューの説明・設定)と、基盤の画面を持つ。
 
 ## 画面(Html のメニュー・features/CLAUDE.md の AppCore)
 1.  ブート画面(シングルメインフレーム): 読み込み中の表示。`/boot`
-2.  エラー画面(シングルメインフレーム): アプリケーションエラーの表示。`ErrorDestination({message})` → `/error`
-3.  設定(マルチメインフレーム): 使用言語(実行環境に従う/日本語/English)、サイドバーをアイコンだけにする設定、ログインユーザー(ユーザー名・役割を設定値として与える。標準値へ戻せる)、バージョン情報(`--dart-define=APP_VERSION=x.y.z`)。`SettingsDestination` → `/settings`。使用者全体ではなく、使用ユーザーにだけ影響する設定
-4.  ログアウト画面(シングルメインフレーム): `LogoutDestination` → `/logout`。ユーザーメニューの「ログアウト」で開く。認証の導入までは、仮のボタンで標準のユーザーに戻す
-5.  ログイン画面: 認証(Keycloak)の導入後に追加する(未実装)。ログイン状態は `userSummaryProvider`(`feature_shared`)で提供する
+2.  ダッシュボード(マルチメインフレーム): `DashboardDestination` → `/dashboard`。件数のコンテナ(`dashboard_container`)の領域を置き、「配置を編集」で編集に切り替える(コンテナ・項目の追加・削除・並び替え・大きさ。変更は設定として保存し、表示するときに設定から読み込む)。件数の元(`countSourcesProvider`)はアプリが差し込む
+3.  エラー画面(シングルメインフレーム): アプリケーションエラーの表示。`ErrorDestination({message})` → `/error`
+4.  設定(マルチメインフレーム): 使用言語(実行環境に従う/日本語/English)、サイドバーをアイコンだけにする設定、ログインユーザー(ユーザー名・役割を設定値として与える。標準値へ戻せる)、バージョン情報(`--dart-define=APP_VERSION=x.y.z`)。`SettingsDestination` → `/settings`。使用者全体ではなく、使用ユーザーにだけ影響する設定
+5.  ログアウト画面(シングルメインフレーム): `LogoutDestination` → `/logout`。ユーザーメニューの「ログアウト」で開く。認証の導入までは、仮のボタンで標準のユーザーに戻す
+6.  ログイン画面: 認証(Keycloak)の導入後に追加する(未実装)。ログイン状態は `userSummaryProvider`(`feature_shared`)で提供する
 
 ## 構成
 | 種別 | ファイル | 内容 |
 |---|---|---|
 | 実装の入口 | `lib/app_core.dart` | 公開は `AppCoreModule` と、アプリが使う文字列(`appCoreStringsProvider`) |
-| 契約の入口 | `lib/app_core_api.dart` | 遷移先の型(`SettingsDestination`・`LogoutDestination`・`ErrorDestination`) |
+| 契約の入口 | `lib/app_core_api.dart` | 遷移先の型(`DashboardDestination`・`SettingsDestination`・`LogoutDestination`・`ErrorDestination`) |
 | モジュール | `lib/src/app_core_module.dart` | ルートと遷移先の変換 |
-| 画面 | `lib/src/pages/app_core_pages.dart` | ブート・エラー・ログアウト・設定 |
+| 画面 | `lib/src/pages/` | ブート・エラー・ログアウト・設定(`app_core_pages.dart`)、ダッシュボード(`dashboard_page.dart`) |
 | 文字列 | `lib/src/i18n` | slang の Yaml(日本語・英語) |
 
 ## 実装の指針

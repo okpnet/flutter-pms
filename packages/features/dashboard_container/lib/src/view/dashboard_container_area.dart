@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:page_mediator/page_mediator.dart';
+import 'package:page_mediator_extension/page_mediator_extension.dart';
 
 import '../settings/dashboard_container_providers.dart';
 import 'count_container_view.dart';

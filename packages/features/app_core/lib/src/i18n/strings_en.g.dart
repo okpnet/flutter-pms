@@ -40,6 +40,7 @@ class AppCoreStringsEn extends AppCoreStrings with BaseTranslations<AppCoreLocal
 	// Translations
 	@override late final _AppCoreStrings$app$en app = _AppCoreStrings$app$en._(_root);
 	@override late final _AppCoreStrings$shell$en shell = _AppCoreStrings$shell$en._(_root);
+	@override late final _AppCoreStrings$dashboard$en dashboard = _AppCoreStrings$dashboard$en._(_root);
 	@override late final _AppCoreStrings$boot$en boot = _AppCoreStrings$boot$en._(_root);
 	@override late final _AppCoreStrings$logout$en logout = _AppCoreStrings$logout$en._(_root);
 	@override late final _AppCoreStrings$error$en error = _AppCoreStrings$error$en._(_root);
@@ -68,6 +69,18 @@ class _AppCoreStrings$shell$en extends AppCoreStrings$shell$ja {
 	@override String get userMenu => 'User menu';
 	@override String get settings => 'Settings';
 	@override String get logout => 'Sign out';
+}
+
+// Path: dashboard
+class _AppCoreStrings$dashboard$en extends AppCoreStrings$dashboard$ja {
+	_AppCoreStrings$dashboard$en._(AppCoreStringsEn root) : this._root = root, super.internal(root);
+
+	final AppCoreStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Dashboard';
+	@override String get edit => 'Edit layout';
+	@override String get done => 'Done';
 }
 
 // Path: boot
@@ -183,6 +196,9 @@ extension on AppCoreStringsEn {
 			'shell.userMenu' => 'User menu',
 			'shell.settings' => 'Settings',
 			'shell.logout' => 'Sign out',
+			'dashboard.title' => 'Dashboard',
+			'dashboard.edit' => 'Edit layout',
+			'dashboard.done' => 'Done',
 			'boot.loading' => 'Loading...',
 			'logout.title' => 'Signed out',
 			'logout.message' => 'You have been signed out.',

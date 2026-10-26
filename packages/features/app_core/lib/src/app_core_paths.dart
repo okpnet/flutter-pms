@@ -1,6 +1,7 @@
 /// AppCore のパス。文字列はこのファイルだけに書く。
 abstract final class AppCorePaths {
   static const boot = '/boot';
+  static const dashboard = '/dashboard';
   static const settings = '/settings';
   static const logout = '/logout';
   static const error = '/error';

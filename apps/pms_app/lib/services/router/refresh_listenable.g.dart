@@ -58,4 +58,4 @@ final class RefreshListenableProvider
   }
 }
 
-String _$refreshListenableHash() => r'97616f52d13aed118a55d13079702a142316db56';
+String _$refreshListenableHash() => r'd7ab3c0bfdc5978272453f1491033f82bdc2aadd';

@@ -1,5 +1,6 @@
 // Project imports:
 import 'package:app_core/app_core.dart';
+import 'package:dashboard_container/dashboard_container_api.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:settings_keeper/settings_keeper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,6 +19,9 @@ Future<void> main() async {
       overrides: [
         loggerProvider.overrideWithValue(logger),
         commandBusProvider.overrideWith(createFeatureCommandBus),
+        //ページ用の拡張(メンテナンス・認証のセッション確認)とダッシュボードの件数の元
+        ...sessionOverrides(),
+        ...dashboardOverrides(),
         //使用言語は実行環境(OS)に従う。設定画面で変更できる
         localeProvider.overrideWith(SystemLocaleNotifier.new),
         themeLoggerProvider.overrideWithValue(logger),
@@ -53,6 +57,11 @@ class _AppMain extends ConsumerState {
         .read(settingsKeeperProvider)
         .restore(ref.read(userSettingsOriginatorProvider));
     ref.read(userSettingsAutoSaveProvider);
+    //ダッシュボードの配置を復元する。保存が無いときは初期の配置にする
+    final dashboard = ref.read(dashboardContainersProvider.notifier);
+    if (!await dashboard.restore()) {
+      await dashboard.replace(defaultDashboardLayout());
+    }
     await Future.delayed(const Duration(seconds: 3)); //仮の待ち時間
     await ref.read(mockCoreServiceProvider.future);
     setState(() => isInitialized = true);

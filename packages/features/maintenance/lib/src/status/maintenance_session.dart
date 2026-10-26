@@ -1,4 +1,4 @@
-import 'package:page_mediator/page_mediator.dart';
+import 'package:page_mediator_extension/page_mediator_extension.dart';
 
 /// メンテナンスの確認を先に行い、使えるときだけ内側(認証の確認など)へ任せるセッション確認。
 ///

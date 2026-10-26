@@ -1,0 +1,28 @@
+name: page_mediator_extension_example
+description: "ページ用の拡張(page_mediator_extension)のビジュアルテスト(Windows 向けの単体確認アプリ)。"
+publish_to: none
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.4.3
+  data_strategist:
+    path: ../../../foundation/data_strategist
+  logger_provider:
+    path: ../../../infra/logger_provider
+  settings_keeper:
+    path: ../../settings_keeper
+  page_mediator_extension:
+    path: ..
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

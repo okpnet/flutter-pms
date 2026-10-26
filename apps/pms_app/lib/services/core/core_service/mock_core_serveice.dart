@@ -1,5 +1,4 @@
 import 'package:pms_app/contents/_models/error/error.dart';
-import 'package:pms_app/contents/_notice/route/notice_extenssion.dart';
 import 'package:pms_app/contents/contents.dart';
 import 'package:pms_app/services/core/core.dart';
 import 'package:pms_app/services/features/feature_error.dart';
@@ -29,16 +28,6 @@ Future<void> mockCoreService(Ref ref) async {
 
   ///問題なければ認証状態でページを切り替える機能登録
   final _ = ref.read(rootRouterProvider);
-
-  ///メンテナンス中
-  final maintenance = ref.watch(mockMaintenanceProviderProvider.notifier);
-  ref.listen(mockMaintenanceProviderProvider, (prev, next) {
-    if (!next.isMaintenance) {
-      return;
-    }
-    final router = ref.read(rootRouterProvider);
-    router.toNotice(MaintenanceConstant.path, next);
-  });
 
   final timeState = ref.read(appStandardTimeProvider);
 
@@ -76,7 +65,6 @@ Future<void> mockCoreService(Ref ref) async {
 
   ref.onDispose(() {
     reflesh.dispose();
-    maintenance.dispose();
   });
   debugPrint('end init');
 }
