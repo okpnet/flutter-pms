@@ -129,4 +129,4 @@
     2.  必ずしもデザインパターンに割り当てる必要はない。
 7.  テスト
     1.  GraphQLのテストには機能のモデルパッケージ(`packages/model_providers/*_model`)が生成したクエリ文書・型を使用する。
-    2.  テスト接続先は`http://192.168.1.100:5000/graphql`または`http://192.168.9.245:5000/graphql`を使用する(先に接続できた方)。どちらにも接続できないときはテストを中止(skip)する。接続を要するテストには`server`タグを付け、`flutter test --exclude-tags server`で除外できる。
+    2.  テスト接続先は`packages/infra/data_test_harness`の`TestServer`が一か所で持つ(先に接続できた方を使う。候補はそのCLAUDE.mdを参照)。このライブラリのテストは循環を避けるため`data_test_harness`に依存できないので、サーバーを使うテストは各`*_model`のテストで`serverTest`を使って書く。どちらにも接続できないときはテストを中止(skip)する。接続を要するテストには`server`タグを付け、`flutter test --exclude-tags server`で除外できる。

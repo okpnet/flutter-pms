@@ -1,0 +1,24 @@
+name: data_test_harness
+description: "テスト専用。GraphQLのテスト接続先・取得元の代役を一か所にまとめる。dev_dependenciesにだけ書く。"
+version: 0.0.1
+homepage:
+publish_to: "none"
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
+  data_strategist:
+    path: ../../foundation/data_strategist
+  pms_graphql:
+    path: ../pms_graphql
+
+dev_dependencies:
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

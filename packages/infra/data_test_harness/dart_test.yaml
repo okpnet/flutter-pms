@@ -1,0 +1,4 @@
+tags:
+  server:
+    description: >-
+      Requires the test GraphQL server (see TestServer.candidateUrls).

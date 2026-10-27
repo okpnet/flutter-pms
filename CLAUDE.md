@@ -36,7 +36,7 @@ cd apps\pms_app; flutter run -d windows          # アプリ起動
 - `packages/core/`: `baton_lib`(コマンドバス)、`feature_shared`(機能とアプリの仲介)、`settings_keeper`(ローカル設定の保存と復元)、`page_mediator_extension`(ページ用の拡張。データ取得・設定の保存・セッション確認の窓口)。
 - `packages/ui/`: UI基盤。`entity_screens`(実体の定義から台帳・編集の画面を作る)、`app_shell`(タイトルバー・サイドバー・ハンバーガー・ログインユーザーの枠)を含む。
 - `packages/model_providers/`: 機能ごとの GraphQL モデル(`xxx_model`)。下の「GraphQL モデル生成ルール」を参照。
-- `packages/infra/`(pms_graphql, logger_provider), `packages/foundation/`(画面を持たない汎用部品)。
+- `packages/infra/`(pms_graphql, logger_provider, data_test_harness), `packages/foundation/`(画面を持たない汎用部品)。
 
 ### baton_lib(コマンドバス)
 
@@ -45,6 +45,10 @@ cd apps\pms_app; flutter run -d windows          # アプリ起動
 ### settings_keeper(設定の保存と復元)
 
 テーマ・ウィンドウの位置など、ローカルに持つ設定を保存・復元する。設定の持ち主(`SettingsOriginator`)が自分の状態を `SettingsMemento` にして `SettingsKeeper` に預ける(Memento)。保存の手段は `SettingsStorage` で、標準の `FileSettingsStorage`(JSONファイル)と `InMemorySettingsStorage`(既定)から、アプリが `settingsStorageProvider` を上書きして選ぶ・独自実装に差し替える(Strategy)。保存・復元の失敗は例外にせず、`[settings_keeper]` 付きでログに残して `false` を返す。詳細は [packages/core/settings_keeper/CLAUDE.md](packages/core/settings_keeper/CLAUDE.md)、使い方は同パッケージの `doc/contents/usage.md` を参照。
+
+### data_test_harness(テスト専用の道具)
+
+アプリ・機能・foundation は GraphQL の接続先を持たない。取得元は `IDataRepository`(`data_strategist`)で受け、GraphQL の実装(`pms_graphql` の `GraphqlDataRepository`)はアプリが組み立てる。テストの接続先(検証用サーバー)と取得元の代役(`RecordingDataRepository`)は `packages/infra/data_test_harness` だけが持ち、使う側は必ず `dev_dependencies` に書く(`dependencies` に書くと検査テストが失敗する)。`data_strategist` と `query_builder` のテストは、循環を避けるためこのパッケージに依存せず、GraphQL に接続しない。詳細は [packages/infra/data_test_harness/CLAUDE.md](packages/infra/data_test_harness/CLAUDE.md) を参照。
 
 ## バージョン管理
 

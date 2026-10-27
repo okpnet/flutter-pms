@@ -1,4 +1,5 @@
 import 'package:data_strategist/lib.dart';
+import 'package:data_test_harness/data_test_harness.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
@@ -101,23 +102,6 @@ Future<InMemorySettingsStorage> _saved(List<CountContainerSpec> list) async {
   return storage;
 }
 
-class _CountRepository implements IDataRepository<int> {
-  Expression? lastPredicate;
-  int? lastTake;
-
-  @override
-  Future<int> find({
-    required int take,
-    int skip = 0,
-    Expression? predicate,
-    SortExpression? orders,
-  }) async {
-    lastTake = take;
-    lastPredicate = predicate;
-    return 42;
-  }
-}
-
 void main() {
   group('配置の形', () {
     test('大きさごとに、表示できる件数の項目は 3・2・1', () {
@@ -167,7 +151,7 @@ void main() {
   });
 
   test('件数を返す取得元から、抽出条件つきで数える(page_mediator_extension のデータ取得)', () async {
-    final repository = _CountRepository();
+    final repository = RecordingDataRepository<int>(result: 42);
     final container = ProviderContainer(
       overrides: _overrides(InMemorySettingsStorage()),
     );
@@ -182,8 +166,9 @@ void main() {
       data: container.read(pageDataMediatorProvider),
     );
     expect(await source.count(null), 42);
-    expect(repository.lastTake, 0);
-    expect(repository.lastPredicate, isNull);
+    expect(repository.calls, hasLength(1));
+    expect(repository.calls.single.take, 0);
+    expect(repository.calls.single.predicate, isNull);
   });
 
   group('ダッシュボード', () {
