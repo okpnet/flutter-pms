@@ -1,5 +1,5 @@
 import '../predicates/expressions/expressions.dart';
-import '../sorts/sort_extpressions/sort_expressions.dart';
+import '../sorts/sort_expressions/sort_expressions.dart';
 
 class ExpressionError extends Error {
   final Expression errorExpression;

@@ -1,4 +1,4 @@
-import '../sort_extpressions/sort_expressions.dart';
+import '../sort_expressions/sort_expressions.dart';
 import 'sort_visitors.dart';
 
 mixin SortVisitorMixin<T, R> on SortVisitor<T, R> {

@@ -1,4 +1,4 @@
-import '../sort_extpressions/sort_expressions.dart';
+import '../sort_expressions/sort_expressions.dart';
 
 ///ソート条件を巡回する抽象化インターフェイス
 abstract interface class ISortVisitor<T> {

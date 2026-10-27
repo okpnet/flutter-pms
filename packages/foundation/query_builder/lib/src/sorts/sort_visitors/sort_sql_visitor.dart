@@ -1,5 +1,5 @@
 import '../../constants/constants.dart';
-import '../sort_extpressions/sort_expressions.dart';
+import '../sort_expressions/sort_expressions.dart';
 import 'sort_visitors.dart';
 
 abstract interface class ISortSqlVisitor {}

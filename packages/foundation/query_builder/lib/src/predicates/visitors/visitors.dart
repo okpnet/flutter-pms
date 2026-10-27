@@ -3,3 +3,4 @@ export 'list_visitor.dart';
 export 'visitor_mixin.dart';
 export 'sql_visitor.dart';
 export 'graphql_visitor.dart';
+export 'postgraphile_visitor.dart';
