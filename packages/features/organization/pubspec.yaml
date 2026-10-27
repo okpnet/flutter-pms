@@ -20,6 +20,15 @@ dependencies:
   flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  dashboard_container:
+    path: ../dashboard_container
+  data_strategist:
+    path: ../../foundation/data_strategist
+  graphql: ^5.2.3
+  organization_model:
+    path: ../../model_providers/organization_model
+  pms_graphql:
+    path: ../../infra/pms_graphql
   entity_screens:
     path: ../../ui/entity_screens
 

@@ -1841,7 +1841,7 @@ create table tests.history_info_provision (
 create table tests.history_info_address (
     history_id uuid default gen_random_uuid(),
     info_address_id uuid not null,
-    iso3166_2 varchar(2) default 'JP',
+    country_code_2 varchar(2) default 'JP',
     zip_code varchar(16) default null,
     address1 uuid default null,
     address2 uuid default null,
@@ -2152,7 +2152,7 @@ create table tests.mstr_approval_pattern_detail (
 );
 create table tests.info_address (
     info_address_id uuid default gen_random_uuid(),
-    iso3166_2 varchar(2) default 'JP',
+    country_code_2 varchar(2) default 'JP',
     zip_code varchar(16) default null,
     address1 uuid default null,
     address2 uuid default null,
@@ -2959,6 +2959,7 @@ create table tests.trans_purchase_detail (
     trans_resource_plan_id uuid default null,
     restocking_purchase boolean default 'f',
     quantity decimal(10,2) default null,
+    cost decimal(10,2) not null,
     period timestamp default null,
     item_history_id uuid not null,
     item_id uuid not null,
@@ -5046,7 +5047,7 @@ comment on column tests.history_info_provision.remove is '削除';
 comment on table tests.history_info_address is '住所情報履歴';
 comment on column tests.history_info_address.history_id is '履歴ID';
 comment on column tests.history_info_address.info_address_id is '住所ID';
-comment on column tests.history_info_address.iso3166_2 is '国';
+comment on column tests.history_info_address.country_code_2 is '国';
 comment on column tests.history_info_address.zip_code is '郵便番号';
 comment on column tests.history_info_address.address1 is '住所1';
 comment on column tests.history_info_address.address2 is '住所2';
@@ -5335,7 +5336,7 @@ comment on column tests.mstr_approval_pattern_detail.update_user_history_id is '
 comment on column tests.mstr_approval_pattern_detail.remove is '削除';
 comment on table tests.info_address is '住所情報';
 comment on column tests.info_address.info_address_id is '住所ID';
-comment on column tests.info_address.iso3166_2 is '国';
+comment on column tests.info_address.country_code_2 is '国';
 comment on column tests.info_address.zip_code is '郵便番号';
 comment on column tests.info_address.address1 is '住所1';
 comment on column tests.info_address.address2 is '住所2';
@@ -6084,6 +6085,7 @@ comment on column tests.trans_purchase_detail.trans_purchase_id is '発注ID';
 comment on column tests.trans_purchase_detail.trans_resource_plan_id is '資材計画ID';
 comment on column tests.trans_purchase_detail.restocking_purchase is '在庫発注';
 comment on column tests.trans_purchase_detail.quantity is '数量';
+comment on column tests.trans_purchase_detail.cost is '単価';
 comment on column tests.trans_purchase_detail.period is '納期';
 comment on column tests.trans_purchase_detail.item_history_id is '品目履歴ID';
 comment on column tests.trans_purchase_detail.item_id is '品目ID';
@@ -15352,7 +15354,7 @@ BEGIN
         IF (revisions >= 0) THEN
             IF (
                 NEW.info_address_id,
-                NEW.iso3166_2,
+                NEW.country_code_2,
                 NEW.zip_code,
                 NEW.address1,
                 NEW.address2,
@@ -15364,7 +15366,7 @@ BEGIN
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.info_address_id,
-                OLD.iso3166_2,
+                OLD.country_code_2,
                 OLD.zip_code,
                 OLD.address1,
                 OLD.address2,
@@ -15384,7 +15386,7 @@ BEGIN
         END IF;
         INSERT INTO tests.history_info_address (
             info_address_id,
-            iso3166_2,
+            country_code_2,
             zip_code,
             address1,
             address2,
@@ -15402,7 +15404,7 @@ BEGIN
         VALUES
         (
             NEW.info_address_id,
-            NEW.iso3166_2,
+            NEW.country_code_2,
             NEW.zip_code,
             NEW.address1,
             NEW.address2,
@@ -21744,7 +21746,724 @@ LANGUAGE plpgsql VOLATILE;
 CREATE OR REPLACE TRIGGER trg_03_hierarchy_mstr_location_tree AFTER INSERT OR UPDATE OR DELETE ON tests.mstr_location_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_03_hierarchy_mstr_location_tree();
 
---132.create view
+--141.create view
+
+drop view if exists tests.v_work_plan_delivery_compliance;
+create view  tests.v_work_plan_delivery_compliance as
+SELECT
+    x.trans_work_plan_id
+    , x.trans_operations_plan_id
+    , x.mstr_task_id
+    , x.start_at
+    , x.completion_at
+    , x.deadline
+    , x.trans_work_record_ids
+    , x.work_record_count
+    , x.planned_quantity
+    , x.work_quantity
+    , x.is_completed
+    , x.first_start_at
+    , CASE WHEN x.is_completed THEN x.last_stop_at END AS completed_at
+    , CASE
+        WHEN x.is_completed AND x.completion_at IS NULL THEN 'NO_DEADLINE'
+        WHEN x.is_completed AND x.last_stop_at <= x.completion_at THEN 'ON_TIME'
+        WHEN x.is_completed THEN 'LATE'
+        WHEN x.completion_at < CURRENT_TIMESTAMP THEN 'OVERDUE'
+        ELSE 'PENDING'
+      END AS compliance_status
+FROM
+    (
+        SELECT
+            wp.trans_work_plan_id
+            , wp.trans_operations_plan_id
+            , wp.mstr_task_id
+            , wp.start_at
+            , wp.completion_at
+            , op.deadline
+            , COALESCE(wr.trans_work_record_ids, ARRAY[]::UUID[]) AS trans_work_record_ids
+            , COALESCE(wr.work_record_count, 0) AS work_record_count
+            , rp.quantity AS planned_quantity
+            , COALESCE(wr.work_quantity, 0) AS work_quantity
+            , CASE
+                WHEN rp.quantity IS NOT NULL THEN COALESCE(wr.work_quantity, 0) >= rp.quantity
+                ELSE COALESCE(wr.work_record_count, 0) > 0
+              END AS is_completed
+            , wr.first_start_at
+            , wr.last_stop_at
+        FROM
+            tests.trans_work_plan AS wp
+            INNER JOIN tests.trans_operations_plan AS op
+                ON op.trans_operations_plan_id = wp.trans_operations_plan_id
+                AND op.remove IS FALSE
+            INNER JOIN tests.mstr_task AS t
+                ON t.mstr_task_id = wp.mstr_task_id
+                AND t.remove IS FALSE
+            LEFT JOIN tests.trans_resource_plan AS rp
+                ON rp.trans_resource_plan_id = op.trans_resource_plan_id
+                AND rp.remove IS FALSE
+            LEFT JOIN LATERAL (
+                SELECT
+                    ARRAY_AGG(w.trans_work_record_id ORDER BY w.nth_time, w.start_at) AS trans_work_record_ids
+                    , COUNT(w.trans_work_record_id) AS work_record_count
+                    , SUM(w.qty) AS work_quantity
+                    , MIN(w.start_at) AS first_start_at
+                    , MAX(w.stop_at) AS last_stop_at
+                FROM
+                    tests.trans_work_record AS w
+                WHERE
+                    w.trans_work_plan_id = wp.trans_work_plan_id
+                    AND w.remove IS FALSE
+            ) AS wr
+                ON TRUE
+        WHERE
+            wp.remove IS FALSE
+    ) AS x
+;
+;
+
+-- 7. 生産計画納期遵守状況
+-- フィルタ: 工程ID(mstr_task_id), 開始予定(start_at), 完了予定(completion_at),
+--           作業実績ID(trans_work_record_ids ※配列), 作業完了(is_completed), 数量(work_quantity / planned_quantity)
+-- 粒度: 生産計画明細 1件につき1行
+-- 判定:
+--   計画数量 : 生産計画に紐づく資材計画の数量(資材計画が無い場合は NULL)
+--   作業数量 : 有効な作業実績の作業数量合計
+--   作業完了 : 計画数量がある場合は 作業数量 >= 計画数量、無い場合は 作業実績が1件以上
+--   完了日時 : 作業完了の場合の最終作業終了日時(MAX(stop_at))
+--   compliance_status : ON_TIME(完了日時 <= 完了予定) / LATE(完了日時 > 完了予定)
+--                       / OVERDUE(未完了 かつ 完了予定 < 現在) / PENDING(未完了 かつ 完了予定 >= 現在 または 未設定)
+--                       ※完了済みで完了予定が未設定の場合は NO_DEADLINE
+
+-- Postgraphile additional comment.
+COMMENT ON VIEW tests.v_work_plan_delivery_compliance IS E'@primaryKey trans_work_plan_id\n@foreignKey (trans_work_plan_id) references trans_work_plan (trans_work_plan_id)\n@foreignKey (trans_operations_plan_id) references trans_operations_plan (trans_operations_plan_id)\n@foreignKey (mstr_task_id) references mstr_task (mstr_task_id)\n生産計画納期遵守状況';
+
+
+drop view if exists tests.v_shelf_inventory_status;
+create view  tests.v_shelf_inventory_status as
+SELECT
+    v.trans_visiter_id
+    , v.trans_container_id
+    , c.mstr_location_id
+    , v.status
+    , v.quantity
+    , COALESCE(pr.trans_purchase_rec_ids, ARRAY[]::UUID[]) AS trans_purchase_rec_ids
+    , COALESCE(pr.purchase_rec_count, 0) AS purchase_rec_count
+    , COALESCE(pr.purchase_rec_quantity, 0) AS purchase_rec_quantity
+    , COALESCE(cv.trans_convey_ids, ARRAY[]::UUID[]) AS trans_convey_ids
+    , COALESCE(cv.convey_count, 0) AS convey_count
+    , COALESCE(cv.receive_quantity, 0) AS convey_receive_quantity
+    , COALESCE(cv.issue_quantity, 0) AS convey_issue_quantity
+    , cv.last_convey_at
+    , COALESCE(wr.trans_work_record_ids, ARRAY[]::UUID[]) AS trans_work_record_ids
+    , COALESCE(wr.work_record_count, 0) AS work_record_count
+    , COALESCE(wr.work_record_quantity, 0) AS work_record_quantity
+FROM
+    tests.trans_visiter AS v
+    INNER JOIN tests.trans_container AS c
+        ON c.trans_container_id = v.trans_container_id
+        AND c.remove IS FALSE
+    LEFT JOIN LATERAL (
+        SELECT
+            ARRAY_AGG(prv.trans_purchase_rec_id ORDER BY prv.trans_purchase_rec_id) AS trans_purchase_rec_ids
+            , COUNT(prv.trans_purchase_rec_visiter_id) AS purchase_rec_count
+            , SUM(prv.quantity) AS purchase_rec_quantity
+        FROM
+            tests.trans_purchase_rec_visiter AS prv
+            INNER JOIN tests.trans_purchase_rec AS r
+                ON r.trans_purchase_rec_id = prv.trans_purchase_rec_id
+                AND r.remove IS FALSE
+        WHERE
+            prv.trans_visiter_id = v.trans_visiter_id
+            AND prv.remove IS FALSE
+    ) AS pr
+        ON TRUE
+    LEFT JOIN LATERAL (
+        SELECT
+            ARRAY_AGG(cn.trans_convey_id ORDER BY cn.convey_at, cn.trans_convey_id) AS trans_convey_ids
+            , COUNT(cn.trans_convey_id) AS convey_count
+            , SUM(cn.quantity) FILTER (WHERE cn.receive IS TRUE) AS receive_quantity
+            , SUM(cn.quantity) FILTER (WHERE cn.receive IS NOT TRUE) AS issue_quantity
+            , MAX(cn.convey_at) AS last_convey_at
+        FROM
+            tests.trans_convey AS cn
+        WHERE
+            cn.trans_visiter_id = v.trans_visiter_id
+            AND cn.remove IS FALSE
+    ) AS cv
+        ON TRUE
+    LEFT JOIN LATERAL (
+        SELECT
+            ARRAY_AGG(wrv.trans_work_record_id ORDER BY wrv.trans_work_record_id) AS trans_work_record_ids
+            , COUNT(wrv.trans_work_record_visiter_id) AS work_record_count
+            , SUM(wrv.quantity) AS work_record_quantity
+        FROM
+            tests.trans_work_record_visiter AS wrv
+            INNER JOIN tests.trans_work_record AS w
+                ON w.trans_work_record_id = wrv.trans_work_record_id
+                AND w.remove IS FALSE
+        WHERE
+            wrv.trans_visiter_id = v.trans_visiter_id
+            AND wrv.remove IS FALSE
+    ) AS wr
+        ON TRUE
+WHERE
+    v.remove IS FALSE
+;
+
+;
+
+-- 6. 棚在庫状況
+-- フィルタ: 受入実績(trans_purchase_rec_ids ※配列), 受け払い実績(trans_convey_ids ※配列),
+--           作業実績(trans_work_record_ids ※配列), 状態(status), 数量(quantity), コンテナID(trans_container_id)
+-- 粒度: 棚ビジター 1件につき1行
+-- 受入実績・受払実績・作業実績は棚ビジターに対して複数件紐づくため、行の重複を避けて配列で保持する
+-- (connection-filter の anyEqualTo 等で絞り込む。有無は *_count > 0 で判定可能)
+-- Postgraphile additional comment.
+COMMENT ON VIEW tests.v_shelf_inventory_status IS E'@primaryKey trans_visiter_id\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\n@foreignKey (mstr_location_id) references mstr_location (mstr_location_id)\n棚在庫状況';
+
+
+drop view if exists tests.v_inspection_status;
+create view  tests.v_inspection_status as
+SELECT
+    e.mstr_equipment_id
+    , st.mstr_stakeholder_id AS supplier_id
+    , (rc.trans_inspect_record_id IS NOT NULL) AS is_implemented
+    , rc.result
+    , COUNT(sd.trans_inspect_sch_detail_id) AS schedule_detail_count
+    , COUNT(sd.trans_inspect_sch_detail_id) FILTER (WHERE rc.trans_inspect_record_id IS NULL AND sd.scheduled_end_date < CURRENT_TIMESTAMP) AS overdue_count
+    , MIN(sd.scheduled_start_date) FILTER (WHERE rc.trans_inspect_record_id IS NULL) AS next_scheduled_start_date
+    , MAX(rc.implement_stop_date) AS last_implement_date
+FROM
+    tests.trans_inspect_sch_detail AS sd
+    INNER JOIN tests.trans_inspect_sch AS s
+        ON s.trans_inspect_sch_id = sd.trans_inspect_sch_id
+        AND s.remove IS FALSE
+    INNER JOIN tests.mstr_equipment AS e
+        ON e.mstr_equipment_id = s.equipment_id
+        AND e.remove IS FALSE
+    LEFT JOIN tests.mstr_stakeholder AS st
+        ON st.mstr_stakeholder_id = sd.stakeholder_id
+        AND st.remove IS FALSE
+    LEFT JOIN LATERAL (
+        SELECT
+            r.trans_inspect_record_id
+            , r.result
+            , r.implement_stop_date
+        FROM
+            tests.trans_inspect_record AS r
+        WHERE
+            r.trans_inspect_sch_detail_id = sd.trans_inspect_sch_detail_id
+            AND r.remove IS FALSE
+        ORDER BY
+            r.implement_stop_date DESC NULLS LAST
+            , r.update_at DESC
+        LIMIT 1
+    ) AS rc
+        ON TRUE
+WHERE
+    sd.remove IS FALSE
+GROUP BY
+    e.mstr_equipment_id
+    , st.mstr_stakeholder_id
+    , (rc.trans_inspect_record_id IS NOT NULL)
+    , rc.result
+;
+;
+
+-- 5. 点検整備実施状況
+-- フィルタ: 設備ID(mstr_equipment_id), 外部供給者ID(supplier_id), 点検整備実施済み(is_implemented), 点検整備実施結果(result)
+-- 粒度: 設備 × 外部供給者 × 実施済み × 実施結果 ごとに1行
+-- 実施済み : 点検整備予定明細に有効な点検整備実施が1件以上ある
+-- 実施結果 : 最新(実施終了日が最も新しい)点検整備実施の結果。未実施は NULL
+-- 外部供給者: 点検整備予定明細の外部供給者(社内実施は NULL)
+
+-- Postgraphile additional comment.
+COMMENT ON VIEW tests.v_inspection_status IS E'@foreignKey (mstr_equipment_id) references mstr_equipment (mstr_equipment_id)\n@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)\n点検整備実施状況';
+
+
+drop view if exists tests.v_shipping_delivery_compliance;
+create view  tests.v_shipping_delivery_compliance as
+SELECT
+    x.customer_id
+    , x.mstr_item_kind_id
+    , x.mstr_item_id
+    , x.mstr_item_provision_ids
+    , x.delivery_date
+    , x.estimated_shipping_date
+    , x.shipping_date
+    , COUNT(*) AS shipping_detail_count
+    , COUNT(*) FILTER (WHERE x.is_shipped AND x.shipping_date <= x.delivery_date) AS on_time_count
+    , COUNT(*) FILTER (WHERE x.is_shipped AND x.shipping_date > x.delivery_date) AS late_count
+    , COUNT(*) FILTER (WHERE NOT x.is_shipped AND x.delivery_date < CURRENT_DATE) AS overdue_count
+    , COUNT(*) FILTER (WHERE NOT x.is_shipped AND (x.delivery_date >= CURRENT_DATE OR x.delivery_date IS NULL)) AS pending_count
+    , COUNT(*) FILTER (WHERE x.is_shipped AND x.shipping_date <= x.estimated_shipping_date) AS schedule_kept_count
+    , COUNT(*) FILTER (WHERE x.is_shipped AND x.shipping_date > x.estimated_shipping_date) AS schedule_missed_count
+    , SUM(x.scheduled_quantity) AS scheduled_quantity
+    , SUM(x.shipped_quantity) AS shipped_quantity
+FROM
+    (
+        SELECT
+            o.stakeholder_id AS customer_id
+            , i.mstr_item_kind_id
+            , i.mstr_item_id
+            , pr.mstr_item_provision_ids
+            , COALESCE(od.delivery_date, o.delivery_date)::DATE AS delivery_date
+            , COALESCE(sd.estimated_shipping_date, so.estimated_shipping_date)::DATE AS estimated_shipping_date
+            , rc.last_shipping_date::DATE AS shipping_date
+            , sd.shipping_quantity AS scheduled_quantity
+            , COALESCE(rc.shipped_quantity, 0) AS shipped_quantity
+            , (COALESCE(rc.shipped_quantity, 0) >= sd.shipping_quantity) AS is_shipped
+        FROM
+            tests.trans_shipping_order_detail AS sd
+            INNER JOIN tests.trans_shipping_order AS so
+                ON so.trans_shipping_order_id = sd.trans_shipping_order_id
+                AND so.remove IS FALSE
+            INNER JOIN tests.trans_order_detail AS od
+                ON od.trans_order_detail_id = sd.trans_order_detail_id
+                AND od.remove IS FALSE
+            INNER JOIN tests.trans_order AS o
+                ON o.trans_order_id = od.trans_order_id
+                AND o.remove IS FALSE
+            INNER JOIN tests.mstr_stakeholder AS c
+                ON c.mstr_stakeholder_id = o.stakeholder_id
+                AND c.remove IS FALSE
+            INNER JOIN tests.mstr_item AS i
+                ON i.mstr_item_id = od.item_id
+                AND i.remove IS FALSE
+            INNER JOIN tests.mstr_item_kind AS k
+                ON k.mstr_item_kind_id = i.mstr_item_kind_id
+                AND k.remove IS FALSE
+            LEFT JOIN LATERAL (
+                SELECT
+                    ARRAY_AGG(ip.mstr_item_provision_id ORDER BY ip.mstr_item_provision_id) AS mstr_item_provision_ids
+                FROM
+                    tests.mstr_item_provision AS ip
+                    INNER JOIN tests.info_provision AS pv
+                        ON pv.info_provision_id = ip.info_provision_id
+                        AND pv.remove IS FALSE
+                WHERE
+                    ip.mstr_item_id = i.mstr_item_id
+                    AND ip.remove IS FALSE
+            ) AS pr
+                ON TRUE
+            LEFT JOIN LATERAL (
+                SELECT
+                    SUM(r.shipping_quantity) AS shipped_quantity
+                    , MAX(r.shipping_date) AS last_shipping_date
+                FROM
+                    tests.trans_shipping_order_detail_record AS r
+                WHERE
+                    r.trans_shipping_order_detail_id = sd.trans_shipping_order_detail_id
+                    AND r.remove IS FALSE
+            ) AS rc
+                ON TRUE
+        WHERE
+            sd.remove IS FALSE
+    ) AS x
+GROUP BY
+    x.customer_id
+    , x.mstr_item_kind_id
+    , x.mstr_item_id
+    , x.mstr_item_provision_ids
+    , x.delivery_date
+    , x.estimated_shipping_date
+    , x.shipping_date
+;
+
+;
+
+-- 4.1 出荷納期遵守状況
+-- フィルタ: 顧客ID(customer_id), 納期(delivery_date), 出荷実績日(shipping_date), 出荷予定日(estimated_shipping_date),
+--           品目区分ID(mstr_item_kind_id), 品目ID(mstr_item_id), 品目提供ID(mstr_item_provision_ids ※配列)
+-- 粒度: 顧客 × 品目 × 納期(日) × 出荷予定日(日) × 出荷実績日(日) ごとに1行
+-- 判定(出荷オーダー明細単位):
+--   出荷完了   : 出荷実績数量合計 >= 出荷数量
+--   出荷実績日 : 最終出荷日(MAX(shipping_date))。未出荷は NULL
+--   on_time    : 出荷完了 かつ 出荷実績日 <= 納期
+--   late       : 出荷完了 かつ 出荷実績日 >  納期
+--   overdue    : 未完了   かつ 納期 <  本日
+--   pending    : 未完了   かつ (納期 >= 本日 または 納期未設定)
+--   schedule_kept / schedule_missed : 出荷完了分の 出荷実績日 と 出荷予定日 の比較
+-- 遵守率 = on_time_count / (on_time_count + late_count + overdue_count)  ※クライアント側で合算後に算出推奨
+-- Postgraphile additional comment.
+COMMENT ON VIEW tests.v_shipping_delivery_compliance IS E'@foreignKey (customer_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (mstr_item_kind_id) references mstr_item_kind (mstr_item_kind_id)\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n出荷納期遵守状況';
+
+
+drop view if exists tests.v_shipping_order_status;
+create view  tests.v_shipping_order_status as
+SELECT
+    o.stakeholder_id AS customer_id
+    , i.mstr_item_kind_id
+    , i.mstr_item_id
+    , pr.mstr_item_provision_ids
+    , COALESCE(od.delivery_date, o.delivery_date)::DATE AS delivery_date
+    , COALESCE(sd.estimated_shipping_date, so.estimated_shipping_date)::DATE AS estimated_shipping_date
+    , rc.last_shipping_date::DATE AS shipping_date
+    , COUNT(sd.trans_shipping_order_detail_id) AS shipping_detail_count
+    , COUNT(sd.trans_shipping_order_detail_id) FILTER (WHERE COALESCE(rc.shipped_quantity, 0) >= sd.shipping_quantity) AS shipped_detail_count
+    , SUM(sd.shipping_quantity) AS scheduled_quantity
+    , SUM(COALESCE(rc.shipped_quantity, 0)) AS shipped_quantity
+    , SUM(GREATEST(sd.shipping_quantity - COALESCE(rc.shipped_quantity, 0), 0)) AS remaining_quantity
+    , SUM(sd.shipping_quantity * COALESCE(od.cost, 0)) AS scheduled_amount
+    , SUM(COALESCE(rc.shipped_quantity, 0) * COALESCE(od.cost, 0)) AS shipped_amount
+FROM
+    tests.trans_shipping_order_detail AS sd
+    INNER JOIN tests.trans_shipping_order AS so
+        ON so.trans_shipping_order_id = sd.trans_shipping_order_id
+        AND so.remove IS FALSE
+    INNER JOIN tests.trans_order_detail AS od
+        ON od.trans_order_detail_id = sd.trans_order_detail_id
+        AND od.remove IS FALSE
+    INNER JOIN tests.trans_order AS o
+        ON o.trans_order_id = od.trans_order_id
+        AND o.remove IS FALSE
+    INNER JOIN tests.mstr_stakeholder AS c
+        ON c.mstr_stakeholder_id = o.stakeholder_id
+        AND c.remove IS FALSE
+    INNER JOIN tests.mstr_item AS i
+        ON i.mstr_item_id = od.item_id
+        AND i.remove IS FALSE
+    INNER JOIN tests.mstr_item_kind AS k
+        ON k.mstr_item_kind_id = i.mstr_item_kind_id
+        AND k.remove IS FALSE
+    LEFT JOIN LATERAL (
+        SELECT
+            ARRAY_AGG(ip.mstr_item_provision_id ORDER BY ip.mstr_item_provision_id) AS mstr_item_provision_ids
+        FROM
+            tests.mstr_item_provision AS ip
+            INNER JOIN tests.info_provision AS pv
+                ON pv.info_provision_id = ip.info_provision_id
+                AND pv.remove IS FALSE
+        WHERE
+            ip.mstr_item_id = i.mstr_item_id
+            AND ip.remove IS FALSE
+    ) AS pr
+        ON TRUE
+    LEFT JOIN LATERAL (
+        SELECT
+            SUM(r.shipping_quantity) AS shipped_quantity
+            , MAX(r.shipping_date) AS last_shipping_date
+        FROM
+            tests.trans_shipping_order_detail_record AS r
+        WHERE
+            r.trans_shipping_order_detail_id = sd.trans_shipping_order_detail_id
+            AND r.remove IS FALSE
+    ) AS rc
+        ON TRUE
+WHERE
+    sd.remove IS FALSE
+GROUP BY
+    o.stakeholder_id
+    , i.mstr_item_kind_id
+    , i.mstr_item_id
+    , pr.mstr_item_provision_ids
+    , COALESCE(od.delivery_date, o.delivery_date)::DATE
+    , COALESCE(sd.estimated_shipping_date, so.estimated_shipping_date)::DATE
+    , rc.last_shipping_date::DATE
+;
+;
+
+-- 4. 出荷予定受注実績状況
+-- フィルタ: 顧客ID(customer_id), 納期(delivery_date), 出荷実績日(shipping_date), 出荷予定日(estimated_shipping_date),
+--           品目区分ID(mstr_item_kind_id), 品目ID(mstr_item_id), 品目提供ID(mstr_item_provision_ids ※配列)
+-- 粒度: 顧客 × 品目 × 納期(日) × 出荷予定日(日) × 出荷実績日(日) ごとに1行
+-- 納期       : 受注明細の個別納期を優先し、未設定なら受注の納期
+-- 出荷予定日 : 出荷オーダー明細の個別出荷予定日を優先し、未設定なら出荷オーダーの出荷予定日
+-- 出荷実績日 : 出荷明細実績の最終出荷日(MAX(shipping_date))。未出荷は NULL
+-- 金額       : 受注明細の単価 × 数量
+
+
+-- Postgraphile additional comment.
+COMMENT ON VIEW tests.v_shipping_order_status IS E'@foreignKey (customer_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (mstr_item_kind_id) references mstr_item_kind (mstr_item_kind_id)\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n出荷予定受注実績状況';
+
+
+drop view if exists tests.v_purchase_delivery_compliance;
+create view  tests.v_purchase_delivery_compliance as
+SELECT
+    x.supplier_id
+    , x.mstr_item_kind_id
+    , x.mstr_item_id
+    , x.mstr_item_provision_ids
+    , x.period
+    , x.is_received
+    , COUNT(*) AS purchase_detail_count
+    , COUNT(*) FILTER (WHERE x.is_received AND x.received_date <= x.period) AS on_time_count
+    , COUNT(*) FILTER (WHERE x.is_received AND x.received_date > x.period) AS late_count
+    , COUNT(*) FILTER (WHERE NOT x.is_received AND x.period < CURRENT_DATE) AS overdue_count
+    , COUNT(*) FILTER (WHERE NOT x.is_received AND (x.period >= CURRENT_DATE OR x.period IS NULL)) AS pending_count
+    , SUM(x.purchase_quantity) AS purchase_quantity
+    , SUM(x.received_quantity) AS received_quantity
+FROM
+    (
+        SELECT
+            p.stakeholder_id AS supplier_id
+            , i.mstr_item_kind_id
+            , i.mstr_item_id
+            , pr.mstr_item_provision_ids
+            , pd.period::DATE AS period
+            , COALESCE(pd.quantity, 0) AS purchase_quantity
+            , COALESCE(rc.received_quantity, 0) AS received_quantity
+            , (COALESCE(rc.received_quantity, 0) >= COALESCE(pd.quantity, 0)) AS is_received
+            , rc.last_receive_at::DATE AS received_date
+        FROM
+            tests.trans_purchase_detail AS pd
+            INNER JOIN tests.trans_purchase AS p
+                ON p.trans_purchase_id = pd.trans_purchase_id
+                AND p.remove IS FALSE
+            INNER JOIN tests.mstr_stakeholder AS s
+                ON s.mstr_stakeholder_id = p.stakeholder_id
+                AND s.remove IS FALSE
+            INNER JOIN tests.mstr_item AS i
+                ON i.mstr_item_id = pd.item_id
+                AND i.remove IS FALSE
+            INNER JOIN tests.mstr_item_kind AS k
+                ON k.mstr_item_kind_id = i.mstr_item_kind_id
+                AND k.remove IS FALSE
+            LEFT JOIN LATERAL (
+                SELECT
+                    ARRAY_AGG(ip.mstr_item_provision_id ORDER BY ip.mstr_item_provision_id) AS mstr_item_provision_ids
+                FROM
+                    tests.mstr_item_provision AS ip
+                    INNER JOIN tests.info_provision AS pv
+                        ON pv.info_provision_id = ip.info_provision_id
+                        AND pv.remove IS FALSE
+                WHERE
+                    ip.mstr_item_id = i.mstr_item_id
+                    AND ip.remove IS FALSE
+            ) AS pr
+                ON TRUE
+            LEFT JOIN LATERAL (
+                SELECT
+                    SUM(r.quantity) AS received_quantity
+                    , MAX(r.receive_at) AS last_receive_at
+                FROM
+                    tests.trans_purchase_rec AS r
+                WHERE
+                    r.trans_purchase_detail_id = pd.trans_purchase_detail_id
+                    AND r.remove IS FALSE
+            ) AS rc
+                ON TRUE
+        WHERE
+            pd.remove IS FALSE
+    ) AS x
+GROUP BY
+    x.supplier_id
+    , x.mstr_item_kind_id
+    , x.mstr_item_id
+    , x.mstr_item_provision_ids
+    , x.period
+    , x.is_received
+;
+;
+
+-- 3.1 発注納期遵守状況
+-- フィルタ: 発注先ID(supplier_id), 品目区分ID(mstr_item_kind_id), 品目ID(mstr_item_id),
+--           品目提供ID(mstr_item_provision_ids ※配列), 納期(period), 受入済み(is_received)
+-- 粒度: 発注先 × 品目 × 納期(日) × 受入済み ごとに1行
+-- 判定(発注明細単位):
+--   受入済み   : 受入数量合計 >= 発注数量
+--   受入完了日 : 受入済みの場合の最終受入日(MAX(receive_at))
+--   on_time    : 受入済み かつ 受入完了日 <= 納期
+--   late       : 受入済み かつ 受入完了日 >  納期
+--   overdue    : 未受入   かつ 納期 <  本日
+--   pending    : 未受入   かつ (納期 >= 本日 または 納期未設定)
+-- 遵守率 = on_time_count / (on_time_count + late_count + overdue_count)  ※クライアント側で合算後に算出推奨
+
+-- Postgraphile additional comment.
+COMMENT ON VIEW tests.v_purchase_delivery_compliance IS E'@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (mstr_item_kind_id) references mstr_item_kind (mstr_item_kind_id)\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n発注納期遵守状況';
+
+
+drop view if exists tests.v_purchase_amount;
+create view  tests.v_purchase_amount as
+SELECT
+    p.stakeholder_id AS supplier_id
+    , i.mstr_item_kind_id
+    , i.mstr_item_id
+    , pr.mstr_item_provision_ids
+    , pd.period::DATE AS period
+    , (COALESCE(rc.received_quantity, 0) >= COALESCE(pd.quantity, 0)) AS is_received
+    , COUNT(pd.trans_purchase_detail_id) AS purchase_detail_count
+    , SUM(COALESCE(pd.quantity, 0)) AS purchase_quantity
+    , SUM(COALESCE(rc.received_quantity, 0)) AS received_quantity
+    , SUM(COALESCE(pd.quantity, 0) * COALESCE(pd.cost, 0)) AS purchase_amount
+    , SUM(COALESCE(rc.received_quantity, 0) * COALESCE(pd.cost, 0)) AS received_amount
+FROM
+    tests.trans_purchase_detail AS pd
+    INNER JOIN tests.trans_purchase AS p
+        ON p.trans_purchase_id = pd.trans_purchase_id
+        AND p.remove IS FALSE
+    INNER JOIN tests.mstr_stakeholder AS s
+        ON s.mstr_stakeholder_id = p.stakeholder_id
+        AND s.remove IS FALSE
+    INNER JOIN tests.mstr_item AS i
+        ON i.mstr_item_id = pd.item_id
+        AND i.remove IS FALSE
+    INNER JOIN tests.mstr_item_kind AS k
+        ON k.mstr_item_kind_id = i.mstr_item_kind_id
+        AND k.remove IS FALSE
+    LEFT JOIN LATERAL (
+        SELECT
+            ARRAY_AGG(ip.mstr_item_provision_id ORDER BY ip.mstr_item_provision_id) AS mstr_item_provision_ids
+        FROM
+            tests.mstr_item_provision AS ip
+            INNER JOIN tests.info_provision AS pv
+                ON pv.info_provision_id = ip.info_provision_id
+                AND pv.remove IS FALSE
+        WHERE
+            ip.mstr_item_id = i.mstr_item_id
+            AND ip.remove IS FALSE
+    ) AS pr
+        ON TRUE
+    LEFT JOIN LATERAL (
+        SELECT
+            SUM(r.quantity) AS received_quantity
+        FROM
+            tests.trans_purchase_rec AS r
+        WHERE
+            r.trans_purchase_detail_id = pd.trans_purchase_detail_id
+            AND r.remove IS FALSE
+    ) AS rc
+        ON TRUE
+WHERE
+    pd.remove IS FALSE
+GROUP BY
+    p.stakeholder_id
+    , i.mstr_item_kind_id
+    , i.mstr_item_id
+    , pr.mstr_item_provision_ids
+    , pd.period::DATE
+    , (COALESCE(rc.received_quantity, 0) >= COALESCE(pd.quantity, 0))
+;
+;
+
+-- 3. 発注金額合計
+-- フィルタ: 発注先ID(supplier_id), 品目区分ID(mstr_item_kind_id), 品目ID(mstr_item_id),
+--           品目提供ID(mstr_item_provision_ids ※配列), 納期(period), 受入済み(is_received)
+-- 粒度: 発注先 × 品目 × 納期(日) × 受入済み ごとに1行
+-- 受入済み: 受入実績の数量合計 >= 発注数量
+-- Postgraphile additional comment.
+COMMENT ON VIEW tests.v_purchase_amount IS E'@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (mstr_item_kind_id) references mstr_item_kind (mstr_item_kind_id)\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n発注金額合計';
+
+
+drop view if exists tests.v_sales_record;
+create view  tests.v_sales_record as
+SELECT
+    o.stakeholder_id AS customer_id
+    , i.mstr_item_kind_id
+    , i.mstr_item_id
+    , pr.mstr_item_provision_ids
+    , COALESCE(od.delivery_date, o.delivery_date)::DATE AS delivery_date
+    , (COALESCE(sh.shipped_quantity, 0) >= od.quantity) AS is_shipped
+    , COUNT(od.trans_order_detail_id) AS order_detail_count
+    , SUM(od.quantity) AS order_quantity
+    , SUM(COALESCE(sh.shipped_quantity, 0)) AS shipped_quantity
+    , SUM(od.quantity * COALESCE(od.cost, 0)) AS order_amount
+    , SUM(COALESCE(sh.shipped_quantity, 0) * COALESCE(od.cost, 0)) AS shipped_amount
+FROM
+    tests.trans_order_detail AS od
+    INNER JOIN tests.trans_order AS o
+        ON o.trans_order_id = od.trans_order_id
+        AND o.remove IS FALSE
+    INNER JOIN tests.mstr_stakeholder AS c
+        ON c.mstr_stakeholder_id = o.stakeholder_id
+        AND c.remove IS FALSE
+    INNER JOIN tests.mstr_item AS i
+        ON i.mstr_item_id = od.item_id
+        AND i.remove IS FALSE
+    INNER JOIN tests.mstr_item_kind AS k
+        ON k.mstr_item_kind_id = i.mstr_item_kind_id
+        AND k.remove IS FALSE
+    LEFT JOIN LATERAL (
+        SELECT
+            ARRAY_AGG(ip.mstr_item_provision_id ORDER BY ip.mstr_item_provision_id) AS mstr_item_provision_ids
+        FROM
+            tests.mstr_item_provision AS ip
+            INNER JOIN tests.info_provision AS pv
+                ON pv.info_provision_id = ip.info_provision_id
+                AND pv.remove IS FALSE
+        WHERE
+            ip.mstr_item_id = i.mstr_item_id
+            AND ip.remove IS FALSE
+    ) AS pr
+        ON TRUE
+    LEFT JOIN LATERAL (
+        SELECT
+            SUM(r.shipping_quantity) AS shipped_quantity
+        FROM
+            tests.trans_shipping_order_detail AS sd
+            INNER JOIN tests.trans_shipping_order AS so
+                ON so.trans_shipping_order_id = sd.trans_shipping_order_id
+                AND so.remove IS FALSE
+            INNER JOIN tests.trans_shipping_order_detail_record AS r
+                ON r.trans_shipping_order_detail_id = sd.trans_shipping_order_detail_id
+                AND r.remove IS FALSE
+        WHERE
+            sd.trans_order_detail_id = od.trans_order_detail_id
+            AND sd.remove IS FALSE
+    ) AS sh
+        ON TRUE
+WHERE
+    od.remove IS FALSE
+GROUP BY
+    o.stakeholder_id
+    , i.mstr_item_kind_id
+    , i.mstr_item_id
+    , pr.mstr_item_provision_ids
+    , COALESCE(od.delivery_date, o.delivery_date)::DATE
+    , (COALESCE(sh.shipped_quantity, 0) >= od.quantity)
+;
+
+;
+
+-- 2. 売り上げ実績
+-- フィルタ: 顧客ID(customer_id), 品目区分ID(mstr_item_kind_id), 品目ID(mstr_item_id),
+--           品目提供ID(mstr_item_provision_ids ※配列), 納期(delivery_date), 出荷済み(is_shipped)
+-- 粒度: 顧客 × 品目 × 納期(日) × 出荷済み ごとに1行
+-- 納期 : 受注明細の個別納期を優先し、未設定なら受注の納期を使用
+-- 出荷済み: 出荷明細実績の出荷数量合計 >= 受注数量
+-- 品目提供ID: 1品目に複数の品目提供が紐づくため、行の重複計上を避けて配列で保持する
+--             (connection-filter の anyEqualTo 等で絞り込む)
+-- Postgraphile additional comment.
+COMMENT ON VIEW tests.v_sales_record IS E'@foreignKey (customer_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (mstr_item_kind_id) references mstr_item_kind (mstr_item_kind_id)\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n売り上げ実績';
+
+
+drop view if exists tests.v_staff_count;
+create view  tests.v_staff_count as
+SELECT
+    d.info_company_id
+    , a.info_department_id
+    , a.info_position_id
+    , COUNT(DISTINCT a.info_staff_id) AS staff_count
+    , COUNT(a.info_assign_id) AS assign_count
+FROM
+    tests.info_assign AS a
+    INNER JOIN tests.info_staff AS s
+        ON s.info_staff_id = a.info_staff_id
+        AND s.remove IS FALSE
+    INNER JOIN tests.info_department AS d
+        ON d.info_department_id = a.info_department_id
+        AND d.remove IS FALSE
+    INNER JOIN tests.info_position AS p
+        ON p.info_position_id = a.info_position_id
+        AND p.remove IS FALSE
+WHERE
+    a.remove IS FALSE
+    AND a.enable IS TRUE
+GROUP BY
+    d.info_company_id
+    , a.info_department_id
+    , a.info_position_id
+;
+
+;
+
+-- Postgraphile additional comment.
+-- 1. 従業員数
+-- フィルタ: 部署ID(info_department_id), 従業員の区分ID(info_position_id = 役割ID)
+-- 粒度: 会社 × 部署 × 役割 ごとに1行
+-- 備考: 1人が同一部署で複数役割を持つ場合、役割をまたいで staff_count を合算すると重複計上になる。
+--       部署単位の実人数が必要な場合は info_department_id だけで再集計すること。
+COMMENT ON VIEW tests.v_staff_count IS E'@foreignKey (info_company_id) references info_company (info_company_id)\n@foreignKey (info_department_id) references info_department (info_department_id)\n@foreignKey (info_position_id) references info_position (info_position_id)\n@primaryKey info_department_id,info_position_id\n従業員数';
 
 drop view if exists tests.v_visiter_purchase_rec_visiter_count;
 create view  tests.v_visiter_purchase_rec_visiter_count as

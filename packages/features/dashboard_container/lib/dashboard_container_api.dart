@@ -7,6 +7,8 @@ library;
 
 export 'src/model/count_container_spec.dart';
 export 'src/model/count_source.dart';
+export 'src/model/metric_source.dart';
+export 'src/model/metric_sources_provider.dart';
 export 'src/i18n/strings_provider.dart'
     show DashboardContainerStrings, dashboardContainerStringsProvider;
 export 'src/model/count_sources_provider.dart';
