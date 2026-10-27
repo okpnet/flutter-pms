@@ -15,3 +15,5 @@ PurchaseAmountPage:
     - purchase_detail_count
     - purchase_quantity
     - received_quantity
+    - purchase_amount
+    - received_amount

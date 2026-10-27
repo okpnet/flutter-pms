@@ -16,5 +16,7 @@ abstract class PurchaseAmountPageFilterSpec {
     'purchaseDetailCount': FlatFilterPath([], 'purchaseDetailCount'),
     'purchaseQuantity': FlatFilterPath([], 'purchaseQuantity'),
     'receivedQuantity': FlatFilterPath([], 'receivedQuantity'),
+    'purchaseAmount': FlatFilterPath([], 'purchaseAmount'),
+    'receivedAmount': FlatFilterPath([], 'receivedAmount'),
   });
 }

@@ -97,7 +97,7 @@ mutation TaskResourcePageEdit(
 
         address: infoAddressByInfoAddressId {
           infoAddressId
-          iso31662
+          countryCode2
           zipCode
 
           address1: sharedAppellationByAddress1 {
@@ -1031,7 +1031,7 @@ mutation TaskResourcePageEdit(
 
             address: infoAddressByInfoAddressId {
               infoAddressId
-              iso31662
+              countryCode2
               zipCode
 
               address1: sharedAppellationByAddress1 {
@@ -1362,7 +1362,7 @@ mutation TaskResourcePageEdit(
 
           address: infoAddressByInfoAddressId {
             infoAddressId
-            iso31662
+            countryCode2
             zipCode
 
             address1: sharedAppellationByAddress1 {
@@ -1793,7 +1793,7 @@ mutation TaskResourcePageEdit(
 
         address: infoAddressByInfoAddressId {
           infoAddressId
-          iso31662
+          countryCode2
           zipCode
 
           address1: sharedAppellationByAddress1 {

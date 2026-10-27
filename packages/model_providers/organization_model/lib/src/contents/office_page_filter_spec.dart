@@ -18,7 +18,7 @@ abstract class OfficePageFilterSpec {
     'labels||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId': FlatFilterPath([FilterStep('sharedAppellationByNames'), FilterStep('sharedDictionaryBySharedDictionaryNicknameId')], 'sharedDictionaryId'),
     'labels||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue': FlatFilterPath([FilterStep('sharedAppellationByNames'), FilterStep('sharedDictionaryBySharedDictionaryNicknameId'), FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {'sharedLanguageCodeId': 'languageCodeId'})], 'dictionaryValue'),
     'address||infoAddressId': FlatFilterPath([FilterStep('infoAddressByInfoAddressId')], 'infoAddressId'),
-    'address||iso31662': FlatFilterPath([FilterStep('infoAddressByInfoAddressId')], 'iso31662'),
+    'address||countryCode2': FlatFilterPath([FilterStep('infoAddressByInfoAddressId')], 'countryCode2'),
     'address||zipCode': FlatFilterPath([FilterStep('infoAddressByInfoAddressId')], 'zipCode'),
     'address||address1||sharedAppellationsId': FlatFilterPath([FilterStep('infoAddressByInfoAddressId'), FilterStep('sharedAppellationByAddress1')], 'sharedAppellationsId'),
     'address||address1||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId': FlatFilterPath([FilterStep('infoAddressByInfoAddressId'), FilterStep('sharedAppellationByAddress1'), FilterStep('sharedDictionaryBySharedDictionaryNameId')], 'sharedDictionaryId'),

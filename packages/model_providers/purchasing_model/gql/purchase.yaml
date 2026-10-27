@@ -84,6 +84,7 @@ PurchaseDetailPage: &PurchaseDetailPage
     - trans_resource_plan_id
     - restocking_purchase
     - quantity
+    - cost
     - period
     - item_history_id
     - item_id
@@ -128,6 +129,7 @@ PurchaseDetailPageEdit:
     - trans_resource_plan_id
     - restocking_purchase
     - quantity
+    - cost
     - period
     - item_history_id
     - item_id

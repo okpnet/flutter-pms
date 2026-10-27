@@ -12,6 +12,7 @@ abstract class PurchaseDetailPageFilterSpec {
     'transResourcePlanId': FlatFilterPath([], 'transResourcePlanId'),
     'restockingPurchase': FlatFilterPath([], 'restockingPurchase'),
     'quantity': FlatFilterPath([], 'quantity'),
+    'cost': FlatFilterPath([], 'cost'),
     'period': FlatFilterPath([], 'period'),
     'itemHistoryId': FlatFilterPath([], 'itemHistoryId'),
     'itemId': FlatFilterPath([], 'itemId'),

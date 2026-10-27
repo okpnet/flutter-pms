@@ -740,7 +740,7 @@ type HistoryInfoStaff {
 
 type InfoAddress {
   infoAddressId: UUID!
-  iso31662: String
+  countryCode2: String
   zipCode: String
   phone: String
   faxNumber: String
@@ -2054,7 +2054,7 @@ input HistoryInfoStaffFilter {
 
 input InfoAddressFilter {
   infoAddressId: UUIDFilter
-  iso31662: StringFilter
+  countryCode2: StringFilter
   zipCode: StringFilter
   address1: UUIDFilter
   address2: UUIDFilter

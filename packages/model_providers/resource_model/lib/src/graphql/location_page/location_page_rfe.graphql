@@ -98,7 +98,7 @@ query LocationPageRfe(
 
         address: infoAddressByInfoAddressId {
           infoAddressId
-          iso31662
+          countryCode2
           zipCode
 
           address1: sharedAppellationByAddress1 {
@@ -427,7 +427,7 @@ query LocationPageRfe(
 
       address: infoAddressByInfoAddressId {
         infoAddressId
-        iso31662
+        countryCode2
         zipCode
 
         address1: sharedAppellationByAddress1 {
@@ -1017,7 +1017,7 @@ query LocationPageRfe(
 
     info_address_id: infoAddressByInfoAddressId {
       infoAddressId
-      iso31662
+      countryCode2
       zipCode
 
       address1: sharedAppellationByAddress1 {

@@ -30,6 +30,8 @@ query PurchaseAmountPageRead(
       purchaseDetailCount
       purchaseQuantity
       receivedQuantity
+      purchaseAmount
+      receivedAmount
     }
   }
 }

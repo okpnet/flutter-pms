@@ -12,6 +12,7 @@ query PurchaseDetailPageRfe(
     transResourcePlanId
     restockingPurchase
     quantity
+    cost
     period
     itemHistoryId
     itemId

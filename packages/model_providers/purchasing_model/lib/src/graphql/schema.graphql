@@ -70,6 +70,8 @@ enum TransPurchaseDetailsOrderBy {
   RESTOCKING_PURCHASE_DESC
   QUANTITY_ASC
   QUANTITY_DESC
+  COST_ASC
+  COST_DESC
   PERIOD_ASC
   PERIOD_DESC
   ITEM_HISTORY_ID_ASC
@@ -244,6 +246,10 @@ enum VPurchaseAmountsOrderBy {
   PURCHASE_QUANTITY_DESC
   RECEIVED_QUANTITY_ASC
   RECEIVED_QUANTITY_DESC
+  PURCHASE_AMOUNT_ASC
+  PURCHASE_AMOUNT_DESC
+  RECEIVED_AMOUNT_ASC
+  RECEIVED_AMOUNT_DESC
 }
 
 enum VPurchaseDeliveryCompliancesOrderBy {
@@ -290,7 +296,7 @@ type HistoryInfoStaff {
 
 type InfoAddress {
   infoAddressId: UUID!
-  iso31662: String
+  countryCode2: String
   zipCode: String
   phone: String
   faxNumber: String
@@ -421,6 +427,7 @@ type TransPurchaseDetail {
   transResourcePlanId: UUID
   restockingPurchase: Boolean
   quantity: BigFloat
+  cost: BigFloat!
   period: Datetime
   itemHistoryId: UUID!
   itemId: UUID!
@@ -551,6 +558,8 @@ type VPurchaseAmount {
   purchaseDetailCount: BigInt
   purchaseQuantity: BigFloat
   receivedQuantity: BigFloat
+  purchaseAmount: BigFloat
+  receivedAmount: BigFloat
 }
 
 type VPurchaseAmountsConnection {
@@ -955,7 +964,7 @@ input HistoryInfoStaffFilter {
 
 input InfoAddressFilter {
   infoAddressId: UUIDFilter
-  iso31662: StringFilter
+  countryCode2: StringFilter
   zipCode: StringFilter
   address1: UUIDFilter
   address2: UUIDFilter
@@ -1346,6 +1355,7 @@ input TransPurchaseDetailFilter {
   transResourcePlanId: UUIDFilter
   restockingPurchase: BooleanFilter
   quantity: BigFloatFilter
+  cost: BigFloatFilter
   period: DatetimeFilter
   itemHistoryId: UUIDFilter
   itemId: UUIDFilter
@@ -1375,6 +1385,7 @@ input TransPurchaseDetailPatch {
   transResourcePlanId: UUID
   restockingPurchase: Boolean
   quantity: BigFloat
+  cost: BigFloat
   period: Datetime
   itemHistoryId: UUID
   itemId: UUID
@@ -1598,6 +1609,8 @@ input VPurchaseAmountFilter {
   purchaseDetailCount: BigIntFilter
   purchaseQuantity: BigFloatFilter
   receivedQuantity: BigFloatFilter
+  purchaseAmount: BigFloatFilter
+  receivedAmount: BigFloatFilter
   mstrStakeholderBySupplierIdExists: Boolean
   mstrItemKindByMstrItemKindIdExists: Boolean
   mstrItemByMstrItemIdExists: Boolean
@@ -1728,7 +1741,7 @@ input VUnrecognizedUnrecognizedDetailCountFilter {
 }
 
 input updateInfoAddressOnMstrStakeholderForMstrStakeholderFk3Patch {
-  iso31662: String
+  countryCode2: String
   zipCode: String
   phone: String
   faxNumber: String

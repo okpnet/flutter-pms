@@ -160,7 +160,7 @@ query ApprovalOperationPageRfe(
 
             address: infoAddressByInfoAddressId {
               infoAddressId
-              iso31662
+              countryCode2
               zipCode
 
               address1: sharedAppellationByAddress1 {
@@ -717,7 +717,7 @@ query ApprovalOperationPageRfe(
 
             address: infoAddressByInfoAddressId {
               infoAddressId
-              iso31662
+              countryCode2
               zipCode
 
               address1: sharedAppellationByAddress1 {

@@ -9,6 +9,7 @@ mutation PurchaseDetailPageEdit(
   $transResourcePlanId: UUID
   $restockingPurchase: Boolean
   $quantity: BigFloat
+  $cost: BigFloat
   $period: Datetime
   $itemHistoryId: UUID
   $itemId: UUID
@@ -22,6 +23,7 @@ mutation PurchaseDetailPageEdit(
         transResourcePlanId: $transResourcePlanId
         restockingPurchase: $restockingPurchase
         quantity: $quantity
+        cost: $cost
         period: $period
         itemHistoryId: $itemHistoryId
         itemId: $itemId
@@ -35,6 +37,7 @@ mutation PurchaseDetailPageEdit(
       transResourcePlanId
       restockingPurchase
       quantity
+      cost
       period
       itemHistoryId
       itemId
