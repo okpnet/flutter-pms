@@ -83,4 +83,22 @@ void main() {
       expect(jsonEncode(result), '{"orderBy":["UPDATE_AT_DESC","NAME_ASC"]}');
     });
   });
+
+  group('GreaterExpression の向きを逆にした式(less)', () {
+    final f = NameFieldExpression('age');
+    final v = ValueExpression(20);
+    test('PostGraphile / Hasura / SQL / list', () {
+      final lt = GreaterExpression(f, v, isLess: true);
+      final le = GreaterExpression(f, v, isLess: true, isEqulity: true);
+      expect(jsonEncode(_builder.build(lt)(_arg)), '{"filter":{"age":{"lessThan":20}}}');
+      expect(jsonEncode(_builder.build(le)(_arg)), '{"filter":{"age":{"lessThanOrEqualTo":20}}}');
+      expect(jsonEncode(GraphqlExpressionBuilder<Map<String, dynamic>>().build(le)(_arg)),
+          '{"where":{"age":{"_lte":20}}}');
+      final fn = FieldExpression<Map<String, dynamic>>((m) => m['age']);
+      final list = ListExpressionBuilder<Map<String, dynamic>>();
+      expect(list.build(GreaterExpression(fn, v, isLess: true))({'age': 10}), isTrue);
+      expect(list.build(GreaterExpression(fn, v, isLess: true))({'age': 20}), isFalse);
+      expect(list.build(GreaterExpression(fn, v, isLess: true, isEqulity: true))({'age': 20}), isTrue);
+    });
+  });
 }

@@ -17,6 +17,8 @@ dependencies:
   graphql_flutter: ^5.1.0
   gql: ^1.0.1
   collection: #^1.19.1
+  data_strategist:
+    path: ../../foundation/data_strategist
   logger_provider:
     path: ../../infra/logger_provider
 dev_dependencies:

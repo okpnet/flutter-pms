@@ -115,4 +115,74 @@ void main() {
     });
   });
 
+
+  group('convertTree(query_builder の filter の木)', () {
+    const spec = FlatFilterSpec('XFilter', {
+      'age': FlatFilterPath([], 'age'),
+      'name': FlatFilterPath([], 'name'),
+      'office||name': FlatFilterPath([FilterStep('officeByOfficeId')], 'name'),
+    });
+    const converter = FlatFilterConverter(spec);
+
+    test('葉を展開し、and / or / not の入れ子を保つ', () {
+      final tree = {
+        'and': [
+          {
+            'age': {'greaterThan': 20},
+          },
+          {
+            'or': [
+              {
+                'office||name': {'startsWith': 'E'},
+              },
+              {
+                'name': {'equalTo': 'x'},
+              },
+            ],
+          },
+        ],
+      };
+      expect(converter.convertTree(tree), {
+        'and': [
+          {
+            'age': {'greaterThan': 20},
+          },
+          {
+            'or': [
+              {
+                'officeByOfficeId': {
+                  'name': {'startsWith': 'E'},
+                },
+              },
+              {
+                'name': {'equalTo': 'x'},
+              },
+            ],
+          },
+        ],
+      });
+    });
+
+    test('単独の葉はそのまま展開し、条件が無ければ {and: []}', () {
+      expect(
+        converter.convertTree({
+          'name': {'equalTo': 'x'},
+        }),
+        {
+          'name': {'equalTo': 'x'},
+        },
+      );
+      expect(converter.convertTree({}), {'and': <dynamic>[]});
+      expect(converter.convertTree({'and': <dynamic>[]}), {'and': <dynamic>[]});
+    });
+
+    test('展開できないキーは ArgumentError', () {
+      expect(
+        () => converter.convertTree({
+          'nothing': {'equalTo': 1},
+        }),
+        throwsArgumentError,
+      );
+    });
+  });
 }

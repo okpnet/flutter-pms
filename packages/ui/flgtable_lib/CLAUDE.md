@@ -271,3 +271,8 @@
 6.	GOFデザインパターン
 	1.	クラス名やファイル名にデザインパターンを含めない場合は、コメントに該当するパターン名を追加する。
 	2.	必ずしもデザインパターンに割り当てる必要はない。
+
+## query_builderとの連携
+1. 読み込みデリゲートへ渡す`LoadQuery`のフィルタ・ソートは、`query_builder`の式にできる(`LoadQuery.predicate`・`LoadQuery.orders`)。データ取得元は`data_strategist`の`IDataRepository.find`に渡す。
+2. 式にできるのは、列の型にかかわらず、EQ・NEQ・IN・NOT IN・LE・LT・GE・GT・BETWEEN・START WITH・END WITH(と各否定)と、前方・後方・部分・完全一致のLIKEだけ。途中のワイルドカードを持つLIKEは`UnsupportedError`とする。
+3. 式にした条件は大文字小文字を区別する。メモリ上の絞り込み(`ConditionMatcher`)は区別しない。

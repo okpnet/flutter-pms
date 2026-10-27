@@ -71,7 +71,9 @@ class PostgraphileVisitor<T> extends GraphqlVisitor<T>
   @override
   ExpressionCallBack greaterVisit(GreaterExpression ex) => _compare(
         ex,
-        () => ex.isEqulity ? 'greaterThanOrEqualTo' : 'greaterThan',
+        () => ex.isLess
+            ? (ex.isEqulity ? 'lessThanOrEqualTo' : 'lessThan')
+            : (ex.isEqulity ? 'greaterThanOrEqualTo' : 'greaterThan'),
       );
 
   @override

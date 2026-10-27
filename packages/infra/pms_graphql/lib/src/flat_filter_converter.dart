@@ -114,6 +114,59 @@ class FlatFilterConverter {
     return root.isEmpty ? <String, dynamic>{'and': <dynamic>[]} : root;
   }
 
+  /// and / or / not で組んだ検索条件の木([tree]、query_builder の PostgraphileExpressionBuilder の
+  /// `filter`)の葉(平坦化キー -> 演算子のMap)を、[convert]で入れ子のFilterへ展開する。
+  ///
+  /// 葉が1つも残らない and / or は、条件なしとして取り除く。条件が無ければ`{and: []}`を返す。
+  Map<String, dynamic> convertTree(
+    Map<String, dynamic> tree, {
+    Map<String, dynamic> variables = const {},
+  }) {
+    final result = _expandTree(tree, variables);
+    return result.isEmpty ? <String, dynamic>{'and': <dynamic>[]} : result;
+  }
+
+  Map<String, dynamic> _expandTree(
+    Map<String, dynamic> node,
+    Map<String, dynamic> variables,
+  ) {
+    final leaves = <String, dynamic>{};
+    final out = <String, dynamic>{};
+    for (final e in node.entries) {
+      if ((e.key == 'and' || e.key == 'or') && e.value is List) {
+        final parts = [
+          for (final child in e.value as List)
+            if (child is Map<String, dynamic>) _expandTree(child, variables),
+        ].where((m) => m.isNotEmpty).toList();
+        if (parts.isNotEmpty) out[e.key] = parts;
+      } else if (e.key == 'not' && e.value is Map<String, dynamic>) {
+        final inner = _expandTree(e.value as Map<String, dynamic>, variables);
+        if (inner.isNotEmpty) out['not'] = inner;
+      } else {
+        leaves[e.key] = e.value;
+      }
+    }
+    if (leaves.isNotEmpty) {
+      final expanded = convert(leaves, variables: variables);
+      final and = expanded['and'];
+      if (and is List && and.isEmpty && expanded.length == 1) {
+        // 条件なし
+      } else {
+        // 展開した列の条件と、and/or/not を同じ階層に載せる。キーが重なるときは and で結ぶ。
+        for (final e in expanded.entries) {
+          if (!out.containsKey(e.key)) {
+            out[e.key] = e.value;
+          } else if (e.key == 'and' || e.key == 'or') {
+            out[e.key] = [...out[e.key] as List, ...e.value as List];
+          } else {
+            out['and'] = [...((out['and'] as List?) ?? const []), {e.key: e.value}];
+          }
+        }
+      }
+    }
+    return out;
+  }
+
   Map<String, dynamic> _child(Map<String, dynamic> parent, String key) {
     final existing = parent[key];
     if (existing is Map<String, dynamic>) return existing;

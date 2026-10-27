@@ -110,7 +110,7 @@ class SqlVisitor<T> extends Visitor<T>
         final lValue = l(t).toString();
         final rValue = r(t).toString();
         final eq = ex.isEqulity ? '=' : '';
-        return "$lValue >$eq $rValue";
+        return "$lValue ${ex.isLess ? '<' : '>'}$eq $rValue";
       } catch (exception, trace) {
         throw AssertionError(
           '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',

@@ -120,6 +120,9 @@ class ListVisitor<T> extends Visitor<T>
         final r = ex.right.accept(this);
         final lValue = l(t);
         final rValue = r(t);
+        if (ex.isLess) {
+          return ex.isEqulity ? lValue <= rValue : lValue < rValue;
+        }
         return ex.isEqulity ? lValue >= rValue : lValue > rValue;
       } catch (exception, trace) {
         throw AssertionError(

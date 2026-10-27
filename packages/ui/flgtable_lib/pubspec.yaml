@@ -14,6 +14,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  query_builder:
+    path: ../../foundation/query_builder
   undo_redo:
     path: ../../foundation/undo_redo
   logger_provider:

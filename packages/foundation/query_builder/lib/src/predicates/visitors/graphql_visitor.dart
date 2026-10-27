@@ -111,7 +111,7 @@ class GraphqlVisitor<T> extends Visitor<T>
         final lValue = l(t).toString();
         final rValue = r(t);
         return {
-          lValue: {ex.isEqulity ? '_gte' : '_gt': rValue},
+          lValue: {(ex.isLess ? (ex.isEqulity ? '_lte' : '_lt') : (ex.isEqulity ? '_gte' : '_gt')): rValue},
         };
       } catch (exception, trace) {
         throw AssertionError(

@@ -2,7 +2,7 @@ import 'data_repository.dart';
 import 'query_facade.dart';
 
 ///ExpressionBuilderに適用するVisitorのタイプ
-enum ExpressionVisitorType { list, sql, graphQl }
+enum ExpressionVisitorType { list, sql, graphQl, postgraphile }
 
 ///レポジトリの状態管理のインターフェイス
 ///[R]問い合わせの結果の型

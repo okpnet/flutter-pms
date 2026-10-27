@@ -6,6 +6,9 @@ import '../expressions.dart';
 abstract interface class IGreateExpression
     implements IExpression, IOperatorExpression {
   bool get isEqulity;
+
+  ///True:大小を逆にする(左が右より小さい)
+  bool get isLess;
 }
 
 ///左を基準に右を評価する式
@@ -15,8 +18,19 @@ class GreaterExpression extends OperatorExpression
   @override
   final bool isEqulity;
 
-  GreaterExpression(super.left, super.right, {bool? isEqulity, super.name})
-    : isEqulity = isEqulity ?? false;
+  ///True:左が右より小さい(~以下は[isEqulity]と併用)
+  @override
+  final bool isLess;
+
+  GreaterExpression(
+    super.left,
+    super.right, {
+    bool? isEqulity,
+    bool? isLess,
+    super.name,
+  })
+    : isEqulity = isEqulity ?? false,
+      isLess = isLess ?? false;
 
   @override
   ExpressionCallBack accept(IVisitor visitor) {
@@ -29,7 +43,7 @@ class GreaterExpression extends OperatorExpression
 
   @override
   DebugNode acceptDebug({int? level}) {
-    final debugPrint = '>${isEqulity ? "=" : ""} [${name ?? "no_name"}]';
+    final debugPrint = '${isLess ? "<" : ">"}${isEqulity ? "=" : ""} [${name ?? "no_name"}]';
     final resultNode = DebugNode(debugPrint, [
       left.acceptDebug(),
       right.acceptDebug(),
