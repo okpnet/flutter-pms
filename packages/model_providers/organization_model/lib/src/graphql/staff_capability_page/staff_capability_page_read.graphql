@@ -1,0 +1,276 @@
+# staff_capability_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #StaffCapabilityPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query StaffCapabilityPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: InfoStaffFilter = {and: []}
+  $orderBy: [InfoStaffsOrderBy!]
+  $languageCodeId: UUID!
+  $capabilitysOrderBy: [MstrStaffCapabilitiesOrderBy!]
+  $removed: Boolean = false
+) {
+  allInfoStaffs(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      infoStaffId
+      infoCompanyId
+      code
+
+      labels: sharedAppellationByNames {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+
+      sex
+      phone
+      privatePhone
+
+      capabilitys: mstrStaffCapabilitiesByInfoStaffId(orderBy: $capabilitysOrderBy) {
+        totalCount
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          mstrStaffCapabilityId
+          infoStaffId
+
+          capability: mstrCapabilityByMstrCapabilityId {
+            mstrCapabilityId
+            code
+
+            labels: sharedAppellationByNames {
+              sharedAppellationsId
+              sharedDictionaryBySharedDictionaryNameId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+
+              sharedDictionaryBySharedDictionaryPronunciationId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+
+              sharedDictionaryBySharedDictionaryNicknameId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+            }
+
+            detailTexts: sharedTextByDetails {
+              sharedTextId
+              value: sharedTextValuesBySharedTextId(
+                condition: { sharedLanguageCodeId: $languageCodeId }
+              ) {
+                nodes {
+                  charCount
+                  leadText
+                }
+              }
+            }
+
+            referenceValue
+            max
+            min
+            step
+            symbol
+            remarks
+
+            staff_capability_count: vCapabilityStaffCapabilityCountByMstrCapabilityId {
+              mstrCapabilityId
+            }
+
+            updateAt
+            remove
+
+            update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+              historyId
+              infoStaffId
+              infoCompanyId
+              code
+
+              name: sharedAppellationByNames {
+                sharedAppellationsId
+                sharedDictionaryBySharedDictionaryNameId {
+                  sharedDictionaryId
+                  value: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $languageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+
+                sharedDictionaryBySharedDictionaryPronunciationId {
+                  sharedDictionaryId
+                  value: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $languageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+
+                sharedDictionaryBySharedDictionaryNicknameId {
+                  sharedDictionaryId
+                  value: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $languageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+              }
+
+              sex
+              phone
+              symbol
+              privatePhone
+            }
+          }
+
+          value
+          stop
+        }
+      }
+
+      symbol
+      remarks
+
+      staff_access_permission_count: vStaffStaffAccessPermissionCountByInfoStaffId {
+        infoStaffId
+      }
+
+      staff_license_count: vStaffStaffLicenseCountByInfoStaffId {
+        infoStaffId
+      }
+
+      staff_capability_count: vStaffStaffCapabilityCountByInfoStaffId {
+        infoStaffId
+      }
+
+      sign_count: vStaffSignCountByInfoStaffId {
+        infoStaffId
+      }
+
+      assign_count: vStaffAssignCountByInfoStaffId {
+        infoStaffId
+      }
+
+      updateAt
+      remove
+
+      update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        infoCompanyId
+        code
+
+        name: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        sex
+        phone
+        symbol
+        privatePhone
+      }
+    }
+  }
+}

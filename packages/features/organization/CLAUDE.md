@@ -1,7 +1,7 @@
 # organization
 
 `packages/features/CLAUDE.md` の「organization」(単位・会社・事業所・部門部署・作業者・承認)を実装する機能プロジェクト。`packages/features/CLAUDE.md` の[規則/仕様]を必ず適用する。
-画面の参照元は `packages/infra/graphql_provider_lib/source/page.md`、列は `source/views/{system,company}`、モデルは `lib/postgraphile` のクラスとする。
+画面の参照元は `tools/gql_yaml2graphql/doc/page.md`、列は `source/views/{system,company}`、モデルは `lib/src/graphql` のクラスとする。
 
 <!-- entity_gen:begin -->
 ## 実体の画面(生成)
@@ -56,7 +56,7 @@
 
 ## データ・デザイン
 1.  データの取得は`riverpod`をとおして`packages/foundation/data_strategist`を使用する。
-2.  デザインは`tools/open-design`のHtml、テーブル・ツリーは`packages/ui/flgtable_lib`、列・フィールドは`graphql_provider_lib`を参照する。
+2.  デザインは`tools/open-design`のHtml、テーブル・ツリーは`packages/ui/flgtable_lib`、列・フィールドは`model_providers の各モデルパッケージ`を参照する。
 3.  評価結果に対する提案、問題/課題は`doc/log`に追加し、プロジェクト毎に解決する。
 
 ## mock_up との対応

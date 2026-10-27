@@ -1,0 +1,98 @@
+# purchase_detail_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #PurchaseDetailPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query PurchaseDetailPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransPurchaseDetailFilter = {and: []}
+  $orderBy: [TransPurchaseDetailsOrderBy!]
+  $languageCodeId: UUID!
+  $transPurchaseId: UUID!
+  $removed: Boolean = false
+) {
+  allTransPurchaseDetails(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, { transPurchaseId: { equalTo: $transPurchaseId } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transPurchaseDetailId
+      transPurchaseId
+      transResourcePlanId
+      restockingPurchase
+      quantity
+      period
+      itemHistoryId
+      itemId
+      symbol
+      remarks
+
+      purchase_rez_count: vPurchaseDetailPurchaseRezCountByTransPurchaseDetailId {
+        transPurchaseDetailId
+      }
+
+      purchase_rec_count: vPurchaseDetailPurchaseRecCountByTransPurchaseDetailId {
+        transPurchaseDetailId
+      }
+
+      updateAt
+      remove
+
+      update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        infoCompanyId
+        code
+
+        name: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        sex
+        phone
+        symbol
+        privatePhone
+      }
+    }
+  }
+}

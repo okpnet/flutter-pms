@@ -1,0 +1,97 @@
+# visiter_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #VisiterPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query VisiterPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransVisiterFilter = {and: []}
+  $orderBy: [TransVisitersOrderBy!]
+  $languageCodeId: UUID!
+  $removed: Boolean = false
+) {
+  allTransVisiters(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transVisiterId
+      transContainerId
+      status
+      quantity
+      symbol
+      remarks
+
+      convey_count: vVisiterConveyCountByTransVisiterId {
+        transVisiterId
+      }
+
+      purchase_rec_visiter_count: vVisiterPurchaseRecVisiterCountByTransVisiterId {
+        transVisiterId
+      }
+
+      work_record_visiter_count: vVisiterWorkRecordVisiterCountByTransVisiterId {
+        transVisiterId
+      }
+
+      updateAt
+      remove
+
+      update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        infoCompanyId
+        code
+
+        name: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        sex
+        phone
+        symbol
+        privatePhone
+      }
+    }
+  }
+}

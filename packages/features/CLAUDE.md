@@ -32,7 +32,7 @@
 ## 機能プロジェクト共通
 1.  画面デザインは`flutter-pms\tools\open-design`のHtmlデザインを原則の基準とする。
     1.  テーブル構造、ツリー構造は`flutter-pms\packages\ui\flgtable_lib`を使用する。
-    2.  列、フィールドは`graphql_provider_lib`を参照する。
+    2.  列、フィールドは`model_providers の各モデルパッケージ`を参照する。
     3.  プロジェクト(機能)の区分は、Htmlのメニューを参照する。
 2.  各プロジェクトに共通して次を行う。
     1.  データの取得は`riverpod`をとおして`flutter-pms\packages\foundation\data_strategist`を使用する。
@@ -66,12 +66,12 @@
 	+ grid_extenssion（trina_grid拡張）
 3. データ問い合わせGraphQLライブラリ
 	+ graphql_lib（通信）
-	+ graphql_provider_lib（モデル）
+	+ model_providers（機能ごとのモデル）
 4. 認証画面ライブラリ
 	+ pms_authenticator ※移植が必要
 
 アプリケーション、ライブラリは日本語をメイン言語とした多言語対応として、`riverpod`からインジェクションする[slang](https://pub.dev/packages/slang) パッケージを使用する。または、これに準ずる自作ライブラリの作成。
-表示する全てのラベル、メッセージを対象とするが、機能画面上の列は、データベースのコメントが使用できるため、画面単位で使用する列などの日本語のラベルは、`flutter-pms\packages\infra\graphql_provider_lib\lib\graphql`、`flutter-pms\packages\infra\graphql_provider_lib\lib\postgraphile`を参照した、`schema.graphql`のコメントを使用する。画面で使用する不足しているラベルは適切なものを推論し、推論できないモノは仮で割り当て、後で変更できるようにログに残す。
+表示する全てのラベル、メッセージを対象とするが、機能画面上の列は、データベースのコメントが使用できるため、画面単位で使用する列などの日本語のラベルは、`flutter-pms\packages\infra\model_providers の各モデルパッケージ\lib\graphql`、`flutter-pms\packages\infra\model_providers の各モデルパッケージ\lib\postgraphile`を参照した、`schema.graphql`のコメントを使用する。画面で使用する不足しているラベルは適切なものを推論し、推論できないモノは仮で割り当て、後で変更できるようにログに残す。
 ## 現在のアプリ構成
 1. [参照するライブラリ](#参照するライブラリ)
 2. GoRouterライブラリ:インポート済み
@@ -97,8 +97,8 @@
 grid_extenssion使用。親子構造（子のインデント処理）を持ち、ドラッグドロップで親の付け替えができる（Trueのとき）。親は子の有無の情報をもち、子があるときに展開（遅延読み込み）、縮小ができる。
 
 #### テーブル構造
-grid_extenssion使用。列（プロパティ/キー）と行をもつリスト構造で、列のソート、フィルタができる（Trueのとき）。列は値を表示/非表示ができる。列キーは`flutter-pms\packages\infra\graphql_provider_lib\source\views`に従う。
-列構造は、`flutter-pms\packages\infra\graphql_provider_lib\lib\postgraphile`を参照し、該当するモデルクラスのプロパティ名を適用する。
+grid_extenssion使用。列（プロパティ/キー）と行をもつリスト構造で、列のソート、フィルタができる（Trueのとき）。列は値を表示/非表示ができる。列キーは`flutter-pms\packages\infra\model_providers の各モデルパッケージ\source\views`に従う。
+列構造は、`flutter-pms\packages\infra\model_providers の各モデルパッケージ\lib\postgraphile`を参照し、該当するモデルクラスのプロパティ名を適用する。
 編集が有効なとき、行のクリックで編集画面へ遷移する。
 #### リスト構造
 タイルもしくは1つのラベル（アイコンとラベルの組み合わせもありうる）をもつドラッグドロップで順を変えることができる（Trueのとき）リスト構造。1レコード/1タイルをタップ/クリックで編集構造へ遷移できる。[テーブル構造](#テーブル構造)との違いは、列を持たないことである。
@@ -133,7 +133,7 @@ GraphQLから取得したデータのうち、イミュータブルな更新者�
 `基本的な情報`とは、名前、略称、読み、住所などの情報をもとに一意に識別できる情報。データの更新者、更新日、削除されているかの情報を含めない。
 機能画面の機能単位のプロジェクトは`flutter-pms\packages\features`に保存する。
 ### 参照するモデル
-`flutter-pms\packages\infra\graphql_provider_lib\source\page.md`を画面の参照元とする。
+`flutter-pms\packages\infra\model_providers の各モデルパッケージ\source\page.md`を画面の参照元とする。
 以下の各画面はプロジェクトの単位として、当該情報を`CLAUDE.md`としてまとめ、実装の基準とする。
 ログインしていない、画面に対して権限が有効になっていない場合、かつ通信可能でエラーでなければログイン画面に遷移する。
 
@@ -263,3 +263,8 @@ GraphQLから取得したデータのうち、イミュータブルな更新者�
 ### 使用言語
 1.  使用言語の既定は実行環境(OS)の言語。アプリが`localeProvider`を`SystemLocaleNotifier`へ差し替える。設定画面で「実行環境に従う」「日本語」「English」から選べる。対応していない言語は、各機能の文字列が基準言語(日本語)にする。
 2.  各機能の文字列は、機能内の`lib/src/i18n`の言語ファイル(Yaml)に置く。`feature_shared`の`localeProvider`だけを共通の入口にする。
+
+## GraphQL モデルの利用
+1.  機能パッケージは、自分に対応する`packages/model_providers/<機能>_model`だけに依存する。他の機能のモデルパッケージには依存しない。
+2.  機能をまたいで受け渡す(遷移先・命令・Baton経由を含む)のは ID(`String`)や基本型だけにする。生成された型(列挙型・入力型を含む)は、そのモデルパッケージと対応する機能の外に出さない。機能ごとに同名の型が生成されるため、このルールは必須とする。
+3.  生成モデルは Git に入れない。モデルを使う前に`melos run gql:build`を実行する(本家スキーマは不要)。

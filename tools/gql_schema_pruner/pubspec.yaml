@@ -1,0 +1,16 @@
+name: gql_schema_pruner
+description: 本家 GraphQL スキーマから、機能の .graphql が使う部分だけの画面用 schema.graphql を抜き出す(開発時のみ使うツール)。
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+
+dependencies:
+  gql: ^1.0.1
+  path: ^1.9.1
+
+dev_dependencies:
+  lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  test: ^1.25.6 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

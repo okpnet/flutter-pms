@@ -1,0 +1,26 @@
+# container_tree_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #ContainerTreePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ContainerTreePageEdit(
+  $transContainerTreeId: UUID!
+  $parentTransContainerId: UUID
+  $remarks: String
+) {
+  updateTransContainerTreeByTransContainerTreeId(
+    input: {
+      transContainerTreeId: $transContainerTreeId
+      transContainerTreePatch: {
+        parentTransContainerId: $parentTransContainerId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transContainerTree {
+      transContainerTreeId
+      parentTransContainerId
+      remarks
+    }
+  }
+}

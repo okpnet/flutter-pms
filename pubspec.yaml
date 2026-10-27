@@ -11,6 +11,10 @@ environment:
 workspace:
   - apps/*
   - packages/*/*
+  # ↑ packages/model_providers/*(機能単位の GraphQL モデル)もこれに含まれる
+  # tools/ のうち workspace に入れるのは GraphQL 生成ツールだけ(condition_pipeline 等は対象外)
+  - tools/gql_schema_pruner
+  - tools/gql_yaml2graphql
   # ↑ ワイルドカードが使えない SDK の場合は、次のように1つずつ列挙する:
   #   - apps/pms_app
   #   - packages/foundation/query_builder ...
@@ -39,6 +43,7 @@ melos:
     ui: [packages/ui/*]
     infra: [packages/infra/*]
     foundation: [packages/foundation/*]
+    model_providers: [packages/model_providers/*]
 
   command:
     bootstrap:
@@ -95,3 +100,52 @@ melos:
       exec: dart run build_runner build --delete-conflicting-outputs
       packageFilters:
         dependsOn: build_runner
+
+    # ── GraphQL モデル生成(機能単位。CLAUDE.md「GraphQL モデル生成ルール」) ──
+    gql:schema:
+      description: 本家スキーマを .schema/ に取得(DB変更時のみ)
+      run: dart run tools/gql_schema_pruner/bin/fetch_schema.dart --endpoint http://192.168.1.100:5000/graphql --endpoint http://192.168.9.245:5000/graphql --out .schema/schema.graphql
+
+    gql:yaml:
+      description: ① 全モデルパッケージの gql/*.yaml → lib/src/graphql/*.graphql
+      run: dart run tools/gql_yaml2graphql/bin/gql_yaml2graphql.dart --root packages/model_providers
+
+    gql:prune:
+      description: ② 本家スキーマから画面用 schema.graphql を抜き出す(検証も兼ねる)
+      run: dart run tools/gql_schema_pruner/bin/gql_schema_pruner.dart --schema .schema/schema.graphql --root packages/model_providers
+
+    gql:check:
+      description: ② の差分チェック(書き出さずに、差分があれば失敗する。CI用)
+      run: dart run tools/gql_schema_pruner/bin/gql_schema_pruner.dart --schema .schema/schema.graphql --root packages/model_providers --check
+
+    gql:build:
+      description: ③ モデル生成(検索条件の対応表・バレルも更新する)
+      steps:
+        - gql:filter
+        - gql:build:runner
+        - gql:barrel
+
+    gql:filter:
+      description: 検索条件の対応表(lib/src/contents/*_filter_spec.dart)を生成
+      run: dart run tools/gql_yaml2graphql/bin/gen_filter_spec.dart --root packages/model_providers
+
+    gql:build:runner:
+      description: graphql_codegen(build_runner)でモデルを生成
+      exec: dart run build_runner build -d
+      packageFilters:
+        dirExists: gql
+
+    gql:barrel:
+      description: モデルパッケージのバレルファイルを更新
+      run: dart run tools/gql_yaml2graphql/bin/gen_barrel.dart --root packages/model_providers
+
+    gql:
+      description: ①→②→③ をまとめて実行
+      steps:
+        - gql:yaml
+        - gql:prune
+        - gql:build
+
+    gql:property-list:
+      description: 生成モデルのプロパティ一覧 CSV を doc/contents/property_list.csv に出力(gql:build の後)
+      run: dart run tools/gql_yaml2graphql/bin/gen_property_list.dart --root packages/model_providers

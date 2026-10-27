@@ -1,0 +1,140 @@
+# operation_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #OperationPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query OperationPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: MstrOperationFilter = {and: []}
+  $orderBy: [MstrOperationsOrderBy!]
+  $languageCodeId: UUID!
+  $removed: Boolean = false
+) {
+  allMstrOperations(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrOperationId
+      controlCode
+
+      labels: sharedAppellationByNames {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+
+      detailTexts: sharedTextByDetails {
+        sharedTextId
+        value: sharedTextValuesBySharedTextId(
+          condition: { sharedLanguageCodeId: $languageCodeId }
+        ) {
+          nodes {
+            charCount
+            leadText
+          }
+        }
+      }
+
+      symbol
+      remarks
+
+      operation_task_count: vOperationOperationTaskCountByMstrOperationId {
+        mstrOperationId
+      }
+
+      item_operation_count: vOperationItemOperationCountByMstrOperationId {
+        mstrOperationId
+      }
+
+      updateAt
+      remove
+
+      update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        infoCompanyId
+        code
+
+        name: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        sex
+        phone
+        symbol
+        privatePhone
+      }
+    }
+  }
+}

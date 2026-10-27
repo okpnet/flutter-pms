@@ -9,7 +9,7 @@
 2.  品目: 品目体系 [ツリー構造] / 大きさ区分 [テーブル構造] / HSコード [テーブル構造]。品目配下に HSコード・品目大きさ・梱包サイズ・品目工程運用・製造元の子(リスト構造)
 
 ## 参照するモデル
-`packages/infra/graphql_provider_lib/source/views/` の次を列・フィールドの参照元とし、モデルは `lib/postgraphile` のクラスを使う。
+`packages/model_providers/*_model/gql/` の次を列・フィールドの参照元とし、モデルは `lib/src/graphql` のクラスを使う。
 +  `provision/item.yaml`, `provision/item_size.yaml`, `provision/manufacture.yaml`
 
 ## 実装の指針

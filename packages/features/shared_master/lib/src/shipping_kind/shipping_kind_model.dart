@@ -1,4 +1,4 @@
-/// 配送区分。列名は graphql_provider_lib の `ShippingKindReadFields`(`MstrShippingKind`)に合わせる。
+/// 配送区分。列名は model_providers の各モデルパッケージ の `ShippingKindReadFields`(`MstrShippingKind`)に合わせる。
 ///
 /// 名称・読み・略称は GraphQL では名称辞書(`labels`)の値。ここでは平らにして持つ。
 class ShippingKind {

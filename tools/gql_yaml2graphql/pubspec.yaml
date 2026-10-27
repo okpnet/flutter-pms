@@ -1,0 +1,17 @@
+name: gql_yaml2graphql
+description: 機能ごとの gql/*.yaml(画面仕様)から、クエリ・ミューテーションの .graphql を生成する(開発時のみ使うツール)。
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+
+dependencies:
+  gql: ^1.0.1
+  path: ^1.9.1
+  yaml: ^3.1.4
+
+dev_dependencies:
+  lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  test: ^1.25.6 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

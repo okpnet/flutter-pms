@@ -9,7 +9,7 @@ import '../../i18n/strings_provider.dart';
 import '../shipping_kind_destinations.dart';
 import '../shipping_kinds_provider.dart';
 
-/// 配送区分台帳の列。キーは graphql_provider_lib の `ShippingKindReadFields` に合わせる。
+/// 配送区分台帳の列。キーは model_providers の各モデルパッケージ の `ShippingKindReadFields` に合わせる。
 /// ラベルは言語ファイル(`lib/src/i18n`)。コメントが無いものは仮(doc/log に記録)。
 List<ColumnDefinition<ShippingKind>> shippingKindColumns(
   SharedMasterStrings strings,

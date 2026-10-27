@@ -1,7 +1,7 @@
 # 生産管理アプリ 画面デザイン仕様（pms_design.md）
 
 `tools/open-design` の Web プロトタイプ（HTML/CSS/JS）が実装している、画面の項目と振る舞いの現状をまとめたもの。配色・余白などのトークンは `design/theme.md`、Flutter 側は `flutter/app_theme.dart` が正本。
-項目名は GraphQL の View 定義（`packages/infra/graphql_provider_lib/source/views`）と DB の列コメント（`tools/docker/postgresql/scripts/06_cteate_test.sql`）に合わせている。サンプルの値は実在しない架空のもの。
+項目名は GraphQL の View 定義（`packages/model_providers/*_model/gql/`）と DB の列コメント（`tools/docker/postgresql/scripts/06_cteate_test.sql`）に合わせている。サンプルの値は実在しない架空のもの。
 
 ---
 

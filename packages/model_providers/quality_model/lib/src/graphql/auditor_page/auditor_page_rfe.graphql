@@ -1,0 +1,23 @@
+# auditor_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: gql/*.yaml #AuditorPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query AuditorPageRfe(
+  $transAuditorId: UUID!
+) {
+  transAuditorByTransAuditorId(transAuditorId: $transAuditorId) {
+    transAuditorId
+    transAuditTeamId
+    auditStdHistoryId
+    auditStdId
+    ccategory
+    staffHistoryId
+    staffId
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

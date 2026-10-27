@@ -1,0 +1,120 @@
+# prevention_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #PreventionPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation PreventionPageEdit(
+  $transPreventionId: UUID!
+  $transRiskId: UUID
+  $transLabelId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+  $ja: String!
+  $en: String!
+  $remarks: String
+  $number: String
+  $detailTextsTransTextId: UUID!
+  $detailTextsJa: String!
+  $detailTextsEn: String!
+  $detailTextsRemarks: String
+) {
+  updateTransPreventionByTransPreventionId(
+    input: {
+      transPreventionId: $transPreventionId
+      transPreventionPatch: {
+        transRiskId: $transRiskId
+
+        transLabelToTitles: {
+          updateByTransLabelId: {
+            transLabelId: $transLabelId
+            transLabelPatch: {
+              transLabelValuesUsingTransLabelId: {
+                deleteOthers: true
+                create: [
+                  { sharedLanguageCodeId: $jaLanguageCodeId, labelValue: $ja }
+                  { sharedLanguageCodeId: $enLanguageCodeId, labelValue: $en }
+                ]
+              }
+
+              remarks: $remarks
+            }
+          }
+        }
+
+        number: $number
+
+        transTextToDetails: {
+          updateByTransTextId: {
+            transTextId: $detailTextsTransTextId
+            transTextPatch: {
+              transTextValuesUsingTransTextId: {
+                deleteOthers: true
+                create: [
+                  { sharedLanguageCodeId: $jaLanguageCodeId, textValue: $detailTextsJa }
+                  { sharedLanguageCodeId: $enLanguageCodeId, textValue: $detailTextsEn }
+                ]
+              }
+
+              remarks: $detailTextsRemarks
+            }
+          }
+        }
+
+        remarks: $remarks
+      }
+    }
+  ) {
+    transPrevention {
+      transPreventionId
+      transRiskId
+
+      labels: transLabelByTitles {
+        transLabelId
+
+        ja: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            labelValue
+          }
+        }
+
+        en: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            labelValue
+          }
+        }
+
+        remarks
+      }
+
+      number
+
+      detailTexts: transTextByDetails {
+        transTextId
+
+        ja: transTextValuesByTransTextId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+
+        en: transTextValuesByTransTextId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+
+        remarks
+      }
+
+      remarks
+    }
+  }
+}

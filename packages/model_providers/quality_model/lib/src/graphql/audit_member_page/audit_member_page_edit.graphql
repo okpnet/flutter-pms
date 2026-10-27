@@ -1,0 +1,119 @@
+# audit_member_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #AuditMemberPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditMemberPageEdit(
+  $transAuditMemberId: UUID!
+  $transAuditId: UUID!
+  $class: Int
+  $participantNameLabelsTransLabelId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+  $participantNameLabelsJa: String!
+  $participantNameLabelsEn: String!
+  $participantNameLabelsRemarks: String
+  $departmentNameLabelsTransLabelId: UUID!
+  $departmentNameLabelsJa: String!
+  $departmentNameLabelsEn: String!
+  $departmentNameLabelsRemarks: String
+  $remarks: String
+) {
+  updateTransAuditMemberByTransAuditMemberIdAndTransAuditId(
+    input: {
+      transAuditMemberId: $transAuditMemberId
+      transAuditId: $transAuditId
+      transAuditMemberPatch: {
+        class: $class
+
+        transLabelToParticipantNames: {
+          updateByTransLabelId: {
+            transLabelId: $participantNameLabelsTransLabelId
+            transLabelPatch: {
+              transLabelValuesUsingTransLabelId: {
+                deleteOthers: true
+                create: [
+                  { sharedLanguageCodeId: $jaLanguageCodeId, labelValue: $participantNameLabelsJa }
+                  { sharedLanguageCodeId: $enLanguageCodeId, labelValue: $participantNameLabelsEn }
+                ]
+              }
+
+              remarks: $participantNameLabelsRemarks
+            }
+          }
+        }
+
+        transLabelToDepartmentNames: {
+          updateByTransLabelId: {
+            transLabelId: $departmentNameLabelsTransLabelId
+            transLabelPatch: {
+              transLabelValuesUsingTransLabelId: {
+                deleteOthers: true
+                create: [
+                  { sharedLanguageCodeId: $jaLanguageCodeId, labelValue: $departmentNameLabelsJa }
+                  { sharedLanguageCodeId: $enLanguageCodeId, labelValue: $departmentNameLabelsEn }
+                ]
+              }
+
+              remarks: $departmentNameLabelsRemarks
+            }
+          }
+        }
+
+        remarks: $remarks
+      }
+    }
+  ) {
+    transAuditMember {
+      transAuditMemberId
+      transAuditId
+      class
+
+      participantNameLabels: transLabelByParticipantNames {
+        transLabelId
+
+        ja: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            labelValue
+          }
+        }
+
+        en: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            labelValue
+          }
+        }
+
+        remarks
+      }
+
+      departmentNameLabels: transLabelByDepartmentNames {
+        transLabelId
+
+        ja: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            labelValue
+          }
+        }
+
+        en: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            labelValue
+          }
+        }
+
+        remarks
+      }
+
+      remarks
+    }
+  }
+}

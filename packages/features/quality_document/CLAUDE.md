@@ -10,7 +10,7 @@
 3.  レポート: レポートひな形台帳
 
 ## 参照するモデル
-`packages/infra/graphql_provider_lib/source/views/` の次を列・フィールドの参照元とし、モデルは `lib/postgraphile` のクラスを使う。
+`packages/model_providers/*_model/gql/` の次を列・フィールドの参照元とし、モデルは `lib/src/graphql` のクラスを使う。
 +  `quality/document.yaml`, `quality/report.yaml`
 
 ## 実装の指針

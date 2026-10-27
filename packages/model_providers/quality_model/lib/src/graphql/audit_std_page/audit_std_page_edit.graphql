@@ -1,0 +1,199 @@
+# audit_std_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #AuditStdPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditStdPageEdit(
+  $mstrAuditStdId: UUID!
+  $code: String
+  $controlCode: String
+  $category: Int
+  $sharedAppellationsId: UUID!
+  $nameSharedDictionaryId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+  $nameJa: String!
+  $nameEn: String!
+  $pronunciationSharedDictionaryId: UUID!
+  $pronunciationJa: String!
+  $pronunciationEn: String!
+  $nicknameSharedDictionaryId: UUID!
+  $nicknameJa: String!
+  $nicknameEn: String!
+  $detailTextsSharedTextId: UUID!
+  $detailTextsJa: String!
+  $detailTextsEn: String!
+  $remarks: String
+) {
+  updateMstrAuditStdByMstrAuditStdId(
+    input: {
+      mstrAuditStdId: $mstrAuditStdId
+      mstrAuditStdPatch: {
+        code: $code
+        controlCode: $controlCode
+        category: $category
+
+        sharedAppellationToNames: {
+          updateBySharedAppellationsId: {
+            sharedAppellationsId: $sharedAppellationsId
+            sharedAppellationPatch: {
+              sharedDictionaryToSharedDictionaryNameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $nameSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    sharedDictionaryValuesUsingSharedDictionaryId: {
+                      deleteOthers: true
+                      create: [
+                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $nameJa }
+                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $nameEn }
+                      ]
+                    }
+                  }
+                }
+              }
+
+              sharedDictionaryToSharedDictionaryPronunciationId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $pronunciationSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    sharedDictionaryValuesUsingSharedDictionaryId: {
+                      deleteOthers: true
+                      create: [
+                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $pronunciationJa }
+                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $pronunciationEn }
+                      ]
+                    }
+                  }
+                }
+              }
+
+              sharedDictionaryToSharedDictionaryNicknameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $nicknameSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    sharedDictionaryValuesUsingSharedDictionaryId: {
+                      deleteOthers: true
+                      create: [
+                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $nicknameJa }
+                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $nicknameEn }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        sharedTextToDetails: {
+          updateBySharedTextId: {
+            sharedTextId: $detailTextsSharedTextId
+            sharedTextPatch: {
+              sharedTextValuesUsingSharedTextId: {
+                deleteOthers: true
+                create: [
+                  { sharedLanguageCodeId: $jaLanguageCodeId, textValue: $detailTextsJa }
+                  { sharedLanguageCodeId: $enLanguageCodeId, textValue: $detailTextsEn }
+                ]
+              }
+            }
+          }
+        }
+
+        remarks: $remarks
+      }
+    }
+  ) {
+    mstrAuditStd {
+      mstrAuditStdId
+      code
+      controlCode
+      category
+
+      labels: sharedAppellationByNames {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+
+      detailTexts: sharedTextByDetails {
+        sharedTextId
+
+        ja: sharedTextValuesBySharedTextId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+
+        en: sharedTextValuesBySharedTextId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+      }
+
+      remarks
+    }
+  }
+}

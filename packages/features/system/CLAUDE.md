@@ -8,7 +8,7 @@
 1.  単位(単位台帳) [テーブル構造] / [編集構造]
 
 ## 参照するモデル
-`packages/infra/graphql_provider_lib/source/views/` の次を列・フィールドの参照元とし、モデルは `lib/postgraphile` のクラスを使う。
+`packages/model_providers/*_model/gql/` の次を列・フィールドの参照元とし、モデルは `lib/src/graphql` のクラスを使う。
 +  `system/unit.yaml`
 
 ## 実装の指針

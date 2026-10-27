@@ -1,0 +1,38 @@
+# observer_disposal_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #ObserverDisposalPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ObserverDisposalPageEdit(
+  $transObserverDisposalId: UUID!
+  $enable: Boolean
+  $observeSchedule: Datetime
+  $observeAt: Datetime
+  $observerStaffHistoryId: UUID
+  $observerStaffId: UUID
+  $remarks: String
+) {
+  updateTransObserverDisposalByTransObserverDisposalId(
+    input: {
+      transObserverDisposalId: $transObserverDisposalId
+      transObserverDisposalPatch: {
+        enable: $enable
+        observeSchedule: $observeSchedule
+        observeAt: $observeAt
+        observerStaffHistoryId: $observerStaffHistoryId
+        observerStaffId: $observerStaffId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transObserverDisposal {
+      transObserverDisposalId
+      enable
+      observeSchedule
+      observeAt
+      observerStaffHistoryId
+      observerStaffId
+      remarks
+    }
+  }
+}

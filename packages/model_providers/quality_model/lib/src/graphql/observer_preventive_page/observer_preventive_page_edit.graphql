@@ -1,0 +1,29 @@
+# observer_preventive_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #ObserverPreventivePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ObserverPreventivePageEdit(
+  $transObserverPreventiveId: UUID!
+  $transObserverDisposalId: UUID
+  $transRecurrencePreventionId: UUID
+  $remarks: String
+) {
+  updateTransObserverPreventiveByTransObserverPreventiveId(
+    input: {
+      transObserverPreventiveId: $transObserverPreventiveId
+      transObserverPreventivePatch: {
+        transObserverDisposalId: $transObserverDisposalId
+        transRecurrencePreventionId: $transRecurrencePreventionId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transObserverPreventive {
+      transObserverPreventiveId
+      transObserverDisposalId
+      transRecurrencePreventionId
+      remarks
+    }
+  }
+}

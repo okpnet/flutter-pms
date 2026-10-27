@@ -24,7 +24,7 @@ enum FieldKind {
 
 /// 項目の定義。表示名は含めず([EntityLabels]が言語ごとに返す)、キーと種類だけを持つ。
 ///
-/// キーは graphql_provider_lib のビュー(DB の列)に合わせる。
+/// キーは model_providers の各モデルパッケージ のビュー(DB の列)に合わせる。
 class FieldDefinition {
   const FieldDefinition({
     required this.key,

@@ -1,0 +1,29 @@
+# work_record_certificate_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #WorkRecordCertificatePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation WorkRecordCertificatePageEdit(
+  $transWorkRecordCertificateId: UUID!
+  $transCertificateId: UUID
+  $transWorkRecordId: UUID
+  $remarks: String
+) {
+  updateTransWorkRecordCertificateByTransWorkRecordCertificateId(
+    input: {
+      transWorkRecordCertificateId: $transWorkRecordCertificateId
+      transWorkRecordCertificatePatch: {
+        transCertificateId: $transCertificateId
+        transWorkRecordId: $transWorkRecordId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transWorkRecordCertificate {
+      transWorkRecordCertificateId
+      transCertificateId
+      transWorkRecordId
+      remarks
+    }
+  }
+}

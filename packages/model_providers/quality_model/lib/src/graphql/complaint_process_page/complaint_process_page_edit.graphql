@@ -1,0 +1,348 @@
+# complaint_process_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintProcessPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintProcessPageEdit(
+  $transComplaintProcessId: UUID!
+  $transComplaintId: UUID
+  $mstrTaskId: UUID
+  $remarks: String
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+) {
+  updateTransComplaintProcessByTransComplaintProcessId(
+    input: {
+      transComplaintProcessId: $transComplaintProcessId
+      transComplaintProcessPatch: {
+        transComplaintId: $transComplaintId
+        mstrTaskId: $mstrTaskId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transComplaintProcess {
+      transComplaintProcessId
+      transComplaintId
+      mstrTaskId
+
+      task: mstrTaskByMstrTaskId {
+        mstrTaskId
+
+        groups: mstrTaskGroupByMstrTaskGroupId {
+          mstrTaskGroupId
+          code
+
+          labels: sharedAppellationByNames {
+            sharedAppellationsId
+            sharedDictionaryBySharedDictionaryNameId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+
+            sharedDictionaryBySharedDictionaryPronunciationId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+
+            sharedDictionaryBySharedDictionaryNicknameId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+          }
+
+          details
+          symbol
+          remarks
+          updateAt
+          remove
+
+          update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+            historyId
+            infoStaffId
+            infoCompanyId
+            code
+
+            name: sharedAppellationByNames {
+              sharedAppellationsId
+              sharedDictionaryBySharedDictionaryNameId {
+                sharedDictionaryId
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+
+              sharedDictionaryBySharedDictionaryPronunciationId {
+                sharedDictionaryId
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+
+              sharedDictionaryBySharedDictionaryNicknameId {
+                sharedDictionaryId
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+            }
+
+            sex
+            phone
+            symbol
+            privatePhone
+          }
+        }
+
+        code
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        detailTexts: sharedTextByDetails {
+          sharedTextId
+          ja: sharedTextValuesBySharedTextId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              charCount
+              leadText
+            }
+          }
+
+          en: sharedTextValuesBySharedTextId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              charCount
+              leadText
+            }
+          }
+        }
+
+        class
+        defaultTime {
+          seconds
+          minutes
+          hours
+          days
+          months
+          years
+        }
+        symbol
+        remarks
+        updateAt
+        remove
+
+        update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+          historyId
+          infoStaffId
+          infoCompanyId
+          code
+
+          name: sharedAppellationByNames {
+            sharedAppellationsId
+            sharedDictionaryBySharedDictionaryNameId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+
+            sharedDictionaryBySharedDictionaryPronunciationId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+
+            sharedDictionaryBySharedDictionaryNicknameId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+          }
+
+          sex
+          phone
+          symbol
+          privatePhone
+        }
+      }
+
+      remarks
+    }
+  }
+}

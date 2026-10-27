@@ -1,0 +1,26 @@
+# document_content_tree_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #DocumentContentTreePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation DocumentContentTreePageEdit(
+  $mstrDocumentContentTreeId: UUID!
+  $parentMstrDocumentContentId: UUID
+  $remarks: String
+) {
+  updateMstrDocumentContentTreeByMstrDocumentContentTreeId(
+    input: {
+      mstrDocumentContentTreeId: $mstrDocumentContentTreeId
+      mstrDocumentContentTreePatch: {
+        parentMstrDocumentContentId: $parentMstrDocumentContentId
+        remarks: $remarks
+      }
+    }
+  ) {
+    mstrDocumentContentTree {
+      mstrDocumentContentTreeId
+      parentMstrDocumentContentId
+      remarks
+    }
+  }
+}

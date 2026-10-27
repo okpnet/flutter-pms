@@ -1,0 +1,78 @@
+# certificate_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #CertificatePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation CertificatePageEdit(
+  $transCertificateId: UUID!
+  $serial: String
+  $transLabelId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+  $ja: String!
+  $en: String!
+  $remarks: String
+  $class: String
+  $transFileId: UUID
+) {
+  updateTransCertificateByTransCertificateId(
+    input: {
+      transCertificateId: $transCertificateId
+      transCertificatePatch: {
+        serial: $serial
+
+        transLabelToTitles: {
+          updateByTransLabelId: {
+            transLabelId: $transLabelId
+            transLabelPatch: {
+              transLabelValuesUsingTransLabelId: {
+                deleteOthers: true
+                create: [
+                  { sharedLanguageCodeId: $jaLanguageCodeId, labelValue: $ja }
+                  { sharedLanguageCodeId: $enLanguageCodeId, labelValue: $en }
+                ]
+              }
+
+              remarks: $remarks
+            }
+          }
+        }
+
+        class: $class
+        transFileId: $transFileId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transCertificate {
+      transCertificateId
+      serial
+
+      labels: transLabelByTitles {
+        transLabelId
+
+        ja: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            labelValue
+          }
+        }
+
+        en: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            labelValue
+          }
+        }
+
+        remarks
+      }
+
+      class
+      transFileId
+      remarks
+    }
+  }
+}

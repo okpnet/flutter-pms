@@ -1,0 +1,26 @@
+# department_tree_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #DepartmentTreePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation DepartmentTreePageEdit(
+  $infoDepartmentTreeId: UUID!
+  $parentInfoDepartmentId: UUID
+  $remarks: String
+) {
+  updateInfoDepartmentTreeByInfoDepartmentTreeId(
+    input: {
+      infoDepartmentTreeId: $infoDepartmentTreeId
+      infoDepartmentTreePatch: {
+        parentInfoDepartmentId: $parentInfoDepartmentId
+        remarks: $remarks
+      }
+    }
+  ) {
+    infoDepartmentTree {
+      infoDepartmentTreeId
+      parentInfoDepartmentId
+      remarks
+    }
+  }
+}

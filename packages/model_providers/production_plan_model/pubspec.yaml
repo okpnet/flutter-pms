@@ -1,0 +1,27 @@
+name: production_plan_model
+description: "production_plan 機能の GraphQL モデル(gql/*.yaml から生成。手で編集しない)。"
+version: 0.0.1
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  graphql: ^5.2.3
+  graphql_flutter: ^5.1.0
+  gql: ^1.0.1
+  pms_graphql:
+    path: ../../infra/pms_graphql
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  build_runner: ^2.9.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  build: ">=4.0.0 <5.0.0" # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  graphql_codegen:

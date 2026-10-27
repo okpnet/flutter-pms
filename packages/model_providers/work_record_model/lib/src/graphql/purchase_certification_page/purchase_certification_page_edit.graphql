@@ -1,0 +1,29 @@
+# purchase_certification_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #PurchaseCertificationPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation PurchaseCertificationPageEdit(
+  $transPurchaseCertificationId: UUID!
+  $transPurchaseRecId: UUID
+  $transCertificateId: UUID
+  $remarks: String
+) {
+  updateTransPurchaseCertificationByTransPurchaseCertificationId(
+    input: {
+      transPurchaseCertificationId: $transPurchaseCertificationId
+      transPurchaseCertificationPatch: {
+        transPurchaseRecId: $transPurchaseRecId
+        transCertificateId: $transCertificateId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transPurchaseCertification {
+      transPurchaseCertificationId
+      transPurchaseRecId
+      transCertificateId
+      remarks
+    }
+  }
+}

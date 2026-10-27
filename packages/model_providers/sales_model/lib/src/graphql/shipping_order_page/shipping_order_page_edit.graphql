@@ -1,0 +1,41 @@
+# shipping_order_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #ShippingOrderPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ShippingOrderPageEdit(
+  $transShippingOrderId: UUID!
+  $transOrderId: UUID
+  $estimatedShippingDate: Datetime
+  $code: String
+  $estimatedArrivalDate: Date
+  $stakeholderHistoryId: UUID
+  $stakeholderId: UUID
+  $remarks: String
+) {
+  updateTransShippingOrderByTransShippingOrderId(
+    input: {
+      transShippingOrderId: $transShippingOrderId
+      transShippingOrderPatch: {
+        transOrderId: $transOrderId
+        estimatedShippingDate: $estimatedShippingDate
+        code: $code
+        estimatedArrivalDate: $estimatedArrivalDate
+        stakeholderHistoryId: $stakeholderHistoryId
+        stakeholderId: $stakeholderId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transShippingOrder {
+      transShippingOrderId
+      transOrderId
+      estimatedShippingDate
+      code
+      estimatedArrivalDate
+      stakeholderHistoryId
+      stakeholderId
+      remarks
+    }
+  }
+}

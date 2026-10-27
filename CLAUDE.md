@@ -29,13 +29,14 @@ cd apps\pms_app; flutter run -d windows          # アプリ起動
 
 依存は上から下への一方向のみ:
 
-`apps` → `features` → `core` → `ui` / `infra` → `foundation`
+`apps` → `features` → `core` → `ui` / `model_providers` / `infra` → `foundation`
 
 - `apps/pms_app`: シェルアプリ。旧 mock_up を移設したもので、GoRouter を構築する。このプロジェクトの規則・指示は [apps/pms_app/CLAUDE.md](apps/pms_app/CLAUDE.md) を参照。
 - `packages/features/`: 1機能=1パッケージ `xxx`(実装=画面・ルート・ハンドラ、`XxxModule implements FeatureModule`)。契約(遷移先・命令の型)は同じパッケージの `lib/xxx_api.dart`(契約だけのバレル)で公開し、実装の入口 `lib/xxx.dart` はアプリだけが読み込む。機能同士・アプリは `xxx_api.dart` の型だけを使い、`lib/src` や実装の入口は読み込まない。
 - `packages/core/`: `baton_lib`(コマンドバス)、`feature_shared`(機能とアプリの仲介)、`settings_keeper`(ローカル設定の保存と復元)、`page_mediator_extension`(ページ用の拡張。データ取得・設定の保存・セッション確認の窓口)。
 - `packages/ui/`: UI基盤。`entity_screens`(実体の定義から台帳・編集の画面を作る)、`app_shell`(タイトルバー・サイドバー・ハンバーガー・ログインユーザーの枠)を含む。
-- `packages/infra/`(graphql, logger_provider), `packages/foundation/`(画面を持たない汎用部品)。
+- `packages/model_providers/`: 機能ごとの GraphQL モデル(`xxx_model`)。下の「GraphQL モデル生成ルール」を参照。
+- `packages/infra/`(pms_graphql, logger_provider), `packages/foundation/`(画面を持たない汎用部品)。
 
 ### baton_lib(コマンドバス)
 
@@ -72,3 +73,27 @@ cd apps\pms_app; flutter run -d windows          # アプリ起動
 6.  GOFデザインパターン
     1.  クラス名やファイル名にデザインパターンを含めない場合は、コメントに該当するパターン名を追加する。
     2.  必ずしもデザインパターンに割り当てる必要はない。
+## GraphQL モデル生成ルール
+
+### 方針
+- GraphQL のモデルは画面(機能)単位で生成する。全画面のモデルを1つのライブラリで生成しない(旧 graphql_provider は廃止済み)。
+- モデルパッケージは `packages/model_providers/<機能>_model/` に置く。`packages/features/` は画面機能であり、モデルは置かない。
+- 機能パッケージは、自分に対応するモデルパッケージだけに依存する。
+- 機能をまたいで受け渡すのは ID や基本型だけにする。生成された型(列挙型・入力型を含む)を機能の外に出さない。
+- スカラーの変換処理と GraphQL クライアントは `packages/infra/pms_graphql` を使う。スキーマ本体は共有しない。
+- PostGraphile 側はカスタマイズしない。スキーマの縮小はクライアント側の抜き出しツールで行う。
+- モデル生成は graphql_codegen を使う。ジェネレーター本体は自作しない。
+
+### 生成の流れ
+1. `gql/*.yaml` を編集する(人が書くのはここだけ)
+2. `melos run gql` を実行する
+   - ① gql:yaml  … YAML → `lib/src/graphql/*.graphql`
+   - ② gql:prune … 本家スキーマ(`.schema/schema.graphql`)から画面用 `lib/src/graphql/schema.graphql` を抜き出す。同時に検証も行う
+   - ③ gql:build … build_runner でモデルを生成する
+- DB を変更したときは、先に `melos run gql:schema` で本家スキーマを更新してから `melos run gql` を実行する。② で失敗した機能、または schema.graphql に差分が出た機能が影響範囲となる。
+
+### 禁止事項
+- `.schema/schema.graphql`(本家、10MB超)を Git に入れない。
+- 画面用の `schema.graphql` を手で編集しない(必ず抜き出しツールで再生成する)。
+- `*.graphql.dart` を手で編集しない。
+- 新しく一括生成用のモデルライブラリを作らない。

@@ -26,7 +26,7 @@
 配送区分の振る舞い: 台帳はテーブル構造(ソート・フィルタ有効、行の操作で編集へ、「新規」で登録へ)。編集は配送区分コード*・配送区分名称*・読み・略称・備考。コードと名称は必須、コードは重複不可。削除は確認のうえ行う。
 
 ## 参照するモデル
-`packages/infra/graphql_provider_lib/source/views/` の `sales/shipping_kind.yaml` を列・フィールドの参照元とし、モデルは `lib/postgraphile` のクラスを使う。
+`packages/model_providers/*_model/gql/` の `sales/shipping_kind.yaml` を列・フィールドの参照元とし、モデルは `lib/src/graphql` のクラスを使う。
 
 ## 実装の指針
 1.  `SharedMasterModule implements FeatureModule` を `lib/src/shared_master_module.dart` に置き、実装の入口 `lib/shared_master.dart`(アプリだけが読み込む)から `SharedMasterModule` だけを公開する。

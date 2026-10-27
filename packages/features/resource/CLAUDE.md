@@ -11,7 +11,7 @@
 4.  保全: 点検整備区分 / 点検整備項目台帳 / 設備点検整備運用台帳 / 点検予定
 
 ## 参照するモデル
-`packages/infra/graphql_provider_lib/source/views/` の次を列・フィールドの参照元とし、モデルは `lib/postgraphile` のクラスを使う。
+`packages/model_providers/*_model/gql/` の次を列・フィールドの参照元とし、モデルは `lib/src/graphql` のクラスを使う。
 +  `resource/capability.yaml`, `resource/license.yaml`, `resource/location.yaml`, `resource/equipment.yaml`, `resource/maintenance.yaml`, `resource/transaction_file.yaml`
 
 ## 実装の指針

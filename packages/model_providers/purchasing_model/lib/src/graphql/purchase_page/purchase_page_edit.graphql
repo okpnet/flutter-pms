@@ -1,0 +1,53 @@
+# purchase_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #PurchasePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation PurchasePageEdit(
+  $transPurchaseId: UUID!
+  $stakeholderHistoryId: UUID
+  $stakeholderId: UUID
+  $stakeholderContactHistoryId: UUID
+  $stakeholderContactId: UUID
+  $purchaseCtrl1: String
+  $purchaseCtrl2: String
+  $purchaseCtrl3: String
+  $registerAt: Datetime
+  $purchaseOrderDate: Datetime
+  $deadline: Datetime
+  $remarks: String
+) {
+  updateTransPurchaseByTransPurchaseId(
+    input: {
+      transPurchaseId: $transPurchaseId
+      transPurchasePatch: {
+        stakeholderHistoryId: $stakeholderHistoryId
+        stakeholderId: $stakeholderId
+        stakeholderContactHistoryId: $stakeholderContactHistoryId
+        stakeholderContactId: $stakeholderContactId
+        purchaseCtrl1: $purchaseCtrl1
+        purchaseCtrl2: $purchaseCtrl2
+        purchaseCtrl3: $purchaseCtrl3
+        registerAt: $registerAt
+        purchaseOrderDate: $purchaseOrderDate
+        deadline: $deadline
+        remarks: $remarks
+      }
+    }
+  ) {
+    transPurchase {
+      transPurchaseId
+      stakeholderHistoryId
+      stakeholderId
+      stakeholderContactHistoryId
+      stakeholderContactId
+      purchaseCtrl1
+      purchaseCtrl2
+      purchaseCtrl3
+      registerAt
+      purchaseOrderDate
+      deadline
+      remarks
+    }
+  }
+}

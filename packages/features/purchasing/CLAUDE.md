@@ -10,7 +10,7 @@
 3.  非計上発注台帳 / 発注台帳 / 検品(受入登録)
 
 ## 参照するモデル
-`packages/infra/graphql_provider_lib/source/views/` の次を列・フィールドの参照元とし、モデルは `lib/postgraphile` のクラスを使う。
+`packages/model_providers/*_model/gql/` の次を列・フィールドの参照元とし、モデルは `lib/src/graphql` のクラスを使う。
 +  `purchase/supplier.yaml`, `purchase/purchase.yaml`, `purchase/unrecognized.yaml`, `sales/shipping_kind.yaml`
 
 ## 実装の指針

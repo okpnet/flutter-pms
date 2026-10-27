@@ -1,0 +1,123 @@
+# risk_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #RiskPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation RiskPageEdit(
+  $transRiskId: UUID!
+  $transLabelId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+  $ja: String!
+  $en: String!
+  $remarks: String
+  $detailTextsTransTextId: UUID!
+  $detailTextsJa: String!
+  $detailTextsEn: String!
+  $detailTextsRemarks: String
+  $frequency: BigFloat
+  $momentous: BigFloat
+  $action: Int
+  $residualRiskId: UUID
+) {
+  updateTransRiskByTransRiskId(
+    input: {
+      transRiskId: $transRiskId
+      transRiskPatch: {
+        transLabelToTitles: {
+          updateByTransLabelId: {
+            transLabelId: $transLabelId
+            transLabelPatch: {
+              transLabelValuesUsingTransLabelId: {
+                deleteOthers: true
+                create: [
+                  { sharedLanguageCodeId: $jaLanguageCodeId, labelValue: $ja }
+                  { sharedLanguageCodeId: $enLanguageCodeId, labelValue: $en }
+                ]
+              }
+
+              remarks: $remarks
+            }
+          }
+        }
+
+        transTextToDetails: {
+          updateByTransTextId: {
+            transTextId: $detailTextsTransTextId
+            transTextPatch: {
+              transTextValuesUsingTransTextId: {
+                deleteOthers: true
+                create: [
+                  { sharedLanguageCodeId: $jaLanguageCodeId, textValue: $detailTextsJa }
+                  { sharedLanguageCodeId: $enLanguageCodeId, textValue: $detailTextsEn }
+                ]
+              }
+
+              remarks: $detailTextsRemarks
+            }
+          }
+        }
+
+        frequency: $frequency
+        momentous: $momentous
+        action: $action
+        residualRiskId: $residualRiskId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transRisk {
+      transRiskId
+
+      labels: transLabelByTitles {
+        transLabelId
+
+        ja: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            labelValue
+          }
+        }
+
+        en: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            labelValue
+          }
+        }
+
+        remarks
+      }
+
+      detailTexts: transTextByDetails {
+        transTextId
+
+        ja: transTextValuesByTransTextId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+
+        en: transTextValuesByTransTextId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+
+        remarks
+      }
+
+      frequency
+      momentous
+      action
+      residualRiskId
+      remarks
+    }
+  }
+}

@@ -1,0 +1,291 @@
+# staff_held_license_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #StaffHeldLicensePage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query StaffHeldLicensePageRead(
+  $first: Int!
+  $offset: Int
+  $filter: InfoStaffFilter = {and: []}
+  $orderBy: [InfoStaffsOrderBy!]
+  $languageCodeId: UUID!
+  $holdeLicenseOrderBy: [MstrStaffLicensesOrderBy!]
+  $removed: Boolean = false
+) {
+  allInfoStaffs(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      infoStaffId
+      infoCompanyId
+      code
+
+      labels: sharedAppellationByNames {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+
+      sex
+      phone
+      privatePhone
+
+      holdeLicense: mstrStaffLicensesByInfoStaffId(
+        orderBy: $holdeLicenseOrderBy
+        filter: { remove: { equalTo: false } }
+      ) {
+        totalCount
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          mstrStaffLicenseId
+          infoStaffId
+          mstrLicenseId
+
+          license: mstrLicenseByMstrLicenseId {
+            mstrLicenseId
+            code
+
+            labels: sharedAppellationByNames {
+              sharedAppellationsId
+              sharedDictionaryBySharedDictionaryNameId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+
+              sharedDictionaryBySharedDictionaryPronunciationId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+
+              sharedDictionaryBySharedDictionaryNicknameId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+            }
+
+            detailTexts: sharedTextByDetails {
+              sharedTextId
+              value: sharedTextValuesBySharedTextId(
+                condition: { sharedLanguageCodeId: $languageCodeId }
+              ) {
+                nodes {
+                  charCount
+                  leadText
+                }
+              }
+            }
+
+            publicLicense
+            customerLicense
+            organizationLicense
+            updateInterval {
+              seconds
+              minutes
+              hours
+              days
+              months
+              years
+            }
+            symbol
+            remarks
+
+            staff_license_count: vLicenseStaffLicenseCountByMstrLicenseId {
+              mstrLicenseId
+            }
+
+            updateAt
+            remove
+
+            update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+              historyId
+              infoStaffId
+              infoCompanyId
+              code
+
+              name: sharedAppellationByNames {
+                sharedAppellationsId
+                sharedDictionaryBySharedDictionaryNameId {
+                  sharedDictionaryId
+                  value: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $languageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+
+                sharedDictionaryBySharedDictionaryPronunciationId {
+                  sharedDictionaryId
+                  value: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $languageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+
+                sharedDictionaryBySharedDictionaryNicknameId {
+                  sharedDictionaryId
+                  value: sharedDictionaryValuesBySharedDictionaryId(
+                    condition: { sharedLanguageCodeId: $languageCodeId }
+                  ) {
+                    nodes {
+                      dictionaryValue
+                    }
+                  }
+                }
+              }
+
+              sex
+              phone
+              symbol
+              privatePhone
+            }
+          }
+
+          startAt
+          stopAt
+          abeyance
+          abeyanceAt
+          revocation
+          revocationAt
+        }
+      }
+
+      symbol
+      remarks
+
+      staff_access_permission_count: vStaffStaffAccessPermissionCountByInfoStaffId {
+        infoStaffId
+      }
+
+      staff_license_count: vStaffStaffLicenseCountByInfoStaffId {
+        infoStaffId
+      }
+
+      staff_capability_count: vStaffStaffCapabilityCountByInfoStaffId {
+        infoStaffId
+      }
+
+      sign_count: vStaffSignCountByInfoStaffId {
+        infoStaffId
+      }
+
+      assign_count: vStaffAssignCountByInfoStaffId {
+        infoStaffId
+      }
+
+      updateAt
+      remove
+
+      update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        infoCompanyId
+        code
+
+        name: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        sex
+        phone
+        symbol
+        privatePhone
+      }
+    }
+  }
+}

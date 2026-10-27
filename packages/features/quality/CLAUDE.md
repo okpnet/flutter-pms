@@ -10,7 +10,7 @@
 3.  監査基準 / 監査チーム / 監査計画
 
 ## 参照するモデル
-`packages/infra/graphql_provider_lib/source/views/` の次を列・フィールドの参照元とし、モデルは `lib/postgraphile` のクラスを使う。
+`packages/model_providers/*_model/gql/` の次を列・フィールドの参照元とし、モデルは `lib/src/graphql` のクラスを使う。
 +  `quality/complaint.yaml`, `quality/risk.yaml`, `quality/audit.yaml`
 
 ## 実装の指針

@@ -1,0 +1,22 @@
+# inventory_apply_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: gql/*.yaml #InventoryApplyPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query InventoryApplyPageRfe(
+  $transInventoryApplyId: UUID!
+) {
+  transInventoryApplyByTransInventoryApplyId(transInventoryApplyId: $transInventoryApplyId) {
+    transInventoryApplyId
+    registerAt
+    transInventoryRequestId
+    conveyId
+    staffHistoryId
+    staffId
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

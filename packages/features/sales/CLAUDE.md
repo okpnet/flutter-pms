@@ -17,7 +17,7 @@
 専用の画面・契約(`sales_api.dart`)は持たない。顧客は `shared_master_api.dart` の型で開く。
 
 ## 参照するモデル
-`packages/infra/graphql_provider_lib/source/views/` の `sales/order.yaml` を列・フィールドの参照元とし、モデルは `lib/postgraphile` のクラスを使う(顧客・利害関係者は `shared_master`)。
+`packages/model_providers/*_model/gql/` の `sales/order.yaml` を列・フィールドの参照元とし、モデルは `lib/src/graphql` のクラスを使う(顧客・利害関係者は `shared_master`)。
 
 ## 実装の指針
 1.  他の機能の画面は `xxx_api.dart` の型だけを使う。遷移・連携は `baton_lib` の `Destination` / `Command` で行い、文字列のパスを公開しない。`lib/src` を直接 import しない。

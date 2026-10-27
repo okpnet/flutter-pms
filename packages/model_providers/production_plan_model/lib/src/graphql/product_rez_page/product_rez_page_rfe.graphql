@@ -1,0 +1,19 @@
+# product_rez_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: gql/*.yaml #ProductRezPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ProductRezPageRfe(
+  $transProductRezId: UUID!
+) {
+  transProductRezByTransProductRezId(transProductRezId: $transProductRezId) {
+    transProductRezId
+    transWorkPlanId
+    quantity
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

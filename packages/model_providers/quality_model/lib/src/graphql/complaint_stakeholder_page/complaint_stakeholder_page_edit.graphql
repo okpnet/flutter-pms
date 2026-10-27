@@ -1,0 +1,32 @@
+# complaint_stakeholder_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintStakeholderPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintStakeholderPageEdit(
+  $transComplaintStakeholderId: UUID!
+  $transComplaintId: UUID
+  $stakeholderHistoryId: UUID
+  $stakeholderId: UUID
+  $remarks: String
+) {
+  updateTransComplaintStakeholderByTransComplaintStakeholderId(
+    input: {
+      transComplaintStakeholderId: $transComplaintStakeholderId
+      transComplaintStakeholderPatch: {
+        transComplaintId: $transComplaintId
+        stakeholderHistoryId: $stakeholderHistoryId
+        stakeholderId: $stakeholderId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transComplaintStakeholder {
+      transComplaintStakeholderId
+      transComplaintId
+      stakeholderHistoryId
+      stakeholderId
+      remarks
+    }
+  }
+}

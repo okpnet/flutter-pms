@@ -1,0 +1,42 @@
+# item_operation_task_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #ItemOperationTaskPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ItemOperationTaskPageEdit(
+  $mstrItemOperationTaskId: UUID!
+  $mstrOperationTaskId: UUID
+  $mstrItemId: UUID
+  $sequence: Int
+  $defaultInterval: IntervalInput
+  $remarks: String
+) {
+  updateMstrItemOperationTaskByMstrItemOperationTaskId(
+    input: {
+      mstrItemOperationTaskId: $mstrItemOperationTaskId
+      mstrItemOperationTaskPatch: {
+        mstrOperationTaskId: $mstrOperationTaskId
+        mstrItemId: $mstrItemId
+        sequence: $sequence
+        defaultInterval: $defaultInterval
+        remarks: $remarks
+      }
+    }
+  ) {
+    mstrItemOperationTask {
+      mstrItemOperationTaskId
+      mstrOperationTaskId
+      mstrItemId
+      sequence
+      defaultInterval {
+        seconds
+        minutes
+        hours
+        days
+        months
+        years
+      }
+      remarks
+    }
+  }
+}

@@ -1,0 +1,28 @@
+# item_operation_task_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: gql/*.yaml #ItemOperationTaskPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ItemOperationTaskPageRfe(
+  $mstrItemOperationTaskId: UUID!
+) {
+  mstrItemOperationTaskByMstrItemOperationTaskId(mstrItemOperationTaskId: $mstrItemOperationTaskId) {
+    mstrItemOperationTaskId
+    mstrOperationTaskId
+    mstrItemId
+    sequence
+    defaultInterval {
+      seconds
+      minutes
+      hours
+      days
+      months
+      years
+    }
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

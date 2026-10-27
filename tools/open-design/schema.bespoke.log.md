@@ -1,6 +1,6 @@
 # 個別実装の画面 ログ（会社・事業所・部署・職員・承認・資源）
 
-YAML(`packages/infra/graphql_provider_lib/source/views`) と DB(`06_cteate_test.sql` の列コメント)に合わせた内容。
+YAML(`packages/model_providers/*_model/gql/`) と DB(`06_cteate_test.sql` の列コメント)に合わせた内容。
 サンプル値は `data.extra.js`、画面側の変更は `app.js`。項目の一覧は `node tools/gen-bespoke.js <Page名>` で確認できる。
 
 ## 反映した内容（ラベルは DB コメントに合わせた）

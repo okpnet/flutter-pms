@@ -1,0 +1,81 @@
+# inspect_imp_file_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #InspectImpFilePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation InspectImpFilePageEdit(
+  $transInspectImpFileId: UUID!
+  $transInspectRecordId: UUID
+  $transFileId: UUID
+  $transLabelId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+  $ja: String!
+  $en: String!
+  $remarks: String
+  $class: String
+  $transFileReminderId: UUID
+) {
+  updateTransInspectImpFileByTransInspectImpFileId(
+    input: {
+      transInspectImpFileId: $transInspectImpFileId
+      transInspectImpFilePatch: {
+        transInspectRecordId: $transInspectRecordId
+        transFileId: $transFileId
+
+        transLabelToTitles: {
+          updateByTransLabelId: {
+            transLabelId: $transLabelId
+            transLabelPatch: {
+              transLabelValuesUsingTransLabelId: {
+                deleteOthers: true
+                create: [
+                  { sharedLanguageCodeId: $jaLanguageCodeId, labelValue: $ja }
+                  { sharedLanguageCodeId: $enLanguageCodeId, labelValue: $en }
+                ]
+              }
+
+              remarks: $remarks
+            }
+          }
+        }
+
+        class: $class
+        transFileReminderId: $transFileReminderId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transInspectImpFile {
+      transInspectImpFileId
+      transInspectRecordId
+      transFileId
+
+      labels: transLabelByTitles {
+        transLabelId
+
+        ja: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            labelValue
+          }
+        }
+
+        en: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            labelValue
+          }
+        }
+
+        remarks
+      }
+
+      class
+      transFileReminderId
+      remarks
+    }
+  }
+}

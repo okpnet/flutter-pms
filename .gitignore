@@ -119,3 +119,7 @@ app.*.symbols
 !/dev/ci/**/Gemfile.lock
 /flutter_app_lib/grid_lib
 /flutter_app_lib/graphql_provider_lib/source/schema.graphql
+
+# 本家 GraphQL スキーマ(10MB超)。melos run gql:schema で取得する
+/.schema/
+/doc/contents/property_list.csv

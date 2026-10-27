@@ -12,7 +12,7 @@
 5.  作業実績: 作業実績台帳 / 投入台帳 / 成績書台帳
 
 ## 参照するモデル
-`packages/infra/graphql_provider_lib/source/views/` の次を列・フィールドの参照元とし、モデルは `lib/postgraphile` のクラスを使う。
+`packages/model_providers/*_model/gql/` の次を列・フィールドの参照元とし、モデルは `lib/src/graphql` のクラスを使う。
 +  `work/work_record.yaml`(購入受入は `purchase/purchase.yaml` も参照)
 
 ## 実装の指針

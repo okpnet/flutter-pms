@@ -1,0 +1,23 @@
+# shipping_order_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: gql/*.yaml #ShippingOrderPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ShippingOrderPageRfe(
+  $transShippingOrderId: UUID!
+) {
+  transShippingOrderByTransShippingOrderId(transShippingOrderId: $transShippingOrderId) {
+    transShippingOrderId
+    transOrderId
+    estimatedShippingDate
+    code
+    estimatedArrivalDate
+    stakeholderHistoryId
+    stakeholderId
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}
