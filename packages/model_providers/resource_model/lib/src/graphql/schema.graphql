@@ -586,6 +586,26 @@ enum TransInspectSchesOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum VInspectionStatusesOrderBy {
+  NATURAL
+  MSTR_EQUIPMENT_ID_ASC
+  MSTR_EQUIPMENT_ID_DESC
+  SUPPLIER_ID_ASC
+  SUPPLIER_ID_DESC
+  IS_IMPLEMENTED_ASC
+  IS_IMPLEMENTED_DESC
+  RESULT_ASC
+  RESULT_DESC
+  SCHEDULE_DETAIL_COUNT_ASC
+  SCHEDULE_DETAIL_COUNT_DESC
+  OVERDUE_COUNT_ASC
+  OVERDUE_COUNT_DESC
+  NEXT_SCHEDULED_START_DATE_ASC
+  NEXT_SCHEDULED_START_DATE_DESC
+  LAST_IMPLEMENT_DATE_ASC
+  LAST_IMPLEMENT_DATE_DESC
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -1082,6 +1102,7 @@ type Query {
   allTransInspectRecords(first: Int, offset: Int, orderBy: [TransInspectRecordsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransInspectRecordFilter): TransInspectRecordsConnection
   allTransInspectSches(first: Int, offset: Int, orderBy: [TransInspectSchesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransInspectSchFilter): TransInspectSchesConnection
   allTransInspectSchDetails(first: Int, offset: Int, orderBy: [TransInspectSchDetailsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransInspectSchDetailFilter): TransInspectSchDetailsConnection
+  allVInspectionStatuses(first: Int, offset: Int, orderBy: [VInspectionStatusesOrderBy!] = [NATURAL], filter: VInspectionStatusFilter): VInspectionStatusesConnection
   mstrCapabilityByMstrCapabilityId(mstrCapabilityId: UUID!): MstrCapability
   mstrEquipmentByMstrEquipmentId(mstrEquipmentId: UUID!): MstrEquipment
   mstrEquipmentKindByMstrEquipmentKindId(mstrEquipmentKindId: UUID!): MstrEquipmentKind
@@ -1445,6 +1466,23 @@ type VInspectionInspectionOperationTaskCount {
 
 type VInspectionOperationInspectionOperationTaskCount {
   mstrInspectionOperationId: UUID
+}
+
+type VInspectionStatus {
+  mstrEquipmentId: UUID
+  supplierId: UUID
+  isImplemented: Boolean
+  result: Boolean
+  scheduleDetailCount: BigInt
+  overdueCount: BigInt
+  nextScheduledStartDate: Datetime
+  lastImplementDate: Datetime
+}
+
+type VInspectionStatusesConnection {
+  nodes: [VInspectionStatus]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type VLicenseStaffLicenseCount {
@@ -1886,6 +1924,7 @@ input InfoDepartmentFilter {
   vDepartmentDescendantByAncestorInfoDepartmentIdExists: Boolean
   vDepartmentPreventionDetailCountByInfoDepartmentId: VDepartmentPreventionDetailCountFilter
   vDepartmentPreventionDetailCountByInfoDepartmentIdExists: Boolean
+  vStaffCountsByInfoDepartmentIdExist: Boolean
   infoOfficeByInfoOfficeId: InfoOfficeFilter
   infoOfficeByInfoOfficeIdExists: Boolean
   sharedAppellationByNames: SharedAppellationFilter
@@ -2176,6 +2215,7 @@ input MstrEquipmentFilter {
   vEquipmentEquipmentProvisionCountByMstrEquipmentIdExists: Boolean
   vEquipmentInspectionOperationCountByMstrEquipmentId: VEquipmentInspectionOperationCountFilter
   vEquipmentInspectionOperationCountByMstrEquipmentIdExists: Boolean
+  vInspectionStatusesByMstrEquipmentIdExist: Boolean
   mstrItemByMstrItemId: MstrItemFilter
   mstrEquipmentKindByMstrEquipmentCategoryId: MstrEquipmentKindFilter
   mstrEquipmentKindByMstrEquipmentCategoryIdExists: Boolean
@@ -2459,6 +2499,11 @@ input MstrItemFilter {
   vItemItemOperationCountByMstrItemIdExists: Boolean
   vItemItemOperationTaskCountByMstrItemIdExists: Boolean
   vItemItemProvisionCountByMstrItemIdExists: Boolean
+  vPurchaseAmountsByMstrItemIdExist: Boolean
+  vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
+  vSalesRecordsByMstrItemIdExist: Boolean
+  vShippingDeliveryCompliancesByMstrItemIdExist: Boolean
+  vShippingOrderStatusesByMstrItemIdExist: Boolean
   mstrItemKindByMstrItemKindId: MstrItemKindFilter
   mstrManufacturerByMstrManufacturerId: MstrManufacturerFilter
   mstrManufacturerByMstrManufacturerIdExists: Boolean
@@ -2501,6 +2546,11 @@ input MstrItemKindFilter {
   historyMstrItemKindsByMstrItemKindIdExist: Boolean
   mstrItemsByMstrItemKindIdExist: Boolean
   vItemKindItemCountByMstrItemKindIdExists: Boolean
+  vPurchaseAmountsByMstrItemKindIdExist: Boolean
+  vPurchaseDeliveryCompliancesByMstrItemKindIdExist: Boolean
+  vSalesRecordsByMstrItemKindIdExist: Boolean
+  vShippingDeliveryCompliancesByMstrItemKindIdExist: Boolean
+  vShippingOrderStatusesByMstrItemKindIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [MstrItemKindFilter!]
@@ -2591,6 +2641,7 @@ input MstrLocationFilter {
   mstrEquipmentsByMstrLocationIdExist: Boolean
   vLocationDescendantByAncestorMstrLocationId: VLocationDescendantFilter
   vLocationDescendantByAncestorMstrLocationIdExists: Boolean
+  vShelfInventoryStatusesByMstrLocationIdExist: Boolean
   infoDepartmentByInfoDepartmentId: InfoDepartmentFilter
   infoDepartmentByInfoDepartmentIdExists: Boolean
   sharedAppellationByNames: SharedAppellationFilter
@@ -3825,6 +3876,22 @@ input VInspectionOperationInspectionOperationTaskCountFilter {
   and: [VInspectionOperationInspectionOperationTaskCountFilter!]
   or: [VInspectionOperationInspectionOperationTaskCountFilter!]
   not: VInspectionOperationInspectionOperationTaskCountFilter
+}
+
+input VInspectionStatusFilter {
+  mstrEquipmentId: UUIDFilter
+  supplierId: UUIDFilter
+  isImplemented: BooleanFilter
+  result: BooleanFilter
+  scheduleDetailCount: BigIntFilter
+  overdueCount: BigIntFilter
+  nextScheduledStartDate: DatetimeFilter
+  lastImplementDate: DatetimeFilter
+  mstrEquipmentByMstrEquipmentIdExists: Boolean
+  mstrStakeholderBySupplierIdExists: Boolean
+  and: [VInspectionStatusFilter!]
+  or: [VInspectionStatusFilter!]
+  not: VInspectionStatusFilter
 }
 
 input VLicenseStaffLicenseCountFilter {

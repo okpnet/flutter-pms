@@ -428,6 +428,22 @@ enum MstrStaffLicensesOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum VStaffCountsOrderBy {
+  NATURAL
+  INFO_COMPANY_ID_ASC
+  INFO_COMPANY_ID_DESC
+  INFO_DEPARTMENT_ID_ASC
+  INFO_DEPARTMENT_ID_DESC
+  INFO_POSITION_ID_ASC
+  INFO_POSITION_ID_DESC
+  STAFF_COUNT_ASC
+  STAFF_COUNT_DESC
+  ASSIGN_COUNT_ASC
+  ASSIGN_COUNT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -874,6 +890,7 @@ type Query {
   allInfoStaffs(first: Int, offset: Int, orderBy: [InfoStaffsOrderBy!] = [PRIMARY_KEY_ASC], filter: InfoStaffFilter): InfoStaffsConnection
   allMstrApprovalPatterns(first: Int, offset: Int, orderBy: [MstrApprovalPatternsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrApprovalPatternFilter): MstrApprovalPatternsConnection
   allMstrApprovalScopePatterns(first: Int, offset: Int, orderBy: [MstrApprovalScopePatternsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrApprovalScopePatternFilter): MstrApprovalScopePatternsConnection
+  allVStaffCounts(first: Int, offset: Int, orderBy: [VStaffCountsOrderBy!] = [PRIMARY_KEY_ASC], filter: VStaffCountFilter): VStaffCountsConnection
   infoAssignByInfoAssignId(infoAssignId: UUID!): InfoAssign
   infoCompanyByInfoCompanyId(infoCompanyId: UUID!): InfoCompany
   infoDepartmentByInfoDepartmentId(infoDepartmentId: UUID!): InfoDepartment
@@ -1054,6 +1071,20 @@ type VProvisionStakeholderProvisionCount {
 
 type VStaffAssignCount {
   infoStaffId: UUID
+}
+
+type VStaffCount {
+  infoCompanyId: UUID
+  infoDepartmentId: UUID!
+  infoPositionId: UUID!
+  staffCount: BigInt
+  assignCount: BigInt
+}
+
+type VStaffCountsConnection {
+  nodes: [VStaffCount]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type VStaffSignCount {
@@ -1520,6 +1551,7 @@ input InfoCompanyFilter {
   vCompanyProvisionCountByInfoCompanyIdExists: Boolean
   vCompanyStaffCountByInfoCompanyId: VCompanyStaffCountFilter
   vCompanyStaffCountByInfoCompanyIdExists: Boolean
+  vStaffCountsByInfoCompanyIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   infoAddressByInfoAddressId: InfoAddressFilter
   infoAddressByInfoAddressIdExists: Boolean
@@ -1602,6 +1634,7 @@ input InfoDepartmentFilter {
   vDepartmentDescendantByAncestorInfoDepartmentIdExists: Boolean
   vDepartmentPreventionDetailCountByInfoDepartmentId: VDepartmentPreventionDetailCountFilter
   vDepartmentPreventionDetailCountByInfoDepartmentIdExists: Boolean
+  vStaffCountsByInfoDepartmentIdExist: Boolean
   infoOfficeByInfoOfficeId: InfoOfficeFilter
   infoOfficeByInfoOfficeIdExists: Boolean
   sharedAppellationByNames: SharedAppellationFilter
@@ -1816,6 +1849,7 @@ input InfoPositionFilter {
   vPositionApprovalCountByInfoPositionIdExists: Boolean
   vPositionAssignCountByInfoPositionId: VPositionAssignCountFilter
   vPositionAssignCountByInfoPositionIdExists: Boolean
+  vStaffCountsByInfoPositionIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -3262,6 +3296,20 @@ input VStaffAssignCountFilter {
   and: [VStaffAssignCountFilter!]
   or: [VStaffAssignCountFilter!]
   not: VStaffAssignCountFilter
+}
+
+input VStaffCountFilter {
+  infoCompanyId: UUIDFilter
+  infoDepartmentId: UUIDFilter
+  infoPositionId: UUIDFilter
+  staffCount: BigIntFilter
+  assignCount: BigIntFilter
+  infoCompanyByInfoCompanyIdExists: Boolean
+  infoDepartmentByInfoDepartmentIdExists: Boolean
+  infoPositionByInfoPositionIdExists: Boolean
+  and: [VStaffCountFilter!]
+  or: [VStaffCountFilter!]
+  not: VStaffCountFilter
 }
 
 input VStaffSignCountFilter {

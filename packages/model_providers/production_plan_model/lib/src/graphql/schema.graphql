@@ -154,6 +154,40 @@ enum TransWorkPlansOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum VWorkPlanDeliveryCompliancesOrderBy {
+  NATURAL
+  TRANS_WORK_PLAN_ID_ASC
+  TRANS_WORK_PLAN_ID_DESC
+  TRANS_OPERATIONS_PLAN_ID_ASC
+  TRANS_OPERATIONS_PLAN_ID_DESC
+  MSTR_TASK_ID_ASC
+  MSTR_TASK_ID_DESC
+  START_AT_ASC
+  START_AT_DESC
+  COMPLETION_AT_ASC
+  COMPLETION_AT_DESC
+  DEADLINE_ASC
+  DEADLINE_DESC
+  TRANS_WORK_RECORD_IDS_ASC
+  TRANS_WORK_RECORD_IDS_DESC
+  WORK_RECORD_COUNT_ASC
+  WORK_RECORD_COUNT_DESC
+  PLANNED_QUANTITY_ASC
+  PLANNED_QUANTITY_DESC
+  WORK_QUANTITY_ASC
+  WORK_QUANTITY_DESC
+  IS_COMPLETED_ASC
+  IS_COMPLETED_DESC
+  FIRST_START_AT_ASC
+  FIRST_START_AT_DESC
+  COMPLETED_AT_ASC
+  COMPLETED_AT_DESC
+  COMPLIANCE_STATUS_ASC
+  COMPLIANCE_STATUS_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -221,6 +255,7 @@ type Query {
   allTransPurchaseRezs(first: Int, offset: Int, orderBy: [TransPurchaseRezsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransPurchaseRezFilter): TransPurchaseRezsConnection
   allTransResourcePlans(first: Int, offset: Int, orderBy: [TransResourcePlansOrderBy!] = [PRIMARY_KEY_ASC], filter: TransResourcePlanFilter): TransResourcePlansConnection
   allTransWorkPlans(first: Int, offset: Int, orderBy: [TransWorkPlansOrderBy!] = [PRIMARY_KEY_ASC], filter: TransWorkPlanFilter): TransWorkPlansConnection
+  allVWorkPlanDeliveryCompliances(first: Int, offset: Int, orderBy: [VWorkPlanDeliveryCompliancesOrderBy!] = [PRIMARY_KEY_ASC], filter: VWorkPlanDeliveryComplianceFilter): VWorkPlanDeliveryCompliancesConnection
   transOperationsPlanByTransOperationsPlanId(transOperationsPlanId: UUID!): TransOperationsPlan
   transProductRezByTransProductRezId(transProductRezId: UUID!): TransProductRez
   transPurchaseRezByTransPurchaseRezId(transPurchaseRezId: UUID!): TransPurchaseRez
@@ -393,6 +428,29 @@ type UpdateTransWorkPlanPayload {
 
 type VOperationsPlanWorkPlanCount {
   transOperationsPlanId: UUID
+}
+
+type VWorkPlanDeliveryCompliance {
+  transWorkPlanId: UUID!
+  transOperationsPlanId: UUID
+  mstrTaskId: UUID
+  startAt: Datetime
+  completionAt: Datetime
+  deadline: Datetime
+  transWorkRecordIds: [UUID]
+  workRecordCount: BigInt
+  plannedQuantity: BigFloat
+  workQuantity: BigFloat
+  isCompleted: Boolean
+  firstStartAt: Datetime
+  completedAt: Datetime
+  complianceStatus: String
+}
+
+type VWorkPlanDeliveryCompliancesConnection {
+  nodes: [VWorkPlanDeliveryCompliance]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type VWorkPlanProductRezCount {
@@ -791,6 +849,7 @@ input MstrTaskFilter {
   vTaskTaskLocationCountByMstrTaskIdExists: Boolean
   vTaskTaskRiskCountByMstrTaskIdExists: Boolean
   vTaskWorkPlanCountByMstrTaskIdExists: Boolean
+  vWorkPlanDeliveryCompliancesByMstrTaskIdExist: Boolean
   mstrTaskGroupByMstrTaskGroupId: MstrTaskGroupFilter
   mstrTaskGroupByMstrTaskGroupIdExists: Boolean
   sharedAppellationByNames: SharedAppellationFilter
@@ -1068,6 +1127,7 @@ input TransOperationsPlanFilter {
   transWorkPlansByTransOperationsPlanIdExist: Boolean
   vOperationsPlanWorkPlanCountByTransOperationsPlanId: VOperationsPlanWorkPlanCountFilter
   vOperationsPlanWorkPlanCountByTransOperationsPlanIdExists: Boolean
+  vWorkPlanDeliveryCompliancesByTransOperationsPlanIdExist: Boolean
   transResourcePlanByTransResourcePlanIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -1184,6 +1244,7 @@ input TransWorkPlanFilter {
   remove: BooleanFilter
   transProductRezsByTransWorkPlanIdExist: Boolean
   transWorkRecordsByTransWorkPlanIdExist: Boolean
+  vWorkPlanDeliveryComplianceByTransWorkPlanIdExists: Boolean
   vWorkPlanProductRezCountByTransWorkPlanId: VWorkPlanProductRezCountFilter
   vWorkPlanProductRezCountByTransWorkPlanIdExists: Boolean
   vWorkPlanWorkRecordCountByTransWorkPlanId: VWorkPlanWorkRecordCountFilter
@@ -1220,6 +1281,27 @@ input UUIDFilter {
   greaterThanOrEqualTo: UUID
 }
 
+input UUIDListFilter {
+  isNull: Boolean
+  equalTo: [UUID]
+  notEqualTo: [UUID]
+  distinctFrom: [UUID]
+  notDistinctFrom: [UUID]
+  lessThan: [UUID]
+  lessThanOrEqualTo: [UUID]
+  greaterThan: [UUID]
+  greaterThanOrEqualTo: [UUID]
+  contains: [UUID]
+  containedBy: [UUID]
+  overlaps: [UUID]
+  anyEqualTo: UUID
+  anyNotEqualTo: UUID
+  anyLessThan: UUID
+  anyLessThanOrEqualTo: UUID
+  anyGreaterThan: UUID
+  anyGreaterThanOrEqualTo: UUID
+}
+
 input UpdateTransOperationsPlanByTransOperationsPlanIdInput {
   transOperationsPlanPatch: TransOperationsPlanPatch!
   transOperationsPlanId: UUID!
@@ -1254,6 +1336,29 @@ input VOperationsPlanWorkPlanCountFilter {
   and: [VOperationsPlanWorkPlanCountFilter!]
   or: [VOperationsPlanWorkPlanCountFilter!]
   not: VOperationsPlanWorkPlanCountFilter
+}
+
+input VWorkPlanDeliveryComplianceFilter {
+  transWorkPlanId: UUIDFilter
+  transOperationsPlanId: UUIDFilter
+  mstrTaskId: UUIDFilter
+  startAt: DatetimeFilter
+  completionAt: DatetimeFilter
+  deadline: DatetimeFilter
+  transWorkRecordIds: UUIDListFilter
+  workRecordCount: BigIntFilter
+  plannedQuantity: BigFloatFilter
+  workQuantity: BigFloatFilter
+  isCompleted: BooleanFilter
+  firstStartAt: DatetimeFilter
+  completedAt: DatetimeFilter
+  complianceStatus: StringFilter
+  transWorkPlanByTransWorkPlanIdExists: Boolean
+  transOperationsPlanByTransOperationsPlanIdExists: Boolean
+  mstrTaskByMstrTaskIdExists: Boolean
+  and: [VWorkPlanDeliveryComplianceFilter!]
+  or: [VWorkPlanDeliveryComplianceFilter!]
+  not: VWorkPlanDeliveryComplianceFilter
 }
 
 input VWorkPlanProductRezCountFilter {

@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 発注納期遵守状況(ダッシュボード用。要件20261027_0001)
+PurchaseDeliveryCompliancePage:
+  kind: read
+  from: v_purchase_delivery_compliance
+  filter: true
+  columns:
+    - supplier_id
+    - mstr_item_kind_id
+    - mstr_item_id
+    - mstr_item_provision_ids
+    - period
+    - is_received
+    - purchase_detail_count
+    - on_time_count
+    - late_count
+    - overdue_count
+    - pending_count
+    - purchase_quantity
+    - received_quantity

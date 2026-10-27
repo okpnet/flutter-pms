@@ -2117,6 +2117,7 @@ input InfoDepartmentFilter {
   vDepartmentDepartmentKindCountByInfoDepartmentIdExists: Boolean
   vDepartmentDescendantByAncestorInfoDepartmentIdExists: Boolean
   vDepartmentPreventionDetailCountByInfoDepartmentIdExists: Boolean
+  vStaffCountsByInfoDepartmentIdExist: Boolean
   infoOfficeByInfoOfficeIdExists: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   infoAddressByInfoAddressId: InfoAddressFilter
@@ -2386,6 +2387,12 @@ input MstrStakeholderFilter {
   transAuditsByMstrStakeholderIdExist: Boolean
   mstrInspectionsByExternalInspectionExist: Boolean
   mstrStakeholderContactsByMstrStakeholderIdExist: Boolean
+  vInspectionStatusesBySupplierIdExist: Boolean
+  vPurchaseAmountsBySupplierIdExist: Boolean
+  vPurchaseDeliveryCompliancesBySupplierIdExist: Boolean
+  vSalesRecordsByCustomerIdExist: Boolean
+  vShippingDeliveryCompliancesByCustomerIdExist: Boolean
+  vShippingOrderStatusesByCustomerIdExist: Boolean
   vStakeholderOutsourceAvailableCountByMstrStakeholderId: VStakeholderOutsourceAvailableCountFilter
   vStakeholderOutsourceAvailableCountByMstrStakeholderIdExists: Boolean
   vStakeholderStakeholderContactCountByMstrStakeholderId: VStakeholderStakeholderContactCountFilter
@@ -2433,6 +2440,7 @@ input MstrTaskFilter {
   vTaskTaskLocationCountByMstrTaskIdExists: Boolean
   vTaskTaskRiskCountByMstrTaskIdExists: Boolean
   vTaskWorkPlanCountByMstrTaskIdExists: Boolean
+  vWorkPlanDeliveryCompliancesByMstrTaskIdExist: Boolean
   mstrTaskGroupByMstrTaskGroupId: MstrTaskGroupFilter
   mstrTaskGroupByMstrTaskGroupIdExists: Boolean
   sharedAppellationByNames: SharedAppellationFilter

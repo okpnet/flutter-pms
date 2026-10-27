@@ -1,0 +1,42 @@
+# shelf_inventory_status_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ShelfInventoryStatusPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ShelfInventoryStatusPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VShelfInventoryStatusFilter = {and: []}
+  $orderBy: [VShelfInventoryStatusesOrderBy!]
+) {
+  allVShelfInventoryStatuses(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transVisiterId
+      transContainerId
+      mstrLocationId
+      status
+      quantity
+      transPurchaseRecIds
+      purchaseRecCount
+      purchaseRecQuantity
+      transConveyIds
+      conveyCount
+      conveyReceiveQuantity
+      conveyIssueQuantity
+      lastConveyAt
+      transWorkRecordIds
+      workRecordCount
+      workRecordQuantity
+    }
+  }
+}

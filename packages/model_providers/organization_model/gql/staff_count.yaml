@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 従業員数(department × 役割)(ダッシュボード用。要件20261027_0001)
+StaffCountPage:
+  kind: read
+  from: v_staff_count
+  filter: true
+  columns:
+    - info_company_id
+    - info_department_id
+    - info_position_id
+    - staff_count
+    - assign_count

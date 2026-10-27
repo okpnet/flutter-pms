@@ -12,6 +12,8 @@ scalar BigInt
 
 scalar Cursor
 
+scalar Date
+
 scalar Datetime
 
 scalar UUID
@@ -222,6 +224,58 @@ enum TransUnrecognizedsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum VPurchaseAmountsOrderBy {
+  NATURAL
+  SUPPLIER_ID_ASC
+  SUPPLIER_ID_DESC
+  MSTR_ITEM_KIND_ID_ASC
+  MSTR_ITEM_KIND_ID_DESC
+  MSTR_ITEM_ID_ASC
+  MSTR_ITEM_ID_DESC
+  MSTR_ITEM_PROVISION_IDS_ASC
+  MSTR_ITEM_PROVISION_IDS_DESC
+  PERIOD_ASC
+  PERIOD_DESC
+  IS_RECEIVED_ASC
+  IS_RECEIVED_DESC
+  PURCHASE_DETAIL_COUNT_ASC
+  PURCHASE_DETAIL_COUNT_DESC
+  PURCHASE_QUANTITY_ASC
+  PURCHASE_QUANTITY_DESC
+  RECEIVED_QUANTITY_ASC
+  RECEIVED_QUANTITY_DESC
+}
+
+enum VPurchaseDeliveryCompliancesOrderBy {
+  NATURAL
+  SUPPLIER_ID_ASC
+  SUPPLIER_ID_DESC
+  MSTR_ITEM_KIND_ID_ASC
+  MSTR_ITEM_KIND_ID_DESC
+  MSTR_ITEM_ID_ASC
+  MSTR_ITEM_ID_DESC
+  MSTR_ITEM_PROVISION_IDS_ASC
+  MSTR_ITEM_PROVISION_IDS_DESC
+  PERIOD_ASC
+  PERIOD_DESC
+  IS_RECEIVED_ASC
+  IS_RECEIVED_DESC
+  PURCHASE_DETAIL_COUNT_ASC
+  PURCHASE_DETAIL_COUNT_DESC
+  ON_TIME_COUNT_ASC
+  ON_TIME_COUNT_DESC
+  LATE_COUNT_ASC
+  LATE_COUNT_DESC
+  OVERDUE_COUNT_ASC
+  OVERDUE_COUNT_DESC
+  PENDING_COUNT_ASC
+  PENDING_COUNT_DESC
+  PURCHASE_QUANTITY_ASC
+  PURCHASE_QUANTITY_DESC
+  RECEIVED_QUANTITY_ASC
+  RECEIVED_QUANTITY_DESC
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -309,6 +363,8 @@ type Query {
   allTransPurchaseRecs(first: Int, offset: Int, orderBy: [TransPurchaseRecsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransPurchaseRecFilter): TransPurchaseRecsConnection
   allTransUnrecognizeds(first: Int, offset: Int, orderBy: [TransUnrecognizedsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransUnrecognizedFilter): TransUnrecognizedsConnection
   allTransUnrecognizedDetails(first: Int, offset: Int, orderBy: [TransUnrecognizedDetailsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransUnrecognizedDetailFilter): TransUnrecognizedDetailsConnection
+  allVPurchaseAmounts(first: Int, offset: Int, orderBy: [VPurchaseAmountsOrderBy!] = [NATURAL], filter: VPurchaseAmountFilter): VPurchaseAmountsConnection
+  allVPurchaseDeliveryCompliances(first: Int, offset: Int, orderBy: [VPurchaseDeliveryCompliancesOrderBy!] = [NATURAL], filter: VPurchaseDeliveryComplianceFilter): VPurchaseDeliveryCompliancesConnection
   mstrStakeholderByMstrStakeholderId(mstrStakeholderId: UUID!): MstrStakeholder
   transPurchaseByTransPurchaseId(transPurchaseId: UUID!): TransPurchase
   transPurchaseDetailByTransPurchaseDetailId(transPurchaseDetailId: UUID!): TransPurchaseDetail
@@ -485,6 +541,46 @@ type UpdateTransUnrecognizedPayload {
   transUnrecognized: TransUnrecognized
 }
 
+type VPurchaseAmount {
+  supplierId: UUID
+  mstrItemKindId: UUID
+  mstrItemId: UUID
+  mstrItemProvisionIds: [UUID]
+  period: Date
+  isReceived: Boolean
+  purchaseDetailCount: BigInt
+  purchaseQuantity: BigFloat
+  receivedQuantity: BigFloat
+}
+
+type VPurchaseAmountsConnection {
+  nodes: [VPurchaseAmount]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type VPurchaseDeliveryCompliance {
+  supplierId: UUID
+  mstrItemKindId: UUID
+  mstrItemId: UUID
+  mstrItemProvisionIds: [UUID]
+  period: Date
+  isReceived: Boolean
+  purchaseDetailCount: BigInt
+  onTimeCount: BigInt
+  lateCount: BigInt
+  overdueCount: BigInt
+  pendingCount: BigInt
+  purchaseQuantity: BigFloat
+  receivedQuantity: BigFloat
+}
+
+type VPurchaseDeliveryCompliancesConnection {
+  nodes: [VPurchaseDeliveryCompliance]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type VPurchaseDetailPurchaseRecCount {
   transPurchaseDetailId: UUID
 }
@@ -561,6 +657,20 @@ input BooleanFilter {
   lessThanOrEqualTo: Boolean
   greaterThan: Boolean
   greaterThanOrEqualTo: Boolean
+}
+
+input DateFilter {
+  isNull: Boolean
+  equalTo: Date
+  notEqualTo: Date
+  distinctFrom: Date
+  notDistinctFrom: Date
+  in: [Date!]
+  notIn: [Date!]
+  lessThan: Date
+  lessThanOrEqualTo: Date
+  greaterThan: Date
+  greaterThanOrEqualTo: Date
 }
 
 input DatetimeFilter {
@@ -961,6 +1071,12 @@ input MstrStakeholderFilter {
   transAuditsByMstrStakeholderIdExist: Boolean
   mstrInspectionsByExternalInspectionExist: Boolean
   mstrStakeholderContactsByMstrStakeholderIdExist: Boolean
+  vInspectionStatusesBySupplierIdExist: Boolean
+  vPurchaseAmountsBySupplierIdExist: Boolean
+  vPurchaseDeliveryCompliancesBySupplierIdExist: Boolean
+  vSalesRecordsByCustomerIdExist: Boolean
+  vShippingDeliveryCompliancesByCustomerIdExist: Boolean
+  vShippingOrderStatusesByCustomerIdExist: Boolean
   vStakeholderOutsourceAvailableCountByMstrStakeholderId: VStakeholderOutsourceAvailableCountFilter
   vStakeholderOutsourceAvailableCountByMstrStakeholderIdExists: Boolean
   vStakeholderStakeholderContactCountByMstrStakeholderId: VStakeholderStakeholderContactCountFilter
@@ -1421,6 +1537,27 @@ input UUIDFilter {
   greaterThanOrEqualTo: UUID
 }
 
+input UUIDListFilter {
+  isNull: Boolean
+  equalTo: [UUID]
+  notEqualTo: [UUID]
+  distinctFrom: [UUID]
+  notDistinctFrom: [UUID]
+  lessThan: [UUID]
+  lessThanOrEqualTo: [UUID]
+  greaterThan: [UUID]
+  greaterThanOrEqualTo: [UUID]
+  contains: [UUID]
+  containedBy: [UUID]
+  overlaps: [UUID]
+  anyEqualTo: UUID
+  anyNotEqualTo: UUID
+  anyLessThan: UUID
+  anyLessThanOrEqualTo: UUID
+  anyGreaterThan: UUID
+  anyGreaterThanOrEqualTo: UUID
+}
+
 input UpdateMstrStakeholderByMstrStakeholderIdInput {
   mstrStakeholderPatch: MstrStakeholderPatch!
   mstrStakeholderId: UUID!
@@ -1449,6 +1586,46 @@ input UpdateTransUnrecognizedByTransUnrecognizedIdInput {
 input UpdateTransUnrecognizedDetailByTransUnrecognizedDetailIdInput {
   transUnrecognizedDetailPatch: TransUnrecognizedDetailPatch!
   transUnrecognizedDetailId: UUID!
+}
+
+input VPurchaseAmountFilter {
+  supplierId: UUIDFilter
+  mstrItemKindId: UUIDFilter
+  mstrItemId: UUIDFilter
+  mstrItemProvisionIds: UUIDListFilter
+  period: DateFilter
+  isReceived: BooleanFilter
+  purchaseDetailCount: BigIntFilter
+  purchaseQuantity: BigFloatFilter
+  receivedQuantity: BigFloatFilter
+  mstrStakeholderBySupplierIdExists: Boolean
+  mstrItemKindByMstrItemKindIdExists: Boolean
+  mstrItemByMstrItemIdExists: Boolean
+  and: [VPurchaseAmountFilter!]
+  or: [VPurchaseAmountFilter!]
+  not: VPurchaseAmountFilter
+}
+
+input VPurchaseDeliveryComplianceFilter {
+  supplierId: UUIDFilter
+  mstrItemKindId: UUIDFilter
+  mstrItemId: UUIDFilter
+  mstrItemProvisionIds: UUIDListFilter
+  period: DateFilter
+  isReceived: BooleanFilter
+  purchaseDetailCount: BigIntFilter
+  onTimeCount: BigIntFilter
+  lateCount: BigIntFilter
+  overdueCount: BigIntFilter
+  pendingCount: BigIntFilter
+  purchaseQuantity: BigFloatFilter
+  receivedQuantity: BigFloatFilter
+  mstrStakeholderBySupplierIdExists: Boolean
+  mstrItemKindByMstrItemKindIdExists: Boolean
+  mstrItemByMstrItemIdExists: Boolean
+  and: [VPurchaseDeliveryComplianceFilter!]
+  or: [VPurchaseDeliveryComplianceFilter!]
+  not: VPurchaseDeliveryComplianceFilter
 }
 
 input VPurchaseDetailPurchaseRecCountFilter {

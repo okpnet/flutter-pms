@@ -1,0 +1,31 @@
+# staff_count_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #StaffCountPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query StaffCountPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VStaffCountFilter = {and: []}
+  $orderBy: [VStaffCountsOrderBy!]
+) {
+  allVStaffCounts(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      infoCompanyId
+      infoDepartmentId
+      infoPositionId
+      staffCount
+      assignCount
+    }
+  }
+}

@@ -1,0 +1,39 @@
+# purchase_delivery_compliance_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #PurchaseDeliveryCompliancePage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query PurchaseDeliveryCompliancePageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VPurchaseDeliveryComplianceFilter = {and: []}
+  $orderBy: [VPurchaseDeliveryCompliancesOrderBy!]
+) {
+  allVPurchaseDeliveryCompliances(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      supplierId
+      mstrItemKindId
+      mstrItemId
+      mstrItemProvisionIds
+      period
+      isReceived
+      purchaseDetailCount
+      onTimeCount
+      lateCount
+      overdueCount
+      pendingCount
+      purchaseQuantity
+      receivedQuantity
+    }
+  }
+}

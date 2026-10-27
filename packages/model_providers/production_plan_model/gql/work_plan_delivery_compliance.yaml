@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 生産計画納期遵守状況(生産計画明細)(ダッシュボード用。要件20261027_0001)
+WorkPlanDeliveryCompliancePage:
+  kind: read
+  from: v_work_plan_delivery_compliance
+  filter: true
+  columns:
+    - trans_work_plan_id
+    - trans_operations_plan_id
+    - mstr_task_id
+    - start_at
+    - completion_at
+    - deadline
+    - trans_work_record_ids
+    - work_record_count
+    - planned_quantity
+    - work_quantity
+    - is_completed
+    - first_start_at
+    - completed_at
+    - compliance_status

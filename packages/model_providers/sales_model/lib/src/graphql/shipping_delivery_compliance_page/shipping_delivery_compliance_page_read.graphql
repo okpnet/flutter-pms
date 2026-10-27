@@ -1,0 +1,42 @@
+# shipping_delivery_compliance_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ShippingDeliveryCompliancePage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ShippingDeliveryCompliancePageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VShippingDeliveryComplianceFilter = {and: []}
+  $orderBy: [VShippingDeliveryCompliancesOrderBy!]
+) {
+  allVShippingDeliveryCompliances(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      customerId
+      mstrItemKindId
+      mstrItemId
+      mstrItemProvisionIds
+      deliveryDate
+      estimatedShippingDate
+      shippingDate
+      shippingDetailCount
+      onTimeCount
+      lateCount
+      overdueCount
+      pendingCount
+      scheduleKeptCount
+      scheduleMissedCount
+      scheduledQuantity
+      shippedQuantity
+    }
+  }
+}

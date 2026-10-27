@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 棚在庫状況(棚ビジター)(ダッシュボード用。要件20261027_0001)
+ShelfInventoryStatusPage:
+  kind: read
+  from: v_shelf_inventory_status
+  filter: true
+  columns:
+    - trans_visiter_id
+    - trans_container_id
+    - mstr_location_id
+    - status
+    - quantity
+    - trans_purchase_rec_ids
+    - purchase_rec_count
+    - purchase_rec_quantity
+    - trans_convey_ids
+    - convey_count
+    - convey_receive_quantity
+    - convey_issue_quantity
+    - last_convey_at
+    - trans_work_record_ids
+    - work_record_count
+    - work_record_quantity

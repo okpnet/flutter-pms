@@ -1,0 +1,40 @@
+# work_plan_delivery_compliance_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #WorkPlanDeliveryCompliancePage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query WorkPlanDeliveryCompliancePageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VWorkPlanDeliveryComplianceFilter = {and: []}
+  $orderBy: [VWorkPlanDeliveryCompliancesOrderBy!]
+) {
+  allVWorkPlanDeliveryCompliances(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transWorkPlanId
+      transOperationsPlanId
+      mstrTaskId
+      startAt
+      completionAt
+      deadline
+      transWorkRecordIds
+      workRecordCount
+      plannedQuantity
+      workQuantity
+      isCompleted
+      firstStartAt
+      completedAt
+      complianceStatus
+    }
+  }
+}

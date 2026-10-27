@@ -1,0 +1,40 @@
+# shipping_order_status_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ShippingOrderStatusPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ShippingOrderStatusPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VShippingOrderStatusFilter = {and: []}
+  $orderBy: [VShippingOrderStatusesOrderBy!]
+) {
+  allVShippingOrderStatuses(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      customerId
+      mstrItemKindId
+      mstrItemId
+      mstrItemProvisionIds
+      deliveryDate
+      estimatedShippingDate
+      shippingDate
+      shippingDetailCount
+      shippedDetailCount
+      scheduledQuantity
+      shippedQuantity
+      remainingQuantity
+      scheduledAmount
+      shippedAmount
+    }
+  }
+}

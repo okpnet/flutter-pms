@@ -282,6 +282,44 @@ enum TransWorkRecordsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum VShelfInventoryStatusesOrderBy {
+  NATURAL
+  TRANS_VISITER_ID_ASC
+  TRANS_VISITER_ID_DESC
+  TRANS_CONTAINER_ID_ASC
+  TRANS_CONTAINER_ID_DESC
+  MSTR_LOCATION_ID_ASC
+  MSTR_LOCATION_ID_DESC
+  STATUS_ASC
+  STATUS_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
+  TRANS_PURCHASE_REC_IDS_ASC
+  TRANS_PURCHASE_REC_IDS_DESC
+  PURCHASE_REC_COUNT_ASC
+  PURCHASE_REC_COUNT_DESC
+  PURCHASE_REC_QUANTITY_ASC
+  PURCHASE_REC_QUANTITY_DESC
+  TRANS_CONVEY_IDS_ASC
+  TRANS_CONVEY_IDS_DESC
+  CONVEY_COUNT_ASC
+  CONVEY_COUNT_DESC
+  CONVEY_RECEIVE_QUANTITY_ASC
+  CONVEY_RECEIVE_QUANTITY_DESC
+  CONVEY_ISSUE_QUANTITY_ASC
+  CONVEY_ISSUE_QUANTITY_DESC
+  LAST_CONVEY_AT_ASC
+  LAST_CONVEY_AT_DESC
+  TRANS_WORK_RECORD_IDS_ASC
+  TRANS_WORK_RECORD_IDS_DESC
+  WORK_RECORD_COUNT_ASC
+  WORK_RECORD_COUNT_DESC
+  WORK_RECORD_QUANTITY_ASC
+  WORK_RECORD_QUANTITY_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -363,6 +401,7 @@ type Query {
   allTransVisiters(first: Int, offset: Int, orderBy: [TransVisitersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransVisiterFilter): TransVisitersConnection
   allTransWorkRecords(first: Int, offset: Int, orderBy: [TransWorkRecordsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransWorkRecordFilter): TransWorkRecordsConnection
   allTransWorkRecordCertificates(first: Int, offset: Int, orderBy: [TransWorkRecordCertificatesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransWorkRecordCertificateFilter): TransWorkRecordCertificatesConnection
+  allVShelfInventoryStatuses(first: Int, offset: Int, orderBy: [VShelfInventoryStatusesOrderBy!] = [PRIMARY_KEY_ASC], filter: VShelfInventoryStatusFilter): VShelfInventoryStatusesConnection
   transCertificateByTransCertificateId(transCertificateId: UUID!): TransCertificate
   transContainerByTransContainerId(transContainerId: UUID!): TransContainer
   transContainerTreeByTransContainerTreeId(transContainerTreeId: UUID!): TransContainerTree
@@ -674,6 +713,31 @@ type VCertificateWorkRecordCertificateCount {
 
 type VContainerVisiterCount {
   transContainerId: UUID
+}
+
+type VShelfInventoryStatus {
+  transVisiterId: UUID!
+  transContainerId: UUID
+  mstrLocationId: UUID
+  status: Int
+  quantity: BigFloat
+  transPurchaseRecIds: [UUID]
+  purchaseRecCount: BigInt
+  purchaseRecQuantity: BigFloat
+  transConveyIds: [UUID]
+  conveyCount: BigInt
+  conveyReceiveQuantity: BigFloat
+  conveyIssueQuantity: BigFloat
+  lastConveyAt: Datetime
+  transWorkRecordIds: [UUID]
+  workRecordCount: BigInt
+  workRecordQuantity: BigFloat
+}
+
+type VShelfInventoryStatusesConnection {
+  nodes: [VShelfInventoryStatus]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type VVisiterConveyCount {
@@ -1083,6 +1147,7 @@ input InfoDepartmentFilter {
   vDepartmentDepartmentKindCountByInfoDepartmentIdExists: Boolean
   vDepartmentDescendantByAncestorInfoDepartmentIdExists: Boolean
   vDepartmentPreventionDetailCountByInfoDepartmentIdExists: Boolean
+  vStaffCountsByInfoDepartmentIdExist: Boolean
   infoOfficeByInfoOfficeIdExists: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   infoAddressByInfoAddressId: InfoAddressFilter
@@ -1130,6 +1195,7 @@ input MstrLocationFilter {
   historyMstrLocationsByMstrLocationIdExist: Boolean
   mstrEquipmentsByMstrLocationIdExist: Boolean
   vLocationDescendantByAncestorMstrLocationIdExists: Boolean
+  vShelfInventoryStatusesByMstrLocationIdExist: Boolean
   infoDepartmentByInfoDepartmentId: InfoDepartmentFilter
   infoDepartmentByInfoDepartmentIdExists: Boolean
   sharedAppellationByNames: SharedAppellationFilter
@@ -1361,6 +1427,7 @@ input TransContainerFilter {
   vContainerDescendantByAncestorTransContainerIdExists: Boolean
   vContainerVisiterCountByTransContainerId: VContainerVisiterCountFilter
   vContainerVisiterCountByTransContainerIdExists: Boolean
+  vShelfInventoryStatusesByTransContainerIdExist: Boolean
   transLabelByNames: TransLabelFilter
   mstrLocationByMstrLocationId: MstrLocationFilter
   mstrLocationByMstrLocationIdExists: Boolean
@@ -1608,6 +1675,7 @@ input TransVisiterFilter {
   transWorkRecordVisitersByTransVisiterIdExist: Boolean
   transPurchaseRecVisitersByTransVisiterIdExist: Boolean
   transConveysByTransVisiterIdExist: Boolean
+  vShelfInventoryStatusByTransVisiterIdExists: Boolean
   vVisiterConveyCountByTransVisiterId: VVisiterConveyCountFilter
   vVisiterConveyCountByTransVisiterIdExists: Boolean
   vVisiterPurchaseRecVisiterCountByTransVisiterId: VVisiterPurchaseRecVisiterCountFilter
@@ -1710,6 +1778,27 @@ input UUIDFilter {
   greaterThanOrEqualTo: UUID
 }
 
+input UUIDListFilter {
+  isNull: Boolean
+  equalTo: [UUID]
+  notEqualTo: [UUID]
+  distinctFrom: [UUID]
+  notDistinctFrom: [UUID]
+  lessThan: [UUID]
+  lessThanOrEqualTo: [UUID]
+  greaterThan: [UUID]
+  greaterThanOrEqualTo: [UUID]
+  contains: [UUID]
+  containedBy: [UUID]
+  overlaps: [UUID]
+  anyEqualTo: UUID
+  anyNotEqualTo: UUID
+  anyLessThan: UUID
+  anyLessThanOrEqualTo: UUID
+  anyGreaterThan: UUID
+  anyGreaterThanOrEqualTo: UUID
+}
+
 input UpdateTransCertificateByTransCertificateIdInput {
   transCertificatePatch: TransCertificatePatch!
   transCertificateId: UUID!
@@ -1791,6 +1880,31 @@ input VContainerVisiterCountFilter {
   and: [VContainerVisiterCountFilter!]
   or: [VContainerVisiterCountFilter!]
   not: VContainerVisiterCountFilter
+}
+
+input VShelfInventoryStatusFilter {
+  transVisiterId: UUIDFilter
+  transContainerId: UUIDFilter
+  mstrLocationId: UUIDFilter
+  status: IntFilter
+  quantity: BigFloatFilter
+  transPurchaseRecIds: UUIDListFilter
+  purchaseRecCount: BigIntFilter
+  purchaseRecQuantity: BigFloatFilter
+  transConveyIds: UUIDListFilter
+  conveyCount: BigIntFilter
+  conveyReceiveQuantity: BigFloatFilter
+  conveyIssueQuantity: BigFloatFilter
+  lastConveyAt: DatetimeFilter
+  transWorkRecordIds: UUIDListFilter
+  workRecordCount: BigIntFilter
+  workRecordQuantity: BigFloatFilter
+  transVisiterByTransVisiterIdExists: Boolean
+  transContainerByTransContainerIdExists: Boolean
+  mstrLocationByMstrLocationIdExists: Boolean
+  and: [VShelfInventoryStatusFilter!]
+  or: [VShelfInventoryStatusFilter!]
+  not: VShelfInventoryStatusFilter
 }
 
 input VVisiterConveyCountFilter {

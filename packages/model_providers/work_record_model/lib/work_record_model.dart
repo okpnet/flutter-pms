@@ -7,6 +7,7 @@ export 'src/contents/convey_page_filter_spec.dart';
 export 'src/contents/inventory_apply_page_filter_spec.dart';
 export 'src/contents/inventory_request_page_filter_spec.dart';
 export 'src/contents/purchase_certification_page_filter_spec.dart';
+export 'src/contents/shelf_inventory_status_page_filter_spec.dart';
 export 'src/contents/visiter_page_filter_spec.dart';
 export 'src/contents/work_record_certificate_page_filter_spec.dart';
 export 'src/contents/work_record_page_filter_spec.dart';
@@ -31,6 +32,7 @@ export 'src/graphql/purchase_certification_page/purchase_certification_page_edit
 export 'src/graphql/purchase_certification_page/purchase_certification_page_read.graphql.dart';
 export 'src/graphql/purchase_certification_page/purchase_certification_page_rfe.graphql.dart';
 export 'src/graphql/schema.graphql.dart';
+export 'src/graphql/shelf_inventory_status_page/shelf_inventory_status_page_read.graphql.dart';
 export 'src/graphql/visiter_page/visiter_page_edit.graphql.dart';
 export 'src/graphql/visiter_page/visiter_page_read.graphql.dart';
 export 'src/graphql/visiter_page/visiter_page_rfe.graphql.dart';

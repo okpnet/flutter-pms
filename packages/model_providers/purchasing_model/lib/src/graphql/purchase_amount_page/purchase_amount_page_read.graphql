@@ -1,0 +1,35 @@
+# purchase_amount_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #PurchaseAmountPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query PurchaseAmountPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VPurchaseAmountFilter = {and: []}
+  $orderBy: [VPurchaseAmountsOrderBy!]
+) {
+  allVPurchaseAmounts(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      supplierId
+      mstrItemKindId
+      mstrItemId
+      mstrItemProvisionIds
+      period
+      isReceived
+      purchaseDetailCount
+      purchaseQuantity
+      receivedQuantity
+    }
+  }
+}

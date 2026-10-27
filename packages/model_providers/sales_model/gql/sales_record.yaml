@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 売り上げ実績(customer × item × 納期 × 出荷済み)(ダッシュボード用。要件20261027_0001)
+SalesRecordPage:
+  kind: read
+  from: v_sales_record
+  filter: true
+  columns:
+    - customer_id
+    - mstr_item_kind_id
+    - mstr_item_id
+    - mstr_item_provision_ids
+    - delivery_date
+    - is_shipped
+    - order_detail_count
+    - order_quantity
+    - shipped_quantity
+    - order_amount
+    - shipped_amount

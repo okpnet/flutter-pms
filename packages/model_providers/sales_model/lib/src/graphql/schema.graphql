@@ -224,6 +224,100 @@ enum TransShippingOrdersOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum VSalesRecordsOrderBy {
+  NATURAL
+  CUSTOMER_ID_ASC
+  CUSTOMER_ID_DESC
+  MSTR_ITEM_KIND_ID_ASC
+  MSTR_ITEM_KIND_ID_DESC
+  MSTR_ITEM_ID_ASC
+  MSTR_ITEM_ID_DESC
+  MSTR_ITEM_PROVISION_IDS_ASC
+  MSTR_ITEM_PROVISION_IDS_DESC
+  DELIVERY_DATE_ASC
+  DELIVERY_DATE_DESC
+  IS_SHIPPED_ASC
+  IS_SHIPPED_DESC
+  ORDER_DETAIL_COUNT_ASC
+  ORDER_DETAIL_COUNT_DESC
+  ORDER_QUANTITY_ASC
+  ORDER_QUANTITY_DESC
+  SHIPPED_QUANTITY_ASC
+  SHIPPED_QUANTITY_DESC
+  ORDER_AMOUNT_ASC
+  ORDER_AMOUNT_DESC
+  SHIPPED_AMOUNT_ASC
+  SHIPPED_AMOUNT_DESC
+}
+
+enum VShippingDeliveryCompliancesOrderBy {
+  NATURAL
+  CUSTOMER_ID_ASC
+  CUSTOMER_ID_DESC
+  MSTR_ITEM_KIND_ID_ASC
+  MSTR_ITEM_KIND_ID_DESC
+  MSTR_ITEM_ID_ASC
+  MSTR_ITEM_ID_DESC
+  MSTR_ITEM_PROVISION_IDS_ASC
+  MSTR_ITEM_PROVISION_IDS_DESC
+  DELIVERY_DATE_ASC
+  DELIVERY_DATE_DESC
+  ESTIMATED_SHIPPING_DATE_ASC
+  ESTIMATED_SHIPPING_DATE_DESC
+  SHIPPING_DATE_ASC
+  SHIPPING_DATE_DESC
+  SHIPPING_DETAIL_COUNT_ASC
+  SHIPPING_DETAIL_COUNT_DESC
+  ON_TIME_COUNT_ASC
+  ON_TIME_COUNT_DESC
+  LATE_COUNT_ASC
+  LATE_COUNT_DESC
+  OVERDUE_COUNT_ASC
+  OVERDUE_COUNT_DESC
+  PENDING_COUNT_ASC
+  PENDING_COUNT_DESC
+  SCHEDULE_KEPT_COUNT_ASC
+  SCHEDULE_KEPT_COUNT_DESC
+  SCHEDULE_MISSED_COUNT_ASC
+  SCHEDULE_MISSED_COUNT_DESC
+  SCHEDULED_QUANTITY_ASC
+  SCHEDULED_QUANTITY_DESC
+  SHIPPED_QUANTITY_ASC
+  SHIPPED_QUANTITY_DESC
+}
+
+enum VShippingOrderStatusesOrderBy {
+  NATURAL
+  CUSTOMER_ID_ASC
+  CUSTOMER_ID_DESC
+  MSTR_ITEM_KIND_ID_ASC
+  MSTR_ITEM_KIND_ID_DESC
+  MSTR_ITEM_ID_ASC
+  MSTR_ITEM_ID_DESC
+  MSTR_ITEM_PROVISION_IDS_ASC
+  MSTR_ITEM_PROVISION_IDS_DESC
+  DELIVERY_DATE_ASC
+  DELIVERY_DATE_DESC
+  ESTIMATED_SHIPPING_DATE_ASC
+  ESTIMATED_SHIPPING_DATE_DESC
+  SHIPPING_DATE_ASC
+  SHIPPING_DATE_DESC
+  SHIPPING_DETAIL_COUNT_ASC
+  SHIPPING_DETAIL_COUNT_DESC
+  SHIPPED_DETAIL_COUNT_ASC
+  SHIPPED_DETAIL_COUNT_DESC
+  SCHEDULED_QUANTITY_ASC
+  SCHEDULED_QUANTITY_DESC
+  SHIPPED_QUANTITY_ASC
+  SHIPPED_QUANTITY_DESC
+  REMAINING_QUANTITY_ASC
+  REMAINING_QUANTITY_DESC
+  SCHEDULED_AMOUNT_ASC
+  SCHEDULED_AMOUNT_DESC
+  SHIPPED_AMOUNT_ASC
+  SHIPPED_AMOUNT_DESC
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -321,6 +415,9 @@ type Query {
   allTransShippingOrders(first: Int, offset: Int, orderBy: [TransShippingOrdersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransShippingOrderFilter): TransShippingOrdersConnection
   allTransShippingOrderDetails(first: Int, offset: Int, orderBy: [TransShippingOrderDetailsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransShippingOrderDetailFilter): TransShippingOrderDetailsConnection
   allTransShippingOrderDetailRecords(first: Int, offset: Int, orderBy: [TransShippingOrderDetailRecordsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransShippingOrderDetailRecordFilter): TransShippingOrderDetailRecordsConnection
+  allVSalesRecords(first: Int, offset: Int, orderBy: [VSalesRecordsOrderBy!] = [NATURAL], filter: VSalesRecordFilter): VSalesRecordsConnection
+  allVShippingDeliveryCompliances(first: Int, offset: Int, orderBy: [VShippingDeliveryCompliancesOrderBy!] = [NATURAL], filter: VShippingDeliveryComplianceFilter): VShippingDeliveryCompliancesConnection
+  allVShippingOrderStatuses(first: Int, offset: Int, orderBy: [VShippingOrderStatusesOrderBy!] = [NATURAL], filter: VShippingOrderStatusFilter): VShippingOrderStatusesConnection
   mstrStakeholderByMstrStakeholderId(mstrStakeholderId: UUID!): MstrStakeholder
   transOrderByTransOrderId(transOrderId: UUID!): TransOrder
   transOrderDetailByTransOrderDetailId(transOrderDetailId: UUID!): TransOrderDetail
@@ -524,12 +621,80 @@ type VOrderShippingOrderCount {
   transOrderId: UUID
 }
 
+type VSalesRecord {
+  customerId: UUID
+  mstrItemKindId: UUID
+  mstrItemId: UUID
+  mstrItemProvisionIds: [UUID]
+  deliveryDate: Date
+  isShipped: Boolean
+  orderDetailCount: BigInt
+  orderQuantity: BigFloat
+  shippedQuantity: BigFloat
+  orderAmount: BigFloat
+  shippedAmount: BigFloat
+}
+
+type VSalesRecordsConnection {
+  nodes: [VSalesRecord]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type VShippingDeliveryCompliance {
+  customerId: UUID
+  mstrItemKindId: UUID
+  mstrItemId: UUID
+  mstrItemProvisionIds: [UUID]
+  deliveryDate: Date
+  estimatedShippingDate: Date
+  shippingDate: Date
+  shippingDetailCount: BigInt
+  onTimeCount: BigInt
+  lateCount: BigInt
+  overdueCount: BigInt
+  pendingCount: BigInt
+  scheduleKeptCount: BigInt
+  scheduleMissedCount: BigInt
+  scheduledQuantity: BigFloat
+  shippedQuantity: BigFloat
+}
+
+type VShippingDeliveryCompliancesConnection {
+  nodes: [VShippingDeliveryCompliance]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type VShippingOrderDetailShippingOrderDetailRecordCount {
   transShippingOrderDetailId: UUID
 }
 
 type VShippingOrderShippingOrderDetailCount {
   transShippingOrderId: UUID
+}
+
+type VShippingOrderStatus {
+  customerId: UUID
+  mstrItemKindId: UUID
+  mstrItemId: UUID
+  mstrItemProvisionIds: [UUID]
+  deliveryDate: Date
+  estimatedShippingDate: Date
+  shippingDate: Date
+  shippingDetailCount: BigInt
+  shippedDetailCount: BigInt
+  scheduledQuantity: BigFloat
+  shippedQuantity: BigFloat
+  remainingQuantity: BigFloat
+  scheduledAmount: BigFloat
+  shippedAmount: BigFloat
+}
+
+type VShippingOrderStatusesConnection {
+  nodes: [VShippingOrderStatus]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type VStakeholderOutsourceAvailableCount {
@@ -1030,6 +1195,12 @@ input MstrStakeholderFilter {
   transAuditsByMstrStakeholderIdExist: Boolean
   mstrInspectionsByExternalInspectionExist: Boolean
   mstrStakeholderContactsByMstrStakeholderIdExist: Boolean
+  vInspectionStatusesBySupplierIdExist: Boolean
+  vPurchaseAmountsBySupplierIdExist: Boolean
+  vPurchaseDeliveryCompliancesBySupplierIdExist: Boolean
+  vSalesRecordsByCustomerIdExist: Boolean
+  vShippingDeliveryCompliancesByCustomerIdExist: Boolean
+  vShippingOrderStatusesByCustomerIdExist: Boolean
   vStakeholderOutsourceAvailableCountByMstrStakeholderId: VStakeholderOutsourceAvailableCountFilter
   vStakeholderOutsourceAvailableCountByMstrStakeholderIdExists: Boolean
   vStakeholderStakeholderContactCountByMstrStakeholderId: VStakeholderStakeholderContactCountFilter
@@ -1497,6 +1668,27 @@ input UUIDFilter {
   greaterThanOrEqualTo: UUID
 }
 
+input UUIDListFilter {
+  isNull: Boolean
+  equalTo: [UUID]
+  notEqualTo: [UUID]
+  distinctFrom: [UUID]
+  notDistinctFrom: [UUID]
+  lessThan: [UUID]
+  lessThanOrEqualTo: [UUID]
+  greaterThan: [UUID]
+  greaterThanOrEqualTo: [UUID]
+  contains: [UUID]
+  containedBy: [UUID]
+  overlaps: [UUID]
+  anyEqualTo: UUID
+  anyNotEqualTo: UUID
+  anyLessThan: UUID
+  anyLessThanOrEqualTo: UUID
+  anyGreaterThan: UUID
+  anyGreaterThanOrEqualTo: UUID
+}
+
 input UpdateMstrStakeholderByMstrStakeholderIdInput {
   mstrStakeholderPatch: MstrStakeholderPatch!
   mstrStakeholderId: UUID!
@@ -1593,6 +1785,51 @@ input VOrderShippingOrderCountFilter {
   not: VOrderShippingOrderCountFilter
 }
 
+input VSalesRecordFilter {
+  customerId: UUIDFilter
+  mstrItemKindId: UUIDFilter
+  mstrItemId: UUIDFilter
+  mstrItemProvisionIds: UUIDListFilter
+  deliveryDate: DateFilter
+  isShipped: BooleanFilter
+  orderDetailCount: BigIntFilter
+  orderQuantity: BigFloatFilter
+  shippedQuantity: BigFloatFilter
+  orderAmount: BigFloatFilter
+  shippedAmount: BigFloatFilter
+  mstrStakeholderByCustomerIdExists: Boolean
+  mstrItemKindByMstrItemKindIdExists: Boolean
+  mstrItemByMstrItemIdExists: Boolean
+  and: [VSalesRecordFilter!]
+  or: [VSalesRecordFilter!]
+  not: VSalesRecordFilter
+}
+
+input VShippingDeliveryComplianceFilter {
+  customerId: UUIDFilter
+  mstrItemKindId: UUIDFilter
+  mstrItemId: UUIDFilter
+  mstrItemProvisionIds: UUIDListFilter
+  deliveryDate: DateFilter
+  estimatedShippingDate: DateFilter
+  shippingDate: DateFilter
+  shippingDetailCount: BigIntFilter
+  onTimeCount: BigIntFilter
+  lateCount: BigIntFilter
+  overdueCount: BigIntFilter
+  pendingCount: BigIntFilter
+  scheduleKeptCount: BigIntFilter
+  scheduleMissedCount: BigIntFilter
+  scheduledQuantity: BigFloatFilter
+  shippedQuantity: BigFloatFilter
+  mstrStakeholderByCustomerIdExists: Boolean
+  mstrItemKindByMstrItemKindIdExists: Boolean
+  mstrItemByMstrItemIdExists: Boolean
+  and: [VShippingDeliveryComplianceFilter!]
+  or: [VShippingDeliveryComplianceFilter!]
+  not: VShippingDeliveryComplianceFilter
+}
+
 input VShippingOrderDetailShippingOrderDetailRecordCountFilter {
   transShippingOrderDetailId: UUIDFilter
   allCount: BigIntFilter
@@ -1613,6 +1850,29 @@ input VShippingOrderShippingOrderDetailCountFilter {
   and: [VShippingOrderShippingOrderDetailCountFilter!]
   or: [VShippingOrderShippingOrderDetailCountFilter!]
   not: VShippingOrderShippingOrderDetailCountFilter
+}
+
+input VShippingOrderStatusFilter {
+  customerId: UUIDFilter
+  mstrItemKindId: UUIDFilter
+  mstrItemId: UUIDFilter
+  mstrItemProvisionIds: UUIDListFilter
+  deliveryDate: DateFilter
+  estimatedShippingDate: DateFilter
+  shippingDate: DateFilter
+  shippingDetailCount: BigIntFilter
+  shippedDetailCount: BigIntFilter
+  scheduledQuantity: BigFloatFilter
+  shippedQuantity: BigFloatFilter
+  remainingQuantity: BigFloatFilter
+  scheduledAmount: BigFloatFilter
+  shippedAmount: BigFloatFilter
+  mstrStakeholderByCustomerIdExists: Boolean
+  mstrItemKindByMstrItemKindIdExists: Boolean
+  mstrItemByMstrItemIdExists: Boolean
+  and: [VShippingOrderStatusFilter!]
+  or: [VShippingOrderStatusFilter!]
+  not: VShippingOrderStatusFilter
 }
 
 input VStakeholderOutsourceAvailableCountFilter {
