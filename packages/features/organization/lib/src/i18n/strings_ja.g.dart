@@ -278,8 +278,11 @@ class OrganizationStrings$entity$company$fields$ja {
 	/// ja: 'ホームページ'
 	String get f_web_page => 'ホームページ';
 
+	/// ja: '国コード(ISO 3166-1 alpha-2)'
+	String get f_country_code_2 => '国コード(ISO 3166-1 alpha-2)';
+
 	/// ja: '郵便番号'
-	String get f_postal_code => '郵便番号';
+	String get f_zip_code => '郵便番号';
 
 	/// ja: '都道府県'
 	String get f_prefecture => '都道府県';
@@ -291,10 +294,10 @@ class OrganizationStrings$entity$company$fields$ja {
 	String get f_building => '建物';
 
 	/// ja: '電話'
-	String get f_tel => '電話';
+	String get f_phone => '電話';
 
 	/// ja: 'FAX'
-	String get f_fax => 'FAX';
+	String get f_fax_number => 'FAX';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
@@ -386,8 +389,11 @@ class OrganizationStrings$entity$site$fields$ja {
 	/// ja: '略称'
 	String get f_nickname => '略称';
 
+	/// ja: '国コード(ISO 3166-1 alpha-2)'
+	String get f_country_code_2 => '国コード(ISO 3166-1 alpha-2)';
+
 	/// ja: '郵便番号'
-	String get f_postal_code => '郵便番号';
+	String get f_zip_code => '郵便番号';
 
 	/// ja: '都道府県'
 	String get f_prefecture => '都道府県';
@@ -399,10 +405,10 @@ class OrganizationStrings$entity$site$fields$ja {
 	String get f_building => '建物';
 
 	/// ja: '電話'
-	String get f_tel => '電話';
+	String get f_phone => '電話';
 
 	/// ja: 'FAX'
-	String get f_fax => 'FAX';
+	String get f_fax_number => 'FAX';
 }
 
 // Path: entity.deptkind.fields
@@ -603,12 +609,13 @@ extension on OrganizationStrings {
 			'entity.company.fields.f_nickname' => '略称',
 			'entity.company.fields.f_ceo' => '代表者名',
 			'entity.company.fields.f_web_page' => 'ホームページ',
-			'entity.company.fields.f_postal_code' => '郵便番号',
+			'entity.company.fields.f_country_code_2' => '国コード(ISO 3166-1 alpha-2)',
+			'entity.company.fields.f_zip_code' => '郵便番号',
 			'entity.company.fields.f_prefecture' => '都道府県',
 			'entity.company.fields.f_city' => '市町村番地',
 			'entity.company.fields.f_building' => '建物',
-			'entity.company.fields.f_tel' => '電話',
-			'entity.company.fields.f_fax' => 'FAX',
+			'entity.company.fields.f_phone' => '電話',
+			'entity.company.fields.f_fax_number' => 'FAX',
 			'entity.company.fields.f_remarks' => '備考',
 			'entity.provision.title' => '提供',
 			'entity.provision.fields.f_kind' => '種別',
@@ -631,12 +638,13 @@ extension on OrganizationStrings {
 			'entity.site.fields.f_name' => '事業所名称',
 			'entity.site.fields.f_pronunciation' => '読み',
 			'entity.site.fields.f_nickname' => '略称',
-			'entity.site.fields.f_postal_code' => '郵便番号',
+			'entity.site.fields.f_country_code_2' => '国コード(ISO 3166-1 alpha-2)',
+			'entity.site.fields.f_zip_code' => '郵便番号',
 			'entity.site.fields.f_prefecture' => '都道府県',
 			'entity.site.fields.f_city' => '市町村番地',
 			'entity.site.fields.f_building' => '建物',
-			'entity.site.fields.f_tel' => '電話',
-			'entity.site.fields.f_fax' => 'FAX',
+			'entity.site.fields.f_phone' => '電話',
+			'entity.site.fields.f_fax_number' => 'FAX',
 			'entity.deptkind.title' => '部署区分',
 			'entity.deptkind.fields.f_name' => '区分名',
 			'entity.deptkind.fields.f_detail' => '区分詳細',

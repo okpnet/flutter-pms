@@ -1,0 +1,41 @@
+# auditor_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views/ #AuditorPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditorPageEdit(
+  $transAuditorId: UUID!
+  $transAuditTeamId: UUID
+  $auditStdHistoryId: UUID
+  $auditStdId: UUID
+  $ccategory: Int
+  $staffHistoryId: UUID
+  $staffId: UUID
+  $remarks: String
+) {
+  updateTransAuditorByTransAuditorId(
+    input: {
+      transAuditorId: $transAuditorId
+      transAuditorPatch: {
+        transAuditTeamId: $transAuditTeamId
+        auditStdHistoryId: $auditStdHistoryId
+        auditStdId: $auditStdId
+        ccategory: $ccategory
+        staffHistoryId: $staffHistoryId
+        staffId: $staffId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transAuditor {
+      transAuditorId
+      transAuditTeamId
+      auditStdHistoryId
+      auditStdId
+      ccategory
+      staffHistoryId
+      staffId
+      remarks
+    }
+  }
+}

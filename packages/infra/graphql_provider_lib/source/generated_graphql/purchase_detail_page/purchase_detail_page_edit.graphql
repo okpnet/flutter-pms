@@ -1,0 +1,44 @@
+# purchase_detail_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views/ #PurchaseDetailPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation PurchaseDetailPageEdit(
+  $transPurchaseDetailId: UUID!
+  $transPurchaseId: UUID
+  $transResourcePlanId: UUID
+  $restockingPurchase: Boolean
+  $quantity: BigFloat
+  $period: Datetime
+  $itemHistoryId: UUID
+  $itemId: UUID
+  $remarks: String
+) {
+  updateTransPurchaseDetailByTransPurchaseDetailId(
+    input: {
+      transPurchaseDetailId: $transPurchaseDetailId
+      transPurchaseDetailPatch: {
+        transPurchaseId: $transPurchaseId
+        transResourcePlanId: $transResourcePlanId
+        restockingPurchase: $restockingPurchase
+        quantity: $quantity
+        period: $period
+        itemHistoryId: $itemHistoryId
+        itemId: $itemId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transPurchaseDetail {
+      transPurchaseDetailId
+      transPurchaseId
+      transResourcePlanId
+      restockingPurchase
+      quantity
+      period
+      itemHistoryId
+      itemId
+      remarks
+    }
+  }
+}

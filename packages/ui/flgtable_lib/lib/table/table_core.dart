@@ -1066,7 +1066,7 @@ abstract class _TableBaseState<T, W extends TableWidgetBase<T>>
     final item = _findItem(editing.$1);
     final text = _editController.text;
     setState(() => _editing = null);
-    if (col == null || item == null || col.setter == null) return;
+    if (col == null || item == null || !col.editable) return;
     final before = col.read(item);
     if (text == before) return;
     bool ok;
@@ -1126,8 +1126,10 @@ abstract class _TableBaseState<T, W extends TableWidgetBase<T>>
       if (sel == null) return KeyEventResult.ignored;
       final col = widget.columns.where((c) => c.key == sel.$2).firstOrNull;
       final item = _view().rows.where((i) => _key(i) == sel.$1).firstOrNull;
-      if (col?.setter == null || item == null) return KeyEventResult.ignored;
-      setState(() => _startEdit(item, col!));
+      if (col == null || !col.editable || item == null) {
+        return KeyEventResult.ignored;
+      }
+      setState(() => _startEdit(item, col));
       return KeyEventResult.handled;
     }
     return KeyEventResult.ignored;
@@ -1203,8 +1205,7 @@ abstract class _TableBaseState<T, W extends TableWidgetBase<T>>
   /// アイコン1つ分の幅。アイコンは行高の60%。
   double _iconBox(double rowHeight) => rowHeight * 0.6 + 4;
 
-  int get _leadingSlots =>
-      _groupColumns.length + (_childTable != null ? 1 : 0);
+  int get _leadingSlots => _groupColumns.length + (_childTable != null ? 1 : 0);
 
   _Layout<T> _layout(
     BuildContext context,
@@ -1855,13 +1856,8 @@ abstract class _TableBaseState<T, W extends TableWidgetBase<T>>
           if (_dropOver?.index == e.index) setState(() => _dropOver = null);
         },
         onAcceptWithDetails: (d) => _onDrop(e, d),
-        builder: (context, candidates, rejected) => _dropVisual(
-          theme,
-          row,
-          e,
-          _dropOver,
-          candidates.isNotEmpty,
-        ),
+        builder: (context, candidates, rejected) =>
+            _dropVisual(theme, row, e, _dropOver, candidates.isNotEmpty),
       ),
     );
   }
@@ -1952,7 +1948,7 @@ abstract class _TableBaseState<T, W extends TableWidgetBase<T>>
       _selectRow(key);
       if (_cfg.cellSelection && col != null) {
         final cell = (key, col.key);
-        if (_selectedCell == cell && col.setter != null) {
+        if (_selectedCell == cell && col.editable) {
           _startEdit(e.item, col);
         } else {
           _selectedCell = cell;

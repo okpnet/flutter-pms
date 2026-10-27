@@ -33,6 +33,7 @@ class FieldDefinition {
     this.options = const [],
     this.reference,
     this.picker = false,
+    this.readOnly = false,
   }) : assert(
          kind != FieldKind.reference || reference != null,
          'reference には参照先の実体キーが必要',
@@ -52,6 +53,10 @@ class FieldDefinition {
   /// 参照先が多い・検索して選びたいときに使う。選択は呼び出し側([EntityEditPage.onPick])が行う。
   final bool picker;
 
+  /// 読み取り専用(集計・計算された値。DB のビューの集計列など)。
+  /// 編集画面では表示だけ、台帳では列(読み取り専用の列)にする。入力・検証・保存の対象にしない。
+  final bool readOnly;
+
   Map<String, Object?> toJson() => {
     'key': key,
     'kind': kind.name,
@@ -59,6 +64,7 @@ class FieldDefinition {
     'options': options,
     'reference': reference,
     'picker': picker,
+    'readOnly': readOnly,
   };
 }
 

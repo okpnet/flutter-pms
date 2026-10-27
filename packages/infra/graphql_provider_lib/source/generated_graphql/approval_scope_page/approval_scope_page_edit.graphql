@@ -1,0 +1,29 @@
+# approval_scope_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views/ #ApprovalScopePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ApprovalScopePageEdit(
+  $mstrApprovalScopePatternId: UUID!
+  $mstrApprovalPatternId: UUID
+  $infoAccessPathApprovalId: UUID
+  $remarks: String
+) {
+  updateMstrApprovalScopePatternByMstrApprovalScopePatternId(
+    input: {
+      mstrApprovalScopePatternId: $mstrApprovalScopePatternId
+      mstrApprovalScopePatternPatch: {
+        mstrApprovalPatternId: $mstrApprovalPatternId
+        infoAccessPathApprovalId: $infoAccessPathApprovalId
+        remarks: $remarks
+      }
+    }
+  ) {
+    mstrApprovalScopePattern {
+      mstrApprovalScopePatternId
+      mstrApprovalPatternId
+      infoAccessPathApprovalId
+      remarks
+    }
+  }
+}

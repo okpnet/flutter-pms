@@ -37,6 +37,8 @@
 | 受注明細 | `orderdetail` | 子の台帳(親: 受注) | 5 |  |
 <!-- entity_gen:end -->
 
+
+
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、顧客台帳・顧客の選択を開く。画面を足したら`example/lib/main.dart`の`entries`に1行足す。
 2.  文字列は`lib/src/i18n`の言語ファイル(`ja.i18n.yaml`が基準、`en.i18n.yaml`)に置き、`slang.yaml`の`class_name: SalesStrings`で生成する(`dart run slang`)。`salesStringsProvider`が`feature_shared`の`localeProvider`に従って返す。

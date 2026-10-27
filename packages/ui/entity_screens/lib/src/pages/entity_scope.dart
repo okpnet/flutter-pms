@@ -47,6 +47,7 @@ List<ColumnDefinition<EntityRecord>> columnsOf(
     ColumnDefinition<EntityRecord>(
       key: f.key,
       label: labels.field(definition.key, f.key),
+      readOnly: f.readOnly,
       type: switch (f.kind) {
         FieldKind.number => ColumnType.number,
         FieldKind.date => ColumnType.time,

@@ -1127,6 +1127,52 @@ void main() {
     expect(find.byKey(const Key('edit.name')), findsOneWidget);
   });
 
+  testWidgets('読み取り専用の列: setter があっても編集できず、表示・ソートは通常どおり', (tester) async {
+    big(tester);
+    final items = people(3);
+    final readOnlyCols = [
+      for (final c in cols())
+        if (c.key == 'name')
+          ColumnDefinition<TP>(
+            key: c.key,
+            label: c.label,
+            getter: c.getter,
+            setter: c.setter,
+            readOnly: true,
+          )
+        else
+          c,
+    ];
+    final name = readOnlyCols.firstWhere((c) => c.key == 'name');
+    expect(name.setter, isNotNull);
+    expect(name.editable, isFalse);
+    expect(name.toJson()['readOnly'], isTrue);
+    expect(name.toJson()['editable'], isFalse);
+    expect(cols().firstWhere((c) => c.key == 'name').editable, isTrue);
+
+    await tester.pumpWidget(
+      host(
+        FlgTable<TP>(
+          columns: readOnlyCols,
+          items: items,
+          rowKey: (p) => p.id,
+          config: const TableConfig(cellSelection: true),
+        ),
+      ),
+    );
+    // 再タップ・Enter キーのどちらでも、編集を始めない
+    await tester.tap(find.text('p2'));
+    await tester.pump(tap400);
+    await tester.tap(find.text('p2'));
+    await tester.pump(tap400);
+    expect(find.byType(TextField), findsNothing);
+    await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+    await tester.pump();
+    expect(find.byType(TextField), findsNothing);
+    expect(items[1].name, 'p2');
+    expect(find.text('p2'), findsOneWidget);
+  });
+
   testWidgets('ローディング種別: header/footer/overlay とカスタムサークル', (tester) async {
     big(tester);
     Widget table(LoadingKind k, {Widget? indicator}) => host(

@@ -1,0 +1,48 @@
+# complaint_receive_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: source/views/ #ComplaintReceivePageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ComplaintReceivePageRfe(
+  $transComplaintReceiveId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+) {
+  transComplaintReceiveByTransComplaintReceiveId(transComplaintReceiveId: $transComplaintReceiveId) {
+    transComplaintReceiveId
+    transComplaintId
+    receiveAt
+    receiveStaffHistoryId
+    receiveStaffId
+
+    detailTexts: transTextByDetails {
+      transTextId
+
+      ja: transTextValuesByTransTextId(
+        condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+      ) {
+        nodes {
+          transTextId
+          textValue
+        }
+      }
+
+      en: transTextValuesByTransTextId(
+        condition: { sharedLanguageCodeId: $enLanguageCodeId }
+      ) {
+        nodes {
+          transTextId
+          textValue
+        }
+      }
+
+      remarks
+    }
+
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

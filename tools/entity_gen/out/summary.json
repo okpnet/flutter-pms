@@ -69,7 +69,7 @@
       {
         "key": "purchase",
         "label": "発注",
-        "first": ""
+        "first": "2400000"
       },
       {
         "key": "purchaserec",

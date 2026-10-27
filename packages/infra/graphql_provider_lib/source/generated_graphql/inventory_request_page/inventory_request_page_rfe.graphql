@@ -1,0 +1,24 @@
+# inventory_request_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: source/views/ #InventoryRequestPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query InventoryRequestPageRfe(
+  $transInventoryRequestId: UUID!
+) {
+  transInventoryRequestByTransInventoryRequestId(transInventoryRequestId: $transInventoryRequestId) {
+    transInventoryRequestId
+    registerAt
+    registerPlanAt
+    transPurchaseRezId
+    transProductRezId
+    quantity
+    staffHistoryId
+    staffId
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

@@ -1,0 +1,91 @@
+# observer_disposal_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: source/views/ #ObserverDisposalPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ObserverDisposalPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransObserverDisposalFilter = {and: []}
+  $orderBy: [TransObserverDisposalsOrderBy!]
+  $languageCodeId: UUID!
+  $removed: Boolean = false
+) {
+  allTransObserverDisposals(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transObserverDisposalId
+      enable
+      observeSchedule
+      observeAt
+      observerStaffHistoryId
+      observerStaffId
+      symbol
+      remarks
+
+      observer_preventive_count: vObserverDisposalObserverPreventiveCountByTransObserverDisposalId {
+        transObserverDisposalId
+      }
+
+      updateAt
+      remove
+
+      update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        infoCompanyId
+        code
+
+        name: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        sex
+        phone
+        symbol
+        privatePhone
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+# inspect_record_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: source/views/ #InspectRecordPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query InspectRecordPageRfe(
+  $transInspectRecordId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+) {
+  transInspectRecordByTransInspectRecordId(transInspectRecordId: $transInspectRecordId) {
+    transInspectRecordId
+    transInspectSchDetailId
+    implementStartDate
+    implementStopDate
+    resultValue
+    result
+    resultState
+
+    noteTexts: transTextByNotes {
+      transTextId
+
+      ja: transTextValuesByTransTextId(
+        condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+      ) {
+        nodes {
+          transTextId
+          textValue
+        }
+      }
+
+      en: transTextValuesByTransTextId(
+        condition: { sharedLanguageCodeId: $enLanguageCodeId }
+      ) {
+        nodes {
+          transTextId
+          textValue
+        }
+      }
+
+      remarks
+    }
+
+    stakeholderId
+    stakeholderHistoryId
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

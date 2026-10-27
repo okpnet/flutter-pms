@@ -1,0 +1,29 @@
+# order_detail_risk_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views/ #OrderDetailRiskPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OrderDetailRiskPageEdit(
+  $transOrderDetailRiskId: UUID!
+  $transOrderDetailId: UUID
+  $riskId: UUID
+  $remarks: String
+) {
+  updateTransOrderDetailRiskByTransOrderDetailRiskId(
+    input: {
+      transOrderDetailRiskId: $transOrderDetailRiskId
+      transOrderDetailRiskPatch: {
+        transOrderDetailId: $transOrderDetailId
+        riskId: $riskId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transOrderDetailRisk {
+      transOrderDetailRiskId
+      transOrderDetailId
+      riskId
+      remarks
+    }
+  }
+}

@@ -1,0 +1,96 @@
+# spec_measurement_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views/ #SpecMeasurementPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation SpecMeasurementPageEdit(
+  $mstrSpecMeasurementId: UUID!
+  $measurementValue: BigFloat
+  $sharedUnitId: UUID
+  $remarks: String
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+) {
+  updateMstrSpecMeasurementByMstrSpecMeasurementId(
+    input: {
+      mstrSpecMeasurementId: $mstrSpecMeasurementId
+      mstrSpecMeasurementPatch: {
+        measurementValue: $measurementValue
+        sharedUnitId: $sharedUnitId
+        remarks: $remarks
+      }
+    }
+  ) {
+    mstrSpecMeasurement {
+      mstrSpecMeasurementId
+      measurementValue
+      sharedUnitId
+
+      unit: sharedUnitBySharedUnitId {
+        sharedUnitId
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
+      remarks
+    }
+  }
+}

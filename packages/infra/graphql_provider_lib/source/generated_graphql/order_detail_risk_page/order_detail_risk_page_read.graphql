@@ -1,0 +1,84 @@
+# order_detail_risk_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: source/views/ #OrderDetailRiskPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query OrderDetailRiskPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransOrderDetailRiskFilter = {and: []}
+  $orderBy: [TransOrderDetailRisksOrderBy!]
+  $languageCodeId: UUID!
+  $transOrderDetailId: UUID!
+  $removed: Boolean = false
+) {
+  allTransOrderDetailRisks(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, { transOrderDetailId: { equalTo: $transOrderDetailId } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transOrderDetailRiskId
+      transOrderDetailId
+      riskId
+      symbol
+      remarks
+      updateAt
+      remove
+
+      update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        infoCompanyId
+        code
+
+        name: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        sex
+        phone
+        symbol
+        privatePhone
+      }
+    }
+  }
+}

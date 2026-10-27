@@ -1,7 +1,7 @@
 // 生成物(tools/entity_gen/gen.js)。直接編集しない。
 import 'package:entity_screens/entity_screens.dart';
 
-/// 購買の実体の定義。キーは model_providers の各モデルパッケージ のビュー(DB の列)に合わせる。
+/// 購買の実体の定義。キーは graphql_provider_lib のビュー(DB の列)に合わせる。
 const List<EntityDefinition> purchasingDefinitions = [
     EntityDefinition(
       key: 'unrec',
@@ -28,6 +28,8 @@ const List<EntityDefinition> purchasingDefinitions = [
         FieldDefinition(key: 'register_at', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'purchase_order_date', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'deadline', kind: FieldKind.date, required: false),
+        FieldDefinition(key: 'purchase_amount', kind: FieldKind.number, required: false, readOnly: true),
+        FieldDefinition(key: 'received_amount', kind: FieldKind.number, required: false, readOnly: true),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),
@@ -37,6 +39,7 @@ const List<EntityDefinition> purchasingDefinitions = [
         FieldDefinition(key: 'trans_resource_plan_id', kind: FieldKind.reference, required: false, reference: 'resplan'),
         FieldDefinition(key: 'restocking_purchase', kind: FieldKind.choice, required: false, options: ['はい', 'いいえ']),
         FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
+        FieldDefinition(key: 'cost', kind: FieldKind.number),
         FieldDefinition(key: 'period', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],

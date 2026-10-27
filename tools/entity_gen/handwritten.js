@@ -19,12 +19,13 @@ const f = (key, label, kind = 'text', o = {}) => ({
 
 /** 住所(info_address の複数列): 郵便番号・都道府県・市町村番地・建物・電話・FAX */
 const addressFields = () => [
-  f('postal_code', '郵便番号', 'text', { req: false }),
+  f('country_code_2', '国コード(ISO 3166-1 alpha-2)', 'text', { req: false }),
+  f('zip_code', '郵便番号', 'text', { req: false }),
   f('prefecture', '都道府県', 'text', { req: false }),
   f('city', '市町村番地', 'text', { req: false }),
   f('building', '建物', 'text', { req: false }),
-  f('tel', '電話', 'text', { req: false }),
-  f('fax', 'FAX', 'text', { req: false }),
+  f('phone', '電話', 'text', { req: false }),
+  f('fax_number', 'FAX', 'text', { req: false }),
 ];
 /** 1つの文字列の住所を、上の項目に分ける(画面案のサンプル用)。 */
 const splitAddress = (text = '', tel = '', fax = '') => {
@@ -33,7 +34,7 @@ const splitAddress = (text = '', tel = '', fax = '') => {
   if (zip) rest = rest.replace(zip[0], '').trim();
   const pref = rest.match(/^(北海道|東京都|(?:京都|大阪)府|.{2,3}県)/);
   if (pref) rest = rest.slice(pref[0].length).trim();
-  return { postal_code: zip ? zip[1] : '', prefecture: pref ? pref[0] : '', city: rest, building: '', tel, fax };
+  return { country_code_2: 'JP', zip_code: zip ? zip[1] : '', prefecture: pref ? pref[0] : '', city: rest, building: '', phone: tel, fax_number: fax };
 };
 
 module.exports = function build(D, X) {

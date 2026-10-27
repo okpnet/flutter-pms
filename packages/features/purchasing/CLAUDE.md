@@ -30,12 +30,14 @@
 |---|---|---|---|---|
 | 非計上 | `unrec` | テーブル構造 | 5 |  |
 | 非計上明細 | `unrecdetail` | 子の台帳(親: 非計上) | 4 |  |
-| 発注 | `purchase` | テーブル構造 | 4 |  |
-| 発注明細 | `purdetail` | 子の台帳(親: 発注) | 5 | `resplan` |
+| 発注 | `purchase` | テーブル構造 | 6 |  |
+| 発注明細 | `purdetail` | 子の台帳(親: 発注) | 6 | `resplan` |
 | 受入実績 | `purchaserec` | テーブル構造 | 4 | `purdetail` |
 | 受入明細 | `purchaseline` | 子の台帳(親: 受入実績) | 3 | `item`, `unit` |
 | 発注品目成績書 | `purcert` | 子の台帳(親: 受入実績) | 2 | `certificate` |
 <!-- entity_gen:end -->
+
+
 
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。

@@ -1,0 +1,74 @@
+# audit_team_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views/ #AuditTeamPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditTeamPageEdit(
+  $transAuditTeamId: UUID!
+  $transAuditId: UUID
+  $transLabelId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+  $ja: String!
+  $en: String!
+  $remarks: String
+) {
+  updateTransAuditTeamByTransAuditTeamId(
+    input: {
+      transAuditTeamId: $transAuditTeamId
+      transAuditTeamPatch: {
+        transAuditId: $transAuditId
+
+        transLabelToNames: {
+          updateByTransLabelId: {
+            transLabelId: $transLabelId
+            transLabelPatch: {
+              transLabelValuesUsingTransLabelId: {
+                deleteOthers: true
+                create: [
+                  { sharedLanguageCodeId: $jaLanguageCodeId, transLabelId: $ja }
+                  { sharedLanguageCodeId: $enLanguageCodeId, transLabelId: $en }
+                ]
+              }
+
+              remarks: $remarks
+            }
+          }
+        }
+
+        remarks: $remarks
+      }
+    }
+  ) {
+    transAuditTeam {
+      transAuditTeamId
+      transAuditId
+
+      labels: transLabelByNames {
+        transLabelId
+
+        ja: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            transLabelId
+            labelValue
+          }
+        }
+
+        en: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            transLabelId
+            labelValue
+          }
+        }
+
+        remarks
+      }
+
+      remarks
+    }
+  }
+}

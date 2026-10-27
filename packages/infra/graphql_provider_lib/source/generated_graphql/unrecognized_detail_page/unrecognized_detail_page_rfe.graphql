@@ -1,0 +1,23 @@
+# unrecognized_detail_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: source/views/ #UnrecognizedDetailPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query UnrecognizedDetailPageRfe(
+  $transUnrecognizedDetailId: UUID!
+) {
+  transUnrecognizedDetailByTransUnrecognizedDetailId(transUnrecognizedDetailId: $transUnrecognizedDetailId) {
+    transUnrecognizedDetailId
+    transUnrecognizedId
+    quantity
+    cost
+    deadline
+    itemHistoryId
+    itemId
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

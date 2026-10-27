@@ -1,7 +1,7 @@
 // 生成物(tools/entity_gen/gen.js)。直接編集しない。
 import 'package:entity_screens/entity_screens.dart';
 
-/// 会社情報の実体の定義。キーは model_providers の各モデルパッケージ のビュー(DB の列)に合わせる。
+/// 会社情報の実体の定義。キーは graphql_provider_lib のビュー(DB の列)に合わせる。
 const List<EntityDefinition> organizationDefinitions = [
   EntityDefinition(
     key: 'company',
@@ -11,12 +11,13 @@ const List<EntityDefinition> organizationDefinitions = [
       FieldDefinition(key: 'nickname', required: false),
       FieldDefinition(key: 'ceo'),
       FieldDefinition(key: 'web_page', required: false),
-      FieldDefinition(key: 'postal_code', required: false),
+      FieldDefinition(key: 'country_code_2', required: false),
+      FieldDefinition(key: 'zip_code', required: false),
       FieldDefinition(key: 'prefecture', required: false),
       FieldDefinition(key: 'city', required: false),
       FieldDefinition(key: 'building', required: false),
-      FieldDefinition(key: 'tel', required: false),
-      FieldDefinition(key: 'fax', required: false),
+      FieldDefinition(key: 'phone', required: false),
+      FieldDefinition(key: 'fax_number', required: false),
       FieldDefinition(
         key: 'remarks',
         kind: FieldKind.multiline,
@@ -94,12 +95,13 @@ const List<EntityDefinition> organizationDefinitions = [
       FieldDefinition(key: 'name'),
       FieldDefinition(key: 'pronunciation', required: false),
       FieldDefinition(key: 'nickname', required: false),
-      FieldDefinition(key: 'postal_code', required: false),
+      FieldDefinition(key: 'country_code_2', required: false),
+      FieldDefinition(key: 'zip_code', required: false),
       FieldDefinition(key: 'prefecture', required: false),
       FieldDefinition(key: 'city', required: false),
       FieldDefinition(key: 'building', required: false),
-      FieldDefinition(key: 'tel', required: false),
-      FieldDefinition(key: 'fax', required: false),
+      FieldDefinition(key: 'phone', required: false),
+      FieldDefinition(key: 'fax_number', required: false),
     ],
   ),
   EntityDefinition(

@@ -1,0 +1,47 @@
+# resource_plan_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views/ #ResourcePlanPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ResourcePlanPageEdit(
+  $transResourcePlanId: UUID!
+  $transOrderDetailId: UUID
+  $transUnrecognizedDetailId: UUID
+  $registerAt: Datetime
+  $quantity: BigFloat
+  $inventoryResavation: BigFloat
+  $deadline: Datetime
+  $itemHistoryId: UUID
+  $itemId: UUID
+  $remarks: String
+) {
+  updateTransResourcePlanByTransResourcePlanId(
+    input: {
+      transResourcePlanId: $transResourcePlanId
+      transResourcePlanPatch: {
+        transOrderDetailId: $transOrderDetailId
+        transUnrecognizedDetailId: $transUnrecognizedDetailId
+        registerAt: $registerAt
+        quantity: $quantity
+        inventoryResavation: $inventoryResavation
+        deadline: $deadline
+        itemHistoryId: $itemHistoryId
+        itemId: $itemId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transResourcePlan {
+      transResourcePlanId
+      transOrderDetailId
+      transUnrecognizedDetailId
+      registerAt
+      quantity
+      inventoryResavation
+      deadline
+      itemHistoryId
+      itemId
+      remarks
+    }
+  }
+}

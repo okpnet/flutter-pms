@@ -25,6 +25,8 @@ entity:
       f_register_at: "登録日"
       f_purchase_order_date: "発注日"
       f_deadline: "発注期限"
+      f_purchase_amount: "発注金額"
+      f_received_amount: "入荷金額"
       f_remarks: "備考"
   purdetail:
     title: "発注明細"
@@ -32,6 +34,7 @@ entity:
       f_trans_resource_plan_id: "資材計画"
       f_restocking_purchase: "在庫発注"
       f_quantity: "数量"
+      f_cost: "単価"
       f_period: "納期"
       f_remarks: "備考"
   purchaserec:

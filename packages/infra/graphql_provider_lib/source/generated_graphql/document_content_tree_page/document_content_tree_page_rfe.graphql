@@ -1,0 +1,18 @@
+# document_content_tree_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: source/views/ #DocumentContentTreePageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query DocumentContentTreePageRfe(
+  $mstrDocumentContentTreeId: UUID!
+) {
+  mstrDocumentContentTreeByMstrDocumentContentTreeId(mstrDocumentContentTreeId: $mstrDocumentContentTreeId) {
+    mstrDocumentContentTreeId
+    parentMstrDocumentContentId
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

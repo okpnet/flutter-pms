@@ -11,11 +11,11 @@
 
 | 実体 | キー | 構造 | 項目数 | 参照先 |
 |---|---|---|---|---|
-| 会社情報 | `company` | テーブル構造 | 12 |  |
+| 会社情報 | `company` | テーブル構造 | 13 |  |
 | 提供 | `provision` | 子の台帳(親: 会社情報) | 4 |  |
 | 役割(役職) | `position` | 子の台帳(親: 会社情報) | 4 |  |
 | 割当 | `assignment` | 子の台帳(親: 役割(役職)) | 5 | `staff`, `site`, `department` |
-| 事業所 | `site` | テーブル構造 | 10 |  |
+| 事業所 | `site` | テーブル構造 | 11 |  |
 | 部署区分 | `deptkind` | テーブル構造 | 2 |  |
 | 部署 | `department` | ツリー構造 | 5 | `site` |
 | 部署区分の割当 | `departmentkind` | 子の台帳(親: 部署) | 1 | `deptkind` |
@@ -25,6 +25,8 @@
 | 承認パターン | `approvalpattern` | テーブル構造 | 3 |  |
 | 承認できる人 | `approver` | 子の台帳(親: 承認パターン) | 7 | `department`, `position` |
 <!-- entity_gen:end -->
+
+
 
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。

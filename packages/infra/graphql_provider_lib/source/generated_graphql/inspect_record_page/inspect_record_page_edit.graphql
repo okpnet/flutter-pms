@@ -1,0 +1,96 @@
+# inspect_record_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views/ #InspectRecordPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation InspectRecordPageEdit(
+  $transInspectRecordId: UUID!
+  $transInspectSchDetailId: UUID
+  $implementStartDate: Datetime
+  $implementStopDate: Datetime
+  $resultValue: JSON
+  $result: Boolean
+  $resultState: String
+  $noteTextsTransTextId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+  $noteTextsJa: String!
+  $noteTextsEn: String!
+  $noteTextsRemarks: String
+  $stakeholderId: UUID
+  $stakeholderHistoryId: UUID
+  $remarks: String
+) {
+  updateTransInspectRecordByTransInspectRecordId(
+    input: {
+      transInspectRecordId: $transInspectRecordId
+      transInspectRecordPatch: {
+        transInspectSchDetailId: $transInspectSchDetailId
+        implementStartDate: $implementStartDate
+        implementStopDate: $implementStopDate
+        resultValue: $resultValue
+        result: $result
+        resultState: $resultState
+
+        transTextToNotes: {
+          updateByTransTextId: {
+            transTextId: $noteTextsTransTextId
+            transTextPatch: {
+              transTextValuesUsingTransTextId: {
+                deleteOthers: true
+                create: [
+                  { sharedLanguageCodeId: $jaLanguageCodeId, transTextId: $noteTextsJa }
+                  { sharedLanguageCodeId: $enLanguageCodeId, transTextId: $noteTextsEn }
+                ]
+              }
+
+              remarks: $noteTextsRemarks
+            }
+          }
+        }
+
+        stakeholderId: $stakeholderId
+        stakeholderHistoryId: $stakeholderHistoryId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transInspectRecord {
+      transInspectRecordId
+      transInspectSchDetailId
+      implementStartDate
+      implementStopDate
+      resultValue
+      result
+      resultState
+
+      noteTexts: transTextByNotes {
+        transTextId
+
+        ja: transTextValuesByTransTextId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            transTextId
+            textValue
+          }
+        }
+
+        en: transTextValuesByTransTextId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            transTextId
+            textValue
+          }
+        }
+
+        remarks
+      }
+
+      stakeholderId
+      stakeholderHistoryId
+      remarks
+    }
+  }
+}

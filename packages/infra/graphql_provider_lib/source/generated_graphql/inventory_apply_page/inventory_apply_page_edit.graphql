@@ -1,0 +1,38 @@
+# inventory_apply_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views/ #InventoryApplyPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation InventoryApplyPageEdit(
+  $transInventoryApplyId: UUID!
+  $registerAt: Datetime
+  $transInventoryRequestId: UUID
+  $conveyId: UUID
+  $staffHistoryId: UUID
+  $staffId: UUID
+  $remarks: String
+) {
+  updateTransInventoryApplyByTransInventoryApplyId(
+    input: {
+      transInventoryApplyId: $transInventoryApplyId
+      transInventoryApplyPatch: {
+        registerAt: $registerAt
+        transInventoryRequestId: $transInventoryRequestId
+        conveyId: $conveyId
+        staffHistoryId: $staffHistoryId
+        staffId: $staffId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transInventoryApply {
+      transInventoryApplyId
+      registerAt
+      transInventoryRequestId
+      conveyId
+      staffHistoryId
+      staffId
+      remarks
+    }
+  }
+}

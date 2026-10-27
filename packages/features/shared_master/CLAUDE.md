@@ -48,6 +48,8 @@
 | 担当者 | `contact` | 子の台帳(親: 利害関係者) | 4 |  |
 <!-- entity_gen:end -->
 
+
+
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、配送区分台帳・登録・顧客台帳・外部供給者台帳を開く(`example`の遷移は CommandBus を通さなくてよい)。画面を足したら`example/lib/main.dart`の`entries`に1行足す。
 2.  文字列は`lib/src/i18n`の言語ファイル(`ja.i18n.yaml`が基準、`en.i18n.yaml`)に置き、`slang.yaml`の`class_name: SharedMasterStrings`で生成する(`dart run slang`)。`sharedMasterStringsProvider`が`feature_shared`の`localeProvider`に従って返す。

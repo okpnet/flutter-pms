@@ -120,6 +120,8 @@ class InMemoryEntityRepository implements IEntityRepository {
   }
 
   EntityFieldError? _validate(FieldDefinition f, String value) {
+    // 読み取り専用(集計)は、入力ではないので検証しない
+    if (f.readOnly) return null;
     if (value.isEmpty) return f.required ? EntityFieldError.required : null;
     return switch (f.kind) {
       FieldKind.number =>

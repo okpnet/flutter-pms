@@ -3,6 +3,7 @@ import 'package:app_shell/app_shell.dart';
 import 'package:flgtable_lib/flgtable_lib.dart';
 import 'package:flutter/material.dart';
 
+import '../condition.dart';
 import '../definition.dart';
 import '../i18n/strings.g.dart';
 import '../record.dart';
@@ -300,6 +301,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
 
   Widget _field(EntityDefinition definition, FieldDefinition f) {
     final strings = _scope.strings;
+    if (f.readOnly) return _readOnlyField(f);
     switch (f.kind) {
       case FieldKind.text:
       case FieldKind.number:
@@ -343,6 +345,31 @@ class _EntityEditPageState extends State<EntityEditPage> {
         if (f.picker) return _pickerField(f, strings);
         return _dropdown(f, _options[f.key] ?? const [], strings);
     }
+  }
+
+  /// 読み取り専用の項目(集計・計算された値)。表示だけで、入力できない。
+  Widget _readOnlyField(FieldDefinition f) {
+    final raw = f.kind == FieldKind.choice || f.kind == FieldKind.reference
+        ? (_chosen[f.key] ?? '')
+        : (_text[f.key]?.text ?? '');
+    final text = switch (f.kind) {
+      FieldKind.reference =>
+        (_options[f.key] ?? const <EntityOption>[])
+                .where((o) => o.id == raw)
+                .firstOrNull
+                ?.label ??
+            raw,
+      FieldKind.condition => raw.isEmpty ? raw : ConditionValue.displayOf(raw),
+      _ => raw,
+    };
+    return InputDecorator(
+      decoration: InputDecoration(labelText: _label(f), enabled: false),
+      child: Text(
+        text.isEmpty ? '-' : text,
+        key: ValueKey('readonly:${f.key}'),
+        textAlign: f.kind == FieldKind.number ? TextAlign.end : TextAlign.start,
+      ),
+    );
   }
 
   /// 参照先の画面で選ぶ項目。選んだ 1 件の表示名と、選択・解除のボタン。

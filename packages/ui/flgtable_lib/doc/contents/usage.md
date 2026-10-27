@@ -12,6 +12,7 @@ FlgTable<User>(
       label: '名前',
       getter: (u) => u.name,
       setter: (u, v) { u.name = v; return true; }, // セル編集に使う。変換できなければ false
+      readOnly: false,                              // true なら読み取り専用(集計・計算された値)。setter があっても編集しない
     ),
   ],
   items: users,                  // または loader: (query) async => LoadResult(...)

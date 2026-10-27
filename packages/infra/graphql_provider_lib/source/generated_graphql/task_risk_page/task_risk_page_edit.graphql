@@ -1,0 +1,29 @@
+# task_risk_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views/ #TaskRiskPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation TaskRiskPageEdit(
+  $transTaskRiskId: UUID!
+  $mstrTaskId: UUID
+  $riskId: UUID
+  $remarks: String
+) {
+  updateTransTaskRiskByTransTaskRiskId(
+    input: {
+      transTaskRiskId: $transTaskRiskId
+      transTaskRiskPatch: {
+        mstrTaskId: $mstrTaskId
+        riskId: $riskId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transTaskRisk {
+      transTaskRiskId
+      mstrTaskId
+      riskId
+      remarks
+    }
+  }
+}

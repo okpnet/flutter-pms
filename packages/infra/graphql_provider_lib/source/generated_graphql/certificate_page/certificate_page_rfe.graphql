@@ -1,0 +1,47 @@
+# certificate_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: source/views/ #CertificatePageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query CertificatePageRfe(
+  $transCertificateId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+) {
+  transCertificateByTransCertificateId(transCertificateId: $transCertificateId) {
+    transCertificateId
+    serial
+
+    labels: transLabelByTitles {
+      transLabelId
+
+      ja: transLabelValuesByTransLabelId(
+        condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+      ) {
+        nodes {
+          transLabelId
+          labelValue
+        }
+      }
+
+      en: transLabelValuesByTransLabelId(
+        condition: { sharedLanguageCodeId: $enLanguageCodeId }
+      ) {
+        nodes {
+          transLabelId
+          labelValue
+        }
+      }
+
+      remarks
+    }
+
+    class
+    transFileId
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

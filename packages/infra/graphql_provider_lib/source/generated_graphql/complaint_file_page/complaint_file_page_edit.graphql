@@ -1,0 +1,29 @@
+# complaint_file_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views/ #ComplaintFilePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintFilePageEdit(
+  $transComplaintFileId: UUID!
+  $transComplaintId: UUID
+  $transFileId: UUID
+  $remarks: String
+) {
+  updateTransComplaintFileByTransComplaintFileId(
+    input: {
+      transComplaintFileId: $transComplaintFileId
+      transComplaintFilePatch: {
+        transComplaintId: $transComplaintId
+        transFileId: $transFileId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transComplaintFile {
+      transComplaintFileId
+      transComplaintId
+      transFileId
+      remarks
+    }
+  }
+}

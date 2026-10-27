@@ -1,0 +1,90 @@
+# convey_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: source/views/ #ConveyPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ConveyPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransConveyFilter = {and: []}
+  $orderBy: [TransConveysOrderBy!]
+  $languageCodeId: UUID!
+  $transVisiterId: UUID!
+  $removed: Boolean = false
+) {
+  allTransConveys(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, { transVisiterId: { equalTo: $transVisiterId } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transConveyId
+      transVisiterId
+      receive
+      conveyAt
+      quantity
+      locationHistoryId
+      locationId
+      staffHistoryId
+      staffId
+      symbol
+      remarks
+      updateAt
+      remove
+
+      update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        infoCompanyId
+        code
+
+        name: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        sex
+        phone
+        symbol
+        privatePhone
+      }
+    }
+  }
+}

@@ -1,0 +1,105 @@
+# inspect_sch_detail_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: source/views/ #InspectSchDetailPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query InspectSchDetailPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransInspectSchDetailFilter = {and: []}
+  $orderBy: [TransInspectSchDetailsOrderBy!]
+  $languageCodeId: UUID!
+  $transInspectSchId: UUID!
+  $removed: Boolean = false
+) {
+  allTransInspectSchDetails(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, { transInspectSchId: { equalTo: $transInspectSchId } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transInspectSchDetailId
+      transInspectSchId
+      transPurchaseDetailId
+      scheduledStartDate
+      scheduledEndDate
+      stakeholderHistoryId
+      stakeholderId
+      inspectionHistoryId
+      inspectionId
+      inspectionFormulaHistoryId
+      inspectionFormulaId
+      inspectionKindHistoryId
+      inspectionKindId
+      inspectionOperationTaskHistoryId
+      inspectionOperationTaskId
+      symbol
+      remarks
+
+      inspection_report_count: vInspectSchDetailInspectionReportCountByTransInspectSchDetailId {
+        transInspectSchDetailId
+      }
+
+      inspect_record_count: vInspectSchDetailInspectRecordCountByTransInspectSchDetailId {
+        transInspectSchDetailId
+      }
+
+      updateAt
+      remove
+
+      update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        infoCompanyId
+        code
+
+        name: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        sex
+        phone
+        symbol
+        privatePhone
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+# work_record_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: source/views/ #WorkRecordPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query WorkRecordPageRfe(
+  $transWorkRecordId: UUID!
+) {
+  transWorkRecordByTransWorkRecordId(transWorkRecordId: $transWorkRecordId) {
+    transWorkRecordId
+    transWorkPlanId
+    nthTime
+    startAt
+    stopAt
+    qty
+    staffHistoryId
+    staffId
+    equipmentHistoryId
+    equipmentId
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

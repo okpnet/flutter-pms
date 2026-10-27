@@ -16,6 +16,7 @@ class ColumnDefinition<T> {
     required this.label,
     required this.getter,
     this.setter,
+    this.readOnly = false,
     this.width,
     this.visible = true,
     this.exportable = true,
@@ -47,6 +48,13 @@ class ColumnDefinition<T> {
   final CellSetter<T>? setter;
 
   /// null のときはテーマの文字サイズから20文字分の幅を使う。
+  /// 読み取り専用の列(集計・計算された値など)。[setter]があってもセルを編集しない。
+  /// 表示・ソート・フィルタ・書き出しは通常の列と同じに使える。
+  final bool readOnly;
+
+  /// セルを編集できるか([setter]があり、読み取り専用でない)。
+  bool get editable => !readOnly && setter != null;
+
   final double? width;
   final bool visible;
 
@@ -85,7 +93,8 @@ class ColumnDefinition<T> {
     'width': width,
     'visible': visible,
     'exportable': exportable,
-    'editable': setter != null,
+    'editable': editable,
+    'readOnly': readOnly,
     'type': type.name,
     'sortable': sortable,
     'filterable': filterable,

@@ -133,6 +133,43 @@ function fromHtml(e) {
 
 const htmlEntities = DOM.entities.filter((e) => !SKIP.has(e.key)).map(fromHtml);
 
+/** 画面案(Html)に無く、DB の変更で増えた項目。after の次に足し、サンプルの値は sample(行の番号)で作る。
+ *  出典: model_providers の 20261027_0002(trans_purchase_detail.cost = 単価、NOT NULL)。 */
+const FIELD_ADDITIONS = {
+  purdetail: [{ after: 'quantity', field: { key: 'cost', label: '単価', kind: 'number', required: true }, sample: (i) => String([1200, 900, 1500][i] ?? 1000) }],
+  /* v_purchase_amount の集計列。読み取り専用(編集画面は表示だけ、台帳は読み取り専用の列) */
+  purchase: [
+    { after: 'deadline', field: { key: 'purchase_amount', label: '発注金額', kind: 'number', required: false, readOnly: true }, sample: (i, e, all) => String(amountOf(all, e.rows[i].legacy, false)) },
+    { after: 'purchase_amount', field: { key: 'received_amount', label: '入荷金額', kind: 'number', required: false, readOnly: true }, sample: (i, e, all) => String(amountOf(all, e.rows[i].legacy, true)) },
+  ],
+};
+/** 発注の金額: 明細の数量 × 単価の合計。received が true のときは、入荷した数量で数える。 */
+function amountOf(all, purchaseLegacy, received) {
+  const details = (all.get('purdetail')?.rows ?? []).filter((r) => r.parent === purchaseLegacy);
+  const recs = all.get('purchaserec')?.rows ?? [];
+  let sum = 0;
+  for (const d of details) {
+    const cost = Number(d.values.cost || 0);
+    if (!received) { sum += Number(d.values.quantity || 0) * cost; continue; }
+    for (const r of recs) if (r.values.trans_purchase_detail_id === d.legacy) sum += Number(r.values.quantity || 0) * cost;
+  }
+  return sum;
+}
+const additionsByKey = new Map(htmlEntities.map((x) => [x.key, x]));
+// 定義の順(明細 → 発注)に足す: 発注の金額は、明細の単価から作る
+for (const [key, additions] of Object.entries(FIELD_ADDITIONS)) {
+  const e = additionsByKey.get(key);
+  if (!e) continue;
+  for (const a of additions) {
+    if (e.fields.some((x) => x.key === a.field.key)) continue; // 画面案に追加済み
+    const at = e.fields.findIndex((x) => x.key === a.after);
+    e.fields.splice(at < 0 ? e.fields.length : at + 1, 0, a.field);
+    e.rows.forEach((r, i) => {
+      r.values[a.field.key] = a.sample(i, e, additionsByKey);
+    });
+  }
+}
+
 /* 画面のグループ → プロジェクトへ(タブの根の実体と、その所有する子孫) */
 const byKey = new Map(htmlEntities.map((e) => [e.key, e]));
 for (const g of DOM.groups) {
@@ -274,6 +311,7 @@ function defsDart(pkg, list) {
           if (fl.options) a.push(`options: [${fl.options.map(dq).join(', ')}]`);
           if (fl.ref) a.push(`reference: ${dq(fl.ref)}`);
           if (fl.picker) a.push('picker: true');
+          if (fl.readOnly) a.push('readOnly: true');
           return `        FieldDefinition(${a.join(', ')}),`;
         })
         .join('\n');

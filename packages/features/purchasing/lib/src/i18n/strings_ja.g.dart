@@ -227,6 +227,12 @@ class PurchasingStrings$entity$purchase$fields$ja {
 	/// ja: '発注期限'
 	String get f_deadline => '発注期限';
 
+	/// ja: '発注金額'
+	String get f_purchase_amount => '発注金額';
+
+	/// ja: '入荷金額'
+	String get f_received_amount => '入荷金額';
+
 	/// ja: '備考'
 	String get f_remarks => '備考';
 }
@@ -247,6 +253,9 @@ class PurchasingStrings$entity$purdetail$fields$ja {
 
 	/// ja: '数量'
 	String get f_quantity => '数量';
+
+	/// ja: '単価'
+	String get f_cost => '単価';
 
 	/// ja: '納期'
 	String get f_period => '納期';
@@ -333,11 +342,14 @@ extension on PurchasingStrings {
 			'entity.purchase.fields.f_register_at' => '登録日',
 			'entity.purchase.fields.f_purchase_order_date' => '発注日',
 			'entity.purchase.fields.f_deadline' => '発注期限',
+			'entity.purchase.fields.f_purchase_amount' => '発注金額',
+			'entity.purchase.fields.f_received_amount' => '入荷金額',
 			'entity.purchase.fields.f_remarks' => '備考',
 			'entity.purdetail.title' => '発注明細',
 			'entity.purdetail.fields.f_trans_resource_plan_id' => '資材計画',
 			'entity.purdetail.fields.f_restocking_purchase' => '在庫発注',
 			'entity.purdetail.fields.f_quantity' => '数量',
+			'entity.purdetail.fields.f_cost' => '単価',
 			'entity.purdetail.fields.f_period' => '納期',
 			'entity.purdetail.fields.f_remarks' => '備考',
 			'entity.purchaserec.title' => '受入実績',
