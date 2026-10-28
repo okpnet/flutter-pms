@@ -4,6 +4,8 @@ import 'package:graphql/client.dart';
 import 'dart:async';
 import 'dart:io';
 
+import 'package:http/http.dart' as http;
+
 import 'package:logger_provider/logger_provider.dart';
 
 import '../constants/graphql_constant.dart';
@@ -225,6 +227,18 @@ final class GraphQLClientProvider {
     final linkException = resultValue.exception?.linkException;
     final exception = linkException?.originalException;
 
+    // 認証・認可の失敗(HTTP 401/403)は、本文にGraphQLのエラーがあっても、
+    // 開発者側の誤りではなくサーバー側のエラーとして区別する。
+    if (linkException is ServerException &&
+        (linkException.statusCode == 401 || linkException.statusCode == 403)) {
+      return Err<Map<String, dynamic>>(
+        ServerError(linkException.toString(), linkException.statusCode!),
+        graphqlErrors: linkException.parsedResponse?.errors
+            ?.map((e) => e.message)
+            .join('\r'),
+      );
+    }
+
     // GraphQLサーバーがHTTP 4xxと共にGraphQLエラー(クエリ検証エラーなど)を返した場合は
     // 原因の例外を持たない [ServerException] になるため、開発者側の誤りとして扱う。
     final responseErrors = linkException is ServerException
@@ -275,6 +289,8 @@ final class GraphQLClientProvider {
       ),
       TimeoutException _ => TimeoutError(exception.toString()),
       SocketException _ => NetworkError(exception.toString()),
+      // 通信の途中で切断された(応答の本文が足りない・接続が閉じられた)場合。
+      http.ClientException _ => NetworkError(exception.toString()),
       _ => throw Exception(
         '"${exception.runtimeType.toString()}" class not implement convert to "GraphqlProviderException" class.',
       ),

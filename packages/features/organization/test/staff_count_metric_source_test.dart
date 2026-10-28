@@ -5,7 +5,8 @@ import 'package:organization/src/dashboard/staff_count_metric_source.dart';
 void main() {
   test('従業員数は全ページの行を合計し、内訳に配属数を持つ', () async {
     final all = [
-      for (var i = 0; i < 5; i++) StaffCountRow(staffCount: i + 1, assignCount: 2),
+      for (var i = 0; i < 5; i++)
+        StaffCountRow(staffCount: i + 1, assignCount: 2),
     ];
     final repo = RecordingDataRepository<StaffCountPage>(
       onFind: (call) async => StaffCountPage(

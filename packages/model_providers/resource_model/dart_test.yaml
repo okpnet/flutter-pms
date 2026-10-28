@@ -1,0 +1,4 @@
+tags:
+  server:
+    description: >-
+      Requires the test GraphQL server (see data_test_harness TestServer.candidateUrls).

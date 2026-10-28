@@ -53,8 +53,6 @@ query DisposalPageRead(
         }
       }
 
-      approvals
-
       approvals: transApprovalPatternByApprovals {
         transApprovalPatternId
         mstrApprovalPatternId

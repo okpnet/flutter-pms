@@ -66,6 +66,7 @@ mutation DisposalPageEdit(
         }
 
         approvals: $approvals
+
         approvalAt: $approvalAt
         departmentHistoryId: $departmentHistoryId
         departmentId: $departmentId
@@ -123,7 +124,6 @@ mutation DisposalPageEdit(
 
         remarks
       }
-
       approvals
 
       approvals: transApprovalPatternByApprovals {

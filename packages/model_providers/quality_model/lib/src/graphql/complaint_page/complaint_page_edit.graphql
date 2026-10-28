@@ -62,7 +62,9 @@ mutation ComplaintPageEdit(
 
         reporterStaffHistoryId: $reporterStaffHistoryId
         reporterStaffId: $reporterStaffId
+
         approvals: $approvals
+
         remarks: $remarks
       }
     }

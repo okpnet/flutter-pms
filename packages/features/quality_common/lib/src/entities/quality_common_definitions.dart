@@ -1,7 +1,7 @@
 // 生成物(tools/entity_gen/gen.js)。直接編集しない。
 import 'package:entity_screens/entity_screens.dart';
 
-/// 品質共通の実体の定義。キーは graphql_provider_lib のビュー(DB の列)に合わせる。
+/// 品質共通の実体の定義。キーは model_providers の各モデルパッケージ(gql/*.yaml)のビュー(DB の列)に合わせる。
 const List<EntityDefinition> qualityCommonDefinitions = [
     EntityDefinition(
       key: 'disposal',

@@ -19,6 +19,8 @@ dependencies:
     path: ../../infra/pms_graphql
 
 dev_dependencies:
+  data_test_harness:
+    path: ../../infra/data_test_harness
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

@@ -16,7 +16,6 @@ abstract class ComplaintPageFilterSpec {
     'detailTexts||value||leadText': FlatFilterPath([FilterStep('transTextByDetails'), FilterStep.many('transTextValuesByTransTextId', {'sharedLanguageCodeId': 'languageCodeId'})], 'leadText'),
     'reporterStaffHistoryId': FlatFilterPath([], 'reporterStaffHistoryId'),
     'reporterStaffId': FlatFilterPath([], 'reporterStaffId'),
-    'approvals': FlatFilterPath([], 'approvals'),
     'approvals||transApprovalPatternId': FlatFilterPath([FilterStep('transApprovalPatternByApprovals')], 'transApprovalPatternId'),
     'approvals||mstrApprovalPatternId': FlatFilterPath([FilterStep('transApprovalPatternByApprovals')], 'mstrApprovalPatternId'),
     'approvals||pattern||mstrApprovalPatternId': FlatFilterPath([FilterStep('transApprovalPatternByApprovals'), FilterStep('mstrApprovalPatternByMstrApprovalPatternId')], 'mstrApprovalPatternId'),

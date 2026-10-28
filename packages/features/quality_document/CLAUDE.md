@@ -63,3 +63,8 @@
 6.  GOFデザインパターン
     1.  クラス名やファイル名にデザインパターンを含めない場合は、コメントに該当するパターン名を追加する。
     2.  必ずしもデザインパターンに割り当てる必要はない。
+
+## テスト
+1.  共通の規則は`packages/features/CLAUDE.md`の「テスト」に従う。
+2.  現在はGraphQLで取得していないため、通信テストは無い。取得元の単体テストは`RecordingDataRepository`で差し替える。
+3.  GraphQLで取得するようにしたら、通信テスト(`test/xxx_connection_test.dart`)を追加し、`dart_test.yaml`に`server`タグを宣言する。

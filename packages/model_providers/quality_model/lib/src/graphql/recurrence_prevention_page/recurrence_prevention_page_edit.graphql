@@ -27,6 +27,7 @@ mutation RecurrencePreventionPageEdit(
       transRecurrencePreventionPatch: {
         transDisposalId: $transDisposalId
         occurentAt: $occurentAt
+
         approvals: $approvals
 
         transLabelToTitles: {

@@ -15,7 +15,6 @@ abstract class DisposalPageFilterSpec {
     'detailTexts||transTextId': FlatFilterPath([FilterStep('transTextByDetails')], 'transTextId'),
     'detailTexts||value||charCount': FlatFilterPath([FilterStep('transTextByDetails'), FilterStep.many('transTextValuesByTransTextId', {'sharedLanguageCodeId': 'languageCodeId'})], 'charCount'),
     'detailTexts||value||leadText': FlatFilterPath([FilterStep('transTextByDetails'), FilterStep.many('transTextValuesByTransTextId', {'sharedLanguageCodeId': 'languageCodeId'})], 'leadText'),
-    'approvals': FlatFilterPath([], 'approvals'),
     'approvals||transApprovalPatternId': FlatFilterPath([FilterStep('transApprovalPatternByApprovals')], 'transApprovalPatternId'),
     'approvals||mstrApprovalPatternId': FlatFilterPath([FilterStep('transApprovalPatternByApprovals')], 'mstrApprovalPatternId'),
     'approvals||pattern||mstrApprovalPatternId': FlatFilterPath([FilterStep('transApprovalPatternByApprovals'), FilterStep('mstrApprovalPatternByMstrApprovalPatternId')], 'mstrApprovalPatternId'),

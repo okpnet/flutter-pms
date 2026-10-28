@@ -26,7 +26,6 @@ ComplaintPage: &ComplaintPage
       <<: *FlexibleTextReadFields
     - reporter_staff_history_id
     - reporter_staff_id
-    - approvals
     - name: approvals
       as: approvals
       arrayType: toFirstOne
@@ -125,7 +124,6 @@ ComplaintPageEdit:
       <<: *FlexibleTextEditFields
     - reporter_staff_history_id
     - reporter_staff_id
-    - approvals
     - name: approvals
       as: approvals
       arrayType: toFirstOne

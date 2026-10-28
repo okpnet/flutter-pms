@@ -24,6 +24,8 @@ foundation / features / model_providers の test/
 |---|---|
 | `TestServer` | 検証用サーバーの接続先の候補(`192.168.1.100`、`192.168.9.245`、`--dart-define=PMS_TEST_GRAPHQL_URL`)から、先に接続できたものを選び、`GraphQLClientProvider`を作る。どれにも接続できなければ`null` |
 | `serverTest` | サーバーを使うテストの登録。`server`タグを付け、接続できなければ中止(skip)にする。`flutter test --exclude-tags server`で除外できる |
+| `FaultyGraphqlServer` | ローカルのGraphQLサーバーの代役。遅延(`FaultKind.delay`)・応答の途中/前の切断(`dropMidResponse`/`dropBeforeResponse`)・HTTPエラー(`status`、認証エラーなど)を再現し、受け取った要求(`Authorization`ヘッダーなど)を記録する。実サーバーを使わない |
+| `endedInTimeout` | 問い合わせがタイムアウトで終わったか(例外でも`Err(TimeoutError)`でも真) |
 | `RecordingDataRepository<R>` | `IDataRepository<R>`の代役。`find`の引数を記録し、決めておいた結果(または`onFind`)を返す |
 
 ### 使い方

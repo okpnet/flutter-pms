@@ -27,7 +27,6 @@ query RecurrencePreventionPageRead(
       transRecurrencePreventionId
       transDisposalId
       occurentAt
-      approvals
 
       approvals: transApprovalPatternByApprovals {
         transApprovalPatternId

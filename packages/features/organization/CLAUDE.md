@@ -117,3 +117,8 @@
 
 ## 契約の公開
 他の機能・アプリに公開する遷移先・命令の型は、別パッケージ `organization_api` を作らず、`lib/organization_api.dart`(契約だけのバレル)から公開する。実装の入口 `lib/organization.dart` は `OrganizationModule` だけを公開し、アプリだけが読み込む。
+
+## テスト
+1.  共通の規則は`packages/features/CLAUDE.md`の「テスト」に従う。
+2.  GraphQLで取得する(従業員数の元`StaffCountMetricSource`)。通信テストは`test/staff_count_connection_test.dart`(検証用サーバー+代役サーバーで遅延・切断・認証)。取得元の単体テストは`RecordingDataRepository`(`test/staff_count_metric_source_test.dart`)。
+3.  サーバーを使うテストの`dart_test.yaml`に`server`タグの宣言がある。

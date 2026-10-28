@@ -22,7 +22,8 @@ import 'package:gql/language.dart';
 import 'package:pms_graphql/pms_graphql.dart';
 
 /// モデルのfromJson→toJsonを行う関数(画面ごとに生成クラスが異なるため呼び出し側が渡す)。
-typedef ModelRoundTrip = Map<String, dynamic> Function(Map<String, dynamic> json);
+typedef ModelRoundTrip =
+    Map<String, dynamic> Function(Map<String, dynamic> json);
 
 // ---------------------------------------------------------------------------
 // schema.graphqlの索引
@@ -129,12 +130,19 @@ String _outputKey(FieldNode f) => f.alias?.value ?? f.name.value;
 Iterable<FieldNode> _fields(SelectionSetNode? sel) =>
     sel?.selections.whereType<FieldNode>() ?? const <FieldNode>[];
 
-bool _isConditional(FieldNode f) =>
-    f.directives.any((d) => d.name.value == 'include' || d.name.value == 'skip');
+bool _isConditional(FieldNode f) => f.directives.any(
+  (d) => d.name.value == 'include' || d.name.value == 'skip',
+);
 
 /// 選択セット上のリーフ(スカラー)1件の情報。
 class LeafInfo {
-  LeafInfo(this.path, this.fieldName, this.parentType, this.type, this.conditional);
+  LeafInfo(
+    this.path,
+    this.fieldName,
+    this.parentType,
+    this.type,
+    this.conditional,
+  );
   final DataPath path;
   final String fieldName;
   final String parentType;
@@ -259,11 +267,12 @@ class RfeEditConversionAnalyzer {
     _rfeRoot = _fields(_rfeOp.selectionSet).single;
     _rfeRootType = namedTypeOf(schema.fieldType('Query', _rfeRoot.name.value)!);
     _editRoot = _fields(_editOp.selectionSet).single;
-    _editPayloadType =
-        namedTypeOf(schema.fieldType('Mutation', _editRoot.name.value)!);
-    _editEntity = _fields(_editRoot.selectionSet).firstWhere(
-      (f) => f.selectionSet != null,
+    _editPayloadType = namedTypeOf(
+      schema.fieldType('Mutation', _editRoot.name.value)!,
     );
+    _editEntity = _fields(
+      _editRoot.selectionSet,
+    ).firstWhere((f) => f.selectionSet != null);
     _editEntityType = namedTypeOf(
       schema.fieldType(_editPayloadType, _editEntity.name.value)!,
     );
@@ -278,7 +287,10 @@ class RfeEditConversionAnalyzer {
 
     _envValues = {
       for (final v in _rfeOp.variableDefinitions)
-        v.variable.name.value: _synthEnv(v.type, 'env:${v.variable.name.value}'),
+        v.variable.name.value: _synthEnv(
+          v.type,
+          'env:${v.variable.name.value}',
+        ),
     };
 
     _compareSelections();
@@ -290,9 +302,9 @@ class RfeEditConversionAnalyzer {
 
   OperationDefinitionNode _loadOperation(String path, OperationType type) {
     final doc = parseString(File(path).readAsStringSync());
-    return doc.definitions
-        .whereType<OperationDefinitionNode>()
-        .singleWhere((o) => o.type == type);
+    return doc.definitions.whereType<OperationDefinitionNode>().singleWhere(
+      (o) => o.type == type,
+    );
   }
 
   // -------------------------------------------------------------------------
@@ -361,18 +373,10 @@ class RfeEditConversionAnalyzer {
       if (!editByKey.containsKey(r.key)) {
         if (_auditColumns.contains(r.fieldName)) {
           // 要件0048: 監査列はEditに含めない方針(保存後に必要ならRFEを再取得する)
-          report.add(
-            'A1',
-            '監査列はRFEでのみ取得する(要件0048の方針どおり)',
-            path: r.key,
-          );
+          report.add('A1', '監査列はRFEでのみ取得する(要件0048の方針どおり)', path: r.key);
           continue;
         }
-        report.add(
-          'C1',
-          'RFEにしか無いリーフ(Editの結果モデルからRFEへ戻すと値が失われる)',
-          path: r.key,
-        );
+        report.add('C1', 'RFEにしか無いリーフ(Editの結果モデルからRFEへ戻すと値が失われる)', path: r.key);
       }
     }
   }
@@ -417,7 +421,10 @@ class RfeEditConversionAnalyzer {
   }
 
   dynamic _synthType(TypeNode t, SelectionSetNode? sel, DataPath path) {
-    if (t is ListTypeNode) return [_synthType(t.type, sel, [...path, 0])];
+    if (t is ListTypeNode)
+      return [
+        _synthType(t.type, sel, [...path, 0]),
+      ];
     final name = namedTypeOf(t);
     if (sel != null && schema.isObject(name)) {
       return _synthesize(sel, name, path);
@@ -453,11 +460,9 @@ class RfeEditConversionAnalyzer {
   }
 
   Map<String, dynamic> _synthRfeResponse() => {
-    _outputKey(_rfeRoot): _synthesize(
-      _rfeRoot.selectionSet!,
-      _rfeRootType,
-      [_outputKey(_rfeRoot)],
-    ),
+    _outputKey(_rfeRoot): _synthesize(_rfeRoot.selectionSet!, _rfeRootType, [
+      _outputKey(_rfeRoot),
+    ]),
     '__typename': 'Query',
   };
 
@@ -487,7 +492,9 @@ class RfeEditConversionAnalyzer {
       _rfeEntity = {};
       return;
     }
-    _rfeEntity = Map<String, dynamic>.from(rfeJson[_outputKey(_rfeRoot)] as Map);
+    _rfeEntity = Map<String, dynamic>.from(
+      rfeJson[_outputKey(_rfeRoot)] as Map,
+    );
 
     final editResponse = _synthEditResponse();
     final payload = editResponse[_outputKey(_editRoot)] as Map<String, dynamic>;
@@ -497,10 +504,7 @@ class RfeEditConversionAnalyzer {
     try {
       editJson = pair.editFromJson(editResponse);
     } catch (e) {
-      report.add(
-        'F1',
-        'RFEのMapからEditの結果モデルを復元できない(fromJsonで例外): ${_short(e)}',
-      );
+      report.add('F1', 'RFEのMapからEditの結果モデルを復元できない(fromJsonで例外): ${_short(e)}');
       return;
     }
     final editEntity = readPath(editJson, [
@@ -573,7 +577,12 @@ class RfeEditConversionAnalyzer {
     final input = _editRoot.arguments
         .firstWhere((a) => a.name.value == 'input')
         .value;
-    final root = _ReadCtx(_rfeRootType, _rfeRoot.selectionSet, const [], _rfeEntity);
+    final root = _ReadCtx(
+      _rfeRootType,
+      _rfeRoot.selectionSet,
+      const [],
+      _rfeEntity,
+    );
     if (input is ObjectValueNode) _walkObject(input, root);
 
     for (final entry in _editVarTypes.entries) {
@@ -605,10 +614,7 @@ class RfeEditConversionAnalyzer {
     try {
       pair.editVariablesFromJson(Map<String, dynamic>.from(_variableValues));
     } catch (e) {
-      report.add(
-        'F4',
-        'RFEから組み立てた引数でEditのVariablesモデルを復元できない: ${_short(e)}',
-      );
+      report.add('F4', 'RFEから組み立てた引数でEditのVariablesモデルを復元できない: ${_short(e)}');
     }
   }
 
@@ -629,7 +635,9 @@ class RfeEditConversionAnalyzer {
   }
 
   void _resolveLeaf(String varName, String fieldName, _ReadCtx ctx) {
-    final hits = _fields(ctx.sel).where((f) => f.name.value == fieldName).toList();
+    final hits = _fields(
+      ctx.sel,
+    ).where((f) => f.name.value == fieldName).toList();
     if (hits.isNotEmpty) {
       final f = hits.firstWhere(
         (h) => h.alias == null,
@@ -656,18 +664,30 @@ class RfeEditConversionAnalyzer {
       return;
     }
     if (_rfeVarNames.contains(varName)) {
-      _record(varName, 'env', value: _envValues[varName], note: 'RFEと同じ引数を呼び出し側が渡す');
+      _record(
+        varName,
+        'env',
+        value: _envValues[varName],
+        note: 'RFEと同じ引数を呼び出し側が渡す',
+      );
       return;
     }
     _record(
       varName,
       'unresolved',
-      note: 'RFEの${ctx.type}(${pathToString(ctx.path).isEmpty ? 'ルート' : pathToString(ctx.path)})に'
+      note:
+          'RFEの${ctx.type}(${pathToString(ctx.path).isEmpty ? 'ルート' : pathToString(ctx.path)})に'
           '$fieldNameが取得されていない',
     );
   }
 
-  void _record(String name, String kind, {String? source, String? note, dynamic value}) {
+  void _record(
+    String name,
+    String kind, {
+    String? source,
+    String? note,
+    dynamic value,
+  }) {
     final existing = report.variables.where((v) => v.name == name).toList();
     if (existing.isNotEmpty) {
       // 複数箇所で使われる引数は、解決できた方を優先する
@@ -726,14 +746,20 @@ class RfeEditConversionAnalyzer {
     }
     final readTypeName = namedTypeOf(schema.fieldType(ctx.type, readField)!);
     final isConn = schema.isConnection(readTypeName);
-    final targetType = isConn ? schema.connectionNodeType(readTypeName)! : readTypeName;
-    final sels = _fields(ctx.sel).where((f) => f.name.value == readField).toList();
+    final targetType = isConn
+        ? schema.connectionNodeType(readTypeName)!
+        : readTypeName;
+    final sels = _fields(
+      ctx.sel,
+    ).where((f) => f.name.value == readField).toList();
 
     _ReadCtx? childCtx(FieldNode s) {
       final key = _outputKey(s);
       final cond = ctx.conditional || _isConditional(s);
       if (isConn) {
-        final nodes = _fields(s.selectionSet).where((n) => n.name.value == 'nodes');
+        final nodes = _fields(
+          s.selectionSet,
+        ).where((n) => n.name.value == 'nodes');
         if (nodes.isEmpty) return null;
         final path = [...ctx.path, key, 'nodes', 0];
         return _ReadCtx(
@@ -812,7 +838,12 @@ class RfeEditConversionAnalyzer {
       if (v is! VariableNode) continue;
       final varName = v.name.value;
       if (discriminators.contains(f.name.value)) {
-        _record(varName, 'env', value: _envValues[varName], note: 'RFEのcondition引数と同じ値を渡す');
+        _record(
+          varName,
+          'env',
+          value: _envValues[varName],
+          note: 'RFEのcondition引数と同じ値を渡す',
+        );
         continue;
       }
       if (matched == null) {
@@ -844,8 +875,11 @@ class RfeEditConversionAnalyzer {
         final fv = f.value;
         if (fv is VariableNode && fv.name.value == varName) return true;
         if (fv is ObjectValueNode &&
-            fv.fields.any((e) => e.value is VariableNode &&
-                (e.value as VariableNode).name.value == varName)) {
+            fv.fields.any(
+              (e) =>
+                  e.value is VariableNode &&
+                  (e.value as VariableNode).name.value == varName,
+            )) {
           return true;
         }
       }
@@ -863,7 +897,11 @@ class RfeEditConversionAnalyzer {
     final varType = _editVarTypes[varName];
     if (varType == null) return;
     if (sels.isEmpty) {
-      _record(varName, 'unresolved', note: 'RFEが${ctx.type}.$readFieldを取得していない');
+      _record(
+        varName,
+        'unresolved',
+        note: 'RFEが${ctx.type}.$readFieldを取得していない',
+      );
       return;
     }
     final s = sels.first;
@@ -878,7 +916,9 @@ class RfeEditConversionAnalyzer {
     }
     final records = isConn
         ? (readPath(ctx.data, [key, 'nodes']) as List? ?? const [])
-        : [readPath(ctx.data, [key])];
+        : [
+            readPath(ctx.data, [key]),
+          ];
     final elementType = namedTypeOf(varType);
     final notes = <String>{};
     final built = [
@@ -890,7 +930,11 @@ class RfeEditConversionAnalyzer {
         ),
     ];
     for (final n in notes) {
-      report.add('C3', '\$$varName: $n', path: pathToString([...ctx.path, key]));
+      report.add(
+        'C3',
+        '\$$varName: $n',
+        path: pathToString([...ctx.path, key]),
+      );
     }
     _record(
       varName,
@@ -902,7 +946,11 @@ class RfeEditConversionAnalyzer {
   }
 
   /// schemaの入力型に沿って、RFEの1レコードから入力オブジェクトを組み立てる(リスト引数用)。
-  Map<String, dynamic> _buildInput(String inputType, _ReadCtx ctx, Set<String> notes) {
+  Map<String, dynamic> _buildInput(
+    String inputType,
+    _ReadCtx ctx,
+    Set<String> notes,
+  ) {
     final fields = schema.inputFields(inputType) ?? const {};
     final result = <String, dynamic>{};
     for (final entry in fields.entries) {
@@ -915,7 +963,9 @@ class RfeEditConversionAnalyzer {
         }
         final readField = _mapRelation(name, ctx.type);
         if (readField == null) continue;
-        final sels = _fields(ctx.sel).where((f) => f.name.value == readField).toList();
+        final sels = _fields(
+          ctx.sel,
+        ).where((f) => f.name.value == readField).toList();
         if (sels.isEmpty) continue; // RFEで取得していない関連は書き込まない(任意項目)
         final nested = _buildRelationInput(base, readField, sels, ctx, notes);
         if (nested != null) result[name] = nested;
@@ -943,12 +993,10 @@ class RfeEditConversionAnalyzer {
     if (!schema.isConnection(readTypeName)) {
       // 単一の関連先: updateByXxx(主キー+Patch)で更新する
       final s = sels.first;
-      final child = _ReadCtx(
-        readTypeName,
-        s.selectionSet,
-        [...ctx.path, _outputKey(s)],
-        readPath(ctx.data, [_outputKey(s)]),
-      );
+      final child = _ReadCtx(readTypeName, s.selectionSet, [
+        ...ctx.path,
+        _outputKey(s),
+      ], readPath(ctx.data, [_outputKey(s)]));
       for (final e in relFields.entries) {
         if (!e.key.startsWith('updateBy')) continue;
         return {e.key: _buildInput(namedTypeOf(e.value), child, notes)};
@@ -966,16 +1014,18 @@ class RfeEditConversionAnalyzer {
     final nodeType = schema.connectionNodeType(readTypeName)!;
     final items = <Map<String, dynamic>>[];
     for (final s in sels) {
-      final nodes = _fields(s.selectionSet).where((n) => n.name.value == 'nodes');
+      final nodes = _fields(
+        s.selectionSet,
+      ).where((n) => n.name.value == 'nodes');
       if (nodes.isEmpty) continue;
       final item = _buildInput(
         elementType,
-        _ReadCtx(
-          nodeType,
-          nodes.first.selectionSet,
-          [...ctx.path, _outputKey(s), 'nodes', 0],
-          readPath(ctx.data, [_outputKey(s), 'nodes', 0]),
-        ),
+        _ReadCtx(nodeType, nodes.first.selectionSet, [
+          ...ctx.path,
+          _outputKey(s),
+          'nodes',
+          0,
+        ], readPath(ctx.data, [_outputKey(s), 'nodes', 0])),
         notes,
       );
       // condition引数の値(言語IDなど)を識別子として補う
@@ -984,7 +1034,8 @@ class RfeEditConversionAnalyzer {
         if (v is! ObjectValueNode) continue;
         for (final f in v.fields) {
           final fv = f.value;
-          if (fv is VariableNode) item[f.name.value] = _envValues[fv.name.value];
+          if (fv is VariableNode)
+            item[f.name.value] = _envValues[fv.name.value];
         }
       }
       items.add(item);
@@ -1018,7 +1069,13 @@ class RfeEditConversionAnalyzer {
 }
 
 class _ReadCtx {
-  _ReadCtx(this.type, this.sel, this.path, this.data, {this.conditional = false});
+  _ReadCtx(
+    this.type,
+    this.sel,
+    this.path,
+    this.data, {
+    this.conditional = false,
+  });
 
   /// 読み込み側の型名(schema.graphql)
   final String type;

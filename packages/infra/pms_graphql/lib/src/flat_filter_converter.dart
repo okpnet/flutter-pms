@@ -159,7 +159,10 @@ class FlatFilterConverter {
           } else if (e.key == 'and' || e.key == 'or') {
             out[e.key] = [...out[e.key] as List, ...e.value as List];
           } else {
-            out['and'] = [...((out['and'] as List?) ?? const []), {e.key: e.value}];
+            out['and'] = [
+              ...((out['and'] as List?) ?? const []),
+              {e.key: e.value},
+            ];
           }
         }
       }

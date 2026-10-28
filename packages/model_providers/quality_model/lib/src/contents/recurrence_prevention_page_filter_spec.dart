@@ -10,7 +10,6 @@ abstract class RecurrencePreventionPageFilterSpec {
     'transRecurrencePreventionId': FlatFilterPath([], 'transRecurrencePreventionId'),
     'transDisposalId': FlatFilterPath([], 'transDisposalId'),
     'occurentAt': FlatFilterPath([], 'occurentAt'),
-    'approvals': FlatFilterPath([], 'approvals'),
     'approvals||transApprovalPatternId': FlatFilterPath([FilterStep('transApprovalPatternByApprovals')], 'transApprovalPatternId'),
     'approvals||mstrApprovalPatternId': FlatFilterPath([FilterStep('transApprovalPatternByApprovals')], 'mstrApprovalPatternId'),
     'approvals||pattern||mstrApprovalPatternId': FlatFilterPath([FilterStep('transApprovalPatternByApprovals'), FilterStep('mstrApprovalPatternByMstrApprovalPatternId')], 'mstrApprovalPatternId'),

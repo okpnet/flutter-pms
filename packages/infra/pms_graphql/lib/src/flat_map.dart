@@ -146,8 +146,9 @@ extension NestedMapFlattenX on Map<String, dynamic> {
     final result = <String, dynamic>{};
     void walk(String prefix, Map<String, dynamic> map) {
       for (final entry in map.entries) {
-        final key =
-            prefix.isEmpty ? entry.key : '$prefix$separator${entry.key}';
+        final key = prefix.isEmpty
+            ? entry.key
+            : '$prefix$separator${entry.key}';
         final nested = _asStringKeyedMap(entry.value);
         if (nested != null && !_isConnectionShaped(nested)) {
           walk(key, nested);

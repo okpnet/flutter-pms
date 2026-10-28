@@ -149,3 +149,7 @@ melos:
     gql:property-list:
       description: 生成モデルのプロパティ一覧 CSV を doc/contents/property_list.csv に出力(gql:build の後)
       run: dart run tools/gql_yaml2graphql/bin/gen_property_list.dart --root packages/model_providers
+
+    gql:test:
+      description: 各モデルパッケージの通信テスト(test/server_read_test.dart)を再生成(readクエリを追加したあと)
+      run: dart run tools/gql_yaml2graphql/bin/gen_server_test.dart --root packages/model_providers

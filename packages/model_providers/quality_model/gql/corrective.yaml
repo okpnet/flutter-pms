@@ -26,7 +26,6 @@ DisposalPage: &DisposalPage
       arrayType: toFirstOne
       using: details
       <<: *FlexibleTextReadFields
-    - approvals
     - name: approvals
       as: approvals
       arrayType: toFirstOne
@@ -75,7 +74,6 @@ DisposalPageEdit:
       arrayType: toFirstOne
       using: details
       <<: *FlexibleTextEditFields
-    - approvals
     - name: approvals
       as: approvals
       arrayType: toFirstOne
@@ -108,7 +106,6 @@ RecurrencePreventionPage: &RecurrencePreventionPage
     - trans_recurrence_prevention_id
     - trans_disposal_id
     - occurent_at
-    - approvals
     - name: approvals
       as: approvals
       arrayType: toFirstOne
@@ -156,7 +153,6 @@ RecurrencePreventionPageEdit:
     - trans_recurrence_prevention_id
     - trans_disposal_id
     - occurent_at
-    - approvals
     - name: approvals
       as: approvals
       arrayType: toFirstOne

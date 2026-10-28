@@ -4,6 +4,8 @@
 /// 必ず `dev_dependencies` にだけ書く。本番のコードからは読み込まない。
 library;
 
+export 'src/faulty_graphql_server.dart';
 export 'src/recording_data_repository.dart';
 export 'src/server_test.dart';
 export 'src/test_server.dart';
+export 'src/timeout_outcome.dart';

@@ -56,7 +56,6 @@ query DisposalPageRfe(
 
       remarks
     }
-
     approvals
 
     approvals: transApprovalPatternByApprovals {

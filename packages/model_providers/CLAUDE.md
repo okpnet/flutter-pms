@@ -72,3 +72,11 @@
 6.  GOFデザインパターン
     1.  クラス名やファイル名にデザインパターンを含めない場合は、コメントに該当するパターン名を追加する。
     2.  必ずしもデザインパターンに割り当てる必要はない。
+
+## テスト
+`xxx_model`のテストは次の3種類。サーバーを使うテストの道具(接続先・代役サーバー)は`packages/infra/data_test_harness`が持ち、各パッケージは`dev_dependencies`にだけ書く。接続先のURLをテストに書かない。
+1.  **通信テスト(検証用サーバー)** `test/server_read_test.dart`: 全readクエリを`first: 1`で実行し、成功(`Ok`)と生成モデルでの読み取りを確認する。`serverTest`で書き、接続先は`http://192.168.1.100:5000/graphql`、接続できなければ`http://192.168.9.245:5000/graphql`(`TestServer.candidateUrls`)。どちらにも接続できないときは中止(skip)にし、失敗にはしない(`flutter test --exclude-tags server`で除外できる)。読み取り専用で、サーバーのデータを変更しない。サーバーのスキーマが本家スキーマ(`.schema/schema.graphql`)とずれていると、このテストが失敗する(スキーマのずれの検出)。
+2.  **通信の異常のテスト(代役サーバー)** 同じファイル: `FaultyGraphqlServer`(ローカル)で、遅延(制限時間超過=タイムアウト)、応答の途中・前の切断(`Err(NetworkError)`)、認証エラー(401/403は`Err(ServerError)`でステータスを持つ)、認証ヘッダー(`Authorization`)の送信、切断からの復帰を確認する。実サーバーを使わないため、常に実行できる。認証基盤(Keycloak)が入ったあとも、トークンの付与はこのテストで確認する。
+3.  **モデルのテスト**: 往復変換(`*_flatten_roundtrip_test.dart`)、RFE⇔Edit(`rfe_edit_interconversion_test.dart`)、検索条件の対応表(`filter_spec_roundtrip_test.dart`)。サーバーを使わない。
+- `test/server_read_test.dart`は生成物(`dart run tools/gql_yaml2graphql/bin/gen_server_test.dart --root packages/model_providers`、`melos run gql:test`)。直接編集しない。画面(readクエリ)を追加したら再生成する。
+- 各パッケージの`dart_test.yaml`に`server`タグの宣言が必要(生成が作る)。
