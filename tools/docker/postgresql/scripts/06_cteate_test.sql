@@ -89,7 +89,65 @@ $BODY$
 LANGUAGE plpgsql;
 COMMENT ON FUNCTION tests.trg_gen_text_summary() IS 'text_valueからlead_text(導入文)とchar_count(文字数)を算出する';
 
---233.create tables
+--237.create tables
+create table tests.history_mstr_item_task_cost (
+    history_id uuid default gen_random_uuid(),
+    mstr_item_task_cost_id uuid not null,
+    mstr_item_id uuid not null,
+    mstr_task_location_id uuid not null,
+    cost decimal(10,2) default 0,
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.mstr_item_task_cost (
+    mstr_item_task_cost_id uuid default gen_random_uuid(),
+    mstr_item_id uuid default gen_random_uuid(),
+    mstr_task_location_id uuid not null,
+    cost decimal(10,2) default 0,
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.history_mstr_work_calendar (
+    history_id uuid default gen_random_uuid(),
+    mstr_work_calendar_id uuid not null,
+    work_date date not null,
+    mstr_equipment_id uuid default null,
+    start_time time not null,
+    work_interval interval default '08:00:00',
+    holiday boolean not null,
+    revision integer not null,
+    symbol varchar(16) not null,
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.mstr_work_calendar (
+    mstr_work_calendar_id uuid default gen_random_uuid(),
+    work_date date default now(),
+    mstr_equipment_id uuid default null,
+    start_time time default '08:00',
+    work_interval interval default '08:00:00',
+    holiday boolean default 'f',
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
 create table tests.history_mstr_item_operation (
     history_id uuid default gen_random_uuid(),
     mstr_item_operation_id uuid not null,
@@ -1325,6 +1383,7 @@ create table tests.history_mstr_outsource_available (
     mstr_outsource_available_id uuid not null,
     mstr_task_location_id uuid not null,
     mstr_stakeholder_id uuid not null,
+    delivery_interval interval default '24:00:00',
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -1338,6 +1397,7 @@ create table tests.history_mstr_equipment_available (
     mstr_equipment_available_id uuid not null,
     mstr_task_location_id uuid not null,
     mstr_equipment_id uuid not null,
+    delivery_interval interval default '24:00:00',
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -1369,8 +1429,6 @@ create table tests.history_mstr_task_location (
     mstr_task_id uuid not null,
     info_department_id uuid default null,
     mstr_location_id uuid default null,
-    mstr_equipment_id uuid default null,
-    mstr_stakeholder_id uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -1384,8 +1442,6 @@ create table tests.mstr_task_location (
     mstr_task_id uuid not null,
     info_department_id uuid default null,
     mstr_location_id uuid default null,
-    mstr_equipment_id uuid default null,
-    mstr_stakeholder_id uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2010,6 +2066,7 @@ create table tests.mstr_equipment_available (
     mstr_equipment_available_id uuid default gen_random_uuid(),
     mstr_task_location_id uuid not null,
     mstr_equipment_id uuid not null,
+    delivery_interval interval default '24:00:00',
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2022,6 +2079,7 @@ create table tests.mstr_outsource_available (
     mstr_outsource_available_id uuid default gen_random_uuid(),
     mstr_task_location_id uuid not null,
     mstr_stakeholder_id uuid not null,
+    delivery_interval interval default '24:00:00',
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2770,6 +2828,7 @@ create table tests.trans_inventory_request (
     symbol varchar(16) default '',
     staff_history_id uuid not null,
     staff_id uuid not null,
+    trans_resource_plan_id uuid default gen_random_uuid(),
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -3051,10 +3110,16 @@ create table tests.trans_work_plan (
     trans_work_plan_id uuid default gen_random_uuid(),
     trans_operations_plan_id uuid not null,
     mstr_task_id uuid not null,
+    sequence integer default 1,
     interval_plan interval default null,
     start_at timestamp default null,
     completion_at timestamp default null,
     symbol varchar(16) default '',
+    mstr_equipment_available_history_id uuid default null,
+    mstr_equipment_available_id uuid default null,
+    mstr_outsource_available_history_id uuid default null,
+    mstr_outsource_available_id uuid default null,
+    trans_purchase_detail_id uuid default null,
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -3074,6 +3139,7 @@ create table tests.trans_operations_plan (
 );
 create table tests.trans_resource_plan (
     trans_resource_plan_id uuid default gen_random_uuid(),
+    parent_trans_operations_plan_id uuid default null,
     trans_order_detail_id uuid default null,
     trans_unrecognized_detail_id uuid default null,
     register_at timestamp default now(),
@@ -3419,7 +3485,61 @@ create table tests.info_office (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
---233.add table comments
+--237.add table comments
+comment on table tests.history_mstr_item_task_cost is '品目作業単価履歴';
+comment on column tests.history_mstr_item_task_cost.history_id is '履歴ID';
+comment on column tests.history_mstr_item_task_cost.mstr_item_task_cost_id is '品目作業単価ID';
+comment on column tests.history_mstr_item_task_cost.mstr_item_id is '品目ID';
+comment on column tests.history_mstr_item_task_cost.mstr_task_location_id is '工程場所ID';
+comment on column tests.history_mstr_item_task_cost.cost is '単価';
+comment on column tests.history_mstr_item_task_cost.revision is 'レビジョン';
+comment on column tests.history_mstr_item_task_cost.symbol is 'リニアシンボル';
+comment on column tests.history_mstr_item_task_cost.remarks is '備考';
+comment on column tests.history_mstr_item_task_cost.update_at is '更新日時';
+comment on column tests.history_mstr_item_task_cost.update_user_id is '更新者ID';
+comment on column tests.history_mstr_item_task_cost.update_user_history_id is '更新者履歴ID';
+comment on column tests.history_mstr_item_task_cost.remove is '削除';
+comment on table tests.mstr_item_task_cost is '品目作業単価マスタ';
+comment on column tests.mstr_item_task_cost.mstr_item_task_cost_id is '品目作業単価ID';
+comment on column tests.mstr_item_task_cost.mstr_item_id is '品目ID';
+comment on column tests.mstr_item_task_cost.mstr_task_location_id is '工程場所ID';
+comment on column tests.mstr_item_task_cost.cost is '単価';
+comment on column tests.mstr_item_task_cost.revision is 'レビジョン';
+comment on column tests.mstr_item_task_cost.symbol is 'リニアシンボル';
+comment on column tests.mstr_item_task_cost.remarks is '備考';
+comment on column tests.mstr_item_task_cost.update_at is '更新日時';
+comment on column tests.mstr_item_task_cost.update_user_id is '更新者ID';
+comment on column tests.mstr_item_task_cost.update_user_history_id is '更新者履歴ID';
+comment on column tests.mstr_item_task_cost.remove is '削除';
+comment on table tests.history_mstr_work_calendar is '稼働カレンダー履歴';
+comment on column tests.history_mstr_work_calendar.history_id is '履歴ID';
+comment on column tests.history_mstr_work_calendar.mstr_work_calendar_id is '稼働カレンダーID';
+comment on column tests.history_mstr_work_calendar.work_date is '稼働日';
+comment on column tests.history_mstr_work_calendar.mstr_equipment_id is '設備ID';
+comment on column tests.history_mstr_work_calendar.start_time is '始業時刻';
+comment on column tests.history_mstr_work_calendar.work_interval is '稼働時間';
+comment on column tests.history_mstr_work_calendar.holiday is '休日';
+comment on column tests.history_mstr_work_calendar.revision is 'レビジョン';
+comment on column tests.history_mstr_work_calendar.symbol is 'リニアシンボル';
+comment on column tests.history_mstr_work_calendar.remarks is '備考';
+comment on column tests.history_mstr_work_calendar.update_at is '更新日時';
+comment on column tests.history_mstr_work_calendar.update_user_id is '更新者ID';
+comment on column tests.history_mstr_work_calendar.update_user_history_id is '更新者履歴ID';
+comment on column tests.history_mstr_work_calendar.remove is '削除';
+comment on table tests.mstr_work_calendar is '稼働カレンダーマスタ';
+comment on column tests.mstr_work_calendar.mstr_work_calendar_id is '稼働カレンダーID';
+comment on column tests.mstr_work_calendar.work_date is '稼働日';
+comment on column tests.mstr_work_calendar.mstr_equipment_id is '設備ID';
+comment on column tests.mstr_work_calendar.start_time is '始業時刻';
+comment on column tests.mstr_work_calendar.work_interval is '稼働時間';
+comment on column tests.mstr_work_calendar.holiday is '休日';
+comment on column tests.mstr_work_calendar.revision is 'レビジョン';
+comment on column tests.mstr_work_calendar.symbol is 'リニアシンボル';
+comment on column tests.mstr_work_calendar.remarks is '備考';
+comment on column tests.mstr_work_calendar.update_at is '更新日時';
+comment on column tests.mstr_work_calendar.update_user_id is '更新者ID';
+comment on column tests.mstr_work_calendar.update_user_history_id is '更新者履歴ID';
+comment on column tests.mstr_work_calendar.remove is '削除';
 comment on table tests.history_mstr_item_operation is '品目工程運用マスタ履歴';
 comment on column tests.history_mstr_item_operation.history_id is '履歴ID';
 comment on column tests.history_mstr_item_operation.mstr_item_operation_id is '品目工程運用ID';
@@ -4564,6 +4684,7 @@ comment on column tests.history_mstr_outsource_available.history_id is '履歴ID
 comment on column tests.history_mstr_outsource_available.mstr_outsource_available_id is '利用可能外部ID';
 comment on column tests.history_mstr_outsource_available.mstr_task_location_id is '工程場所ID';
 comment on column tests.history_mstr_outsource_available.mstr_stakeholder_id is '利害関係者ID';
+comment on column tests.history_mstr_outsource_available.delivery_interval is 'デリバリー時間';
 comment on column tests.history_mstr_outsource_available.revision is 'レビジョン';
 comment on column tests.history_mstr_outsource_available.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_outsource_available.remarks is '備考';
@@ -4576,7 +4697,8 @@ comment on column tests.history_mstr_equipment_available.history_id is '履歴ID
 comment on column tests.history_mstr_equipment_available.mstr_equipment_available_id is '利用可能設備ID';
 comment on column tests.history_mstr_equipment_available.mstr_task_location_id is '工程場所ID';
 comment on column tests.history_mstr_equipment_available.mstr_equipment_id is '設備ID';
-comment on column tests.history_mstr_equipment_available.revision is '履歴ID';
+comment on column tests.history_mstr_equipment_available.delivery_interval is 'デリバリー時間';
+comment on column tests.history_mstr_equipment_available.revision is 'レビジョン';
 comment on column tests.history_mstr_equipment_available.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_equipment_available.remarks is '備考';
 comment on column tests.history_mstr_equipment_available.update_at is '更新日時';
@@ -4605,8 +4727,6 @@ comment on column tests.history_mstr_task_location.mstr_task_location_id is '工
 comment on column tests.history_mstr_task_location.mstr_task_id is '工程ID';
 comment on column tests.history_mstr_task_location.info_department_id is '組織情報ID';
 comment on column tests.history_mstr_task_location.mstr_location_id is '場所ID';
-comment on column tests.history_mstr_task_location.mstr_equipment_id is '設備ID';
-comment on column tests.history_mstr_task_location.mstr_stakeholder_id is '利害関係者ID';
 comment on column tests.history_mstr_task_location.revision is 'レビジョン';
 comment on column tests.history_mstr_task_location.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_task_location.remarks is '備考';
@@ -4619,8 +4739,6 @@ comment on column tests.mstr_task_location.mstr_task_location_id is '工程場�
 comment on column tests.mstr_task_location.mstr_task_id is '工程ID';
 comment on column tests.mstr_task_location.info_department_id is '組織情報ID';
 comment on column tests.mstr_task_location.mstr_location_id is '場所ID';
-comment on column tests.mstr_task_location.mstr_equipment_id is '設備ID';
-comment on column tests.mstr_task_location.mstr_stakeholder_id is '利害関係者ID';
 comment on column tests.mstr_task_location.revision is 'レビジョン';
 comment on column tests.mstr_task_location.symbol is 'リニアシンボル';
 comment on column tests.mstr_task_location.remarks is '備考';
@@ -5205,7 +5323,8 @@ comment on table tests.mstr_equipment_available is '利用可能設備マスタ'
 comment on column tests.mstr_equipment_available.mstr_equipment_available_id is '利用可能設備ID';
 comment on column tests.mstr_equipment_available.mstr_task_location_id is '工程場所ID';
 comment on column tests.mstr_equipment_available.mstr_equipment_id is '設備ID';
-comment on column tests.mstr_equipment_available.revision is '履歴ID';
+comment on column tests.mstr_equipment_available.delivery_interval is 'デリバリー時間';
+comment on column tests.mstr_equipment_available.revision is 'レビジョン';
 comment on column tests.mstr_equipment_available.symbol is 'リニアシンボル';
 comment on column tests.mstr_equipment_available.remarks is '備考';
 comment on column tests.mstr_equipment_available.update_at is '更新日時';
@@ -5216,6 +5335,7 @@ comment on table tests.mstr_outsource_available is '利用可能外部マスタ'
 comment on column tests.mstr_outsource_available.mstr_outsource_available_id is '利用可能外部ID';
 comment on column tests.mstr_outsource_available.mstr_task_location_id is '工程場所ID';
 comment on column tests.mstr_outsource_available.mstr_stakeholder_id is '利害関係者ID';
+comment on column tests.mstr_outsource_available.delivery_interval is 'デリバリー時間';
 comment on column tests.mstr_outsource_available.revision is 'レビジョン';
 comment on column tests.mstr_outsource_available.symbol is 'リニアシンボル';
 comment on column tests.mstr_outsource_available.remarks is '備考';
@@ -5911,6 +6031,7 @@ comment on column tests.trans_inventory_request.quantity is '引当数量';
 comment on column tests.trans_inventory_request.symbol is 'リニアシンボル';
 comment on column tests.trans_inventory_request.staff_history_id is '作業担当者履歴ID';
 comment on column tests.trans_inventory_request.staff_id is '作業担当者ID';
+comment on column tests.trans_inventory_request.trans_resource_plan_id is '資材計画ID';
 comment on column tests.trans_inventory_request.remarks is '備考';
 comment on column tests.trans_inventory_request.update_at is '更新日時';
 comment on column tests.trans_inventory_request.update_user_id is '更新者ID';
@@ -6171,10 +6292,16 @@ comment on table tests.trans_work_plan is '生産計画明細';
 comment on column tests.trans_work_plan.trans_work_plan_id is '生産計画詳細ID';
 comment on column tests.trans_work_plan.trans_operations_plan_id is '生産計画ID';
 comment on column tests.trans_work_plan.mstr_task_id is '工程ID';
+comment on column tests.trans_work_plan.sequence is '工程順';
 comment on column tests.trans_work_plan.interval_plan is '予定作業時間';
 comment on column tests.trans_work_plan.start_at is '開始予定';
 comment on column tests.trans_work_plan.completion_at is '完了予定';
 comment on column tests.trans_work_plan.symbol is 'リニアシンボル';
+comment on column tests.trans_work_plan.mstr_equipment_available_history_id is '利用可能設備履歴ID';
+comment on column tests.trans_work_plan.mstr_equipment_available_id is '利用可能設備ID';
+comment on column tests.trans_work_plan.mstr_outsource_available_history_id is '履歴ID';
+comment on column tests.trans_work_plan.mstr_outsource_available_id is '利用可能外部ID';
+comment on column tests.trans_work_plan.trans_purchase_detail_id is '発注明細ID';
 comment on column tests.trans_work_plan.remarks is '備考';
 comment on column tests.trans_work_plan.update_at is '更新日時';
 comment on column tests.trans_work_plan.update_user_id is '更新者ID';
@@ -6192,6 +6319,7 @@ comment on column tests.trans_operations_plan.update_user_history_id is '更新�
 comment on column tests.trans_operations_plan.remove is '削除';
 comment on table tests.trans_resource_plan is '資材計画';
 comment on column tests.trans_resource_plan.trans_resource_plan_id is '資材計画ID';
+comment on column tests.trans_resource_plan.parent_trans_operations_plan_id is '親資材計画ID';
 comment on column tests.trans_resource_plan.trans_order_detail_id is '受注明細ID';
 comment on column tests.trans_resource_plan.trans_unrecognized_detail_id is '非計上明細ID';
 comment on column tests.trans_resource_plan.register_at is '登録日時';
@@ -6516,7 +6644,29 @@ comment on column tests.info_office.update_at is '更新日時';
 comment on column tests.info_office.update_user_id is '更新者ID';
 comment on column tests.info_office.update_user_history_id is '更新者履歴ID';
 comment on column tests.info_office.remove is '削除';
---233.add table primary key and index
+--237.add table primary key and index
+create unique index history_mstr_item_task_cost_PKI
+    on tests.history_mstr_item_task_cost(history_id,mstr_item_task_cost_id);
+alter table tests.history_mstr_item_task_cost
+    add constraint history_mstr_item_task_cost_PKC primary key (history_id,mstr_item_task_cost_id);
+create unique index mstr_item_task_cost_PKI
+    on tests.mstr_item_task_cost(mstr_item_task_cost_id);
+alter table tests.mstr_item_task_cost
+    add constraint mstr_item_task_cost_PKC primary key (mstr_item_task_cost_id);
+alter table tests.mstr_item_task_cost
+     add constraint mstr_item_task_cost_IX1 unique (symbol);
+create unique index history_mstr_work_calendar_PKI
+    on tests.history_mstr_work_calendar(history_id,mstr_work_calendar_id);
+alter table tests.history_mstr_work_calendar
+    add constraint history_mstr_work_calendar_PKC primary key (history_id,mstr_work_calendar_id);
+create unique index mstr_work_calendar_PKI
+    on tests.mstr_work_calendar(mstr_work_calendar_id);
+alter table tests.mstr_work_calendar
+    add constraint mstr_work_calendar_PKC primary key (mstr_work_calendar_id);
+alter table tests.mstr_work_calendar
+     add constraint mstr_work_calendar_IX1 unique (symbol);
+alter table tests.mstr_work_calendar
+     add constraint mstr_work_calendar_IX2 unique (work_date,mstr_equipment_id);
 create unique index history_mstr_item_operation_PKI
     on tests.history_mstr_item_operation(history_id,mstr_item_operation_id);
 alter table tests.history_mstr_item_operation
@@ -7835,7 +7985,7 @@ create unique index mstr_item_tree_PKI
 alter table tests.mstr_item_tree
     add constraint mstr_item_tree_PKC primary key (mstr_item_tree_id);
 alter table tests.mstr_item_tree
-     add constraint mstr_item_tree_IX1 unique (mstr_item_id);
+     add constraint mstr_item_tree_IX1 unique (mstr_item_id,parent_mstr_item_id);
 alter table tests.mstr_item_tree
      add constraint mstr_item_tree_IX2 unique (symbol);
 create unique index shared_unit_PKI
@@ -7938,7 +8088,16 @@ alter table tests.info_office
     add constraint info_office_PKC primary key (info_office_id);
 alter table tests.info_office
      add constraint info_office_IX1 unique (symbol);
---233.add table foreign key
+--237.add table foreign key
+alter table tests.history_mstr_item_task_cost add constraint history_mstr_item_task_cost_FK1 foreign key (mstr_item_task_cost_id) references tests.mstr_item_task_cost (mstr_item_task_cost_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_item_task_cost add constraint history_mstr_item_task_cost_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_task_cost add constraint mstr_item_task_cost_FK1 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_task_cost add constraint mstr_item_task_cost_FK2 foreign key (mstr_task_location_id) references tests.mstr_task_location (mstr_task_location_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_task_cost add constraint mstr_item_task_cost_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_work_calendar add constraint history_mstr_work_calendar_FK1 foreign key (mstr_work_calendar_id) references tests.mstr_work_calendar (mstr_work_calendar_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_work_calendar add constraint history_mstr_work_calendar_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_work_calendar add constraint mstr_work_calendar_FK1 foreign key (mstr_equipment_id) references tests.mstr_equipment (mstr_equipment_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_work_calendar add constraint mstr_work_calendar_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_item_operation add constraint history_mstr_item_operation_FK1 foreign key (mstr_item_operation_id) references tests.mstr_item_operation (mstr_item_operation_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_item_operation add constraint history_mstr_item_operation_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_item_operation add constraint mstr_item_operation_FK1 foreign key (details) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8158,12 +8317,10 @@ alter table tests.history_mstr_task add constraint history_mstr_task_FK1 foreign
 alter table tests.history_mstr_task add constraint history_mstr_task_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_task_location add constraint history_mstr_task_location_FK1 foreign key (mstr_task_location_id) references tests.mstr_task_location (mstr_task_location_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_task_location add constraint history_mstr_task_location_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_task_location add constraint mstr_task_location_FK1 foreign key (mstr_equipment_id) references tests.mstr_equipment (mstr_equipment_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_task_location add constraint mstr_task_location_FK2 foreign key (info_department_id) references tests.info_department (info_department_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_task_location add constraint mstr_task_location_FK3 foreign key (mstr_location_id) references tests.mstr_location (mstr_location_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_task_location add constraint mstr_task_location_FK4 foreign key (mstr_stakeholder_id) references tests.mstr_stakeholder (mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_task_location add constraint mstr_task_location_FK5 foreign key (mstr_task_id) references tests.mstr_task (mstr_task_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_task_location add constraint mstr_task_location_FK6 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_task_location add constraint mstr_task_location_FK1 foreign key (info_department_id) references tests.info_department (info_department_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_task_location add constraint mstr_task_location_FK2 foreign key (mstr_location_id) references tests.mstr_location (mstr_location_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_task_location add constraint mstr_task_location_FK3 foreign key (mstr_task_id) references tests.mstr_task (mstr_task_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_task_location add constraint mstr_task_location_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_task_group add constraint history_mstr_task_group_FK1 foreign key (mstr_task_group_id) references tests.mstr_task_group (mstr_task_group_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_task_group add constraint history_mstr_task_group_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_operation add constraint history_mstr_operation_FK1 foreign key (mstr_operation_id) references tests.mstr_operation (mstr_operation_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8439,10 +8596,11 @@ alter table tests.info_app add constraint info_app_FK1 foreign key (info_company
 alter table tests.info_app add constraint info_app_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_access_path add constraint info_access_path_FK1 foreign key (info_app_id) references tests.info_app (info_app_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_access_path add constraint info_access_path_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inventory_request add constraint trans_inventory_request_FK1 foreign key (staff_history_id,staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inventory_request add constraint trans_inventory_request_FK2 foreign key (trans_product_rez_id) references tests.trans_product_rez (trans_product_rez_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inventory_request add constraint trans_inventory_request_FK3 foreign key (trans_purchase_rez_id) references tests.trans_purchase_rez (trans_purchase_rez_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inventory_request add constraint trans_inventory_request_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_request add constraint trans_inventory_request_FK1 foreign key (trans_resource_plan_id) references tests.trans_resource_plan (trans_resource_plan_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_request add constraint trans_inventory_request_FK2 foreign key (staff_history_id,staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_request add constraint trans_inventory_request_FK3 foreign key (trans_product_rez_id) references tests.trans_product_rez (trans_product_rez_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_request add constraint trans_inventory_request_FK4 foreign key (trans_purchase_rez_id) references tests.trans_purchase_rez (trans_purchase_rez_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_request add constraint trans_inventory_request_FK5 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_product_rez add constraint trans_product_rez_FK1 foreign key (trans_work_plan_id) references tests.trans_work_plan (trans_work_plan_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_product_rez add constraint trans_product_rez_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_work_record_visiter add constraint trans_work_record_visiter_FK1 foreign key (trans_visiter_id) references tests.trans_visiter (trans_visiter_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8504,15 +8662,19 @@ alter table tests.trans_inventory_apply add constraint trans_inventory_apply_FK1
 alter table tests.trans_inventory_apply add constraint trans_inventory_apply_FK2 foreign key (trans_inventory_request_id) references tests.trans_inventory_request (trans_inventory_request_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inventory_apply add constraint trans_inventory_apply_FK3 foreign key (convey_id) references tests.trans_convey (trans_convey_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inventory_apply add constraint trans_inventory_apply_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_work_plan add constraint trans_work_plan_FK1 foreign key (mstr_task_id) references tests.mstr_task (mstr_task_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_work_plan add constraint trans_work_plan_FK2 foreign key (trans_operations_plan_id) references tests.trans_operations_plan (trans_operations_plan_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_work_plan add constraint trans_work_plan_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_work_plan add constraint trans_work_plan_FK1 foreign key (trans_purchase_detail_id) references tests.trans_purchase_detail (trans_purchase_detail_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_work_plan add constraint trans_work_plan_FK2 foreign key (mstr_outsource_available_history_id,mstr_outsource_available_id) references tests.history_mstr_outsource_available (history_id,mstr_outsource_available_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_work_plan add constraint trans_work_plan_FK3 foreign key (mstr_equipment_available_history_id,mstr_equipment_available_id) references tests.history_mstr_equipment_available (history_id,mstr_equipment_available_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_work_plan add constraint trans_work_plan_FK4 foreign key (mstr_task_id) references tests.mstr_task (mstr_task_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_work_plan add constraint trans_work_plan_FK5 foreign key (trans_operations_plan_id) references tests.trans_operations_plan (trans_operations_plan_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_work_plan add constraint trans_work_plan_FK6 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_operations_plan add constraint trans_operations_plan_FK1 foreign key (trans_resource_plan_id) references tests.trans_resource_plan (trans_resource_plan_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_operations_plan add constraint trans_operations_plan_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_resource_plan add constraint trans_resource_plan_FK1 foreign key (item_history_id,item_id) references tests.history_mstr_item (history_id,mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_resource_plan add constraint trans_resource_plan_FK2 foreign key (trans_unrecognized_detail_id) references tests.trans_unrecognized_detail (trans_unrecognized_detail_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_resource_plan add constraint trans_resource_plan_FK3 foreign key (trans_order_detail_id) references tests.trans_order_detail (trans_order_detail_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_resource_plan add constraint trans_resource_plan_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_resource_plan add constraint trans_resource_plan_FK1 foreign key (parent_trans_operations_plan_id) references tests.trans_resource_plan (trans_resource_plan_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_resource_plan add constraint trans_resource_plan_FK2 foreign key (item_history_id,item_id) references tests.history_mstr_item (history_id,mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_resource_plan add constraint trans_resource_plan_FK3 foreign key (trans_unrecognized_detail_id) references tests.trans_unrecognized_detail (trans_unrecognized_detail_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_resource_plan add constraint trans_resource_plan_FK4 foreign key (trans_order_detail_id) references tests.trans_order_detail (trans_order_detail_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_resource_plan add constraint trans_resource_plan_FK5 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_purchase add constraint trans_purchase_FK1 foreign key (stakeholder_contact_history_id,stakeholder_contact_id) references tests.history_mstr_stakeholder_contact (history_id,mstr_stakeholder_contact_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_purchase add constraint trans_purchase_FK2 foreign key (stakeholder_history_id,stakeholder_id) references tests.history_mstr_stakeholder (history_id,mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_purchase add constraint trans_purchase_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8591,7 +8753,253 @@ alter table tests.info_office add constraint info_office_FK1 foreign key (names)
 alter table tests.info_office add constraint info_office_FK2 foreign key (info_company_id) references tests.info_company (info_company_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK3 foreign key (info_address_id) references tests.info_address (info_address_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
---233.add table trigger
+--237.add table trigger
+-- history_mstr_item_task_cost update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item_task_cost() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.history_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_history_mstr_item_task_cost BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_item_task_cost FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_history_mstr_item_task_cost();
+
+
+CREATE TRIGGER trg_04_symbol_history_mstr_item_task_cost BEFORE INSERT ON tests.history_mstr_item_task_cost FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_item_task_cost update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_item_task_cost() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.mstr_item_task_cost_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_mstr_item_task_cost BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_item_task_cost FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_mstr_item_task_cost();
+
+
+CREATE TRIGGER trg_04_symbol_mstr_item_task_cost BEFORE INSERT ON tests.mstr_item_task_cost FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_item_task_cost history trigger
+CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_item_task_cost() RETURNS trigger AS
+$BODY$
+DECLARE
+    revisions int;
+BEGIN
+    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
+        SELECT Max(revision) INTO revisions FROM tests.history_mstr_item_task_cost WHERE mstr_item_task_cost_id=NEW.mstr_item_task_cost_id;
+        IF (revisions >= 0) THEN
+            IF (
+                NEW.mstr_item_task_cost_id,
+                NEW.mstr_item_id,
+                NEW.mstr_task_location_id,
+                NEW.cost,
+                NEW.symbol,
+                NEW.remarks,
+                NEW.remove
+            ) IS NOT DISTINCT FROM (
+                OLD.mstr_item_task_cost_id,
+                OLD.mstr_item_id,
+                OLD.mstr_task_location_id,
+                OLD.cost,
+                OLD.symbol,
+                OLD.remarks,
+                OLD.remove
+            )
+            THEN
+                RETURN NULL;
+            END IF;
+            NEW.revision := revisions + 1;
+        ELSE
+            NEW.revision := 1;
+        END IF;
+        INSERT INTO tests.history_mstr_item_task_cost (
+            mstr_item_task_cost_id,
+            mstr_item_id,
+            mstr_task_location_id,
+            cost,
+            revision,
+            symbol,
+            remarks,
+            update_at,
+            update_user_id,
+            update_user_history_id,
+            remove
+        )
+        VALUES
+        (
+            NEW.mstr_item_task_cost_id,
+            NEW.mstr_item_id,
+            NEW.mstr_task_location_id,
+            NEW.cost,
+            NEW.revision,
+            NEW.symbol,
+            NEW.remarks,
+            NEW.update_at,
+            NEW.update_user_id,
+            NEW.update_user_history_id,
+            NEW.remove
+        );
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_02_history_mstr_item_task_cost BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_item_task_cost FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_02_history_mstr_item_task_cost();
+
+
+-- history_mstr_work_calendar update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_work_calendar() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.history_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_history_mstr_work_calendar BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_work_calendar FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_history_mstr_work_calendar();
+
+
+CREATE TRIGGER trg_04_symbol_history_mstr_work_calendar BEFORE INSERT ON tests.history_mstr_work_calendar FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_work_calendar update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_work_calendar() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.mstr_work_calendar_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_mstr_work_calendar BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_work_calendar FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_mstr_work_calendar();
+
+
+CREATE TRIGGER trg_04_symbol_mstr_work_calendar BEFORE INSERT ON tests.mstr_work_calendar FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_work_calendar history trigger
+CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_work_calendar() RETURNS trigger AS
+$BODY$
+DECLARE
+    revisions int;
+BEGIN
+    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
+        SELECT Max(revision) INTO revisions FROM tests.history_mstr_work_calendar WHERE mstr_work_calendar_id=NEW.mstr_work_calendar_id;
+        IF (revisions >= 0) THEN
+            IF (
+                NEW.mstr_work_calendar_id,
+                NEW.work_date,
+                NEW.mstr_equipment_id,
+                NEW.start_time,
+                NEW.work_interval,
+                NEW.holiday,
+                NEW.symbol,
+                NEW.remarks,
+                NEW.remove
+            ) IS NOT DISTINCT FROM (
+                OLD.mstr_work_calendar_id,
+                OLD.work_date,
+                OLD.mstr_equipment_id,
+                OLD.start_time,
+                OLD.work_interval,
+                OLD.holiday,
+                OLD.symbol,
+                OLD.remarks,
+                OLD.remove
+            )
+            THEN
+                RETURN NULL;
+            END IF;
+            NEW.revision := revisions + 1;
+        ELSE
+            NEW.revision := 1;
+        END IF;
+        INSERT INTO tests.history_mstr_work_calendar (
+            mstr_work_calendar_id,
+            work_date,
+            mstr_equipment_id,
+            start_time,
+            work_interval,
+            holiday,
+            revision,
+            symbol,
+            remarks,
+            update_at,
+            update_user_id,
+            update_user_history_id,
+            remove
+        )
+        VALUES
+        (
+            NEW.mstr_work_calendar_id,
+            NEW.work_date,
+            NEW.mstr_equipment_id,
+            NEW.start_time,
+            NEW.work_interval,
+            NEW.holiday,
+            NEW.revision,
+            NEW.symbol,
+            NEW.remarks,
+            NEW.update_at,
+            NEW.update_user_id,
+            NEW.update_user_history_id,
+            NEW.remove
+        );
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_02_history_mstr_work_calendar BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_work_calendar FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_02_history_mstr_work_calendar();
+
+
 -- history_mstr_item_operation update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item_operation() RETURNS trigger AS
 $BODY$
@@ -13356,8 +13764,6 @@ BEGIN
                 NEW.mstr_task_id,
                 NEW.info_department_id,
                 NEW.mstr_location_id,
-                NEW.mstr_equipment_id,
-                NEW.mstr_stakeholder_id,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -13366,8 +13772,6 @@ BEGIN
                 OLD.mstr_task_id,
                 OLD.info_department_id,
                 OLD.mstr_location_id,
-                OLD.mstr_equipment_id,
-                OLD.mstr_stakeholder_id,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -13384,8 +13788,6 @@ BEGIN
             mstr_task_id,
             info_department_id,
             mstr_location_id,
-            mstr_equipment_id,
-            mstr_stakeholder_id,
             revision,
             symbol,
             remarks,
@@ -13400,8 +13802,6 @@ BEGIN
             NEW.mstr_task_id,
             NEW.info_department_id,
             NEW.mstr_location_id,
-            NEW.mstr_equipment_id,
-            NEW.mstr_stakeholder_id,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -14469,6 +14869,7 @@ BEGIN
                 NEW.mstr_equipment_available_id,
                 NEW.mstr_task_location_id,
                 NEW.mstr_equipment_id,
+                NEW.delivery_interval,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -14476,6 +14877,7 @@ BEGIN
                 OLD.mstr_equipment_available_id,
                 OLD.mstr_task_location_id,
                 OLD.mstr_equipment_id,
+                OLD.delivery_interval,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -14491,6 +14893,7 @@ BEGIN
             mstr_equipment_available_id,
             mstr_task_location_id,
             mstr_equipment_id,
+            delivery_interval,
             revision,
             symbol,
             remarks,
@@ -14504,6 +14907,7 @@ BEGIN
             NEW.mstr_equipment_available_id,
             NEW.mstr_task_location_id,
             NEW.mstr_equipment_id,
+            NEW.delivery_interval,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -14560,6 +14964,7 @@ BEGIN
                 NEW.mstr_outsource_available_id,
                 NEW.mstr_task_location_id,
                 NEW.mstr_stakeholder_id,
+                NEW.delivery_interval,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -14567,6 +14972,7 @@ BEGIN
                 OLD.mstr_outsource_available_id,
                 OLD.mstr_task_location_id,
                 OLD.mstr_stakeholder_id,
+                OLD.delivery_interval,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -14582,6 +14988,7 @@ BEGIN
             mstr_outsource_available_id,
             mstr_task_location_id,
             mstr_stakeholder_id,
+            delivery_interval,
             revision,
             symbol,
             remarks,
@@ -14595,6 +15002,7 @@ BEGIN
             NEW.mstr_outsource_available_id,
             NEW.mstr_task_location_id,
             NEW.mstr_stakeholder_id,
+            NEW.delivery_interval,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -21818,7 +22226,7 @@ FROM
         WHERE
             wp.remove IS FALSE
     ) AS x
-;
+
 ;
 
 -- 7. 生産計画納期遵守状況
@@ -21908,7 +22316,6 @@ FROM
         ON TRUE
 WHERE
     v.remove IS FALSE
-;
 
 ;
 
@@ -21967,7 +22374,7 @@ GROUP BY
     , st.mstr_stakeholder_id
     , (rc.trans_inspect_record_id IS NOT NULL)
     , rc.result
-;
+
 ;
 
 -- 5. 点検整備実施状況
@@ -22070,8 +22477,6 @@ GROUP BY
     , x.shipping_date
 ;
 
-;
-
 -- 4.1 出荷納期遵守状況
 -- フィルタ: 顧客ID(customer_id), 納期(delivery_date), 出荷実績日(shipping_date), 出荷予定日(estimated_shipping_date),
 --           品目区分ID(mstr_item_kind_id), 品目ID(mstr_item_id), 品目提供ID(mstr_item_provision_ids ※配列)
@@ -22160,7 +22565,7 @@ GROUP BY
     , COALESCE(od.delivery_date, o.delivery_date)::DATE
     , COALESCE(sd.estimated_shipping_date, so.estimated_shipping_date)::DATE
     , rc.last_shipping_date::DATE
-;
+
 ;
 
 -- 4. 出荷予定受注実績状況
@@ -22253,7 +22658,7 @@ GROUP BY
     , x.mstr_item_provision_ids
     , x.period
     , x.is_received
-;
+
 ;
 
 -- 3.1 発注納期遵守状況
@@ -22333,7 +22738,7 @@ GROUP BY
     , pr.mstr_item_provision_ids
     , pd.period::DATE
     , (COALESCE(rc.received_quantity, 0) >= COALESCE(pd.quantity, 0))
-;
+
 ;
 
 -- 3. 発注金額合計
@@ -22411,7 +22816,6 @@ GROUP BY
     , pr.mstr_item_provision_ids
     , COALESCE(od.delivery_date, o.delivery_date)::DATE
     , (COALESCE(sh.shipped_quantity, 0) >= od.quantity)
-;
 
 ;
 
@@ -22453,7 +22857,6 @@ GROUP BY
     d.info_company_id
     , a.info_department_id
     , a.info_position_id
-;
 
 ;
 
