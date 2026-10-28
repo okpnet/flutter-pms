@@ -200,19 +200,21 @@ class UniqueIndex{
     Attr="";
     IsIndex=0;
     IsUniqueIndex=false;
+    optionValue="";
     //コンストラクタ
-    function UniqueIndex(tableName,attr,isUniqueIndex,index){
+    function UniqueIndex(tableName,attr,isUniqueIndex,index,option){
         IsIndex=index;
         Name=tableName;
         Attr=attr;
         IsUniqueIndex=isUniqueIndex;
+        optionValue=option;
     }
     //クエリ生成
     function GetQuery(schema){
         if(IsUniqueIndex == true){
             return "create unique index "+ GetName() + CR + ext.tabs(1) + " on " +schema+"."+Name+ "("+Attr+");"; 
         }
-        return "alter table "+schema+"."+Name + CR + ext.tabs(1) + " add constraint " + GetName() + " unique ("+Attr+");" +CR;
+        return "alter table "+schema+"."+Name + CR + ext.tabs(1) + " add constraint " + GetName() + " unique "+optionValue+" ("+Attr+");" +CR;
     }
     //名前
     function GetName(){
@@ -419,7 +421,7 @@ class Entity{
                 //ERに追加しているインデックス
                 //0:指定されていない 1ユニークインデックス: 2:ユニーク制約
                 if(entity.indexes[index].indexType==0) continue;
-                UniqueIndexs.add(new UniqueIndex(Name,entity.indexes[index].attributes,entity.indexes[index].indexType==1,UniqueIndexs.length+1));
+                UniqueIndexs.add(new UniqueIndex(Name,entity.indexes[index].attributes,entity.indexes[index].indexType==1,UniqueIndexs.length+1,entity.indexes[index].option));
             }
 
             var triggerRel=ext.toFirst(relations,function(e){return (e.entityPName1==Name && e.entityPName2==("history_"+Name));});
@@ -610,34 +612,33 @@ class Hierarchy{
         var result="DROP TRIGGER IF EXISTS "+HIERARCHY_METHOD_PRIFIX+"_"+parentEntity+" on "+schema+"."+parentEntity+";"+CR;
         return result;
     }
-    //トリガー生成
+//トリガー生成 (階層: 閉包テーブルを体系テーブルから作り直す方式)
+    //  体系の行が変わるたびに、その子ノード(新旧)と子孫について、閉包を
+    //  体系テーブル(remove=false の行)から作り直す。親が複数(共通部品)でも、
+    //  子を親より先に登録しても正しくなる。閉包は (祖先, 子孫) の組を1行だけ持つ。
     function GetQuery(schema){
         var reg=new RegExp(",");
         var parentReg=new RegExp("^parent_");
-		var propLen=ext.count(Relations);
-		
-		var parentEntity=Relations[0].entityPName1;
-		var hierarchyEntity=Relations[0].entityPName2;
-		
+
+        var parentEntity=Relations[0].entityPName1;    // 体系テーブル (例: mstr_item_tree)
+        var hierarchyEntity=Relations[0].entityPName2; // 閉包テーブル (例: hrchy_mstr_item)
+
         var ancestor=ext.toFirst(Relations,function(e){
             var cols=reg.split(e.attributes1);
             return ext.toAny(cols,function(col){return parentReg.test(col);});
         });
-        
         var descendant=ext.toFirst(Relations,function(e){
-			return e!=ancestor;
+            return e!=ancestor;
         });
-        
         if(ancestor==null || descendant==null){
             println("Column in " + parentEntity +" name starting with 'parent_' does not exist.");
             return "";
         }
+        var ancestorParent=reg.split(ancestor.attributes1);     // 体系の親列   (parent_mstr_item_id)
+        var ancestorChild=reg.split(ancestor.attributes2);      // 閉包の祖先列 (ancestor_mstr_item_id)
+        var descendantParent=reg.split(descendant.attributes1); // 体系の子列   (mstr_item_id)
+        var descendantChild=reg.split(descendant.attributes2);  // 閉包の子孫列 (descendant_mstr_item_id)
 
-        var ancestorParent=reg.split(ancestor.attributes1);
-        var ancestorChild=reg.split(ancestor.attributes2);
-        var descendantParent=reg.split(descendant.attributes1);
-        var descendantChild=reg.split(descendant.attributes2);
-        
         var strFunc=function(buffers,joinWord,bufFunc){
             var len=ext.count(buffers);
             var result="";
@@ -649,215 +650,139 @@ class Hierarchy{
             }
             return result;
         };
+        // 列の並び: prefix+列名 をカンマ区切り
+        var list=function(cols,prefix){
+            return strFunc(cols,", ",function(e,i){return prefix+e;});
+        };
+        // 循環チェック用のキー文字列: ROW(列...)::text (複合キーにも対応)
+        var rowText=function(cols,prefix){
+            return "ROW("+list(cols,prefix)+")::text";
+        };
+        // 結合条件: a[i] = b[i] を AND でつなぐ
+        var joinCond=function(colsA,prefixA,colsB,prefixB){
+            return strFunc(colsA," AND ",function(e,i){return prefixA+e+" = "+prefixB+colsB[i];});
+        };
+        var tree=schema+"."+parentEntity;
+        var hrchy=schema+"."+hierarchyEntity;
+        var node=descendantParent;   // 体系の子列
+        var parent=ancestorParent;   // 体系の親列 (node と同じ順)
+
+        // 影響を受けるノード: 子ノード(新旧) と、体系(有効な行)でたどった子孫
+        var dnCte=function(t){
+            var r="";
+            r+=ext.tabs(t)+"dn("+list(node,"")+", path) AS"+CR;
+            r+=ext.tabs(t)+"("+CR;
+            r+=ext.tabs(t+1)+"SELECT"+CR;
+            r+=ext.tabs(t+2)+list(node,"x.")+","+CR;
+            r+=ext.tabs(t+2)+"ARRAY["+rowText(node,"x.")+"]"+CR;
+            r+=ext.tabs(t+1)+"FROM"+CR;
+            r+=ext.tabs(t+2)+"(VALUES ("+list(node,"v_new.")+"), ("+list(node,"v_old.")+")) AS x("+list(node,"")+")"+CR;
+            r+=ext.tabs(t+1)+"UNION"+CR;
+            r+=ext.tabs(t+1)+"SELECT"+CR;
+            r+=ext.tabs(t+2)+list(node,"t.")+","+CR;
+            r+=ext.tabs(t+2)+"dn.path || "+rowText(node,"t.")+CR;
+            r+=ext.tabs(t+1)+"FROM"+CR;
+            r+=ext.tabs(t+2)+"dn"+CR;
+            r+=ext.tabs(t+1)+"INNER JOIN"+CR;
+            r+=ext.tabs(t+2)+tree+" AS t"+CR;
+            r+=ext.tabs(t+1)+"ON"+CR;
+            r+=ext.tabs(t+2)+joinCond(parent,"t.",node,"dn.")+CR;
+            r+=ext.tabs(t+2)+"AND t.remove IS FALSE"+CR;
+            r+=ext.tabs(t+1)+"WHERE"+CR;
+            r+=ext.tabs(t+2)+"NOT "+rowText(node,"t.")+" = ANY (dn.path) --循環の保護"+CR;
+            r+=ext.tabs(t)+")";
+            return r;
+        };
+        // 祖先: 影響を受けるノードから、体系(有効な行)を親へたどる (自分自身を含む)
+        var upCte=function(t){
+            var r="";
+            r+=ext.tabs(t)+"up("+list(node,"d_")+", "+list(node,"a_")+", path) AS"+CR;
+            r+=ext.tabs(t)+"("+CR;
+            r+=ext.tabs(t+1)+"SELECT DISTINCT"+CR;
+            r+=ext.tabs(t+2)+list(node,"dn.")+","+CR;
+            r+=ext.tabs(t+2)+list(node,"dn.")+","+CR;
+            r+=ext.tabs(t+2)+"ARRAY["+rowText(node,"dn.")+"]"+CR;
+            r+=ext.tabs(t+1)+"FROM"+CR;
+            r+=ext.tabs(t+2)+"dn"+CR;
+            r+=ext.tabs(t+1)+"WHERE"+CR;
+            r+=ext.tabs(t+2)+"EXISTS (SELECT 1 FROM "+tree+" AS t WHERE "+joinCond(node,"t.",node,"dn.")+" AND t.remove IS FALSE)"+CR;
+            r+=ext.tabs(t+1)+"UNION"+CR;
+            r+=ext.tabs(t+1)+"SELECT"+CR;
+            r+=ext.tabs(t+2)+list(node,"up.d_")+","+CR;
+            r+=ext.tabs(t+2)+list(parent,"t.")+","+CR;
+            r+=ext.tabs(t+2)+"up.path || "+rowText(parent,"t.")+CR;
+            r+=ext.tabs(t+1)+"FROM"+CR;
+            r+=ext.tabs(t+2)+"up"+CR;
+            r+=ext.tabs(t+1)+"INNER JOIN"+CR;
+            r+=ext.tabs(t+2)+tree+" AS t"+CR;
+            r+=ext.tabs(t+1)+"ON"+CR;
+            r+=ext.tabs(t+2)+joinCond(node,"t.",node,"up.a_")+CR;
+            r+=ext.tabs(t+2)+"AND t.remove IS FALSE"+CR;
+            r+=ext.tabs(t+2)+"AND t."+parent[0]+" IS NOT NULL"+CR;
+            r+=ext.tabs(t+1)+"WHERE"+CR;
+            r+=ext.tabs(t+2)+"NOT "+rowText(parent,"t.")+" = ANY (up.path) --循環の保護"+CR;
+            r+=ext.tabs(t)+")";
+            return r;
+        };
+        // 閉包に入れる共通列の値: remove は常に FALSE、ほかは変更された体系の行から
+        var commonValue=function(e,i){
+            if(e.pName=="remove"){
+                return "FALSE";
+            }
+            return "v_new."+e.pName;
+        };
 
         var result="-- "+parentEntity+" hierarchy table after trigger"+CR;
-
         result+="CREATE OR REPLACE FUNCTION "+schema+"."+HIERARCHY_METHOD_PRIFIX+"_"+parentEntity+"() RETURNS trigger AS"+CR;
         result+="$BODY$"+CR;
         result+="DECLARE"+CR;
-        result+=ext.tabs(1)+"counter int;"+CR;
+        result+=ext.tabs(1)+"v_new "+tree+"%ROWTYPE;"+CR;
+        result+=ext.tabs(1)+"v_old "+tree+"%ROWTYPE;"+CR;
         result+="BEGIN"+CR;
         result+=ext.tabs(1)+"IF (TG_OP='INSERT') THEN"+CR;
-        result+=ext.tabs(2)+"INSERT INTO "+schema+"."+hierarchyEntity+CR;
-        result+=ext.tabs(2)+"("+CR;
-        result+=ext.tabs(3)+strFunc(ancestorChild,","+CR+ext.tabs(3),function(e,i){return e;})+","+CR;
-        result+=ext.tabs(3)+strFunc(descendantChild,","+CR+ext.tabs(3),function(e,i){return e;})+","+CR;
-        result+=ext.tabs(3)+strFunc(commonAttrs,","+CR+ext.tabs(3),function(e,i){return e.pName;})+CR;
-        result+=ext.tabs(2)+")"+CR;
-        result+=ext.tabs(2)+"VALUES"+CR;
-        result+=ext.tabs(2)+"("+CR;
-        result+=ext.tabs(3)+strFunc(descendantParent,","+CR+ext.tabs(3),function(e,i){return "NEW."+e;})+","+CR;
-        result+=ext.tabs(3)+strFunc(descendantParent,","+CR+ext.tabs(3),function(e,i){return "NEW."+e;})+","+CR;
-        result+=ext.tabs(3)+strFunc(commonAttrs,","+CR+ext.tabs(3),function(e,i){
-            return "NEW."+e.pName;
-        })+CR;
-        result+=ext.tabs(2)+");"+CR;
-		result+=CR;
-        result+=ext.tabs(2)+"INSERT INTO "+schema+"."+hierarchyEntity+CR;
-        result+=ext.tabs(2)+"("+CR;
-        result+=ext.tabs(3)+strFunc(ancestorChild,","+CR+ext.tabs(3),function(e,i){return e;})+","+CR;
-        result+=ext.tabs(3)+strFunc(descendantChild,","+CR+ext.tabs(3),function(e,i){return e;})+","+CR;
-        result+=ext.tabs(3)+strFunc(commonAttrs,","+CR+ext.tabs(3),function(e,i){return e.pName;})+CR;
-        result+=ext.tabs(2)+")"+CR;
-        result+=ext.tabs(2)+"SELECT"+CR;
-        result+=ext.tabs(3)+strFunc(ancestorChild,","+CR+ext.tabs(3),function(e,i){return e;})+","+CR;
-        result+=ext.tabs(3)+strFunc(descendantParent,","+CR+ext.tabs(3),function(e,i){return "NEW."+e;})+","+CR;
-        result+=ext.tabs(3)+strFunc(commonAttrs,","+CR+ext.tabs(3),function(e,i){
-            return "NEW."+e.pName;
-        })+CR;
-        result+=ext.tabs(2)+"FROM"+CR;
-        result+=ext.tabs(3)+schema+"."+hierarchyEntity+CR;
-        result+=ext.tabs(2)+"WHERE"+CR;
-		result+=ext.tabs(3)+"("+CR+strFunc(descendantChild,ext.tabs(3)+"AND"+CR,function(e,i){
-			return ext.tabs(4)+ e + "= NEW." + ancestorParent[i] + CR;
-		});
-		result+=ext.tabs(3)+")"+CR;
-        result+=ext.tabs(2)+"AND"+CR;
-        result+=ext.tabs(3)+"remove=FALSE;"+CR;
-		result+=CR;
-        result+=ext.tabs(1)+"ELSEIF (TG_OP = 'UPDATE') THEN"+CR;
-		result+=ext.tabs(2)+"IF "+strFunc(ancestorParent," OR ",function(e,i){return "(NEW."+e+ " IS DISTINCT FROM " +"OLD."+e+")";})+" THEN";
-        result+=" --親の付けかえ"+CR;
-        result+=ext.tabs(3)+"DELETE--子孫削除"+CR;
-        result+=ext.tabs(3)+"FROM"+CR;
-        result+=ext.tabs(4)+schema+"."+hierarchyEntity+" h"+CR;
-        result+=ext.tabs(3)+"WHERE"+CR;
-        result+=ext.tabs(4)+"EXISTS"+CR;
-        result+=ext.tabs(4)+"("+CR;
-        result+=ext.tabs(5)+"SELECT"+CR;
-        result+=ext.tabs(6)+"1"+CR;
-        result+=ext.tabs(5)+"FROM"+CR;
-        result+=ext.tabs(6)+schema+"."+hierarchyEntity+" h1"+CR;
-        result+=ext.tabs(5)+"WHERE"+CR;
-		result+=ext.tabs(5)+"("+CR+strFunc(ancestorChild,ext.tabs(6)+"AND"+CR,function(e,i){
-			return ext.tabs(6)+"h1."+ e + "= NEW." + descendantParent[i] + CR;
-		});
-		result+=ext.tabs(5)+")"+CR;
-        result+=ext.tabs(5)+"AND"+CR;
-				result+=ext.tabs(5)+"("+CR+strFunc(descendantChild,ext.tabs(6)+"AND"+CR,function(e,i){
-			return ext.tabs(6)+"h1."+ e + "= h." + e + CR;
-		});
-        result+=ext.tabs(5)+")"+CR;
-		result+=ext.tabs(4)+")"+CR;
-        result+=ext.tabs(4)+"AND"+CR;
-        result+=ext.tabs(5)+"NOT"+CR;
-        result+=ext.tabs(5)+"("+CR+strFunc(ancestorChild,ext.tabs(6)+"AND"+CR,function(e,i){
-			return ext.tabs(6)+"h."+ e + " = h." + descendantChild[i] + CR;
-		});
-        result+=ext.tabs(5)+")"+CR;
-        result+=ext.tabs(4)+"AND"+CR;
-        result+=ext.tabs(5)+"NOT"+CR;
-				result+=ext.tabs(5)+"("+CR+strFunc(ancestorChild,ext.tabs(6)+"AND"+CR,function(e,i){
-			return ext.tabs(6)+"h."+ e + " = NEW." + descendantParent[i] + CR;
-		});
-        result+=ext.tabs(5)+");"+CR;
-        result+=ext.tabs(3)+"--挿入"+CR;
-        result+=ext.tabs(3)+"INSERT INTO "+schema+"."+hierarchyEntity+CR;
-        result+=ext.tabs(3)+"("+CR;
-        result+=ext.tabs(4)+strFunc(ancestorChild,","+CR+ext.tabs(4),function(e,i){return e;})+","+CR;
-        result+=ext.tabs(4)+strFunc(descendantChild,","+CR+ext.tabs(4),function(e,i){return e;})+","+CR;
-        result+=ext.tabs(4)+strFunc(commonAttrs,","+CR+ext.tabs(4),function(e,i){return e.pName;})+CR;
-        result+=ext.tabs(3)+")"+CR;
-        result+=ext.tabs(3)+"SELECT"+CR;
-        result+=ext.tabs(4)+strFunc(ancestorChild,","+CR+ext.tabs(4),function(e,i){return "h."+e;})+","+CR;
-        result+=ext.tabs(4)+strFunc(descendantChild,","+CR+ext.tabs(4),function(e,i){return "h1."+e;})+","+CR;
-        result+=ext.tabs(4)+strFunc(commonAttrs,","+CR+ext.tabs(4),function(e,i){
-            return "NEW."+e.pName;
-        })+CR;
-        result+=ext.tabs(3)+"FROM"+CR;
-        result+=ext.tabs(4)+schema+"."+hierarchyEntity+" h"+CR;
-        result+=ext.tabs(3)+"CROSS JOIN"+CR;
-        result+=ext.tabs(4)+schema+"."+hierarchyEntity+" h1"+CR;
-        result+=ext.tabs(3)+"WHERE"+CR;
-        result+=ext.tabs(3)+"("+CR+strFunc(descendantChild,ext.tabs(4)+"AND"+CR,function(e,i){
-			return ext.tabs(4)+"h."+ e + "= NEW." + ancestorParent[i] + CR;
-		});
-        result+=ext.tabs(3)+")"+CR;
-        result+=ext.tabs(3)+"AND"+CR;
-        result+=ext.tabs(4)+"EXISTS"+CR;
-        result+=ext.tabs(4)+"("+CR;
-        result+=ext.tabs(5)+"SELECT"+CR;
-        result+=ext.tabs(6)+"1"+CR;
-        result+=ext.tabs(5)+"FROM"+CR;
-        result+=ext.tabs(6)+schema+"."+hierarchyEntity+" h2"+CR;
-        result+=ext.tabs(5)+"WHERE"+CR;
-        result+=ext.tabs(6)+"("+CR+strFunc(ancestorChild,ext.tabs(7)+"AND"+CR,function(e,i){
-			return ext.tabs(7)+"h2."+ e + " = h1." + e + CR;
-		});
-        result+=ext.tabs(6)+")"+CR;
-        result+=ext.tabs(6)+"AND"+CR;
-        result+=ext.tabs(6)+"("+CR+strFunc(ancestorChild,ext.tabs(7)+"AND"+CR,function(e,i){
-			return ext.tabs(7)+"h2."+ e + "= NEW." + descendantParent[i] + CR;
-		});
-        result+=ext.tabs(6)+")"+CR;
-        result+=ext.tabs(4)+");"+CR;
-        result+=ext.tabs(2)+"ELSE"+CR;
-        result+=ext.tabs(2)+"--子孫共々その他の更新。"+CR;
-        result+=ext.tabs(3)+"UPDATE"+CR;
-        result+=ext.tabs(4)+schema+"."+hierarchyEntity+CR;
-        result+=ext.tabs(3)+"SET"+CR;
-        //コモンドメイン
-        result+=strFunc(commonAttrs,","+CR,function(e,i){
-			return ext.tabs(4)+ e.pName + "= NEW." + e.pName;
-		})+CR;
-        result+=ext.tabs(3)+"WHERE"+CR;
-        result+=ext.tabs(4)+"EXISTS"+CR;
-        result+=ext.tabs(4)+"("+CR;
-        result+=ext.tabs(5)+"SELECT"+CR;
-        result+=ext.tabs(6)+"1"+CR;
-        result+=ext.tabs(5)+"FROM"+CR;
-        result+=ext.tabs(6)+schema+"."+hierarchyEntity+" h1"+CR;
-        result+=ext.tabs(5)+"WHERE"+CR;
-        result+=ext.tabs(6)+"("+CR+strFunc(ancestorChild,ext.tabs(7)+"AND"+CR,function(e,i){
-			return ext.tabs(7)+"h1."+ e + "= NEW." + descendantParent[i] + CR;
-		});
-        result+=ext.tabs(6)+")"+CR;
-        result+=ext.tabs(6)+"AND"+CR;
-        result+=ext.tabs(6)+"("+CR+strFunc(descendantChild,ext.tabs(7)+"AND"+CR,function(e,i){
-			return ext.tabs(7)+"h1."+ e + " = "+hierarchyEntity + "." + e + CR;
-		});
-        result+=ext.tabs(6)+")"+CR;
-        result+=ext.tabs(4)+");"+CR;
+        result+=ext.tabs(2)+"v_new:=NEW;"+CR;
+        result+=ext.tabs(2)+"v_old:=NEW;"+CR;
+        result+=ext.tabs(1)+"ELSEIF (TG_OP='UPDATE') THEN"+CR;
+        result+=ext.tabs(2)+"--子・親・削除が変わらない更新は閉包に影響しない"+CR;
+        result+=ext.tabs(2)+"IF ("+list(node,"NEW.")+", "+list(parent,"NEW.")+", NEW.remove) IS NOT DISTINCT FROM ("+list(node,"OLD.")+", "+list(parent,"OLD.")+", OLD.remove) THEN"+CR;
+        result+=ext.tabs(3)+"RETURN NULL;"+CR;
         result+=ext.tabs(2)+"END IF;"+CR;
-        result+=ext.tabs(1)+"ELSEIF (TG_OP = 'DELETE') THEN"+CR;
-        result+=ext.tabs(2)+"DELETE--子孫削除"+CR;
-        result+=ext.tabs(2)+"FROM"+CR;
-        result+=ext.tabs(3)+schema+"."+hierarchyEntity+" h"+CR;
-        result+=ext.tabs(2)+"WHERE"+CR;
-        result+=ext.tabs(3)+"EXISTS"+CR;
-        result+=ext.tabs(3)+"("+CR;
-        result+=ext.tabs(4)+"SELECT"+CR;
-        result+=ext.tabs(5)+"1"+CR;
-        result+=ext.tabs(4)+"FROM"+CR;
-        result+=ext.tabs(5)+schema+"."+hierarchyEntity+" h1"+CR;
-        result+=ext.tabs(4)+"WHERE"+CR;
-        result+=ext.tabs(5)+"("+CR+strFunc(ancestorChild,ext.tabs(6)+"AND"+CR,function(e,i){
-			return ext.tabs(6)+"h1."+ e + "= OLD." + descendantParent[i] + CR;
-		});
-        result+=ext.tabs(5)+")"+CR;
-        result+=ext.tabs(5)+"AND"+CR;
-        result+=ext.tabs(5)+"("+CR+strFunc(descendantChild,ext.tabs(6)+"AND"+CR,function(e,i){
-			return ext.tabs(6)+"h1."+ e + "= h." + e + CR;
-		});
-        result+=ext.tabs(5)+")"+CR;
-        result+=ext.tabs(3)+");"+CR;
-        result+=CR;
-        result+=ext.tabs(2)+"SELECT"+CR;
-        result+=ext.tabs(3)+"COUNT(*) INTO counter"+CR;
-        result+=ext.tabs(2)+"FROM"+CR;
-        result+=ext.tabs(3)+schema+"."+parentEntity+" h"+CR;
-        result+=ext.tabs(2)+"WHERE"+CR;
-        result+=ext.tabs(3)+"NOT EXISTS"+CR;
-        result+=ext.tabs(3)+"("+CR;
-        result+=ext.tabs(4)+"SELECT"+CR;
-        result+=ext.tabs(5)+"1"+CR;
-        result+=ext.tabs(4)+"FROM"+CR;
-        result+=ext.tabs(5)+schema+"."+hierarchyEntity+" h1"+CR;
-        result+=ext.tabs(4)+"WHERE"+CR;
-        result+=ext.tabs(5)+"("+CR+strFunc(descendantChild,ext.tabs(6)+"AND"+CR,function(e,i){
-			return ext.tabs(6)+"h1."+ e + "= h." + descendantParent[i] + CR;
-		});
-        result+=ext.tabs(5)+")"+CR;
-        result+=ext.tabs(3)+");"+CR;
-        result+=ext.tabs(2)+"IF (counter>0) THEN"+CR;
-        result+=ext.tabs(3)+"DELETE"+CR;
-        result+=ext.tabs(3)+"FROM"+CR;
-        result+=ext.tabs(4)+schema+"."+parentEntity+" h"+CR;
-        result+=ext.tabs(3)+"WHERE"+CR;
-        result+=ext.tabs(3)+"NOT EXISTS"+CR;
-        result+=ext.tabs(3)+"("+CR;
-        result+=ext.tabs(4)+"SELECT"+CR;
-        result+=ext.tabs(5)+"1"+CR;
-        result+=ext.tabs(4)+"FROM"+CR;
-        result+=ext.tabs(5)+schema+"."+hierarchyEntity+" h1"+CR;
-        result+=ext.tabs(4)+"WHERE"+CR;
-        result+=ext.tabs(5)+"("+CR+strFunc(descendantChild,ext.tabs(6)+"AND"+CR,function(e,i){
-			return ext.tabs(6)+"h1."+ e + "= h." + descendantParent[i] + CR;
-		});
-        result+=ext.tabs(5)+")"+CR;
-        result+=ext.tabs(3)+");"+CR;
-        result+=ext.tabs(2)+"END IF;"+CR;
+        result+=ext.tabs(2)+"v_new:=NEW;"+CR;
+        result+=ext.tabs(2)+"v_old:=OLD;"+CR;
+        result+=ext.tabs(1)+"ELSE"+CR;
+        result+=ext.tabs(2)+"v_new:=OLD;"+CR;
+        result+=ext.tabs(2)+"v_old:=OLD;"+CR;
         result+=ext.tabs(1)+"END IF;"+CR;
+        result+=CR;
+        result+=ext.tabs(1)+"--影響を受けるノードの閉包を削除"+CR;
+        result+=ext.tabs(1)+"DELETE"+CR;
+        result+=ext.tabs(1)+"FROM"+CR;
+        result+=ext.tabs(2)+hrchy+" AS h"+CR;
+        result+=ext.tabs(1)+"WHERE"+CR;
+        result+=ext.tabs(2)+"("+list(descendantChild,"h.")+") IN"+CR;
+        result+=ext.tabs(2)+"("+CR;
+        result+=ext.tabs(3)+"WITH RECURSIVE"+CR;
+        result+=dnCte(3)+CR;
+        result+=ext.tabs(3)+"SELECT "+list(node,"dn.")+" FROM dn"+CR;
+        result+=ext.tabs(2)+");"+CR;
+        result+=CR;
+        result+=ext.tabs(1)+"--体系(有効な行)から作り直す"+CR;
+        result+=ext.tabs(1)+"INSERT INTO "+hrchy+CR;
+        result+=ext.tabs(1)+"("+CR;
+        result+=ext.tabs(2)+strFunc(ancestorChild,","+CR+ext.tabs(2),function(e,i){return e;})+","+CR;
+        result+=ext.tabs(2)+strFunc(descendantChild,","+CR+ext.tabs(2),function(e,i){return e;})+","+CR;
+        result+=ext.tabs(2)+strFunc(commonAttrs,","+CR+ext.tabs(2),function(e,i){return e.pName;})+CR;
+        result+=ext.tabs(1)+")"+CR;
+        result+=ext.tabs(1)+"WITH RECURSIVE"+CR;
+        result+=dnCte(1)+","+CR;
+        result+=upCte(1)+CR;
+        result+=ext.tabs(1)+"SELECT DISTINCT"+CR;
+        result+=ext.tabs(2)+strFunc(node,","+CR+ext.tabs(2),function(e,i){return "up.a_"+e;})+","+CR;
+        result+=ext.tabs(2)+strFunc(node,","+CR+ext.tabs(2),function(e,i){return "up.d_"+e;})+","+CR;
+        result+=ext.tabs(2)+strFunc(commonAttrs,","+CR+ext.tabs(2),commonValue)+CR;
+        result+=ext.tabs(1)+"FROM"+CR;
+        result+=ext.tabs(2)+"up;"+CR;
+        result+=CR;
         result+=ext.tabs(1)+"RETURN NULL;"+CR;
         result+="END"+CR;
         result+="$BODY$"+CR;
@@ -865,7 +790,6 @@ class Hierarchy{
         result+="CREATE OR REPLACE TRIGGER "+HIERARCHY_METHOD_PRIFIX+"_"+parentEntity+" AFTER INSERT OR UPDATE OR DELETE ON "+schema+"."+parentEntity+" FOR EACH ROW EXECUTE"+CR;
         result+="PROCEDURE "+schema+"."+HIERARCHY_METHOD_PRIFIX+"_"+parentEntity+"();"+CR;
         result+=CR;
-        //println(result);
         return result;
     }
 }

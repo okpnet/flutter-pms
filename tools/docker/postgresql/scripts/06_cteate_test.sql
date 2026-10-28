@@ -106,7 +106,7 @@ create table tests.history_mstr_item_task_cost (
 );
 create table tests.mstr_item_task_cost (
     mstr_item_task_cost_id uuid default gen_random_uuid(),
-    mstr_item_id uuid default gen_random_uuid(),
+    mstr_item_id uuid not null,
     mstr_task_location_id uuid not null,
     cost decimal(10,2) default 0,
     revision integer default 1,
@@ -938,7 +938,7 @@ create table tests.history_mstr_document_tree (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
-create table tests.hrchy_mstr_documet (
+create table tests.hrchy_mstr_document (
     hrchy_mstr_document_id uuid default gen_random_uuid(),
     ancestor_mstr_document_id uuid default null,
     descendant_mstr_document_id uuid not null,
@@ -1429,6 +1429,7 @@ create table tests.history_mstr_task_location (
     mstr_task_id uuid not null,
     info_department_id uuid default null,
     mstr_location_id uuid default null,
+    priority integer default 1,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -1442,6 +1443,7 @@ create table tests.mstr_task_location (
     mstr_task_id uuid not null,
     info_department_id uuid default null,
     mstr_location_id uuid default null,
+    priority integer default 1,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2828,7 +2830,7 @@ create table tests.trans_inventory_request (
     symbol varchar(16) default '',
     staff_history_id uuid not null,
     staff_id uuid not null,
-    trans_resource_plan_id uuid default gen_random_uuid(),
+    trans_resource_plan_id uuid default null,
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -3128,8 +3130,9 @@ create table tests.trans_work_plan (
 );
 create table tests.trans_operations_plan (
     trans_operations_plan_id uuid default gen_random_uuid(),
-    trans_resource_plan_id uuid default null,
+    trans_resource_plan_id uuid not null,
     deadline timestamp default null,
+    quantity decimal(10,2) default 0,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -4271,15 +4274,15 @@ comment on column tests.history_mstr_document_tree.update_at is '更新日時';
 comment on column tests.history_mstr_document_tree.update_user_id is '更新者ID';
 comment on column tests.history_mstr_document_tree.update_user_history_id is '更新者履歴ID';
 comment on column tests.history_mstr_document_tree.remove is '削除';
-comment on table tests.hrchy_mstr_documet is '文書階層情報';
-comment on column tests.hrchy_mstr_documet.hrchy_mstr_document_id is '文書階層ID';
-comment on column tests.hrchy_mstr_documet.ancestor_mstr_document_id is '祖先文書ID';
-comment on column tests.hrchy_mstr_documet.descendant_mstr_document_id is '子孫文書ID';
-comment on column tests.hrchy_mstr_documet.remarks is '備考';
-comment on column tests.hrchy_mstr_documet.update_at is '更新日時';
-comment on column tests.hrchy_mstr_documet.update_user_id is '更新者ID';
-comment on column tests.hrchy_mstr_documet.update_user_history_id is '更新者履歴ID';
-comment on column tests.hrchy_mstr_documet.remove is '削除';
+comment on table tests.hrchy_mstr_document is '文書階層情報';
+comment on column tests.hrchy_mstr_document.hrchy_mstr_document_id is '文書階層ID';
+comment on column tests.hrchy_mstr_document.ancestor_mstr_document_id is '祖先文書ID';
+comment on column tests.hrchy_mstr_document.descendant_mstr_document_id is '子孫文書ID';
+comment on column tests.hrchy_mstr_document.remarks is '備考';
+comment on column tests.hrchy_mstr_document.update_at is '更新日時';
+comment on column tests.hrchy_mstr_document.update_user_id is '更新者ID';
+comment on column tests.hrchy_mstr_document.update_user_history_id is '更新者履歴ID';
+comment on column tests.hrchy_mstr_document.remove is '削除';
 comment on table tests.mstr_document_tree is '文書体系情報';
 comment on column tests.mstr_document_tree.mstr_document_tree_id is '文書体系ID';
 comment on column tests.mstr_document_tree.mstr_document_id is '自文書ID';
@@ -4727,6 +4730,7 @@ comment on column tests.history_mstr_task_location.mstr_task_location_id is '工
 comment on column tests.history_mstr_task_location.mstr_task_id is '工程ID';
 comment on column tests.history_mstr_task_location.info_department_id is '組織情報ID';
 comment on column tests.history_mstr_task_location.mstr_location_id is '場所ID';
+comment on column tests.history_mstr_task_location.priority is '優先順';
 comment on column tests.history_mstr_task_location.revision is 'レビジョン';
 comment on column tests.history_mstr_task_location.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_task_location.remarks is '備考';
@@ -4739,6 +4743,7 @@ comment on column tests.mstr_task_location.mstr_task_location_id is '工程場�
 comment on column tests.mstr_task_location.mstr_task_id is '工程ID';
 comment on column tests.mstr_task_location.info_department_id is '組織情報ID';
 comment on column tests.mstr_task_location.mstr_location_id is '場所ID';
+comment on column tests.mstr_task_location.priority is '優先順位';
 comment on column tests.mstr_task_location.revision is 'レビジョン';
 comment on column tests.mstr_task_location.symbol is 'リニアシンボル';
 comment on column tests.mstr_task_location.remarks is '備考';
@@ -6311,6 +6316,7 @@ comment on table tests.trans_operations_plan is '生産計画';
 comment on column tests.trans_operations_plan.trans_operations_plan_id is '生産計画ID';
 comment on column tests.trans_operations_plan.trans_resource_plan_id is '資材計画ID';
 comment on column tests.trans_operations_plan.deadline is '完了期限';
+comment on column tests.trans_operations_plan.quantity is '生産数量';
 comment on column tests.trans_operations_plan.symbol is 'リニアシンボル';
 comment on column tests.trans_operations_plan.remarks is '備考';
 comment on column tests.trans_operations_plan.update_at is '更新日時';
@@ -6319,7 +6325,7 @@ comment on column tests.trans_operations_plan.update_user_history_id is '更新�
 comment on column tests.trans_operations_plan.remove is '削除';
 comment on table tests.trans_resource_plan is '資材計画';
 comment on column tests.trans_resource_plan.trans_resource_plan_id is '資材計画ID';
-comment on column tests.trans_resource_plan.parent_trans_operations_plan_id is '親資材計画ID';
+comment on column tests.trans_resource_plan.parent_trans_operations_plan_id is '親生産計画ID';
 comment on column tests.trans_resource_plan.trans_order_detail_id is '受注明細ID';
 comment on column tests.trans_resource_plan.trans_unrecognized_detail_id is '非計上明細ID';
 comment on column tests.trans_resource_plan.register_at is '登録日時';
@@ -6654,7 +6660,9 @@ create unique index mstr_item_task_cost_PKI
 alter table tests.mstr_item_task_cost
     add constraint mstr_item_task_cost_PKC primary key (mstr_item_task_cost_id);
 alter table tests.mstr_item_task_cost
-     add constraint mstr_item_task_cost_IX1 unique (symbol);
+     add constraint mstr_item_task_cost_IX1 unique  (symbol);
+alter table tests.mstr_item_task_cost
+     add constraint mstr_item_task_cost_IX2 unique  (mstr_item_id,mstr_task_location_id);
 create unique index history_mstr_work_calendar_PKI
     on tests.history_mstr_work_calendar(history_id,mstr_work_calendar_id);
 alter table tests.history_mstr_work_calendar
@@ -6664,153 +6672,153 @@ create unique index mstr_work_calendar_PKI
 alter table tests.mstr_work_calendar
     add constraint mstr_work_calendar_PKC primary key (mstr_work_calendar_id);
 alter table tests.mstr_work_calendar
-     add constraint mstr_work_calendar_IX1 unique (symbol);
+     add constraint mstr_work_calendar_IX1 unique  (symbol);
 alter table tests.mstr_work_calendar
-     add constraint mstr_work_calendar_IX2 unique (work_date,mstr_equipment_id);
+     add constraint mstr_work_calendar_IX2 unique nulls not distinct (work_date,mstr_equipment_id);
 create unique index history_mstr_item_operation_PKI
     on tests.history_mstr_item_operation(history_id,mstr_item_operation_id);
 alter table tests.history_mstr_item_operation
     add constraint history_mstr_item_operation_PKC primary key (history_id,mstr_item_operation_id);
 alter table tests.history_mstr_item_operation
-     add constraint history_mstr_item_operation_IX1 unique (mstr_item_operation_id,revision);
+     add constraint history_mstr_item_operation_IX1 unique  (mstr_item_operation_id,revision);
 create unique index mstr_item_operation_PKI
     on tests.mstr_item_operation(mstr_item_operation_id);
 alter table tests.mstr_item_operation
     add constraint mstr_item_operation_PKC primary key (mstr_item_operation_id);
 alter table tests.mstr_item_operation
-     add constraint mstr_item_operation_IX1 unique (symbol);
+     add constraint mstr_item_operation_IX1 unique  (symbol);
 create unique index trans_text_PKI
     on tests.trans_text(trans_text_id);
 alter table tests.trans_text
     add constraint trans_text_PKC primary key (trans_text_id);
 alter table tests.trans_text
-     add constraint trans_text_IX1 unique (symbol);
+     add constraint trans_text_IX1 unique  (symbol);
 create unique index trans_text_value_PKI
     on tests.trans_text_value(trans_text_value_id);
 alter table tests.trans_text_value
     add constraint trans_text_value_PKC primary key (trans_text_value_id);
 alter table tests.trans_text_value
-     add constraint trans_text_value_IX1 unique (symbol);
+     add constraint trans_text_value_IX1 unique  (symbol);
 alter table tests.trans_text_value
-     add constraint trans_text_value_IX2 unique (shared_language_code_id,trans_text_id);
+     add constraint trans_text_value_IX2 unique  (shared_language_code_id,trans_text_id);
 create unique index trans_label_value_PKI
     on tests.trans_label_value(trans_label_value_id);
 alter table tests.trans_label_value
     add constraint trans_label_value_PKC primary key (trans_label_value_id);
 alter table tests.trans_label_value
-     add constraint trans_label_value_IX1 unique (shared_language_code_id,trans_label_id);
+     add constraint trans_label_value_IX1 unique  (shared_language_code_id,trans_label_id);
 alter table tests.trans_label_value
-     add constraint trans_label_value_IX2 unique (symbol);
+     add constraint trans_label_value_IX2 unique  (symbol);
 create unique index history_shared_text_value_PKI
     on tests.history_shared_text_value(history_id,shared_text_value_id);
 alter table tests.history_shared_text_value
     add constraint history_shared_text_value_PKC primary key (history_id,shared_text_value_id);
 alter table tests.history_shared_text_value
-     add constraint history_shared_text_value_IX1 unique (shared_text_value_id,revision);
+     add constraint history_shared_text_value_IX1 unique  (shared_text_value_id,revision);
 create unique index trans_label_PKI
     on tests.trans_label(trans_label_id);
 alter table tests.trans_label
     add constraint trans_label_PKC primary key (trans_label_id);
 alter table tests.trans_label
-     add constraint trans_label_IX1 unique (symbol);
+     add constraint trans_label_IX1 unique  (symbol);
 create unique index trans_complaint_receive_PKI
     on tests.trans_complaint_receive(trans_complaint_receive_id);
 alter table tests.trans_complaint_receive
     add constraint trans_complaint_receive_PKC primary key (trans_complaint_receive_id);
 alter table tests.trans_complaint_receive
-     add constraint trans_complaint_receive_IX1 unique (symbol);
+     add constraint trans_complaint_receive_IX1 unique  (symbol);
 create unique index trans_complaint_file_PKI
     on tests.trans_complaint_file(trans_complaint_file_id);
 alter table tests.trans_complaint_file
     add constraint trans_complaint_file_PKC primary key (trans_complaint_file_id);
 alter table tests.trans_complaint_file
-     add constraint trans_complaint_file_IX1 unique (symbol);
+     add constraint trans_complaint_file_IX1 unique  (symbol);
 create unique index history_shared_text_PKI
     on tests.history_shared_text(history_id,shared_text_id);
 alter table tests.history_shared_text
     add constraint history_shared_text_PKC primary key (history_id,shared_text_id);
 alter table tests.history_shared_text
-     add constraint history_shared_text_IX1 unique (shared_text_id,revision);
+     add constraint history_shared_text_IX1 unique  (shared_text_id,revision);
 create unique index shared_text_PKI
     on tests.shared_text(shared_text_id);
 alter table tests.shared_text
     add constraint shared_text_PKC primary key (shared_text_id);
 alter table tests.shared_text
-     add constraint shared_text_IX1 unique (symbol);
+     add constraint shared_text_IX1 unique  (symbol);
 create unique index shared_text_value_PKI
     on tests.shared_text_value(shared_text_value_id);
 alter table tests.shared_text_value
     add constraint shared_text_value_PKC primary key (shared_text_value_id);
 alter table tests.shared_text_value
-     add constraint shared_text_value_IX1 unique (symbol);
+     add constraint shared_text_value_IX1 unique  (symbol);
 alter table tests.shared_text_value
-     add constraint shared_text_value_IX2 unique (shared_language_code_id,shared_text_id);
+     add constraint shared_text_value_IX2 unique  (shared_language_code_id,shared_text_id);
 create unique index history_mstr_item_lot_PKI
     on tests.history_mstr_item_lot(history_id,mstr_item_lot_id);
 alter table tests.history_mstr_item_lot
     add constraint history_mstr_item_lot_PKC primary key (history_id,mstr_item_lot_id);
 alter table tests.history_mstr_item_lot
-     add constraint history_mstr_item_lot_IX1 unique (mstr_item_lot_id,revision);
+     add constraint history_mstr_item_lot_IX1 unique  (mstr_item_lot_id,revision);
 create unique index mstr_item_lot_PKI
     on tests.mstr_item_lot(mstr_item_lot_id);
 alter table tests.mstr_item_lot
     add constraint mstr_item_lot_PKC primary key (mstr_item_lot_id);
 alter table tests.mstr_item_lot
-     add constraint mstr_item_lot_IX1 unique (symbol);
+     add constraint mstr_item_lot_IX1 unique  (symbol);
 create unique index history_info_department_kind_PKI
     on tests.history_info_department_kind(history_id,info_department_kind_id);
 alter table tests.history_info_department_kind
     add constraint history_info_department_kind_PKC primary key (history_id,info_department_kind_id);
 alter table tests.history_info_department_kind
-     add constraint history_info_department_kind_IX1 unique (info_department_kind_id,revision);
+     add constraint history_info_department_kind_IX1 unique  (info_department_kind_id,revision);
 create unique index history_info_department_kind_value_PKI
     on tests.history_info_department_kind_value(history_id,info_department_kind_value_id);
 alter table tests.history_info_department_kind_value
     add constraint history_info_department_kind_value_PKC primary key (history_id,info_department_kind_value_id);
 alter table tests.history_info_department_kind_value
-     add constraint history_info_department_kind_value_IX1 unique (info_department_kind_value_id,revision);
+     add constraint history_info_department_kind_value_IX1 unique  (info_department_kind_value_id,revision);
 create unique index info_department_kind_value_PKI
     on tests.info_department_kind_value(info_department_kind_value_id);
 alter table tests.info_department_kind_value
     add constraint info_department_kind_value_PKC primary key (info_department_kind_value_id);
 alter table tests.info_department_kind_value
-     add constraint info_department_kind_value_IX1 unique (symbol);
+     add constraint info_department_kind_value_IX1 unique  (symbol);
 create unique index info_department_kind_PKI
     on tests.info_department_kind(info_department_kind_id);
 alter table tests.info_department_kind
     add constraint info_department_kind_PKC primary key (info_department_kind_id);
 alter table tests.info_department_kind
-     add constraint info_department_kind_IX1 unique (info_department_id,info_department_kind_value_id);
+     add constraint info_department_kind_IX1 unique  (info_department_id,info_department_kind_value_id);
 alter table tests.info_department_kind
-     add constraint info_department_kind_IX2 unique (symbol);
+     add constraint info_department_kind_IX2 unique  (symbol);
 create unique index history_shared_dictionary_value_PKI
     on tests.history_shared_dictionary_value(history_id,shared_dictionary_value_id);
 alter table tests.history_shared_dictionary_value
     add constraint history_shared_dictionary_value_PKC primary key (history_id,shared_dictionary_value_id);
 alter table tests.history_shared_dictionary_value
-     add constraint history_shared_dictionary_value_IX1 unique (shared_dictionary_value_id,revision);
+     add constraint history_shared_dictionary_value_IX1 unique  (shared_dictionary_value_id,revision);
 create unique index history_shared_language_code_PKI
     on tests.history_shared_language_code(history_id,shared_language_code_id);
 alter table tests.history_shared_language_code
     add constraint history_shared_language_code_PKC primary key (history_id,shared_language_code_id);
 alter table tests.history_shared_language_code
-     add constraint history_shared_language_code_IX1 unique (shared_language_code_id,revision);
+     add constraint history_shared_language_code_IX1 unique  (shared_language_code_id,revision);
 create unique index shared_dictionary_value_PKI
     on tests.shared_dictionary_value(shared_dictionary_value_id);
 alter table tests.shared_dictionary_value
     add constraint shared_dictionary_value_PKC primary key (shared_dictionary_value_id);
 alter table tests.shared_dictionary_value
-     add constraint shared_dictionary_value_IX1 unique (shared_language_code_id,shared_dictionary_id);
+     add constraint shared_dictionary_value_IX1 unique  (shared_language_code_id,shared_dictionary_id);
 alter table tests.shared_dictionary_value
-     add constraint shared_dictionary_value_IX2 unique (symbol);
+     add constraint shared_dictionary_value_IX2 unique  (symbol);
 create unique index shared_language_code_PKI
     on tests.shared_language_code(shared_language_code_id);
 alter table tests.shared_language_code
     add constraint shared_language_code_PKC primary key (shared_language_code_id);
 alter table tests.shared_language_code
-     add constraint shared_language_code_IX1 unique (code);
+     add constraint shared_language_code_IX1 unique  (code);
 alter table tests.shared_language_code
-     add constraint shared_language_code_IX2 unique (symbol);
+     add constraint shared_language_code_IX2 unique  (symbol);
 create unique index shared_symbol_counter_PKI
     on tests.shared_symbol_counter(table_name ,yy,mm);
 alter table tests.shared_symbol_counter
@@ -6820,176 +6828,176 @@ create unique index history_mstr_inspection_kind_PKI
 alter table tests.history_mstr_inspection_kind
     add constraint history_mstr_inspection_kind_PKC primary key (history_id,mstr_inspection_kind_id);
 alter table tests.history_mstr_inspection_kind
-     add constraint history_mstr_inspection_kind_IX1 unique (mstr_inspection_kind_id,revision);
+     add constraint history_mstr_inspection_kind_IX1 unique  (mstr_inspection_kind_id,revision);
 create unique index mstr_inspection_kind_PKI
     on tests.mstr_inspection_kind(mstr_inspection_kind_id);
 alter table tests.mstr_inspection_kind
     add constraint mstr_inspection_kind_PKC primary key (mstr_inspection_kind_id);
 alter table tests.mstr_inspection_kind
-     add constraint mstr_inspection_kind_IX1 unique (symbol);
+     add constraint mstr_inspection_kind_IX1 unique  (symbol);
 create unique index history_mstr_packing_spec_PKI
     on tests.history_mstr_packing_spec(history_id,mstr_packing_spec_id);
 alter table tests.history_mstr_packing_spec
     add constraint history_mstr_packing_spec_PKC primary key (history_id,mstr_packing_spec_id);
 alter table tests.history_mstr_packing_spec
-     add constraint history_mstr_packing_spec_IX1 unique (mstr_packing_spec_id,revision);
+     add constraint history_mstr_packing_spec_IX1 unique  (mstr_packing_spec_id,revision);
 create unique index history_mstr_spec_measurement_PKI
     on tests.history_mstr_spec_measurement(history_id,mstr_spec_measurement_id);
 alter table tests.history_mstr_spec_measurement
     add constraint history_mstr_spec_measurement_PKC primary key (history_id,mstr_spec_measurement_id);
 alter table tests.history_mstr_spec_measurement
-     add constraint history_mstr_spec_measurement_IX1 unique (mstr_spec_measurement_id,revision);
+     add constraint history_mstr_spec_measurement_IX1 unique  (mstr_spec_measurement_id,revision);
 create unique index history_mstr_envelope_measurement_PKI
     on tests.history_mstr_envelope_measurement(history_id,mstr_envelope_measurement_id);
 alter table tests.history_mstr_envelope_measurement
     add constraint history_mstr_envelope_measurement_PKC primary key (history_id,mstr_envelope_measurement_id);
 alter table tests.history_mstr_envelope_measurement
-     add constraint history_mstr_envelope_measurement_IX1 unique (mstr_envelope_measurement_id,revision);
+     add constraint history_mstr_envelope_measurement_IX1 unique  (mstr_envelope_measurement_id,revision);
 create unique index history_mstr_equipment_envelope_PKI
     on tests.history_mstr_equipment_envelope(history_id,mstr_equipment_envelope_id);
 alter table tests.history_mstr_equipment_envelope
     add constraint history_mstr_equipment_envelope_PKC primary key (history_id,mstr_equipment_envelope_id);
 alter table tests.history_mstr_equipment_envelope
-     add constraint history_mstr_equipment_envelope_IX1 unique (mstr_equipment_envelope_id,revision);
+     add constraint history_mstr_equipment_envelope_IX1 unique  (mstr_equipment_envelope_id,revision);
 create unique index mstr_spec_measurement_PKI
     on tests.mstr_spec_measurement(mstr_spec_measurement_id);
 alter table tests.mstr_spec_measurement
     add constraint mstr_spec_measurement_PKC primary key (mstr_spec_measurement_id);
 alter table tests.mstr_spec_measurement
-     add constraint mstr_spec_measurement_IX1 unique (symbol);
+     add constraint mstr_spec_measurement_IX1 unique  (symbol);
 create unique index mstr_packing_spec_PKI
     on tests.mstr_packing_spec(mstr_packing_spec_id);
 alter table tests.mstr_packing_spec
     add constraint mstr_packing_spec_PKC primary key (mstr_packing_spec_id);
 alter table tests.mstr_packing_spec
-     add constraint mstr_packing_spec_IX1 unique (symbol);
+     add constraint mstr_packing_spec_IX1 unique  (symbol);
 create unique index mstr_envelope_measurement_PKI
     on tests.mstr_envelope_measurement(mstr_envelope_measurement_id);
 alter table tests.mstr_envelope_measurement
     add constraint mstr_envelope_measurement_PKC primary key (mstr_envelope_measurement_id);
 alter table tests.mstr_envelope_measurement
-     add constraint mstr_envelope_measurement_IX1 unique (symbol);
+     add constraint mstr_envelope_measurement_IX1 unique  (symbol);
 create unique index mstr_equipment_envelope_PKI
     on tests.mstr_equipment_envelope(mstr_equipment_envelope_id);
 alter table tests.mstr_equipment_envelope
     add constraint mstr_equipment_envelope_PKC primary key (mstr_equipment_envelope_id);
 alter table tests.mstr_equipment_envelope
-     add constraint mstr_equipment_envelope_IX1 unique (symbol);
+     add constraint mstr_equipment_envelope_IX1 unique  (symbol);
 create unique index trans_shipping_order_detail_record_PKI
     on tests.trans_shipping_order_detail_record(trans_shipping_order_detail_record_id);
 alter table tests.trans_shipping_order_detail_record
     add constraint trans_shipping_order_detail_record_PKC primary key (trans_shipping_order_detail_record_id);
 alter table tests.trans_shipping_order_detail_record
-     add constraint trans_shipping_order_detail_record_IX1 unique (symbol);
+     add constraint trans_shipping_order_detail_record_IX1 unique  (symbol);
 create unique index history_mstr_shipping_kind_PKI
     on tests.history_mstr_shipping_kind(history_id,mstr_shipping_kind_id);
 alter table tests.history_mstr_shipping_kind
     add constraint history_mstr_shipping_kind_PKC primary key (history_id,mstr_shipping_kind_id);
 alter table tests.history_mstr_shipping_kind
-     add constraint history_mstr_shipping_kind_IX1 unique (mstr_shipping_kind_id,revision);
+     add constraint history_mstr_shipping_kind_IX1 unique  (mstr_shipping_kind_id,revision);
 create unique index mstr_shipping_kind_PKI
     on tests.mstr_shipping_kind(mstr_shipping_kind_id);
 alter table tests.mstr_shipping_kind
     add constraint mstr_shipping_kind_PKC primary key (mstr_shipping_kind_id);
 alter table tests.mstr_shipping_kind
-     add constraint mstr_shipping_kind_IX1 unique (symbol);
+     add constraint mstr_shipping_kind_IX1 unique  (symbol);
 create unique index history_mstr_item_size_kind_PKI
     on tests.history_mstr_item_size_kind(history_id,mstr_item_size_kind_id);
 alter table tests.history_mstr_item_size_kind
     add constraint history_mstr_item_size_kind_PKC primary key (history_id,mstr_item_size_kind_id);
 alter table tests.history_mstr_item_size_kind
-     add constraint history_mstr_item_size_kind_IX1 unique (mstr_item_size_kind_id,revision);
+     add constraint history_mstr_item_size_kind_IX1 unique  (mstr_item_size_kind_id,revision);
 create unique index mstr_item_size_kind_PKI
     on tests.mstr_item_size_kind(mstr_item_size_kind_id);
 alter table tests.mstr_item_size_kind
     add constraint mstr_item_size_kind_PKC primary key (mstr_item_size_kind_id);
 create unique index mstr_item_size_kind_IX1
      on tests.mstr_item_size_kind(code);alter table tests.mstr_item_size_kind
-     add constraint mstr_item_size_kind_IX2 unique (symbol);
+     add constraint mstr_item_size_kind_IX2 unique  (symbol);
 create unique index history_mstr_item_kind_PKI
     on tests.history_mstr_item_kind(history_id,mstr_item_kind_id);
 alter table tests.history_mstr_item_kind
     add constraint history_mstr_item_kind_PKC primary key (history_id,mstr_item_kind_id);
 alter table tests.history_mstr_item_kind
-     add constraint history_mstr_item_kind_IX1 unique (mstr_item_kind_id,revision);
+     add constraint history_mstr_item_kind_IX1 unique  (mstr_item_kind_id,revision);
 create unique index mstr_item_kind_PKI
     on tests.mstr_item_kind(mstr_item_kind_id);
 alter table tests.mstr_item_kind
     add constraint mstr_item_kind_PKC primary key (mstr_item_kind_id);
 alter table tests.mstr_item_kind
-     add constraint mstr_item_kind_IX1 unique (symbol);
+     add constraint mstr_item_kind_IX1 unique  (symbol);
 create unique index history_shared_appellations_PKI
     on tests.history_shared_appellations(history_id,shared_appellations_id);
 alter table tests.history_shared_appellations
     add constraint history_shared_appellations_PKC primary key (history_id,shared_appellations_id);
 alter table tests.history_shared_appellations
-     add constraint history_shared_appellations_IX1 unique (shared_appellations_id,revision);
+     add constraint history_shared_appellations_IX1 unique  (shared_appellations_id,revision);
 create unique index shared_appellations_PKI
     on tests.shared_appellations(shared_appellations_id);
 alter table tests.shared_appellations
     add constraint shared_appellations_PKC primary key (shared_appellations_id);
 alter table tests.shared_appellations
-     add constraint shared_appellations_IX1 unique (symbol);
+     add constraint shared_appellations_IX1 unique  (symbol);
 create unique index history_shared_dictionary_PKI
     on tests.history_shared_dictionary(history_id,shared_dictionary_id);
 alter table tests.history_shared_dictionary
     add constraint history_shared_dictionary_PKC primary key (history_id,shared_dictionary_id);
 alter table tests.history_shared_dictionary
-     add constraint history_shared_dictionary_IX1 unique (shared_dictionary_id,revision);
+     add constraint history_shared_dictionary_IX1 unique  (shared_dictionary_id,revision);
 create unique index shared_dictionary_PKI
     on tests.shared_dictionary(shared_dictionary_id);
 alter table tests.shared_dictionary
     add constraint shared_dictionary_PKC primary key (shared_dictionary_id);
 alter table tests.shared_dictionary
-     add constraint shared_dictionary_IX1 unique (symbol);
+     add constraint shared_dictionary_IX1 unique  (symbol);
 create unique index history_mstr_equipment_PKI
     on tests.history_mstr_equipment(history_id,mstr_equipment_id);
 alter table tests.history_mstr_equipment
     add constraint history_mstr_equipment_PKC primary key (history_id,mstr_equipment_id);
 alter table tests.history_mstr_equipment
-     add constraint history_mstr_equipment_IX1 unique (mstr_equipment_id,revision);
+     add constraint history_mstr_equipment_IX1 unique  (mstr_equipment_id,revision);
 create unique index history_mstr_equipment_kind_PKI
     on tests.history_mstr_equipment_kind(history_id,mstr_equipment_kind_id);
 alter table tests.history_mstr_equipment_kind
     add constraint history_mstr_equipment_kind_PKC primary key (history_id,mstr_equipment_kind_id);
 alter table tests.history_mstr_equipment_kind
-     add constraint history_mstr_equipment_kind_IX1 unique (mstr_equipment_kind_id,revision);
+     add constraint history_mstr_equipment_kind_IX1 unique  (mstr_equipment_kind_id,revision);
 create unique index mstr_equipment_kind_PKI
     on tests.mstr_equipment_kind(mstr_equipment_kind_id);
 alter table tests.mstr_equipment_kind
     add constraint mstr_equipment_kind_PKC primary key (mstr_equipment_kind_id);
 alter table tests.mstr_equipment_kind
-     add constraint mstr_equipment_kind_IX1 unique (symbol);
+     add constraint mstr_equipment_kind_IX1 unique  (symbol);
 create unique index history_info_staff_icon_PKI
     on tests.history_info_staff_icon(history_id,info_staff_icon_id);
 alter table tests.history_info_staff_icon
     add constraint history_info_staff_icon_PKC primary key (history_id,info_staff_icon_id);
 alter table tests.history_info_staff_icon
-     add constraint history_info_staff_icon_IX1 unique (info_staff_icon_id,revision);
+     add constraint history_info_staff_icon_IX1 unique  (info_staff_icon_id,revision);
 create unique index info_staff_icon_PKI
     on tests.info_staff_icon(info_staff_icon_id);
 alter table tests.info_staff_icon
     add constraint info_staff_icon_PKC primary key (info_staff_icon_id);
 alter table tests.info_staff_icon
-     add constraint info_staff_icon_IX1 unique (symbol);
+     add constraint info_staff_icon_IX1 unique  (symbol);
 create unique index history_mstr_item_hcdcs_PKI
     on tests.history_mstr_item_hcdcs(history_id,mstr_item_hcdcs_id);
 alter table tests.history_mstr_item_hcdcs
     add constraint history_mstr_item_hcdcs_PKC primary key (history_id,mstr_item_hcdcs_id);
 alter table tests.history_mstr_item_hcdcs
-     add constraint history_mstr_item_hcdcs_IX1 unique (mstr_item_hcdcs_id,revision);
+     add constraint history_mstr_item_hcdcs_IX1 unique  (mstr_item_hcdcs_id,revision);
 create unique index mstr_item_hcdcs_PKI
     on tests.mstr_item_hcdcs(mstr_item_hcdcs_id);
 alter table tests.mstr_item_hcdcs
     add constraint mstr_item_hcdcs_PKC primary key (mstr_item_hcdcs_id);
 alter table tests.mstr_item_hcdcs
-     add constraint mstr_item_hcdcs_IX1 unique (symbol);
+     add constraint mstr_item_hcdcs_IX1 unique  (symbol);
 create unique index history_mstr_document_content_tree_PKI
     on tests.history_mstr_document_content_tree(history_id,mstr_document_content_tree_id);
 alter table tests.history_mstr_document_content_tree
     add constraint history_mstr_document_content_tree_PKC primary key (history_id,mstr_document_content_tree_id);
 alter table tests.history_mstr_document_content_tree
-     add constraint history_mstr_document_content_tree_IX1 unique (mstr_document_content_tree_id,revision);
+     add constraint history_mstr_document_content_tree_IX1 unique  (mstr_document_content_tree_id,revision);
 create unique index hrchy_mstr_document_content_PKI
     on tests.hrchy_mstr_document_content(hrchy_mstr_document_content_id);
 alter table tests.hrchy_mstr_document_content
@@ -6999,91 +7007,91 @@ create unique index history_mstr_document_content_PKI
 alter table tests.history_mstr_document_content
     add constraint history_mstr_document_content_PKC primary key (history_id,mstr_document_content_id);
 alter table tests.history_mstr_document_content
-     add constraint history_mstr_document_content_IX1 unique (mstr_document_content_id,revision);
+     add constraint history_mstr_document_content_IX1 unique  (mstr_document_content_id,revision);
 create unique index mstr_document_content_tree_PKI
     on tests.mstr_document_content_tree(mstr_document_content_tree_id);
 alter table tests.mstr_document_content_tree
     add constraint mstr_document_content_tree_PKC primary key (mstr_document_content_tree_id);
 alter table tests.mstr_document_content_tree
-     add constraint mstr_document_content_tree_IX1 unique (symbol);
+     add constraint mstr_document_content_tree_IX1 unique  (symbol);
 create unique index mstr_document_content_PKI
     on tests.mstr_document_content(mstr_document_content_id);
 alter table tests.mstr_document_content
     add constraint mstr_document_content_PKC primary key (mstr_document_content_id);
 alter table tests.mstr_document_content
-     add constraint mstr_document_content_IX1 unique (symbol);
+     add constraint mstr_document_content_IX1 unique  (symbol);
 create unique index history_mstr_document_tier_PKI
     on tests.history_mstr_document_tier(history_id,mstr_document_tier_id);
 alter table tests.history_mstr_document_tier
     add constraint history_mstr_document_tier_PKC primary key (history_id,mstr_document_tier_id);
 alter table tests.history_mstr_document_tier
-     add constraint history_mstr_document_tier_IX1 unique (mstr_document_tier_id,revision);
+     add constraint history_mstr_document_tier_IX1 unique  (mstr_document_tier_id,revision);
 create unique index mstr_document_tier_PKI
     on tests.mstr_document_tier(mstr_document_tier_id);
 alter table tests.mstr_document_tier
     add constraint mstr_document_tier_PKC primary key (mstr_document_tier_id);
 alter table tests.mstr_document_tier
-     add constraint mstr_document_tier_IX1 unique (symbol);
+     add constraint mstr_document_tier_IX1 unique  (symbol);
 create unique index history_mstr_document_tree_PKI
     on tests.history_mstr_document_tree(history_id,mstr_document_tree_id);
 alter table tests.history_mstr_document_tree
     add constraint history_mstr_document_tree_PKC primary key (history_id,mstr_document_tree_id);
 alter table tests.history_mstr_document_tree
-     add constraint history_mstr_document_tree_IX1 unique (mstr_document_tree_id,revision);
-create unique index hrchy_mstr_documet_PKI
-    on tests.hrchy_mstr_documet(hrchy_mstr_document_id);
-alter table tests.hrchy_mstr_documet
-    add constraint hrchy_mstr_documet_PKC primary key (hrchy_mstr_document_id);
+     add constraint history_mstr_document_tree_IX1 unique  (mstr_document_tree_id,revision);
+create unique index hrchy_mstr_document_PKI
+    on tests.hrchy_mstr_document(hrchy_mstr_document_id);
+alter table tests.hrchy_mstr_document
+    add constraint hrchy_mstr_document_PKC primary key (hrchy_mstr_document_id);
 create unique index mstr_document_tree_PKI
     on tests.mstr_document_tree(mstr_document_tree_id);
 alter table tests.mstr_document_tree
     add constraint mstr_document_tree_PKC primary key (mstr_document_tree_id);
 alter table tests.mstr_document_tree
-     add constraint mstr_document_tree_IX1 unique (symbol);
+     add constraint mstr_document_tree_IX1 unique  (symbol);
 create unique index history_mstr_document_PKI
     on tests.history_mstr_document(history_id,mstr_document_id);
 alter table tests.history_mstr_document
     add constraint history_mstr_document_PKC primary key (history_id,mstr_document_id);
 alter table tests.history_mstr_document
-     add constraint history_mstr_document_IX1 unique (mstr_document_id,revision);
+     add constraint history_mstr_document_IX1 unique  (mstr_document_id,revision);
 create unique index mstr_document_PKI
     on tests.mstr_document(mstr_document_id);
 alter table tests.mstr_document
     add constraint mstr_document_PKC primary key (mstr_document_id);
 alter table tests.mstr_document
-     add constraint mstr_document_IX1 unique (symbol);
+     add constraint mstr_document_IX1 unique  (symbol);
 create unique index trans_container_tree_PKI
     on tests.trans_container_tree(trans_container_tree_id);
 alter table tests.trans_container_tree
     add constraint trans_container_tree_PKC primary key (trans_container_tree_id);
 alter table tests.trans_container_tree
-     add constraint trans_container_tree_IX1 unique (symbol);
+     add constraint trans_container_tree_IX1 unique  (symbol);
 create unique index history_mstr_location_tree_PKI
     on tests.history_mstr_location_tree(history_id,mstr_location_tree_id);
 alter table tests.history_mstr_location_tree
     add constraint history_mstr_location_tree_PKC primary key (history_id,mstr_location_tree_id);
 alter table tests.history_mstr_location_tree
-     add constraint history_mstr_location_tree_IX1 unique (mstr_location_tree_id,revision);
+     add constraint history_mstr_location_tree_IX1 unique  (mstr_location_tree_id,revision);
 create unique index mstr_location_tree_PKI
     on tests.mstr_location_tree(mstr_location_tree_id);
 alter table tests.mstr_location_tree
     add constraint mstr_location_tree_PKC primary key (mstr_location_tree_id);
 alter table tests.mstr_location_tree
-     add constraint mstr_location_tree_IX1 unique (symbol);
+     add constraint mstr_location_tree_IX1 unique  (symbol);
 create unique index history_info_department_tree_PKI
     on tests.history_info_department_tree(history_id,info_department_tree_id);
 alter table tests.history_info_department_tree
     add constraint history_info_department_tree_PKC primary key (history_id,info_department_tree_id);
 alter table tests.history_info_department_tree
-     add constraint history_info_department_tree_IX1 unique (info_department_tree_id,revision);
+     add constraint history_info_department_tree_IX1 unique  (info_department_tree_id,revision);
 create unique index info_department_tree_PKI
     on tests.info_department_tree(info_department_tree_id);
 alter table tests.info_department_tree
     add constraint info_department_tree_PKC primary key (info_department_tree_id);
 alter table tests.info_department_tree
-     add constraint info_department_tree_IX1 unique (info_department_id,parent_info_department_id);
+     add constraint info_department_tree_IX1 unique  (info_department_id,parent_info_department_id);
 alter table tests.info_department_tree
-     add constraint info_department_tree_IX2 unique (symbol);
+     add constraint info_department_tree_IX2 unique  (symbol);
 create unique index hrchy_mstr_task_PKI
     on tests.hrchy_mstr_task(hrchy_mstr_task_id);
 alter table tests.hrchy_mstr_task
@@ -7097,67 +7105,67 @@ create unique index history_mstr_inspection_operation_PKI
 alter table tests.history_mstr_inspection_operation
     add constraint history_mstr_inspection_operation_PKC primary key (history_id,mstr_inspection_operation_id);
 alter table tests.history_mstr_inspection_operation
-     add constraint history_mstr_inspection_operation_IX1 unique (mstr_inspection_operation_id,revision);
+     add constraint history_mstr_inspection_operation_IX1 unique  (mstr_inspection_operation_id,revision);
 create unique index mstr_inspection_operation_PKI
     on tests.mstr_inspection_operation(mstr_inspection_operation_id);
 alter table tests.mstr_inspection_operation
     add constraint mstr_inspection_operation_PKC primary key (mstr_inspection_operation_id);
 alter table tests.mstr_inspection_operation
-     add constraint mstr_inspection_operation_IX1 unique (symbol);
+     add constraint mstr_inspection_operation_IX1 unique  (symbol);
 create unique index history_mstr_inspection_operation_task_PKI
     on tests.history_mstr_inspection_operation_task(history_id,mstr_inspection_operation_task_id);
 alter table tests.history_mstr_inspection_operation_task
     add constraint history_mstr_inspection_operation_task_PKC primary key (history_id,mstr_inspection_operation_task_id);
 alter table tests.history_mstr_inspection_operation_task
-     add constraint history_mstr_inspection_operation_task_IX1 unique (mstr_inspection_operation_task_id,revision);
+     add constraint history_mstr_inspection_operation_task_IX1 unique  (mstr_inspection_operation_task_id,revision);
 create unique index mstr_inspection_operation_task_PKI
     on tests.mstr_inspection_operation_task(mstr_inspection_operation_task_id);
 alter table tests.mstr_inspection_operation_task
     add constraint mstr_inspection_operation_task_PKC primary key (mstr_inspection_operation_task_id);
 alter table tests.mstr_inspection_operation_task
-     add constraint mstr_inspection_operation_task_IX1 unique (symbol);
+     add constraint mstr_inspection_operation_task_IX1 unique  (symbol);
 create unique index history_info_department_access_permission_PKI
     on tests.history_info_department_access_permission(history_id,info_department_access_permission_id);
 alter table tests.history_info_department_access_permission
     add constraint history_info_department_access_permission_PKC primary key (history_id,info_department_access_permission_id);
 alter table tests.history_info_department_access_permission
-     add constraint history_info_department_access_permission_IX1 unique (info_department_access_permission_id,revision);
+     add constraint history_info_department_access_permission_IX1 unique  (info_department_access_permission_id,revision);
 create unique index info_department_access_permission_PKI
     on tests.info_department_access_permission(info_department_access_permission_id);
 alter table tests.info_department_access_permission
     add constraint info_department_access_permission_PKC primary key (info_department_access_permission_id);
 alter table tests.info_department_access_permission
-     add constraint info_department_access_permission_IX1 unique (symbol);
+     add constraint info_department_access_permission_IX1 unique  (symbol);
 create unique index history_info_assign_PKI
     on tests.history_info_assign(history_id,info_assign_id);
 alter table tests.history_info_assign
     add constraint history_info_assign_PKC primary key (history_id,info_assign_id);
 alter table tests.history_info_assign
-     add constraint history_info_assign_IX1 unique (info_assign_id,revision);
+     add constraint history_info_assign_IX1 unique  (info_assign_id,revision);
 create unique index mstr_item_provision_PKI
     on tests.mstr_item_provision(mstr_item_provision_id);
 alter table tests.mstr_item_provision
     add constraint mstr_item_provision_PKC primary key (mstr_item_provision_id);
 alter table tests.mstr_item_provision
-     add constraint mstr_item_provision_IX1 unique (symbol);
+     add constraint mstr_item_provision_IX1 unique  (symbol);
 create unique index history_mstr_item_provision_PKI
     on tests.history_mstr_item_provision(history_id,mstr_item_provision_id);
 alter table tests.history_mstr_item_provision
     add constraint history_mstr_item_provision_PKC primary key (history_id,mstr_item_provision_id);
 alter table tests.history_mstr_item_provision
-     add constraint history_mstr_item_provision_IX1 unique (mstr_item_provision_id,revision);
+     add constraint history_mstr_item_provision_IX1 unique  (mstr_item_provision_id,revision);
 create unique index history_mstr_equipment_provision_PKI
     on tests.history_mstr_equipment_provision(history_id,mstr_equipment_provision_id);
 alter table tests.history_mstr_equipment_provision
     add constraint history_mstr_equipment_provision_PKC primary key (history_id,mstr_equipment_provision_id);
 alter table tests.history_mstr_equipment_provision
-     add constraint history_mstr_equipment_provision_IX1 unique (mstr_equipment_provision_id,revision);
+     add constraint history_mstr_equipment_provision_IX1 unique  (mstr_equipment_provision_id,revision);
 create unique index mstr_equipment_provision_PKI
     on tests.mstr_equipment_provision(mstr_equipment_provision_id);
 alter table tests.mstr_equipment_provision
     add constraint mstr_equipment_provision_PKC primary key (mstr_equipment_provision_id);
 alter table tests.mstr_equipment_provision
-     add constraint mstr_equipment_provision_IX1 unique (symbol);
+     add constraint mstr_equipment_provision_IX1 unique  (symbol);
 create unique index hrchy_trans_container_PKI
     on tests.hrchy_trans_container(hrchy_trans_container_id);
 alter table tests.hrchy_trans_container
@@ -7167,513 +7175,517 @@ create unique index trans_container_PKI
 alter table tests.trans_container
     add constraint trans_container_PKC primary key (trans_container_id);
 alter table tests.trans_container
-     add constraint trans_container_IX1 unique (symbol);
+     add constraint trans_container_IX1 unique  (symbol);
 create unique index hrchy_info_department_PKI
     on tests.hrchy_info_department(hrchy_info_department_id);
 alter table tests.hrchy_info_department
     add constraint hrchy_info_department_PKC primary key (hrchy_info_department_id);
 alter table tests.hrchy_info_department
-     add constraint hrchy_info_department_IX1 unique (ancestor_info_department_id,descendant_info_department_id);
+     add constraint hrchy_info_department_IX1 unique  (ancestor_info_department_id,descendant_info_department_id);
 create unique index history_info_app_status_PKI
     on tests.history_info_app_status(history_id,info_app_status_id);
 alter table tests.history_info_app_status
     add constraint history_info_app_status_PKC primary key (history_id,info_app_status_id);
 alter table tests.history_info_app_status
-     add constraint history_info_app_status_IX1 unique (info_app_status_id,revision);
+     add constraint history_info_app_status_IX1 unique  (info_app_status_id,revision);
 create unique index info_app_status_PKI
     on tests.info_app_status(info_app_status_id);
 alter table tests.info_app_status
     add constraint info_app_status_PKC primary key (info_app_status_id);
 alter table tests.info_app_status
-     add constraint info_app_status_IX1 unique (symbol);
+     add constraint info_app_status_IX1 unique  (symbol);
 create unique index trans_announcement_PKI
     on tests.trans_announcement(trans_announcement_id);
 alter table tests.trans_announcement
     add constraint trans_announcement_PKC primary key (trans_announcement_id);
 alter table tests.trans_announcement
-     add constraint trans_announcement_IX1 unique (symbol);
+     add constraint trans_announcement_IX1 unique  (symbol);
 create unique index history_mstr_operation_task_PKI
     on tests.history_mstr_operation_task(history_id,mstr_operation_task_id);
 alter table tests.history_mstr_operation_task
     add constraint history_mstr_operation_task_PKC primary key (history_id,mstr_operation_task_id);
 alter table tests.history_mstr_operation_task
-     add constraint history_mstr_operation_task_IX1 unique (mstr_operation_task_id,revision);
+     add constraint history_mstr_operation_task_IX1 unique  (mstr_operation_task_id,revision);
 create unique index history_mstr_report_PKI
     on tests.history_mstr_report(history_id,mstr_report_id);
 alter table tests.history_mstr_report
     add constraint history_mstr_report_PKC primary key (history_id,mstr_report_id);
 alter table tests.history_mstr_report
-     add constraint history_mstr_report_IX1 unique (mstr_report_id,revision);
+     add constraint history_mstr_report_IX1 unique  (mstr_report_id,revision);
 create unique index history_mstr_item_operation_task_PKI
     on tests.history_mstr_item_operation_task(history_id,mstr_item_operation_task_id);
 alter table tests.history_mstr_item_operation_task
     add constraint history_mstr_item_operation_task_PKC primary key (history_id,mstr_item_operation_task_id);
 alter table tests.history_mstr_item_operation_task
-     add constraint history_mstr_item_operation_task_IX1 unique (mstr_item_operation_task_id,revision);
+     add constraint history_mstr_item_operation_task_IX1 unique  (mstr_item_operation_task_id,revision);
 create unique index history_mstr_task_tree_PKI
     on tests.history_mstr_task_tree(history_id,mstr_task_tree_id);
 alter table tests.history_mstr_task_tree
     add constraint history_mstr_task_tree_PKC primary key (history_id,mstr_task_tree_id);
 alter table tests.history_mstr_task_tree
-     add constraint history_mstr_task_tree_IX1 unique (mstr_task_tree_id,revision);
+     add constraint history_mstr_task_tree_IX1 unique  (mstr_task_tree_id,revision);
 create unique index history_mstr_outsource_available_PKI
     on tests.history_mstr_outsource_available(history_id,mstr_outsource_available_id);
 alter table tests.history_mstr_outsource_available
     add constraint history_mstr_outsource_available_PKC primary key (history_id,mstr_outsource_available_id);
 alter table tests.history_mstr_outsource_available
-     add constraint history_mstr_outsource_available_IX1 unique (mstr_outsource_available_id,revision);
+     add constraint history_mstr_outsource_available_IX1 unique  (mstr_outsource_available_id,revision);
 create unique index history_mstr_equipment_available_PKI
     on tests.history_mstr_equipment_available(history_id,mstr_equipment_available_id);
 alter table tests.history_mstr_equipment_available
     add constraint history_mstr_equipment_available_PKC primary key (history_id,mstr_equipment_available_id);
 alter table tests.history_mstr_equipment_available
-     add constraint history_mstr_equipment_available_IX1 unique (mstr_equipment_available_id,revision);
+     add constraint history_mstr_equipment_available_IX1 unique  (mstr_equipment_available_id,revision);
 create unique index history_mstr_task_PKI
     on tests.history_mstr_task(history_id,mstr_task_id);
 alter table tests.history_mstr_task
     add constraint history_mstr_task_PKC primary key (history_id,mstr_task_id);
 alter table tests.history_mstr_task
-     add constraint history_mstr_task_IX1 unique (mstr_task_id,revision);
+     add constraint history_mstr_task_IX1 unique  (mstr_task_id,revision);
 create unique index history_mstr_task_location_PKI
     on tests.history_mstr_task_location(history_id,mstr_task_location_id);
 alter table tests.history_mstr_task_location
     add constraint history_mstr_task_location_PKC primary key (history_id,mstr_task_location_id);
 alter table tests.history_mstr_task_location
-     add constraint history_mstr_task_location_IX1 unique (mstr_task_location_id,revision);
+     add constraint history_mstr_task_location_IX1 unique  (mstr_task_location_id,revision);
 create unique index mstr_task_location_PKI
     on tests.mstr_task_location(mstr_task_location_id);
 alter table tests.mstr_task_location
     add constraint mstr_task_location_PKC primary key (mstr_task_location_id);
 alter table tests.mstr_task_location
-     add constraint mstr_task_location_IX1 unique (symbol);
+     add constraint mstr_task_location_IX1 unique  (symbol);
 create unique index history_mstr_task_group_PKI
     on tests.history_mstr_task_group(history_id,mstr_task_group_id);
 alter table tests.history_mstr_task_group
     add constraint history_mstr_task_group_PKC primary key (history_id,mstr_task_group_id);
 alter table tests.history_mstr_task_group
-     add constraint history_mstr_task_group_IX1 unique (mstr_task_group_id,revision);
+     add constraint history_mstr_task_group_IX1 unique  (mstr_task_group_id,revision);
 create unique index history_mstr_operation_PKI
     on tests.history_mstr_operation(history_id,mstr_operation_id);
 alter table tests.history_mstr_operation
     add constraint history_mstr_operation_PKC primary key (history_id,mstr_operation_id);
 alter table tests.history_mstr_operation
-     add constraint history_mstr_operation_IX1 unique (mstr_operation_id,revision);
+     add constraint history_mstr_operation_IX1 unique  (mstr_operation_id,revision);
 create unique index history_mstr_manufacturer_PKI
     on tests.history_mstr_manufacturer(history_id,mstr_manufacturer_id);
 alter table tests.history_mstr_manufacturer
     add constraint history_mstr_manufacturer_PKC primary key (history_id,mstr_manufacturer_id);
 alter table tests.history_mstr_manufacturer
-     add constraint history_mstr_manufacturer_IX1 unique (mstr_manufacturer_id,revision);
+     add constraint history_mstr_manufacturer_IX1 unique  (mstr_manufacturer_id,revision);
 create unique index history_mstr_inspection_PKI
     on tests.history_mstr_inspection(history_id,mstr_inspection_id);
 alter table tests.history_mstr_inspection
     add constraint history_mstr_inspection_PKC primary key (history_id,mstr_inspection_id);
 alter table tests.history_mstr_inspection
-     add constraint history_mstr_inspection_IX1 unique (mstr_inspection_id,revision);
+     add constraint history_mstr_inspection_IX1 unique  (mstr_inspection_id,revision);
 create unique index history_mstr_inspection_formula_PKI
     on tests.history_mstr_inspection_formula(history_id,mstr_inspection_formula_id);
 alter table tests.history_mstr_inspection_formula
     add constraint history_mstr_inspection_formula_PKC primary key (history_id,mstr_inspection_formula_id);
 alter table tests.history_mstr_inspection_formula
-     add constraint history_mstr_inspection_formula_IX1 unique (mstr_inspection_formula_id,revision);
+     add constraint history_mstr_inspection_formula_IX1 unique  (mstr_inspection_formula_id,revision);
 create unique index history_mstr_item_actual_size_PKI
     on tests.history_mstr_item_actual_size(history_id,mstr_item_actual_size_id);
 alter table tests.history_mstr_item_actual_size
     add constraint history_mstr_item_actual_size_PKC primary key (history_id,mstr_item_actual_size_id);
 alter table tests.history_mstr_item_actual_size
-     add constraint history_mstr_item_actual_size_IX1 unique (mstr_item_actual_size_id,revision);
+     add constraint history_mstr_item_actual_size_IX1 unique  (mstr_item_actual_size_id,revision);
 create unique index history_mstr_item_tree_PKI
     on tests.history_mstr_item_tree(history_id,mstr_item_tree_id);
 alter table tests.history_mstr_item_tree
     add constraint history_mstr_item_tree_PKC primary key (history_id,mstr_item_tree_id);
 alter table tests.history_mstr_item_tree
-     add constraint history_mstr_item_tree_IX1 unique (mstr_item_tree_id,revision);
+     add constraint history_mstr_item_tree_IX1 unique  (mstr_item_tree_id,revision);
 create unique index history_mstr_item_PKI
     on tests.history_mstr_item(history_id,mstr_item_id);
 alter table tests.history_mstr_item
     add constraint history_mstr_item_PKC primary key (history_id,mstr_item_id);
 alter table tests.history_mstr_item
-     add constraint history_mstr_item_IX1 unique (mstr_item_id,revision);
+     add constraint history_mstr_item_IX1 unique  (mstr_item_id,revision);
 create unique index history_mstr_audit_std_checkitem_PKI
     on tests.history_mstr_audit_std_checkitem(history_id,mstr_audit_std_checkitem_id);
 alter table tests.history_mstr_audit_std_checkitem
     add constraint history_mstr_audit_std_checkitem_PKC primary key (history_id,mstr_audit_std_checkitem_id);
 alter table tests.history_mstr_audit_std_checkitem
-     add constraint history_mstr_audit_std_checkitem_IX1 unique (mstr_audit_std_checkitem_id,revision);
+     add constraint history_mstr_audit_std_checkitem_IX1 unique  (mstr_audit_std_checkitem_id,revision);
 create unique index history_mstr_audit_std_PKI
     on tests.history_mstr_audit_std(history_id,mstr_audit_std_id);
 alter table tests.history_mstr_audit_std
     add constraint history_mstr_audit_std_PKC primary key (history_id,mstr_audit_std_id);
 alter table tests.history_mstr_audit_std
-     add constraint history_mstr_audit_std_IX1 unique (mstr_audit_std_id,revision);
+     add constraint history_mstr_audit_std_IX1 unique  (mstr_audit_std_id,revision);
 create unique index history_mstr_location_PKI
     on tests.history_mstr_location(history_id,mstr_location_id);
 alter table tests.history_mstr_location
     add constraint history_mstr_location_PKC primary key (history_id,mstr_location_id);
 alter table tests.history_mstr_location
-     add constraint history_mstr_location_IX1 unique (mstr_location_id,revision);
+     add constraint history_mstr_location_IX1 unique  (mstr_location_id,revision);
 create unique index history_mstr_equipment_tag_PKI
     on tests.history_mstr_equipment_tag(history_id,mstr_equipment_tag_id);
 alter table tests.history_mstr_equipment_tag
     add constraint history_mstr_equipment_tag_PKC primary key (history_id,mstr_equipment_tag_id);
 alter table tests.history_mstr_equipment_tag
-     add constraint history_mstr_equipment_tag_IX1 unique (mstr_equipment_tag_id,revision);
+     add constraint history_mstr_equipment_tag_IX1 unique  (mstr_equipment_tag_id,revision);
 create unique index history_mstr_stakeholder_contact_PKI
     on tests.history_mstr_stakeholder_contact(history_id,mstr_stakeholder_contact_id);
 alter table tests.history_mstr_stakeholder_contact
     add constraint history_mstr_stakeholder_contact_PKC primary key (history_id,mstr_stakeholder_contact_id);
 alter table tests.history_mstr_stakeholder_contact
-     add constraint history_mstr_stakeholder_contact_IX1 unique (mstr_stakeholder_contact_id,revision);
+     add constraint history_mstr_stakeholder_contact_IX1 unique  (mstr_stakeholder_contact_id,revision);
 create unique index history_mstr_stakeholder_provision_PKI
     on tests.history_mstr_stakeholder_provision(history_id,mstr_stakeholder_provision_id);
 alter table tests.history_mstr_stakeholder_provision
     add constraint history_mstr_stakeholder_provision_PKC primary key (history_id,mstr_stakeholder_provision_id);
 alter table tests.history_mstr_stakeholder_provision
-     add constraint history_mstr_stakeholder_provision_IX1 unique (mstr_stakeholder_provision_id,revision);
+     add constraint history_mstr_stakeholder_provision_IX1 unique  (mstr_stakeholder_provision_id,revision);
 create unique index history_mstr_stakeholder_PKI
     on tests.history_mstr_stakeholder(history_id,mstr_stakeholder_id);
 alter table tests.history_mstr_stakeholder
     add constraint history_mstr_stakeholder_PKC primary key (history_id,mstr_stakeholder_id);
 alter table tests.history_mstr_stakeholder
-     add constraint history_mstr_stakeholder_IX1 unique (mstr_stakeholder_id,revision);
+     add constraint history_mstr_stakeholder_IX1 unique  (mstr_stakeholder_id,revision);
 create unique index history_mstr_staff_license_PKI
     on tests.history_mstr_staff_license(history_id,mstr_staff_license_id);
 alter table tests.history_mstr_staff_license
     add constraint history_mstr_staff_license_PKC primary key (history_id,mstr_staff_license_id);
 alter table tests.history_mstr_staff_license
-     add constraint history_mstr_staff_license_IX1 unique (mstr_staff_license_id,revision);
+     add constraint history_mstr_staff_license_IX1 unique  (mstr_staff_license_id,revision);
 create unique index history_mstr_license_PKI
     on tests.history_mstr_license(history_id,mstr_license_id);
 alter table tests.history_mstr_license
     add constraint history_mstr_license_PKC primary key (history_id,mstr_license_id);
 alter table tests.history_mstr_license
-     add constraint history_mstr_license_IX1 unique (mstr_license_id,revision);
+     add constraint history_mstr_license_IX1 unique  (mstr_license_id,revision);
 create unique index history_info_staff_access_permission_PKI
     on tests.history_info_staff_access_permission(history_id,info_staff_access_permission_id);
 alter table tests.history_info_staff_access_permission
     add constraint history_info_staff_access_permission_PKC primary key (history_id,info_staff_access_permission_id);
 alter table tests.history_info_staff_access_permission
-     add constraint history_info_staff_access_permission_IX1 unique (info_staff_access_permission_id,revision);
+     add constraint history_info_staff_access_permission_IX1 unique  (info_staff_access_permission_id,revision);
 create unique index history_mstr_approval_scope_pattern_PKI
     on tests.history_mstr_approval_scope_pattern(history_id,mstr_approval_scope_pattern_id);
 alter table tests.history_mstr_approval_scope_pattern
     add constraint history_mstr_approval_scope_pattern_PKC primary key (history_id,mstr_approval_scope_pattern_id);
 alter table tests.history_mstr_approval_scope_pattern
-     add constraint history_mstr_approval_scope_pattern_IX1 unique (mstr_approval_scope_pattern_id,revision);
+     add constraint history_mstr_approval_scope_pattern_IX1 unique  (mstr_approval_scope_pattern_id,revision);
 create unique index history_mstr_approval_pattern_PKI
     on tests.history_mstr_approval_pattern(history_id,mstr_approval_pattern_id);
 alter table tests.history_mstr_approval_pattern
     add constraint history_mstr_approval_pattern_PKC primary key (history_id,mstr_approval_pattern_id);
 alter table tests.history_mstr_approval_pattern
-     add constraint history_mstr_approval_pattern_IX1 unique (mstr_approval_pattern_id,revision);
+     add constraint history_mstr_approval_pattern_IX1 unique  (mstr_approval_pattern_id,revision);
 create unique index history_mstr_capability_PKI
     on tests.history_mstr_capability(history_id,mstr_capability_id);
 alter table tests.history_mstr_capability
     add constraint history_mstr_capability_PKC primary key (history_id,mstr_capability_id);
 alter table tests.history_mstr_capability
-     add constraint history_mstr_capability_IX1 unique (mstr_capability_id,revision);
+     add constraint history_mstr_capability_IX1 unique  (mstr_capability_id,revision);
 create unique index history_mstr_approval_pattern_detail_PKI
     on tests.history_mstr_approval_pattern_detail(history_id,mstr_approval_pattern_detail_id);
 alter table tests.history_mstr_approval_pattern_detail
     add constraint history_mstr_approval_pattern_detail_PKC primary key (history_id,mstr_approval_pattern_detail_id);
 alter table tests.history_mstr_approval_pattern_detail
-     add constraint history_mstr_approval_pattern_detail_IX1 unique (mstr_approval_pattern_detail_id,revision);
+     add constraint history_mstr_approval_pattern_detail_IX1 unique  (mstr_approval_pattern_detail_id,revision);
 create unique index history_mstr_approval_PKI
     on tests.history_mstr_approval(history_id,mstr_approval_id);
 alter table tests.history_mstr_approval
     add constraint history_mstr_approval_PKC primary key (history_id,mstr_approval_id);
 alter table tests.history_mstr_approval
-     add constraint history_mstr_approval_IX1 unique (mstr_approval_id,revision);
+     add constraint history_mstr_approval_IX1 unique  (mstr_approval_id,revision);
 create unique index history_info_position_PKI
     on tests.history_info_position(history_id,info_position_id);
 alter table tests.history_info_position
     add constraint history_info_position_PKC primary key (history_id,info_position_id);
 alter table tests.history_info_position
-     add constraint history_info_position_IX1 unique (info_position_id,revision);
+     add constraint history_info_position_IX1 unique  (info_position_id,revision);
 create unique index history_mstr_staff_capability_PKI
     on tests.history_mstr_staff_capability(history_id,mstr_staff_capability_id,info_staff_id);
 alter table tests.history_mstr_staff_capability
     add constraint history_mstr_staff_capability_PKC primary key (history_id,mstr_staff_capability_id,info_staff_id);
 alter table tests.history_mstr_staff_capability
-     add constraint history_mstr_staff_capability_IX1 unique (mstr_staff_capability_id,revision);
+     add constraint history_mstr_staff_capability_IX1 unique  (mstr_staff_capability_id,revision);
 create unique index history_mstr_sign_PKI
     on tests.history_mstr_sign(history_id,mstr_sign_id);
 alter table tests.history_mstr_sign
     add constraint history_mstr_sign_PKC primary key (history_id,mstr_sign_id);
 alter table tests.history_mstr_sign
-     add constraint history_mstr_sign_IX1 unique (mstr_sign_id,revision);
+     add constraint history_mstr_sign_IX1 unique  (mstr_sign_id,revision);
 create unique index history_info_staff_PKI
     on tests.history_info_staff(history_id,info_staff_id);
 alter table tests.history_info_staff
     add constraint history_info_staff_PKC primary key (history_id,info_staff_id);
 alter table tests.history_info_staff
-     add constraint history_info_staff_IX1 unique (info_staff_id,revision);
+     add constraint history_info_staff_IX1 unique  (info_staff_id,revision);
 create unique index history_info_provision_PKI
     on tests.history_info_provision(history_id,info_provision_id);
 alter table tests.history_info_provision
     add constraint history_info_provision_PKC primary key (history_id,info_provision_id);
 alter table tests.history_info_provision
-     add constraint history_info_provision_IX1 unique (info_provision_id,revision);
+     add constraint history_info_provision_IX1 unique  (info_provision_id,revision);
 create unique index history_info_address_PKI
     on tests.history_info_address(history_id,info_address_id);
 alter table tests.history_info_address
     add constraint history_info_address_PKC primary key (history_id,info_address_id);
 alter table tests.history_info_address
-     add constraint history_info_address_IX1 unique (info_address_id,revision);
+     add constraint history_info_address_IX1 unique  (info_address_id,revision);
 create unique index history_shared_unit_PKI
     on tests.history_shared_unit(history_id,shared_unit_id);
 alter table tests.history_shared_unit
     add constraint history_shared_unit_PKC primary key (history_id,shared_unit_id);
 alter table tests.history_shared_unit
-     add constraint history_shared_unit_IX1 unique (shared_unit_id,revision);
+     add constraint history_shared_unit_IX1 unique  (shared_unit_id,revision);
 create unique index history_info_office_PKI
     on tests.history_info_office(history_id,info_office_id);
 alter table tests.history_info_office
     add constraint history_info_office_PKC primary key (history_id,info_office_id);
 alter table tests.history_info_office
-     add constraint history_info_office_IX1 unique (info_office_id,revision);
+     add constraint history_info_office_IX1 unique  (info_office_id,revision);
 create unique index history_info_department_PKI
     on tests.history_info_department(history_id,info_department_id);
 alter table tests.history_info_department
     add constraint history_info_department_PKC primary key (history_id,info_department_id);
 alter table tests.history_info_department
-     add constraint history_info_department_IX1 unique (info_department_id,revision);
+     add constraint history_info_department_IX1 unique  (info_department_id,revision);
 create unique index history_info_access_path_approval_PKI
     on tests.history_info_access_path_approval(history_id,info_access_path_approval_id);
 alter table tests.history_info_access_path_approval
     add constraint history_info_access_path_approval_PKC primary key (history_id,info_access_path_approval_id);
 alter table tests.history_info_access_path_approval
-     add constraint history_info_access_path_approval_IX1 unique (info_access_path_approval_id,revision);
+     add constraint history_info_access_path_approval_IX1 unique  (info_access_path_approval_id,revision);
 create unique index history_info_access_path_PKI
     on tests.history_info_access_path(history_id,info_access_path_id);
 alter table tests.history_info_access_path
     add constraint history_info_access_path_PKC primary key (history_id,info_access_path_id);
 alter table tests.history_info_access_path
-     add constraint history_info_access_path_IX1 unique (info_access_path_id,revision);
+     add constraint history_info_access_path_IX1 unique  (info_access_path_id,revision);
 create unique index history_info_company_PKI
     on tests.history_info_company(history_id,info_company_id);
 alter table tests.history_info_company
     add constraint history_info_company_PKC primary key (history_id,info_company_id);
 alter table tests.history_info_company
-     add constraint history_info_company_IX1 unique (info_company_id,revision);
+     add constraint history_info_company_IX1 unique  (info_company_id,revision);
 create unique index info_company_PKI
     on tests.info_company(info_company_id);
 alter table tests.info_company
     add constraint info_company_PKC primary key (info_company_id);
 alter table tests.info_company
-     add constraint info_company_IX1 unique (symbol);
+     add constraint info_company_IX1 unique  (symbol);
 create unique index history_info_app_PKI
     on tests.history_info_app(history_id,info_app_id);
 alter table tests.history_info_app
     add constraint history_info_app_PKC primary key (history_id,info_app_id);
 alter table tests.history_info_app
-     add constraint history_info_app_IX1 unique (info_app_id,revision);
+     add constraint history_info_app_IX1 unique  (info_app_id,revision);
 create unique index trans_anonymouse_PKI
     on tests.trans_anonymouse(trans_anonymouse_id);
 alter table tests.trans_anonymouse
     add constraint trans_anonymouse_PKC primary key (trans_anonymouse_id);
 alter table tests.trans_anonymouse
-     add constraint trans_anonymouse_IX1 unique (symbol);
+     add constraint trans_anonymouse_IX1 unique  (symbol);
 create unique index trans_file_reminder_PKI
     on tests.trans_file_reminder(trans_file_reminder_id);
 alter table tests.trans_file_reminder
     add constraint trans_file_reminder_PKC primary key (trans_file_reminder_id);
 alter table tests.trans_file_reminder
-     add constraint trans_file_reminder_IX1 unique (symbol);
+     add constraint trans_file_reminder_IX1 unique  (symbol);
 create unique index mstr_equipment_available_PKI
     on tests.mstr_equipment_available(mstr_equipment_available_id);
 alter table tests.mstr_equipment_available
     add constraint mstr_equipment_available_PKC primary key (mstr_equipment_available_id);
 alter table tests.mstr_equipment_available
-     add constraint mstr_equipment_available_IX1 unique (symbol);
+     add constraint mstr_equipment_available_IX1 unique  (symbol);
+alter table tests.mstr_equipment_available
+     add constraint mstr_equipment_available_IX2 unique  (mstr_task_location_id);
 create unique index mstr_outsource_available_PKI
     on tests.mstr_outsource_available(mstr_outsource_available_id);
 alter table tests.mstr_outsource_available
     add constraint mstr_outsource_available_PKC primary key (mstr_outsource_available_id);
 alter table tests.mstr_outsource_available
-     add constraint mstr_outsource_available_IX1 unique (symbol);
+     add constraint mstr_outsource_available_IX1 unique  (symbol);
+alter table tests.mstr_outsource_available
+     add constraint mstr_outsource_available_IX2 unique  (mstr_task_location_id);
 create unique index mstr_task_group_PKI
     on tests.mstr_task_group(mstr_task_group_id);
 alter table tests.mstr_task_group
     add constraint mstr_task_group_PKC primary key (mstr_task_group_id);
 alter table tests.mstr_task_group
-     add constraint mstr_task_group_IX1 unique (symbol);
+     add constraint mstr_task_group_IX1 unique  (symbol);
 create unique index trans_unrecognized_detail_PKI
     on tests.trans_unrecognized_detail(trans_unrecognized_detail_id);
 alter table tests.trans_unrecognized_detail
     add constraint trans_unrecognized_detail_PKC primary key (trans_unrecognized_detail_id);
 alter table tests.trans_unrecognized_detail
-     add constraint trans_unrecognized_detail_IX1 unique (trans_unrecognized_id);
+     add constraint trans_unrecognized_detail_IX1 unique  (trans_unrecognized_id);
 alter table tests.trans_unrecognized_detail
-     add constraint trans_unrecognized_detail_IX2 unique (symbol);
+     add constraint trans_unrecognized_detail_IX2 unique  (symbol);
 create unique index trans_unrecognized_PKI
     on tests.trans_unrecognized(trans_unrecognized_id);
 alter table tests.trans_unrecognized
     add constraint trans_unrecognized_PKC primary key (trans_unrecognized_id);
 alter table tests.trans_unrecognized
-     add constraint trans_unrecognized_IX1 unique (symbol);
+     add constraint trans_unrecognized_IX1 unique  (symbol);
 create unique index mstr_stakeholder_provision_PKI
     on tests.mstr_stakeholder_provision(mstr_stakeholder_provision_id);
 alter table tests.mstr_stakeholder_provision
     add constraint mstr_stakeholder_provision_PKC primary key (mstr_stakeholder_provision_id);
 alter table tests.mstr_stakeholder_provision
-     add constraint mstr_stakeholder_provision_IX1 unique (symbol);
+     add constraint mstr_stakeholder_provision_IX1 unique  (symbol);
 create unique index info_provision_PKI
     on tests.info_provision(info_provision_id);
 alter table tests.info_provision
     add constraint info_provision_PKC primary key (info_provision_id);
 alter table tests.info_provision
-     add constraint info_provision_IX1 unique (symbol);
+     add constraint info_provision_IX1 unique  (symbol);
 create unique index mstr_inspection_formula_PKI
     on tests.mstr_inspection_formula(mstr_inspection_formula_id);
 alter table tests.mstr_inspection_formula
     add constraint mstr_inspection_formula_PKC primary key (mstr_inspection_formula_id);
 alter table tests.mstr_inspection_formula
-     add constraint mstr_inspection_formula_IX1 unique (symbol);
+     add constraint mstr_inspection_formula_IX1 unique  (symbol);
 create unique index mstr_manufacturer_PKI
     on tests.mstr_manufacturer(mstr_manufacturer_id);
 alter table tests.mstr_manufacturer
     add constraint mstr_manufacturer_PKC primary key (mstr_manufacturer_id);
 alter table tests.mstr_manufacturer
-     add constraint mstr_manufacturer_IX1 unique (symbol);
+     add constraint mstr_manufacturer_IX1 unique  (symbol);
 create unique index mstr_approval_scope_pattern_PKI
     on tests.mstr_approval_scope_pattern(mstr_approval_scope_pattern_id);
 alter table tests.mstr_approval_scope_pattern
     add constraint mstr_approval_scope_pattern_PKC primary key (mstr_approval_scope_pattern_id);
 alter table tests.mstr_approval_scope_pattern
-     add constraint mstr_approval_scope_pattern_IX1 unique (symbol);
+     add constraint mstr_approval_scope_pattern_IX1 unique  (symbol);
 create unique index mstr_approval_pattern_detail_PKI
     on tests.mstr_approval_pattern_detail(mstr_approval_pattern_detail_id);
 alter table tests.mstr_approval_pattern_detail
     add constraint mstr_approval_pattern_detail_PKC primary key (mstr_approval_pattern_detail_id);
 alter table tests.mstr_approval_pattern_detail
-     add constraint mstr_approval_pattern_detail_IX1 unique (symbol);
+     add constraint mstr_approval_pattern_detail_IX1 unique  (symbol);
 create unique index info_address_PKI
     on tests.info_address(info_address_id);
 alter table tests.info_address
     add constraint info_address_PKC primary key (info_address_id);
 alter table tests.info_address
-     add constraint info_address_IX1 unique (symbol);
+     add constraint info_address_IX1 unique  (symbol);
 create unique index trans_inspection_report_PKI
     on tests.trans_inspection_report(trans_inspection_report_id);
 alter table tests.trans_inspection_report
     add constraint trans_inspection_report_PKC primary key (trans_inspection_report_id);
 alter table tests.trans_inspection_report
-     add constraint trans_inspection_report_IX1 unique (symbol);
+     add constraint trans_inspection_report_IX1 unique  (symbol);
 create unique index mstr_report_PKI
     on tests.mstr_report(mstr_report_id);
 alter table tests.mstr_report
     add constraint mstr_report_PKC primary key (mstr_report_id);
 alter table tests.mstr_report
-     add constraint mstr_report_IX1 unique (symbol);
+     add constraint mstr_report_IX1 unique  (symbol);
 create unique index mstr_equipment_tag_PKI
     on tests.mstr_equipment_tag(mstr_equipment_tag_id);
 alter table tests.mstr_equipment_tag
     add constraint mstr_equipment_tag_PKC primary key (mstr_equipment_tag_id);
 alter table tests.mstr_equipment_tag
-     add constraint mstr_equipment_tag_IX1 unique (symbol);
+     add constraint mstr_equipment_tag_IX1 unique  (symbol);
 create unique index info_access_path_approval_PKI
     on tests.info_access_path_approval(info_access_path_approval_id);
 alter table tests.info_access_path_approval
     add constraint info_access_path_approval_PKC primary key (info_access_path_approval_id);
 alter table tests.info_access_path_approval
-     add constraint info_access_path_approval_IX1 unique (symbol);
+     add constraint info_access_path_approval_IX1 unique  (symbol);
 create unique index trans_approved_PKI
     on tests.trans_approved(trans_approved_id);
 alter table tests.trans_approved
     add constraint trans_approved_PKC primary key (trans_approved_id);
 alter table tests.trans_approved
-     add constraint trans_approved_IX1 unique (symbol);
+     add constraint trans_approved_IX1 unique  (symbol);
 create unique index mstr_approval_PKI
     on tests.mstr_approval(mstr_approval_id);
 alter table tests.mstr_approval
     add constraint mstr_approval_PKC primary key (mstr_approval_id);
 alter table tests.mstr_approval
-     add constraint mstr_approval_IX1 unique (symbol);
+     add constraint mstr_approval_IX1 unique  (symbol);
 create unique index info_position_PKI
     on tests.info_position(info_position_id);
 alter table tests.info_position
     add constraint info_position_PKC primary key (info_position_id);
 alter table tests.info_position
-     add constraint info_position_IX1 unique (symbol);
+     add constraint info_position_IX1 unique  (symbol);
 create unique index mstr_approval_pattern_PKI
     on tests.mstr_approval_pattern(mstr_approval_pattern_id);
 alter table tests.mstr_approval_pattern
     add constraint mstr_approval_pattern_PKC primary key (mstr_approval_pattern_id);
 alter table tests.mstr_approval_pattern
-     add constraint mstr_approval_pattern_IX1 unique (symbol);
+     add constraint mstr_approval_pattern_IX1 unique  (symbol);
 create unique index trans_preapproval_PKI
     on tests.trans_preapproval(trans_preapproval_id);
 alter table tests.trans_preapproval
     add constraint trans_preapproval_PKC primary key (trans_preapproval_id);
 alter table tests.trans_preapproval
-     add constraint trans_preapproval_IX1 unique (symbol);
+     add constraint trans_preapproval_IX1 unique  (symbol);
 create unique index trans_approval_pattern_PKI
     on tests.trans_approval_pattern(trans_approval_pattern_id);
 alter table tests.trans_approval_pattern
     add constraint trans_approval_pattern_PKC primary key (trans_approval_pattern_id);
 alter table tests.trans_approval_pattern
-     add constraint trans_approval_pattern_IX1 unique (symbol);
+     add constraint trans_approval_pattern_IX1 unique  (symbol);
 create unique index trans_audit_member_PKI
     on tests.trans_audit_member(trans_audit_member_id,trans_audit_id);
 alter table tests.trans_audit_member
     add constraint trans_audit_member_PKC primary key (trans_audit_member_id,trans_audit_id);
 alter table tests.trans_audit_member
-     add constraint trans_audit_member_IX1 unique (symbol);
+     add constraint trans_audit_member_IX1 unique  (symbol);
 create unique index trans_auditor_PKI
     on tests.trans_auditor(trans_auditor_id);
 alter table tests.trans_auditor
     add constraint trans_auditor_PKC primary key (trans_auditor_id);
 alter table tests.trans_auditor
-     add constraint trans_auditor_IX1 unique (symbol);
+     add constraint trans_auditor_IX1 unique  (symbol);
 create unique index trans_audit_team_PKI
     on tests.trans_audit_team(trans_audit_team_id);
 alter table tests.trans_audit_team
     add constraint trans_audit_team_PKC primary key (trans_audit_team_id);
 alter table tests.trans_audit_team
-     add constraint trans_audit_team_IX1 unique (symbol);
+     add constraint trans_audit_team_IX1 unique  (symbol);
 create unique index trans_audit_PKI
     on tests.trans_audit(trans_audit_id);
 alter table tests.trans_audit
     add constraint trans_audit_PKC primary key (trans_audit_id);
 alter table tests.trans_audit
-     add constraint trans_audit_IX1 unique (symbol);
+     add constraint trans_audit_IX1 unique  (symbol);
 create unique index trans_task_risk_PKI
     on tests.trans_task_risk(trans_task_risk_id);
 alter table tests.trans_task_risk
     add constraint trans_task_risk_PKC primary key (trans_task_risk_id);
 alter table tests.trans_task_risk
-     add constraint trans_task_risk_IX1 unique (symbol);
+     add constraint trans_task_risk_IX1 unique  (symbol);
 create unique index trans_order_detail_risk_PKI
     on tests.trans_order_detail_risk(trans_order_detail_risk_id);
 alter table tests.trans_order_detail_risk
     add constraint trans_order_detail_risk_PKC primary key (trans_order_detail_risk_id);
 alter table tests.trans_order_detail_risk
-     add constraint trans_order_detail_risk_IX1 unique (symbol);
+     add constraint trans_order_detail_risk_IX1 unique  (symbol);
 create unique index trans_prevention_detail_PKI
     on tests.trans_prevention_detail(trans_prevention_detail_id);
 alter table tests.trans_prevention_detail
     add constraint trans_prevention_detail_PKC primary key (trans_prevention_detail_id);
 alter table tests.trans_prevention_detail
-     add constraint trans_prevention_detail_IX1 unique (symbol);
+     add constraint trans_prevention_detail_IX1 unique  (symbol);
 create unique index trans_prevention_PKI
     on tests.trans_prevention(trans_prevention_id);
 alter table tests.trans_prevention
     add constraint trans_prevention_PKC primary key (trans_prevention_id);
 alter table tests.trans_prevention
-     add constraint trans_prevention_IX1 unique (symbol);
+     add constraint trans_prevention_IX1 unique  (symbol);
 create unique index trans_order_risk_PKI
     on tests.trans_order_risk(trans_order_risk_id);
 alter table tests.trans_order_risk
     add constraint trans_order_risk_PKC primary key (trans_order_risk_id);
 alter table tests.trans_order_risk
-     add constraint trans_order_risk_IX1 unique (symbol);
+     add constraint trans_order_risk_IX1 unique  (symbol);
 create unique index trans_equipment_lent_PKI
     on tests.trans_equipment_lent(trans_equipment_lent_id);
 alter table tests.trans_equipment_lent
     add constraint trans_equipment_lent_PKC primary key (trans_equipment_lent_id);
 alter table tests.trans_equipment_lent
-     add constraint trans_equipment_lent_IX1 unique (symbol);
+     add constraint trans_equipment_lent_IX1 unique  (symbol);
 create unique index hrchy_mstr_location_PKI
     on tests.hrchy_mstr_location(hrchy_mstr_location_id);
 alter table tests.hrchy_mstr_location
@@ -7683,411 +7695,411 @@ create unique index mstr_audit_std_checkitem_PKI
 alter table tests.mstr_audit_std_checkitem
     add constraint mstr_audit_std_checkitem_PKC primary key (mstr_audit_std_checkitem_id);
 alter table tests.mstr_audit_std_checkitem
-     add constraint mstr_audit_std_checkitem_IX1 unique (symbol);
+     add constraint mstr_audit_std_checkitem_IX1 unique  (symbol);
 create unique index mstr_audit_std_PKI
     on tests.mstr_audit_std(mstr_audit_std_id);
 alter table tests.mstr_audit_std
     add constraint mstr_audit_std_PKC primary key (mstr_audit_std_id);
 alter table tests.mstr_audit_std
-     add constraint mstr_audit_std_IX1 unique (symbol);
+     add constraint mstr_audit_std_IX1 unique  (symbol);
 create unique index trans_risk_PKI
     on tests.trans_risk(trans_risk_id);
 alter table tests.trans_risk
     add constraint trans_risk_PKC primary key (trans_risk_id);
 alter table tests.trans_risk
-     add constraint trans_risk_IX1 unique (symbol);
+     add constraint trans_risk_IX1 unique  (symbol);
 create unique index trans_observer_preventive_PKI
     on tests.trans_observer_preventive(trans_observer_preventive_id);
 alter table tests.trans_observer_preventive
     add constraint trans_observer_preventive_PKC primary key (trans_observer_preventive_id);
 alter table tests.trans_observer_preventive
-     add constraint trans_observer_preventive_IX1 unique (symbol);
+     add constraint trans_observer_preventive_IX1 unique  (symbol);
 create unique index trans_observer_disposal_PKI
     on tests.trans_observer_disposal(trans_observer_disposal_id);
 alter table tests.trans_observer_disposal
     add constraint trans_observer_disposal_PKC primary key (trans_observer_disposal_id);
 alter table tests.trans_observer_disposal
-     add constraint trans_observer_disposal_IX1 unique (symbol);
+     add constraint trans_observer_disposal_IX1 unique  (symbol);
 create unique index trans_complaint_stakeholder_PKI
     on tests.trans_complaint_stakeholder(trans_complaint_stakeholder_id);
 alter table tests.trans_complaint_stakeholder
     add constraint trans_complaint_stakeholder_PKC primary key (trans_complaint_stakeholder_id);
 alter table tests.trans_complaint_stakeholder
-     add constraint trans_complaint_stakeholder_IX1 unique (symbol);
+     add constraint trans_complaint_stakeholder_IX1 unique  (symbol);
 create unique index trans_complaint_equipment_PKI
     on tests.trans_complaint_equipment(trans_complaint_equipment_id);
 alter table tests.trans_complaint_equipment
     add constraint trans_complaint_equipment_PKC primary key (trans_complaint_equipment_id);
 alter table tests.trans_complaint_equipment
-     add constraint trans_complaint_equipment_IX1 unique (symbol);
+     add constraint trans_complaint_equipment_IX1 unique  (symbol);
 create unique index trans_complaint_process_PKI
     on tests.trans_complaint_process(trans_complaint_process_id);
 alter table tests.trans_complaint_process
     add constraint trans_complaint_process_PKC primary key (trans_complaint_process_id);
 alter table tests.trans_complaint_process
-     add constraint trans_complaint_process_IX1 unique (symbol);
+     add constraint trans_complaint_process_IX1 unique  (symbol);
 create unique index trans_complaint_order_PKI
     on tests.trans_complaint_order(trans_complaint_order_id);
 alter table tests.trans_complaint_order
     add constraint trans_complaint_order_PKC primary key (trans_complaint_order_id);
 alter table tests.trans_complaint_order
-     add constraint trans_complaint_order_IX1 unique (symbol);
+     add constraint trans_complaint_order_IX1 unique  (symbol);
 create unique index trans_disposal_PKI
     on tests.trans_disposal(trans_disposal_id);
 alter table tests.trans_disposal
     add constraint trans_disposal_PKC primary key (trans_disposal_id);
 alter table tests.trans_disposal
-     add constraint trans_disposal_IX1 unique (symbol);
+     add constraint trans_disposal_IX1 unique  (symbol);
 create unique index trans_recurrence_prevention_PKI
     on tests.trans_recurrence_prevention(trans_recurrence_prevention_id);
 alter table tests.trans_recurrence_prevention
     add constraint trans_recurrence_prevention_PKC primary key (trans_recurrence_prevention_id);
 alter table tests.trans_recurrence_prevention
-     add constraint trans_recurrence_prevention_IX1 unique (symbol);
+     add constraint trans_recurrence_prevention_IX1 unique  (symbol);
 create unique index trans_complaint_PKI
     on tests.trans_complaint(trans_complaint_id);
 alter table tests.trans_complaint
     add constraint trans_complaint_PKC primary key (trans_complaint_id);
 alter table tests.trans_complaint
-     add constraint trans_complaint_IX1 unique (symbol);
+     add constraint trans_complaint_IX1 unique  (symbol);
 create unique index trans_inspect_imp_file_PKI
     on tests.trans_inspect_imp_file(trans_inspect_imp_file_id);
 alter table tests.trans_inspect_imp_file
     add constraint trans_inspect_imp_file_PKC primary key (trans_inspect_imp_file_id);
 alter table tests.trans_inspect_imp_file
-     add constraint trans_inspect_imp_file_IX1 unique (symbol);
+     add constraint trans_inspect_imp_file_IX1 unique  (symbol);
 create unique index trans_inspect_record_PKI
     on tests.trans_inspect_record(trans_inspect_record_id);
 alter table tests.trans_inspect_record
     add constraint trans_inspect_record_PKC primary key (trans_inspect_record_id);
 alter table tests.trans_inspect_record
-     add constraint trans_inspect_record_IX1 unique (symbol);
+     add constraint trans_inspect_record_IX1 unique  (symbol);
 create unique index trans_inspect_sch_detail_PKI
     on tests.trans_inspect_sch_detail(trans_inspect_sch_detail_id);
 alter table tests.trans_inspect_sch_detail
     add constraint trans_inspect_sch_detail_PKC primary key (trans_inspect_sch_detail_id);
 alter table tests.trans_inspect_sch_detail
-     add constraint trans_inspect_sch_detail_IX1 unique (symbol);
+     add constraint trans_inspect_sch_detail_IX1 unique  (symbol);
 create unique index trans_inspect_sch_PKI
     on tests.trans_inspect_sch(trans_inspect_sch_id);
 alter table tests.trans_inspect_sch
     add constraint trans_inspect_sch_PKC primary key (trans_inspect_sch_id);
 alter table tests.trans_inspect_sch
-     add constraint trans_inspect_sch_IX1 unique (symbol);
+     add constraint trans_inspect_sch_IX1 unique  (symbol);
 create unique index mstr_inspection_PKI
     on tests.mstr_inspection(mstr_inspection_id);
 alter table tests.mstr_inspection
     add constraint mstr_inspection_PKC primary key (mstr_inspection_id);
 alter table tests.mstr_inspection
-     add constraint mstr_inspection_IX1 unique (symbol);
+     add constraint mstr_inspection_IX1 unique  (symbol);
 create unique index info_assign_PKI
     on tests.info_assign(info_assign_id);
 alter table tests.info_assign
     add constraint info_assign_PKC primary key (info_assign_id);
 alter table tests.info_assign
-     add constraint info_assign_IX1 unique (symbol);
+     add constraint info_assign_IX1 unique  (symbol);
 create unique index info_staff_access_permission_PKI
     on tests.info_staff_access_permission(info_staff_access_permission_id);
 alter table tests.info_staff_access_permission
     add constraint info_staff_access_permission_PKC primary key (info_staff_access_permission_id);
 alter table tests.info_staff_access_permission
-     add constraint info_staff_access_permission_IX1 unique (symbol);
+     add constraint info_staff_access_permission_IX1 unique  (symbol);
 create unique index info_app_PKI
     on tests.info_app(info_app_id);
 alter table tests.info_app
     add constraint info_app_PKC primary key (info_app_id);
 alter table tests.info_app
-     add constraint info_app_IX1 unique (name);
+     add constraint info_app_IX1 unique  (name);
 alter table tests.info_app
-     add constraint info_app_IX2 unique (symbol);
+     add constraint info_app_IX2 unique  (symbol);
 create unique index info_access_path_PKI
     on tests.info_access_path(info_access_path_id);
 alter table tests.info_access_path
     add constraint info_access_path_PKC primary key (info_access_path_id);
 alter table tests.info_access_path
-     add constraint info_access_path_IX1 unique (symbol);
+     add constraint info_access_path_IX1 unique  (symbol);
 create unique index trans_inventory_request_PKI
     on tests.trans_inventory_request(trans_inventory_request_id);
 alter table tests.trans_inventory_request
     add constraint trans_inventory_request_PKC primary key (trans_inventory_request_id);
 alter table tests.trans_inventory_request
-     add constraint trans_inventory_request_IX1 unique (symbol);
+     add constraint trans_inventory_request_IX1 unique  (symbol);
 create unique index trans_product_rez_PKI
     on tests.trans_product_rez(trans_product_rez_id);
 alter table tests.trans_product_rez
     add constraint trans_product_rez_PKC primary key (trans_product_rez_id);
 alter table tests.trans_product_rez
-     add constraint trans_product_rez_IX1 unique (symbol);
+     add constraint trans_product_rez_IX1 unique  (symbol);
 create unique index trans_work_record_visiter_PKI
     on tests.trans_work_record_visiter(trans_work_record_visiter_id);
 alter table tests.trans_work_record_visiter
     add constraint trans_work_record_visiter_PKC primary key (trans_work_record_visiter_id);
 alter table tests.trans_work_record_visiter
-     add constraint trans_work_record_visiter_IX1 unique (symbol);
+     add constraint trans_work_record_visiter_IX1 unique  (symbol);
 create unique index trans_purchase_rec_visiter_PKI
     on tests.trans_purchase_rec_visiter(trans_purchase_rec_visiter_id);
 alter table tests.trans_purchase_rec_visiter
     add constraint trans_purchase_rec_visiter_PKC primary key (trans_purchase_rec_visiter_id);
 alter table tests.trans_purchase_rec_visiter
-     add constraint trans_purchase_rec_visiter_IX1 unique (symbol);
+     add constraint trans_purchase_rec_visiter_IX1 unique  (symbol);
 create unique index trans_visiter_PKI
     on tests.trans_visiter(trans_visiter_id);
 alter table tests.trans_visiter
     add constraint trans_visiter_PKC primary key (trans_visiter_id);
 alter table tests.trans_visiter
-     add constraint trans_visiter_IX1 unique (symbol);
+     add constraint trans_visiter_IX1 unique  (symbol);
 create unique index mstr_item_actual_size_PKI
     on tests.mstr_item_actual_size(mstr_item_actual_size_id);
 alter table tests.mstr_item_actual_size
     add constraint mstr_item_actual_size_PKC primary key (mstr_item_actual_size_id);
 alter table tests.mstr_item_actual_size
-     add constraint mstr_item_actual_size_IX1 unique (mstr_item_id,mstr_item_size_kind_id);
+     add constraint mstr_item_actual_size_IX1 unique  (mstr_item_id,mstr_item_size_kind_id);
 alter table tests.mstr_item_actual_size
-     add constraint mstr_item_actual_size_IX2 unique (symbol);
+     add constraint mstr_item_actual_size_IX2 unique  (symbol);
 create unique index trans_file_PKI
     on tests.trans_file(trans_file_id);
 alter table tests.trans_file
     add constraint trans_file_PKC primary key (trans_file_id);
 alter table tests.trans_file
-     add constraint trans_file_IX1 unique (symbol);
+     add constraint trans_file_IX1 unique  (symbol);
 create unique index mstr_operation_task_PKI
     on tests.mstr_operation_task(mstr_operation_task_id);
 alter table tests.mstr_operation_task
     add constraint mstr_operation_task_PKC primary key (mstr_operation_task_id);
 alter table tests.mstr_operation_task
-     add constraint mstr_operation_task_IX1 unique (mstr_operation_id,mstr_task_id,sequence);
+     add constraint mstr_operation_task_IX1 unique  (mstr_operation_id,mstr_task_id,sequence);
 alter table tests.mstr_operation_task
-     add constraint mstr_operation_task_IX2 unique (symbol);
+     add constraint mstr_operation_task_IX2 unique  (symbol);
 create unique index mstr_operation_PKI
     on tests.mstr_operation(mstr_operation_id);
 alter table tests.mstr_operation
     add constraint mstr_operation_PKC primary key (mstr_operation_id);
 alter table tests.mstr_operation
-     add constraint mstr_operation_IX1 unique (symbol);
+     add constraint mstr_operation_IX1 unique  (symbol);
 create unique index trans_convey_PKI
     on tests.trans_convey(trans_convey_id);
 alter table tests.trans_convey
     add constraint trans_convey_PKC primary key (trans_convey_id);
 alter table tests.trans_convey
-     add constraint trans_convey_IX1 unique (symbol);
+     add constraint trans_convey_IX1 unique  (symbol);
 create unique index trans_work_record_certificate_PKI
     on tests.trans_work_record_certificate(trans_work_record_certificate_id);
 alter table tests.trans_work_record_certificate
     add constraint trans_work_record_certificate_PKC primary key (trans_work_record_certificate_id);
 alter table tests.trans_work_record_certificate
-     add constraint trans_work_record_certificate_IX1 unique (symbol);
+     add constraint trans_work_record_certificate_IX1 unique  (symbol);
 create unique index trans_certificate_PKI
     on tests.trans_certificate(trans_certificate_id);
 alter table tests.trans_certificate
     add constraint trans_certificate_PKC primary key (trans_certificate_id);
 alter table tests.trans_certificate
-     add constraint trans_certificate_IX1 unique (symbol);
+     add constraint trans_certificate_IX1 unique  (symbol);
 create unique index trans_purchase_rec_PKI
     on tests.trans_purchase_rec(trans_purchase_rec_id);
 alter table tests.trans_purchase_rec
     add constraint trans_purchase_rec_PKC primary key (trans_purchase_rec_id);
 alter table tests.trans_purchase_rec
-     add constraint trans_purchase_rec_IX1 unique (symbol);
+     add constraint trans_purchase_rec_IX1 unique  (symbol);
 create unique index trans_purchase_certification_PKI
     on tests.trans_purchase_certification(trans_purchase_certification_id);
 alter table tests.trans_purchase_certification
     add constraint trans_purchase_certification_PKC primary key (trans_purchase_certification_id);
 alter table tests.trans_purchase_certification
-     add constraint trans_purchase_certification_IX1 unique (symbol);
+     add constraint trans_purchase_certification_IX1 unique  (symbol);
 create unique index trans_purchase_rez_PKI
     on tests.trans_purchase_rez(trans_purchase_rez_id);
 alter table tests.trans_purchase_rez
     add constraint trans_purchase_rez_PKC primary key (trans_purchase_rez_id);
 alter table tests.trans_purchase_rez
-     add constraint trans_purchase_rez_IX1 unique (symbol);
+     add constraint trans_purchase_rez_IX1 unique  (symbol);
 create unique index trans_purchase_detail_PKI
     on tests.trans_purchase_detail(trans_purchase_detail_id);
 alter table tests.trans_purchase_detail
     add constraint trans_purchase_detail_PKC primary key (trans_purchase_detail_id);
 alter table tests.trans_purchase_detail
-     add constraint trans_purchase_detail_IX1 unique (trans_purchase_detail_id,trans_purchase_id);
+     add constraint trans_purchase_detail_IX1 unique  (trans_purchase_detail_id,trans_purchase_id);
 alter table tests.trans_purchase_detail
-     add constraint trans_purchase_detail_IX2 unique (symbol);
+     add constraint trans_purchase_detail_IX2 unique  (symbol);
 create unique index trans_order_detail_PKI
     on tests.trans_order_detail(trans_order_detail_id);
 alter table tests.trans_order_detail
     add constraint trans_order_detail_PKC primary key (trans_order_detail_id);
 alter table tests.trans_order_detail
-     add constraint trans_order_detail_IX1 unique (trans_order_id);
+     add constraint trans_order_detail_IX1 unique  (trans_order_id);
 alter table tests.trans_order_detail
-     add constraint trans_order_detail_IX2 unique (symbol);
+     add constraint trans_order_detail_IX2 unique  (symbol);
 create unique index trans_shipping_order_detail_PKI
     on tests.trans_shipping_order_detail(trans_shipping_order_detail_id);
 alter table tests.trans_shipping_order_detail
     add constraint trans_shipping_order_detail_PKC primary key (trans_shipping_order_detail_id);
 alter table tests.trans_shipping_order_detail
-     add constraint trans_shipping_order_detail_IX1 unique (trans_order_detail_id,trans_shipping_order_id);
+     add constraint trans_shipping_order_detail_IX1 unique  (trans_order_detail_id,trans_shipping_order_id);
 alter table tests.trans_shipping_order_detail
-     add constraint trans_shipping_order_detail_IX2 unique (symbol);
+     add constraint trans_shipping_order_detail_IX2 unique  (symbol);
 create unique index trans_shipping_order_PKI
     on tests.trans_shipping_order(trans_shipping_order_id);
 alter table tests.trans_shipping_order
     add constraint trans_shipping_order_PKC primary key (trans_shipping_order_id);
 alter table tests.trans_shipping_order
-     add constraint trans_shipping_order_IX1 unique (trans_order_id);
+     add constraint trans_shipping_order_IX1 unique  (trans_order_id);
 alter table tests.trans_shipping_order
-     add constraint trans_shipping_order_IX2 unique (symbol);
+     add constraint trans_shipping_order_IX2 unique  (symbol);
 create unique index trans_work_record_PKI
     on tests.trans_work_record(trans_work_record_id);
 alter table tests.trans_work_record
     add constraint trans_work_record_PKC primary key (trans_work_record_id);
 alter table tests.trans_work_record
-     add constraint trans_work_record_IX1 unique (symbol);
+     add constraint trans_work_record_IX1 unique  (symbol);
 create unique index trans_inventory_apply_PKI
     on tests.trans_inventory_apply(trans_inventory_apply_id);
 alter table tests.trans_inventory_apply
     add constraint trans_inventory_apply_PKC primary key (trans_inventory_apply_id);
 alter table tests.trans_inventory_apply
-     add constraint trans_inventory_apply_IX1 unique (symbol);
+     add constraint trans_inventory_apply_IX1 unique  (symbol);
 create unique index trans_work_plan_PKI
     on tests.trans_work_plan(trans_work_plan_id);
 alter table tests.trans_work_plan
     add constraint trans_work_plan_PKC primary key (trans_work_plan_id);
 alter table tests.trans_work_plan
-     add constraint trans_work_plan_IX1 unique (symbol);
+     add constraint trans_work_plan_IX1 unique  (symbol);
 create unique index trans_operations_plan_PKI
     on tests.trans_operations_plan(trans_operations_plan_id);
 alter table tests.trans_operations_plan
     add constraint trans_operations_plan_PKC primary key (trans_operations_plan_id);
 alter table tests.trans_operations_plan
-     add constraint trans_operations_plan_IX1 unique (symbol);
+     add constraint trans_operations_plan_IX1 unique  (symbol);
 create unique index trans_resource_plan_PKI
     on tests.trans_resource_plan(trans_resource_plan_id);
 alter table tests.trans_resource_plan
     add constraint trans_resource_plan_PKC primary key (trans_resource_plan_id);
 alter table tests.trans_resource_plan
-     add constraint trans_resource_plan_IX1 unique (symbol);
+     add constraint trans_resource_plan_IX1 unique  (symbol);
 create unique index trans_purchase_PKI
     on tests.trans_purchase(trans_purchase_id);
 alter table tests.trans_purchase
     add constraint trans_purchase_PKC primary key (trans_purchase_id);
 alter table tests.trans_purchase
-     add constraint trans_purchase_IX1 unique (symbol);
+     add constraint trans_purchase_IX1 unique  (symbol);
 create unique index trans_order_PKI
     on tests.trans_order(trans_order_id);
 alter table tests.trans_order
     add constraint trans_order_PKC primary key (trans_order_id);
 alter table tests.trans_order
-     add constraint trans_order_IX1 unique (symbol);
+     add constraint trans_order_IX1 unique  (symbol);
 create unique index mstr_item_operation_task_PKI
     on tests.mstr_item_operation_task(mstr_item_operation_task_id);
 alter table tests.mstr_item_operation_task
     add constraint mstr_item_operation_task_PKC primary key (mstr_item_operation_task_id);
 alter table tests.mstr_item_operation_task
-     add constraint mstr_item_operation_task_IX1 unique (symbol);
+     add constraint mstr_item_operation_task_IX1 unique  (symbol);
 create unique index mstr_item_tree_PKI
     on tests.mstr_item_tree(mstr_item_tree_id);
 alter table tests.mstr_item_tree
     add constraint mstr_item_tree_PKC primary key (mstr_item_tree_id);
 alter table tests.mstr_item_tree
-     add constraint mstr_item_tree_IX1 unique (mstr_item_id,parent_mstr_item_id);
+     add constraint mstr_item_tree_IX1 unique  (mstr_item_id,parent_mstr_item_id);
 alter table tests.mstr_item_tree
-     add constraint mstr_item_tree_IX2 unique (symbol);
+     add constraint mstr_item_tree_IX2 unique  (symbol);
 create unique index shared_unit_PKI
     on tests.shared_unit(shared_unit_id);
 alter table tests.shared_unit
     add constraint shared_unit_PKC primary key (shared_unit_id);
 alter table tests.shared_unit
-     add constraint shared_unit_IX1 unique (symbol);
+     add constraint shared_unit_IX1 unique  (symbol);
 create unique index mstr_item_PKI
     on tests.mstr_item(mstr_item_id);
 alter table tests.mstr_item
     add constraint mstr_item_PKC primary key (mstr_item_id);
 alter table tests.mstr_item
-     add constraint mstr_item_IX1 unique (symbol);
+     add constraint mstr_item_IX1 unique  (symbol);
 create unique index mstr_task_tree_PKI
     on tests.mstr_task_tree(mstr_task_tree_id);
 alter table tests.mstr_task_tree
     add constraint mstr_task_tree_PKC primary key (mstr_task_tree_id);
 alter table tests.mstr_task_tree
-     add constraint mstr_task_tree_IX1 unique (symbol);
+     add constraint mstr_task_tree_IX1 unique  (symbol);
 create unique index mstr_task_PKI
     on tests.mstr_task(mstr_task_id);
 alter table tests.mstr_task
     add constraint mstr_task_PKC primary key (mstr_task_id);
 alter table tests.mstr_task
-     add constraint mstr_task_IX1 unique (symbol);
+     add constraint mstr_task_IX1 unique  (symbol);
 create unique index mstr_location_PKI
     on tests.mstr_location(mstr_location_id);
 alter table tests.mstr_location
     add constraint mstr_location_PKC primary key (mstr_location_id);
 alter table tests.mstr_location
-     add constraint mstr_location_IX1 unique (symbol);
+     add constraint mstr_location_IX1 unique  (symbol);
 create unique index mstr_equipment_PKI
     on tests.mstr_equipment(mstr_equipment_id);
 alter table tests.mstr_equipment
     add constraint mstr_equipment_PKC primary key (mstr_equipment_id);
 alter table tests.mstr_equipment
-     add constraint mstr_equipment_IX1 unique (symbol);
+     add constraint mstr_equipment_IX1 unique  (symbol);
 create unique index mstr_stakeholder_contact_PKI
     on tests.mstr_stakeholder_contact(mstr_stakeholder_contact_id);
 alter table tests.mstr_stakeholder_contact
     add constraint mstr_stakeholder_contact_PKC primary key (mstr_stakeholder_contact_id);
 alter table tests.mstr_stakeholder_contact
-     add constraint mstr_stakeholder_contact_IX1 unique (symbol);
+     add constraint mstr_stakeholder_contact_IX1 unique  (symbol);
 create unique index mstr_stakeholder_PKI
     on tests.mstr_stakeholder(mstr_stakeholder_id);
 alter table tests.mstr_stakeholder
     add constraint mstr_stakeholder_PKC primary key (mstr_stakeholder_id);
 alter table tests.mstr_stakeholder
-     add constraint mstr_stakeholder_IX1 unique (symbol);
+     add constraint mstr_stakeholder_IX1 unique  (symbol);
 create unique index mstr_staff_license_PKI
     on tests.mstr_staff_license(mstr_staff_license_id);
 alter table tests.mstr_staff_license
     add constraint mstr_staff_license_PKC primary key (mstr_staff_license_id);
 alter table tests.mstr_staff_license
-     add constraint mstr_staff_license_IX1 unique (mstr_license_id);
+     add constraint mstr_staff_license_IX1 unique  (mstr_license_id);
 alter table tests.mstr_staff_license
-     add constraint mstr_staff_license_IX2 unique (symbol);
+     add constraint mstr_staff_license_IX2 unique  (symbol);
 create unique index mstr_staff_capability_PKI
     on tests.mstr_staff_capability(mstr_staff_capability_id,info_staff_id);
 alter table tests.mstr_staff_capability
     add constraint mstr_staff_capability_PKC primary key (mstr_staff_capability_id,info_staff_id);
 alter table tests.mstr_staff_capability
-     add constraint mstr_staff_capability_IX1 unique (symbol);
+     add constraint mstr_staff_capability_IX1 unique  (symbol);
 create unique index mstr_sign_PKI
     on tests.mstr_sign(mstr_sign_id);
 alter table tests.mstr_sign
     add constraint mstr_sign_PKC primary key (mstr_sign_id);
 alter table tests.mstr_sign
-     add constraint mstr_sign_IX1 unique (symbol);
+     add constraint mstr_sign_IX1 unique  (symbol);
 create unique index mstr_license_PKI
     on tests.mstr_license(mstr_license_id);
 alter table tests.mstr_license
     add constraint mstr_license_PKC primary key (mstr_license_id);
 alter table tests.mstr_license
-     add constraint mstr_license_IX1 unique (symbol);
+     add constraint mstr_license_IX1 unique  (symbol);
 create unique index mstr_capability_PKI
     on tests.mstr_capability(mstr_capability_id);
 alter table tests.mstr_capability
     add constraint mstr_capability_PKC primary key (mstr_capability_id);
 alter table tests.mstr_capability
-     add constraint mstr_capability_IX1 unique (symbol);
+     add constraint mstr_capability_IX1 unique  (symbol);
 create unique index info_staff_PKI
     on tests.info_staff(info_staff_id);
 alter table tests.info_staff
     add constraint info_staff_PKC primary key (info_staff_id);
 alter table tests.info_staff
-     add constraint info_staff_IX1 unique (symbol);
+     add constraint info_staff_IX1 unique  (symbol);
 create unique index info_department_PKI
     on tests.info_department(info_department_id);
 alter table tests.info_department
     add constraint info_department_PKC primary key (info_department_id);
 alter table tests.info_department
-     add constraint info_department_IX1 unique (info_department_id,info_company_id);
+     add constraint info_department_IX1 unique  (info_department_id,info_company_id);
 alter table tests.info_department
-     add constraint info_department_IX2 unique (symbol);
+     add constraint info_department_IX2 unique  (symbol);
 create unique index info_office_PKI
     on tests.info_office(info_office_id);
 alter table tests.info_office
     add constraint info_office_PKC primary key (info_office_id);
 alter table tests.info_office
-     add constraint info_office_IX1 unique (symbol);
+     add constraint info_office_IX1 unique  (symbol);
 --237.add table foreign key
 alter table tests.history_mstr_item_task_cost add constraint history_mstr_item_task_cost_FK1 foreign key (mstr_item_task_cost_id) references tests.mstr_item_task_cost (mstr_item_task_cost_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_item_task_cost add constraint history_mstr_item_task_cost_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8670,7 +8682,7 @@ alter table tests.trans_work_plan add constraint trans_work_plan_FK5 foreign key
 alter table tests.trans_work_plan add constraint trans_work_plan_FK6 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_operations_plan add constraint trans_operations_plan_FK1 foreign key (trans_resource_plan_id) references tests.trans_resource_plan (trans_resource_plan_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_operations_plan add constraint trans_operations_plan_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_resource_plan add constraint trans_resource_plan_FK1 foreign key (parent_trans_operations_plan_id) references tests.trans_resource_plan (trans_resource_plan_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_resource_plan add constraint trans_resource_plan_FK1 foreign key (parent_trans_operations_plan_id) references tests.trans_operations_plan (trans_operations_plan_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_resource_plan add constraint trans_resource_plan_FK2 foreign key (item_history_id,item_id) references tests.history_mstr_item (history_id,mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_resource_plan add constraint trans_resource_plan_FK3 foreign key (trans_unrecognized_detail_id) references tests.trans_unrecognized_detail (trans_unrecognized_detail_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_resource_plan add constraint trans_resource_plan_FK4 foreign key (trans_order_detail_id) references tests.trans_order_detail (trans_order_detail_id) DEFERRABLE INITIALLY DEFERRED;
@@ -12137,8 +12149,8 @@ PROCEDURE tests.trg_01_updatetimes_history_mstr_document_tree();
 
 
 CREATE TRIGGER trg_04_symbol_history_mstr_document_tree BEFORE INSERT ON tests.history_mstr_document_tree FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
--- hrchy_mstr_documet update trigger
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_hrchy_mstr_documet() RETURNS trigger AS
+-- hrchy_mstr_document update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_hrchy_mstr_document() RETURNS trigger AS
 $BODY$
 DECLARE
     latest_row record;
@@ -12156,8 +12168,8 @@ BEGIN
 END
 $BODY$
 LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_01_updatetimes_hrchy_mstr_documet BEFORE INSERT OR UPDATE OR DELETE ON tests.hrchy_mstr_documet FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_01_updatetimes_hrchy_mstr_documet();
+CREATE TRIGGER trg_01_updatetimes_hrchy_mstr_document BEFORE INSERT OR UPDATE OR DELETE ON tests.hrchy_mstr_document FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_hrchy_mstr_document();
 
 
 -- mstr_document_tree update trigger
@@ -13764,6 +13776,7 @@ BEGIN
                 NEW.mstr_task_id,
                 NEW.info_department_id,
                 NEW.mstr_location_id,
+                NEW.priority,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -13772,6 +13785,7 @@ BEGIN
                 OLD.mstr_task_id,
                 OLD.info_department_id,
                 OLD.mstr_location_id,
+                OLD.priority,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -13788,6 +13802,7 @@ BEGIN
             mstr_task_id,
             info_department_id,
             mstr_location_id,
+            priority,
             revision,
             symbol,
             remarks,
@@ -13802,6 +13817,7 @@ BEGIN
             NEW.mstr_task_id,
             NEW.info_department_id,
             NEW.mstr_location_id,
+            NEW.priority,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -20632,213 +20648,126 @@ PROCEDURE tests.trg_02_history_info_office();
 CREATE OR REPLACE FUNCTION tests.trg_03_hierarchy_mstr_document_content_tree() RETURNS trigger AS
 $BODY$
 DECLARE
-    counter int;
+    v_new tests.mstr_document_content_tree%ROWTYPE;
+    v_old tests.mstr_document_content_tree%ROWTYPE;
 BEGIN
     IF (TG_OP='INSERT') THEN
-        INSERT INTO tests.hrchy_mstr_document_content
+        v_new:=NEW;
+        v_old:=NEW;
+    ELSEIF (TG_OP='UPDATE') THEN
+        --子・親・削除が変わらない更新は閉包に影響しない
+        IF (NEW.mstr_document_content_id, NEW.parent_mstr_document_content_id, NEW.remove) IS NOT DISTINCT FROM (OLD.mstr_document_content_id, OLD.parent_mstr_document_content_id, OLD.remove) THEN
+            RETURN NULL;
+        END IF;
+        v_new:=NEW;
+        v_old:=OLD;
+    ELSE
+        v_new:=OLD;
+        v_old:=OLD;
+    END IF;
+
+    --影響を受けるノードの閉包を削除
+    DELETE
+    FROM
+        tests.hrchy_mstr_document_content AS h
+    WHERE
+        (h.descendant_mstr_document_content_id) IN
         (
-            ancestor_mstr_document_content_id,
-            descendant_mstr_document_content_id,
-            remarks,
-            update_at,
-            update_user_id,
-            update_user_history_id,
-            remove
-        )
-        VALUES
-        (
-            NEW.mstr_document_content_id,
-            NEW.mstr_document_content_id,
-            NEW.remarks,
-            NEW.update_at,
-            NEW.update_user_id,
-            NEW.update_user_history_id,
-            NEW.remove
+            WITH RECURSIVE
+            dn(mstr_document_content_id, path) AS
+            (
+                SELECT
+                    x.mstr_document_content_id,
+                    ARRAY[ROW(x.mstr_document_content_id)::text]
+                FROM
+                    (VALUES (v_new.mstr_document_content_id), (v_old.mstr_document_content_id)) AS x(mstr_document_content_id)
+                UNION
+                SELECT
+                    t.mstr_document_content_id,
+                    dn.path || ROW(t.mstr_document_content_id)::text
+                FROM
+                    dn
+                INNER JOIN
+                    tests.mstr_document_content_tree AS t
+                ON
+                    t.parent_mstr_document_content_id = dn.mstr_document_content_id
+                    AND t.remove IS FALSE
+                WHERE
+                    NOT ROW(t.mstr_document_content_id)::text = ANY (dn.path) --循環の保護
+            )
+            SELECT dn.mstr_document_content_id FROM dn
         );
 
-        INSERT INTO tests.hrchy_mstr_document_content
-        (
-            ancestor_mstr_document_content_id,
-            descendant_mstr_document_content_id,
-            remarks,
-            update_at,
-            update_user_id,
-            update_user_history_id,
-            remove
-        )
+    --体系(有効な行)から作り直す
+    INSERT INTO tests.hrchy_mstr_document_content
+    (
+        ancestor_mstr_document_content_id,
+        descendant_mstr_document_content_id,
+        remarks,
+        update_at,
+        update_user_id,
+        update_user_history_id,
+        remove
+    )
+    WITH RECURSIVE
+    dn(mstr_document_content_id, path) AS
+    (
         SELECT
-            ancestor_mstr_document_content_id,
-            NEW.mstr_document_content_id,
-            NEW.remarks,
-            NEW.update_at,
-            NEW.update_user_id,
-            NEW.update_user_history_id,
-            NEW.remove
+            x.mstr_document_content_id,
+            ARRAY[ROW(x.mstr_document_content_id)::text]
         FROM
-            tests.hrchy_mstr_document_content
-        WHERE
-            (
-                descendant_mstr_document_content_id= NEW.parent_mstr_document_content_id
-            )
-        AND
-            remove=FALSE;
-
-    ELSEIF (TG_OP = 'UPDATE') THEN
-        IF (NEW.parent_mstr_document_content_id IS DISTINCT FROM OLD.parent_mstr_document_content_id) THEN --親の付けかえ
-            DELETE--子孫削除
-            FROM
-                tests.hrchy_mstr_document_content h
-            WHERE
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_mstr_document_content h1
-                    WHERE
-                    (
-                        h1.ancestor_mstr_document_content_id= NEW.mstr_document_content_id
-                    )
-                    AND
-                    (
-                        h1.descendant_mstr_document_content_id= h.descendant_mstr_document_content_id
-                    )
-                )
-                AND
-                    NOT
-                    (
-                        h.ancestor_mstr_document_content_id = h.descendant_mstr_document_content_id
-                    )
-                AND
-                    NOT
-                    (
-                        h.ancestor_mstr_document_content_id = NEW.mstr_document_content_id
-                    );
-            --挿入
-            INSERT INTO tests.hrchy_mstr_document_content
-            (
-                ancestor_mstr_document_content_id,
-                descendant_mstr_document_content_id,
-                remarks,
-                update_at,
-                update_user_id,
-                update_user_history_id,
-                remove
-            )
-            SELECT
-                h.ancestor_mstr_document_content_id,
-                h1.descendant_mstr_document_content_id,
-                NEW.remarks,
-                NEW.update_at,
-                NEW.update_user_id,
-                NEW.update_user_history_id,
-                NEW.remove
-            FROM
-                tests.hrchy_mstr_document_content h
-            CROSS JOIN
-                tests.hrchy_mstr_document_content h1
-            WHERE
-            (
-                h.descendant_mstr_document_content_id= NEW.parent_mstr_document_content_id
-            )
-            AND
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_mstr_document_content h2
-                    WHERE
-                        (
-                            h2.ancestor_mstr_document_content_id = h1.ancestor_mstr_document_content_id
-                        )
-                        AND
-                        (
-                            h2.ancestor_mstr_document_content_id= NEW.mstr_document_content_id
-                        )
-                );
-        ELSE
-        --子孫共々その他の更新。
-            UPDATE
-                tests.hrchy_mstr_document_content
-            SET
-                remarks= NEW.remarks,
-                update_at= NEW.update_at,
-                update_user_id= NEW.update_user_id,
-                update_user_history_id= NEW.update_user_history_id,
-                remove= NEW.remove
-            WHERE
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_mstr_document_content h1
-                    WHERE
-                        (
-                            h1.ancestor_mstr_document_content_id= NEW.mstr_document_content_id
-                        )
-                        AND
-                        (
-                            h1.descendant_mstr_document_content_id = hrchy_mstr_document_content.descendant_mstr_document_content_id
-                        )
-                );
-        END IF;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        DELETE--子孫削除
-        FROM
-            tests.hrchy_mstr_document_content h
-        WHERE
-            EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_mstr_document_content h1
-                WHERE
-                    (
-                        h1.ancestor_mstr_document_content_id= OLD.mstr_document_content_id
-                    )
-                    AND
-                    (
-                        h1.descendant_mstr_document_content_id= h.descendant_mstr_document_content_id
-                    )
-            );
-
+            (VALUES (v_new.mstr_document_content_id), (v_old.mstr_document_content_id)) AS x(mstr_document_content_id)
+        UNION
         SELECT
-            COUNT(*) INTO counter
+            t.mstr_document_content_id,
+            dn.path || ROW(t.mstr_document_content_id)::text
         FROM
-            tests.mstr_document_content_tree h
+            dn
+        INNER JOIN
+            tests.mstr_document_content_tree AS t
+        ON
+            t.parent_mstr_document_content_id = dn.mstr_document_content_id
+            AND t.remove IS FALSE
         WHERE
-            NOT EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_mstr_document_content h1
-                WHERE
-                    (
-                        h1.descendant_mstr_document_content_id= h.mstr_document_content_id
-                    )
-            );
-        IF (counter>0) THEN
-            DELETE
-            FROM
-                tests.mstr_document_content_tree h
-            WHERE
-            NOT EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_mstr_document_content h1
-                WHERE
-                    (
-                        h1.descendant_mstr_document_content_id= h.mstr_document_content_id
-                    )
-            );
-        END IF;
-    END IF;
+            NOT ROW(t.mstr_document_content_id)::text = ANY (dn.path) --循環の保護
+    ),
+    up(d_mstr_document_content_id, a_mstr_document_content_id, path) AS
+    (
+        SELECT DISTINCT
+            dn.mstr_document_content_id,
+            dn.mstr_document_content_id,
+            ARRAY[ROW(dn.mstr_document_content_id)::text]
+        FROM
+            dn
+        WHERE
+            EXISTS (SELECT 1 FROM tests.mstr_document_content_tree AS t WHERE t.mstr_document_content_id = dn.mstr_document_content_id AND t.remove IS FALSE)
+        UNION
+        SELECT
+            up.d_mstr_document_content_id,
+            t.parent_mstr_document_content_id,
+            up.path || ROW(t.parent_mstr_document_content_id)::text
+        FROM
+            up
+        INNER JOIN
+            tests.mstr_document_content_tree AS t
+        ON
+            t.mstr_document_content_id = up.a_mstr_document_content_id
+            AND t.remove IS FALSE
+            AND t.parent_mstr_document_content_id IS NOT NULL
+        WHERE
+            NOT ROW(t.parent_mstr_document_content_id)::text = ANY (up.path) --循環の保護
+    )
+    SELECT DISTINCT
+        up.a_mstr_document_content_id,
+        up.d_mstr_document_content_id,
+        v_new.remarks,
+        v_new.update_at,
+        v_new.update_user_id,
+        v_new.update_user_history_id,
+        FALSE
+    FROM
+        up;
+
     RETURN NULL;
 END
 $BODY$
@@ -20850,213 +20779,126 @@ PROCEDURE tests.trg_03_hierarchy_mstr_document_content_tree();
 CREATE OR REPLACE FUNCTION tests.trg_03_hierarchy_mstr_document_tree() RETURNS trigger AS
 $BODY$
 DECLARE
-    counter int;
+    v_new tests.mstr_document_tree%ROWTYPE;
+    v_old tests.mstr_document_tree%ROWTYPE;
 BEGIN
     IF (TG_OP='INSERT') THEN
-        INSERT INTO tests.hrchy_mstr_documet
+        v_new:=NEW;
+        v_old:=NEW;
+    ELSEIF (TG_OP='UPDATE') THEN
+        --子・親・削除が変わらない更新は閉包に影響しない
+        IF (NEW.mstr_document_id, NEW.parent_mstr_document_id, NEW.remove) IS NOT DISTINCT FROM (OLD.mstr_document_id, OLD.parent_mstr_document_id, OLD.remove) THEN
+            RETURN NULL;
+        END IF;
+        v_new:=NEW;
+        v_old:=OLD;
+    ELSE
+        v_new:=OLD;
+        v_old:=OLD;
+    END IF;
+
+    --影響を受けるノードの閉包を削除
+    DELETE
+    FROM
+        tests.hrchy_mstr_document AS h
+    WHERE
+        (h.descendant_mstr_document_id) IN
         (
-            ancestor_mstr_document_id,
-            descendant_mstr_document_id,
-            remarks,
-            update_at,
-            update_user_id,
-            update_user_history_id,
-            remove
-        )
-        VALUES
-        (
-            NEW.mstr_document_id,
-            NEW.mstr_document_id,
-            NEW.remarks,
-            NEW.update_at,
-            NEW.update_user_id,
-            NEW.update_user_history_id,
-            NEW.remove
+            WITH RECURSIVE
+            dn(mstr_document_id, path) AS
+            (
+                SELECT
+                    x.mstr_document_id,
+                    ARRAY[ROW(x.mstr_document_id)::text]
+                FROM
+                    (VALUES (v_new.mstr_document_id), (v_old.mstr_document_id)) AS x(mstr_document_id)
+                UNION
+                SELECT
+                    t.mstr_document_id,
+                    dn.path || ROW(t.mstr_document_id)::text
+                FROM
+                    dn
+                INNER JOIN
+                    tests.mstr_document_tree AS t
+                ON
+                    t.parent_mstr_document_id = dn.mstr_document_id
+                    AND t.remove IS FALSE
+                WHERE
+                    NOT ROW(t.mstr_document_id)::text = ANY (dn.path) --循環の保護
+            )
+            SELECT dn.mstr_document_id FROM dn
         );
 
-        INSERT INTO tests.hrchy_mstr_documet
-        (
-            ancestor_mstr_document_id,
-            descendant_mstr_document_id,
-            remarks,
-            update_at,
-            update_user_id,
-            update_user_history_id,
-            remove
-        )
+    --体系(有効な行)から作り直す
+    INSERT INTO tests.hrchy_mstr_document
+    (
+        ancestor_mstr_document_id,
+        descendant_mstr_document_id,
+        remarks,
+        update_at,
+        update_user_id,
+        update_user_history_id,
+        remove
+    )
+    WITH RECURSIVE
+    dn(mstr_document_id, path) AS
+    (
         SELECT
-            ancestor_mstr_document_id,
-            NEW.mstr_document_id,
-            NEW.remarks,
-            NEW.update_at,
-            NEW.update_user_id,
-            NEW.update_user_history_id,
-            NEW.remove
+            x.mstr_document_id,
+            ARRAY[ROW(x.mstr_document_id)::text]
         FROM
-            tests.hrchy_mstr_documet
-        WHERE
-            (
-                descendant_mstr_document_id= NEW.parent_mstr_document_id
-            )
-        AND
-            remove=FALSE;
-
-    ELSEIF (TG_OP = 'UPDATE') THEN
-        IF (NEW.parent_mstr_document_id IS DISTINCT FROM OLD.parent_mstr_document_id) THEN --親の付けかえ
-            DELETE--子孫削除
-            FROM
-                tests.hrchy_mstr_documet h
-            WHERE
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_mstr_documet h1
-                    WHERE
-                    (
-                        h1.ancestor_mstr_document_id= NEW.mstr_document_id
-                    )
-                    AND
-                    (
-                        h1.descendant_mstr_document_id= h.descendant_mstr_document_id
-                    )
-                )
-                AND
-                    NOT
-                    (
-                        h.ancestor_mstr_document_id = h.descendant_mstr_document_id
-                    )
-                AND
-                    NOT
-                    (
-                        h.ancestor_mstr_document_id = NEW.mstr_document_id
-                    );
-            --挿入
-            INSERT INTO tests.hrchy_mstr_documet
-            (
-                ancestor_mstr_document_id,
-                descendant_mstr_document_id,
-                remarks,
-                update_at,
-                update_user_id,
-                update_user_history_id,
-                remove
-            )
-            SELECT
-                h.ancestor_mstr_document_id,
-                h1.descendant_mstr_document_id,
-                NEW.remarks,
-                NEW.update_at,
-                NEW.update_user_id,
-                NEW.update_user_history_id,
-                NEW.remove
-            FROM
-                tests.hrchy_mstr_documet h
-            CROSS JOIN
-                tests.hrchy_mstr_documet h1
-            WHERE
-            (
-                h.descendant_mstr_document_id= NEW.parent_mstr_document_id
-            )
-            AND
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_mstr_documet h2
-                    WHERE
-                        (
-                            h2.ancestor_mstr_document_id = h1.ancestor_mstr_document_id
-                        )
-                        AND
-                        (
-                            h2.ancestor_mstr_document_id= NEW.mstr_document_id
-                        )
-                );
-        ELSE
-        --子孫共々その他の更新。
-            UPDATE
-                tests.hrchy_mstr_documet
-            SET
-                remarks= NEW.remarks,
-                update_at= NEW.update_at,
-                update_user_id= NEW.update_user_id,
-                update_user_history_id= NEW.update_user_history_id,
-                remove= NEW.remove
-            WHERE
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_mstr_documet h1
-                    WHERE
-                        (
-                            h1.ancestor_mstr_document_id= NEW.mstr_document_id
-                        )
-                        AND
-                        (
-                            h1.descendant_mstr_document_id = hrchy_mstr_documet.descendant_mstr_document_id
-                        )
-                );
-        END IF;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        DELETE--子孫削除
-        FROM
-            tests.hrchy_mstr_documet h
-        WHERE
-            EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_mstr_documet h1
-                WHERE
-                    (
-                        h1.ancestor_mstr_document_id= OLD.mstr_document_id
-                    )
-                    AND
-                    (
-                        h1.descendant_mstr_document_id= h.descendant_mstr_document_id
-                    )
-            );
-
+            (VALUES (v_new.mstr_document_id), (v_old.mstr_document_id)) AS x(mstr_document_id)
+        UNION
         SELECT
-            COUNT(*) INTO counter
+            t.mstr_document_id,
+            dn.path || ROW(t.mstr_document_id)::text
         FROM
-            tests.mstr_document_tree h
+            dn
+        INNER JOIN
+            tests.mstr_document_tree AS t
+        ON
+            t.parent_mstr_document_id = dn.mstr_document_id
+            AND t.remove IS FALSE
         WHERE
-            NOT EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_mstr_documet h1
-                WHERE
-                    (
-                        h1.descendant_mstr_document_id= h.mstr_document_id
-                    )
-            );
-        IF (counter>0) THEN
-            DELETE
-            FROM
-                tests.mstr_document_tree h
-            WHERE
-            NOT EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_mstr_documet h1
-                WHERE
-                    (
-                        h1.descendant_mstr_document_id= h.mstr_document_id
-                    )
-            );
-        END IF;
-    END IF;
+            NOT ROW(t.mstr_document_id)::text = ANY (dn.path) --循環の保護
+    ),
+    up(d_mstr_document_id, a_mstr_document_id, path) AS
+    (
+        SELECT DISTINCT
+            dn.mstr_document_id,
+            dn.mstr_document_id,
+            ARRAY[ROW(dn.mstr_document_id)::text]
+        FROM
+            dn
+        WHERE
+            EXISTS (SELECT 1 FROM tests.mstr_document_tree AS t WHERE t.mstr_document_id = dn.mstr_document_id AND t.remove IS FALSE)
+        UNION
+        SELECT
+            up.d_mstr_document_id,
+            t.parent_mstr_document_id,
+            up.path || ROW(t.parent_mstr_document_id)::text
+        FROM
+            up
+        INNER JOIN
+            tests.mstr_document_tree AS t
+        ON
+            t.mstr_document_id = up.a_mstr_document_id
+            AND t.remove IS FALSE
+            AND t.parent_mstr_document_id IS NOT NULL
+        WHERE
+            NOT ROW(t.parent_mstr_document_id)::text = ANY (up.path) --循環の保護
+    )
+    SELECT DISTINCT
+        up.a_mstr_document_id,
+        up.d_mstr_document_id,
+        v_new.remarks,
+        v_new.update_at,
+        v_new.update_user_id,
+        v_new.update_user_history_id,
+        FALSE
+    FROM
+        up;
+
     RETURN NULL;
 END
 $BODY$
@@ -21068,213 +20910,126 @@ PROCEDURE tests.trg_03_hierarchy_mstr_document_tree();
 CREATE OR REPLACE FUNCTION tests.trg_03_hierarchy_mstr_task_tree() RETURNS trigger AS
 $BODY$
 DECLARE
-    counter int;
+    v_new tests.mstr_task_tree%ROWTYPE;
+    v_old tests.mstr_task_tree%ROWTYPE;
 BEGIN
     IF (TG_OP='INSERT') THEN
-        INSERT INTO tests.hrchy_mstr_task
+        v_new:=NEW;
+        v_old:=NEW;
+    ELSEIF (TG_OP='UPDATE') THEN
+        --子・親・削除が変わらない更新は閉包に影響しない
+        IF (NEW.mstr_task_id, NEW.parent_mstr_task_id, NEW.remove) IS NOT DISTINCT FROM (OLD.mstr_task_id, OLD.parent_mstr_task_id, OLD.remove) THEN
+            RETURN NULL;
+        END IF;
+        v_new:=NEW;
+        v_old:=OLD;
+    ELSE
+        v_new:=OLD;
+        v_old:=OLD;
+    END IF;
+
+    --影響を受けるノードの閉包を削除
+    DELETE
+    FROM
+        tests.hrchy_mstr_task AS h
+    WHERE
+        (h.descendant_mstr_task_id) IN
         (
-            ancestor_mstr_task_id,
-            descendant_mstr_task_id,
-            remarks,
-            update_at,
-            update_user_id,
-            update_user_history_id,
-            remove
-        )
-        VALUES
-        (
-            NEW.mstr_task_id,
-            NEW.mstr_task_id,
-            NEW.remarks,
-            NEW.update_at,
-            NEW.update_user_id,
-            NEW.update_user_history_id,
-            NEW.remove
+            WITH RECURSIVE
+            dn(mstr_task_id, path) AS
+            (
+                SELECT
+                    x.mstr_task_id,
+                    ARRAY[ROW(x.mstr_task_id)::text]
+                FROM
+                    (VALUES (v_new.mstr_task_id), (v_old.mstr_task_id)) AS x(mstr_task_id)
+                UNION
+                SELECT
+                    t.mstr_task_id,
+                    dn.path || ROW(t.mstr_task_id)::text
+                FROM
+                    dn
+                INNER JOIN
+                    tests.mstr_task_tree AS t
+                ON
+                    t.parent_mstr_task_id = dn.mstr_task_id
+                    AND t.remove IS FALSE
+                WHERE
+                    NOT ROW(t.mstr_task_id)::text = ANY (dn.path) --循環の保護
+            )
+            SELECT dn.mstr_task_id FROM dn
         );
 
-        INSERT INTO tests.hrchy_mstr_task
-        (
-            ancestor_mstr_task_id,
-            descendant_mstr_task_id,
-            remarks,
-            update_at,
-            update_user_id,
-            update_user_history_id,
-            remove
-        )
+    --体系(有効な行)から作り直す
+    INSERT INTO tests.hrchy_mstr_task
+    (
+        ancestor_mstr_task_id,
+        descendant_mstr_task_id,
+        remarks,
+        update_at,
+        update_user_id,
+        update_user_history_id,
+        remove
+    )
+    WITH RECURSIVE
+    dn(mstr_task_id, path) AS
+    (
         SELECT
-            ancestor_mstr_task_id,
-            NEW.mstr_task_id,
-            NEW.remarks,
-            NEW.update_at,
-            NEW.update_user_id,
-            NEW.update_user_history_id,
-            NEW.remove
+            x.mstr_task_id,
+            ARRAY[ROW(x.mstr_task_id)::text]
         FROM
-            tests.hrchy_mstr_task
-        WHERE
-            (
-                descendant_mstr_task_id= NEW.parent_mstr_task_id
-            )
-        AND
-            remove=FALSE;
-
-    ELSEIF (TG_OP = 'UPDATE') THEN
-        IF (NEW.parent_mstr_task_id IS DISTINCT FROM OLD.parent_mstr_task_id) THEN --親の付けかえ
-            DELETE--子孫削除
-            FROM
-                tests.hrchy_mstr_task h
-            WHERE
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_mstr_task h1
-                    WHERE
-                    (
-                        h1.ancestor_mstr_task_id= NEW.mstr_task_id
-                    )
-                    AND
-                    (
-                        h1.descendant_mstr_task_id= h.descendant_mstr_task_id
-                    )
-                )
-                AND
-                    NOT
-                    (
-                        h.ancestor_mstr_task_id = h.descendant_mstr_task_id
-                    )
-                AND
-                    NOT
-                    (
-                        h.ancestor_mstr_task_id = NEW.mstr_task_id
-                    );
-            --挿入
-            INSERT INTO tests.hrchy_mstr_task
-            (
-                ancestor_mstr_task_id,
-                descendant_mstr_task_id,
-                remarks,
-                update_at,
-                update_user_id,
-                update_user_history_id,
-                remove
-            )
-            SELECT
-                h.ancestor_mstr_task_id,
-                h1.descendant_mstr_task_id,
-                NEW.remarks,
-                NEW.update_at,
-                NEW.update_user_id,
-                NEW.update_user_history_id,
-                NEW.remove
-            FROM
-                tests.hrchy_mstr_task h
-            CROSS JOIN
-                tests.hrchy_mstr_task h1
-            WHERE
-            (
-                h.descendant_mstr_task_id= NEW.parent_mstr_task_id
-            )
-            AND
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_mstr_task h2
-                    WHERE
-                        (
-                            h2.ancestor_mstr_task_id = h1.ancestor_mstr_task_id
-                        )
-                        AND
-                        (
-                            h2.ancestor_mstr_task_id= NEW.mstr_task_id
-                        )
-                );
-        ELSE
-        --子孫共々その他の更新。
-            UPDATE
-                tests.hrchy_mstr_task
-            SET
-                remarks= NEW.remarks,
-                update_at= NEW.update_at,
-                update_user_id= NEW.update_user_id,
-                update_user_history_id= NEW.update_user_history_id,
-                remove= NEW.remove
-            WHERE
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_mstr_task h1
-                    WHERE
-                        (
-                            h1.ancestor_mstr_task_id= NEW.mstr_task_id
-                        )
-                        AND
-                        (
-                            h1.descendant_mstr_task_id = hrchy_mstr_task.descendant_mstr_task_id
-                        )
-                );
-        END IF;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        DELETE--子孫削除
-        FROM
-            tests.hrchy_mstr_task h
-        WHERE
-            EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_mstr_task h1
-                WHERE
-                    (
-                        h1.ancestor_mstr_task_id= OLD.mstr_task_id
-                    )
-                    AND
-                    (
-                        h1.descendant_mstr_task_id= h.descendant_mstr_task_id
-                    )
-            );
-
+            (VALUES (v_new.mstr_task_id), (v_old.mstr_task_id)) AS x(mstr_task_id)
+        UNION
         SELECT
-            COUNT(*) INTO counter
+            t.mstr_task_id,
+            dn.path || ROW(t.mstr_task_id)::text
         FROM
-            tests.mstr_task_tree h
+            dn
+        INNER JOIN
+            tests.mstr_task_tree AS t
+        ON
+            t.parent_mstr_task_id = dn.mstr_task_id
+            AND t.remove IS FALSE
         WHERE
-            NOT EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_mstr_task h1
-                WHERE
-                    (
-                        h1.descendant_mstr_task_id= h.mstr_task_id
-                    )
-            );
-        IF (counter>0) THEN
-            DELETE
-            FROM
-                tests.mstr_task_tree h
-            WHERE
-            NOT EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_mstr_task h1
-                WHERE
-                    (
-                        h1.descendant_mstr_task_id= h.mstr_task_id
-                    )
-            );
-        END IF;
-    END IF;
+            NOT ROW(t.mstr_task_id)::text = ANY (dn.path) --循環の保護
+    ),
+    up(d_mstr_task_id, a_mstr_task_id, path) AS
+    (
+        SELECT DISTINCT
+            dn.mstr_task_id,
+            dn.mstr_task_id,
+            ARRAY[ROW(dn.mstr_task_id)::text]
+        FROM
+            dn
+        WHERE
+            EXISTS (SELECT 1 FROM tests.mstr_task_tree AS t WHERE t.mstr_task_id = dn.mstr_task_id AND t.remove IS FALSE)
+        UNION
+        SELECT
+            up.d_mstr_task_id,
+            t.parent_mstr_task_id,
+            up.path || ROW(t.parent_mstr_task_id)::text
+        FROM
+            up
+        INNER JOIN
+            tests.mstr_task_tree AS t
+        ON
+            t.mstr_task_id = up.a_mstr_task_id
+            AND t.remove IS FALSE
+            AND t.parent_mstr_task_id IS NOT NULL
+        WHERE
+            NOT ROW(t.parent_mstr_task_id)::text = ANY (up.path) --循環の保護
+    )
+    SELECT DISTINCT
+        up.a_mstr_task_id,
+        up.d_mstr_task_id,
+        v_new.remarks,
+        v_new.update_at,
+        v_new.update_user_id,
+        v_new.update_user_history_id,
+        FALSE
+    FROM
+        up;
+
     RETURN NULL;
 END
 $BODY$
@@ -21286,213 +21041,126 @@ PROCEDURE tests.trg_03_hierarchy_mstr_task_tree();
 CREATE OR REPLACE FUNCTION tests.trg_03_hierarchy_mstr_item_tree() RETURNS trigger AS
 $BODY$
 DECLARE
-    counter int;
+    v_new tests.mstr_item_tree%ROWTYPE;
+    v_old tests.mstr_item_tree%ROWTYPE;
 BEGIN
     IF (TG_OP='INSERT') THEN
-        INSERT INTO tests.hrchy_mstr_item
+        v_new:=NEW;
+        v_old:=NEW;
+    ELSEIF (TG_OP='UPDATE') THEN
+        --子・親・削除が変わらない更新は閉包に影響しない
+        IF (NEW.mstr_item_id, NEW.parent_mstr_item_id, NEW.remove) IS NOT DISTINCT FROM (OLD.mstr_item_id, OLD.parent_mstr_item_id, OLD.remove) THEN
+            RETURN NULL;
+        END IF;
+        v_new:=NEW;
+        v_old:=OLD;
+    ELSE
+        v_new:=OLD;
+        v_old:=OLD;
+    END IF;
+
+    --影響を受けるノードの閉包を削除
+    DELETE
+    FROM
+        tests.hrchy_mstr_item AS h
+    WHERE
+        (h.descendant_mstr_item_id) IN
         (
-            ancestor_mstr_item_id,
-            descendant_mstr_item_id,
-            remarks,
-            update_at,
-            update_user_id,
-            update_user_history_id,
-            remove
-        )
-        VALUES
-        (
-            NEW.mstr_item_id,
-            NEW.mstr_item_id,
-            NEW.remarks,
-            NEW.update_at,
-            NEW.update_user_id,
-            NEW.update_user_history_id,
-            NEW.remove
+            WITH RECURSIVE
+            dn(mstr_item_id, path) AS
+            (
+                SELECT
+                    x.mstr_item_id,
+                    ARRAY[ROW(x.mstr_item_id)::text]
+                FROM
+                    (VALUES (v_new.mstr_item_id), (v_old.mstr_item_id)) AS x(mstr_item_id)
+                UNION
+                SELECT
+                    t.mstr_item_id,
+                    dn.path || ROW(t.mstr_item_id)::text
+                FROM
+                    dn
+                INNER JOIN
+                    tests.mstr_item_tree AS t
+                ON
+                    t.parent_mstr_item_id = dn.mstr_item_id
+                    AND t.remove IS FALSE
+                WHERE
+                    NOT ROW(t.mstr_item_id)::text = ANY (dn.path) --循環の保護
+            )
+            SELECT dn.mstr_item_id FROM dn
         );
 
-        INSERT INTO tests.hrchy_mstr_item
-        (
-            ancestor_mstr_item_id,
-            descendant_mstr_item_id,
-            remarks,
-            update_at,
-            update_user_id,
-            update_user_history_id,
-            remove
-        )
+    --体系(有効な行)から作り直す
+    INSERT INTO tests.hrchy_mstr_item
+    (
+        ancestor_mstr_item_id,
+        descendant_mstr_item_id,
+        remarks,
+        update_at,
+        update_user_id,
+        update_user_history_id,
+        remove
+    )
+    WITH RECURSIVE
+    dn(mstr_item_id, path) AS
+    (
         SELECT
-            ancestor_mstr_item_id,
-            NEW.mstr_item_id,
-            NEW.remarks,
-            NEW.update_at,
-            NEW.update_user_id,
-            NEW.update_user_history_id,
-            NEW.remove
+            x.mstr_item_id,
+            ARRAY[ROW(x.mstr_item_id)::text]
         FROM
-            tests.hrchy_mstr_item
-        WHERE
-            (
-                descendant_mstr_item_id= NEW.parent_mstr_item_id
-            )
-        AND
-            remove=FALSE;
-
-    ELSEIF (TG_OP = 'UPDATE') THEN
-        IF (NEW.parent_mstr_item_id IS DISTINCT FROM OLD.parent_mstr_item_id) THEN --親の付けかえ
-            DELETE--子孫削除
-            FROM
-                tests.hrchy_mstr_item h
-            WHERE
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_mstr_item h1
-                    WHERE
-                    (
-                        h1.ancestor_mstr_item_id= NEW.mstr_item_id
-                    )
-                    AND
-                    (
-                        h1.descendant_mstr_item_id= h.descendant_mstr_item_id
-                    )
-                )
-                AND
-                    NOT
-                    (
-                        h.ancestor_mstr_item_id = h.descendant_mstr_item_id
-                    )
-                AND
-                    NOT
-                    (
-                        h.ancestor_mstr_item_id = NEW.mstr_item_id
-                    );
-            --挿入
-            INSERT INTO tests.hrchy_mstr_item
-            (
-                ancestor_mstr_item_id,
-                descendant_mstr_item_id,
-                remarks,
-                update_at,
-                update_user_id,
-                update_user_history_id,
-                remove
-            )
-            SELECT
-                h.ancestor_mstr_item_id,
-                h1.descendant_mstr_item_id,
-                NEW.remarks,
-                NEW.update_at,
-                NEW.update_user_id,
-                NEW.update_user_history_id,
-                NEW.remove
-            FROM
-                tests.hrchy_mstr_item h
-            CROSS JOIN
-                tests.hrchy_mstr_item h1
-            WHERE
-            (
-                h.descendant_mstr_item_id= NEW.parent_mstr_item_id
-            )
-            AND
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_mstr_item h2
-                    WHERE
-                        (
-                            h2.ancestor_mstr_item_id = h1.ancestor_mstr_item_id
-                        )
-                        AND
-                        (
-                            h2.ancestor_mstr_item_id= NEW.mstr_item_id
-                        )
-                );
-        ELSE
-        --子孫共々その他の更新。
-            UPDATE
-                tests.hrchy_mstr_item
-            SET
-                remarks= NEW.remarks,
-                update_at= NEW.update_at,
-                update_user_id= NEW.update_user_id,
-                update_user_history_id= NEW.update_user_history_id,
-                remove= NEW.remove
-            WHERE
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_mstr_item h1
-                    WHERE
-                        (
-                            h1.ancestor_mstr_item_id= NEW.mstr_item_id
-                        )
-                        AND
-                        (
-                            h1.descendant_mstr_item_id = hrchy_mstr_item.descendant_mstr_item_id
-                        )
-                );
-        END IF;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        DELETE--子孫削除
-        FROM
-            tests.hrchy_mstr_item h
-        WHERE
-            EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_mstr_item h1
-                WHERE
-                    (
-                        h1.ancestor_mstr_item_id= OLD.mstr_item_id
-                    )
-                    AND
-                    (
-                        h1.descendant_mstr_item_id= h.descendant_mstr_item_id
-                    )
-            );
-
+            (VALUES (v_new.mstr_item_id), (v_old.mstr_item_id)) AS x(mstr_item_id)
+        UNION
         SELECT
-            COUNT(*) INTO counter
+            t.mstr_item_id,
+            dn.path || ROW(t.mstr_item_id)::text
         FROM
-            tests.mstr_item_tree h
+            dn
+        INNER JOIN
+            tests.mstr_item_tree AS t
+        ON
+            t.parent_mstr_item_id = dn.mstr_item_id
+            AND t.remove IS FALSE
         WHERE
-            NOT EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_mstr_item h1
-                WHERE
-                    (
-                        h1.descendant_mstr_item_id= h.mstr_item_id
-                    )
-            );
-        IF (counter>0) THEN
-            DELETE
-            FROM
-                tests.mstr_item_tree h
-            WHERE
-            NOT EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_mstr_item h1
-                WHERE
-                    (
-                        h1.descendant_mstr_item_id= h.mstr_item_id
-                    )
-            );
-        END IF;
-    END IF;
+            NOT ROW(t.mstr_item_id)::text = ANY (dn.path) --循環の保護
+    ),
+    up(d_mstr_item_id, a_mstr_item_id, path) AS
+    (
+        SELECT DISTINCT
+            dn.mstr_item_id,
+            dn.mstr_item_id,
+            ARRAY[ROW(dn.mstr_item_id)::text]
+        FROM
+            dn
+        WHERE
+            EXISTS (SELECT 1 FROM tests.mstr_item_tree AS t WHERE t.mstr_item_id = dn.mstr_item_id AND t.remove IS FALSE)
+        UNION
+        SELECT
+            up.d_mstr_item_id,
+            t.parent_mstr_item_id,
+            up.path || ROW(t.parent_mstr_item_id)::text
+        FROM
+            up
+        INNER JOIN
+            tests.mstr_item_tree AS t
+        ON
+            t.mstr_item_id = up.a_mstr_item_id
+            AND t.remove IS FALSE
+            AND t.parent_mstr_item_id IS NOT NULL
+        WHERE
+            NOT ROW(t.parent_mstr_item_id)::text = ANY (up.path) --循環の保護
+    )
+    SELECT DISTINCT
+        up.a_mstr_item_id,
+        up.d_mstr_item_id,
+        v_new.remarks,
+        v_new.update_at,
+        v_new.update_user_id,
+        v_new.update_user_history_id,
+        FALSE
+    FROM
+        up;
+
     RETURN NULL;
 END
 $BODY$
@@ -21504,213 +21172,126 @@ PROCEDURE tests.trg_03_hierarchy_mstr_item_tree();
 CREATE OR REPLACE FUNCTION tests.trg_03_hierarchy_trans_container_tree() RETURNS trigger AS
 $BODY$
 DECLARE
-    counter int;
+    v_new tests.trans_container_tree%ROWTYPE;
+    v_old tests.trans_container_tree%ROWTYPE;
 BEGIN
     IF (TG_OP='INSERT') THEN
-        INSERT INTO tests.hrchy_trans_container
+        v_new:=NEW;
+        v_old:=NEW;
+    ELSEIF (TG_OP='UPDATE') THEN
+        --子・親・削除が変わらない更新は閉包に影響しない
+        IF (NEW.trans_container_id, NEW.parent_trans_container_id, NEW.remove) IS NOT DISTINCT FROM (OLD.trans_container_id, OLD.parent_trans_container_id, OLD.remove) THEN
+            RETURN NULL;
+        END IF;
+        v_new:=NEW;
+        v_old:=OLD;
+    ELSE
+        v_new:=OLD;
+        v_old:=OLD;
+    END IF;
+
+    --影響を受けるノードの閉包を削除
+    DELETE
+    FROM
+        tests.hrchy_trans_container AS h
+    WHERE
+        (h.descendant_trans_container_id) IN
         (
-            ancestor_trans_container_id,
-            descendant_trans_container_id,
-            remarks,
-            update_at,
-            update_user_id,
-            update_user_history_id,
-            remove
-        )
-        VALUES
-        (
-            NEW.trans_container_id,
-            NEW.trans_container_id,
-            NEW.remarks,
-            NEW.update_at,
-            NEW.update_user_id,
-            NEW.update_user_history_id,
-            NEW.remove
+            WITH RECURSIVE
+            dn(trans_container_id, path) AS
+            (
+                SELECT
+                    x.trans_container_id,
+                    ARRAY[ROW(x.trans_container_id)::text]
+                FROM
+                    (VALUES (v_new.trans_container_id), (v_old.trans_container_id)) AS x(trans_container_id)
+                UNION
+                SELECT
+                    t.trans_container_id,
+                    dn.path || ROW(t.trans_container_id)::text
+                FROM
+                    dn
+                INNER JOIN
+                    tests.trans_container_tree AS t
+                ON
+                    t.parent_trans_container_id = dn.trans_container_id
+                    AND t.remove IS FALSE
+                WHERE
+                    NOT ROW(t.trans_container_id)::text = ANY (dn.path) --循環の保護
+            )
+            SELECT dn.trans_container_id FROM dn
         );
 
-        INSERT INTO tests.hrchy_trans_container
-        (
-            ancestor_trans_container_id,
-            descendant_trans_container_id,
-            remarks,
-            update_at,
-            update_user_id,
-            update_user_history_id,
-            remove
-        )
+    --体系(有効な行)から作り直す
+    INSERT INTO tests.hrchy_trans_container
+    (
+        ancestor_trans_container_id,
+        descendant_trans_container_id,
+        remarks,
+        update_at,
+        update_user_id,
+        update_user_history_id,
+        remove
+    )
+    WITH RECURSIVE
+    dn(trans_container_id, path) AS
+    (
         SELECT
-            ancestor_trans_container_id,
-            NEW.trans_container_id,
-            NEW.remarks,
-            NEW.update_at,
-            NEW.update_user_id,
-            NEW.update_user_history_id,
-            NEW.remove
+            x.trans_container_id,
+            ARRAY[ROW(x.trans_container_id)::text]
         FROM
-            tests.hrchy_trans_container
-        WHERE
-            (
-                descendant_trans_container_id= NEW.parent_trans_container_id
-            )
-        AND
-            remove=FALSE;
-
-    ELSEIF (TG_OP = 'UPDATE') THEN
-        IF (NEW.parent_trans_container_id IS DISTINCT FROM OLD.parent_trans_container_id) THEN --親の付けかえ
-            DELETE--子孫削除
-            FROM
-                tests.hrchy_trans_container h
-            WHERE
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_trans_container h1
-                    WHERE
-                    (
-                        h1.ancestor_trans_container_id= NEW.trans_container_id
-                    )
-                    AND
-                    (
-                        h1.descendant_trans_container_id= h.descendant_trans_container_id
-                    )
-                )
-                AND
-                    NOT
-                    (
-                        h.ancestor_trans_container_id = h.descendant_trans_container_id
-                    )
-                AND
-                    NOT
-                    (
-                        h.ancestor_trans_container_id = NEW.trans_container_id
-                    );
-            --挿入
-            INSERT INTO tests.hrchy_trans_container
-            (
-                ancestor_trans_container_id,
-                descendant_trans_container_id,
-                remarks,
-                update_at,
-                update_user_id,
-                update_user_history_id,
-                remove
-            )
-            SELECT
-                h.ancestor_trans_container_id,
-                h1.descendant_trans_container_id,
-                NEW.remarks,
-                NEW.update_at,
-                NEW.update_user_id,
-                NEW.update_user_history_id,
-                NEW.remove
-            FROM
-                tests.hrchy_trans_container h
-            CROSS JOIN
-                tests.hrchy_trans_container h1
-            WHERE
-            (
-                h.descendant_trans_container_id= NEW.parent_trans_container_id
-            )
-            AND
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_trans_container h2
-                    WHERE
-                        (
-                            h2.ancestor_trans_container_id = h1.ancestor_trans_container_id
-                        )
-                        AND
-                        (
-                            h2.ancestor_trans_container_id= NEW.trans_container_id
-                        )
-                );
-        ELSE
-        --子孫共々その他の更新。
-            UPDATE
-                tests.hrchy_trans_container
-            SET
-                remarks= NEW.remarks,
-                update_at= NEW.update_at,
-                update_user_id= NEW.update_user_id,
-                update_user_history_id= NEW.update_user_history_id,
-                remove= NEW.remove
-            WHERE
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_trans_container h1
-                    WHERE
-                        (
-                            h1.ancestor_trans_container_id= NEW.trans_container_id
-                        )
-                        AND
-                        (
-                            h1.descendant_trans_container_id = hrchy_trans_container.descendant_trans_container_id
-                        )
-                );
-        END IF;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        DELETE--子孫削除
-        FROM
-            tests.hrchy_trans_container h
-        WHERE
-            EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_trans_container h1
-                WHERE
-                    (
-                        h1.ancestor_trans_container_id= OLD.trans_container_id
-                    )
-                    AND
-                    (
-                        h1.descendant_trans_container_id= h.descendant_trans_container_id
-                    )
-            );
-
+            (VALUES (v_new.trans_container_id), (v_old.trans_container_id)) AS x(trans_container_id)
+        UNION
         SELECT
-            COUNT(*) INTO counter
+            t.trans_container_id,
+            dn.path || ROW(t.trans_container_id)::text
         FROM
-            tests.trans_container_tree h
+            dn
+        INNER JOIN
+            tests.trans_container_tree AS t
+        ON
+            t.parent_trans_container_id = dn.trans_container_id
+            AND t.remove IS FALSE
         WHERE
-            NOT EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_trans_container h1
-                WHERE
-                    (
-                        h1.descendant_trans_container_id= h.trans_container_id
-                    )
-            );
-        IF (counter>0) THEN
-            DELETE
-            FROM
-                tests.trans_container_tree h
-            WHERE
-            NOT EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_trans_container h1
-                WHERE
-                    (
-                        h1.descendant_trans_container_id= h.trans_container_id
-                    )
-            );
-        END IF;
-    END IF;
+            NOT ROW(t.trans_container_id)::text = ANY (dn.path) --循環の保護
+    ),
+    up(d_trans_container_id, a_trans_container_id, path) AS
+    (
+        SELECT DISTINCT
+            dn.trans_container_id,
+            dn.trans_container_id,
+            ARRAY[ROW(dn.trans_container_id)::text]
+        FROM
+            dn
+        WHERE
+            EXISTS (SELECT 1 FROM tests.trans_container_tree AS t WHERE t.trans_container_id = dn.trans_container_id AND t.remove IS FALSE)
+        UNION
+        SELECT
+            up.d_trans_container_id,
+            t.parent_trans_container_id,
+            up.path || ROW(t.parent_trans_container_id)::text
+        FROM
+            up
+        INNER JOIN
+            tests.trans_container_tree AS t
+        ON
+            t.trans_container_id = up.a_trans_container_id
+            AND t.remove IS FALSE
+            AND t.parent_trans_container_id IS NOT NULL
+        WHERE
+            NOT ROW(t.parent_trans_container_id)::text = ANY (up.path) --循環の保護
+    )
+    SELECT DISTINCT
+        up.a_trans_container_id,
+        up.d_trans_container_id,
+        v_new.remarks,
+        v_new.update_at,
+        v_new.update_user_id,
+        v_new.update_user_history_id,
+        FALSE
+    FROM
+        up;
+
     RETURN NULL;
 END
 $BODY$
@@ -21722,213 +21303,126 @@ PROCEDURE tests.trg_03_hierarchy_trans_container_tree();
 CREATE OR REPLACE FUNCTION tests.trg_03_hierarchy_info_department_tree() RETURNS trigger AS
 $BODY$
 DECLARE
-    counter int;
+    v_new tests.info_department_tree%ROWTYPE;
+    v_old tests.info_department_tree%ROWTYPE;
 BEGIN
     IF (TG_OP='INSERT') THEN
-        INSERT INTO tests.hrchy_info_department
+        v_new:=NEW;
+        v_old:=NEW;
+    ELSEIF (TG_OP='UPDATE') THEN
+        --子・親・削除が変わらない更新は閉包に影響しない
+        IF (NEW.info_department_id, NEW.parent_info_department_id, NEW.remove) IS NOT DISTINCT FROM (OLD.info_department_id, OLD.parent_info_department_id, OLD.remove) THEN
+            RETURN NULL;
+        END IF;
+        v_new:=NEW;
+        v_old:=OLD;
+    ELSE
+        v_new:=OLD;
+        v_old:=OLD;
+    END IF;
+
+    --影響を受けるノードの閉包を削除
+    DELETE
+    FROM
+        tests.hrchy_info_department AS h
+    WHERE
+        (h.descendant_info_department_id) IN
         (
-            ancestor_info_department_id,
-            descendant_info_department_id,
-            remarks,
-            update_at,
-            update_user_id,
-            update_user_history_id,
-            remove
-        )
-        VALUES
-        (
-            NEW.info_department_id,
-            NEW.info_department_id,
-            NEW.remarks,
-            NEW.update_at,
-            NEW.update_user_id,
-            NEW.update_user_history_id,
-            NEW.remove
+            WITH RECURSIVE
+            dn(info_department_id, path) AS
+            (
+                SELECT
+                    x.info_department_id,
+                    ARRAY[ROW(x.info_department_id)::text]
+                FROM
+                    (VALUES (v_new.info_department_id), (v_old.info_department_id)) AS x(info_department_id)
+                UNION
+                SELECT
+                    t.info_department_id,
+                    dn.path || ROW(t.info_department_id)::text
+                FROM
+                    dn
+                INNER JOIN
+                    tests.info_department_tree AS t
+                ON
+                    t.parent_info_department_id = dn.info_department_id
+                    AND t.remove IS FALSE
+                WHERE
+                    NOT ROW(t.info_department_id)::text = ANY (dn.path) --循環の保護
+            )
+            SELECT dn.info_department_id FROM dn
         );
 
-        INSERT INTO tests.hrchy_info_department
-        (
-            ancestor_info_department_id,
-            descendant_info_department_id,
-            remarks,
-            update_at,
-            update_user_id,
-            update_user_history_id,
-            remove
-        )
+    --体系(有効な行)から作り直す
+    INSERT INTO tests.hrchy_info_department
+    (
+        ancestor_info_department_id,
+        descendant_info_department_id,
+        remarks,
+        update_at,
+        update_user_id,
+        update_user_history_id,
+        remove
+    )
+    WITH RECURSIVE
+    dn(info_department_id, path) AS
+    (
         SELECT
-            ancestor_info_department_id,
-            NEW.info_department_id,
-            NEW.remarks,
-            NEW.update_at,
-            NEW.update_user_id,
-            NEW.update_user_history_id,
-            NEW.remove
+            x.info_department_id,
+            ARRAY[ROW(x.info_department_id)::text]
         FROM
-            tests.hrchy_info_department
-        WHERE
-            (
-                descendant_info_department_id= NEW.parent_info_department_id
-            )
-        AND
-            remove=FALSE;
-
-    ELSEIF (TG_OP = 'UPDATE') THEN
-        IF (NEW.parent_info_department_id IS DISTINCT FROM OLD.parent_info_department_id) THEN --親の付けかえ
-            DELETE--子孫削除
-            FROM
-                tests.hrchy_info_department h
-            WHERE
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_info_department h1
-                    WHERE
-                    (
-                        h1.ancestor_info_department_id= NEW.info_department_id
-                    )
-                    AND
-                    (
-                        h1.descendant_info_department_id= h.descendant_info_department_id
-                    )
-                )
-                AND
-                    NOT
-                    (
-                        h.ancestor_info_department_id = h.descendant_info_department_id
-                    )
-                AND
-                    NOT
-                    (
-                        h.ancestor_info_department_id = NEW.info_department_id
-                    );
-            --挿入
-            INSERT INTO tests.hrchy_info_department
-            (
-                ancestor_info_department_id,
-                descendant_info_department_id,
-                remarks,
-                update_at,
-                update_user_id,
-                update_user_history_id,
-                remove
-            )
-            SELECT
-                h.ancestor_info_department_id,
-                h1.descendant_info_department_id,
-                NEW.remarks,
-                NEW.update_at,
-                NEW.update_user_id,
-                NEW.update_user_history_id,
-                NEW.remove
-            FROM
-                tests.hrchy_info_department h
-            CROSS JOIN
-                tests.hrchy_info_department h1
-            WHERE
-            (
-                h.descendant_info_department_id= NEW.parent_info_department_id
-            )
-            AND
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_info_department h2
-                    WHERE
-                        (
-                            h2.ancestor_info_department_id = h1.ancestor_info_department_id
-                        )
-                        AND
-                        (
-                            h2.ancestor_info_department_id= NEW.info_department_id
-                        )
-                );
-        ELSE
-        --子孫共々その他の更新。
-            UPDATE
-                tests.hrchy_info_department
-            SET
-                remarks= NEW.remarks,
-                update_at= NEW.update_at,
-                update_user_id= NEW.update_user_id,
-                update_user_history_id= NEW.update_user_history_id,
-                remove= NEW.remove
-            WHERE
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_info_department h1
-                    WHERE
-                        (
-                            h1.ancestor_info_department_id= NEW.info_department_id
-                        )
-                        AND
-                        (
-                            h1.descendant_info_department_id = hrchy_info_department.descendant_info_department_id
-                        )
-                );
-        END IF;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        DELETE--子孫削除
-        FROM
-            tests.hrchy_info_department h
-        WHERE
-            EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_info_department h1
-                WHERE
-                    (
-                        h1.ancestor_info_department_id= OLD.info_department_id
-                    )
-                    AND
-                    (
-                        h1.descendant_info_department_id= h.descendant_info_department_id
-                    )
-            );
-
+            (VALUES (v_new.info_department_id), (v_old.info_department_id)) AS x(info_department_id)
+        UNION
         SELECT
-            COUNT(*) INTO counter
+            t.info_department_id,
+            dn.path || ROW(t.info_department_id)::text
         FROM
-            tests.info_department_tree h
+            dn
+        INNER JOIN
+            tests.info_department_tree AS t
+        ON
+            t.parent_info_department_id = dn.info_department_id
+            AND t.remove IS FALSE
         WHERE
-            NOT EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_info_department h1
-                WHERE
-                    (
-                        h1.descendant_info_department_id= h.info_department_id
-                    )
-            );
-        IF (counter>0) THEN
-            DELETE
-            FROM
-                tests.info_department_tree h
-            WHERE
-            NOT EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_info_department h1
-                WHERE
-                    (
-                        h1.descendant_info_department_id= h.info_department_id
-                    )
-            );
-        END IF;
-    END IF;
+            NOT ROW(t.info_department_id)::text = ANY (dn.path) --循環の保護
+    ),
+    up(d_info_department_id, a_info_department_id, path) AS
+    (
+        SELECT DISTINCT
+            dn.info_department_id,
+            dn.info_department_id,
+            ARRAY[ROW(dn.info_department_id)::text]
+        FROM
+            dn
+        WHERE
+            EXISTS (SELECT 1 FROM tests.info_department_tree AS t WHERE t.info_department_id = dn.info_department_id AND t.remove IS FALSE)
+        UNION
+        SELECT
+            up.d_info_department_id,
+            t.parent_info_department_id,
+            up.path || ROW(t.parent_info_department_id)::text
+        FROM
+            up
+        INNER JOIN
+            tests.info_department_tree AS t
+        ON
+            t.info_department_id = up.a_info_department_id
+            AND t.remove IS FALSE
+            AND t.parent_info_department_id IS NOT NULL
+        WHERE
+            NOT ROW(t.parent_info_department_id)::text = ANY (up.path) --循環の保護
+    )
+    SELECT DISTINCT
+        up.a_info_department_id,
+        up.d_info_department_id,
+        v_new.remarks,
+        v_new.update_at,
+        v_new.update_user_id,
+        v_new.update_user_history_id,
+        FALSE
+    FROM
+        up;
+
     RETURN NULL;
 END
 $BODY$
@@ -21940,213 +21434,126 @@ PROCEDURE tests.trg_03_hierarchy_info_department_tree();
 CREATE OR REPLACE FUNCTION tests.trg_03_hierarchy_mstr_location_tree() RETURNS trigger AS
 $BODY$
 DECLARE
-    counter int;
+    v_new tests.mstr_location_tree%ROWTYPE;
+    v_old tests.mstr_location_tree%ROWTYPE;
 BEGIN
     IF (TG_OP='INSERT') THEN
-        INSERT INTO tests.hrchy_mstr_location
+        v_new:=NEW;
+        v_old:=NEW;
+    ELSEIF (TG_OP='UPDATE') THEN
+        --子・親・削除が変わらない更新は閉包に影響しない
+        IF (NEW.mstr_location_id, NEW.parent_mstr_location_id, NEW.remove) IS NOT DISTINCT FROM (OLD.mstr_location_id, OLD.parent_mstr_location_id, OLD.remove) THEN
+            RETURN NULL;
+        END IF;
+        v_new:=NEW;
+        v_old:=OLD;
+    ELSE
+        v_new:=OLD;
+        v_old:=OLD;
+    END IF;
+
+    --影響を受けるノードの閉包を削除
+    DELETE
+    FROM
+        tests.hrchy_mstr_location AS h
+    WHERE
+        (h.descendant_mstr_location_id) IN
         (
-            ancestor_mstr_location_id,
-            descendant_mstr_location_id,
-            remarks,
-            update_at,
-            update_user_id,
-            update_user_history_id,
-            remove
-        )
-        VALUES
-        (
-            NEW.mstr_location_id,
-            NEW.mstr_location_id,
-            NEW.remarks,
-            NEW.update_at,
-            NEW.update_user_id,
-            NEW.update_user_history_id,
-            NEW.remove
+            WITH RECURSIVE
+            dn(mstr_location_id, path) AS
+            (
+                SELECT
+                    x.mstr_location_id,
+                    ARRAY[ROW(x.mstr_location_id)::text]
+                FROM
+                    (VALUES (v_new.mstr_location_id), (v_old.mstr_location_id)) AS x(mstr_location_id)
+                UNION
+                SELECT
+                    t.mstr_location_id,
+                    dn.path || ROW(t.mstr_location_id)::text
+                FROM
+                    dn
+                INNER JOIN
+                    tests.mstr_location_tree AS t
+                ON
+                    t.parent_mstr_location_id = dn.mstr_location_id
+                    AND t.remove IS FALSE
+                WHERE
+                    NOT ROW(t.mstr_location_id)::text = ANY (dn.path) --循環の保護
+            )
+            SELECT dn.mstr_location_id FROM dn
         );
 
-        INSERT INTO tests.hrchy_mstr_location
-        (
-            ancestor_mstr_location_id,
-            descendant_mstr_location_id,
-            remarks,
-            update_at,
-            update_user_id,
-            update_user_history_id,
-            remove
-        )
+    --体系(有効な行)から作り直す
+    INSERT INTO tests.hrchy_mstr_location
+    (
+        ancestor_mstr_location_id,
+        descendant_mstr_location_id,
+        remarks,
+        update_at,
+        update_user_id,
+        update_user_history_id,
+        remove
+    )
+    WITH RECURSIVE
+    dn(mstr_location_id, path) AS
+    (
         SELECT
-            ancestor_mstr_location_id,
-            NEW.mstr_location_id,
-            NEW.remarks,
-            NEW.update_at,
-            NEW.update_user_id,
-            NEW.update_user_history_id,
-            NEW.remove
+            x.mstr_location_id,
+            ARRAY[ROW(x.mstr_location_id)::text]
         FROM
-            tests.hrchy_mstr_location
-        WHERE
-            (
-                descendant_mstr_location_id= NEW.parent_mstr_location_id
-            )
-        AND
-            remove=FALSE;
-
-    ELSEIF (TG_OP = 'UPDATE') THEN
-        IF (NEW.parent_mstr_location_id IS DISTINCT FROM OLD.parent_mstr_location_id) THEN --親の付けかえ
-            DELETE--子孫削除
-            FROM
-                tests.hrchy_mstr_location h
-            WHERE
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_mstr_location h1
-                    WHERE
-                    (
-                        h1.ancestor_mstr_location_id= NEW.mstr_location_id
-                    )
-                    AND
-                    (
-                        h1.descendant_mstr_location_id= h.descendant_mstr_location_id
-                    )
-                )
-                AND
-                    NOT
-                    (
-                        h.ancestor_mstr_location_id = h.descendant_mstr_location_id
-                    )
-                AND
-                    NOT
-                    (
-                        h.ancestor_mstr_location_id = NEW.mstr_location_id
-                    );
-            --挿入
-            INSERT INTO tests.hrchy_mstr_location
-            (
-                ancestor_mstr_location_id,
-                descendant_mstr_location_id,
-                remarks,
-                update_at,
-                update_user_id,
-                update_user_history_id,
-                remove
-            )
-            SELECT
-                h.ancestor_mstr_location_id,
-                h1.descendant_mstr_location_id,
-                NEW.remarks,
-                NEW.update_at,
-                NEW.update_user_id,
-                NEW.update_user_history_id,
-                NEW.remove
-            FROM
-                tests.hrchy_mstr_location h
-            CROSS JOIN
-                tests.hrchy_mstr_location h1
-            WHERE
-            (
-                h.descendant_mstr_location_id= NEW.parent_mstr_location_id
-            )
-            AND
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_mstr_location h2
-                    WHERE
-                        (
-                            h2.ancestor_mstr_location_id = h1.ancestor_mstr_location_id
-                        )
-                        AND
-                        (
-                            h2.ancestor_mstr_location_id= NEW.mstr_location_id
-                        )
-                );
-        ELSE
-        --子孫共々その他の更新。
-            UPDATE
-                tests.hrchy_mstr_location
-            SET
-                remarks= NEW.remarks,
-                update_at= NEW.update_at,
-                update_user_id= NEW.update_user_id,
-                update_user_history_id= NEW.update_user_history_id,
-                remove= NEW.remove
-            WHERE
-                EXISTS
-                (
-                    SELECT
-                        1
-                    FROM
-                        tests.hrchy_mstr_location h1
-                    WHERE
-                        (
-                            h1.ancestor_mstr_location_id= NEW.mstr_location_id
-                        )
-                        AND
-                        (
-                            h1.descendant_mstr_location_id = hrchy_mstr_location.descendant_mstr_location_id
-                        )
-                );
-        END IF;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        DELETE--子孫削除
-        FROM
-            tests.hrchy_mstr_location h
-        WHERE
-            EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_mstr_location h1
-                WHERE
-                    (
-                        h1.ancestor_mstr_location_id= OLD.mstr_location_id
-                    )
-                    AND
-                    (
-                        h1.descendant_mstr_location_id= h.descendant_mstr_location_id
-                    )
-            );
-
+            (VALUES (v_new.mstr_location_id), (v_old.mstr_location_id)) AS x(mstr_location_id)
+        UNION
         SELECT
-            COUNT(*) INTO counter
+            t.mstr_location_id,
+            dn.path || ROW(t.mstr_location_id)::text
         FROM
-            tests.mstr_location_tree h
+            dn
+        INNER JOIN
+            tests.mstr_location_tree AS t
+        ON
+            t.parent_mstr_location_id = dn.mstr_location_id
+            AND t.remove IS FALSE
         WHERE
-            NOT EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_mstr_location h1
-                WHERE
-                    (
-                        h1.descendant_mstr_location_id= h.mstr_location_id
-                    )
-            );
-        IF (counter>0) THEN
-            DELETE
-            FROM
-                tests.mstr_location_tree h
-            WHERE
-            NOT EXISTS
-            (
-                SELECT
-                    1
-                FROM
-                    tests.hrchy_mstr_location h1
-                WHERE
-                    (
-                        h1.descendant_mstr_location_id= h.mstr_location_id
-                    )
-            );
-        END IF;
-    END IF;
+            NOT ROW(t.mstr_location_id)::text = ANY (dn.path) --循環の保護
+    ),
+    up(d_mstr_location_id, a_mstr_location_id, path) AS
+    (
+        SELECT DISTINCT
+            dn.mstr_location_id,
+            dn.mstr_location_id,
+            ARRAY[ROW(dn.mstr_location_id)::text]
+        FROM
+            dn
+        WHERE
+            EXISTS (SELECT 1 FROM tests.mstr_location_tree AS t WHERE t.mstr_location_id = dn.mstr_location_id AND t.remove IS FALSE)
+        UNION
+        SELECT
+            up.d_mstr_location_id,
+            t.parent_mstr_location_id,
+            up.path || ROW(t.parent_mstr_location_id)::text
+        FROM
+            up
+        INNER JOIN
+            tests.mstr_location_tree AS t
+        ON
+            t.mstr_location_id = up.a_mstr_location_id
+            AND t.remove IS FALSE
+            AND t.parent_mstr_location_id IS NOT NULL
+        WHERE
+            NOT ROW(t.parent_mstr_location_id)::text = ANY (up.path) --循環の保護
+    )
+    SELECT DISTINCT
+        up.a_mstr_location_id,
+        up.d_mstr_location_id,
+        v_new.remarks,
+        v_new.update_at,
+        v_new.update_user_id,
+        v_new.update_user_history_id,
+        FALSE
+    FROM
+        up;
+
     RETURN NULL;
 END
 $BODY$
@@ -25067,7 +24474,7 @@ SELECT
     ancestor_mstr_document_id
     , COUNT(descendant_mstr_document_id) AS descendant_count
 FROM
-    tests.hrchy_mstr_documet 
+    tests.hrchy_mstr_document 
 WHERE
     remove = 'f' 
     AND

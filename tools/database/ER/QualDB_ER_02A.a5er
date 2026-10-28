@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -770,7 +770,7 @@ Page=トラザクション
 Left=3900
 Top=800
 Field="資材計画ID","trans_resource_plan_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="親資材計画ID","parent_trans_operations_plan_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="親生産計画ID","parent_trans_operations_plan_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="受注明細ID","trans_order_detail_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="非計上明細ID","trans_unrecognized_detail_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="登録日時","register_at","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
@@ -784,7 +784,7 @@ Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261028165416
+ModifiedDateTime=20261028211755
 Position="トラザクション",3900,800
 ZOrder=76
 
@@ -798,14 +798,15 @@ Page=トラザクション
 Left=4000
 Top=100
 Field="生産計画ID","trans_operations_plan_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="資材計画ID","trans_resource_plan_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="資材計画ID","trans_resource_plan_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="完了期限","deadline","*@DATETIME",,,"","",$FFFFFFFF,""
+Field="生産数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261014112933
+ModifiedDateTime=20261028214535
 Position="トラザクション",4000,100
 ZOrder=78
 
@@ -1016,8 +1017,8 @@ ZOrder=88
 [Relation]
 Entity1=trans_resource_plan
 Entity2=trans_operations_plan
-RelationType1=1
-RelationType2=3
+RelationType1=2
+RelationType2=4
 Fields1=trans_resource_plan_id
 Fields2=trans_resource_plan_id
 Cardinarity1=
@@ -1026,7 +1027,7 @@ Position="トラザクション",0,3081,4915,4226,R,R,""
 Dependence=0
 Caption=
 PName=
-ModifiedDateTime=20220107164310
+ModifiedDateTime=20261028214027
 LineMode=0
 Bar1=308
 Bar2=492
@@ -1761,12 +1762,12 @@ Field="引当数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Field="作業担当者履歴ID","staff_history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="作業担当者ID","staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="資材計画ID","trans_resource_plan_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
+Field="資材計画ID","trans_resource_plan_id","*@UUID",,,"","",$FFFFFFFF,""
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261014110609
+ModifiedDateTime=20261028213309
 Position="トラザクション",5250,1350
 ZOrder=206
 
@@ -4278,11 +4279,12 @@ Field="デリバリー時間","delivery_interval","*@INTERVAL","NOT NULL",,"\q24
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
+Index==2,mstr_task_location_id
 EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261028145451
+ModifiedDateTime=20261028215605
 Position="マスタ工程",1950,4100
 ZOrder=570
 
@@ -4302,11 +4304,12 @@ Field="デリバリー時間","delivery_interval","*@INTERVAL","NOT NULL",,"\q24
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
+Index==2,mstr_task_location_id
 EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261028145603
+ModifiedDateTime=20261028215617
 Position="マスタ工程",450,3950
 ZOrder=571
 
@@ -6782,6 +6785,7 @@ Field="工程場所ID","mstr_task_location_id","*@UUID","NOT NULL",0,"gen_random
 Field="工程ID","mstr_task_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="組織情報ID","info_department_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="場所ID","mstr_location_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="優先順位","priority","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
@@ -6789,7 +6793,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261028145627
+ModifiedDateTime=20261028220434
 Position="マスタ工程",1950,3000
 ZOrder=731
 
@@ -6829,6 +6833,7 @@ Field="工程場所ID","mstr_task_location_id","*@UUID","NOT NULL",1,"","",$FFFF
 Field="工程ID","mstr_task_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="組織情報ID","info_department_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="場所ID","mstr_location_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="優先順","priority","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,mstr_task_location_id,revision
@@ -6836,7 +6841,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261028145634
+ModifiedDateTime=20261028222452
 Position="マスタ工程",1350,1850
 ZOrder=733
 
@@ -12491,7 +12496,7 @@ TermPos2=R
 ZOrder=887
 
 [Entity]
-PName=hrchy_mstr_documet
+PName=hrchy_mstr_document
 LName=文書階層情報
 Comment=
 TableInnerOption=
@@ -12506,13 +12511,13 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260917133050
+ModifiedDateTime=20261028221437
 Position="文書",300,2650
 ZOrder=888
 
 [Relation]
 Entity1=mstr_document_tree
-Entity2=hrchy_mstr_documet
+Entity2=hrchy_mstr_document
 RelationType1=1
 RelationType2=3
 Fields1=parent_mstr_document_id
@@ -12534,7 +12539,7 @@ ZOrder=889
 
 [Relation]
 Entity1=mstr_document_tree
-Entity2=hrchy_mstr_documet
+Entity2=hrchy_mstr_document
 RelationType1=2
 RelationType2=3
 Fields1=mstr_document_id
@@ -17637,7 +17642,7 @@ Top=300
 PName=v_document_descendants
 LName=文書子孫数
 Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_document_descendants is E\q@foreignKey (ancestor_mstr_document_id) references mstr_document (mstr_document_id)\\n@unique ancestor_mstr_document_id\q;
-Query=SELECT\n    ancestor_mstr_document_id\n    , COUNT(descendant_mstr_document_id) AS descendant_count\nFROM\n    @schema.hrchy_mstr_documet \nWHERE\n    remove = \qf\q \n    AND\n    ancestor_mstr_document_id <> descendant_mstr_document_id\nGROUP BY\n    ancestor_mstr_document_id
+Query=SELECT\n    ancestor_mstr_document_id\n    , COUNT(descendant_mstr_document_id) AS descendant_count\nFROM\n    @schema.hrchy_mstr_document \nWHERE\n    remove = \qf\q \n    AND\n    ancestor_mstr_document_id <> descendant_mstr_document_id\nGROUP BY\n    ancestor_mstr_document_id
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
@@ -22867,12 +22872,12 @@ Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
 Index==2,work_date,mstr_equipment_id
-IndexOption=unique nulls not distinct
+IndexOption=nulls not distinct
 EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261028155608
+ModifiedDateTime=20261028210904
 Position="マスタ資源",4050,600
 ZOrder=1441
 
@@ -22999,17 +23004,18 @@ Page=マスタ工程
 Left=400
 Top=3100
 Field="品目作業単価ID","mstr_item_task_cost_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="品目ID","mstr_item_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
+Field="品目ID","mstr_item_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="工程場所ID","mstr_task_location_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="単価","cost","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
+Index==2,mstr_item_id,mstr_task_location_id
 EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261028164619
+ModifiedDateTime=20261028215651
 Position="マスタ工程",400,3100
 ZOrder=1447
 
@@ -23148,28 +23154,6 @@ TermPos2=R
 ZOrder=-539
 
 [Relation]
-Entity1=trans_resource_plan
-Entity2=trans_resource_plan
-RelationType1=1
-RelationType2=1
-Fields1=trans_resource_plan_id
-Fields2=parent_trans_operations_plan_id
-Cardinarity1=
-Cardinarity2=
-Position="トラザクション",0,7500,2500,8534,R,R,""
-Dependence=0
-Caption=
-PName=
-ModifiedDateTime=20261028165249
-LineMode=0
-Bar1=750
-Bar2=250
-Bar3=853
-TermPos1=R
-TermPos2=R
-ZOrder=1452
-
-[Relation]
 Entity1=history_mstr_equipment_available
 Entity2=trans_work_plan
 RelationType1=1
@@ -23200,6 +23184,7 @@ Fields1=history_id,mstr_outsource_available_id
 Fields2=mstr_outsource_available_history_id,mstr_outsource_available_id
 Cardinarity1=
 Cardinarity2=
+Position="マスタ工程",0,500,9500,2762,R,R,""
 Position="トラザクション",0,500,9500,4745,R,R,""
 Dependence=0
 Caption=
@@ -23246,6 +23231,7 @@ Position="トラザクション",0,6619,6718,2241,R,R,""
 Dependence=0
 Caption=
 PName=
+ModifiedDateTime=20261028213324
 LineMode=0
 Bar1=662
 Bar2=672
@@ -23253,3 +23239,25 @@ Bar3=224
 TermPos1=R
 TermPos2=R
 ZOrder=1456
+
+[Relation]
+Entity1=trans_operations_plan
+Entity2=trans_resource_plan
+RelationType1=1
+RelationType2=3
+Fields1=trans_operations_plan_id
+Fields2=parent_trans_operations_plan_id
+Cardinarity1=
+Cardinarity2=
+Position="トラザクション",0,5448,4552,5405,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20261028212702
+LineMode=0
+Bar1=545
+Bar2=455
+Bar3=540
+TermPos1=R
+TermPos2=R
+ZOrder=1457
