@@ -207,6 +207,7 @@ query ItemOperationPageRead(
         }
 
         labelCode
+        catalogItem
 
         detailTexts: sharedTextByDetails {
           sharedTextId

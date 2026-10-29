@@ -28,6 +28,7 @@ query InventoryRequestPageRead(
       registerPlanAt
       transPurchaseRezId
       transProductRezId
+      transResourcePlanId
       quantity
       staffHistoryId
       staffId

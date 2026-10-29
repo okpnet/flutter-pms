@@ -1,0 +1,40 @@
+# item_supplier_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: gql/*.yaml #ItemSupplierPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ItemSupplierPageRfe(
+  $mstrItemSupplierId: UUID!
+) {
+  mstrItemSupplierByMstrItemSupplierId(mstrItemSupplierId: $mstrItemSupplierId) {
+    mstrItemSupplierId
+    mstrItemId
+    mstrStakeholderId
+    priority
+    supplierItemCode
+    qualityInspectionTime {
+      seconds
+      minutes
+      hours
+      days
+      months
+      years
+    }
+    deliveryTime {
+      seconds
+      minutes
+      hours
+      days
+      months
+      years
+    }
+    minimumLotSize
+    cost
+    askingPrice
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

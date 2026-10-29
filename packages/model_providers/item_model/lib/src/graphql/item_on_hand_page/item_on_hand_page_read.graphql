@@ -1,0 +1,29 @@
+# item_on_hand_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ItemOnHandPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ItemOnHandPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VItemOnHandFilter = {and: []}
+  $orderBy: [VItemOnHandsOrderBy!]
+) {
+  allVItemOnHands(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      itemId
+      onHandQuantity
+      visiterCount
+    }
+  }
+}

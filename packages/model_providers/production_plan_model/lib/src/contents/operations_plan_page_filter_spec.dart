@@ -9,6 +9,7 @@ abstract class OperationsPlanPageFilterSpec {
   static const FlatFilterSpec spec = FlatFilterSpec('TransOperationsPlanFilter', {
     'transOperationsPlanId': FlatFilterPath([], 'transOperationsPlanId'),
     'transResourcePlanId': FlatFilterPath([], 'transResourcePlanId'),
+    'quantity': FlatFilterPath([], 'quantity'),
     'deadline': FlatFilterPath([], 'deadline'),
     'symbol': FlatFilterPath([], 'symbol'),
     'remarks': FlatFilterPath([], 'remarks'),

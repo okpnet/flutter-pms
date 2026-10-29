@@ -1,0 +1,37 @@
+# item_task_cost_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ItemTaskCostPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ItemTaskCostPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: MstrItemTaskCostFilter = {and: []}
+  $orderBy: [MstrItemTaskCostsOrderBy!]
+  $mstrItemId: UUID!
+  $removed: Boolean = false
+) {
+  allMstrItemTaskCosts(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, { mstrItemId: { equalTo: $mstrItemId } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrItemTaskCostId
+      mstrItemId
+      mstrTaskLocationId
+      cost
+      revision
+      symbol
+      remarks
+      updateAt
+      remove
+    }
+  }
+}

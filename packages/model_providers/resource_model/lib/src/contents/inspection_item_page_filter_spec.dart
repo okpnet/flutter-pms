@@ -120,6 +120,7 @@ abstract class InspectionItemPageFilterSpec {
     'items||labels||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId': FlatFilterPath([FilterStep('mstrItemByMstrItemId'), FilterStep('sharedAppellationByNames'), FilterStep('sharedDictionaryBySharedDictionaryNicknameId')], 'sharedDictionaryId'),
     'items||labels||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue': FlatFilterPath([FilterStep('mstrItemByMstrItemId'), FilterStep('sharedAppellationByNames'), FilterStep('sharedDictionaryBySharedDictionaryNicknameId'), FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {'sharedLanguageCodeId': 'languageCodeId'})], 'dictionaryValue'),
     'items||labelCode': FlatFilterPath([FilterStep('mstrItemByMstrItemId')], 'labelCode'),
+    'items||catalogItem': FlatFilterPath([FilterStep('mstrItemByMstrItemId')], 'catalogItem'),
     'items||detailTexts||sharedTextId': FlatFilterPath([FilterStep('mstrItemByMstrItemId'), FilterStep('sharedTextByDetails')], 'sharedTextId'),
     'items||detailTexts||value||charCount': FlatFilterPath([FilterStep('mstrItemByMstrItemId'), FilterStep('sharedTextByDetails'), FilterStep.many('sharedTextValuesBySharedTextId', {'sharedLanguageCodeId': 'languageCodeId'})], 'charCount'),
     'items||detailTexts||value||leadText': FlatFilterPath([FilterStep('mstrItemByMstrItemId'), FilterStep('sharedTextByDetails'), FilterStep.many('sharedTextValuesBySharedTextId', {'sharedLanguageCodeId': 'languageCodeId'})], 'leadText'),

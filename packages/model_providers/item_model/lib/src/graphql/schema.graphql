@@ -180,6 +180,8 @@ enum MstrItemsOrderBy {
   NAMES_DESC
   LABEL_CODE_ASC
   LABEL_CODE_DESC
+  CATALOG_ITEM_ASC
+  CATALOG_ITEM_DESC
   DETAILS_ASC
   DETAILS_DESC
   SHARED_UNIT_ID_ASC
@@ -356,10 +358,8 @@ enum MstrTaskLocationsOrderBy {
   INFO_DEPARTMENT_ID_DESC
   MSTR_LOCATION_ID_ASC
   MSTR_LOCATION_ID_DESC
-  MSTR_EQUIPMENT_ID_ASC
-  MSTR_EQUIPMENT_ID_DESC
-  MSTR_STAKEHOLDER_ID_ASC
-  MSTR_STAKEHOLDER_ID_DESC
+  PRIORITY_ASC
+  PRIORITY_DESC
   REVISION_ASC
   REVISION_DESC
   SYMBOL_ASC
@@ -412,6 +412,18 @@ enum MstrTasksOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum VItemOnHandsOrderBy {
+  NATURAL
+  ITEM_ID_ASC
+  ITEM_ID_DESC
+  ON_HAND_QUANTITY_ASC
+  ON_HAND_QUANTITY_DESC
+  VISITER_COUNT_ASC
+  VISITER_COUNT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -457,40 +469,6 @@ type Interval {
   years: Int
 }
 
-type MstrEquipment {
-  mstrEquipmentId: UUID!
-  mstrItemId: UUID!
-  mstrEquipmentCategoryId: UUID
-  code: String!
-  controlCode: String
-  labelCode: String
-  mstrLocationId: UUID
-  symbol: String
-  remarks: String
-  updateAt: Datetime
-  remove: Boolean
-  mstrItemByMstrItemId: MstrItem
-  mstrEquipmentKindByMstrEquipmentCategoryId: MstrEquipmentKind
-  mstrLocationByMstrLocationId: MstrLocation
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
-  vEquipmentEquipmentAvailableCountByMstrEquipmentId: VEquipmentEquipmentAvailableCount
-  vEquipmentEquipmentProvisionCountByMstrEquipmentId: VEquipmentEquipmentProvisionCount
-  vEquipmentInspectionOperationCountByMstrEquipmentId: VEquipmentInspectionOperationCount
-}
-
-type MstrEquipmentKind {
-  mstrEquipmentKindId: UUID!
-  kindCode: String!
-  startAt: Datetime
-  stopAt: Datetime
-  symbol: String
-  remarks: String
-  updateAt: Datetime
-  remove: Boolean
-  sharedAppellationByNames: SharedAppellation
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
-}
-
 type MstrItem {
   mstrItemId: UUID!
   mstrItemKindId: UUID!
@@ -498,6 +476,7 @@ type MstrItem {
   identification: String
   controlCode: String
   labelCode: String
+  catalogItem: Boolean
   sharedUnitId: UUID
   mstrItemLotId: UUID
   symbol: String
@@ -513,7 +492,7 @@ type MstrItem {
   sharedUnitBySharedUnitId: SharedUnit
   mstrItemLotByMstrItemLotId: MstrItemLot
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
-  mstrItemTreeByMstrItemId: MstrItemTree
+  mstrItemTreesByMstrItemId(first: Int): MstrItemTreesConnection!
   vItemDescendantByAncestorMstrItemId: VItemDescendant
   vItemEquipmentCountByMstrItemId: VItemEquipmentCount
   vItemInspectionCountByMstrItemId: VItemInspectionCount
@@ -652,27 +631,14 @@ type MstrItemTree {
   sharedTextByDetails: SharedText
 }
 
+type MstrItemTreesConnection {
+  nodes: [MstrItemTree]!
+}
+
 type MstrItemsConnection {
   nodes: [MstrItem]!
   pageInfo: PageInfo!
   totalCount: Int!
-}
-
-type MstrLocation {
-  mstrLocationId: UUID!
-  code: String
-  infoDepartmentId: UUID
-  controlCode: String
-  infoAddressId: UUID
-  available: Boolean
-  symbol: String
-  remarks: String
-  updateAt: Datetime
-  remove: Boolean
-  infoDepartmentByInfoDepartmentId: InfoDepartment
-  sharedAppellationByNames: SharedAppellation
-  infoAddressByInfoAddressId: InfoAddress
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
 }
 
 type MstrManufacturer {
@@ -735,17 +701,6 @@ type MstrOperationsConnection {
   totalCount: Int!
 }
 
-type MstrShippingKind {
-  mstrShippingKindId: UUID!
-  code: String!
-  symbol: String
-  remarks: String
-  updateAt: Datetime
-  remove: Boolean
-  sharedAppellationByNames: SharedAppellation
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
-}
-
 type MstrSpecMeasurement {
   mstrSpecMeasurementId: UUID!
   measurementValue: BigFloat!
@@ -764,28 +719,6 @@ type MstrSpecMeasurementsConnection {
   nodes: [MstrSpecMeasurement]!
   pageInfo: PageInfo!
   totalCount: Int!
-}
-
-type MstrStakeholder {
-  mstrStakeholderId: UUID!
-  isCustomer: Boolean
-  isSupplier: Boolean
-  isLogistics: Boolean
-  code: String!
-  controlCode: String
-  mail: String
-  mstrShippingKindId: UUID
-  symbol: String
-  remarks: String
-  updateAt: Datetime
-  remove: Boolean
-  sharedAppellationByNames: SharedAppellation
-  infoAddressByInfoAddressId: InfoAddress
-  mstrShippingKindByMstrShippingKindId: MstrShippingKind
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
-  vStakeholderOutsourceAvailableCountByMstrStakeholderId: VStakeholderOutsourceAvailableCount
-  vStakeholderStakeholderContactCountByMstrStakeholderId: VStakeholderStakeholderContactCount
-  vStakeholderStakeholderProvisionCountByMstrStakeholderId: VStakeholderStakeholderProvisionCount
 }
 
 type MstrTask {
@@ -837,8 +770,7 @@ type MstrTaskLocation {
   mstrTaskLocationId: UUID!
   mstrTaskId: UUID!
   infoDepartmentId: UUID
-  mstrEquipmentId: UUID
-  mstrStakeholderId: UUID
+  priority: Int
   symbol: String
   remarks: String
   updateAt: Datetime
@@ -846,8 +778,6 @@ type MstrTaskLocation {
   updateUserHistoryId: UUID
   remove: Boolean
   infoDepartmentByInfoDepartmentId: InfoDepartment
-  mstrEquipmentByMstrEquipmentId: MstrEquipment
-  mstrStakeholderByMstrStakeholderId: MstrStakeholder
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
   vTaskLocationEquipmentAvailableCountByMstrTaskLocationId: VTaskLocationEquipmentAvailableCount
   vTaskLocationOutsourceAvailableCountByMstrTaskLocationId: VTaskLocationOutsourceAvailableCount
@@ -914,6 +844,7 @@ type Query {
   allMstrTasks(first: Int, offset: Int, orderBy: [MstrTasksOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrTaskFilter): MstrTasksConnection
   allMstrTaskGroups(first: Int, offset: Int, orderBy: [MstrTaskGroupsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrTaskGroupFilter): MstrTaskGroupsConnection
   allMstrTaskLocations(first: Int, offset: Int, orderBy: [MstrTaskLocationsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrTaskLocationFilter): MstrTaskLocationsConnection
+  allVItemOnHands(first: Int, offset: Int, orderBy: [VItemOnHandsOrderBy!] = [PRIMARY_KEY_ASC], filter: VItemOnHandFilter): VItemOnHandsConnection
   mstrItemByMstrItemId(mstrItemId: UUID!): MstrItem
   mstrItemActualSizeByMstrItemActualSizeId(mstrItemActualSizeId: UUID!): MstrItemActualSize
   mstrItemKindByMstrItemKindId(mstrItemKindId: UUID!): MstrItemKind
@@ -1026,18 +957,6 @@ type UpdateMstrTaskTreePayload {
   mstrTaskTree: MstrTaskTree
 }
 
-type VEquipmentEquipmentAvailableCount {
-  mstrEquipmentId: UUID
-}
-
-type VEquipmentEquipmentProvisionCount {
-  mstrEquipmentId: UUID
-}
-
-type VEquipmentInspectionOperationCount {
-  mstrEquipmentId: UUID
-}
-
 type VItemDescendant {
   ancestorMstrItemId: UUID
 }
@@ -1074,6 +993,18 @@ type VItemKindItemCount {
   mstrItemKindId: UUID
 }
 
+type VItemOnHand {
+  itemId: UUID!
+  onHandQuantity: BigFloat
+  visiterCount: Int
+}
+
+type VItemOnHandsConnection {
+  nodes: [VItemOnHand]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type VItemSizeKindItemActualSizeCount {
   mstrItemSizeKindId: UUID
 }
@@ -1084,18 +1015,6 @@ type VOperationItemOperationCount {
 
 type VOperationOperationTaskCount {
   mstrOperationId: UUID
-}
-
-type VStakeholderOutsourceAvailableCount {
-  mstrStakeholderId: UUID
-}
-
-type VStakeholderStakeholderContactCount {
-  mstrStakeholderId: UUID
-}
-
-type VStakeholderStakeholderProvisionCount {
-  mstrStakeholderId: UUID
 }
 
 type VTaskComplaintProcessCount {
@@ -1202,6 +1121,12 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  historyMstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrWorkCalendarsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrWorkCalendarsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrItemOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transTextsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1445,6 +1370,12 @@ input HistoryInfoStaffFilter {
   infoStaffsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   infoDepartmentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   infoOfficesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
+  transMrpRunsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpSuggestionTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryInfoStaffFilter!]
@@ -1566,69 +1497,6 @@ input IntervalInput {
   years: Int
 }
 
-input MstrEquipmentFilter {
-  mstrEquipmentId: UUIDFilter
-  mstrItemId: UUIDFilter
-  mstrEquipmentCategoryId: UUIDFilter
-  code: StringFilter
-  controlCode: StringFilter
-  labelCode: StringFilter
-  mstrLocationId: UUIDFilter
-  revision: IntFilter
-  symbol: StringFilter
-  remarks: StringFilter
-  updateAt: DatetimeFilter
-  updateUserId: UUIDFilter
-  updateUserHistoryId: UUIDFilter
-  remove: BooleanFilter
-  mstrEquipmentEnvelopesByMstrEquipmentIdExist: Boolean
-  historyMstrEquipmentsByMstrEquipmentIdExist: Boolean
-  mstrInspectionOperationsByMstrEquipmentIdExist: Boolean
-  mstrEquipmentProvisionsByMstrEquipmentIdExist: Boolean
-  mstrTaskLocationsByMstrEquipmentIdExist: Boolean
-  mstrEquipmentAvailablesByMstrEquipmentIdExist: Boolean
-  vEquipmentEquipmentAvailableCountByMstrEquipmentId: VEquipmentEquipmentAvailableCountFilter
-  vEquipmentEquipmentAvailableCountByMstrEquipmentIdExists: Boolean
-  vEquipmentEquipmentProvisionCountByMstrEquipmentId: VEquipmentEquipmentProvisionCountFilter
-  vEquipmentEquipmentProvisionCountByMstrEquipmentIdExists: Boolean
-  vEquipmentInspectionOperationCountByMstrEquipmentId: VEquipmentInspectionOperationCountFilter
-  vEquipmentInspectionOperationCountByMstrEquipmentIdExists: Boolean
-  vInspectionStatusesByMstrEquipmentIdExist: Boolean
-  mstrItemByMstrItemId: MstrItemFilter
-  mstrEquipmentKindByMstrEquipmentCategoryId: MstrEquipmentKindFilter
-  mstrEquipmentKindByMstrEquipmentCategoryIdExists: Boolean
-  mstrLocationByMstrLocationId: MstrLocationFilter
-  mstrLocationByMstrLocationIdExists: Boolean
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
-  and: [MstrEquipmentFilter!]
-  or: [MstrEquipmentFilter!]
-  not: MstrEquipmentFilter
-}
-
-input MstrEquipmentKindFilter {
-  mstrEquipmentKindId: UUIDFilter
-  kindCode: StringFilter
-  names: UUIDFilter
-  startAt: DatetimeFilter
-  stopAt: DatetimeFilter
-  revision: IntFilter
-  symbol: StringFilter
-  remarks: StringFilter
-  updateAt: DatetimeFilter
-  updateUserId: UUIDFilter
-  updateUserHistoryId: UUIDFilter
-  remove: BooleanFilter
-  historyMstrEquipmentKindsByMstrEquipmentKindIdExist: Boolean
-  mstrEquipmentsByMstrEquipmentCategoryIdExist: Boolean
-  sharedAppellationByNames: SharedAppellationFilter
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
-  and: [MstrEquipmentKindFilter!]
-  or: [MstrEquipmentKindFilter!]
-  not: MstrEquipmentKindFilter
-}
-
 input MstrItemActualSizeFilter {
   mstrItemActualSizeId: UUIDFilter
   mstrItemId: UUIDFilter
@@ -1673,6 +1541,7 @@ input MstrItemFilter {
   mstrManufacturerId: UUIDFilter
   names: UUIDFilter
   labelCode: StringFilter
+  catalogItem: BooleanFilter
   details: UUIDFilter
   sharedUnitId: UUIDFilter
   mstrItemLotId: UUIDFilter
@@ -1683,6 +1552,8 @@ input MstrItemFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  mstrItemSuppliersByMstrItemIdExist: Boolean
+  mstrItemTaskCostsByMstrItemIdExist: Boolean
   mstrItemOperationsByMstrItemIdExist: Boolean
   mstrItemHcdcsByMstrItemIdExist: Boolean
   mstrItemProvisionsByMstrItemIdExist: Boolean
@@ -1690,8 +1561,8 @@ input MstrItemFilter {
   mstrInspectionsByMstrItemIdExist: Boolean
   mstrItemActualSizesByMstrItemIdExist: Boolean
   mstrItemOperationTasksByMstrItemIdExist: Boolean
-  mstrItemTreeByMstrItemId: MstrItemTreeFilter
-  mstrItemTreeByMstrItemIdExists: Boolean
+  mstrItemTreesByMstrItemId: MstrItemToManyMstrItemTreeFilter
+  mstrItemTreesByMstrItemIdExist: Boolean
   mstrItemTreesByParentMstrItemIdExist: Boolean
   mstrEquipmentsByMstrItemIdExist: Boolean
   vItemDescendantByAncestorMstrItemId: VItemDescendantFilter
@@ -1710,8 +1581,13 @@ input MstrItemFilter {
   vItemItemOperationTaskCountByMstrItemIdExists: Boolean
   vItemItemProvisionCountByMstrItemId: VItemItemProvisionCountFilter
   vItemItemProvisionCountByMstrItemIdExists: Boolean
+  vItemOnHandByItemIdExists: Boolean
+  vMrpMasterIssuesByItemIdExist: Boolean
+  vMrpPendingSuggestionsByItemIdExist: Boolean
+  vMrpVisiterItemsByItemIdExist: Boolean
   vPurchaseAmountsByMstrItemIdExist: Boolean
   vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
+  vResourcePlanCoveragesByItemIdExist: Boolean
   vSalesRecordsByMstrItemIdExist: Boolean
   vShippingDeliveryCompliancesByMstrItemIdExist: Boolean
   vShippingOrderStatusesByMstrItemIdExist: Boolean
@@ -1884,6 +1760,7 @@ input MstrItemPatch {
   identification: String
   controlCode: String
   labelCode: String
+  catalogItem: Boolean
   sharedUnitId: UUID
   mstrItemLotId: UUID
   remarks: String
@@ -1928,6 +1805,12 @@ input MstrItemSizeKindPatch {
   sharedAppellationToNames: MstrItemSizeKindFk2Input
 }
 
+input MstrItemToManyMstrItemTreeFilter {
+  every: MstrItemTreeFilter
+  some: MstrItemTreeFilter
+  none: MstrItemTreeFilter
+}
+
 input MstrItemTreeFilter {
   mstrItemTreeId: UUIDFilter
   mstrItemId: UUIDFilter
@@ -1970,41 +1853,6 @@ input MstrItemTreePatch {
   remarks: String
   sharedAppellationToNames: MstrItemTreeFk2Input
   sharedTextToDetails: MstrItemTreeFk1Input
-}
-
-input MstrLocationFilter {
-  mstrLocationId: UUIDFilter
-  code: StringFilter
-  infoDepartmentId: UUIDFilter
-  controlCode: StringFilter
-  names: UUIDFilter
-  infoAddressId: UUIDFilter
-  available: BooleanFilter
-  revision: IntFilter
-  symbol: StringFilter
-  remarks: StringFilter
-  updateAt: DatetimeFilter
-  updateUserId: UUIDFilter
-  updateUserHistoryId: UUIDFilter
-  remove: BooleanFilter
-  mstrLocationTreesByMstrLocationIdExist: Boolean
-  mstrLocationTreesByParentMstrLocationIdExist: Boolean
-  transContainersByMstrLocationIdExist: Boolean
-  mstrTaskLocationsByMstrLocationIdExist: Boolean
-  historyMstrLocationsByMstrLocationIdExist: Boolean
-  mstrEquipmentsByMstrLocationIdExist: Boolean
-  vLocationDescendantByAncestorMstrLocationIdExists: Boolean
-  vShelfInventoryStatusesByMstrLocationIdExist: Boolean
-  infoDepartmentByInfoDepartmentId: InfoDepartmentFilter
-  infoDepartmentByInfoDepartmentIdExists: Boolean
-  sharedAppellationByNames: SharedAppellationFilter
-  infoAddressByInfoAddressId: InfoAddressFilter
-  infoAddressByInfoAddressIdExists: Boolean
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
-  and: [MstrLocationFilter!]
-  or: [MstrLocationFilter!]
-  not: MstrLocationFilter
 }
 
 input MstrManufacturerFilter {
@@ -2155,28 +2003,6 @@ input MstrOperationTaskOnMstrOperationTaskForMstrOperationTaskFk3UsingMstrOperat
   mstrOperationTaskId: UUID!
 }
 
-input MstrShippingKindFilter {
-  mstrShippingKindId: UUIDFilter
-  code: StringFilter
-  names: UUIDFilter
-  revision: IntFilter
-  symbol: StringFilter
-  remarks: StringFilter
-  updateAt: DatetimeFilter
-  updateUserId: UUIDFilter
-  updateUserHistoryId: UUIDFilter
-  remove: BooleanFilter
-  historyMstrShippingKindsByMstrShippingKindIdExist: Boolean
-  mstrStakeholderContactsByMstrShippingKindIdExist: Boolean
-  mstrStakeholdersByMstrShippingKindIdExist: Boolean
-  sharedAppellationByNames: SharedAppellationFilter
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
-  and: [MstrShippingKindFilter!]
-  or: [MstrShippingKindFilter!]
-  not: MstrShippingKindFilter
-}
-
 input MstrSpecMeasurementFilter {
   mstrSpecMeasurementId: UUIDFilter
   measurementValue: BigFloatFilter
@@ -2207,55 +2033,6 @@ input MstrSpecMeasurementPatch {
   remarks: String
 }
 
-input MstrStakeholderFilter {
-  mstrStakeholderId: UUIDFilter
-  isCustomer: BooleanFilter
-  isSupplier: BooleanFilter
-  isLogistics: BooleanFilter
-  code: StringFilter
-  controlCode: StringFilter
-  names: UUIDFilter
-  mail: StringFilter
-  infoAddressId: UUIDFilter
-  mstrShippingKindId: UUIDFilter
-  revision: IntFilter
-  symbol: StringFilter
-  remarks: StringFilter
-  updateAt: DatetimeFilter
-  updateUserId: UUIDFilter
-  updateUserHistoryId: UUIDFilter
-  remove: BooleanFilter
-  mstrTaskLocationsByMstrStakeholderIdExist: Boolean
-  historyMstrStakeholdersByMstrStakeholderIdExist: Boolean
-  mstrOutsourceAvailablesByMstrStakeholderIdExist: Boolean
-  mstrStakeholderProvisionsByMstrStakeholderIdExist: Boolean
-  transAuditsByMstrStakeholderIdExist: Boolean
-  mstrInspectionsByExternalInspectionExist: Boolean
-  mstrStakeholderContactsByMstrStakeholderIdExist: Boolean
-  vInspectionStatusesBySupplierIdExist: Boolean
-  vPurchaseAmountsBySupplierIdExist: Boolean
-  vPurchaseDeliveryCompliancesBySupplierIdExist: Boolean
-  vSalesRecordsByCustomerIdExist: Boolean
-  vShippingDeliveryCompliancesByCustomerIdExist: Boolean
-  vShippingOrderStatusesByCustomerIdExist: Boolean
-  vStakeholderOutsourceAvailableCountByMstrStakeholderId: VStakeholderOutsourceAvailableCountFilter
-  vStakeholderOutsourceAvailableCountByMstrStakeholderIdExists: Boolean
-  vStakeholderStakeholderContactCountByMstrStakeholderId: VStakeholderStakeholderContactCountFilter
-  vStakeholderStakeholderContactCountByMstrStakeholderIdExists: Boolean
-  vStakeholderStakeholderProvisionCountByMstrStakeholderId: VStakeholderStakeholderProvisionCountFilter
-  vStakeholderStakeholderProvisionCountByMstrStakeholderIdExists: Boolean
-  sharedAppellationByNames: SharedAppellationFilter
-  infoAddressByInfoAddressId: InfoAddressFilter
-  infoAddressByInfoAddressIdExists: Boolean
-  mstrShippingKindByMstrShippingKindId: MstrShippingKindFilter
-  mstrShippingKindByMstrShippingKindIdExists: Boolean
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
-  and: [MstrStakeholderFilter!]
-  or: [MstrStakeholderFilter!]
-  not: MstrStakeholderFilter
-}
-
 input MstrTaskFilter {
   mstrTaskId: UUIDFilter
   mstrTaskGroupId: UUIDFilter
@@ -2280,6 +2057,7 @@ input MstrTaskFilter {
   mstrTaskTreesByMstrTaskId: MstrTaskToManyMstrTaskTreeFilter
   mstrTaskTreesByMstrTaskIdExist: Boolean
   mstrTaskTreesByParentMstrTaskIdExist: Boolean
+  transMrpSuggestionTasksByMstrTaskIdExist: Boolean
   vTaskComplaintProcessCountByMstrTaskId: VTaskComplaintProcessCountFilter
   vTaskComplaintProcessCountByMstrTaskIdExists: Boolean
   vTaskDescendantByAncestorMstrTaskId: VTaskDescendantFilter
@@ -2352,8 +2130,7 @@ input MstrTaskLocationFilter {
   mstrTaskId: UUIDFilter
   infoDepartmentId: UUIDFilter
   mstrLocationId: UUIDFilter
-  mstrEquipmentId: UUIDFilter
-  mstrStakeholderId: UUIDFilter
+  priority: IntFilter
   revision: IntFilter
   symbol: StringFilter
   remarks: StringFilter
@@ -2361,9 +2138,10 @@ input MstrTaskLocationFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  mstrItemTaskCostsByMstrTaskLocationIdExist: Boolean
   historyMstrTaskLocationsByMstrTaskLocationIdExist: Boolean
-  mstrEquipmentAvailablesByMstrTaskLocationIdExist: Boolean
-  mstrOutsourceAvailablesByMstrTaskLocationIdExist: Boolean
+  mstrEquipmentAvailableByMstrTaskLocationIdExists: Boolean
+  mstrOutsourceAvailableByMstrTaskLocationIdExists: Boolean
   vTaskLocationEquipmentAvailableCountByMstrTaskLocationId: VTaskLocationEquipmentAvailableCountFilter
   vTaskLocationEquipmentAvailableCountByMstrTaskLocationIdExists: Boolean
   vTaskLocationOutsourceAvailableCountByMstrTaskLocationId: VTaskLocationOutsourceAvailableCountFilter
@@ -2371,10 +2149,6 @@ input MstrTaskLocationFilter {
   infoDepartmentByInfoDepartmentId: InfoDepartmentFilter
   infoDepartmentByInfoDepartmentIdExists: Boolean
   mstrLocationByMstrLocationIdExists: Boolean
-  mstrEquipmentByMstrEquipmentId: MstrEquipmentFilter
-  mstrEquipmentByMstrEquipmentIdExists: Boolean
-  mstrStakeholderByMstrStakeholderId: MstrStakeholderFilter
-  mstrStakeholderByMstrStakeholderIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [MstrTaskLocationFilter!]
@@ -2385,8 +2159,7 @@ input MstrTaskLocationFilter {
 input MstrTaskLocationPatch {
   mstrTaskId: UUID
   infoDepartmentId: UUID
-  mstrEquipmentId: UUID
-  mstrStakeholderId: UUID
+  priority: Int
   remarks: String
 }
 
@@ -3209,39 +2982,6 @@ input UpdateMstrTaskTreeByMstrTaskTreeIdInput {
   mstrTaskTreeId: UUID!
 }
 
-input VEquipmentEquipmentAvailableCountFilter {
-  mstrEquipmentId: UUIDFilter
-  allCount: BigIntFilter
-  enableCount: BigIntFilter
-  disableCount: BigIntFilter
-  mstrEquipmentByMstrEquipmentIdExists: Boolean
-  and: [VEquipmentEquipmentAvailableCountFilter!]
-  or: [VEquipmentEquipmentAvailableCountFilter!]
-  not: VEquipmentEquipmentAvailableCountFilter
-}
-
-input VEquipmentEquipmentProvisionCountFilter {
-  mstrEquipmentId: UUIDFilter
-  allCount: BigIntFilter
-  enableCount: BigIntFilter
-  disableCount: BigIntFilter
-  mstrEquipmentByMstrEquipmentIdExists: Boolean
-  and: [VEquipmentEquipmentProvisionCountFilter!]
-  or: [VEquipmentEquipmentProvisionCountFilter!]
-  not: VEquipmentEquipmentProvisionCountFilter
-}
-
-input VEquipmentInspectionOperationCountFilter {
-  mstrEquipmentId: UUIDFilter
-  allCount: BigIntFilter
-  enableCount: BigIntFilter
-  disableCount: BigIntFilter
-  mstrEquipmentByMstrEquipmentIdExists: Boolean
-  and: [VEquipmentInspectionOperationCountFilter!]
-  or: [VEquipmentInspectionOperationCountFilter!]
-  not: VEquipmentInspectionOperationCountFilter
-}
-
 input VItemDescendantFilter {
   ancestorMstrItemId: UUIDFilter
   descendantCount: BigIntFilter
@@ -3339,6 +3079,16 @@ input VItemKindItemCountFilter {
   not: VItemKindItemCountFilter
 }
 
+input VItemOnHandFilter {
+  itemId: UUIDFilter
+  onHandQuantity: BigFloatFilter
+  visiterCount: IntFilter
+  mstrItemByItemIdExists: Boolean
+  and: [VItemOnHandFilter!]
+  or: [VItemOnHandFilter!]
+  not: VItemOnHandFilter
+}
+
 input VItemSizeKindItemActualSizeCountFilter {
   mstrItemSizeKindId: UUIDFilter
   allCount: BigIntFilter
@@ -3370,39 +3120,6 @@ input VOperationOperationTaskCountFilter {
   and: [VOperationOperationTaskCountFilter!]
   or: [VOperationOperationTaskCountFilter!]
   not: VOperationOperationTaskCountFilter
-}
-
-input VStakeholderOutsourceAvailableCountFilter {
-  mstrStakeholderId: UUIDFilter
-  allCount: BigIntFilter
-  enableCount: BigIntFilter
-  disableCount: BigIntFilter
-  mstrStakeholderByMstrStakeholderIdExists: Boolean
-  and: [VStakeholderOutsourceAvailableCountFilter!]
-  or: [VStakeholderOutsourceAvailableCountFilter!]
-  not: VStakeholderOutsourceAvailableCountFilter
-}
-
-input VStakeholderStakeholderContactCountFilter {
-  mstrStakeholderId: UUIDFilter
-  allCount: BigIntFilter
-  enableCount: BigIntFilter
-  disableCount: BigIntFilter
-  mstrStakeholderByMstrStakeholderIdExists: Boolean
-  and: [VStakeholderStakeholderContactCountFilter!]
-  or: [VStakeholderStakeholderContactCountFilter!]
-  not: VStakeholderStakeholderContactCountFilter
-}
-
-input VStakeholderStakeholderProvisionCountFilter {
-  mstrStakeholderId: UUIDFilter
-  allCount: BigIntFilter
-  enableCount: BigIntFilter
-  disableCount: BigIntFilter
-  mstrStakeholderByMstrStakeholderIdExists: Boolean
-  and: [VStakeholderStakeholderProvisionCountFilter!]
-  or: [VStakeholderStakeholderProvisionCountFilter!]
-  not: VStakeholderStakeholderProvisionCountFilter
 }
 
 input VTaskComplaintProcessCountFilter {

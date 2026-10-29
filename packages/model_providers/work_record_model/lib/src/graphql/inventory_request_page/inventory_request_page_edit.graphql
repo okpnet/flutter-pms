@@ -9,6 +9,7 @@ mutation InventoryRequestPageEdit(
   $registerPlanAt: Datetime
   $transPurchaseRezId: UUID
   $transProductRezId: UUID
+  $transResourcePlanId: UUID
   $quantity: BigFloat
   $staffHistoryId: UUID
   $staffId: UUID
@@ -22,6 +23,7 @@ mutation InventoryRequestPageEdit(
         registerPlanAt: $registerPlanAt
         transPurchaseRezId: $transPurchaseRezId
         transProductRezId: $transProductRezId
+        transResourcePlanId: $transResourcePlanId
         quantity: $quantity
         staffHistoryId: $staffHistoryId
         staffId: $staffId
@@ -35,6 +37,7 @@ mutation InventoryRequestPageEdit(
       registerPlanAt
       transPurchaseRezId
       transProductRezId
+      transResourcePlanId
       quantity
       staffHistoryId
       staffId

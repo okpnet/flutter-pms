@@ -84,7 +84,11 @@ PurchaseDetailPage: &PurchaseDetailPage
     - trans_resource_plan_id
     - restocking_purchase
     - quantity
-    - cost
+    - unit_price
+    - price_adjustment
+    - fixed_price
+    - material_supply
+    - paid_supply
     - period
     - item_history_id
     - item_id
@@ -129,7 +133,11 @@ PurchaseDetailPageEdit:
     - trans_resource_plan_id
     - restocking_purchase
     - quantity
-    - cost
+    - unit_price
+    - price_adjustment
+    - fixed_price
+    - material_supply
+    - paid_supply
     - period
     - item_history_id
     - item_id

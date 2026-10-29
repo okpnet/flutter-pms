@@ -219,6 +219,7 @@ query EquipmentPageRfe(
       }
 
       labelCode
+      catalogItem
 
       detailTexts: sharedTextByDetails {
         sharedTextId

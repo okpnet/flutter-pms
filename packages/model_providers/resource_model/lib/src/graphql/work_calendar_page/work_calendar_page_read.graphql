@@ -1,0 +1,45 @@
+# work_calendar_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #WorkCalendarPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query WorkCalendarPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: MstrWorkCalendarFilter = {and: []}
+  $orderBy: [MstrWorkCalendarsOrderBy!]
+  $removed: Boolean = false
+) {
+  allMstrWorkCalendars(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrWorkCalendarId
+      workDate
+      mstrEquipmentId
+      startTime
+      workInterval {
+        seconds
+        minutes
+        hours
+        days
+        months
+        years
+      }
+      holiday
+      revision
+      symbol
+      remarks
+      updateAt
+      remove
+    }
+  }
+}

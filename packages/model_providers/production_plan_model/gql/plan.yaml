@@ -15,6 +15,7 @@ ResourcePlanPage: &ResourcePlanPage
     - trans_resource_plan_id
     - trans_order_detail_id
     - trans_unrecognized_detail_id
+    - parent_trans_operations_plan_id
     - register_at
     - quantity
     - inventory_resavation
@@ -41,6 +42,7 @@ ResourcePlanPageEdit:
     - trans_resource_plan_id
     - trans_order_detail_id
     - trans_unrecognized_detail_id
+    - parent_trans_operations_plan_id
     - register_at
     - quantity
     - inventory_resavation
@@ -66,6 +68,7 @@ OperationsPlanPage: &OperationsPlanPage
   columns:
     - trans_operations_plan_id
     - trans_resource_plan_id
+    - quantity
     - deadline
     - symbol
     - remarks
@@ -96,6 +99,7 @@ OperationsPlanPageEdit:
   columns:
     - trans_operations_plan_id
     - trans_resource_plan_id
+    - quantity
     - deadline
     - remarks
     - update_user_id
@@ -123,6 +127,12 @@ WorkPlanPage: &WorkPlanPage
       arrayType: toFirstOne
       using: mstr_task_id
       <<: *TaskReadFields
+    - sequence
+    - mstr_equipment_available_history_id
+    - mstr_equipment_available_id
+    - mstr_outsource_available_history_id
+    - mstr_outsource_available_id
+    - trans_purchase_detail_id
     - interval_plan
     - start_at
     - completion_at
@@ -171,6 +181,12 @@ WorkPlanPageEdit:
       using: mstr_task_id
       editable: false
       <<: *TaskReadFields
+    - sequence
+    - mstr_equipment_available_history_id
+    - mstr_equipment_available_id
+    - mstr_outsource_available_history_id
+    - mstr_outsource_available_id
+    - trans_purchase_detail_id
     - interval_plan
     - start_at
     - completion_at

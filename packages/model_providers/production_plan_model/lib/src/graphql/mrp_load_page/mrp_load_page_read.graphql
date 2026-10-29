@@ -1,0 +1,39 @@
+# mrp_load_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #MrpLoadPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query MrpLoadPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransMrpLoadFilter = {and: []}
+  $orderBy: [TransMrpLoadsOrderBy!]
+  $removed: Boolean = false
+) {
+  allTransMrpLoads(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transMrpLoadId
+      transMrpRunId
+      mstrEquipmentId
+      loadDate
+      capacityHours
+      committedHours
+      plannedHours
+      loadRate
+      symbol
+      remarks
+      updateAt
+      remove
+    }
+  }
+}

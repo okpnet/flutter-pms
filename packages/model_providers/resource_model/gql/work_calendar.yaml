@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 稼働カレンダー(日×設備。設備が空の日は全体の稼働日)の読み込み
+WorkCalendarPage:
+  kind: read
+  from: mstr_work_calendar
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_work_calendar_id
+    - work_date
+    - mstr_equipment_id
+    - start_time
+    - work_interval
+    - holiday
+    - revision
+    - symbol
+    - remarks
+    - update_at
+
+# 稼働カレンダーの書き込み
+WorkCalendarPageEdit:
+  kind: edit
+  from: mstr_work_calendar
+  requiredWhere:
+    - mstr_work_calendar_id
+  generateRfe: true
+  columns:
+    - mstr_work_calendar_id
+    - work_date
+    - mstr_equipment_id
+    - start_time
+    - work_interval
+    - holiday
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

@@ -25,9 +25,11 @@ query ItemPageRead(
     nodes {
       mstrItemId
 
-      parent: mstrItemTreeByMstrItemId {
-        mstrItemTreeId
-        parentMstrItemId
+      parent: mstrItemTreesByMstrItemId(first: 1) {
+        nodes {
+          mstrItemTreeId
+          parentMstrItemId
+        }
       }
 
       descendants: vItemDescendantByAncestorMstrItemId {
@@ -212,6 +214,7 @@ query ItemPageRead(
       }
 
       labelCode
+      catalogItem
 
       detailTexts: sharedTextByDetails {
         sharedTextId

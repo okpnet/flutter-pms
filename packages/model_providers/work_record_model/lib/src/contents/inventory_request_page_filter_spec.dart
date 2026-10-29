@@ -12,6 +12,7 @@ abstract class InventoryRequestPageFilterSpec {
     'registerPlanAt': FlatFilterPath([], 'registerPlanAt'),
     'transPurchaseRezId': FlatFilterPath([], 'transPurchaseRezId'),
     'transProductRezId': FlatFilterPath([], 'transProductRezId'),
+    'transResourcePlanId': FlatFilterPath([], 'transResourcePlanId'),
     'quantity': FlatFilterPath([], 'quantity'),
     'staffHistoryId': FlatFilterPath([], 'staffHistoryId'),
     'staffId': FlatFilterPath([], 'staffId'),

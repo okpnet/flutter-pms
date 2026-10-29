@@ -313,6 +313,7 @@ InventoryRequestPage: &InventoryRequestPage
     - register_plan_at
     - trans_purchase_rez_id
     - trans_product_rez_id
+    - trans_resource_plan_id
     - quantity
     - staff_history_id
     - staff_id
@@ -338,6 +339,7 @@ InventoryRequestPageEdit:
     - register_plan_at
     - trans_purchase_rez_id
     - trans_product_rez_id
+    - trans_resource_plan_id
     - quantity
     - staff_history_id
     - staff_id

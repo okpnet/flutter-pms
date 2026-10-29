@@ -1,0 +1,6 @@
+# 破棄・失効したMRP実行の削除。削除した件数を返す
+mutation MrpPurge($input: MrpPurgeInput!) {
+  mrpPurge(input: $input) {
+    integer
+  }
+}

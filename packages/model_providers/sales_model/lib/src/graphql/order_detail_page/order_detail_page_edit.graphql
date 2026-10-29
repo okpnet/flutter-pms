@@ -9,7 +9,9 @@ mutation OrderDetailPageEdit(
   $itemHistoryId: UUID
   $itemId: UUID
   $quantity: BigFloat
-  $cost: BigFloat
+  $unitPrice: BigFloat
+  $priceAdjustment: BigFloat
+  $fixedPrice: BigFloat
   $deliveryDate: Datetime
   $deadline: Datetime
   $remarks: String
@@ -22,7 +24,9 @@ mutation OrderDetailPageEdit(
         itemHistoryId: $itemHistoryId
         itemId: $itemId
         quantity: $quantity
-        cost: $cost
+        unitPrice: $unitPrice
+        priceAdjustment: $priceAdjustment
+        fixedPrice: $fixedPrice
         deliveryDate: $deliveryDate
         deadline: $deadline
         remarks: $remarks
@@ -35,7 +39,9 @@ mutation OrderDetailPageEdit(
       itemHistoryId
       itemId
       quantity
-      cost
+      unitPrice
+      priceAdjustment
+      fixedPrice
       deliveryDate
       deadline
       remarks

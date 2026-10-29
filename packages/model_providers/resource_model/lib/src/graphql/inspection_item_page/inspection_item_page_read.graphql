@@ -407,6 +407,7 @@ query InspectionItemPageRead(
         }
 
         labelCode
+        catalogItem
 
         detailTexts: sharedTextByDetails {
           sharedTextId

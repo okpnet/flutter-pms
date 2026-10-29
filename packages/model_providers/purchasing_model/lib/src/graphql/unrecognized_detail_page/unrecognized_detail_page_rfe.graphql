@@ -10,7 +10,11 @@ query UnrecognizedDetailPageRfe(
     transUnrecognizedDetailId
     transUnrecognizedId
     quantity
-    cost
+    unitPrice
+    priceAdjustment
+    fixedPrice
+    materialSupply
+    paidSupply
     deadline
     itemHistoryId
     itemId

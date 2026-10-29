@@ -17,10 +17,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryItemKindPageRead,
-          variables: Variables$Query$ItemKindPageRead(
-            first: 1,
-            languageCodeId: _zeroId,
-          ).toJson(),
+          variables: Variables$Query$ItemKindPageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -28,14 +25,23 @@ void main() {
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
+    serverTest('ItemOnHandPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryItemOnHandPageRead,
+          variables: Variables$Query$ItemOnHandPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ItemOnHandPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('ItemOperationPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryItemOperationPageRead,
-          variables: Variables$Query$ItemOperationPageRead(
-            first: 1,
-            languageCodeId: _zeroId,
-          ).toJson(),
+          variables: Variables$Query$ItemOperationPageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -47,11 +53,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryItemOperationTaskPageRead,
-          variables: Variables$Query$ItemOperationTaskPageRead(
-            first: 1,
-            languageCodeId: _zeroId,
-            mstrItemId: _zeroId,
-          ).toJson(),
+          variables: Variables$Query$ItemOperationTaskPageRead(first: 1, languageCodeId: _zeroId, mstrItemId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -63,10 +65,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryItemPageRead,
-          variables: Variables$Query$ItemPageRead(
-            first: 1,
-            languageCodeId: _zeroId,
-          ).toJson(),
+          variables: Variables$Query$ItemPageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -78,10 +77,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryItemSizeKindPageRead,
-          variables: Variables$Query$ItemSizeKindPageRead(
-            first: 1,
-            languageCodeId: _zeroId,
-          ).toJson(),
+          variables: Variables$Query$ItemSizeKindPageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -93,11 +89,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryItemSizePageRead,
-          variables: Variables$Query$ItemSizePageRead(
-            first: 1,
-            mstrItemId: _zeroId,
-            languageCodeId: _zeroId,
-          ).toJson(),
+          variables: Variables$Query$ItemSizePageRead(first: 1, mstrItemId: _zeroId, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -109,10 +101,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryManufacturePageRead,
-          variables: Variables$Query$ManufacturePageRead(
-            first: 1,
-            languageCodeId: _zeroId,
-          ).toJson(),
+          variables: Variables$Query$ManufacturePageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -124,10 +113,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryOperationPageRead,
-          variables: Variables$Query$OperationPageRead(
-            first: 1,
-            languageCodeId: _zeroId,
-          ).toJson(),
+          variables: Variables$Query$OperationPageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -139,10 +125,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQuerySpecMeasurementPageRead,
-          variables: Variables$Query$SpecMeasurementPageRead(
-            first: 1,
-            languageCodeId: _zeroId,
-          ).toJson(),
+          variables: Variables$Query$SpecMeasurementPageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -154,10 +137,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryTaskGroupPageRead,
-          variables: Variables$Query$TaskGroupPageRead(
-            first: 1,
-            languageCodeId: _zeroId,
-          ).toJson(),
+          variables: Variables$Query$TaskGroupPageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -169,10 +149,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryTaskPageRead,
-          variables: Variables$Query$TaskPageRead(
-            first: 1,
-            languageCodeId: _zeroId,
-          ).toJson(),
+          variables: Variables$Query$TaskPageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -184,11 +161,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryTaskResourcePageRead,
-          variables: Variables$Query$TaskResourcePageRead(
-            first: 1,
-            languageCodeId: _zeroId,
-            mstrTaskId: _zeroId,
-          ).toJson(),
+          variables: Variables$Query$TaskResourcePageRead(first: 1, languageCodeId: _zeroId, mstrTaskId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -205,38 +178,23 @@ void main() {
 
     QueryOptions options() => QueryOptions(
       document: documentNodeQueryItemKindPageRead,
-      variables: Variables$Query$ItemKindPageRead(
-        first: 1,
-        languageCodeId: _zeroId,
-      ).toJson(),
+      variables: Variables$Query$ItemKindPageRead(first: 1, languageCodeId: _zeroId).toJson(),
     );
 
     // 代役サーバーの既定の応答に合う、中身の無い問い合わせ(応答の読み取りを確認しないテスト用)。
     QueryOptions plain() => QueryOptions(document: gql('{ __typename }'));
 
-    GraphQLClientProvider provider({
-      int timeLimit = 10,
-      Map<String, String> headers = const {},
-    }) => GraphQLClientProvider(
-      server.url,
-      timeLimit: timeLimit,
-      headers: headers,
-    );
+    GraphQLClientProvider provider({int timeLimit = 10, Map<String, String> headers = const {}}) =>
+        GraphQLClientProvider(server.url, timeLimit: timeLimit, headers: headers);
 
     test('遅延が制限時間を超えるとタイムアウトで終わる', () async {
       server.kind = FaultKind.delay;
       server.delay = const Duration(seconds: 3);
-      expect(
-        await endedInTimeout(() => provider(timeLimit: 1).query(options())),
-        isTrue,
-      );
+      expect(await endedInTimeout(() => provider(timeLimit: 1).query(options())), isTrue);
     });
 
     test('応答の途中・前の切断は Err(NetworkError)', () async {
-      for (final kind in [
-        FaultKind.dropMidResponse,
-        FaultKind.dropBeforeResponse,
-      ]) {
+      for (final kind in [FaultKind.dropMidResponse, FaultKind.dropBeforeResponse]) {
         server.kind = kind;
         final result = await provider().query(options());
         expect((result as Err).error, isA<NetworkError>(), reason: '$kind');
@@ -255,9 +213,7 @@ void main() {
     });
 
     test('認証ヘッダーが要求に付く', () async {
-      await provider(
-        headers: {'Authorization': 'Bearer test-token'},
-      ).query(plain());
+      await provider(headers: {'Authorization': 'Bearer test-token'}).query(plain());
       expect(server.requests.single.authorization, 'Bearer test-token');
     });
 

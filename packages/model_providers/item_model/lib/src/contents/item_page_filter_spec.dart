@@ -8,8 +8,8 @@ import 'package:pms_graphql/pms_graphql.dart';
 abstract class ItemPageFilterSpec {
   static const FlatFilterSpec spec = FlatFilterSpec('MstrItemFilter', {
     'mstrItemId': FlatFilterPath([], 'mstrItemId'),
-    'parent||mstrItemTreeId': FlatFilterPath([FilterStep('mstrItemTreeByMstrItemId')], 'mstrItemTreeId'),
-    'parent||parentMstrItemId': FlatFilterPath([FilterStep('mstrItemTreeByMstrItemId')], 'parentMstrItemId'),
+    'parent||mstrItemTreeId': FlatFilterPath([FilterStep.many('mstrItemTreesByMstrItemId')], 'mstrItemTreeId'),
+    'parent||parentMstrItemId': FlatFilterPath([FilterStep.many('mstrItemTreesByMstrItemId')], 'parentMstrItemId'),
     'descendants||ancestorMstrItemId': FlatFilterPath([FilterStep('vItemDescendantByAncestorMstrItemId')], 'ancestorMstrItemId'),
     'mstrItemKindId': FlatFilterPath([], 'mstrItemKindId'),
     'kinds||mstrItemKindId': FlatFilterPath([FilterStep('mstrItemKindByMstrItemKindId')], 'mstrItemKindId'),
@@ -60,6 +60,7 @@ abstract class ItemPageFilterSpec {
     'labels||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId': FlatFilterPath([FilterStep('sharedAppellationByNames'), FilterStep('sharedDictionaryBySharedDictionaryNicknameId')], 'sharedDictionaryId'),
     'labels||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue': FlatFilterPath([FilterStep('sharedAppellationByNames'), FilterStep('sharedDictionaryBySharedDictionaryNicknameId'), FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {'sharedLanguageCodeId': 'languageCodeId'})], 'dictionaryValue'),
     'labelCode': FlatFilterPath([], 'labelCode'),
+    'catalogItem': FlatFilterPath([], 'catalogItem'),
     'detailTexts||sharedTextId': FlatFilterPath([FilterStep('sharedTextByDetails')], 'sharedTextId'),
     'detailTexts||value||charCount': FlatFilterPath([FilterStep('sharedTextByDetails'), FilterStep.many('sharedTextValuesBySharedTextId', {'sharedLanguageCodeId': 'languageCodeId'})], 'charCount'),
     'detailTexts||value||leadText': FlatFilterPath([FilterStep('sharedTextByDetails'), FilterStep.many('sharedTextValuesBySharedTextId', {'sharedLanguageCodeId': 'languageCodeId'})], 'leadText'),

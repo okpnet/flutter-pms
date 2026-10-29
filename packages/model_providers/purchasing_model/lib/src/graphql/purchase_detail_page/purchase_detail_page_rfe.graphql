@@ -12,7 +12,11 @@ query PurchaseDetailPageRfe(
     transResourcePlanId
     restockingPurchase
     quantity
-    cost
+    unitPrice
+    priceAdjustment
+    fixedPrice
+    materialSupply
+    paidSupply
     period
     itemHistoryId
     itemId

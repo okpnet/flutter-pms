@@ -1,0 +1,6 @@
+# MRP提案の採否をまとめて変更
+mutation MrpSetDecision($input: MrpSetDecisionInput!) {
+  mrpSetDecision(input: $input) {
+    transMrpSuggestions { transMrpSuggestionId transMrpRunId seq kind decision needUser late itemHistoryId itemId quantity dueAt }
+  }
+}

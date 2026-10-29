@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 品目の作業単価(品目×工程場所。設備と品目の関係)の読み込み。品目の編集時に追加する。
+# 名称が必要な画面は、ID で既存の読み込みを引く。
+ItemTaskCostPage:
+  kind: read
+  from: mstr_item_task_cost
+  filter: true
+  requiredWhere:
+    - mstr_item_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_task_cost_id
+    - mstr_item_id
+    - mstr_task_location_id
+    - cost
+    - revision
+    - symbol
+    - remarks
+    - update_at
+
+# 品目の作業単価の書き込み
+ItemTaskCostPageEdit:
+  kind: edit
+  from: mstr_item_task_cost
+  requiredWhere:
+    - mstr_item_task_cost_id
+  generateRfe: true
+  columns:
+    - mstr_item_task_cost_id
+    - mstr_item_id
+    - mstr_task_location_id
+    - cost
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

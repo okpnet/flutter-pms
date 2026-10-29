@@ -1802,6 +1802,12 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  historyMstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrWorkCalendarsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrWorkCalendarsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrItemOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transTextsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -2045,6 +2051,12 @@ input HistoryInfoStaffFilter {
   infoStaffsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   infoDepartmentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   infoOfficesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
+  transMrpRunsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpSuggestionTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryInfoStaffFilter!]
@@ -2380,7 +2392,7 @@ input MstrStakeholderFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
-  mstrTaskLocationsByMstrStakeholderIdExist: Boolean
+  mstrItemSuppliersByMstrStakeholderIdExist: Boolean
   historyMstrStakeholdersByMstrStakeholderIdExist: Boolean
   mstrOutsourceAvailablesByMstrStakeholderIdExist: Boolean
   mstrStakeholderProvisionsByMstrStakeholderIdExist: Boolean
@@ -2388,6 +2400,8 @@ input MstrStakeholderFilter {
   mstrInspectionsByExternalInspectionExist: Boolean
   mstrStakeholderContactsByMstrStakeholderIdExist: Boolean
   vInspectionStatusesBySupplierIdExist: Boolean
+  vMrpPendingSuggestionsByStakeholderIdExist: Boolean
+  vMrpPurchasePlansByStakeholderIdExist: Boolean
   vPurchaseAmountsBySupplierIdExist: Boolean
   vPurchaseDeliveryCompliancesBySupplierIdExist: Boolean
   vSalesRecordsByCustomerIdExist: Boolean
@@ -2434,6 +2448,7 @@ input MstrTaskFilter {
   transWorkPlansByMstrTaskIdExist: Boolean
   mstrTaskTreesByMstrTaskIdExist: Boolean
   mstrTaskTreesByParentMstrTaskIdExist: Boolean
+  transMrpSuggestionTasksByMstrTaskIdExist: Boolean
   vTaskComplaintProcessCountByMstrTaskIdExists: Boolean
   vTaskDescendantByAncestorMstrTaskIdExists: Boolean
   vTaskOperationTaskCountByMstrTaskIdExists: Boolean

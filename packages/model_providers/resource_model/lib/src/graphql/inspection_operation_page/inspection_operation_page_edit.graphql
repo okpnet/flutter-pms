@@ -434,6 +434,7 @@ mutation InspectionOperationPageEdit(
           }
 
           labelCode
+          catalogItem
 
           detailTexts: sharedTextByDetails {
             sharedTextId

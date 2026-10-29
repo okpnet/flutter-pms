@@ -1,0 +1,20 @@
+# item_task_cost_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: gql/*.yaml #ItemTaskCostPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ItemTaskCostPageRfe(
+  $mstrItemTaskCostId: UUID!
+) {
+  mstrItemTaskCostByMstrItemTaskCostId(mstrItemTaskCostId: $mstrItemTaskCostId) {
+    mstrItemTaskCostId
+    mstrItemId
+    mstrTaskLocationId
+    cost
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

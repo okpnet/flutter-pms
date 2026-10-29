@@ -12,6 +12,7 @@ query InventoryRequestPageRfe(
     registerPlanAt
     transPurchaseRezId
     transProductRezId
+    transResourcePlanId
     quantity
     staffHistoryId
     staffId

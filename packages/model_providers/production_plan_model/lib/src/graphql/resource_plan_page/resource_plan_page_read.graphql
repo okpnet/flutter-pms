@@ -26,6 +26,7 @@ query ResourcePlanPageRead(
       transResourcePlanId
       transOrderDetailId
       transUnrecognizedDetailId
+      parentTransOperationsPlanId
       registerAt
       quantity
       inventoryResavation

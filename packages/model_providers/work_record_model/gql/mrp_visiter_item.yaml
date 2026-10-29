@@ -1,0 +1,13 @@
+﻿# yaml-language-server: $schema=../../schema.json
+
+# MRPが見る棚ビジターの品目(v_mrp_visiter_item。1行は棚ビジター)
+MrpVisiterItemPage:
+  kind: read
+  from: v_mrp_visiter_item
+  filter: true
+  columns:
+    - trans_visiter_id
+    - item_id
+    - item_count
+    - finished
+    - quantity

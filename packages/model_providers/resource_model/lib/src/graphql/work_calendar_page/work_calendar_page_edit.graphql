@@ -1,0 +1,45 @@
+# work_calendar_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #WorkCalendarPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation WorkCalendarPageEdit(
+  $mstrWorkCalendarId: UUID!
+  $workDate: Date
+  $mstrEquipmentId: UUID
+  $startTime: Time
+  $workInterval: IntervalInput
+  $holiday: Boolean
+  $remarks: String
+) {
+  updateMstrWorkCalendarByMstrWorkCalendarId(
+    input: {
+      mstrWorkCalendarId: $mstrWorkCalendarId
+      mstrWorkCalendarPatch: {
+        workDate: $workDate
+        mstrEquipmentId: $mstrEquipmentId
+        startTime: $startTime
+        workInterval: $workInterval
+        holiday: $holiday
+        remarks: $remarks
+      }
+    }
+  ) {
+    mstrWorkCalendar {
+      mstrWorkCalendarId
+      workDate
+      mstrEquipmentId
+      startTime
+      workInterval {
+        seconds
+        minutes
+        hours
+        days
+        months
+        years
+      }
+      holiday
+      remarks
+    }
+  }
+}

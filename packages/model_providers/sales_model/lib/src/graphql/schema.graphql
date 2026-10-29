@@ -70,8 +70,12 @@ enum TransOrderDetailsOrderBy {
   ITEM_ID_DESC
   QUANTITY_ASC
   QUANTITY_DESC
-  COST_ASC
-  COST_DESC
+  UNIT_PRICE_ASC
+  UNIT_PRICE_DESC
+  PRICE_ADJUSTMENT_ASC
+  PRICE_ADJUSTMENT_DESC
+  FIXED_PRICE_ASC
+  FIXED_PRICE_DESC
   DELIVERY_DATE_ASC
   DELIVERY_DATE_DESC
   DEADLINE_ASC
@@ -479,7 +483,9 @@ type TransOrderDetail {
   itemHistoryId: UUID!
   itemId: UUID!
   quantity: BigFloat
-  cost: BigFloat
+  unitPrice: BigFloat!
+  priceAdjustment: BigFloat
+  fixedPrice: BigFloat
   deliveryDate: Datetime
   deadline: Datetime
   symbol: String
@@ -795,6 +801,12 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  historyMstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrWorkCalendarsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrWorkCalendarsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrItemOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transTextsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1038,6 +1050,12 @@ input HistoryInfoStaffFilter {
   infoStaffsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   infoDepartmentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   infoOfficesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
+  transMrpRunsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpSuggestionTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryInfoStaffFilter!]
@@ -1070,6 +1088,7 @@ input HistoryMstrStakeholderFilter {
   transShippingOrdersByStakeholderHistoryIdAndStakeholderIdExist: Boolean
   transPurchasesByStakeholderHistoryIdAndStakeholderIdExist: Boolean
   transOrdersByStakeholderHistoryIdAndStakeholderIdExist: Boolean
+  transMrpSuggestionsByStakeholderHistoryIdAndStakeholderIdExist: Boolean
   mstrStakeholderByMstrStakeholderId: MstrStakeholderFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryMstrStakeholderFilter!]
@@ -1188,7 +1207,7 @@ input MstrStakeholderFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
-  mstrTaskLocationsByMstrStakeholderIdExist: Boolean
+  mstrItemSuppliersByMstrStakeholderIdExist: Boolean
   historyMstrStakeholdersByMstrStakeholderIdExist: Boolean
   mstrOutsourceAvailablesByMstrStakeholderIdExist: Boolean
   mstrStakeholderProvisionsByMstrStakeholderIdExist: Boolean
@@ -1196,6 +1215,8 @@ input MstrStakeholderFilter {
   mstrInspectionsByExternalInspectionExist: Boolean
   mstrStakeholderContactsByMstrStakeholderIdExist: Boolean
   vInspectionStatusesBySupplierIdExist: Boolean
+  vMrpPendingSuggestionsByStakeholderIdExist: Boolean
+  vMrpPurchasePlansByStakeholderIdExist: Boolean
   vPurchaseAmountsBySupplierIdExist: Boolean
   vPurchaseDeliveryCompliancesBySupplierIdExist: Boolean
   vSalesRecordsByCustomerIdExist: Boolean
@@ -1470,7 +1491,9 @@ input TransOrderDetailFilter {
   itemHistoryId: UUIDFilter
   itemId: UUIDFilter
   quantity: BigFloatFilter
-  cost: BigFloatFilter
+  unitPrice: BigFloatFilter
+  priceAdjustment: BigFloatFilter
+  fixedPrice: BigFloatFilter
   deliveryDate: DatetimeFilter
   deadline: DatetimeFilter
   symbol: StringFilter
@@ -1479,13 +1502,16 @@ input TransOrderDetailFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  masterErrorCount: IntFilter
   transOrderDetailRisksByTransOrderDetailIdExist: Boolean
   transShippingOrderDetailsByTransOrderDetailIdExist: Boolean
   transResourcePlansByTransOrderDetailIdExist: Boolean
+  transMrpSuggestionsByTransOrderDetailIdExist: Boolean
   vOrderDetailOrderDetailRiskCountByTransOrderDetailId: VOrderDetailOrderDetailRiskCountFilter
   vOrderDetailOrderDetailRiskCountByTransOrderDetailIdExists: Boolean
   vOrderDetailShippingOrderDetailCountByTransOrderDetailId: VOrderDetailShippingOrderDetailCountFilter
   vOrderDetailShippingOrderDetailCountByTransOrderDetailIdExists: Boolean
+  vResourcePlanCoveragesByTransOrderDetailIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransOrderDetailFilter!]
@@ -1498,7 +1524,9 @@ input TransOrderDetailPatch {
   itemHistoryId: UUID
   itemId: UUID
   quantity: BigFloat
-  cost: BigFloat
+  unitPrice: BigFloat
+  priceAdjustment: BigFloat
+  fixedPrice: BigFloat
   deliveryDate: Datetime
   deadline: Datetime
   remarks: String

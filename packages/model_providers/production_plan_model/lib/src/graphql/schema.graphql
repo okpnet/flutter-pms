@@ -12,9 +12,263 @@ scalar BigInt
 
 scalar Cursor
 
+scalar Date
+
 scalar Datetime
 
+scalar JSON
+
 scalar UUID
+
+enum TransMrpLoadsOrderBy {
+  NATURAL
+  TRANS_MRP_LOAD_ID_ASC
+  TRANS_MRP_LOAD_ID_DESC
+  TRANS_MRP_RUN_ID_ASC
+  TRANS_MRP_RUN_ID_DESC
+  MSTR_EQUIPMENT_ID_ASC
+  MSTR_EQUIPMENT_ID_DESC
+  LOAD_DATE_ASC
+  LOAD_DATE_DESC
+  CAPACITY_HOURS_ASC
+  CAPACITY_HOURS_DESC
+  COMMITTED_HOURS_ASC
+  COMMITTED_HOURS_DESC
+  PLANNED_HOURS_ASC
+  PLANNED_HOURS_DESC
+  LOAD_RATE_ASC
+  LOAD_RATE_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum TransMrpPeggingsOrderBy {
+  NATURAL
+  TRANS_MRP_PEGGING_ID_ASC
+  TRANS_MRP_PEGGING_ID_DESC
+  TRANS_MRP_RUN_ID_ASC
+  TRANS_MRP_RUN_ID_DESC
+  DEMAND_TRANS_MRP_SUGGESTION_ID_ASC
+  DEMAND_TRANS_MRP_SUGGESTION_ID_DESC
+  SUPPLY_KIND_ASC
+  SUPPLY_KIND_DESC
+  SUPPLY_TRANS_MRP_SUGGESTION_ID_ASC
+  SUPPLY_TRANS_MRP_SUGGESTION_ID_DESC
+  TRANS_PURCHASE_DETAIL_ID_ASC
+  TRANS_PURCHASE_DETAIL_ID_DESC
+  TRANS_OPERATIONS_PLAN_ID_ASC
+  TRANS_OPERATIONS_PLAN_ID_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
+  NEED_AT_ASC
+  NEED_AT_DESC
+  AVAILABLE_AT_ASC
+  AVAILABLE_AT_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum TransMrpRunsOrderBy {
+  NATURAL
+  TRANS_MRP_RUN_ID_ASC
+  TRANS_MRP_RUN_ID_DESC
+  RUN_MODE_ASC
+  RUN_MODE_DESC
+  STATUS_ASC
+  STATUS_DESC
+  RUN_AT_ASC
+  RUN_AT_DESC
+  COMMITTED_AT_ASC
+  COMMITTED_AT_DESC
+  STAFF_HISTORY_ID_ASC
+  STAFF_HISTORY_ID_DESC
+  STAFF_ID_ASC
+  STAFF_ID_DESC
+  PARAMS_ASC
+  PARAMS_DESC
+  SUGGESTION_COUNT_ASC
+  SUGGESTION_COUNT_DESC
+  PENDING_COUNT_ASC
+  PENDING_COUNT_DESC
+  LATE_COUNT_ASC
+  LATE_COUNT_DESC
+  OVERLOAD_COUNT_ASC
+  OVERLOAD_COUNT_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum TransMrpSuggestionTasksOrderBy {
+  NATURAL
+  TRANS_MRP_SUGGESTION_TASK_ID_ASC
+  TRANS_MRP_SUGGESTION_TASK_ID_DESC
+  TRANS_MRP_SUGGESTION_ID_ASC
+  TRANS_MRP_SUGGESTION_ID_DESC
+  TRANS_WORK_PLAN_ID_ASC
+  TRANS_WORK_PLAN_ID_DESC
+  MSTR_TASK_ID_ASC
+  MSTR_TASK_ID_DESC
+  SEQUENCE_ASC
+  SEQUENCE_DESC
+  MSTR_EQUIPMENT_AVAILABLE_HISTORY_ID_ASC
+  MSTR_EQUIPMENT_AVAILABLE_HISTORY_ID_DESC
+  MSTR_EQUIPMENT_AVAILABLE_ID_ASC
+  MSTR_EQUIPMENT_AVAILABLE_ID_DESC
+  MSTR_OUTSOURCE_AVAILABLE_HISTORY_ID_ASC
+  MSTR_OUTSOURCE_AVAILABLE_HISTORY_ID_DESC
+  MSTR_OUTSOURCE_AVAILABLE_ID_ASC
+  MSTR_OUTSOURCE_AVAILABLE_ID_DESC
+  OUTSOURCE_TRANS_MRP_SUGGESTION_ID_ASC
+  OUTSOURCE_TRANS_MRP_SUGGESTION_ID_DESC
+  COST_ASC
+  COST_DESC
+  INTERVAL_PLAN_ASC
+  INTERVAL_PLAN_DESC
+  START_AT_ASC
+  START_AT_DESC
+  COMPLETION_AT_ASC
+  COMPLETION_AT_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum TransMrpSuggestionsOrderBy {
+  NATURAL
+  TRANS_MRP_SUGGESTION_ID_ASC
+  TRANS_MRP_SUGGESTION_ID_DESC
+  TRANS_MRP_RUN_ID_ASC
+  TRANS_MRP_RUN_ID_DESC
+  PARENT_TRANS_MRP_SUGGESTION_ID_ASC
+  PARENT_TRANS_MRP_SUGGESTION_ID_DESC
+  SEQ_ASC
+  SEQ_DESC
+  KIND_ASC
+  KIND_DESC
+  DECISION_ASC
+  DECISION_DESC
+  NEED_USER_ASC
+  NEED_USER_DESC
+  LATE_ASC
+  LATE_DESC
+  ITEM_HISTORY_ID_ASC
+  ITEM_HISTORY_ID_DESC
+  ITEM_ID_ASC
+  ITEM_ID_DESC
+  BOM_LEVEL_ASC
+  BOM_LEVEL_DESC
+  PLAN_KIND_ASC
+  PLAN_KIND_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
+  ALLOCATED_QUANTITY_ASC
+  ALLOCATED_QUANTITY_DESC
+  OLD_QUANTITY_ASC
+  OLD_QUANTITY_DESC
+  NEED_AT_ASC
+  NEED_AT_DESC
+  RELEASE_AT_ASC
+  RELEASE_AT_DESC
+  DUE_AT_ASC
+  DUE_AT_DESC
+  OLD_DUE_AT_ASC
+  OLD_DUE_AT_DESC
+  TRANS_ORDER_DETAIL_ID_ASC
+  TRANS_ORDER_DETAIL_ID_DESC
+  TRANS_UNRECOGNIZED_DETAIL_ID_ASC
+  TRANS_UNRECOGNIZED_DETAIL_ID_DESC
+  TRANS_RESOURCE_PLAN_ID_ASC
+  TRANS_RESOURCE_PLAN_ID_DESC
+  PARENT_TRANS_OPERATIONS_PLAN_ID_ASC
+  PARENT_TRANS_OPERATIONS_PLAN_ID_DESC
+  TRANS_PURCHASE_DETAIL_ID_ASC
+  TRANS_PURCHASE_DETAIL_ID_DESC
+  TRANS_OPERATIONS_PLAN_ID_ASC
+  TRANS_OPERATIONS_PLAN_ID_DESC
+  STAKEHOLDER_HISTORY_ID_ASC
+  STAKEHOLDER_HISTORY_ID_DESC
+  STAKEHOLDER_ID_ASC
+  STAKEHOLDER_ID_DESC
+  COST_ASC
+  COST_DESC
+  ASKING_PRICE_ASC
+  ASKING_PRICE_DESC
+  TRANS_MRP_SUGGESTION_TASK_ID_ASC
+  TRANS_MRP_SUGGESTION_TASK_ID_DESC
+  MSTR_OUTSOURCE_AVAILABLE_HISTORY_ID_ASC
+  MSTR_OUTSOURCE_AVAILABLE_HISTORY_ID_DESC
+  MSTR_OUTSOURCE_AVAILABLE_ID_ASC
+  MSTR_OUTSOURCE_AVAILABLE_ID_DESC
+  MSTR_EQUIPMENT_ID_ASC
+  MSTR_EQUIPMENT_ID_DESC
+  LOAD_DATE_ASC
+  LOAD_DATE_DESC
+  MESSAGE_ASC
+  MESSAGE_DESC
+  APPLIED_AT_ASC
+  APPLIED_AT_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
 
 enum TransOperationsPlansOrderBy {
   NATURAL
@@ -24,6 +278,8 @@ enum TransOperationsPlansOrderBy {
   TRANS_RESOURCE_PLAN_ID_DESC
   DEADLINE_ASC
   DEADLINE_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
   SYMBOL_ASC
   SYMBOL_DESC
   REMARKS_ASC
@@ -92,6 +348,8 @@ enum TransResourcePlansOrderBy {
   NATURAL
   TRANS_RESOURCE_PLAN_ID_ASC
   TRANS_RESOURCE_PLAN_ID_DESC
+  PARENT_TRANS_OPERATIONS_PLAN_ID_ASC
+  PARENT_TRANS_OPERATIONS_PLAN_ID_DESC
   TRANS_ORDER_DETAIL_ID_ASC
   TRANS_ORDER_DETAIL_ID_DESC
   TRANS_UNRECOGNIZED_DETAIL_ID_ASC
@@ -132,12 +390,136 @@ enum TransWorkPlansOrderBy {
   TRANS_OPERATIONS_PLAN_ID_DESC
   MSTR_TASK_ID_ASC
   MSTR_TASK_ID_DESC
+  SEQUENCE_ASC
+  SEQUENCE_DESC
   INTERVAL_PLAN_ASC
   INTERVAL_PLAN_DESC
   START_AT_ASC
   START_AT_DESC
   COMPLETION_AT_ASC
   COMPLETION_AT_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  MSTR_EQUIPMENT_AVAILABLE_HISTORY_ID_ASC
+  MSTR_EQUIPMENT_AVAILABLE_HISTORY_ID_DESC
+  MSTR_EQUIPMENT_AVAILABLE_ID_ASC
+  MSTR_EQUIPMENT_AVAILABLE_ID_DESC
+  MSTR_OUTSOURCE_AVAILABLE_HISTORY_ID_ASC
+  MSTR_OUTSOURCE_AVAILABLE_HISTORY_ID_DESC
+  MSTR_OUTSOURCE_AVAILABLE_ID_ASC
+  MSTR_OUTSOURCE_AVAILABLE_ID_DESC
+  TRANS_PURCHASE_DETAIL_ID_ASC
+  TRANS_PURCHASE_DETAIL_ID_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum VMrpMasterIssuesOrderBy {
+  NATURAL
+  ISSUE_KEY_ASC
+  ISSUE_KEY_DESC
+  ITEM_ID_ASC
+  ITEM_ID_DESC
+  ITEM_CODE_ASC
+  ITEM_CODE_DESC
+  ISSUE_CODE_ASC
+  ISSUE_CODE_DESC
+  SEVERITY_ASC
+  SEVERITY_DESC
+  MESSAGE_ASC
+  MESSAGE_DESC
+  REF_TABLE_ASC
+  REF_TABLE_DESC
+  REF_ID_ASC
+  REF_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum VMrpPendingSuggestionsOrderBy {
+  NATURAL
+  TRANS_MRP_SUGGESTION_ID_ASC
+  TRANS_MRP_SUGGESTION_ID_DESC
+  TRANS_MRP_RUN_ID_ASC
+  TRANS_MRP_RUN_ID_DESC
+  PARENT_TRANS_MRP_SUGGESTION_ID_ASC
+  PARENT_TRANS_MRP_SUGGESTION_ID_DESC
+  SEQ_ASC
+  SEQ_DESC
+  KIND_ASC
+  KIND_DESC
+  DECISION_ASC
+  DECISION_DESC
+  NEED_USER_ASC
+  NEED_USER_DESC
+  LATE_ASC
+  LATE_DESC
+  ITEM_HISTORY_ID_ASC
+  ITEM_HISTORY_ID_DESC
+  ITEM_ID_ASC
+  ITEM_ID_DESC
+  BOM_LEVEL_ASC
+  BOM_LEVEL_DESC
+  PLAN_KIND_ASC
+  PLAN_KIND_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
+  ALLOCATED_QUANTITY_ASC
+  ALLOCATED_QUANTITY_DESC
+  OLD_QUANTITY_ASC
+  OLD_QUANTITY_DESC
+  NEED_AT_ASC
+  NEED_AT_DESC
+  RELEASE_AT_ASC
+  RELEASE_AT_DESC
+  DUE_AT_ASC
+  DUE_AT_DESC
+  OLD_DUE_AT_ASC
+  OLD_DUE_AT_DESC
+  TRANS_ORDER_DETAIL_ID_ASC
+  TRANS_ORDER_DETAIL_ID_DESC
+  TRANS_UNRECOGNIZED_DETAIL_ID_ASC
+  TRANS_UNRECOGNIZED_DETAIL_ID_DESC
+  TRANS_RESOURCE_PLAN_ID_ASC
+  TRANS_RESOURCE_PLAN_ID_DESC
+  PARENT_TRANS_OPERATIONS_PLAN_ID_ASC
+  PARENT_TRANS_OPERATIONS_PLAN_ID_DESC
+  TRANS_PURCHASE_DETAIL_ID_ASC
+  TRANS_PURCHASE_DETAIL_ID_DESC
+  TRANS_OPERATIONS_PLAN_ID_ASC
+  TRANS_OPERATIONS_PLAN_ID_DESC
+  STAKEHOLDER_HISTORY_ID_ASC
+  STAKEHOLDER_HISTORY_ID_DESC
+  STAKEHOLDER_ID_ASC
+  STAKEHOLDER_ID_DESC
+  COST_ASC
+  COST_DESC
+  ASKING_PRICE_ASC
+  ASKING_PRICE_DESC
+  TRANS_MRP_SUGGESTION_TASK_ID_ASC
+  TRANS_MRP_SUGGESTION_TASK_ID_DESC
+  MSTR_OUTSOURCE_AVAILABLE_HISTORY_ID_ASC
+  MSTR_OUTSOURCE_AVAILABLE_HISTORY_ID_DESC
+  MSTR_OUTSOURCE_AVAILABLE_ID_ASC
+  MSTR_OUTSOURCE_AVAILABLE_ID_DESC
+  MSTR_EQUIPMENT_ID_ASC
+  MSTR_EQUIPMENT_ID_DESC
+  LOAD_DATE_ASC
+  LOAD_DATE_DESC
+  MESSAGE_ASC
+  MESSAGE_DESC
+  APPLIED_AT_ASC
+  APPLIED_AT_DESC
   SYMBOL_ASC
   SYMBOL_DESC
   REMARKS_ASC
@@ -150,6 +532,68 @@ enum TransWorkPlansOrderBy {
   UPDATE_USER_HISTORY_ID_DESC
   REMOVE_ASC
   REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum VMrpPurchasePlansOrderBy {
+  NATURAL
+  PLAN_KEY_ASC
+  PLAN_KEY_DESC
+  TRANS_MRP_RUN_ID_ASC
+  TRANS_MRP_RUN_ID_DESC
+  KIND_ASC
+  KIND_DESC
+  STAKEHOLDER_ID_ASC
+  STAKEHOLDER_ID_DESC
+  RELEASE_DATE_ASC
+  RELEASE_DATE_DESC
+  DUE_DATE_ASC
+  DUE_DATE_DESC
+  LINE_COUNT_ASC
+  LINE_COUNT_DESC
+  AMOUNT_ASC
+  AMOUNT_DESC
+  LATE_COUNT_ASC
+  LATE_COUNT_DESC
+  PENDING_COUNT_ASC
+  PENDING_COUNT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum VResourcePlanCoveragesOrderBy {
+  NATURAL
+  TRANS_RESOURCE_PLAN_ID_ASC
+  TRANS_RESOURCE_PLAN_ID_DESC
+  ITEM_ID_ASC
+  ITEM_ID_DESC
+  PLAN_KIND_ASC
+  PLAN_KIND_DESC
+  TRANS_ORDER_DETAIL_ID_ASC
+  TRANS_ORDER_DETAIL_ID_DESC
+  TRANS_UNRECOGNIZED_DETAIL_ID_ASC
+  TRANS_UNRECOGNIZED_DETAIL_ID_DESC
+  PARENT_TRANS_OPERATIONS_PLAN_ID_ASC
+  PARENT_TRANS_OPERATIONS_PLAN_ID_DESC
+  DEADLINE_ASC
+  DEADLINE_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
+  INVENTORY_RESAVATION_ASC
+  INVENTORY_RESAVATION_DESC
+  ISSUED_ASC
+  ISSUED_DESC
+  REMAINING_ASC
+  REMAINING_DESC
+  RESERVED_STOCK_ASC
+  RESERVED_STOCK_DESC
+  RESERVED_PURCHASE_ASC
+  RESERVED_PURCHASE_DESC
+  RESERVED_PRODUCTION_ASC
+  RESERVED_PRODUCTION_DESC
+  SHORTAGE_ASC
+  SHORTAGE_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -209,6 +653,58 @@ type Interval {
   years: Int
 }
 
+type MrpCommitPayload {
+  transMrpRun: TransMrpRun
+}
+
+type MrpDiscardPayload {
+  transMrpRun: TransMrpRun
+}
+
+type MrpEquipmentLoadConnection {
+  nodes: [MrpEquipmentLoadRecord]!
+}
+
+type MrpEquipmentLoadRecord {
+  equipmentId: UUID
+  loadDate: Date
+  capacityHours: BigFloat
+  loadHours: BigFloat
+  loadRate: BigFloat
+}
+
+type MrpExecutePayload {
+  transMrpRun: TransMrpRun
+}
+
+type MrpImportCheck {
+  lineNo: Int
+  itemCode: String
+  itemId: UUID
+  itemHistoryId: UUID
+  issueCode: String
+  severity: Int
+  message: String
+  refTable: String
+  refId: UUID
+}
+
+type MrpImportChecksConnection {
+  nodes: [MrpImportCheck]!
+}
+
+type MrpPurgePayload {
+  integer: Int
+}
+
+type MrpRunPayload {
+  transMrpRun: TransMrpRun
+}
+
+type MrpSetDecisionPayload {
+  transMrpSuggestions: [TransMrpSuggestion]
+}
+
 type MstrTask {
   mstrTaskId: UUID!
   code: String!
@@ -242,6 +738,12 @@ type Mutation {
   updateTransPurchaseRezByTransPurchaseRezId(input: UpdateTransPurchaseRezByTransPurchaseRezIdInput!): UpdateTransPurchaseRezPayload
   updateTransResourcePlanByTransResourcePlanId(input: UpdateTransResourcePlanByTransResourcePlanIdInput!): UpdateTransResourcePlanPayload
   updateTransWorkPlanByTransWorkPlanId(input: UpdateTransWorkPlanByTransWorkPlanIdInput!): UpdateTransWorkPlanPayload
+  mrpCommit(input: MrpCommitInput!): MrpCommitPayload
+  mrpDiscard(input: MrpDiscardInput!): MrpDiscardPayload
+  mrpExecute(input: MrpExecuteInput!): MrpExecutePayload
+  mrpPurge(input: MrpPurgeInput!): MrpPurgePayload
+  mrpRun(input: MrpRunInput!): MrpRunPayload
+  mrpSetDecision(input: MrpSetDecisionInput!): MrpSetDecisionPayload
 }
 
 type PageInfo {
@@ -250,17 +752,29 @@ type PageInfo {
 }
 
 type Query {
+  allTransMrpLoads(first: Int, offset: Int, orderBy: [TransMrpLoadsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransMrpLoadFilter): TransMrpLoadsConnection
+  allTransMrpPeggings(first: Int, offset: Int, orderBy: [TransMrpPeggingsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransMrpPeggingFilter): TransMrpPeggingsConnection
+  allTransMrpRuns(first: Int, offset: Int, orderBy: [TransMrpRunsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransMrpRunFilter): TransMrpRunsConnection
+  allTransMrpSuggestions(first: Int, offset: Int, orderBy: [TransMrpSuggestionsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransMrpSuggestionFilter): TransMrpSuggestionsConnection
+  allTransMrpSuggestionTasks(first: Int, offset: Int, orderBy: [TransMrpSuggestionTasksOrderBy!] = [PRIMARY_KEY_ASC], filter: TransMrpSuggestionTaskFilter): TransMrpSuggestionTasksConnection
   allTransOperationsPlans(first: Int, offset: Int, orderBy: [TransOperationsPlansOrderBy!] = [PRIMARY_KEY_ASC], filter: TransOperationsPlanFilter): TransOperationsPlansConnection
   allTransProductRezs(first: Int, offset: Int, orderBy: [TransProductRezsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransProductRezFilter): TransProductRezsConnection
   allTransPurchaseRezs(first: Int, offset: Int, orderBy: [TransPurchaseRezsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransPurchaseRezFilter): TransPurchaseRezsConnection
   allTransResourcePlans(first: Int, offset: Int, orderBy: [TransResourcePlansOrderBy!] = [PRIMARY_KEY_ASC], filter: TransResourcePlanFilter): TransResourcePlansConnection
   allTransWorkPlans(first: Int, offset: Int, orderBy: [TransWorkPlansOrderBy!] = [PRIMARY_KEY_ASC], filter: TransWorkPlanFilter): TransWorkPlansConnection
+  allVMrpMasterIssues(first: Int, offset: Int, orderBy: [VMrpMasterIssuesOrderBy!] = [PRIMARY_KEY_ASC], filter: VMrpMasterIssueFilter): VMrpMasterIssuesConnection
+  allVMrpPendingSuggestions(first: Int, offset: Int, orderBy: [VMrpPendingSuggestionsOrderBy!] = [PRIMARY_KEY_ASC], filter: VMrpPendingSuggestionFilter): VMrpPendingSuggestionsConnection
+  allVMrpPurchasePlans(first: Int, offset: Int, orderBy: [VMrpPurchasePlansOrderBy!] = [PRIMARY_KEY_ASC], filter: VMrpPurchasePlanFilter): VMrpPurchasePlansConnection
+  allVResourcePlanCoverages(first: Int, offset: Int, orderBy: [VResourcePlanCoveragesOrderBy!] = [PRIMARY_KEY_ASC], filter: VResourcePlanCoverageFilter): VResourcePlanCoveragesConnection
   allVWorkPlanDeliveryCompliances(first: Int, offset: Int, orderBy: [VWorkPlanDeliveryCompliancesOrderBy!] = [PRIMARY_KEY_ASC], filter: VWorkPlanDeliveryComplianceFilter): VWorkPlanDeliveryCompliancesConnection
   transOperationsPlanByTransOperationsPlanId(transOperationsPlanId: UUID!): TransOperationsPlan
   transProductRezByTransProductRezId(transProductRezId: UUID!): TransProductRez
   transPurchaseRezByTransPurchaseRezId(transPurchaseRezId: UUID!): TransPurchaseRez
   transResourcePlanByTransResourcePlanId(transResourcePlanId: UUID!): TransResourcePlan
   transWorkPlanByTransWorkPlanId(transWorkPlanId: UUID!): TransWorkPlan
+  mrpCheckItems(pItemIds: [UUID], first: Int): VMrpMasterIssuesConnection
+  mrpCheckOrderImport(pLines: JSON, first: Int): MrpImportChecksConnection
+  mrpEquipmentLoad(pFrom: Date, pTo: Date, first: Int): MrpEquipmentLoadConnection
 }
 
 type SharedAppellation {
@@ -297,10 +811,156 @@ type SharedTextValuesConnection {
   nodes: [SharedTextValue]!
 }
 
+type TransMrpLoad {
+  transMrpLoadId: UUID!
+  transMrpRunId: UUID!
+  mstrEquipmentId: UUID!
+  loadDate: Date!
+  capacityHours: BigFloat
+  committedHours: BigFloat
+  plannedHours: BigFloat
+  loadRate: BigFloat
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  remove: Boolean
+}
+
+type TransMrpLoadsConnection {
+  nodes: [TransMrpLoad]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TransMrpPegging {
+  transMrpPeggingId: UUID!
+  transMrpRunId: UUID!
+  demandTransMrpSuggestionId: UUID!
+  supplyKind: Int!
+  supplyTransMrpSuggestionId: UUID
+  transPurchaseDetailId: UUID
+  transOperationsPlanId: UUID
+  quantity: BigFloat
+  needAt: Datetime
+  availableAt: Datetime
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  remove: Boolean
+}
+
+type TransMrpPeggingsConnection {
+  nodes: [TransMrpPegging]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TransMrpRun {
+  transMrpRunId: UUID!
+  runMode: Int!
+  status: Int
+  runAt: Datetime
+  committedAt: Datetime
+  staffHistoryId: UUID!
+  staffId: UUID!
+  params: JSON
+  suggestionCount: Int
+  pendingCount: Int
+  lateCount: Int
+  overloadCount: Int
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  remove: Boolean
+}
+
+type TransMrpRunsConnection {
+  nodes: [TransMrpRun]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TransMrpSuggestion {
+  transMrpSuggestionId: UUID!
+  transMrpRunId: UUID!
+  parentTransMrpSuggestionId: UUID
+  seq: Int!
+  kind: String!
+  decision: Int
+  needUser: Boolean
+  late: Boolean
+  itemHistoryId: UUID
+  itemId: UUID
+  bomLevel: Int
+  planKind: Int
+  quantity: BigFloat
+  allocatedQuantity: BigFloat
+  oldQuantity: BigFloat
+  needAt: Datetime
+  releaseAt: Datetime
+  dueAt: Datetime
+  oldDueAt: Datetime
+  transOrderDetailId: UUID
+  transUnrecognizedDetailId: UUID
+  transResourcePlanId: UUID
+  parentTransOperationsPlanId: UUID
+  transPurchaseDetailId: UUID
+  transOperationsPlanId: UUID
+  stakeholderHistoryId: UUID
+  stakeholderId: UUID
+  cost: BigFloat
+  askingPrice: Boolean
+  transMrpSuggestionTaskId: UUID
+  mstrOutsourceAvailableHistoryId: UUID
+  mstrOutsourceAvailableId: UUID
+  mstrEquipmentId: UUID
+  loadDate: Date
+  message: String
+  appliedAt: Datetime
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  remove: Boolean
+}
+
+type TransMrpSuggestionTask {
+  transMrpSuggestionTaskId: UUID!
+  transMrpSuggestionId: UUID!
+  transWorkPlanId: UUID
+  mstrTaskId: UUID!
+  sequence: Int
+  mstrEquipmentAvailableHistoryId: UUID
+  mstrEquipmentAvailableId: UUID
+  mstrOutsourceAvailableHistoryId: UUID
+  mstrOutsourceAvailableId: UUID
+  outsourceTransMrpSuggestionId: UUID
+  cost: BigFloat
+  intervalPlan: Interval
+  startAt: Datetime
+  completionAt: Datetime
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  remove: Boolean
+}
+
+type TransMrpSuggestionTasksConnection {
+  nodes: [TransMrpSuggestionTask]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TransMrpSuggestionsConnection {
+  nodes: [TransMrpSuggestion]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type TransOperationsPlan {
   transOperationsPlanId: UUID!
-  transResourcePlanId: UUID
+  transResourcePlanId: UUID!
   deadline: Datetime
+  quantity: BigFloat
   symbol: String
   remarks: String
   updateAt: Datetime
@@ -357,6 +1017,7 @@ type TransPurchaseRezsConnection {
 
 type TransResourcePlan {
   transResourcePlanId: UUID!
+  parentTransOperationsPlanId: UUID
   transOrderDetailId: UUID
   transUnrecognizedDetailId: UUID
   registerAt: Datetime
@@ -384,10 +1045,16 @@ type TransWorkPlan {
   transWorkPlanId: UUID!
   transOperationsPlanId: UUID!
   mstrTaskId: UUID!
+  sequence: Int
   intervalPlan: Interval
   startAt: Datetime
   completionAt: Datetime
   symbol: String
+  mstrEquipmentAvailableHistoryId: UUID
+  mstrEquipmentAvailableId: UUID
+  mstrOutsourceAvailableHistoryId: UUID
+  mstrOutsourceAvailableId: UUID
+  transPurchaseDetailId: UUID
   remarks: String
   updateAt: Datetime
   updateUserId: UUID
@@ -426,8 +1093,116 @@ type UpdateTransWorkPlanPayload {
   transWorkPlan: TransWorkPlan
 }
 
+type VMrpMasterIssue {
+  issueKey: String!
+  itemId: UUID
+  itemCode: String
+  issueCode: String
+  severity: Int
+  message: String
+  refTable: String
+  refId: UUID
+}
+
+type VMrpMasterIssuesConnection {
+  nodes: [VMrpMasterIssue]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type VMrpPendingSuggestion {
+  transMrpSuggestionId: UUID!
+  transMrpRunId: UUID
+  parentTransMrpSuggestionId: UUID
+  seq: Int
+  kind: String
+  decision: Int
+  needUser: Boolean
+  late: Boolean
+  itemHistoryId: UUID
+  itemId: UUID
+  bomLevel: Int
+  planKind: Int
+  quantity: BigFloat
+  allocatedQuantity: BigFloat
+  oldQuantity: BigFloat
+  needAt: Datetime
+  releaseAt: Datetime
+  dueAt: Datetime
+  oldDueAt: Datetime
+  transOrderDetailId: UUID
+  transUnrecognizedDetailId: UUID
+  transResourcePlanId: UUID
+  parentTransOperationsPlanId: UUID
+  transPurchaseDetailId: UUID
+  transOperationsPlanId: UUID
+  stakeholderHistoryId: UUID
+  stakeholderId: UUID
+  cost: BigFloat
+  askingPrice: Boolean
+  transMrpSuggestionTaskId: UUID
+  mstrOutsourceAvailableHistoryId: UUID
+  mstrOutsourceAvailableId: UUID
+  mstrEquipmentId: UUID
+  loadDate: Date
+  message: String
+  appliedAt: Datetime
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+}
+
+type VMrpPendingSuggestionsConnection {
+  nodes: [VMrpPendingSuggestion]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type VMrpPurchasePlan {
+  planKey: String!
+  transMrpRunId: UUID
+  kind: String
+  stakeholderId: UUID
+  releaseDate: Date
+  dueDate: Date
+  lineCount: BigInt
+  amount: BigFloat
+  lateCount: BigInt
+  pendingCount: BigInt
+}
+
+type VMrpPurchasePlansConnection {
+  nodes: [VMrpPurchasePlan]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type VOperationsPlanWorkPlanCount {
   transOperationsPlanId: UUID
+}
+
+type VResourcePlanCoverage {
+  transResourcePlanId: UUID!
+  itemId: UUID
+  planKind: Int
+  transOrderDetailId: UUID
+  transUnrecognizedDetailId: UUID
+  parentTransOperationsPlanId: UUID
+  deadline: Datetime
+  quantity: BigFloat
+  inventoryResavation: BigFloat
+  issued: BigFloat
+  remaining: BigFloat
+  reservedStock: BigFloat
+  reservedPurchase: BigFloat
+  reservedProduction: BigFloat
+  shortage: BigFloat
+}
+
+type VResourcePlanCoveragesConnection {
+  nodes: [VResourcePlanCoverage]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type VWorkPlanDeliveryCompliance {
@@ -503,6 +1278,20 @@ input BooleanFilter {
   greaterThanOrEqualTo: Boolean
 }
 
+input DateFilter {
+  isNull: Boolean
+  equalTo: Date
+  notEqualTo: Date
+  distinctFrom: Date
+  notDistinctFrom: Date
+  in: [Date!]
+  notIn: [Date!]
+  lessThan: Date
+  lessThanOrEqualTo: Date
+  greaterThan: Date
+  greaterThanOrEqualTo: Date
+}
+
 input DatetimeFilter {
   isNull: Boolean
   equalTo: Datetime
@@ -533,6 +1322,12 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  historyMstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrWorkCalendarsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrWorkCalendarsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrItemOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transTextsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -776,6 +1571,12 @@ input HistoryInfoStaffFilter {
   infoStaffsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   infoDepartmentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   infoOfficesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
+  transMrpRunsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpSuggestionTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryInfoStaffFilter!]
@@ -820,6 +1621,69 @@ input IntervalInput {
   years: Int
 }
 
+input JSONFilter {
+  isNull: Boolean
+  equalTo: JSON
+  notEqualTo: JSON
+  distinctFrom: JSON
+  notDistinctFrom: JSON
+  in: [JSON!]
+  notIn: [JSON!]
+  lessThan: JSON
+  lessThanOrEqualTo: JSON
+  greaterThan: JSON
+  greaterThanOrEqualTo: JSON
+  contains: JSON
+  containsKey: String
+  containsAllKeys: [String!]
+  containsAnyKeys: [String!]
+  containedBy: JSON
+}
+
+input MrpCommitInput {
+  clientMutationId: String
+  pRunId: UUID
+  pStaffId: UUID
+  pForce: Boolean
+}
+
+input MrpDiscardInput {
+  clientMutationId: String
+  pRunId: UUID
+  pStaffId: UUID
+}
+
+input MrpExecuteInput {
+  clientMutationId: String
+  pMode: Int
+  pStaffId: UUID
+  pOrderDetailIds: [UUID]
+  pAcceptLate: Boolean
+}
+
+input MrpPurgeInput {
+  clientMutationId: String
+  pKeepDays: Int
+}
+
+input MrpRunInput {
+  clientMutationId: String
+  pMode: Int
+  pStaffId: UUID
+  pOrderDetailIds: [UUID]
+  pAcceptLate: Boolean
+  pRescheduleOutDays: Int
+  pRemarks: String
+}
+
+input MrpSetDecisionInput {
+  clientMutationId: String
+  pRunId: UUID
+  pDecision: Int
+  pSuggestionIds: [UUID]
+  pStaffId: UUID
+}
+
 input MstrTaskFilter {
   mstrTaskId: UUIDFilter
   mstrTaskGroupId: UUIDFilter
@@ -843,6 +1707,7 @@ input MstrTaskFilter {
   transWorkPlansByMstrTaskIdExist: Boolean
   mstrTaskTreesByMstrTaskIdExist: Boolean
   mstrTaskTreesByParentMstrTaskIdExist: Boolean
+  transMrpSuggestionTasksByMstrTaskIdExist: Boolean
   vTaskComplaintProcessCountByMstrTaskIdExists: Boolean
   vTaskDescendantByAncestorMstrTaskIdExists: Boolean
   vTaskOperationTaskCountByMstrTaskIdExists: Boolean
@@ -1114,10 +1979,187 @@ input StringFilter {
   greaterThanOrEqualToInsensitive: String
 }
 
+input TransMrpLoadFilter {
+  transMrpLoadId: UUIDFilter
+  transMrpRunId: UUIDFilter
+  mstrEquipmentId: UUIDFilter
+  loadDate: DateFilter
+  capacityHours: BigFloatFilter
+  committedHours: BigFloatFilter
+  plannedHours: BigFloatFilter
+  loadRate: BigFloatFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransMrpLoadFilter!]
+  or: [TransMrpLoadFilter!]
+  not: TransMrpLoadFilter
+}
+
+input TransMrpPeggingFilter {
+  transMrpPeggingId: UUIDFilter
+  transMrpRunId: UUIDFilter
+  demandTransMrpSuggestionId: UUIDFilter
+  supplyKind: IntFilter
+  supplyTransMrpSuggestionId: UUIDFilter
+  transPurchaseDetailId: UUIDFilter
+  transOperationsPlanId: UUIDFilter
+  quantity: BigFloatFilter
+  needAt: DatetimeFilter
+  availableAt: DatetimeFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transMrpSuggestionBySupplyTransMrpSuggestionIdExists: Boolean
+  transPurchaseDetailByTransPurchaseDetailIdExists: Boolean
+  transOperationsPlanByTransOperationsPlanIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransMrpPeggingFilter!]
+  or: [TransMrpPeggingFilter!]
+  not: TransMrpPeggingFilter
+}
+
+input TransMrpRunFilter {
+  transMrpRunId: UUIDFilter
+  runMode: IntFilter
+  status: IntFilter
+  runAt: DatetimeFilter
+  committedAt: DatetimeFilter
+  staffHistoryId: UUIDFilter
+  staffId: UUIDFilter
+  params: JSONFilter
+  suggestionCount: IntFilter
+  pendingCount: IntFilter
+  lateCount: IntFilter
+  overloadCount: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transMrpSuggestionsByTransMrpRunIdExist: Boolean
+  transMrpPeggingsByTransMrpRunIdExist: Boolean
+  transMrpLoadsByTransMrpRunIdExist: Boolean
+  vMrpPendingSuggestionsByTransMrpRunIdExist: Boolean
+  vMrpPurchasePlansByTransMrpRunIdExist: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransMrpRunFilter!]
+  or: [TransMrpRunFilter!]
+  not: TransMrpRunFilter
+}
+
+input TransMrpSuggestionFilter {
+  transMrpSuggestionId: UUIDFilter
+  transMrpRunId: UUIDFilter
+  parentTransMrpSuggestionId: UUIDFilter
+  seq: IntFilter
+  kind: StringFilter
+  decision: IntFilter
+  needUser: BooleanFilter
+  late: BooleanFilter
+  itemHistoryId: UUIDFilter
+  itemId: UUIDFilter
+  bomLevel: IntFilter
+  planKind: IntFilter
+  quantity: BigFloatFilter
+  allocatedQuantity: BigFloatFilter
+  oldQuantity: BigFloatFilter
+  needAt: DatetimeFilter
+  releaseAt: DatetimeFilter
+  dueAt: DatetimeFilter
+  oldDueAt: DatetimeFilter
+  transOrderDetailId: UUIDFilter
+  transUnrecognizedDetailId: UUIDFilter
+  transResourcePlanId: UUIDFilter
+  parentTransOperationsPlanId: UUIDFilter
+  transPurchaseDetailId: UUIDFilter
+  transOperationsPlanId: UUIDFilter
+  stakeholderHistoryId: UUIDFilter
+  stakeholderId: UUIDFilter
+  cost: BigFloatFilter
+  askingPrice: BooleanFilter
+  transMrpSuggestionTaskId: UUIDFilter
+  mstrOutsourceAvailableHistoryId: UUIDFilter
+  mstrOutsourceAvailableId: UUIDFilter
+  mstrEquipmentId: UUIDFilter
+  loadDate: DateFilter
+  message: StringFilter
+  appliedAt: DatetimeFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transMrpSuggestionsByParentTransMrpSuggestionIdExist: Boolean
+  transMrpSuggestionTasksByTransMrpSuggestionIdExist: Boolean
+  transMrpSuggestionTasksByOutsourceTransMrpSuggestionIdExist: Boolean
+  transMrpPeggingsByDemandTransMrpSuggestionIdExist: Boolean
+  transMrpPeggingsBySupplyTransMrpSuggestionIdExist: Boolean
+  vMrpPendingSuggestionByTransMrpSuggestionIdExists: Boolean
+  transMrpSuggestionByParentTransMrpSuggestionIdExists: Boolean
+  historyMstrItemByItemHistoryIdAndItemIdExists: Boolean
+  transOrderDetailByTransOrderDetailIdExists: Boolean
+  transUnrecognizedDetailByTransUnrecognizedDetailIdExists: Boolean
+  transResourcePlanByTransResourcePlanIdExists: Boolean
+  transOperationsPlanByParentTransOperationsPlanIdExists: Boolean
+  transPurchaseDetailByTransPurchaseDetailIdExists: Boolean
+  transOperationsPlanByTransOperationsPlanIdExists: Boolean
+  historyMstrStakeholderByStakeholderHistoryIdAndStakeholderIdExists: Boolean
+  transMrpSuggestionTaskByTransMrpSuggestionTaskIdExists: Boolean
+  historyMstrOutsourceAvailableByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableIdExists: Boolean
+  mstrEquipmentByMstrEquipmentIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransMrpSuggestionFilter!]
+  or: [TransMrpSuggestionFilter!]
+  not: TransMrpSuggestionFilter
+}
+
+input TransMrpSuggestionTaskFilter {
+  transMrpSuggestionTaskId: UUIDFilter
+  transMrpSuggestionId: UUIDFilter
+  transWorkPlanId: UUIDFilter
+  mstrTaskId: UUIDFilter
+  sequence: IntFilter
+  mstrEquipmentAvailableHistoryId: UUIDFilter
+  mstrEquipmentAvailableId: UUIDFilter
+  mstrOutsourceAvailableHistoryId: UUIDFilter
+  mstrOutsourceAvailableId: UUIDFilter
+  outsourceTransMrpSuggestionId: UUIDFilter
+  cost: BigFloatFilter
+  intervalPlan: IntervalFilter
+  startAt: DatetimeFilter
+  completionAt: DatetimeFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transMrpSuggestionsByTransMrpSuggestionTaskIdExist: Boolean
+  transWorkPlanByTransWorkPlanIdExists: Boolean
+  historyMstrEquipmentAvailableByMstrEquipmentAvailableHistoryIdAndMstrEquipmentAvailableIdExists: Boolean
+  historyMstrOutsourceAvailableByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableIdExists: Boolean
+  transMrpSuggestionByOutsourceTransMrpSuggestionIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransMrpSuggestionTaskFilter!]
+  or: [TransMrpSuggestionTaskFilter!]
+  not: TransMrpSuggestionTaskFilter
+}
+
 input TransOperationsPlanFilter {
   transOperationsPlanId: UUIDFilter
   transResourcePlanId: UUIDFilter
   deadline: DatetimeFilter
+  quantity: BigFloatFilter
   symbol: StringFilter
   remarks: StringFilter
   updateAt: DatetimeFilter
@@ -1125,10 +2167,13 @@ input TransOperationsPlanFilter {
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
   transWorkPlansByTransOperationsPlanIdExist: Boolean
+  transResourcePlansByParentTransOperationsPlanIdExist: Boolean
+  transMrpSuggestionsByParentTransOperationsPlanIdExist: Boolean
+  transMrpSuggestionsByTransOperationsPlanIdExist: Boolean
+  transMrpPeggingsByTransOperationsPlanIdExist: Boolean
   vOperationsPlanWorkPlanCountByTransOperationsPlanId: VOperationsPlanWorkPlanCountFilter
   vOperationsPlanWorkPlanCountByTransOperationsPlanIdExists: Boolean
   vWorkPlanDeliveryCompliancesByTransOperationsPlanIdExist: Boolean
-  transResourcePlanByTransResourcePlanIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransOperationsPlanFilter!]
@@ -1139,6 +2184,7 @@ input TransOperationsPlanFilter {
 input TransOperationsPlanPatch {
   transResourcePlanId: UUID
   deadline: Datetime
+  quantity: BigFloat
   remarks: String
 }
 
@@ -1192,6 +2238,7 @@ input TransPurchaseRezPatch {
 
 input TransResourcePlanFilter {
   transResourcePlanId: UUIDFilter
+  parentTransOperationsPlanId: UUIDFilter
   transOrderDetailId: UUIDFilter
   transUnrecognizedDetailId: UUIDFilter
   registerAt: DatetimeFilter
@@ -1206,8 +2253,12 @@ input TransResourcePlanFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transInventoryRequestsByTransResourcePlanIdExist: Boolean
   transPurchaseDetailsByTransResourcePlanIdExist: Boolean
   transOperationsPlansByTransResourcePlanIdExist: Boolean
+  transMrpSuggestionsByTransResourcePlanIdExist: Boolean
+  vResourcePlanCoverageByTransResourcePlanIdExists: Boolean
+  transOperationsPlanByParentTransOperationsPlanIdExists: Boolean
   transOrderDetailByTransOrderDetailIdExists: Boolean
   transUnrecognizedDetailByTransUnrecognizedDetailIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
@@ -1218,6 +2269,7 @@ input TransResourcePlanFilter {
 }
 
 input TransResourcePlanPatch {
+  parentTransOperationsPlanId: UUID
   transOrderDetailId: UUID
   transUnrecognizedDetailId: UUID
   registerAt: Datetime
@@ -1233,10 +2285,16 @@ input TransWorkPlanFilter {
   transWorkPlanId: UUIDFilter
   transOperationsPlanId: UUIDFilter
   mstrTaskId: UUIDFilter
+  sequence: IntFilter
   intervalPlan: IntervalFilter
   startAt: DatetimeFilter
   completionAt: DatetimeFilter
   symbol: StringFilter
+  mstrEquipmentAvailableHistoryId: UUIDFilter
+  mstrEquipmentAvailableId: UUIDFilter
+  mstrOutsourceAvailableHistoryId: UUIDFilter
+  mstrOutsourceAvailableId: UUIDFilter
+  transPurchaseDetailId: UUIDFilter
   remarks: StringFilter
   updateAt: DatetimeFilter
   updateUserId: UUIDFilter
@@ -1244,6 +2302,7 @@ input TransWorkPlanFilter {
   remove: BooleanFilter
   transProductRezsByTransWorkPlanIdExist: Boolean
   transWorkRecordsByTransWorkPlanIdExist: Boolean
+  transMrpSuggestionTasksByTransWorkPlanIdExist: Boolean
   vWorkPlanDeliveryComplianceByTransWorkPlanIdExists: Boolean
   vWorkPlanProductRezCountByTransWorkPlanId: VWorkPlanProductRezCountFilter
   vWorkPlanProductRezCountByTransWorkPlanIdExists: Boolean
@@ -1251,6 +2310,9 @@ input TransWorkPlanFilter {
   vWorkPlanWorkRecordCountByTransWorkPlanIdExists: Boolean
   transOperationsPlanByTransOperationsPlanId: TransOperationsPlanFilter
   mstrTaskByMstrTaskId: MstrTaskFilter
+  historyMstrEquipmentAvailableByMstrEquipmentAvailableHistoryIdAndMstrEquipmentAvailableIdExists: Boolean
+  historyMstrOutsourceAvailableByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableIdExists: Boolean
+  transPurchaseDetailByTransPurchaseDetailIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransWorkPlanFilter!]
@@ -1261,9 +2323,15 @@ input TransWorkPlanFilter {
 input TransWorkPlanPatch {
   transOperationsPlanId: UUID
   mstrTaskId: UUID
+  sequence: Int
   intervalPlan: IntervalInput
   startAt: Datetime
   completionAt: Datetime
+  mstrEquipmentAvailableHistoryId: UUID
+  mstrEquipmentAvailableId: UUID
+  mstrOutsourceAvailableHistoryId: UUID
+  mstrOutsourceAvailableId: UUID
+  transPurchaseDetailId: UUID
   remarks: String
 }
 
@@ -1327,6 +2395,91 @@ input UpdateTransWorkPlanByTransWorkPlanIdInput {
   transWorkPlanId: UUID!
 }
 
+input VMrpMasterIssueFilter {
+  issueKey: StringFilter
+  itemId: UUIDFilter
+  itemCode: StringFilter
+  issueCode: StringFilter
+  severity: IntFilter
+  message: StringFilter
+  refTable: StringFilter
+  refId: UUIDFilter
+  mstrItemByItemIdExists: Boolean
+  and: [VMrpMasterIssueFilter!]
+  or: [VMrpMasterIssueFilter!]
+  not: VMrpMasterIssueFilter
+}
+
+input VMrpPendingSuggestionFilter {
+  transMrpSuggestionId: UUIDFilter
+  transMrpRunId: UUIDFilter
+  parentTransMrpSuggestionId: UUIDFilter
+  seq: IntFilter
+  kind: StringFilter
+  decision: IntFilter
+  needUser: BooleanFilter
+  late: BooleanFilter
+  itemHistoryId: UUIDFilter
+  itemId: UUIDFilter
+  bomLevel: IntFilter
+  planKind: IntFilter
+  quantity: BigFloatFilter
+  allocatedQuantity: BigFloatFilter
+  oldQuantity: BigFloatFilter
+  needAt: DatetimeFilter
+  releaseAt: DatetimeFilter
+  dueAt: DatetimeFilter
+  oldDueAt: DatetimeFilter
+  transOrderDetailId: UUIDFilter
+  transUnrecognizedDetailId: UUIDFilter
+  transResourcePlanId: UUIDFilter
+  parentTransOperationsPlanId: UUIDFilter
+  transPurchaseDetailId: UUIDFilter
+  transOperationsPlanId: UUIDFilter
+  stakeholderHistoryId: UUIDFilter
+  stakeholderId: UUIDFilter
+  cost: BigFloatFilter
+  askingPrice: BooleanFilter
+  transMrpSuggestionTaskId: UUIDFilter
+  mstrOutsourceAvailableHistoryId: UUIDFilter
+  mstrOutsourceAvailableId: UUIDFilter
+  mstrEquipmentId: UUIDFilter
+  loadDate: DateFilter
+  message: StringFilter
+  appliedAt: DatetimeFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transMrpSuggestionByTransMrpSuggestionIdExists: Boolean
+  transMrpRunByTransMrpRunIdExists: Boolean
+  mstrItemByItemIdExists: Boolean
+  mstrStakeholderByStakeholderIdExists: Boolean
+  and: [VMrpPendingSuggestionFilter!]
+  or: [VMrpPendingSuggestionFilter!]
+  not: VMrpPendingSuggestionFilter
+}
+
+input VMrpPurchasePlanFilter {
+  planKey: StringFilter
+  transMrpRunId: UUIDFilter
+  kind: StringFilter
+  stakeholderId: UUIDFilter
+  releaseDate: DateFilter
+  dueDate: DateFilter
+  lineCount: BigIntFilter
+  amount: BigFloatFilter
+  lateCount: BigIntFilter
+  pendingCount: BigIntFilter
+  transMrpRunByTransMrpRunIdExists: Boolean
+  mstrStakeholderByStakeholderIdExists: Boolean
+  and: [VMrpPurchasePlanFilter!]
+  or: [VMrpPurchasePlanFilter!]
+  not: VMrpPurchasePlanFilter
+}
+
 input VOperationsPlanWorkPlanCountFilter {
   transOperationsPlanId: UUIDFilter
   allCount: BigIntFilter
@@ -1336,6 +2489,30 @@ input VOperationsPlanWorkPlanCountFilter {
   and: [VOperationsPlanWorkPlanCountFilter!]
   or: [VOperationsPlanWorkPlanCountFilter!]
   not: VOperationsPlanWorkPlanCountFilter
+}
+
+input VResourcePlanCoverageFilter {
+  transResourcePlanId: UUIDFilter
+  itemId: UUIDFilter
+  planKind: IntFilter
+  transOrderDetailId: UUIDFilter
+  transUnrecognizedDetailId: UUIDFilter
+  parentTransOperationsPlanId: UUIDFilter
+  deadline: DatetimeFilter
+  quantity: BigFloatFilter
+  inventoryResavation: BigFloatFilter
+  issued: BigFloatFilter
+  remaining: BigFloatFilter
+  reservedStock: BigFloatFilter
+  reservedPurchase: BigFloatFilter
+  reservedProduction: BigFloatFilter
+  shortage: BigFloatFilter
+  transResourcePlanByTransResourcePlanIdExists: Boolean
+  mstrItemByItemIdExists: Boolean
+  transOrderDetailByTransOrderDetailIdExists: Boolean
+  and: [VResourcePlanCoverageFilter!]
+  or: [VResourcePlanCoverageFilter!]
+  not: VResourcePlanCoverageFilter
 }
 
 input VWorkPlanDeliveryComplianceFilter {

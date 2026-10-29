@@ -7,7 +7,11 @@ mutation UnrecognizedDetailPageEdit(
   $transUnrecognizedDetailId: UUID!
   $transUnrecognizedId: UUID
   $quantity: BigFloat
-  $cost: BigFloat
+  $unitPrice: BigFloat
+  $priceAdjustment: BigFloat
+  $fixedPrice: BigFloat
+  $materialSupply: Boolean
+  $paidSupply: Boolean
   $deadline: Datetime
   $itemHistoryId: UUID
   $itemId: UUID
@@ -19,7 +23,11 @@ mutation UnrecognizedDetailPageEdit(
       transUnrecognizedDetailPatch: {
         transUnrecognizedId: $transUnrecognizedId
         quantity: $quantity
-        cost: $cost
+        unitPrice: $unitPrice
+        priceAdjustment: $priceAdjustment
+        fixedPrice: $fixedPrice
+        materialSupply: $materialSupply
+        paidSupply: $paidSupply
         deadline: $deadline
         itemHistoryId: $itemHistoryId
         itemId: $itemId
@@ -31,7 +39,11 @@ mutation UnrecognizedDetailPageEdit(
       transUnrecognizedDetailId
       transUnrecognizedId
       quantity
-      cost
+      unitPrice
+      priceAdjustment
+      fixedPrice
+      materialSupply
+      paidSupply
       deadline
       itemHistoryId
       itemId

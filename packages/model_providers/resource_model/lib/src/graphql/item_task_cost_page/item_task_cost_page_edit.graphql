@@ -1,0 +1,32 @@
+# item_task_cost_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #ItemTaskCostPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ItemTaskCostPageEdit(
+  $mstrItemTaskCostId: UUID!
+  $mstrItemId: UUID
+  $mstrTaskLocationId: UUID
+  $cost: BigFloat
+  $remarks: String
+) {
+  updateMstrItemTaskCostByMstrItemTaskCostId(
+    input: {
+      mstrItemTaskCostId: $mstrItemTaskCostId
+      mstrItemTaskCostPatch: {
+        mstrItemId: $mstrItemId
+        mstrTaskLocationId: $mstrTaskLocationId
+        cost: $cost
+        remarks: $remarks
+      }
+    }
+  ) {
+    mstrItemTaskCost {
+      mstrItemTaskCostId
+      mstrItemId
+      mstrTaskLocationId
+      cost
+      remarks
+    }
+  }
+}

@@ -590,6 +590,7 @@ query InspectionEquipentPageRfe(
         }
 
         labelCode
+        catalogItem
 
         detailTexts: sharedTextByDetails {
           sharedTextId

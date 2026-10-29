@@ -9,6 +9,7 @@ query OperationsPlanPageRfe(
   transOperationsPlanByTransOperationsPlanId(transOperationsPlanId: $transOperationsPlanId) {
     transOperationsPlanId
     transResourcePlanId
+    quantity
     deadline
     remarks
     updateUserId

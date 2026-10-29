@@ -1,0 +1,6 @@
+# 品目のMRPマスタ不備の検査
+query MrpCheckItems($pItemIds: [UUID], $first: Int) {
+  mrpCheckItems(pItemIds: $pItemIds, first: $first) {
+    nodes { issueKey itemId itemCode issueCode severity message refTable refId }
+  }
+}

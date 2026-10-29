@@ -12,7 +12,9 @@ query OrderDetailPageRfe(
     itemHistoryId
     itemId
     quantity
-    cost
+    unitPrice
+    priceAdjustment
+    fixedPrice
     deliveryDate
     deadline
     remarks

@@ -1,0 +1,6 @@
+# MRP確定。採用された提案を資材計画・発注・生産計画・引当予約に反映する
+mutation MrpCommit($input: MrpCommitInput!) {
+  mrpCommit(input: $input) {
+    transMrpRun { transMrpRunId runMode status runAt committedAt staffHistoryId staffId params suggestionCount pendingCount lateCount overloadCount symbol remarks updateAt }
+  }
+}

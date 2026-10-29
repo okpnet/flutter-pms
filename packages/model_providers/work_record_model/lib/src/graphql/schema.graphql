@@ -156,6 +156,8 @@ enum TransInventoryRequestsOrderBy {
   STAFF_HISTORY_ID_DESC
   STAFF_ID_ASC
   STAFF_ID_DESC
+  TRANS_RESOURCE_PLAN_ID_ASC
+  TRANS_RESOURCE_PLAN_ID_DESC
   REMARKS_ASC
   REMARKS_DESC
   UPDATE_AT_ASC
@@ -282,6 +284,22 @@ enum TransWorkRecordsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum VMrpVisiterItemsOrderBy {
+  NATURAL
+  TRANS_VISITER_ID_ASC
+  TRANS_VISITER_ID_DESC
+  ITEM_ID_ASC
+  ITEM_ID_DESC
+  ITEM_COUNT_ASC
+  ITEM_COUNT_DESC
+  FINISHED_ASC
+  FINISHED_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum VShelfInventoryStatusesOrderBy {
   NATURAL
   TRANS_VISITER_ID_ASC
@@ -401,6 +419,7 @@ type Query {
   allTransVisiters(first: Int, offset: Int, orderBy: [TransVisitersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransVisiterFilter): TransVisitersConnection
   allTransWorkRecords(first: Int, offset: Int, orderBy: [TransWorkRecordsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransWorkRecordFilter): TransWorkRecordsConnection
   allTransWorkRecordCertificates(first: Int, offset: Int, orderBy: [TransWorkRecordCertificatesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransWorkRecordCertificateFilter): TransWorkRecordCertificatesConnection
+  allVMrpVisiterItems(first: Int, offset: Int, orderBy: [VMrpVisiterItemsOrderBy!] = [PRIMARY_KEY_ASC], filter: VMrpVisiterItemFilter): VMrpVisiterItemsConnection
   allVShelfInventoryStatuses(first: Int, offset: Int, orderBy: [VShelfInventoryStatusesOrderBy!] = [PRIMARY_KEY_ASC], filter: VShelfInventoryStatusFilter): VShelfInventoryStatusesConnection
   transCertificateByTransCertificateId(transCertificateId: UUID!): TransCertificate
   transContainerByTransContainerId(transContainerId: UUID!): TransContainer
@@ -546,6 +565,7 @@ type TransInventoryRequest {
   symbol: String
   staffHistoryId: UUID!
   staffId: UUID!
+  transResourcePlanId: UUID
   remarks: String
   updateAt: Datetime
   updateUserId: UUID
@@ -715,6 +735,20 @@ type VContainerVisiterCount {
   transContainerId: UUID
 }
 
+type VMrpVisiterItem {
+  transVisiterId: UUID!
+  itemId: UUID
+  itemCount: Int
+  finished: Boolean
+  quantity: BigFloat
+}
+
+type VMrpVisiterItemsConnection {
+  nodes: [VMrpVisiterItem]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type VShelfInventoryStatus {
   transVisiterId: UUID!
   transContainerId: UUID
@@ -832,6 +866,12 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  historyMstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrWorkCalendarsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrWorkCalendarsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrItemOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transTextsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1075,6 +1115,12 @@ input HistoryInfoStaffFilter {
   infoStaffsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   infoDepartmentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   infoOfficesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
+  transMrpRunsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpSuggestionTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryInfoStaffFilter!]
@@ -1531,6 +1577,7 @@ input TransInventoryRequestFilter {
   symbol: StringFilter
   staffHistoryId: UUIDFilter
   staffId: UUIDFilter
+  transResourcePlanId: UUIDFilter
   remarks: StringFilter
   updateAt: DatetimeFilter
   updateUserId: UUIDFilter
@@ -1539,6 +1586,7 @@ input TransInventoryRequestFilter {
   transInventoryAppliesByTransInventoryRequestIdExist: Boolean
   transPurchaseRezByTransPurchaseRezIdExists: Boolean
   transProductRezByTransProductRezIdExists: Boolean
+  transResourcePlanByTransResourcePlanIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransInventoryRequestFilter!]
@@ -1554,6 +1602,7 @@ input TransInventoryRequestPatch {
   quantity: BigFloat
   staffHistoryId: UUID
   staffId: UUID
+  transResourcePlanId: UUID
   remarks: String
 }
 
@@ -1675,6 +1724,7 @@ input TransVisiterFilter {
   transWorkRecordVisitersByTransVisiterIdExist: Boolean
   transPurchaseRecVisitersByTransVisiterIdExist: Boolean
   transConveysByTransVisiterIdExist: Boolean
+  vMrpVisiterItemByTransVisiterIdExists: Boolean
   vShelfInventoryStatusByTransVisiterIdExists: Boolean
   vVisiterConveyCountByTransVisiterId: VVisiterConveyCountFilter
   vVisiterConveyCountByTransVisiterIdExists: Boolean
@@ -1880,6 +1930,19 @@ input VContainerVisiterCountFilter {
   and: [VContainerVisiterCountFilter!]
   or: [VContainerVisiterCountFilter!]
   not: VContainerVisiterCountFilter
+}
+
+input VMrpVisiterItemFilter {
+  transVisiterId: UUIDFilter
+  itemId: UUIDFilter
+  itemCount: IntFilter
+  finished: BooleanFilter
+  quantity: BigFloatFilter
+  transVisiterByTransVisiterIdExists: Boolean
+  mstrItemByItemIdExists: Boolean
+  and: [VMrpVisiterItemFilter!]
+  or: [VMrpVisiterItemFilter!]
+  not: VMrpVisiterItemFilter
 }
 
 input VShelfInventoryStatusFilter {

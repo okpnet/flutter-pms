@@ -7,6 +7,12 @@ mutation WorkPlanPageEdit(
   $transWorkPlanId: UUID!
   $transOperationsPlanId: UUID
   $mstrTaskId: UUID
+  $sequence: Int
+  $mstrEquipmentAvailableHistoryId: UUID
+  $mstrEquipmentAvailableId: UUID
+  $mstrOutsourceAvailableHistoryId: UUID
+  $mstrOutsourceAvailableId: UUID
+  $transPurchaseDetailId: UUID
   $intervalPlan: IntervalInput
   $startAt: Datetime
   $completionAt: Datetime
@@ -20,6 +26,12 @@ mutation WorkPlanPageEdit(
       transWorkPlanPatch: {
         transOperationsPlanId: $transOperationsPlanId
         mstrTaskId: $mstrTaskId
+        sequence: $sequence
+        mstrEquipmentAvailableHistoryId: $mstrEquipmentAvailableHistoryId
+        mstrEquipmentAvailableId: $mstrEquipmentAvailableId
+        mstrOutsourceAvailableHistoryId: $mstrOutsourceAvailableHistoryId
+        mstrOutsourceAvailableId: $mstrOutsourceAvailableId
+        transPurchaseDetailId: $transPurchaseDetailId
         intervalPlan: $intervalPlan
         startAt: $startAt
         completionAt: $completionAt
@@ -348,6 +360,12 @@ mutation WorkPlanPageEdit(
         }
       }
 
+      sequence
+      mstrEquipmentAvailableHistoryId
+      mstrEquipmentAvailableId
+      mstrOutsourceAvailableHistoryId
+      mstrOutsourceAvailableId
+      transPurchaseDetailId
       intervalPlan {
         seconds
         minutes

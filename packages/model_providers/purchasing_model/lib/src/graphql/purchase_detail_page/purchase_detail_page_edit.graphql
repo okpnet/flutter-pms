@@ -9,7 +9,11 @@ mutation PurchaseDetailPageEdit(
   $transResourcePlanId: UUID
   $restockingPurchase: Boolean
   $quantity: BigFloat
-  $cost: BigFloat
+  $unitPrice: BigFloat
+  $priceAdjustment: BigFloat
+  $fixedPrice: BigFloat
+  $materialSupply: Boolean
+  $paidSupply: Boolean
   $period: Datetime
   $itemHistoryId: UUID
   $itemId: UUID
@@ -23,7 +27,11 @@ mutation PurchaseDetailPageEdit(
         transResourcePlanId: $transResourcePlanId
         restockingPurchase: $restockingPurchase
         quantity: $quantity
-        cost: $cost
+        unitPrice: $unitPrice
+        priceAdjustment: $priceAdjustment
+        fixedPrice: $fixedPrice
+        materialSupply: $materialSupply
+        paidSupply: $paidSupply
         period: $period
         itemHistoryId: $itemHistoryId
         itemId: $itemId
@@ -37,7 +45,11 @@ mutation PurchaseDetailPageEdit(
       transResourcePlanId
       restockingPurchase
       quantity
-      cost
+      unitPrice
+      priceAdjustment
+      fixedPrice
+      materialSupply
+      paidSupply
       period
       itemHistoryId
       itemId

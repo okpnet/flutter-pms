@@ -1,0 +1,6 @@
+# 受注取り込み(pLines: JSON)の確認
+query MrpCheckOrderImport($pLines: JSON, $first: Int) {
+  mrpCheckOrderImport(pLines: $pLines, first: $first) {
+    nodes { lineNo itemCode itemId itemHistoryId issueCode severity message refTable refId }
+  }
+}

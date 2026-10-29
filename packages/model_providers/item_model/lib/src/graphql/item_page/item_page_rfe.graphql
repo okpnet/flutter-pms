@@ -215,6 +215,7 @@ query ItemPageRfe(
     }
 
     labelCode
+    catalogItem
 
     detailTexts: sharedTextByDetails {
       sharedTextId

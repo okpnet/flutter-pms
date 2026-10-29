@@ -1,0 +1,254 @@
+# yaml-language-server: $schema=../../schema.json
+
+# MRP(資材所要量計画)の読み込み。計算・確定・破棄などの操作はDBのメソッド(lib/src/graphql/mrp_method/)で行う。
+# 名称が必要な画面は、ID で既存の読み込みを引く。
+
+# MRP実行(trans_mrp_run)
+MrpRunPage:
+  kind: read
+  from: trans_mrp_run
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_mrp_run_id
+    - run_mode
+    - status
+    - run_at
+    - committed_at
+    - staff_history_id
+    - staff_id
+    - params
+    - suggestion_count
+    - pending_count
+    - late_count
+    - overload_count
+    - symbol
+    - remarks
+    - update_at
+
+# MRP提案(trans_mrp_suggestion)
+MrpSuggestionPage:
+  kind: read
+  from: trans_mrp_suggestion
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_mrp_suggestion_id
+    - trans_mrp_run_id
+    - parent_trans_mrp_suggestion_id
+    - seq
+    - kind
+    - decision
+    - need_user
+    - late
+    - item_history_id
+    - item_id
+    - bom_level
+    - plan_kind
+    - quantity
+    - allocated_quantity
+    - old_quantity
+    - need_at
+    - release_at
+    - due_at
+    - old_due_at
+    - trans_order_detail_id
+    - trans_unrecognized_detail_id
+    - trans_resource_plan_id
+    - parent_trans_operations_plan_id
+    - trans_purchase_detail_id
+    - trans_operations_plan_id
+    - stakeholder_history_id
+    - stakeholder_id
+    - cost
+    - asking_price
+    - trans_mrp_suggestion_task_id
+    - mstr_outsource_available_history_id
+    - mstr_outsource_available_id
+    - mstr_equipment_id
+    - load_date
+    - message
+    - applied_at
+    - symbol
+    - remarks
+    - update_at
+
+# MRP提案工程(trans_mrp_suggestion_task)
+MrpSuggestionTaskPage:
+  kind: read
+  from: trans_mrp_suggestion_task
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_mrp_suggestion_task_id
+    - trans_mrp_suggestion_id
+    - trans_work_plan_id
+    - mstr_task_id
+    - sequence
+    - mstr_equipment_available_history_id
+    - mstr_equipment_available_id
+    - mstr_outsource_available_history_id
+    - mstr_outsource_available_id
+    - outsource_trans_mrp_suggestion_id
+    - cost
+    - interval_plan
+    - start_at
+    - completion_at
+    - symbol
+    - remarks
+    - update_at
+
+# MRP引当(trans_mrp_pegging。需要の提案と供給の対応)
+MrpPeggingPage:
+  kind: read
+  from: trans_mrp_pegging
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_mrp_pegging_id
+    - trans_mrp_run_id
+    - demand_trans_mrp_suggestion_id
+    - supply_kind
+    - supply_trans_mrp_suggestion_id
+    - trans_purchase_detail_id
+    - trans_operations_plan_id
+    - quantity
+    - need_at
+    - available_at
+    - symbol
+    - remarks
+    - update_at
+
+# MRP設備負荷(trans_mrp_load。設備×日)
+MrpLoadPage:
+  kind: read
+  from: trans_mrp_load
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_mrp_load_id
+    - trans_mrp_run_id
+    - mstr_equipment_id
+    - load_date
+    - capacity_hours
+    - committed_hours
+    - planned_hours
+    - load_rate
+    - symbol
+    - remarks
+    - update_at
+
+# 要判断のMRP提案(v_mrp_pending_suggestion。1行は提案)
+MrpPendingSuggestionPage:
+  kind: read
+  from: v_mrp_pending_suggestion
+  filter: true
+  columns:
+    - trans_mrp_suggestion_id
+    - trans_mrp_run_id
+    - parent_trans_mrp_suggestion_id
+    - seq
+    - kind
+    - decision
+    - need_user
+    - late
+    - item_history_id
+    - item_id
+    - bom_level
+    - plan_kind
+    - quantity
+    - allocated_quantity
+    - old_quantity
+    - need_at
+    - release_at
+    - due_at
+    - old_due_at
+    - trans_order_detail_id
+    - trans_unrecognized_detail_id
+    - trans_resource_plan_id
+    - parent_trans_operations_plan_id
+    - trans_purchase_detail_id
+    - trans_operations_plan_id
+    - stakeholder_history_id
+    - stakeholder_id
+    - cost
+    - asking_price
+    - trans_mrp_suggestion_task_id
+    - mstr_outsource_available_history_id
+    - mstr_outsource_available_id
+    - mstr_equipment_id
+    - load_date
+    - message
+    - applied_at
+    - symbol
+    - remarks
+    - update_at
+
+# MRPの発注予定(v_mrp_purchase_plan。1行は実行×区分×仕入先×発注日×納期)
+MrpPurchasePlanPage:
+  kind: read
+  from: v_mrp_purchase_plan
+  filter: true
+  columns:
+    - plan_key
+    - trans_mrp_run_id
+    - kind
+    - stakeholder_id
+    - release_date
+    - due_date
+    - line_count
+    - amount
+    - late_count
+    - pending_count
+
+# MRPのマスタ不備(v_mrp_master_issue)
+MrpMasterIssuePage:
+  kind: read
+  from: v_mrp_master_issue
+  filter: true
+  columns:
+    - issue_key
+    - item_id
+    - item_code
+    - issue_code
+    - severity
+    - message
+    - ref_table
+    - ref_id
+
+# 資材計画の充足状況(v_resource_plan_coverage。1行は資材計画)
+ResourcePlanCoveragePage:
+  kind: read
+  from: v_resource_plan_coverage
+  filter: true
+  columns:
+    - trans_resource_plan_id
+    - item_id
+    - plan_kind
+    - trans_order_detail_id
+    - trans_unrecognized_detail_id
+    - parent_trans_operations_plan_id
+    - deadline
+    - quantity
+    - inventory_resavation
+    - issued
+    - remaining
+    - reserved_stock
+    - reserved_purchase
+    - reserved_production
+    - shortage

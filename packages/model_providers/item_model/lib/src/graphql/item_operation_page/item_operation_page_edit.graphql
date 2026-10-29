@@ -385,6 +385,7 @@ mutation ItemOperationPageEdit(
         }
 
         labelCode
+        catalogItem
 
         detailTexts: sharedTextByDetails {
           sharedTextId

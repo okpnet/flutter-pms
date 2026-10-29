@@ -1,0 +1,6 @@
+# 設備負荷(確定済み・設備×日)
+query MrpEquipmentLoad($pFrom: Date, $pTo: Date, $first: Int) {
+  mrpEquipmentLoad(pFrom: $pFrom, pTo: $pTo, first: $first) {
+    nodes { equipmentId loadDate capacityHours loadHours loadRate }
+  }
+}

@@ -18,6 +18,46 @@ scalar Datetime
 
 scalar UUID
 
+enum MstrItemSuppliersOrderBy {
+  NATURAL
+  MSTR_ITEM_SUPPLIER_ID_ASC
+  MSTR_ITEM_SUPPLIER_ID_DESC
+  PRIORITY_ASC
+  PRIORITY_DESC
+  QUALITY_INSPECTION_TIME_ASC
+  QUALITY_INSPECTION_TIME_DESC
+  MSTR_STAKEHOLDER_ID_ASC
+  MSTR_STAKEHOLDER_ID_DESC
+  MSTR_ITEM_ID_ASC
+  MSTR_ITEM_ID_DESC
+  SUPPLIER_ITEM_CODE_ASC
+  SUPPLIER_ITEM_CODE_DESC
+  DELIVERY_TIME_ASC
+  DELIVERY_TIME_DESC
+  MINIMUM_LOT_SIZE_ASC
+  MINIMUM_LOT_SIZE_DESC
+  COST_ASC
+  COST_DESC
+  ASKING_PRICE_ASC
+  ASKING_PRICE_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum MstrStakeholdersOrderBy {
   NATURAL
   MSTR_STAKEHOLDER_ID_ASC
@@ -70,14 +110,22 @@ enum TransPurchaseDetailsOrderBy {
   RESTOCKING_PURCHASE_DESC
   QUANTITY_ASC
   QUANTITY_DESC
-  COST_ASC
-  COST_DESC
+  UNIT_PRICE_ASC
+  UNIT_PRICE_DESC
+  PRICE_ADJUSTMENT_ASC
+  PRICE_ADJUSTMENT_DESC
+  FIXED_PRICE_ASC
+  FIXED_PRICE_DESC
   PERIOD_ASC
   PERIOD_DESC
   ITEM_HISTORY_ID_ASC
   ITEM_HISTORY_ID_DESC
   ITEM_ID_ASC
   ITEM_ID_DESC
+  MATERIAL_SUPPLY_ASC
+  MATERIAL_SUPPLY_DESC
+  PAID_SUPPLY_ASC
+  PAID_SUPPLY_DESC
   SYMBOL_ASC
   SYMBOL_DESC
   REMARKS_ASC
@@ -168,14 +216,22 @@ enum TransUnrecognizedDetailsOrderBy {
   TRANS_UNRECOGNIZED_ID_DESC
   QUANTITY_ASC
   QUANTITY_DESC
-  COST_ASC
-  COST_DESC
+  UNIT_PRICE_ASC
+  UNIT_PRICE_DESC
+  PRICE_ADJUSTMENT_ASC
+  PRICE_ADJUSTMENT_DESC
+  FIXED_PRICE_ASC
+  FIXED_PRICE_DESC
   DEADLINE_ASC
   DEADLINE_DESC
   ITEM_HISTORY_ID_ASC
   ITEM_HISTORY_ID_DESC
   ITEM_ID_ASC
   ITEM_ID_DESC
+  MATERIAL_SUPPLY_ASC
+  MATERIAL_SUPPLY_DESC
+  PAID_SUPPLY_ASC
+  PAID_SUPPLY_DESC
   SYMBOL_ASC
   SYMBOL_DESC
   REMARKS_ASC
@@ -306,6 +362,41 @@ type InfoAddress {
   sharedAppellationByBuilding: SharedAppellation
 }
 
+type Interval {
+  seconds: Float
+  minutes: Int
+  hours: Int
+  days: Int
+  months: Int
+  years: Int
+}
+
+type MstrItemSupplier {
+  mstrItemSupplierId: UUID!
+  priority: Int
+  qualityInspectionTime: Interval
+  mstrStakeholderId: UUID!
+  mstrItemId: UUID!
+  supplierItemCode: String
+  deliveryTime: Interval
+  minimumLotSize: BigFloat!
+  cost: BigFloat!
+  askingPrice: Boolean
+  revision: Int
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+}
+
+type MstrItemSuppliersConnection {
+  nodes: [MstrItemSupplier]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type MstrShippingKind {
   mstrShippingKindId: UUID!
   code: String!
@@ -349,6 +440,7 @@ type MstrStakeholdersConnection {
 }
 
 type Mutation {
+  updateMstrItemSupplierByMstrItemSupplierId(input: UpdateMstrItemSupplierByMstrItemSupplierIdInput!): UpdateMstrItemSupplierPayload
   updateMstrStakeholderByMstrStakeholderId(input: UpdateMstrStakeholderByMstrStakeholderIdInput!): UpdateMstrStakeholderPayload
   updateTransPurchaseByTransPurchaseId(input: UpdateTransPurchaseByTransPurchaseIdInput!): UpdateTransPurchasePayload
   updateTransPurchaseDetailByTransPurchaseDetailId(input: UpdateTransPurchaseDetailByTransPurchaseDetailIdInput!): UpdateTransPurchaseDetailPayload
@@ -363,6 +455,7 @@ type PageInfo {
 }
 
 type Query {
+  allMstrItemSuppliers(first: Int, offset: Int, orderBy: [MstrItemSuppliersOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrItemSupplierFilter): MstrItemSuppliersConnection
   allMstrStakeholders(first: Int, offset: Int, orderBy: [MstrStakeholdersOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrStakeholderFilter): MstrStakeholdersConnection
   allTransPurchases(first: Int, offset: Int, orderBy: [TransPurchasesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransPurchaseFilter): TransPurchasesConnection
   allTransPurchaseDetails(first: Int, offset: Int, orderBy: [TransPurchaseDetailsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransPurchaseDetailFilter): TransPurchaseDetailsConnection
@@ -371,6 +464,7 @@ type Query {
   allTransUnrecognizedDetails(first: Int, offset: Int, orderBy: [TransUnrecognizedDetailsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransUnrecognizedDetailFilter): TransUnrecognizedDetailsConnection
   allVPurchaseAmounts(first: Int, offset: Int, orderBy: [VPurchaseAmountsOrderBy!] = [NATURAL], filter: VPurchaseAmountFilter): VPurchaseAmountsConnection
   allVPurchaseDeliveryCompliances(first: Int, offset: Int, orderBy: [VPurchaseDeliveryCompliancesOrderBy!] = [NATURAL], filter: VPurchaseDeliveryComplianceFilter): VPurchaseDeliveryCompliancesConnection
+  mstrItemSupplierByMstrItemSupplierId(mstrItemSupplierId: UUID!): MstrItemSupplier
   mstrStakeholderByMstrStakeholderId(mstrStakeholderId: UUID!): MstrStakeholder
   transPurchaseByTransPurchaseId(transPurchaseId: UUID!): TransPurchase
   transPurchaseDetailByTransPurchaseDetailId(transPurchaseDetailId: UUID!): TransPurchaseDetail
@@ -427,10 +521,14 @@ type TransPurchaseDetail {
   transResourcePlanId: UUID
   restockingPurchase: Boolean
   quantity: BigFloat
-  cost: BigFloat!
+  unitPrice: BigFloat!
+  priceAdjustment: BigFloat
+  fixedPrice: BigFloat
   period: Datetime
   itemHistoryId: UUID!
   itemId: UUID!
+  materialSupply: Boolean
+  paidSupply: Boolean
   symbol: String
   remarks: String
   updateAt: Datetime
@@ -499,10 +597,14 @@ type TransUnrecognizedDetail {
   transUnrecognizedDetailId: UUID!
   transUnrecognizedId: UUID!
   quantity: BigFloat
-  cost: BigFloat
+  unitPrice: BigFloat!
+  priceAdjustment: BigFloat
+  fixedPrice: BigFloat
   deadline: Datetime
   itemHistoryId: UUID!
   itemId: UUID!
+  materialSupply: Boolean
+  paidSupply: Boolean
   symbol: String
   remarks: String
   updateAt: Datetime
@@ -522,6 +624,10 @@ type TransUnrecognizedsConnection {
   nodes: [TransUnrecognized]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type UpdateMstrItemSupplierPayload {
+  mstrItemSupplier: MstrItemSupplier
 }
 
 type UpdateMstrStakeholderPayload {
@@ -712,6 +818,12 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  historyMstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrWorkCalendarsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrWorkCalendarsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrItemOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transTextsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -955,6 +1067,12 @@ input HistoryInfoStaffFilter {
   infoStaffsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   infoDepartmentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   infoOfficesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
+  transMrpRunsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpSuggestionTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryInfoStaffFilter!]
@@ -1028,6 +1146,67 @@ input IntFilter {
   greaterThanOrEqualTo: Int
 }
 
+input IntervalFilter {
+  isNull: Boolean
+  equalTo: IntervalInput
+  notEqualTo: IntervalInput
+  distinctFrom: IntervalInput
+  notDistinctFrom: IntervalInput
+  in: [IntervalInput!]
+  notIn: [IntervalInput!]
+  lessThan: IntervalInput
+  lessThanOrEqualTo: IntervalInput
+  greaterThan: IntervalInput
+  greaterThanOrEqualTo: IntervalInput
+}
+
+input IntervalInput {
+  seconds: Float
+  minutes: Int
+  hours: Int
+  days: Int
+  months: Int
+  years: Int
+}
+
+input MstrItemSupplierFilter {
+  mstrItemSupplierId: UUIDFilter
+  priority: IntFilter
+  qualityInspectionTime: IntervalFilter
+  mstrStakeholderId: UUIDFilter
+  mstrItemId: UUIDFilter
+  supplierItemCode: StringFilter
+  deliveryTime: IntervalFilter
+  minimumLotSize: BigFloatFilter
+  cost: BigFloatFilter
+  askingPrice: BooleanFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyMstrItemSuppliersByMstrItemSupplierIdExist: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrItemSupplierFilter!]
+  or: [MstrItemSupplierFilter!]
+  not: MstrItemSupplierFilter
+}
+
+input MstrItemSupplierPatch {
+  priority: Int
+  qualityInspectionTime: IntervalInput
+  mstrStakeholderId: UUID
+  mstrItemId: UUID
+  supplierItemCode: String
+  deliveryTime: IntervalInput
+  minimumLotSize: BigFloat
+  cost: BigFloat
+  askingPrice: Boolean
+  remarks: String
+}
+
 input MstrShippingKindFilter {
   mstrShippingKindId: UUIDFilter
   code: StringFilter
@@ -1073,7 +1252,7 @@ input MstrStakeholderFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
-  mstrTaskLocationsByMstrStakeholderIdExist: Boolean
+  mstrItemSuppliersByMstrStakeholderIdExist: Boolean
   historyMstrStakeholdersByMstrStakeholderIdExist: Boolean
   mstrOutsourceAvailablesByMstrStakeholderIdExist: Boolean
   mstrStakeholderProvisionsByMstrStakeholderIdExist: Boolean
@@ -1081,6 +1260,8 @@ input MstrStakeholderFilter {
   mstrInspectionsByExternalInspectionExist: Boolean
   mstrStakeholderContactsByMstrStakeholderIdExist: Boolean
   vInspectionStatusesBySupplierIdExist: Boolean
+  vMrpPendingSuggestionsByStakeholderIdExist: Boolean
+  vMrpPurchasePlansByStakeholderIdExist: Boolean
   vPurchaseAmountsBySupplierIdExist: Boolean
   vPurchaseDeliveryCompliancesBySupplierIdExist: Boolean
   vSalesRecordsByCustomerIdExist: Boolean
@@ -1355,10 +1536,14 @@ input TransPurchaseDetailFilter {
   transResourcePlanId: UUIDFilter
   restockingPurchase: BooleanFilter
   quantity: BigFloatFilter
-  cost: BigFloatFilter
+  unitPrice: BigFloatFilter
+  priceAdjustment: BigFloatFilter
+  fixedPrice: BigFloatFilter
   period: DatetimeFilter
   itemHistoryId: UUIDFilter
   itemId: UUIDFilter
+  materialSupply: BooleanFilter
+  paidSupply: BooleanFilter
   symbol: StringFilter
   remarks: StringFilter
   updateAt: DatetimeFilter
@@ -1368,6 +1553,9 @@ input TransPurchaseDetailFilter {
   transInspectSchDetailsByTransPurchaseDetailIdExist: Boolean
   transPurchaseRecsByTransPurchaseDetailIdExist: Boolean
   transPurchaseRezsByTransPurchaseDetailIdExist: Boolean
+  transWorkPlansByTransPurchaseDetailIdExist: Boolean
+  transMrpSuggestionsByTransPurchaseDetailIdExist: Boolean
+  transMrpPeggingsByTransPurchaseDetailIdExist: Boolean
   vPurchaseDetailPurchaseRecCountByTransPurchaseDetailId: VPurchaseDetailPurchaseRecCountFilter
   vPurchaseDetailPurchaseRecCountByTransPurchaseDetailIdExists: Boolean
   vPurchaseDetailPurchaseRezCountByTransPurchaseDetailId: VPurchaseDetailPurchaseRezCountFilter
@@ -1385,10 +1573,14 @@ input TransPurchaseDetailPatch {
   transResourcePlanId: UUID
   restockingPurchase: Boolean
   quantity: BigFloat
-  cost: BigFloat
+  unitPrice: BigFloat
+  priceAdjustment: BigFloat
+  fixedPrice: BigFloat
   period: Datetime
   itemHistoryId: UUID
   itemId: UUID
+  materialSupply: Boolean
+  paidSupply: Boolean
   remarks: String
 }
 
@@ -1470,10 +1662,14 @@ input TransUnrecognizedDetailFilter {
   transUnrecognizedDetailId: UUIDFilter
   transUnrecognizedId: UUIDFilter
   quantity: BigFloatFilter
-  cost: BigFloatFilter
+  unitPrice: BigFloatFilter
+  priceAdjustment: BigFloatFilter
+  fixedPrice: BigFloatFilter
   deadline: DatetimeFilter
   itemHistoryId: UUIDFilter
   itemId: UUIDFilter
+  materialSupply: BooleanFilter
+  paidSupply: BooleanFilter
   symbol: StringFilter
   remarks: StringFilter
   updateAt: DatetimeFilter
@@ -1481,6 +1677,7 @@ input TransUnrecognizedDetailFilter {
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
   transResourcePlansByTransUnrecognizedDetailIdExist: Boolean
+  transMrpSuggestionsByTransUnrecognizedDetailIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransUnrecognizedDetailFilter!]
@@ -1491,10 +1688,14 @@ input TransUnrecognizedDetailFilter {
 input TransUnrecognizedDetailPatch {
   transUnrecognizedId: UUID
   quantity: BigFloat
-  cost: BigFloat
+  unitPrice: BigFloat
+  priceAdjustment: BigFloat
+  fixedPrice: BigFloat
   deadline: Datetime
   itemHistoryId: UUID
   itemId: UUID
+  materialSupply: Boolean
+  paidSupply: Boolean
   remarks: String
 }
 
@@ -1567,6 +1768,11 @@ input UUIDListFilter {
   anyLessThanOrEqualTo: UUID
   anyGreaterThan: UUID
   anyGreaterThanOrEqualTo: UUID
+}
+
+input UpdateMstrItemSupplierByMstrItemSupplierIdInput {
+  mstrItemSupplierPatch: MstrItemSupplierPatch!
+  mstrItemSupplierId: UUID!
 }
 
 input UpdateMstrStakeholderByMstrStakeholderIdInput {

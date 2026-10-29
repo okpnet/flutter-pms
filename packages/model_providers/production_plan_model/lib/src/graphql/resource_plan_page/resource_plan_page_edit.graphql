@@ -7,6 +7,7 @@ mutation ResourcePlanPageEdit(
   $transResourcePlanId: UUID!
   $transOrderDetailId: UUID
   $transUnrecognizedDetailId: UUID
+  $parentTransOperationsPlanId: UUID
   $registerAt: Datetime
   $quantity: BigFloat
   $inventoryResavation: BigFloat
@@ -21,6 +22,7 @@ mutation ResourcePlanPageEdit(
       transResourcePlanPatch: {
         transOrderDetailId: $transOrderDetailId
         transUnrecognizedDetailId: $transUnrecognizedDetailId
+        parentTransOperationsPlanId: $parentTransOperationsPlanId
         registerAt: $registerAt
         quantity: $quantity
         inventoryResavation: $inventoryResavation
@@ -35,6 +37,7 @@ mutation ResourcePlanPageEdit(
       transResourcePlanId
       transOrderDetailId
       transUnrecognizedDetailId
+      parentTransOperationsPlanId
       registerAt
       quantity
       inventoryResavation

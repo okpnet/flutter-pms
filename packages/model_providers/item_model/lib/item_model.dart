@@ -3,6 +3,7 @@ library;
 
 export 'src/contents/item_kind_page_filter_spec.dart';
 export 'src/contents/item_kind_page_keyname.dart';
+export 'src/contents/item_on_hand_page_filter_spec.dart';
 export 'src/contents/item_operation_page_filter_spec.dart';
 export 'src/contents/item_operation_task_page_filter_spec.dart';
 export 'src/contents/item_page_filter_spec.dart';
@@ -17,6 +18,7 @@ export 'src/contents/task_resource_page_filter_spec.dart';
 export 'src/graphql/item_kind_page/item_kind_page_edit.graphql.dart';
 export 'src/graphql/item_kind_page/item_kind_page_read.graphql.dart';
 export 'src/graphql/item_kind_page/item_kind_page_rfe.graphql.dart';
+export 'src/graphql/item_on_hand_page/item_on_hand_page_read.graphql.dart';
 export 'src/graphql/item_operation_page/item_operation_page_edit.graphql.dart';
 export 'src/graphql/item_operation_page/item_operation_page_read.graphql.dart';
 export 'src/graphql/item_operation_page/item_operation_page_rfe.graphql.dart';

@@ -1,0 +1,57 @@
+# item_supplier_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ItemSupplierPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ItemSupplierPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: MstrItemSupplierFilter = {and: []}
+  $orderBy: [MstrItemSuppliersOrderBy!]
+  $mstrItemId: UUID!
+  $removed: Boolean = false
+) {
+  allMstrItemSuppliers(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, { mstrItemId: { equalTo: $mstrItemId } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrItemSupplierId
+      mstrItemId
+      mstrStakeholderId
+      priority
+      supplierItemCode
+      qualityInspectionTime {
+        seconds
+        minutes
+        hours
+        days
+        months
+        years
+      }
+      deliveryTime {
+        seconds
+        minutes
+        hours
+        days
+        months
+        years
+      }
+      minimumLotSize
+      cost
+      askingPrice
+      revision
+      symbol
+      remarks
+      updateAt
+      remove
+    }
+  }
+}

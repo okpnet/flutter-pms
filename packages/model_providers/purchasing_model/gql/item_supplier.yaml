@@ -1,0 +1,52 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 品目の仕入先(利害関係者と品目の関係)の読み込み。品目の編集時に追加する。
+# 名称が必要な画面は、ID で既存の読み込みを引く。
+ItemSupplierPage:
+  kind: read
+  from: mstr_item_supplier
+  filter: true
+  requiredWhere:
+    - mstr_item_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_supplier_id
+    - mstr_item_id
+    - mstr_stakeholder_id
+    - priority
+    - supplier_item_code
+    - quality_inspection_time
+    - delivery_time
+    - minimum_lot_size
+    - cost
+    - asking_price
+    - revision
+    - symbol
+    - remarks
+    - update_at
+
+# 品目の仕入先の書き込み
+ItemSupplierPageEdit:
+  kind: edit
+  from: mstr_item_supplier
+  requiredWhere:
+    - mstr_item_supplier_id
+  generateRfe: true
+  columns:
+    - mstr_item_supplier_id
+    - mstr_item_id
+    - mstr_stakeholder_id
+    - priority
+    - supplier_item_code
+    - quality_inspection_time
+    - delivery_time
+    - minimum_lot_size
+    - cost
+    - asking_price
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

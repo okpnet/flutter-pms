@@ -12,9 +12,13 @@ scalar BigInt
 
 scalar Cursor
 
+scalar Date
+
 scalar Datetime
 
 scalar JSON
+
+scalar Time
 
 scalar UUID
 
@@ -268,6 +272,34 @@ enum MstrInspectionsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum MstrItemTaskCostsOrderBy {
+  NATURAL
+  MSTR_ITEM_TASK_COST_ID_ASC
+  MSTR_ITEM_TASK_COST_ID_DESC
+  MSTR_ITEM_ID_ASC
+  MSTR_ITEM_ID_DESC
+  MSTR_TASK_LOCATION_ID_ASC
+  MSTR_TASK_LOCATION_ID_DESC
+  COST_ASC
+  COST_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum MstrLicensesOrderBy {
   NATURAL
   MSTR_LICENSE_ID_ASC
@@ -388,6 +420,38 @@ enum MstrStaffLicensesOrderBy {
   REVOCATION_DESC
   REVOCATION_AT_ASC
   REVOCATION_AT_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum MstrWorkCalendarsOrderBy {
+  NATURAL
+  MSTR_WORK_CALENDAR_ID_ASC
+  MSTR_WORK_CALENDAR_ID_DESC
+  WORK_DATE_ASC
+  WORK_DATE_DESC
+  MSTR_EQUIPMENT_ID_ASC
+  MSTR_EQUIPMENT_ID_DESC
+  START_TIME_ASC
+  START_TIME_DESC
+  WORK_INTERVAL_ASC
+  WORK_INTERVAL_DESC
+  HOLIDAY_ASC
+  HOLIDAY_DESC
   REVISION_ASC
   REVISION_DESC
   SYMBOL_ASC
@@ -919,6 +983,7 @@ type MstrItem {
   identification: String
   controlCode: String
   labelCode: String
+  catalogItem: Boolean
   sharedUnitId: UUID
   symbol: String
   remarks: String
@@ -936,6 +1001,26 @@ type MstrItemKind {
   mstrItemKindId: UUID!
   code: String
   sharedAppellationByNames: SharedAppellation
+}
+
+type MstrItemTaskCost {
+  mstrItemTaskCostId: UUID!
+  mstrItemId: UUID!
+  mstrTaskLocationId: UUID!
+  cost: BigFloat
+  revision: Int
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+}
+
+type MstrItemTaskCostsConnection {
+  nodes: [MstrItemTaskCost]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type MstrLicense {
@@ -1062,6 +1147,28 @@ type MstrStaffLicensesConnection {
   totalCount: Int!
 }
 
+type MstrWorkCalendar {
+  mstrWorkCalendarId: UUID!
+  workDate: Date
+  mstrEquipmentId: UUID
+  startTime: Time
+  workInterval: Interval
+  holiday: Boolean
+  revision: Int
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+}
+
+type MstrWorkCalendarsConnection {
+  nodes: [MstrWorkCalendar]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type Mutation {
   updateMstrCapabilityByMstrCapabilityId(input: UpdateMstrCapabilityByMstrCapabilityIdInput!): UpdateMstrCapabilityPayload
   updateMstrEquipmentByMstrEquipmentId(input: UpdateMstrEquipmentByMstrEquipmentIdInput!): UpdateMstrEquipmentPayload
@@ -1070,11 +1177,13 @@ type Mutation {
   updateMstrInspectionKindByMstrInspectionKindId(input: UpdateMstrInspectionKindByMstrInspectionKindIdInput!): UpdateMstrInspectionKindPayload
   updateMstrInspectionOperationByMstrInspectionOperationId(input: UpdateMstrInspectionOperationByMstrInspectionOperationIdInput!): UpdateMstrInspectionOperationPayload
   updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId(input: UpdateMstrInspectionOperationTaskByMstrInspectionOperationTaskIdInput!): UpdateMstrInspectionOperationTaskPayload
+  updateMstrItemTaskCostByMstrItemTaskCostId(input: UpdateMstrItemTaskCostByMstrItemTaskCostIdInput!): UpdateMstrItemTaskCostPayload
   updateMstrLicenseByMstrLicenseId(input: UpdateMstrLicenseByMstrLicenseIdInput!): UpdateMstrLicensePayload
   updateMstrLocationByMstrLocationId(input: UpdateMstrLocationByMstrLocationIdInput!): UpdateMstrLocationPayload
   updateMstrLocationTreeByMstrLocationTreeId(input: UpdateMstrLocationTreeByMstrLocationTreeIdInput!): UpdateMstrLocationTreePayload
   updateMstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId(input: UpdateMstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffIdInput!): UpdateMstrStaffCapabilityPayload
   updateMstrStaffLicenseByMstrStaffLicenseId(input: UpdateMstrStaffLicenseByMstrStaffLicenseIdInput!): UpdateMstrStaffLicensePayload
+  updateMstrWorkCalendarByMstrWorkCalendarId(input: UpdateMstrWorkCalendarByMstrWorkCalendarIdInput!): UpdateMstrWorkCalendarPayload
   updateTransFileByTransFileId(input: UpdateTransFileByTransFileIdInput!): UpdateTransFilePayload
   updateTransInspectImpFileByTransInspectImpFileId(input: UpdateTransInspectImpFileByTransInspectImpFileIdInput!): UpdateTransInspectImpFilePayload
   updateTransInspectRecordByTransInspectRecordId(input: UpdateTransInspectRecordByTransInspectRecordIdInput!): UpdateTransInspectRecordPayload
@@ -1095,8 +1204,10 @@ type Query {
   allMstrInspectionKinds(first: Int, offset: Int, orderBy: [MstrInspectionKindsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrInspectionKindFilter): MstrInspectionKindsConnection
   allMstrInspectionOperations(first: Int, offset: Int, orderBy: [MstrInspectionOperationsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrInspectionOperationFilter): MstrInspectionOperationsConnection
   allMstrInspectionOperationTasks(first: Int, offset: Int, orderBy: [MstrInspectionOperationTasksOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrInspectionOperationTaskFilter): MstrInspectionOperationTasksConnection
+  allMstrItemTaskCosts(first: Int, offset: Int, orderBy: [MstrItemTaskCostsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrItemTaskCostFilter): MstrItemTaskCostsConnection
   allMstrLicenses(first: Int, offset: Int, orderBy: [MstrLicensesOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrLicenseFilter): MstrLicensesConnection
   allMstrLocations(first: Int, offset: Int, orderBy: [MstrLocationsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrLocationFilter): MstrLocationsConnection
+  allMstrWorkCalendars(first: Int, offset: Int, orderBy: [MstrWorkCalendarsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrWorkCalendarFilter): MstrWorkCalendarsConnection
   allTransFiles(first: Int, offset: Int, orderBy: [TransFilesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransFileFilter): TransFilesConnection
   allTransInspectImpFiles(first: Int, offset: Int, orderBy: [TransInspectImpFilesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransInspectImpFileFilter): TransInspectImpFilesConnection
   allTransInspectRecords(first: Int, offset: Int, orderBy: [TransInspectRecordsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransInspectRecordFilter): TransInspectRecordsConnection
@@ -1110,11 +1221,13 @@ type Query {
   mstrInspectionKindByMstrInspectionKindId(mstrInspectionKindId: UUID!): MstrInspectionKind
   mstrInspectionOperationByMstrInspectionOperationId(mstrInspectionOperationId: UUID!): MstrInspectionOperation
   mstrInspectionOperationTaskByMstrInspectionOperationTaskId(mstrInspectionOperationTaskId: UUID!): MstrInspectionOperationTask
+  mstrItemTaskCostByMstrItemTaskCostId(mstrItemTaskCostId: UUID!): MstrItemTaskCost
   mstrLicenseByMstrLicenseId(mstrLicenseId: UUID!): MstrLicense
   mstrLocationByMstrLocationId(mstrLocationId: UUID!): MstrLocation
   mstrLocationTreeByMstrLocationTreeId(mstrLocationTreeId: UUID!): MstrLocationTree
   mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId(mstrStaffCapabilityId: UUID!, infoStaffId: UUID!): MstrStaffCapability
   mstrStaffLicenseByMstrStaffLicenseId(mstrStaffLicenseId: UUID!): MstrStaffLicense
+  mstrWorkCalendarByMstrWorkCalendarId(mstrWorkCalendarId: UUID!): MstrWorkCalendar
   transFileByTransFileId(transFileId: UUID!): TransFile
   transInspectImpFileByTransInspectImpFileId(transInspectImpFileId: UUID!): TransInspectImpFile
   transInspectRecordByTransInspectRecordId(transInspectRecordId: UUID!): TransInspectRecord
@@ -1352,6 +1465,10 @@ type UpdateMstrInspectionPayload {
   mstrInspection: MstrInspection
 }
 
+type UpdateMstrItemTaskCostPayload {
+  mstrItemTaskCost: MstrItemTaskCost
+}
+
 type UpdateMstrLicensePayload {
   mstrLicense: MstrLicense
 }
@@ -1370,6 +1487,10 @@ type UpdateMstrStaffCapabilityPayload {
 
 type UpdateMstrStaffLicensePayload {
   mstrStaffLicense: MstrStaffLicense
+}
+
+type UpdateMstrWorkCalendarPayload {
+  mstrWorkCalendar: MstrWorkCalendar
 }
 
 type UpdateTransFilePayload {
@@ -1555,6 +1676,20 @@ input BooleanFilter {
   greaterThanOrEqualTo: Boolean
 }
 
+input DateFilter {
+  isNull: Boolean
+  equalTo: Date
+  notEqualTo: Date
+  distinctFrom: Date
+  notDistinctFrom: Date
+  in: [Date!]
+  notIn: [Date!]
+  lessThan: Date
+  lessThanOrEqualTo: Date
+  greaterThan: Date
+  greaterThanOrEqualTo: Date
+}
+
 input DatetimeFilter {
   isNull: Boolean
   equalTo: Datetime
@@ -1585,6 +1720,12 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  historyMstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrWorkCalendarsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrWorkCalendarsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrItemOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transTextsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1828,6 +1969,12 @@ input HistoryInfoStaffFilter {
   infoStaffsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   infoDepartmentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   infoOfficesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
+  transMrpRunsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpSuggestionTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryInfoStaffFilter!]
@@ -2203,12 +2350,14 @@ input MstrEquipmentFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  mstrWorkCalendarsByMstrEquipmentIdExist: Boolean
   mstrEquipmentEnvelopesByMstrEquipmentIdExist: Boolean
   historyMstrEquipmentsByMstrEquipmentIdExist: Boolean
   mstrInspectionOperationsByMstrEquipmentIdExist: Boolean
   mstrEquipmentProvisionsByMstrEquipmentIdExist: Boolean
-  mstrTaskLocationsByMstrEquipmentIdExist: Boolean
   mstrEquipmentAvailablesByMstrEquipmentIdExist: Boolean
+  transMrpSuggestionsByMstrEquipmentIdExist: Boolean
+  transMrpLoadsByMstrEquipmentIdExist: Boolean
   vEquipmentEquipmentAvailableCountByMstrEquipmentId: VEquipmentEquipmentAvailableCountFilter
   vEquipmentEquipmentAvailableCountByMstrEquipmentIdExists: Boolean
   vEquipmentEquipmentProvisionCountByMstrEquipmentId: VEquipmentEquipmentProvisionCountFilter
@@ -2471,6 +2620,7 @@ input MstrItemFilter {
   mstrManufacturerId: UUIDFilter
   names: UUIDFilter
   labelCode: StringFilter
+  catalogItem: BooleanFilter
   details: UUIDFilter
   sharedUnitId: UUIDFilter
   mstrItemLotId: UUIDFilter
@@ -2481,6 +2631,8 @@ input MstrItemFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  mstrItemSuppliersByMstrItemIdExist: Boolean
+  mstrItemTaskCostsByMstrItemIdExist: Boolean
   mstrItemOperationsByMstrItemIdExist: Boolean
   mstrItemHcdcsByMstrItemIdExist: Boolean
   mstrItemProvisionsByMstrItemIdExist: Boolean
@@ -2488,7 +2640,7 @@ input MstrItemFilter {
   mstrInspectionsByMstrItemIdExist: Boolean
   mstrItemActualSizesByMstrItemIdExist: Boolean
   mstrItemOperationTasksByMstrItemIdExist: Boolean
-  mstrItemTreeByMstrItemIdExists: Boolean
+  mstrItemTreesByMstrItemIdExist: Boolean
   mstrItemTreesByParentMstrItemIdExist: Boolean
   mstrEquipmentsByMstrItemIdExist: Boolean
   vItemDescendantByAncestorMstrItemIdExists: Boolean
@@ -2499,8 +2651,13 @@ input MstrItemFilter {
   vItemItemOperationCountByMstrItemIdExists: Boolean
   vItemItemOperationTaskCountByMstrItemIdExists: Boolean
   vItemItemProvisionCountByMstrItemIdExists: Boolean
+  vItemOnHandByItemIdExists: Boolean
+  vMrpMasterIssuesByItemIdExist: Boolean
+  vMrpPendingSuggestionsByItemIdExist: Boolean
+  vMrpVisiterItemsByItemIdExist: Boolean
   vPurchaseAmountsByMstrItemIdExist: Boolean
   vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
+  vResourcePlanCoveragesByItemIdExist: Boolean
   vSalesRecordsByMstrItemIdExist: Boolean
   vShippingDeliveryCompliancesByMstrItemIdExist: Boolean
   vShippingOrderStatusesByMstrItemIdExist: Boolean
@@ -2566,6 +2723,32 @@ input MstrItemOnMstrEquipmentForMstrEquipmentFk2UsingMstrItemPkcUpdate {
 input MstrItemOnMstrInspectionForMstrInspectionFk3UsingMstrItemPkcUpdate {
   mstrItemPatch: updateMstrItemOnMstrInspectionForMstrInspectionFk3Patch!
   mstrItemId: UUID!
+}
+
+input MstrItemTaskCostFilter {
+  mstrItemTaskCostId: UUIDFilter
+  mstrItemId: UUIDFilter
+  mstrTaskLocationId: UUIDFilter
+  cost: BigFloatFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyMstrItemTaskCostsByMstrItemTaskCostIdExist: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrItemTaskCostFilter!]
+  or: [MstrItemTaskCostFilter!]
+  not: MstrItemTaskCostFilter
+}
+
+input MstrItemTaskCostPatch {
+  mstrItemId: UUID
+  mstrTaskLocationId: UUID
+  cost: BigFloat
+  remarks: String
 }
 
 input MstrLicenseFilter {
@@ -2775,6 +2958,37 @@ input MstrStaffLicensePatch {
   abeyanceAt: Datetime
   revocation: Boolean
   revocationAt: Datetime
+  remarks: String
+}
+
+input MstrWorkCalendarFilter {
+  mstrWorkCalendarId: UUIDFilter
+  workDate: DateFilter
+  mstrEquipmentId: UUIDFilter
+  startTime: TimeFilter
+  workInterval: IntervalFilter
+  holiday: BooleanFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyMstrWorkCalendarsByMstrWorkCalendarIdExist: Boolean
+  mstrEquipmentByMstrEquipmentIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrWorkCalendarFilter!]
+  or: [MstrWorkCalendarFilter!]
+  not: MstrWorkCalendarFilter
+}
+
+input MstrWorkCalendarPatch {
+  workDate: Date
+  mstrEquipmentId: UUID
+  startTime: Time
+  workInterval: IntervalInput
+  holiday: Boolean
   remarks: String
 }
 
@@ -3156,6 +3370,20 @@ input StringFilter {
   lessThanOrEqualToInsensitive: String
   greaterThanInsensitive: String
   greaterThanOrEqualToInsensitive: String
+}
+
+input TimeFilter {
+  isNull: Boolean
+  equalTo: Time
+  notEqualTo: Time
+  distinctFrom: Time
+  notDistinctFrom: Time
+  in: [Time!]
+  notIn: [Time!]
+  lessThan: Time
+  lessThanOrEqualTo: Time
+  greaterThan: Time
+  greaterThanOrEqualTo: Time
 }
 
 input TransFileFilter {
@@ -3620,6 +3848,11 @@ input UpdateMstrInspectionOperationTaskByMstrInspectionOperationTaskIdInput {
   mstrInspectionOperationTaskId: UUID!
 }
 
+input UpdateMstrItemTaskCostByMstrItemTaskCostIdInput {
+  mstrItemTaskCostPatch: MstrItemTaskCostPatch!
+  mstrItemTaskCostId: UUID!
+}
+
 input UpdateMstrLicenseByMstrLicenseIdInput {
   mstrLicensePatch: MstrLicensePatch!
   mstrLicenseId: UUID!
@@ -3644,6 +3877,11 @@ input UpdateMstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffIdInput {
 input UpdateMstrStaffLicenseByMstrStaffLicenseIdInput {
   mstrStaffLicensePatch: MstrStaffLicensePatch!
   mstrStaffLicenseId: UUID!
+}
+
+input UpdateMstrWorkCalendarByMstrWorkCalendarIdInput {
+  mstrWorkCalendarPatch: MstrWorkCalendarPatch!
+  mstrWorkCalendarId: UUID!
 }
 
 input UpdateTransFileByTransFileIdInput {
@@ -3994,6 +4232,7 @@ input updateMstrItemOnMstrEquipmentForMstrEquipmentFk2Patch {
   identification: String
   controlCode: String
   labelCode: String
+  catalogItem: Boolean
   sharedUnitId: UUID
   remarks: String
   mstrManufacturerToMstrManufacturerId: MstrItemFk6Input
@@ -4007,6 +4246,7 @@ input updateMstrItemOnMstrInspectionForMstrInspectionFk3Patch {
   identification: String
   controlCode: String
   labelCode: String
+  catalogItem: Boolean
   sharedUnitId: UUID
   remarks: String
   mstrManufacturerToMstrManufacturerId: MstrItemFk6Input

@@ -57,6 +57,7 @@ mutation InspectionItemPageEdit(
   $itemsNicknameJa: String!
   $itemsNicknameEn: String!
   $itemsLabelCode: String
+  $itemsCatalogItem: Boolean
   $itemsDetailTextsSharedTextId: UUID!
   $itemsDetailTextsJa: String!
   $itemsDetailTextsEn: String!
@@ -266,6 +267,7 @@ mutation InspectionItemPageEdit(
               }
 
               labelCode: $itemsLabelCode
+              catalogItem: $itemsCatalogItem
 
               sharedTextToDetails: {
                 updateBySharedTextId: {
@@ -730,6 +732,7 @@ mutation InspectionItemPageEdit(
         }
 
         labelCode
+        catalogItem
 
         detailTexts: sharedTextByDetails {
           sharedTextId

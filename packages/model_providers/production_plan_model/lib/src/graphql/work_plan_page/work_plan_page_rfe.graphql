@@ -329,6 +329,12 @@ query WorkPlanPageRfe(
       }
     }
 
+    sequence
+    mstrEquipmentAvailableHistoryId
+    mstrEquipmentAvailableId
+    mstrOutsourceAvailableHistoryId
+    mstrOutsourceAvailableId
+    transPurchaseDetailId
     intervalPlan {
       seconds
       minutes

@@ -1,0 +1,6 @@
+# MRP計算。結果は trans_mrp_* に保存し、計画データは変更しない。pMode 1:受注MRP 2:再MRP
+mutation MrpRun($input: MrpRunInput!) {
+  mrpRun(input: $input) {
+    transMrpRun { transMrpRunId runMode status runAt committedAt staffHistoryId staffId params suggestionCount pendingCount lateCount overloadCount symbol remarks updateAt }
+  }
+}

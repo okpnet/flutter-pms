@@ -10,6 +10,7 @@ query ResourcePlanPageRfe(
     transResourcePlanId
     transOrderDetailId
     transUnrecognizedDetailId
+    parentTransOperationsPlanId
     registerAt
     quantity
     inventoryResavation

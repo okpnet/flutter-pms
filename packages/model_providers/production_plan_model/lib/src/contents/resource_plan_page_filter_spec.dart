@@ -10,6 +10,7 @@ abstract class ResourcePlanPageFilterSpec {
     'transResourcePlanId': FlatFilterPath([], 'transResourcePlanId'),
     'transOrderDetailId': FlatFilterPath([], 'transOrderDetailId'),
     'transUnrecognizedDetailId': FlatFilterPath([], 'transUnrecognizedDetailId'),
+    'parentTransOperationsPlanId': FlatFilterPath([], 'parentTransOperationsPlanId'),
     'registerAt': FlatFilterPath([], 'registerAt'),
     'quantity': FlatFilterPath([], 'quantity'),
     'inventoryResavation': FlatFilterPath([], 'inventoryResavation'),

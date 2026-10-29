@@ -445,6 +445,7 @@ query InspectionItemPageRfe(
       }
 
       labelCode
+      catalogItem
 
       detailTexts: sharedTextByDetails {
         sharedTextId

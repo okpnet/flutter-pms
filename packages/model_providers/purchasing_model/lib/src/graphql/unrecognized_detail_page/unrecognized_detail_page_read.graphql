@@ -27,7 +27,11 @@ query UnrecognizedDetailPageRead(
       transUnrecognizedDetailId
       transUnrecognizedId
       quantity
-      cost
+      unitPrice
+      priceAdjustment
+      fixedPrice
+      materialSupply
+      paidSupply
       deadline
       itemHistoryId
       itemId

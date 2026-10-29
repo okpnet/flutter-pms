@@ -29,7 +29,9 @@ query OrderDetailPageRead(
       itemHistoryId
       itemId
       quantity
-      cost
+      unitPrice
+      priceAdjustment
+      fixedPrice
       deliveryDate
       deadline
       symbol

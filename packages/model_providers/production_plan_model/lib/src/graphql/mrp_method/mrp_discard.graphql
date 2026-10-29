@@ -1,0 +1,6 @@
+# MRP実行の破棄
+mutation MrpDiscard($input: MrpDiscardInput!) {
+  mrpDiscard(input: $input) {
+    transMrpRun { transMrpRunId runMode status runAt committedAt staffHistoryId staffId params suggestionCount pendingCount lateCount overloadCount symbol remarks updateAt }
+  }
+}

@@ -115,7 +115,9 @@ OrderDetailPage: &OrderDetailPage
     - item_history_id
     - item_id
     - quantity
-    - cost
+    - unit_price
+    - price_adjustment
+    - fixed_price
     - delivery_date
     - deadline
     - symbol
@@ -159,7 +161,9 @@ OrderDetailPageEdit:
     - item_history_id
     - item_id
     - quantity
-    - cost
+    - unit_price
+    - price_adjustment
+    - fixed_price
     - delivery_date
     - deadline
     - remarks

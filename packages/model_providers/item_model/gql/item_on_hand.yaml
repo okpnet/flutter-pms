@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 品目別の現在庫(v_item_on_hand。1行は品目)
+ItemOnHandPage:
+  kind: read
+  from: v_item_on_hand
+  filter: true
+  columns:
+    - item_id
+    - on_hand_quantity
+    - visiter_count

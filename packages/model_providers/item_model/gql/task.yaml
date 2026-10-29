@@ -264,18 +264,7 @@ TaskResourcePage:
       arrayType: toFirstOne
       using:  info_department_id
       <<: *DepartmentReadFields
-    - mstr_equipment_id
-    - name: equipments
-      as: equipments
-      arrayType: toFirstOne
-      using:  mstr_equipment_id
-      <<: *EquipmentPage
-    - mstr_stakeholder_id
-    - name: suppliers
-      as: suppliers
-      arrayType: toFirstOne
-      using:  mstr_stakeholder_id
-      <<: *StakeholderReadFields
+    - priority
     - symbol
     - remarks
     # 子のレコード数(要件0056。DBのビュー 2本)
@@ -320,16 +309,7 @@ TaskResourcePageEdit:
       arrayType: toFirstOne
       using:  info_department_id
       <<: *DepartmentReadFields
-    - mstr_equipment_id
-    - name: equipments
-      arrayType: toFirstOne
-      using:  mstr_equipment_id
-      <<: *EquipmentPage
-    - mstr_stakeholder_id
-    - name: suppliers
-      arrayType: toFirstOne
-      using:  mstr_stakeholder_id
-      <<: *StakeholderReadFields
+    - priority
     - remarks
     - update_user_id
     - update_user_history_id

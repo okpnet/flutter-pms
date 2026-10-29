@@ -1,0 +1,41 @@
+# resource_plan_coverage_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ResourcePlanCoveragePage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ResourcePlanCoveragePageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VResourcePlanCoverageFilter = {and: []}
+  $orderBy: [VResourcePlanCoveragesOrderBy!]
+) {
+  allVResourcePlanCoverages(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transResourcePlanId
+      itemId
+      planKind
+      transOrderDetailId
+      transUnrecognizedDetailId
+      parentTransOperationsPlanId
+      deadline
+      quantity
+      inventoryResavation
+      issued
+      remaining
+      reservedStock
+      reservedPurchase
+      reservedProduction
+      shortage
+    }
+  }
+}

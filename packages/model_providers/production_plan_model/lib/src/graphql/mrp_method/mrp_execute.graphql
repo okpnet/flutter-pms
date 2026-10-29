@@ -1,0 +1,6 @@
+# MRPボタン用。計算し、要判断が無ければそのまま確定する。status=0 で返ったら提案の確認画面へ
+mutation MrpExecute($input: MrpExecuteInput!) {
+  mrpExecute(input: $input) {
+    transMrpRun { transMrpRunId runMode status runAt committedAt staffHistoryId staffId params suggestionCount pendingCount lateCount overloadCount symbol remarks updateAt }
+  }
+}

@@ -412,6 +412,7 @@ query InspectionEquipentPageRead(
           }
 
           labelCode
+          catalogItem
 
           detailTexts: sharedTextByDetails {
             sharedTextId

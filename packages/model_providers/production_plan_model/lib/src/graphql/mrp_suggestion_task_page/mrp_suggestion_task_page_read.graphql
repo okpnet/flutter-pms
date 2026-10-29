@@ -1,0 +1,52 @@
+# mrp_suggestion_task_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #MrpSuggestionTaskPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query MrpSuggestionTaskPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransMrpSuggestionTaskFilter = {and: []}
+  $orderBy: [TransMrpSuggestionTasksOrderBy!]
+  $removed: Boolean = false
+) {
+  allTransMrpSuggestionTasks(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transMrpSuggestionTaskId
+      transMrpSuggestionId
+      transWorkPlanId
+      mstrTaskId
+      sequence
+      mstrEquipmentAvailableHistoryId
+      mstrEquipmentAvailableId
+      mstrOutsourceAvailableHistoryId
+      mstrOutsourceAvailableId
+      outsourceTransMrpSuggestionId
+      cost
+      intervalPlan {
+        seconds
+        minutes
+        hours
+        days
+        months
+        years
+      }
+      startAt
+      completionAt
+      symbol
+      remarks
+      updateAt
+      remove
+    }
+  }
+}

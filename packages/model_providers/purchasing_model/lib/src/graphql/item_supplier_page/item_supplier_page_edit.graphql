@@ -1,0 +1,64 @@
+# item_supplier_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #ItemSupplierPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ItemSupplierPageEdit(
+  $mstrItemSupplierId: UUID!
+  $mstrItemId: UUID
+  $mstrStakeholderId: UUID
+  $priority: Int
+  $supplierItemCode: String
+  $qualityInspectionTime: IntervalInput
+  $deliveryTime: IntervalInput
+  $minimumLotSize: BigFloat
+  $cost: BigFloat
+  $askingPrice: Boolean
+  $remarks: String
+) {
+  updateMstrItemSupplierByMstrItemSupplierId(
+    input: {
+      mstrItemSupplierId: $mstrItemSupplierId
+      mstrItemSupplierPatch: {
+        mstrItemId: $mstrItemId
+        mstrStakeholderId: $mstrStakeholderId
+        priority: $priority
+        supplierItemCode: $supplierItemCode
+        qualityInspectionTime: $qualityInspectionTime
+        deliveryTime: $deliveryTime
+        minimumLotSize: $minimumLotSize
+        cost: $cost
+        askingPrice: $askingPrice
+        remarks: $remarks
+      }
+    }
+  ) {
+    mstrItemSupplier {
+      mstrItemSupplierId
+      mstrItemId
+      mstrStakeholderId
+      priority
+      supplierItemCode
+      qualityInspectionTime {
+        seconds
+        minutes
+        hours
+        days
+        months
+        years
+      }
+      deliveryTime {
+        seconds
+        minutes
+        hours
+        days
+        months
+        years
+      }
+      minimumLotSize
+      cost
+      askingPrice
+      remarks
+    }
+  }
+}

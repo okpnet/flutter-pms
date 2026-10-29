@@ -6,6 +6,7 @@
 mutation OperationsPlanPageEdit(
   $transOperationsPlanId: UUID!
   $transResourcePlanId: UUID
+  $quantity: BigFloat
   $deadline: Datetime
   $remarks: String
 ) {
@@ -14,6 +15,7 @@ mutation OperationsPlanPageEdit(
       transOperationsPlanId: $transOperationsPlanId
       transOperationsPlanPatch: {
         transResourcePlanId: $transResourcePlanId
+        quantity: $quantity
         deadline: $deadline
         remarks: $remarks
       }
@@ -22,6 +24,7 @@ mutation OperationsPlanPageEdit(
     transOperationsPlan {
       transOperationsPlanId
       transResourcePlanId
+      quantity
       deadline
       remarks
     }
