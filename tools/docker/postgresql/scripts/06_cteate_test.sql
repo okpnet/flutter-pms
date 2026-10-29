@@ -89,7 +89,46 @@ $BODY$
 LANGUAGE plpgsql;
 COMMENT ON FUNCTION tests.trg_gen_text_summary() IS 'text_valueからlead_text(導入文)とchar_count(文字数)を算出する';
 
---237.create tables
+--239.create tables
+create table tests.history_mstr_item_supplier (
+    history_id uuid default gen_random_uuid(),
+    mstr_item_supplier_id uuid not null,
+    priority integer default 1,
+    quality_inspection_time interval default '00:00:00',
+    supplier_item_code varchar(255) default null,
+    delivery_time interval not null,
+    minimum_lot_size decimal(10,2) not null,
+    cost decimal(10,2) not null,
+    asking_price boolean not null,
+    revision integer default 1,
+    symbol varchar(16) default '',
+    mstr_stakeholder_id uuid not null,
+    mstr_item_id uuid not null,
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.mstr_item_supplier (
+    mstr_item_supplier_id uuid default gen_random_uuid(),
+    priority integer default 1,
+    quality_inspection_time interval default '00:00:00',
+    mstr_stakeholder_id uuid not null,
+    mstr_item_id uuid not null,
+    supplier_item_code varchar(255) default null,
+    delivery_time interval default '24:00:00',
+    minimum_lot_size decimal(10,2) not null,
+    cost decimal(10,2) not null,
+    asking_price boolean default 'f',
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
 create table tests.history_mstr_item_task_cost (
     history_id uuid default gen_random_uuid(),
     mstr_item_task_cost_id uuid not null,
@@ -1384,6 +1423,8 @@ create table tests.history_mstr_outsource_available (
     mstr_task_location_id uuid not null,
     mstr_stakeholder_id uuid not null,
     delivery_interval interval default '24:00:00',
+    material_supply  boolean default 'f',
+    paid_supply boolean default 'f',
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -1570,6 +1611,7 @@ create table tests.history_mstr_item (
     mstr_manufacturer_id uuid default null,
     names uuid not null,
     label_code varchar(255) default null,
+    catalog_item boolean default 'f',
     details uuid default null,
     shared_unit_id uuid default null,
     mstr_item_lot_id uuid default null,
@@ -2082,6 +2124,8 @@ create table tests.mstr_outsource_available (
     mstr_task_location_id uuid not null,
     mstr_stakeholder_id uuid not null,
     delivery_interval interval default '24:00:00',
+    material_supply  boolean default 'f',
+    paid_supply boolean default 'f',
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2107,10 +2151,14 @@ create table tests.trans_unrecognized_detail (
     trans_unrecognized_detail_id uuid default gen_random_uuid(),
     trans_unrecognized_id uuid not null,
     quantity decimal(10,2) default 0,
-    cost decimal(10,2) default null,
+    unit_price decimal(10,2) not null,
+    price_adjustment decimal(10,2) default null,
+    fixed_price decimal(10,2) default null,
     deadline timestamp default null,
     item_history_id uuid not null,
     item_id uuid not null,
+    material_supply  boolean default 'f',
+    paid_supply boolean default 'f',
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -3020,10 +3068,14 @@ create table tests.trans_purchase_detail (
     trans_resource_plan_id uuid default null,
     restocking_purchase boolean default 'f',
     quantity decimal(10,2) default null,
-    cost decimal(10,2) not null,
+    unit_price decimal(10,2) not null,
+    price_adjustment decimal(10,2) default null,
+    fixed_price decimal(10,2) default null,
     period timestamp default null,
     item_history_id uuid not null,
     item_id uuid not null,
+    material_supply  boolean default 'f',
+    paid_supply boolean default 'f',
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -3037,7 +3089,9 @@ create table tests.trans_order_detail (
     item_history_id uuid not null,
     item_id uuid not null,
     quantity decimal(10,2) default 0,
-    cost decimal(10,2) default null,
+    unit_price decimal(10,2) not null,
+    price_adjustment decimal(10,2) default null,
+    fixed_price decimal(10,2) default null,
     delivery_date timestamp default null,
     deadline timestamp default null,
     symbol varchar(16) default '',
@@ -3250,6 +3304,7 @@ create table tests.mstr_item (
     mstr_manufacturer_id uuid default null,
     names uuid not null,
     label_code varchar(255) default null,
+    catalog_item boolean default 'f',
     details uuid default null,
     shared_unit_id uuid default null,
     mstr_item_lot_id uuid default null,
@@ -3488,7 +3543,44 @@ create table tests.info_office (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
---237.add table comments
+--239.add table comments
+comment on table tests.history_mstr_item_supplier is '品目仕入先マスタ履歴';
+comment on column tests.history_mstr_item_supplier.history_id is '履歴ID';
+comment on column tests.history_mstr_item_supplier.mstr_item_supplier_id is '品目仕入先ID';
+comment on column tests.history_mstr_item_supplier.priority is '優先順位';
+comment on column tests.history_mstr_item_supplier.quality_inspection_time is '標準検品時間';
+comment on column tests.history_mstr_item_supplier.supplier_item_code is '仕入先品番';
+comment on column tests.history_mstr_item_supplier.delivery_time is 'デリバリータイム';
+comment on column tests.history_mstr_item_supplier.minimum_lot_size is '最小発注ロット';
+comment on column tests.history_mstr_item_supplier.cost is '単価';
+comment on column tests.history_mstr_item_supplier.asking_price is '言い値区分';
+comment on column tests.history_mstr_item_supplier.revision is 'レビジョン';
+comment on column tests.history_mstr_item_supplier.symbol is 'リニアシンボル';
+comment on column tests.history_mstr_item_supplier.mstr_stakeholder_id is '仕入先';
+comment on column tests.history_mstr_item_supplier.mstr_item_id is '品目';
+comment on column tests.history_mstr_item_supplier.remarks is '備考';
+comment on column tests.history_mstr_item_supplier.update_at is '更新日時';
+comment on column tests.history_mstr_item_supplier.update_user_id is '更新者ID';
+comment on column tests.history_mstr_item_supplier.update_user_history_id is '更新者履歴ID';
+comment on column tests.history_mstr_item_supplier.remove is '削除';
+comment on table tests.mstr_item_supplier is '品目仕入先マスタ';
+comment on column tests.mstr_item_supplier.mstr_item_supplier_id is '品目仕入先ID';
+comment on column tests.mstr_item_supplier.priority is '優先順位';
+comment on column tests.mstr_item_supplier.quality_inspection_time is '標準検品時間';
+comment on column tests.mstr_item_supplier.mstr_stakeholder_id is '仕入先';
+comment on column tests.mstr_item_supplier.mstr_item_id is '品目';
+comment on column tests.mstr_item_supplier.supplier_item_code is '仕入先品番';
+comment on column tests.mstr_item_supplier.delivery_time is 'デリバリータイム';
+comment on column tests.mstr_item_supplier.minimum_lot_size is '最小発注ロット';
+comment on column tests.mstr_item_supplier.cost is '単価';
+comment on column tests.mstr_item_supplier.asking_price is '言い値区分';
+comment on column tests.mstr_item_supplier.revision is 'レビジョン';
+comment on column tests.mstr_item_supplier.symbol is 'リニアシンボル';
+comment on column tests.mstr_item_supplier.remarks is '備考';
+comment on column tests.mstr_item_supplier.update_at is '更新日時';
+comment on column tests.mstr_item_supplier.update_user_id is '更新者ID';
+comment on column tests.mstr_item_supplier.update_user_history_id is '更新者履歴ID';
+comment on column tests.mstr_item_supplier.remove is '削除';
 comment on table tests.history_mstr_item_task_cost is '品目作業単価履歴';
 comment on column tests.history_mstr_item_task_cost.history_id is '履歴ID';
 comment on column tests.history_mstr_item_task_cost.mstr_item_task_cost_id is '品目作業単価ID';
@@ -4688,6 +4780,8 @@ comment on column tests.history_mstr_outsource_available.mstr_outsource_availabl
 comment on column tests.history_mstr_outsource_available.mstr_task_location_id is '工程場所ID';
 comment on column tests.history_mstr_outsource_available.mstr_stakeholder_id is '利害関係者ID';
 comment on column tests.history_mstr_outsource_available.delivery_interval is 'デリバリー時間';
+comment on column tests.history_mstr_outsource_available.material_supply  is '資材支給区分';
+comment on column tests.history_mstr_outsource_available.paid_supply is '有償支給区分';
 comment on column tests.history_mstr_outsource_available.revision is 'レビジョン';
 comment on column tests.history_mstr_outsource_available.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_outsource_available.remarks is '備考';
@@ -4862,6 +4956,7 @@ comment on column tests.history_mstr_item.control_code is '管理コード';
 comment on column tests.history_mstr_item.mstr_manufacturer_id is '製造元ID';
 comment on column tests.history_mstr_item.names is '品目名称';
 comment on column tests.history_mstr_item.label_code is '表示コード';
+comment on column tests.history_mstr_item.catalog_item is '購入品';
 comment on column tests.history_mstr_item.details is '詳細';
 comment on column tests.history_mstr_item.shared_unit_id is '個別単位';
 comment on column tests.history_mstr_item.mstr_item_lot_id is 'ロット';
@@ -5341,6 +5436,8 @@ comment on column tests.mstr_outsource_available.mstr_outsource_available_id is 
 comment on column tests.mstr_outsource_available.mstr_task_location_id is '工程場所ID';
 comment on column tests.mstr_outsource_available.mstr_stakeholder_id is '利害関係者ID';
 comment on column tests.mstr_outsource_available.delivery_interval is 'デリバリー時間';
+comment on column tests.mstr_outsource_available.material_supply  is '資材支給区分';
+comment on column tests.mstr_outsource_available.paid_supply is '有償支給区分';
 comment on column tests.mstr_outsource_available.revision is 'レビジョン';
 comment on column tests.mstr_outsource_available.symbol is 'リニアシンボル';
 comment on column tests.mstr_outsource_available.remarks is '備考';
@@ -5364,10 +5461,14 @@ comment on table tests.trans_unrecognized_detail is '非計上明細';
 comment on column tests.trans_unrecognized_detail.trans_unrecognized_detail_id is '非計上明細ID';
 comment on column tests.trans_unrecognized_detail.trans_unrecognized_id is '非計上ID';
 comment on column tests.trans_unrecognized_detail.quantity is '数量';
-comment on column tests.trans_unrecognized_detail.cost is '単価';
+comment on column tests.trans_unrecognized_detail.unit_price is '単価';
+comment on column tests.trans_unrecognized_detail.price_adjustment is '価格調整';
+comment on column tests.trans_unrecognized_detail.fixed_price is '確定単価';
 comment on column tests.trans_unrecognized_detail.deadline is '個別納期';
 comment on column tests.trans_unrecognized_detail.item_history_id is '履歴ID';
 comment on column tests.trans_unrecognized_detail.item_id is '品目ID';
+comment on column tests.trans_unrecognized_detail.material_supply  is '資材支給区分';
+comment on column tests.trans_unrecognized_detail.paid_supply is '有償支給区分';
 comment on column tests.trans_unrecognized_detail.symbol is 'リニアシンボル';
 comment on column tests.trans_unrecognized_detail.remarks is '備考';
 comment on column tests.trans_unrecognized_detail.update_at is '更新日時';
@@ -6211,10 +6312,14 @@ comment on column tests.trans_purchase_detail.trans_purchase_id is '発注ID';
 comment on column tests.trans_purchase_detail.trans_resource_plan_id is '資材計画ID';
 comment on column tests.trans_purchase_detail.restocking_purchase is '在庫発注';
 comment on column tests.trans_purchase_detail.quantity is '数量';
-comment on column tests.trans_purchase_detail.cost is '単価';
+comment on column tests.trans_purchase_detail.unit_price is '単価';
+comment on column tests.trans_purchase_detail.price_adjustment is '価格調整';
+comment on column tests.trans_purchase_detail.fixed_price is '確定単価';
 comment on column tests.trans_purchase_detail.period is '納期';
 comment on column tests.trans_purchase_detail.item_history_id is '品目履歴ID';
 comment on column tests.trans_purchase_detail.item_id is '品目ID';
+comment on column tests.trans_purchase_detail.material_supply  is '資材支給区分';
+comment on column tests.trans_purchase_detail.paid_supply is '有償支給区分';
 comment on column tests.trans_purchase_detail.symbol is 'リニアシンボル';
 comment on column tests.trans_purchase_detail.remarks is '備考';
 comment on column tests.trans_purchase_detail.update_at is '更新日時';
@@ -6227,7 +6332,9 @@ comment on column tests.trans_order_detail.trans_order_id is '受注ID';
 comment on column tests.trans_order_detail.item_history_id is '品目履歴ID';
 comment on column tests.trans_order_detail.item_id is '品目ID';
 comment on column tests.trans_order_detail.quantity is '数量';
-comment on column tests.trans_order_detail.cost is '単価';
+comment on column tests.trans_order_detail.unit_price is '単価';
+comment on column tests.trans_order_detail.price_adjustment is '価格調整';
+comment on column tests.trans_order_detail.fixed_price is '確定単価';
 comment on column tests.trans_order_detail.delivery_date is '個別納期';
 comment on column tests.trans_order_detail.deadline is '個別完了期限';
 comment on column tests.trans_order_detail.symbol is 'リニアシンボル';
@@ -6427,6 +6534,7 @@ comment on column tests.mstr_item.control_code is '管理コード';
 comment on column tests.mstr_item.mstr_manufacturer_id is '製造元ID';
 comment on column tests.mstr_item.names is '品目名称';
 comment on column tests.mstr_item.label_code is '表示コード';
+comment on column tests.mstr_item.catalog_item is '購入品';
 comment on column tests.mstr_item.details is '詳細';
 comment on column tests.mstr_item.shared_unit_id is '個別単位';
 comment on column tests.mstr_item.mstr_item_lot_id is 'ロット';
@@ -6650,7 +6758,21 @@ comment on column tests.info_office.update_at is '更新日時';
 comment on column tests.info_office.update_user_id is '更新者ID';
 comment on column tests.info_office.update_user_history_id is '更新者履歴ID';
 comment on column tests.info_office.remove is '削除';
---237.add table primary key and index
+--239.add table primary key and index
+create unique index history_mstr_item_supplier_PKI
+    on tests.history_mstr_item_supplier(history_id,mstr_item_supplier_id);
+alter table tests.history_mstr_item_supplier
+    add constraint history_mstr_item_supplier_PKC primary key (history_id,mstr_item_supplier_id);
+alter table tests.history_mstr_item_supplier
+     add constraint history_mstr_item_supplier_IX1 unique  (mstr_item_supplier_id,revision);
+create unique index mstr_item_supplier_PKI
+    on tests.mstr_item_supplier(mstr_item_supplier_id);
+alter table tests.mstr_item_supplier
+    add constraint mstr_item_supplier_PKC primary key (mstr_item_supplier_id);
+alter table tests.mstr_item_supplier
+     add constraint mstr_item_supplier_IX1 unique  (symbol);
+alter table tests.mstr_item_supplier
+     add constraint mstr_item_supplier_IX2 unique  (mstr_item_id,mstr_stakeholder_id);
 create unique index history_mstr_item_task_cost_PKI
     on tests.history_mstr_item_task_cost(history_id,mstr_item_task_cost_id);
 alter table tests.history_mstr_item_task_cost
@@ -8100,7 +8222,12 @@ alter table tests.info_office
     add constraint info_office_PKC primary key (info_office_id);
 alter table tests.info_office
      add constraint info_office_IX1 unique  (symbol);
---237.add table foreign key
+--239.add table foreign key
+alter table tests.history_mstr_item_supplier add constraint history_mstr_item_supplier_FK1 foreign key (mstr_item_supplier_id) references tests.mstr_item_supplier (mstr_item_supplier_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_item_supplier add constraint history_mstr_item_supplier_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_supplier add constraint mstr_item_supplier_FK1 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_supplier add constraint mstr_item_supplier_FK2 foreign key (mstr_stakeholder_id) references tests.mstr_stakeholder (mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_supplier add constraint mstr_item_supplier_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_item_task_cost add constraint history_mstr_item_task_cost_FK1 foreign key (mstr_item_task_cost_id) references tests.mstr_item_task_cost (mstr_item_task_cost_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_item_task_cost add constraint history_mstr_item_task_cost_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_item_task_cost add constraint mstr_item_task_cost_FK1 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8765,7 +8892,150 @@ alter table tests.info_office add constraint info_office_FK1 foreign key (names)
 alter table tests.info_office add constraint info_office_FK2 foreign key (info_company_id) references tests.info_company (info_company_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK3 foreign key (info_address_id) references tests.info_address (info_address_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
---237.add table trigger
+--239.add table trigger
+-- history_mstr_item_supplier update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item_supplier() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.history_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_history_mstr_item_supplier BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_item_supplier FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_history_mstr_item_supplier();
+
+
+CREATE TRIGGER trg_04_symbol_history_mstr_item_supplier BEFORE INSERT ON tests.history_mstr_item_supplier FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_item_supplier update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_item_supplier() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.mstr_item_supplier_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_mstr_item_supplier BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_item_supplier FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_mstr_item_supplier();
+
+
+CREATE TRIGGER trg_04_symbol_mstr_item_supplier BEFORE INSERT ON tests.mstr_item_supplier FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_item_supplier history trigger
+CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_item_supplier() RETURNS trigger AS
+$BODY$
+DECLARE
+    revisions int;
+BEGIN
+    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
+        SELECT Max(revision) INTO revisions FROM tests.history_mstr_item_supplier WHERE mstr_item_supplier_id=NEW.mstr_item_supplier_id;
+        IF (revisions >= 0) THEN
+            IF (
+                NEW.mstr_item_supplier_id,
+                NEW.priority,
+                NEW.quality_inspection_time,
+                NEW.mstr_stakeholder_id,
+                NEW.mstr_item_id,
+                NEW.supplier_item_code,
+                NEW.delivery_time,
+                NEW.minimum_lot_size,
+                NEW.cost,
+                NEW.asking_price,
+                NEW.symbol,
+                NEW.remarks,
+                NEW.remove
+            ) IS NOT DISTINCT FROM (
+                OLD.mstr_item_supplier_id,
+                OLD.priority,
+                OLD.quality_inspection_time,
+                OLD.mstr_stakeholder_id,
+                OLD.mstr_item_id,
+                OLD.supplier_item_code,
+                OLD.delivery_time,
+                OLD.minimum_lot_size,
+                OLD.cost,
+                OLD.asking_price,
+                OLD.symbol,
+                OLD.remarks,
+                OLD.remove
+            )
+            THEN
+                RETURN NULL;
+            END IF;
+            NEW.revision := revisions + 1;
+        ELSE
+            NEW.revision := 1;
+        END IF;
+        INSERT INTO tests.history_mstr_item_supplier (
+            mstr_item_supplier_id,
+            priority,
+            quality_inspection_time,
+            mstr_stakeholder_id,
+            mstr_item_id,
+            supplier_item_code,
+            delivery_time,
+            minimum_lot_size,
+            cost,
+            asking_price,
+            revision,
+            symbol,
+            remarks,
+            update_at,
+            update_user_id,
+            update_user_history_id,
+            remove
+        )
+        VALUES
+        (
+            NEW.mstr_item_supplier_id,
+            NEW.priority,
+            NEW.quality_inspection_time,
+            NEW.mstr_stakeholder_id,
+            NEW.mstr_item_id,
+            NEW.supplier_item_code,
+            NEW.delivery_time,
+            NEW.minimum_lot_size,
+            NEW.cost,
+            NEW.asking_price,
+            NEW.revision,
+            NEW.symbol,
+            NEW.remarks,
+            NEW.update_at,
+            NEW.update_user_id,
+            NEW.update_user_history_id,
+            NEW.remove
+        );
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_02_history_mstr_item_supplier BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_item_supplier FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_02_history_mstr_item_supplier();
+
+
 -- history_mstr_item_task_cost update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item_task_cost() RETURNS trigger AS
 $BODY$
@@ -14981,6 +15251,8 @@ BEGIN
                 NEW.mstr_task_location_id,
                 NEW.mstr_stakeholder_id,
                 NEW.delivery_interval,
+                NEW.material_supply ,
+                NEW.paid_supply,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -14989,6 +15261,8 @@ BEGIN
                 OLD.mstr_task_location_id,
                 OLD.mstr_stakeholder_id,
                 OLD.delivery_interval,
+                OLD.material_supply ,
+                OLD.paid_supply,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -15005,6 +15279,8 @@ BEGIN
             mstr_task_location_id,
             mstr_stakeholder_id,
             delivery_interval,
+            material_supply ,
+            paid_supply,
             revision,
             symbol,
             remarks,
@@ -15019,6 +15295,8 @@ BEGIN
             NEW.mstr_task_location_id,
             NEW.mstr_stakeholder_id,
             NEW.delivery_interval,
+            NEW.material_supply ,
+            NEW.paid_supply,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -19052,6 +19330,7 @@ BEGIN
                 NEW.mstr_manufacturer_id,
                 NEW.names,
                 NEW.label_code,
+                NEW.catalog_item,
                 NEW.details,
                 NEW.shared_unit_id,
                 NEW.mstr_item_lot_id,
@@ -19067,6 +19346,7 @@ BEGIN
                 OLD.mstr_manufacturer_id,
                 OLD.names,
                 OLD.label_code,
+                OLD.catalog_item,
                 OLD.details,
                 OLD.shared_unit_id,
                 OLD.mstr_item_lot_id,
@@ -19090,6 +19370,7 @@ BEGIN
             mstr_manufacturer_id,
             names,
             label_code,
+            catalog_item,
             details,
             shared_unit_id,
             mstr_item_lot_id,
@@ -19111,6 +19392,7 @@ BEGIN
             NEW.mstr_manufacturer_id,
             NEW.names,
             NEW.label_code,
+            NEW.catalog_item,
             NEW.details,
             NEW.shared_unit_id,
             NEW.mstr_item_lot_id,
@@ -21916,8 +22198,8 @@ SELECT
     , SUM(sd.shipping_quantity) AS scheduled_quantity
     , SUM(COALESCE(rc.shipped_quantity, 0)) AS shipped_quantity
     , SUM(GREATEST(sd.shipping_quantity - COALESCE(rc.shipped_quantity, 0), 0)) AS remaining_quantity
-    , SUM(sd.shipping_quantity * COALESCE(od.cost, 0)) AS scheduled_amount
-    , SUM(COALESCE(rc.shipped_quantity, 0) * COALESCE(od.cost, 0)) AS shipped_amount
+    , ROUND(SUM((sd.shipping_quantity) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0) * COALESCE((sd.shipping_quantity) / NULLIF(od.quantity, 0), 0)), 2) AS scheduled_amount
+    , ROUND(SUM((COALESCE(rc.shipped_quantity, 0)) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0) * COALESCE((COALESCE(rc.shipped_quantity, 0)) / NULLIF(od.quantity, 0), 0)), 2) AS shipped_amount
 FROM
     tests.trans_shipping_order_detail AS sd
     INNER JOIN tests.trans_shipping_order AS so
@@ -21982,12 +22264,9 @@ GROUP BY
 -- 納期       : 受注明細の個別納期を優先し、未設定なら受注の納期
 -- 出荷予定日 : 出荷オーダー明細の個別出荷予定日を優先し、未設定なら出荷オーダーの出荷予定日
 -- 出荷実績日 : 出荷明細実績の最終出荷日(MAX(shipping_date))。未出荷は NULL
--- 金額       : 受注明細の単価 × 数量
-
-
--- Postgraphile additional comment.
+-- 金額       : 受注明細の 数量 ×(確定単価、無ければ単価) ＋ 価格調整(明細1行の金額)
+--              予定・出荷済みの金額は、価格調整を「予定・出荷数量 ÷ 受注数量」で按分
 COMMENT ON VIEW tests.v_shipping_order_status IS E'@foreignKey (customer_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (mstr_item_kind_id) references mstr_item_kind (mstr_item_kind_id)\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n出荷予定受注実績状況';
-
 
 drop view if exists tests.v_purchase_delivery_compliance;
 create view  tests.v_purchase_delivery_compliance as
@@ -22097,8 +22376,8 @@ SELECT
     , COUNT(pd.trans_purchase_detail_id) AS purchase_detail_count
     , SUM(COALESCE(pd.quantity, 0)) AS purchase_quantity
     , SUM(COALESCE(rc.received_quantity, 0)) AS received_quantity
-    , SUM(COALESCE(pd.quantity, 0) * COALESCE(pd.cost, 0)) AS purchase_amount
-    , SUM(COALESCE(rc.received_quantity, 0) * COALESCE(pd.cost, 0)) AS received_amount
+    , SUM(COALESCE(pd.quantity, 0) * COALESCE(pd.fixed_price, pd.unit_price, 0) + COALESCE(pd.price_adjustment, 0)) AS purchase_amount
+    , ROUND(SUM((COALESCE(rc.received_quantity, 0)) * COALESCE(pd.fixed_price, pd.unit_price, 0) + COALESCE(pd.price_adjustment, 0) * COALESCE((COALESCE(rc.received_quantity, 0)) / NULLIF(pd.quantity, 0), 0)), 2) AS received_amount
 FROM
     tests.trans_purchase_detail AS pd
     INNER JOIN tests.trans_purchase AS p
@@ -22153,9 +22432,9 @@ GROUP BY
 --           品目提供ID(mstr_item_provision_ids ※配列), 納期(period), 受入済み(is_received)
 -- 粒度: 発注先 × 品目 × 納期(日) × 受入済み ごとに1行
 -- 受入済み: 受入実績の数量合計 >= 発注数量
--- Postgraphile additional comment.
+-- 金額: 発注明細の 数量 ×(確定単価、無ければ単価) ＋ 価格調整(明細1行の金額)
+--       受入済み金額は、価格調整を「受入数量 ÷ 発注数量」で按分
 COMMENT ON VIEW tests.v_purchase_amount IS E'@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (mstr_item_kind_id) references mstr_item_kind (mstr_item_kind_id)\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n発注金額合計';
-
 
 drop view if exists tests.v_sales_record;
 create view  tests.v_sales_record as
@@ -22169,8 +22448,8 @@ SELECT
     , COUNT(od.trans_order_detail_id) AS order_detail_count
     , SUM(od.quantity) AS order_quantity
     , SUM(COALESCE(sh.shipped_quantity, 0)) AS shipped_quantity
-    , SUM(od.quantity * COALESCE(od.cost, 0)) AS order_amount
-    , SUM(COALESCE(sh.shipped_quantity, 0) * COALESCE(od.cost, 0)) AS shipped_amount
+    , SUM(COALESCE(od.quantity, 0) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0)) AS order_amount
+    , ROUND(SUM((COALESCE(sh.shipped_quantity, 0)) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0) * COALESCE((COALESCE(sh.shipped_quantity, 0)) / NULLIF(od.quantity, 0), 0)), 2) AS shipped_amount
 FROM
     tests.trans_order_detail AS od
     INNER JOIN tests.trans_order AS o
@@ -22223,7 +22502,6 @@ GROUP BY
     , pr.mstr_item_provision_ids
     , COALESCE(od.delivery_date, o.delivery_date)::DATE
     , (COALESCE(sh.shipped_quantity, 0) >= od.quantity)
-
 ;
 
 -- 2. 売り上げ実績
@@ -22234,9 +22512,9 @@ GROUP BY
 -- 出荷済み: 出荷明細実績の出荷数量合計 >= 受注数量
 -- 品目提供ID: 1品目に複数の品目提供が紐づくため、行の重複計上を避けて配列で保持する
 --             (connection-filter の anyEqualTo 等で絞り込む)
--- Postgraphile additional comment.
+-- 金額: 受注明細の 数量 ×(確定単価、無ければ単価) ＋ 価格調整(明細1行の金額)
+--       出荷済み金額は、価格調整を「出荷数量 ÷ 受注数量」で按分
 COMMENT ON VIEW tests.v_sales_record IS E'@foreignKey (customer_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (mstr_item_kind_id) references mstr_item_kind (mstr_item_kind_id)\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n売り上げ実績';
-
 
 drop view if exists tests.v_staff_count;
 create view  tests.v_staff_count as
