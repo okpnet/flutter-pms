@@ -1237,7 +1237,7 @@ CREATE TYPE tests.mrp_import_check AS (
     ref_table varchar,
     ref_id uuid
 );
-COMMENT ON TYPE tests.mrp_import_check IS E'@foreignKey (item_id) references mstr_item (mstr_item_id)\n受注取り込み確認';
+COMMENT ON TYPE tests.mrp_import_check IS '受注取り込み確認';
 
 -- p_lines: [{"line_no":1, "item_code":"P-001", "quantity":10, "deadline":"2026-11-20"}, ...]
 -- 1行につき RESOLVED(品目を特定) か ITEM_NOT_FOUND を必ず1件返し、続けて不備を返す。
@@ -3171,7 +3171,7 @@ RETURNS TABLE (equipment_id uuid, load_date date, capacity_hours numeric, load_h
       AND EXISTS (SELECT 1 FROM agg AS a2 WHERE a2.eq = e.mstr_equipment_id);
 $$ LANGUAGE sql STABLE;
 COMMENT ON FUNCTION tests.mrp_equipment_load(date, date) IS
-E'@foreignKey (equipment_id) references mstr_equipment (mstr_equipment_id)\n工程負荷(確定済み・設備×日)';
+'工程負荷(確定済み・設備×日)';
 
 -- 資材計画の充足状況 (資材計画 1件につき1行)
 --   plan_kind   : 1受注 2非計上 3安全在庫 4従属 (資材計画の参照先から判定)
