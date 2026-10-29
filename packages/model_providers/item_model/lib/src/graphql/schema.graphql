@@ -16,6 +16,34 @@ scalar Datetime
 
 scalar UUID
 
+enum MstrEquipmentAvailablesOrderBy {
+  NATURAL
+  MSTR_EQUIPMENT_AVAILABLE_ID_ASC
+  MSTR_EQUIPMENT_AVAILABLE_ID_DESC
+  MSTR_TASK_LOCATION_ID_ASC
+  MSTR_TASK_LOCATION_ID_DESC
+  MSTR_EQUIPMENT_ID_ASC
+  MSTR_EQUIPMENT_ID_DESC
+  DELIVERY_INTERVAL_ASC
+  DELIVERY_INTERVAL_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum MstrItemActualSizesOrderBy {
   NATURAL
   MSTR_ITEM_ACTUAL_SIZE_ID_ASC
@@ -294,6 +322,38 @@ enum MstrOperationsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum MstrOutsourceAvailablesOrderBy {
+  NATURAL
+  MSTR_OUTSOURCE_AVAILABLE_ID_ASC
+  MSTR_OUTSOURCE_AVAILABLE_ID_DESC
+  MSTR_TASK_LOCATION_ID_ASC
+  MSTR_TASK_LOCATION_ID_DESC
+  MSTR_STAKEHOLDER_ID_ASC
+  MSTR_STAKEHOLDER_ID_DESC
+  DELIVERY_INTERVAL_ASC
+  DELIVERY_INTERVAL_DESC
+  MATERIAL_SUPPLY_ASC
+  MATERIAL_SUPPLY_DESC
+  PAID_SUPPLY_ASC
+  PAID_SUPPLY_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum MstrSpecMeasurementsOrderBy {
   NATURAL
   MSTR_SPEC_MEASUREMENT_ID_ASC
@@ -467,6 +527,26 @@ type Interval {
   days: Int
   months: Int
   years: Int
+}
+
+type MstrEquipmentAvailable {
+  mstrEquipmentAvailableId: UUID!
+  mstrTaskLocationId: UUID!
+  mstrEquipmentId: UUID!
+  deliveryInterval: Interval
+  revision: Int
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+}
+
+type MstrEquipmentAvailablesConnection {
+  nodes: [MstrEquipmentAvailable]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type MstrItem {
@@ -701,6 +781,28 @@ type MstrOperationsConnection {
   totalCount: Int!
 }
 
+type MstrOutsourceAvailable {
+  mstrOutsourceAvailableId: UUID!
+  mstrTaskLocationId: UUID!
+  mstrStakeholderId: UUID!
+  deliveryInterval: Interval
+  materialSupply: Boolean
+  paidSupply: Boolean
+  revision: Int
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+}
+
+type MstrOutsourceAvailablesConnection {
+  nodes: [MstrOutsourceAvailable]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type MstrSpecMeasurement {
   mstrSpecMeasurementId: UUID!
   measurementValue: BigFloat!
@@ -810,6 +912,7 @@ type MstrTasksConnection {
 }
 
 type Mutation {
+  updateMstrEquipmentAvailableByMstrEquipmentAvailableId(input: UpdateMstrEquipmentAvailableByMstrEquipmentAvailableIdInput!): UpdateMstrEquipmentAvailablePayload
   updateMstrItemByMstrItemId(input: UpdateMstrItemByMstrItemIdInput!): UpdateMstrItemPayload
   updateMstrItemActualSizeByMstrItemActualSizeId(input: UpdateMstrItemActualSizeByMstrItemActualSizeIdInput!): UpdateMstrItemActualSizePayload
   updateMstrItemKindByMstrItemKindId(input: UpdateMstrItemKindByMstrItemKindIdInput!): UpdateMstrItemKindPayload
@@ -819,6 +922,7 @@ type Mutation {
   updateMstrItemTreeByMstrItemTreeId(input: UpdateMstrItemTreeByMstrItemTreeIdInput!): UpdateMstrItemTreePayload
   updateMstrManufacturerByMstrManufacturerId(input: UpdateMstrManufacturerByMstrManufacturerIdInput!): UpdateMstrManufacturerPayload
   updateMstrOperationByMstrOperationId(input: UpdateMstrOperationByMstrOperationIdInput!): UpdateMstrOperationPayload
+  updateMstrOutsourceAvailableByMstrOutsourceAvailableId(input: UpdateMstrOutsourceAvailableByMstrOutsourceAvailableIdInput!): UpdateMstrOutsourceAvailablePayload
   updateMstrSpecMeasurementByMstrSpecMeasurementId(input: UpdateMstrSpecMeasurementByMstrSpecMeasurementIdInput!): UpdateMstrSpecMeasurementPayload
   updateMstrTaskByMstrTaskId(input: UpdateMstrTaskByMstrTaskIdInput!): UpdateMstrTaskPayload
   updateMstrTaskGroupByMstrTaskGroupId(input: UpdateMstrTaskGroupByMstrTaskGroupIdInput!): UpdateMstrTaskGroupPayload
@@ -832,6 +936,7 @@ type PageInfo {
 }
 
 type Query {
+  allMstrEquipmentAvailables(first: Int, offset: Int, orderBy: [MstrEquipmentAvailablesOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrEquipmentAvailableFilter): MstrEquipmentAvailablesConnection
   allMstrItems(first: Int, offset: Int, orderBy: [MstrItemsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrItemFilter): MstrItemsConnection
   allMstrItemActualSizes(first: Int, offset: Int, orderBy: [MstrItemActualSizesOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrItemActualSizeFilter): MstrItemActualSizesConnection
   allMstrItemKinds(first: Int, offset: Int, orderBy: [MstrItemKindsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrItemKindFilter): MstrItemKindsConnection
@@ -840,11 +945,13 @@ type Query {
   allMstrItemSizeKinds(first: Int, offset: Int, orderBy: [MstrItemSizeKindsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrItemSizeKindFilter): MstrItemSizeKindsConnection
   allMstrManufacturers(first: Int, offset: Int, orderBy: [MstrManufacturersOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrManufacturerFilter): MstrManufacturersConnection
   allMstrOperations(first: Int, offset: Int, orderBy: [MstrOperationsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrOperationFilter): MstrOperationsConnection
+  allMstrOutsourceAvailables(first: Int, offset: Int, orderBy: [MstrOutsourceAvailablesOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrOutsourceAvailableFilter): MstrOutsourceAvailablesConnection
   allMstrSpecMeasurements(first: Int, offset: Int, orderBy: [MstrSpecMeasurementsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrSpecMeasurementFilter): MstrSpecMeasurementsConnection
   allMstrTasks(first: Int, offset: Int, orderBy: [MstrTasksOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrTaskFilter): MstrTasksConnection
   allMstrTaskGroups(first: Int, offset: Int, orderBy: [MstrTaskGroupsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrTaskGroupFilter): MstrTaskGroupsConnection
   allMstrTaskLocations(first: Int, offset: Int, orderBy: [MstrTaskLocationsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrTaskLocationFilter): MstrTaskLocationsConnection
   allVItemOnHands(first: Int, offset: Int, orderBy: [VItemOnHandsOrderBy!] = [PRIMARY_KEY_ASC], filter: VItemOnHandFilter): VItemOnHandsConnection
+  mstrEquipmentAvailableByMstrEquipmentAvailableId(mstrEquipmentAvailableId: UUID!): MstrEquipmentAvailable
   mstrItemByMstrItemId(mstrItemId: UUID!): MstrItem
   mstrItemActualSizeByMstrItemActualSizeId(mstrItemActualSizeId: UUID!): MstrItemActualSize
   mstrItemKindByMstrItemKindId(mstrItemKindId: UUID!): MstrItemKind
@@ -854,6 +961,7 @@ type Query {
   mstrItemTreeByMstrItemTreeId(mstrItemTreeId: UUID!): MstrItemTree
   mstrManufacturerByMstrManufacturerId(mstrManufacturerId: UUID!): MstrManufacturer
   mstrOperationByMstrOperationId(mstrOperationId: UUID!): MstrOperation
+  mstrOutsourceAvailableByMstrOutsourceAvailableId(mstrOutsourceAvailableId: UUID!): MstrOutsourceAvailable
   mstrSpecMeasurementByMstrSpecMeasurementId(mstrSpecMeasurementId: UUID!): MstrSpecMeasurement
   mstrTaskByMstrTaskId(mstrTaskId: UUID!): MstrTask
   mstrTaskGroupByMstrTaskGroupId(mstrTaskGroupId: UUID!): MstrTaskGroup
@@ -901,6 +1009,10 @@ type SharedUnit {
   sharedAppellationByNames: SharedAppellation
 }
 
+type UpdateMstrEquipmentAvailablePayload {
+  mstrEquipmentAvailable: MstrEquipmentAvailable
+}
+
 type UpdateMstrItemActualSizePayload {
   mstrItemActualSize: MstrItemActualSize
 }
@@ -935,6 +1047,10 @@ type UpdateMstrManufacturerPayload {
 
 type UpdateMstrOperationPayload {
   mstrOperation: MstrOperation
+}
+
+type UpdateMstrOutsourceAvailablePayload {
+  mstrOutsourceAvailable: MstrOutsourceAvailable
 }
 
 type UpdateMstrSpecMeasurementPayload {
@@ -1497,6 +1613,32 @@ input IntervalInput {
   years: Int
 }
 
+input MstrEquipmentAvailableFilter {
+  mstrEquipmentAvailableId: UUIDFilter
+  mstrTaskLocationId: UUIDFilter
+  mstrEquipmentId: UUIDFilter
+  deliveryInterval: IntervalFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyMstrEquipmentAvailablesByMstrEquipmentAvailableIdExist: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrEquipmentAvailableFilter!]
+  or: [MstrEquipmentAvailableFilter!]
+  not: MstrEquipmentAvailableFilter
+}
+
+input MstrEquipmentAvailablePatch {
+  mstrTaskLocationId: UUID
+  mstrEquipmentId: UUID
+  deliveryInterval: IntervalInput
+  remarks: String
+}
+
 input MstrItemActualSizeFilter {
   mstrItemActualSizeId: UUIDFilter
   mstrItemId: UUIDFilter
@@ -2001,6 +2143,36 @@ input MstrOperationTaskOnMstrOperationTaskForMstrOperationTaskFk2NodeIdUpdate {
 input MstrOperationTaskOnMstrOperationTaskForMstrOperationTaskFk3UsingMstrOperationTaskPkcUpdate {
   mstrOperationTaskPatch: updateMstrOperationTaskOnMstrOperationTaskForMstrOperationTaskFk3Patch!
   mstrOperationTaskId: UUID!
+}
+
+input MstrOutsourceAvailableFilter {
+  mstrOutsourceAvailableId: UUIDFilter
+  mstrTaskLocationId: UUIDFilter
+  mstrStakeholderId: UUIDFilter
+  deliveryInterval: IntervalFilter
+  materialSupply: BooleanFilter
+  paidSupply: BooleanFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyMstrOutsourceAvailablesByMstrOutsourceAvailableIdExist: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrOutsourceAvailableFilter!]
+  or: [MstrOutsourceAvailableFilter!]
+  not: MstrOutsourceAvailableFilter
+}
+
+input MstrOutsourceAvailablePatch {
+  mstrTaskLocationId: UUID
+  mstrStakeholderId: UUID
+  deliveryInterval: IntervalInput
+  materialSupply: Boolean
+  paidSupply: Boolean
+  remarks: String
 }
 
 input MstrSpecMeasurementFilter {
@@ -2912,6 +3084,11 @@ input UUIDFilter {
   greaterThanOrEqualTo: UUID
 }
 
+input UpdateMstrEquipmentAvailableByMstrEquipmentAvailableIdInput {
+  mstrEquipmentAvailablePatch: MstrEquipmentAvailablePatch!
+  mstrEquipmentAvailableId: UUID!
+}
+
 input UpdateMstrItemActualSizeByMstrItemActualSizeIdInput {
   mstrItemActualSizePatch: MstrItemActualSizePatch!
   mstrItemActualSizeId: UUID!
@@ -2955,6 +3132,11 @@ input UpdateMstrManufacturerByMstrManufacturerIdInput {
 input UpdateMstrOperationByMstrOperationIdInput {
   mstrOperationPatch: MstrOperationPatch!
   mstrOperationId: UUID!
+}
+
+input UpdateMstrOutsourceAvailableByMstrOutsourceAvailableIdInput {
+  mstrOutsourceAvailablePatch: MstrOutsourceAvailablePatch!
+  mstrOutsourceAvailableId: UUID!
 }
 
 input UpdateMstrSpecMeasurementByMstrSpecMeasurementIdInput {

@@ -1,0 +1,44 @@
+# task_equipment_available_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #TaskEquipmentAvailablePage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query TaskEquipmentAvailablePageRead(
+  $first: Int!
+  $offset: Int
+  $filter: MstrEquipmentAvailableFilter = {and: []}
+  $orderBy: [MstrEquipmentAvailablesOrderBy!]
+  $mstrTaskLocationId: UUID!
+  $removed: Boolean = false
+) {
+  allMstrEquipmentAvailables(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, { mstrTaskLocationId: { equalTo: $mstrTaskLocationId } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrEquipmentAvailableId
+      mstrTaskLocationId
+      mstrEquipmentId
+      deliveryInterval {
+        seconds
+        minutes
+        hours
+        days
+        months
+        years
+      }
+      revision
+      symbol
+      remarks
+      updateAt
+      remove
+    }
+  }
+}

@@ -1,0 +1,27 @@
+# task_equipment_available_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: gql/*.yaml #TaskEquipmentAvailablePageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query TaskEquipmentAvailablePageRfe(
+  $mstrEquipmentAvailableId: UUID!
+) {
+  mstrEquipmentAvailableByMstrEquipmentAvailableId(mstrEquipmentAvailableId: $mstrEquipmentAvailableId) {
+    mstrEquipmentAvailableId
+    mstrTaskLocationId
+    mstrEquipmentId
+    deliveryInterval {
+      seconds
+      minutes
+      hours
+      days
+      months
+      years
+    }
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

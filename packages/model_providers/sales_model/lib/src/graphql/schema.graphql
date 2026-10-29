@@ -497,6 +497,7 @@ type TransOrderDetail {
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
   vOrderDetailOrderDetailRiskCountByTransOrderDetailId: VOrderDetailOrderDetailRiskCount
   vOrderDetailShippingOrderDetailCountByTransOrderDetailId: VOrderDetailShippingOrderDetailCount
+  masterErrorCount: Int
 }
 
 type TransOrderDetailsConnection {

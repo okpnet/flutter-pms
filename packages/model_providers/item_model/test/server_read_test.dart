@@ -133,6 +133,18 @@ void main() {
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
+    serverTest('TaskEquipmentAvailablePageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryTaskEquipmentAvailablePageRead,
+          variables: Variables$Query$TaskEquipmentAvailablePageRead(first: 1, mstrTaskLocationId: _zeroId).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$TaskEquipmentAvailablePageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('TaskGroupPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(
@@ -142,6 +154,18 @@ void main() {
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
       Query$TaskGroupPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
+    serverTest('TaskOutsourceAvailablePageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryTaskOutsourceAvailablePageRead,
+          variables: Variables$Query$TaskOutsourceAvailablePageRead(first: 1, mstrTaskLocationId: _zeroId).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$TaskOutsourceAvailablePageRead.fromJson(
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });

@@ -19,6 +19,7 @@ abstract class OrderDetailPageFilterSpec {
     'deadline': FlatFilterPath([], 'deadline'),
     'symbol': FlatFilterPath([], 'symbol'),
     'remarks': FlatFilterPath([], 'remarks'),
+    'masterErrorCount': FlatFilterPath([], 'masterErrorCount'),
     'shipping_order_detail_count||transOrderDetailId': FlatFilterPath([FilterStep('vOrderDetailShippingOrderDetailCountByTransOrderDetailId')], 'transOrderDetailId'),
     'order_detail_risk_count||transOrderDetailId': FlatFilterPath([FilterStep('vOrderDetailOrderDetailRiskCountByTransOrderDetailId')], 'transOrderDetailId'),
     'updateAt': FlatFilterPath([], 'updateAt'),

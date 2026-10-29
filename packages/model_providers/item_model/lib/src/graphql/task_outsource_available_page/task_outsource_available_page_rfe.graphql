@@ -1,0 +1,29 @@
+# task_outsource_available_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: gql/*.yaml #TaskOutsourceAvailablePageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query TaskOutsourceAvailablePageRfe(
+  $mstrOutsourceAvailableId: UUID!
+) {
+  mstrOutsourceAvailableByMstrOutsourceAvailableId(mstrOutsourceAvailableId: $mstrOutsourceAvailableId) {
+    mstrOutsourceAvailableId
+    mstrTaskLocationId
+    mstrStakeholderId
+    deliveryInterval {
+      seconds
+      minutes
+      hours
+      days
+      months
+      years
+    }
+    materialSupply
+    paidSupply
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

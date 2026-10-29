@@ -1,0 +1,39 @@
+# task_equipment_available_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #TaskEquipmentAvailablePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation TaskEquipmentAvailablePageEdit(
+  $mstrEquipmentAvailableId: UUID!
+  $mstrTaskLocationId: UUID
+  $mstrEquipmentId: UUID
+  $deliveryInterval: IntervalInput
+  $remarks: String
+) {
+  updateMstrEquipmentAvailableByMstrEquipmentAvailableId(
+    input: {
+      mstrEquipmentAvailableId: $mstrEquipmentAvailableId
+      mstrEquipmentAvailablePatch: {
+        mstrTaskLocationId: $mstrTaskLocationId
+        mstrEquipmentId: $mstrEquipmentId
+        deliveryInterval: $deliveryInterval
+        remarks: $remarks
+      }
+    }
+  ) {
+    mstrEquipmentAvailable {
+      mstrEquipmentAvailableId
+      mstrTaskLocationId
+      mstrEquipmentId
+      deliveryInterval {
+        seconds
+        minutes
+        hours
+        days
+        months
+        years
+      }
+      remarks
+    }
+  }
+}

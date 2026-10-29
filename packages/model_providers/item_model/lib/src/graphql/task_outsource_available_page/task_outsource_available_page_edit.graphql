@@ -1,0 +1,45 @@
+# task_outsource_available_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #TaskOutsourceAvailablePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation TaskOutsourceAvailablePageEdit(
+  $mstrOutsourceAvailableId: UUID!
+  $mstrTaskLocationId: UUID
+  $mstrStakeholderId: UUID
+  $deliveryInterval: IntervalInput
+  $materialSupply: Boolean
+  $paidSupply: Boolean
+  $remarks: String
+) {
+  updateMstrOutsourceAvailableByMstrOutsourceAvailableId(
+    input: {
+      mstrOutsourceAvailableId: $mstrOutsourceAvailableId
+      mstrOutsourceAvailablePatch: {
+        mstrTaskLocationId: $mstrTaskLocationId
+        mstrStakeholderId: $mstrStakeholderId
+        deliveryInterval: $deliveryInterval
+        materialSupply: $materialSupply
+        paidSupply: $paidSupply
+        remarks: $remarks
+      }
+    }
+  ) {
+    mstrOutsourceAvailable {
+      mstrOutsourceAvailableId
+      mstrTaskLocationId
+      mstrStakeholderId
+      deliveryInterval {
+        seconds
+        minutes
+        hours
+        days
+        months
+        years
+      }
+      materialSupply
+      paidSupply
+      remarks
+    }
+  }
+}

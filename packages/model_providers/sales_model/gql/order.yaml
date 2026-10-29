@@ -122,6 +122,8 @@ OrderDetailPage: &OrderDetailPage
     - deadline
     - symbol
     - remarks
+    # MRP用のマスタ不備の件数(計算列)
+    - master_error_count
     # 子のレコード数(要件0056。DBのビュー 2本)
     - name: shipping_order_detail_count
       arrayType: toFirstOne

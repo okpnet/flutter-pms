@@ -1,0 +1,83 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 工程の場所で使える設備(mstr_equipment_available)の読み込み
+# 工程の場所が必要。名称が必要な画面は、ID で既存の読み込みを引く。
+TaskEquipmentAvailablePage:
+  kind: read
+  from: mstr_equipment_available
+  filter: true
+  requiredWhere:
+    - mstr_task_location_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_equipment_available_id
+    - mstr_task_location_id
+    - mstr_equipment_id
+    - delivery_interval
+    - revision
+    - symbol
+    - remarks
+    - update_at
+
+# 工程の場所で使える設備の書き込み
+TaskEquipmentAvailablePageEdit:
+  kind: edit
+  from: mstr_equipment_available
+  requiredWhere:
+    - mstr_equipment_available_id
+  generateRfe: true
+  columns:
+    - mstr_equipment_available_id
+    - mstr_task_location_id
+    - mstr_equipment_id
+    - delivery_interval
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 工程の場所で使える外部委託(mstr_outsource_available)の読み込み
+# 工程の場所が必要
+TaskOutsourceAvailablePage:
+  kind: read
+  from: mstr_outsource_available
+  filter: true
+  requiredWhere:
+    - mstr_task_location_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_outsource_available_id
+    - mstr_task_location_id
+    - mstr_stakeholder_id
+    - delivery_interval
+    - material_supply
+    - paid_supply
+    - revision
+    - symbol
+    - remarks
+    - update_at
+
+# 工程の場所で使える外部委託の書き込み
+TaskOutsourceAvailablePageEdit:
+  kind: edit
+  from: mstr_outsource_available
+  requiredWhere:
+    - mstr_outsource_available_id
+  generateRfe: true
+  columns:
+    - mstr_outsource_available_id
+    - mstr_task_location_id
+    - mstr_stakeholder_id
+    - delivery_interval
+    - material_supply
+    - paid_supply
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
