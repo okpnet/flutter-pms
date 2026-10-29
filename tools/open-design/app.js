@@ -95,6 +95,7 @@
     customers: "顧客",
     orders: "出荷",
     production: "生産計画",
+    mrp: "資材所要計算",
     organization: "組織",
     more: "その他",
     company: "会社情報",
@@ -178,6 +179,7 @@
   };
   const currentRoute = () => parseRoute().name;
   const crumbOf = (route) => ({
+    mrp: "生産計画",
     "company/edit": "会社情報",
     "company/provision": "会社情報 › 編集",
     "company/position": "会社情報 › 編集",
@@ -499,8 +501,11 @@
     ["remarks", "備考", "textarea", 1024, false],
   ];
   /* ---------- edit structure helpers ---------- */
-  const fieldRow = ({ id, label, kind = "input", max = 60, req = true, options = [], value = "", taken = null, blank = "選択してください", after = null, min = null }) => {
-    const common = `id="f-${id}" name="${id}" ${req ? "required" : ""} aria-describedby="e-${id}" ${taken ? `data-taken="${esc(JSON.stringify(taken))}"` : ""} ${after ? `data-after="${after}"` : ""} ${min ? `data-min="${min}"` : ""}`;
+  const fieldRow = ({ id, label, kind = "input", max = 60, req = true, options = [], value = "", taken = null, blank = "選択してください", after = null, min = null, toggle = false, disabled = false, ge = null, gt = null, keepMsg = null, needUnless = null, disables = null }) => {
+    if (kind === "check") {
+      return `<div class="field-row field-check ${toggle ? "is-switch" : ""}"><input type="checkbox" id="f-${id}" name="${id}" value="1" ${value ? "checked" : ""} ${toggle ? 'role="switch"' : ""} ${keepMsg ? `data-keep-msg="${esc(keepMsg)}"` : ""} ${disables ? `data-disables="${disables}"` : ""} aria-describedby="e-${id}"><label for="f-${id}">${label}</label><p class="field-err" id="e-${id}"></p></div>`;
+    }
+    const common = `id="f-${id}" name="${id}" ${req ? "required" : ""} aria-describedby="e-${id}" ${taken ? `data-taken="${esc(JSON.stringify(taken))}"` : ""} ${after ? `data-after="${after}"` : ""} ${min ? `data-min="${min}"` : ""} ${ge != null ? `data-ge="${ge}"` : ""} ${gt != null ? `data-gt="${gt}"` : ""} ${needUnless ? `data-need-unless="${needUnless}"` : ""} ${disabled ? "disabled" : ""}`;
     let ctl;
     if (kind === "textarea") ctl = `<textarea ${common} rows="3" maxlength="${max}">${esc(value)}</textarea>`;
     else if (kind === "select") ctl = `<select ${common}><option value="">${blank}</option>${options.map(([v, l]) => `<option value="${esc(v)}" ${v === value ? "selected" : ""}>${esc(l)}</option>`).join("")}</select>`;
@@ -914,7 +919,7 @@
 
   /* ---------- generic table structure (used by the approval tables) ---------- */
   const TABLES = {}; // every makeTable() result, looked up by key from the DOM (data-tkey)
-  function makeTable({ key, cols, hidden = [], list, search, placeholder = "", filter = null, sort = null, href = null, pick = null, always = false, noun = "件" }) {
+  function makeTable({ key, cols, hidden = [], list, search, placeholder = "", filter = null, sort = null, href = null, pick = null, nest = null, always = false, noun = "件" }) {
     const view = { sort: sort ? { ...sort } : { key: null, dir: 1 }, q: "", type: "すべて", hidden: new Set(hidden), colsOpen: false, limit: null };
     const shown = () => cols.filter((c) => c.fixed || !view.hidden.has(c.key));
     const rows = () => {
@@ -937,12 +942,13 @@
       }).join("");
       const link = editMode && href;
       const sel = pick && !editMode ? pick.get() : null;
+      const tg = (r) => (nest ? `<button class="tree-toggle nest-toggle" type="button" data-nesttoggle="${r.id}" aria-expanded="${!nest.closed.has(r.id)}" aria-label="${esc(String(cols.find((c) => c.fixed).val(r)))}の${nest.label}を${nest.closed.has(r.id) ? "開く" : "閉じる"}">${icon("chevron")}</button>` : "");
       const body = l.map((r) => `<tr class="${link ? "row-link" : ""} ${sel === r.id ? "is-selected" : ""}" ${link ? `data-href="${href(r)}"` : ""}>${cs.map((c) => {
         const lab = `data-label="${c.label}"`;
-        if (c.fixed && pick && !editMode) return `<th scope="row" ${lab} class="od-keep"><button class="cell-link pick-btn" type="button" data-pickrow="${r.id}" aria-pressed="${sel === r.id}">${cellHtml(c, r)}</button></th>`;
-        if (c.fixed) return `<th scope="row" ${lab} class="od-keep">${link ? `<a class="cell-link" href="${href(r)}" aria-label="${esc(String(c.val(r)))}を編集">${cellHtml(c, r)}</a>` : cellHtml(c, r)}</th>`;
+        if (c.fixed && pick && !editMode) return `<th scope="row" ${lab} class="od-keep">${tg(r)}<button class="cell-link pick-btn" type="button" data-pickrow="${r.id}" aria-pressed="${sel === r.id}">${cellHtml(c, r)}</button></th>`;
+        if (c.fixed) return `<th scope="row" ${lab} class="od-keep">${tg(r)}${link ? `<a class="cell-link" href="${href(r)}" aria-label="${esc(String(c.val(r)))}を編集">${cellHtml(c, r)}</a>` : cellHtml(c, r)}</th>`;
         return `<td ${lab} class="${c.num ? "num od-nowrap" : ""}">${cellHtml(c, r)}</td>`;
-      }).join("")}</tr>`).join("");
+      }).join("")}</tr>${nest && !nest.closed.has(r.id) ? `<tr class="nest-row"><td colspan="${cs.length}">${nest.html(r, editMode)}</td></tr>` : ""}`).join("");
       const total = list().length;
       const table = l.length
         ? `<div class="tbl-wrap"><table class="tbl"><caption class="sr-only">一覧テーブル</caption><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`
@@ -962,7 +968,7 @@
         <details class="col-menu" data-tmenu="${key}" ${view.colsOpen ? "open" : ""}><summary class="btn">表示する列</summary><div class="col-list">${colOpts}</div></details>
       </section>`;
     };
-    const T = { key, view, html, toolbar, always, pick };
+    const T = { key, view, html, toolbar, always, pick, nest };
     TABLES[key] = T;
     return T;
   }
@@ -1715,10 +1721,168 @@
       ${below}`;
   }
 
+  /* ---------- 資材所要計算 (MRP / 再MRP) ----------
+     DB の tests.mrp_execute(p_mode, …) に対応。p_mode=1 受注MRP / 2 再MRP。戻り値は MRP実行 + 提案の一覧、またはエラーコード。
+     計算は重く、他のユーザーの処理にも影響するため、実行前に確認を出し、計算中は画面全体を操作できないようにする。
+     プロトタイプでは数秒の待ちを模擬する。所要時間と結果は data.js の D.mrp (durationMs / outcome) で切り替える。 */
+  D.mrp ??= { durationMs: 7000, outcome: "success" };
+  D.mrpRows ??= [];
+  const MRP_KIND = {
+    PURCHASE_NEW: ["発注（新規）", "truck"], PRODUCTION_NEW: ["生産（新規）", "production"],
+    PURCHASE_RESCHEDULE: ["発注の日程変更", "pencil"], PRODUCTION_RESCHEDULE: ["生産の日程変更", "pencil"],
+    PURCHASE_CANCEL: ["発注の取消", "close"], PRODUCTION_CANCEL: ["生産の取消", "close"],
+    OUTSOURCE_OPTION: ["外注への切替", "factory"], EXC_OVERLOAD: ["設備の過負荷", "alert"],
+  };
+  const MRP_DEC = { 0: ["要判断", "alert", "warn"], 1: ["採用", "check", "ok"], 2: ["却下", "close", "mute"], 9: ["情報", "", "mute"] };
+  const MRP_ERR = { timeout: "57014", args: "MRP00" }; // DB処理中のタイムアウト / 引数エラー
+  const mrpState = { running: false, redo: false, result: null, error: null, t0: 0 };
+  let mrpTick = null;
+  const mrpDt = (iso) => (iso ? fmtDate(iso) : "―");
+  const mrpT = makeTable({
+    key: "mrpRes", noun: "件", list: () => mrpState.result?.rows ?? [],
+    search: (r) => r.code + r.name + r.message, placeholder: "品目コード・品目名・メッセージ",
+    filter: { label: "判断", values: ["要判断", "採用", "情報"], get: (r) => MRP_DEC[r.decision][0] },
+    cols: [
+      { key: "kind", label: "提案", fixed: true, val: (r) => MRP_KIND[r.kind][0], html: (r) => chip(MRP_KIND[r.kind][0], MRP_KIND[r.kind][1]) },
+      { key: "code", label: "品目コード", val: (r) => r.code, html: (r) => `<span class="od-nowrap">${esc(r.code)}</span>` },
+      { key: "name", label: "品目名", val: (r) => r.name },
+      { key: "qty", label: "数量", num: true, val: (r) => r.qty, html: (r) => `${fmt(r.qty)}${esc(r.unit)}` },
+      { key: "alloc", label: "在庫引当", num: true, val: (r) => r.alloc, html: (r) => `${fmt(r.alloc)}${esc(r.unit)}` },
+      { key: "need", label: "必要日", val: (r) => r.need || "", html: (r) => `<span class="od-nowrap">${mrpDt(r.need)}</span>` },
+      { key: "release", label: "発注日・着手日", val: (r) => r.release || "", html: (r) => `<span class="od-nowrap">${mrpDt(r.release)}</span>` },
+      { key: "due", label: "納期", val: (r) => r.due || "", html: (r) => `<span class="od-nowrap">${mrpDt(r.due)}</span>${r.late ? ` ${chip("遅れ", "alert", "bad")}` : ""}` },
+      { key: "decision", label: "判断", val: (r) => MRP_DEC[r.decision][0], html: (r) => chip(MRP_DEC[r.decision][0], MRP_DEC[r.decision][1], MRP_DEC[r.decision][2]) },
+      { key: "message", label: "メッセージ", val: (r) => r.message || "―" },
+    ],
+  });
+
+  function mrpScreen() {
+    const st = mrpState;
+    const err = st.error
+      ? `<div class="alert" role="alert" id="mrp-status" tabindex="-1">${icon("alert")}<div class="od-fill"><strong>計算を完了できませんでした</strong>
+          <p>いまは処理を終えられませんでした。しばらく時間をおいてから、もう一度実行してください。</p>
+          <p class="note">お問い合わせの際は、エラーコード「${esc(st.error.code)}」をお伝えください。</p></div></div>` : "";
+    const r = st.result;
+    const ok = r ? `<div class="flash mrp-ok" role="status" id="mrp-status" tabindex="-1">${icon("check")}<div class="od-fill"><strong>MRPが成功しました</strong>
+          <p>${esc(r.at)} に${r.mode === 2 ? "再MRP" : "受注MRP"}を実行し、${r.rows.length}件の提案を作成しました。${r.pending
+            ? `要判断の提案が${r.pending}件あります。内容を確認して、採否を決めてください。` : "要判断の提案はなく、確定まで完了しました。"}${r.late ? `納期に遅れる提案が${r.late}件あります。` : ""}</p></div></div>
+        ${tableCard(mrpT, false, "h-mrp-res", "MRPの結果（提案の一覧）", "")}` : "";
+    return `<section class="card mrp-ctl" aria-labelledby="h-mrp">
+        <h2 class="sec-title" id="h-mrp">資材所要計算（MRP）</h2>
+        <p>受注と、在庫・発注残・生産残をもとに、必要な資材を計算し、発注や生産の提案を作ります。</p>
+        <label class="col-opt mrp-redo"><input type="checkbox" id="mrp-redo" ${st.redo ? "checked" : ""}>再MRPとして実行する</label>
+        <p class="note">チェックなし：まだ計画していない受注だけを計算します（受注MRP）。<br>チェックあり：受注を見直したあとに、すべての需要を作り直します（再MRP）。</p>
+        <p class="note">処理が重く、他のユーザーの作業にも影響します。実行前に確認を表示します。</p>
+        <div class="form-actions"><button class="btn btn-primary" type="button" id="mrp-run">${icon("production")}<span>MRPを実行</span></button></div>
+      </section>
+      ${err}${ok}
+      ${!r && !err ? `<section class="card">${emptyState("まだ実行していません", "「MRPを実行」を押すと、計算の結果がここに表示されます。")}</section>` : ""}`;
+  }
+
+  function openMrpConfirm(trigger) {
+    const redo = mrpState.redo;
+    const li = (t) => `<li>${icon("alert")}<span>${t}</span></li>`;
+    showSheet(trigger, {
+      chip: chip("確認", "alert", "warn"), title: `${redo ? "再MRP" : "MRP"}を実行しますか？`, rows: [],
+      extra: `<ul class="warn-list" aria-label="実行前にご確認ください">
+          ${li("処理が重く、完了まで数分かかることがあります。")}
+          ${li("<strong>影響が広範囲に及び、ほかのユーザーが行っている処理にも影響します。</strong>動作が遅くなったり、待たされたりすることがあります。")}
+          ${redo ? li("<strong>再MRPは、すべての需要を作り直します。</strong>通常のMRPよりも、影響がさらに大きくなります。") : ""}
+          ${li("実行中は、画面のどこも操作できません。途中で止めることもできません。")}
+        </ul>
+        <p>本当に実行してよろしいですか？</p>
+        <div class="form-actions sheet-actions"><button class="btn" type="button" data-close>キャンセル</button><button class="btn btn-danger" type="button" id="mrp-go">実行する</button></div>`,
+      onMount: (rootEl) => rootEl.querySelector("#mrp-go").addEventListener("click", () => { closeSheet(false); startMrp(); }),
+    });
+  }
+
+  /* ---- running: full-screen overlay that blocks the page, the menus and the keyboard ---- */
+  const MRP_STAGES = ["需要（受注・安全在庫）を集計しています", "部品表を展開しています", "在庫と発注残を差し引いています", "発注・生産の提案を作成しています"];
+  const gearTeeth = (cx, cy, r, n) => Array.from({ length: n }, (_, i) => `<rect x="${cx - 4}" y="${cy - r - 7}" width="8" height="10" rx="2" transform="rotate(${(360 / n) * i} ${cx} ${cy})"/>`).join("");
+  const mrpArt = () => `<svg class="mrp-art" viewBox="0 0 320 168" role="img" aria-label="歯車が回り、部材がベルトコンベアで運ばれて、帳票に計算結果が書き込まれていく様子">
+      <rect class="art-sheet" x="206" y="12" width="104" height="84" rx="8"/>
+      <rect class="art-line l1" x="218" y="28" width="70" height="6" rx="3"/><rect class="art-line l2" x="218" y="44" width="52" height="6" rx="3"/>
+      <rect class="art-line l3" x="218" y="60" width="78" height="6" rx="3"/><rect class="art-line l4" x="218" y="76" width="40" height="6" rx="3"/>
+      <g class="gear gear-a"><circle cx="62" cy="62" r="24"/>${gearTeeth(62, 62, 24, 8)}<circle class="hole" cx="62" cy="62" r="9"/></g>
+      <g class="gear gear-b"><circle cx="124" cy="88" r="16"/>${gearTeeth(124, 88, 16, 6)}<circle class="hole" cx="124" cy="88" r="6"/></g>
+      <rect class="art-belt" x="8" y="136" width="304" height="14" rx="7"/><circle class="art-wheel" cx="20" cy="143" r="5"/><circle class="art-wheel" cx="300" cy="143" r="5"/>
+      <g class="art-box b1"><rect x="0" y="112" width="30" height="24" rx="3"/><path d="M15 112v24"/></g>
+      <g class="art-box b2"><rect x="0" y="112" width="30" height="24" rx="3"/><path d="M15 112v24"/></g>
+      <g class="art-box b3"><rect x="0" y="112" width="30" height="24" rx="3"/><path d="M15 112v24"/></g>
+    </svg>`;
+  const mrpBlocked = () => (mobile ? [document.querySelector(".m-app")] : [root, switcher]).filter(Boolean);
+  function openMrpOverlay() {
+    const ov = document.createElement("div");
+    ov.className = "mrp-overlay";
+    ov.id = "mrp-overlay";
+    ov.tabIndex = -1;
+    ov.setAttribute("role", "alertdialog");
+    ov.setAttribute("aria-modal", "true");
+    ov.setAttribute("aria-labelledby", "mrp-ov-title");
+    ov.setAttribute("aria-describedby", "mrp-ov-desc");
+    ov.innerHTML = `<div class="mrp-ov-card">
+        ${mrpArt()}
+        <h2 id="mrp-ov-title">${mrpState.redo ? "再MRP" : "MRP"}を計算しています</h2>
+        <p class="mrp-stage" id="mrp-stage">${MRP_STAGES[0]}</p>
+        <div class="mrp-bar" aria-hidden="true"><span></span></div>
+        <p class="mrp-elapsed">経過時間 <strong id="mrp-elapsed" class="od-nowrap">0:00</strong></p>
+        <p class="note" id="mrp-ov-desc">計算が終わるまで、画面は操作できません。このままお待ちください。他のユーザーへの影響を抑えるため、途中で止めることはできません。</p>
+        <p class="sr-only" id="mrp-sr" role="status">${MRP_STAGES[0]}</p>
+      </div>`;
+    (mobile ? root.parentElement : document.body).appendChild(ov);
+    mrpBlocked().forEach((el) => { el.inert = true; });
+    ov.focus();
+  }
+  function closeMrpOverlay() {
+    mrpBlocked().forEach((el) => { el.inert = false; });
+    document.getElementById("mrp-overlay")?.remove();
+  }
+  function updateMrpOverlay() {
+    const s = Math.floor((Date.now() - mrpState.t0) / 1000);
+    const text = MRP_STAGES[Math.floor(s / 3) % MRP_STAGES.length];
+    const stage = document.getElementById("mrp-stage");
+    if (stage && stage.textContent !== text) { stage.textContent = text; document.getElementById("mrp-sr").textContent = text; }
+    const el = document.getElementById("mrp-elapsed");
+    if (el) el.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  }
+  function startMrp() {
+    mrpState.running = true;
+    mrpState.error = null;
+    mrpState.result = null;
+    mrpState.t0 = Date.now();
+    openMrpOverlay();
+    mrpTick = setInterval(updateMrpOverlay, 500);
+    setTimeout(finishMrp, D.mrp.durationMs);
+  }
+  function finishMrp() {
+    clearInterval(mrpTick);
+    mrpState.running = false;
+    closeMrpOverlay();
+    const outcome = D.mrp.outcome;
+    if (outcome === "success") {
+      const rows = D.mrpRows.map((r) => ({ ...r }));
+      const n = new Date();
+      mrpState.result = {
+        mode: mrpState.redo ? 2 : 1, rows,
+        at: `${n.getFullYear()}年${n.getMonth() + 1}月${n.getDate()}日 ${String(n.getHours()).padStart(2, "0")}:${String(n.getMinutes()).padStart(2, "0")}`,
+        pending: rows.filter((r) => r.decision === 0).length, late: rows.filter((r) => r.late).length,
+      };
+    } else mrpState.error = { code: MRP_ERR[outcome] ?? "MRP00" };
+    render();
+    document.getElementById("mrp-status")?.focus();
+  }
+  window.addEventListener("keydown", (e) => {
+    if (!mrpState.running) return;
+    e.preventDefault();
+    e.stopPropagation();
+    document.getElementById("mrp-overlay")?.focus();
+  }, true);
+  window.addEventListener("beforeunload", (e) => { if (mrpState.running) { e.preventDefault(); e.returnValue = ""; } });
+
   /* ---------- save / delete for the edit structures ---------- */
   const nextId = (prefix, arr) => prefix + (Math.max(0, ...arr.map((x) => parseInt(String(x.id).slice(prefix.length), 10) || 0)) + 1);
   function saveForm(form) {
-    const v = Object.fromEntries([...form.querySelectorAll("input, textarea, select")].map((el) => [el.name, el.value.trim()]));
+    const v = Object.fromEntries([...form.querySelectorAll("input, textarea, select")].map((el) => [el.name, el.type === "checkbox" ? (el.checked ? "1" : "") : el.value.trim()]));
     const stamp = { updatedBy: D.user.name, updatedAt: TODAY };
     const { kind, id, pid, sid, res, ent } = form.dataset;
     if (kind === "loc") {
@@ -2102,7 +2266,7 @@
     }).join("");
     const cell = (s, c) => {
       const lab = `data-label="${c.label}"`;
-      if (c.key === "name") return `<th scope="row" ${lab} class="od-keep">${editMode ? `<a class="cell-link" href="#/sites/${s.id}" aria-label="${esc(s.name)}を編集">${esc(s.name)}</a>` : esc(s.name)}</th>`;
+      if (c.key === "name") return `<th scope="row" ${lab} class="od-keep">${tg(r)}${editMode ? `<a class="cell-link" href="#/sites/${s.id}" aria-label="${esc(s.name)}を編集">${esc(s.name)}</a>` : esc(s.name)}</th>`;
       if (c.key === "type") return `<td ${lab}>${chip(s.type, s.icon)}</td>`;
       if (c.key === "people") return `<td ${lab} class="num od-nowrap">${fmt(s.people)}名</td>`;
       if (c.key === "updatedAt") return `<td ${lab} class="od-nowrap">${esc(s.updatedAt)}</td>`;
@@ -2196,16 +2360,20 @@
   const G = {};
   const GS = {};
   const gSel = {}; // selected row per entity in view mode (master -> detail chain)
-  const FK = { t: "input", x: "textarea", n: "number", d: "date", s: "select", r: "select" };
+  const FK = { t: "input", x: "textarea", n: "number", d: "date", s: "select", r: "select", b: "check" };
   const G_CHIP = { "高": "bad", "中": "warn", "低": "mute", "受付": "mute", "対応中": "line", "完了": "ok", "有効": "ok", "継続監視": "warn", "無効": "mute" };
   DOM.entities.forEach((e) => {
     G[e.key] = { ...e, coll: `g_${e.key}`, children: [],
-      fields: e.fields.map(([id, label, kind = "t", x = {}]) => ({ id, label, kind, req: x.req !== false, opts: x.opts, ref: x.ref })) };
+      fields: e.fields.map(([id, label, kind = "t", x = {}]) => ({ id, label, kind, req: x.req !== false, opts: x.opts, ref: x.ref, toggle: x.toggle, ge: x.ge, gt: x.gt, uniq: x.uniq, lockedBy: x.lockedBy, disables: x.disables, needUnless: x.needUnless })) };
   });
   DOM.entities.forEach((e) => { if (e.parent) G[e.parent.ent].children.push(e.key); });
   DOM.screens.forEach((s) => {
-    GS[s.id] = { ...s, tabs: s.tabs.map(([id, label, root]) => ({ id, label, root })) };
-    GS[s.id].tabs.forEach((t) => { const E = G[t.root]; if (!E.screen) { E.screen = s.id; E.tab = t.id; } });
+    GS[s.id] = { ...s, tabs: s.tabs.map(([id, label, root, o = {}]) => ({ id, label, root, ...o })) };
+    GS[s.id].tabs.forEach((t) => {
+      const E = G[t.root];
+      if (!E.screen) { E.screen = s.id; E.tab = t.id; }
+      if (t.nest) { G[t.nest].screen = s.id; G[t.nest].tab = t.id; } // the nested table is edited from this screen
+    });
   });
   const gTree = { open: new Set(), loaded: new Set(), loading: new Set() };
   Object.values(G).forEach((E) => {
@@ -2228,6 +2396,7 @@
   const gShow = (f, v) => {
     if (f.kind === "r") return v ? gRefOpts(f).find(([i]) => i === v)?.[1] ?? "（削除済み）" : "―";
     if (f.kind === "d") return v ? fmtDate(v) : "―";
+    if (f.kind === "b") return v ? "はい" : "いいえ";
     if (f.kind === "n") return v === "" || v == null ? "―" : fmt(Number(v));
     return v || "―";
   };
@@ -2250,8 +2419,8 @@
   const gCols = (E) => [
     ...E.fields.map((f, i) => ({
       key: f.id, label: f.label, fixed: i === 0, num: f.kind === "n",
-      val: (r) => (f.kind === "n" ? Number(r[f.id]) || 0 : f.kind === "s" ? f.opts.indexOf(r[f.id]) : f.kind === "d" ? r[f.id] : String(gShow(f, r[f.id]))),
-      html: (r) => (f.kind === "s" && r[f.id] ? chip(esc(r[f.id]), "", G_CHIP[r[f.id]] ?? "") : f.kind === "d" ? `<span class="od-nowrap">${esc(gShow(f, r[f.id]))}</span>` : esc(gShow(f, r[f.id]))),
+      val: (r) => (f.kind === "b" ? (r[f.id] ? 1 : 0) : f.kind === "n" ? Number(r[f.id]) || 0 : f.kind === "s" ? f.opts.indexOf(r[f.id]) : f.kind === "d" ? r[f.id] : String(gShow(f, r[f.id]))),
+      html: (r) => (f.kind === "b" ? (r[f.id] ? chip("はい", "check", "ok") : chip("いいえ", "", "mute")) : f.kind === "s" && r[f.id] ? chip(esc(r[f.id]), "", G_CHIP[r[f.id]] ?? "") : f.kind === "d" ? `<span class="od-nowrap">${esc(gShow(f, r[f.id]))}</span>` : esc(gShow(f, r[f.id]))),
     })),
     ...E.children.map((c) => numCol(`c_${c}`, G[c].label, G[c].coll, G[c].parent.key, "件")),
     byCol, dateCol,
@@ -2269,6 +2438,41 @@
     E.table = mk(false);
     E.rootTable = mk(true);
   });
+
+  /* table in table: each row of the root table carries the child entity's table underneath (declared with tab option { nest, where }) */
+  function gNestHtml(t, item, edit) {
+    const SE = G[t.nest];
+    const rows = D[SE.coll].filter((r) => r[SE.parent.key] === item.id);
+    const sf = SE.fields.find((f) => f.id === "supplier");
+    const body = rows.map((r) => {
+      const nm = esc(String(gShow(sf, r.supplier)));
+      const href = `#/g/e/${SE.key}/${r.id}`;
+      return `<tr ${edit ? `class="row-link" data-href="${href}"` : ""}>
+        <th scope="row" data-label="サプライヤー">${edit ? `<a class="cell-link" href="${href}" aria-label="${nm}を編集">${nm}</a>` : nm}</th>
+        <td data-label="デリバリータイム" class="num od-nowrap">${r.days === "" ? "―" : `${fmt(Number(r.days))}日`}</td>
+        <td data-label="最小発注ロット" class="num od-nowrap">${r.lot === "" ? "―" : fmt(Number(r.lot))}</td>
+        <td data-label="単価" class="num od-nowrap">${r.asking ? "言い値（都度確認）" : r.cost === "" ? "―" : `${fmt(Number(r.cost))}円`}</td>
+        <td data-label="言い値区分">${r.asking ? chip("言い値", "alert", "warn") : chip("固定単価", "check", "ok")}</td></tr>`;
+    }).join("");
+    const add = edit ? `<a class="btn" href="#/g/e/${SE.key}/new/${item.id}">${icon("plus")}<span>サプライヤーを追加</span></a>` : "";
+    return `<div class="nest"><div class="nest-head"><h3 class="nest-title">${esc(gName(G[t.root], item))} のサプライヤー</h3>${add}</div>
+      ${rows.length ? `<div class="tbl-wrap"><table class="tbl nest-tbl"><caption class="sr-only">サプライヤーの表</caption>
+        <thead><tr><th scope="col">サプライヤー</th><th scope="col" class="num">デリバリータイム</th><th scope="col" class="num">最小発注ロット</th><th scope="col" class="num">単価</th><th scope="col">言い値区分</th></tr></thead><tbody>${body}</tbody></table></div>`
+        : emptyState("サプライヤーが登録されていません", edit ? "「サプライヤーを追加」から登録してください。" : "編集モードで登録できます。")}</div>`;
+  }
+  Object.values(GS).forEach((S) => S.tabs.forEach((t) => {
+    if (!t.nest) return;
+    const E = G[t.root];
+    const cols = gCols(E);
+    const shown = new Set(["code", "name", "mstr_item_kind_id", "shared_unit_id", `c_${t.nest}`]);
+    t.table = makeTable({
+      key: `gn_${S.id}_${t.id}`, noun: "品目", placeholder: "品目コード・品目名", cols,
+      hidden: cols.map((c) => c.key).filter((k) => !shown.has(k)),
+      list: () => D[E.coll].filter((r) => Object.entries(t.where ?? {}).every(([k, v]) => r[k] === v)),
+      search: (r) => E.fields.map((f) => gShow(f, r[f.id])).join(" "),
+      nest: { closed: new Set(), label: G[t.nest].label, html: (r, edit) => gNestHtml(t, r, edit) },
+    });
+  }));
 
   /* tree structure: parent / child indent, lazy expand, drag & drop re-parenting (edit mode) */
   const gKids = (E, id, owner) => D[E.coll].filter((r) => (r.parent || "") === id && (owner == null || !E.parent || r[E.parent.key] === owner));
@@ -2323,6 +2527,11 @@
     const tab = S.tabs.find((t) => t.id === tabId) ?? S.tabs[0];
     const E = G[tab.root];
     const base = `#/g/${sid}/${tab.id}`;
+    if (tab.nest) {
+      return `${backLink(edit ? base : "#/menu", edit ? "閲覧に戻る" : "メニューに戻る")}${flashHtml()}
+        ${gTabBar(S, tab.id, edit)}
+        <div class="tab-panel">${tableCard(tab.table, edit, `h-g-${tab.id}`, "購入品の品目", edit ? "" : editLink(`${base}/edit`, tab.label))}</div>`;
+    }
     const body = edit
       ? gBlock(E, true, `${E.label}の一覧`, `<a class="btn" href="#/g/e/${E.key}/new">${icon("plus")}<span>${E.label}を追加</span></a>`, true)
       : gBlock(E, false, `${E.label}の一覧`, editLink(`${base}/edit`, tab.label), true) +
@@ -2348,6 +2557,10 @@
     E.fields.forEach((f) => rows.push(fieldRow({
       id: f.id, label: f.label, kind: FK[f.kind], max: f.kind === "x" ? 200 : 60, req: f.req,
       options: f.kind === "s" ? f.opts.map((o) => [o, o]) : f.kind === "r" ? gRefOpts(f) : [], value: String(rec[f.id] ?? ""),
+      toggle: f.toggle, ge: f.ge, gt: f.gt, needUnless: f.needUnless, disables: f.disables, disabled: !!(f.needUnless && rec[f.needUnless]),
+      taken: f.uniq && E.parent && pid ? D[E.coll].filter((r) => r[E.parent.key] === pid && r.id !== id).map((r) => r[f.id]) : null,
+      keepMsg: f.lockedBy && !isNew && D[G[f.lockedBy].coll].some((r) => r[G[f.lockedBy].parent.key] === id)
+        ? `${G[f.lockedBy].label}が登録されているため、チェックは外せません。先に${G[f.lockedBy].label}を削除してください。` : null,
     })));
     if (E.tree) {
       const owner = E.parent ? pid : null;
@@ -2395,7 +2608,7 @@
     return DOM.groups.map((g) => `<section class="card list-card" aria-labelledby="mg-${g.id}"><h2 class="sec-title menu-title" id="mg-${g.id}">${icon(g.icon)}${g.label}</h2>${g.screens.map((sid) => {
       const S = GS[sid];
       return row(`#/g/${sid}`, S.icon, S.label, S.tabs.map((t) => t.label).join("・"));
-    }).join("")}</section>`).join("") +
+    }).join("")}${g.id === "plan" ? row("#/mrp", "box", "資材所要計算", "MRP・再MRPの実行") : ""}</section>`).join("") +
       `<section class="card list-card" aria-label="アプリケーション">${row("#/settings", "gear", "設定", "自分のイメージ・読込件数・テーマ・言語・画面の列")}</section>`;
   }
 
@@ -2668,6 +2881,7 @@
     { id: "company", icon: "building", label: "会社情報" },
     { id: "maintenance-mode", icon: "wrench", label: "メンテナンス中" },
   ];
+  NAV.find((n) => n.group === "g_plan")?.children.push({ id: "mrp", icon: "box", label: "資材所要計算" });
   const navOpen = new Set(); // expanded groups (PC / drawer)
   let navPop = null; // group whose fly-out is open (icon-only tablet sidebar)
   const isCurNav = (id, r) => (id.startsWith("g/") ? gCurScreen() === id.slice(2) : id === "company" ? /^(company|sites|departments|staff|approval|offerings)/.test(r) : id === "home" ? ["home", "orders", "production"].includes(r) : r === id || r.startsWith(id + "/"));
@@ -2782,6 +2996,7 @@
         customers: customersScreen,
         orders: ordersScreen,
         production: productionScreen,
+        mrp: mrpScreen,
         organization: organizationScreen,
         more: moreScreen,
         company: companyScreen,
@@ -2859,24 +3074,43 @@
 
   /* ---------- company edit form ---------- */
   function validateField(el) {
-    const v = el.value.trim();
     const label = el.closest(".field-row").querySelector("label").firstChild.textContent;
+    const out = (msg) => {
+      el.setAttribute("aria-invalid", msg ? "true" : "false");
+      document.getElementById("e-" + el.name).textContent = msg;
+      return msg;
+    };
+    if (el.type === "checkbox") return out(!el.checked && el.dataset.keepMsg ? el.dataset.keepMsg : "");
+    if (el.disabled) return out("");
+    const v = el.value.trim();
     const taken = el.dataset.taken ? JSON.parse(el.dataset.taken) : [];
+    const other = (name) => el.form.elements[name];
     let msg = "";
     if (!v && el.required) msg = `${label}を${el.tagName === "SELECT" ? "選択" : "入力"}してください。`;
-    else if (v && el.dataset.after && el.form.elements[el.dataset.after]?.value > v) {
-      const other = el.form.elements[el.dataset.after].closest(".field-row").querySelector("label").firstChild.textContent;
-      msg = `${label}は${other}以降の日付にしてください。`;
+    else if (!v && el.dataset.needUnless && !other(el.dataset.needUnless)?.checked) msg = `${label}を入力してください。言い値の場合は「${other(el.dataset.needUnless).closest(".field-row").querySelector("label").firstChild.textContent}」をオンにしてください。`;
+    else if (v && el.dataset.after && other(el.dataset.after)?.value > v) {
+      const o = other(el.dataset.after).closest(".field-row").querySelector("label").firstChild.textContent;
+      msg = `${label}は${o}以降の日付にしてください。`;
     } else if (v && el.dataset.min && v < el.dataset.min) {
       msg = `${label}は予定日（${fmtDate(el.dataset.min)}）以降の日付にしてください。`;
-    } else if (v && taken.includes(v)) msg = `「${v}」は既に登録されています。別の${label}にしてください。`;
-    el.setAttribute("aria-invalid", msg ? "true" : "false");
-    document.getElementById("e-" + el.name).textContent = msg;
-    return msg;
+    } else if (v && el.dataset.ge != null && Number(v) < Number(el.dataset.ge)) msg = `${label}は${el.dataset.ge}以上の数値にしてください。`;
+    else if (v && el.dataset.gt != null && !(Number(v) > Number(el.dataset.gt))) msg = `${label}は${el.dataset.gt}より大きい数値にしてください。`;
+    else if (v && taken.includes(v)) {
+      const shown = el.tagName === "SELECT" ? el.selectedOptions[0]?.text ?? v : v;
+      msg = `「${shown}」は既に登録されています。別の${label}にしてください。`;
+    }
+    return out(msg);
   }
   function bindForm(form) {
     const sum = document.getElementById("err-sum");
     form.querySelectorAll("input, textarea, select").forEach((el) => el.addEventListener("blur", () => validateField(el)));
+    form.querySelectorAll("[data-disables]").forEach((cb) => cb.addEventListener("change", () => {
+      const t = form.elements[cb.dataset.disables];
+      if (!t) return;
+      t.disabled = cb.checked;
+      if (cb.checked) t.value = "";
+      validateField(t);
+    }));
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const bad = [...form.querySelectorAll("input, textarea, select")].filter((el) => validateField(el));
@@ -3000,6 +3234,8 @@
       window.addEventListener("keydown", key);
       move(e);
     }));
+    document.getElementById("mrp-redo")?.addEventListener("change", (e) => { mrpState.redo = e.target.checked; });
+    document.getElementById("mrp-run")?.addEventListener("click", (e) => openMrpConfirm(e.currentTarget));
     document.querySelectorAll('[role="tablist"]').forEach((tl) => tl.addEventListener("keydown", (e) => {
       const tabs = [...tl.querySelectorAll('[role="tab"]')];
       const i = tabs.indexOf(document.activeElement);
@@ -3101,6 +3337,11 @@
       h.querySelectorAll("[data-pickrow]").forEach((b) => b.addEventListener("click", () => {
         T2.pick.set(b.dataset.pickrow);
         rerender(`[data-pickrow="${b.dataset.pickrow}"]`);
+      }));
+      h.querySelectorAll("[data-nesttoggle]").forEach((b) => b.addEventListener("click", () => {
+        const id = b.dataset.nesttoggle;
+        if (T2.nest.closed.has(id)) T2.nest.closed.delete(id); else T2.nest.closed.add(id);
+        rerender(`.tbl-host[data-tkey="${T2.key}"] [data-nesttoggle="${id}"]`);
       }));
     };
     document.querySelectorAll(".tbl-host").forEach(bindHost);
@@ -3309,6 +3550,7 @@
   let prevRoute = null;
   let savedScroll = 0;
   window.addEventListener("hashchange", (e) => {
+    if (mrpState.running && location.hash !== "#/mrp") { location.hash = "#/mrp"; return; }
     const route = currentRoute();
     if (isTop(prevRoute) && !isTop(route)) savedScroll = scroller().scrollTop;
     clearInterval(cdTimer);

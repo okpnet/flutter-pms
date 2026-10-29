@@ -263,3 +263,23 @@ window.OD_DATA = {
     { id: "l6", site: "関西工場", name: "切削ライン C",   item: "精密切削部品", plan: 4500, actual: 3900, unit: "個", state: "順調", note: "" },
   ],
 };
+
+/* ---- 資材所要計算（MRP）の模擬設定と結果 ----
+   durationMs : 計算にかかる時間(ミリ秒)。画面の「計算中」の表示時間になる。
+   outcome    : "success"(成功) / "timeout"(DB処理中のタイムアウト: 57014) / "args"(引数エラー: MRP00)
+   mrpRows    : 成功時に返る提案の一覧(tests.trans_mrp_suggestion に対応)。decision 0:要判断 1:採用 2:却下 9:情報。実在しない架空の値。 */
+window.OD_DATA.mrp = { durationMs: 7000, outcome: "success" };
+window.OD_DATA.mrpRows = [
+  { kind: "PURCHASE_NEW",          code: "M-1001", name: "SUS304丸棒 φ20",      qty: 2100, unit: "kg", alloc: 1500, need: "2026-11-06", release: "2026-10-30", due: "2026-11-04", late: false, decision: 1, message: "不足分を仕入先へ発注します。" },
+  { kind: "PURCHASE_NEW",          code: "M-1002", name: "A5052アルミ板 t3",    qty: 80,   unit: "枚", alloc: 20,   need: "2026-11-10", release: "2026-10-29", due: "2026-11-12", late: true,  decision: 0, message: "納期に間に合いません。仕入先のリードタイムを確認してください。" },
+  { kind: "PURCHASE_NEW",          code: "P-2001", name: "六角ボルト M8×25",    qty: 5000, unit: "個", alloc: 1200, need: "2026-11-05", release: "2026-10-30", due: "2026-11-02", late: false, decision: 1, message: "" },
+  { kind: "PRODUCTION_NEW",        code: "S-3001", name: "精密切削部品 A型",    qty: 6000, unit: "個", alloc: 800,  need: "2026-11-08", release: "2026-11-02", due: "2026-11-07", late: false, decision: 1, message: "切削ライン A に割り当てました。" },
+  { kind: "PRODUCTION_NEW",        code: "S-3002", name: "組立ユニット U-100",  qty: 250,  unit: "台", alloc: 30,   need: "2026-11-12", release: "2026-11-09", due: "2026-11-11", late: false, decision: 1, message: "" },
+  { kind: "PURCHASE_RESCHEDULE",   code: "P-2002", name: "油圧シリンダ",        qty: 40,   unit: "個", alloc: 0,    need: "2026-11-20", release: "2026-11-10", due: "2026-11-18", late: false, decision: 1, message: "必要日が後ろにずれたため、納期を2日遅らせる提案です。" },
+  { kind: "PRODUCTION_CANCEL",     code: "S-3003", name: "カバー部品 B型",      qty: 1200, unit: "個", alloc: 0,    need: "",           release: "",           due: "",           late: false, decision: 0, message: "受注の取消で需要がなくなったため、生産の取消を提案します。" },
+  { kind: "EXC_OVERLOAD",          code: "EQ-0001", name: "NC旋盤 No.1",        qty: 0,    unit: "",   alloc: 0,    need: "2026-11-04", release: "",           due: "",           late: false, decision: 9, message: "11月4日の負荷が設備の能力を超えます。" },
+  { kind: "OUTSOURCE_OPTION",      code: "S-3001", name: "精密切削部品 A型",    qty: 1500, unit: "個", alloc: 0,    need: "2026-11-08", release: "2026-11-02", due: "2026-11-06", late: false, decision: 0, message: "切削ライン A が過負荷のため、仕上げ研磨を外注に出す案があります。" },
+  { kind: "PURCHASE_NEW",          code: "M-1003", name: "SPCC鋼板 t1.6",       qty: 300,  unit: "枚", alloc: 100,  need: "2026-11-15", release: "2026-11-04", due: "2026-11-13", late: false, decision: 1, message: "" },
+  { kind: "PRODUCTION_NEW",        code: "S-3004", name: "金型ベース Z-12",     qty: 3,    unit: "式", alloc: 0,    need: "2026-11-25", release: "2026-11-09", due: "2026-11-24", late: false, decision: 1, message: "" },
+  { kind: "PURCHASE_CANCEL",       code: "P-2003", name: "ゴムパッキン G-50",   qty: 800,  unit: "個", alloc: 0,    need: "",           release: "",           due: "",           late: false, decision: 0, message: "使われない発注残です。取消を提案します。" },
+];

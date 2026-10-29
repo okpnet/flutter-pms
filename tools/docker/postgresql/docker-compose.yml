@@ -1,6 +1,6 @@
 services:
   db:
-    image: ${REGISTRY_HOST}:${REGISTRY_PORT}/postgres:14
+    image: ${REGISTRY_HOST}:${REGISTRY_PORT}/postgres:15
     container_name: postgres
     command: -c 'config_file=/etc/postgresql/postgresql.conf' #postgres conf
     ports:
