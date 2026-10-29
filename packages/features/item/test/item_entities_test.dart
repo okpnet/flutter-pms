@@ -9,7 +9,7 @@ void main() {
   const module = ItemModule();
 
   test('台帳を持つ実体のルートがある(子の台帳は編集だけ)', () {
-    expect(module.entityKeys, ['itemkind','hscode','item','itemsizekind']);
+    expect(module.entityKeys, ['itemkind','hscode','item','itemsizekind','itemsupplier']);
     expect(module.routes, isNotEmpty);
   });
 

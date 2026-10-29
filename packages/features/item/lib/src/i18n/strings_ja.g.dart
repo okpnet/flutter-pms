@@ -49,6 +49,9 @@ class ItemStrings$menu$ja {
 
 	/// ja: '品目'
 	String get group => '品目';
+
+	/// ja: '購買'
+	String get group_purchasing => '購買';
 }
 
 // Path: entity
@@ -68,6 +71,7 @@ class ItemStrings$entity$ja {
 	late final ItemStrings$entity$itemop$ja itemop = ItemStrings$entity$itemop$ja.internal(_root);
 	late final ItemStrings$entity$itemmaker$ja itemmaker = ItemStrings$entity$itemmaker$ja.internal(_root);
 	late final ItemStrings$entity$itemoptask$ja itemoptask = ItemStrings$entity$itemoptask$ja.internal(_root);
+	late final ItemStrings$entity$itemsupplier$ja itemsupplier = ItemStrings$entity$itemsupplier$ja.internal(_root);
 }
 
 // Path: entity.itemkind
@@ -210,6 +214,20 @@ class ItemStrings$entity$itemoptask$ja {
 	late final ItemStrings$entity$itemoptask$fields$ja fields = ItemStrings$entity$itemoptask$fields$ja.internal(_root);
 }
 
+// Path: entity.itemsupplier
+class ItemStrings$entity$itemsupplier$ja {
+	ItemStrings$entity$itemsupplier$ja.internal(this._root);
+
+	final ItemStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '品目仕入先'
+	String get title => '品目仕入先';
+
+	late final ItemStrings$entity$itemsupplier$fields$ja fields = ItemStrings$entity$itemsupplier$fields$ja.internal(_root);
+}
+
 // Path: entity.itemkind.fields
 class ItemStrings$entity$itemkind$fields$ja {
 	ItemStrings$entity$itemkind$fields$ja.internal(this._root);
@@ -295,6 +313,9 @@ class ItemStrings$entity$item$fields$ja {
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
+
+	/// ja: '購入品'
+	String get f_catalog_item => '購入品';
 }
 
 // Path: entity.itemhs.fields
@@ -444,6 +465,33 @@ class ItemStrings$entity$itemoptask$fields$ja {
 	String get f_remarks => '備考';
 }
 
+// Path: entity.itemsupplier.fields
+class ItemStrings$entity$itemsupplier$fields$ja {
+	ItemStrings$entity$itemsupplier$fields$ja.internal(this._root);
+
+	final ItemStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'サプライヤー'
+	String get f_supplier => 'サプライヤー';
+
+	/// ja: 'デリバリータイム（日）'
+	String get f_days => 'デリバリータイム（日）';
+
+	/// ja: '最小発注ロット'
+	String get f_lot => '最小発注ロット';
+
+	/// ja: '単価（円）'
+	String get f_cost => '単価（円）';
+
+	/// ja: '言い値（都度確認）'
+	String get f_cost__off => '言い値（都度確認）';
+
+	/// ja: '言い値区分'
+	String get f_asking => '言い値区分';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -453,6 +501,7 @@ extension on ItemStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'menu.group' => '品目',
+			'menu.group_purchasing' => '購買',
 			'entity.itemkind.title' => '品目区分',
 			'entity.itemkind.fields.f_code' => '品目コード',
 			'entity.itemkind.fields.f_name' => '品目区分名称',
@@ -476,6 +525,7 @@ extension on ItemStrings {
 			'entity.item.fields.f_detail' => '詳細',
 			'entity.item.fields.f_shared_unit_id' => '個別単位',
 			'entity.item.fields.f_remarks' => '備考',
+			'entity.item.fields.f_catalog_item' => '購入品',
 			'entity.itemhs.title' => 'HSコード',
 			'entity.itemhs.fields.f_hs' => 'HSコード',
 			'entity.itemsizekind.title' => '品目大きさ区分',
@@ -511,6 +561,13 @@ extension on ItemStrings {
 			'entity.itemoptask.fields.f_sequence' => '順',
 			'entity.itemoptask.fields.f_default_interval' => '標準時間',
 			'entity.itemoptask.fields.f_remarks' => '備考',
+			'entity.itemsupplier.title' => '品目仕入先',
+			'entity.itemsupplier.fields.f_supplier' => 'サプライヤー',
+			'entity.itemsupplier.fields.f_days' => 'デリバリータイム（日）',
+			'entity.itemsupplier.fields.f_lot' => '最小発注ロット',
+			'entity.itemsupplier.fields.f_cost' => '単価（円）',
+			'entity.itemsupplier.fields.f_cost__off' => '言い値（都度確認）',
+			'entity.itemsupplier.fields.f_asking' => '言い値区分',
 			_ => null,
 		};
 	}

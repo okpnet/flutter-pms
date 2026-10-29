@@ -16,8 +16,12 @@ entity:
     title: "非計上明細"
     fields:
       f_quantity: "数量"
-      f_cost: "単価"
+      f_unit_price: "単価"
+      f_price_adjustment: "価格調整"
+      f_fixed_price: "固定価格"
       f_deadline: "個別納期"
+      f_material_supply: "材料支給"
+      f_paid_supply: "有償支給"
       f_remarks: "備考"
   purchase:
     title: "発注"
@@ -34,8 +38,12 @@ entity:
       f_trans_resource_plan_id: "資材計画"
       f_restocking_purchase: "在庫発注"
       f_quantity: "数量"
-      f_cost: "単価"
+      f_unit_price: "単価"
+      f_price_adjustment: "価格調整"
+      f_fixed_price: "固定価格"
       f_period: "納期"
+      f_material_supply: "材料支給"
+      f_paid_supply: "有償支給"
       f_remarks: "備考"
   purchaserec:
     title: "受入実績"

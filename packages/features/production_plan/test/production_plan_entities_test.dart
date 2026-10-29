@@ -1,12 +1,12 @@
 import 'package:entity_screens/entity_screens.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:production_plan/production_plan.dart';
+import 'package:production_plan/src/production_plan_entity_module.dart';
 import 'package:production_plan/src/entities/production_plan_definitions.dart';
 import 'package:production_plan/src/entities/production_plan_seeds.dart';
 
 void main() {
-  const module = ProductionPlanModule();
+  const module = ProductionPlanEntityModule();
 
   test('台帳を持つ実体のルートがある(子の台帳は編集だけ)', () {
     expect(module.entityKeys, ['resplan','prodrez','purrez']);

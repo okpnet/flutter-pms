@@ -1,3 +1,74 @@
+# 生産計画の文字列(日本語。基準言語)。資材所要計算(MRP)の画面。
+mrp:
+  title: 資材所要計算
+  menu: 資材所要計算
+  controlTitle: 資材所要計算（MRP）
+  redoLabel: 再MRPとして実行する
+  redoNote: チェックなし：まだ計画していない受注だけを計算します（受注MRP）。チェックあり：受注を見直したあとに、すべての需要を作り直します（再MRP）。
+  run: MRPを実行
+  running: 計算中
+  elapsed: 経過時間
+  empty:
+    title: まだ実行していません
+    message: 「MRPを実行」を押すと、計算の結果がここに表示されます。
+  confirm:
+    titleOrder: MRPを実行しますか？
+    titleRedo: 再MRPを実行しますか？
+    warnHeavy: 処理が重く、時間がかかります。
+    warnWide: 影響が広範囲で、他のユーザーの処理にも影響します。
+    warnRedo: 再MRPは、すべての需要を作り直します。通常のMRPよりも、影響がさらに大きくなります。
+    warnLock: 実行中は操作も中断もできません。
+    cancel: キャンセル
+    go: 実行する
+  success:
+    title: MRPが成功しました
+    at: 実行日時
+    mode: 実行区分
+    count: 提案件数
+    pending: 要判断件数
+    late: 遅れ件数
+    unit: 件
+  mode:
+    order: 受注MRP
+    redo: 再MRP
+  failure:
+    title: 計算を完了できませんでした
+    message: しばらく時間をおいて、もう一度実行してください。
+    code: エラーコード
+  result:
+    title: MRPの結果（提案の一覧）
+    search: 検索
+    decisionFilter: 判断
+    all: すべて
+    noRows: 該当する提案がありません
+    lateYes: 遅れ
+    lateNo: ''
+  columns:
+    kind: 提案種別
+    itemCode: 品目コード
+    itemName: 品目名
+    quantity: 数量
+    allocation: 在庫引当
+    needDate: 必要日
+    releaseDate: 発注日・着手日
+    dueDate: 納期
+    late: 遅れ
+    decision: 判断
+    message: メッセージ
+  kind:
+    purchaseNew: 発注（新規）
+    productionNew: 生産（新規）
+    purchaseReschedule: 発注の日程変更
+    productionReschedule: 生産の日程変更
+    purchaseCancel: 発注の取消
+    productionCancel: 生産の取消
+    outsourceOption: 外注への切替
+    excOverload: 設備の過負荷
+  decision:
+    pending: 要判断
+    adopted: 採用
+    rejected: 却下
+    info: 情報
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 生産計画の実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
@@ -9,6 +80,7 @@ entity:
     fields:
       f_trans_order_detail_id: "受注明細"
       f_trans_unrecognized_detail_id: "非計上明細"
+      f_parent_trans_operations_plan_id: "親の生産計画"
       f_register_at: "登録日時"
       f_quantity: "数量"
       f_inventory_resavation: "在庫数量"
@@ -18,11 +90,13 @@ entity:
     title: "生産計画"
     fields:
       f_deadline: "完了期限"
+      f_quantity: "数量"
       f_remarks: "備考"
   workplan:
     title: "生産計画明細"
     fields:
       f_mstr_task_id: "工程"
+      f_sequence: "順"
       f_interval_plan: "予定作業時間"
       f_start_at: "開始予定"
       f_completion_at: "完了予定"

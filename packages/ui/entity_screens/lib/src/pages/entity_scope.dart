@@ -41,8 +41,10 @@ ReferenceNames namesOf(Map<String, List<EntityOption>> options) => {
 List<ColumnDefinition<EntityRecord>> columnsOf(
   EntityDefinition definition,
   EntityLabels labels,
-  ReferenceNames names,
-) => [
+  ReferenceNames names, {
+  String yes = 'はい',
+  String no = 'いいえ',
+}) => [
   for (final f in definition.fields)
     ColumnDefinition<EntityRecord>(
       key: f.key,
@@ -55,9 +57,21 @@ List<ColumnDefinition<EntityRecord>> columnsOf(
       },
       getter: (r) {
         final value = r.valueOf(f.key);
+        // 別の真偽(トグル)がオンで無効になっている項目は、定義した文言(f_<キー>__off)を出す
+        final off = definition.fields.any(
+          (o) =>
+              o.kind == FieldKind.flag &&
+              o.disables == f.key &&
+              r.valueOf(o.key) == flagOn,
+        );
+        if (off) {
+          final text = labels.field(definition.key, '${f.key}__off');
+          if (text != '${f.key}__off') return text;
+        }
         if (f.kind == FieldKind.reference) {
           return names[f.key]?[value] ?? value;
         }
+        if (f.kind == FieldKind.flag) return value == flagOn ? yes : no;
         if (f.kind == FieldKind.condition && value.isNotEmpty) {
           return ConditionValue.displayOf(value);
         }

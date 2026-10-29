@@ -32,11 +32,12 @@
 |---|---|---|---|---|
 | コンテナ | `container` | ツリー構造 | 3 |  |
 | 引き当て | `invapply` | テーブル構造 | 3 | `invreq` |
-| 引き当て予約 | `invreq` | テーブル構造 | 6 | `purrez`, `prodrez` |
+| 引き当て予約 | `invreq` | テーブル構造 | 7 | `purrez`, `prodrez`, `resplan` |
 | 成績書 | `certificate` | テーブル構造 | 4 |  |
 | 作業実績 | `workrec` | テーブル構造 | 6 | `workplan` |
 | 作業成績書 | `wrcert` | 子の台帳(親: 作業実績) | 2 | `certificate` |
 <!-- entity_gen:end -->
+
 
 
 

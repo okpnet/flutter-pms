@@ -50,6 +50,15 @@ enum EntityFieldError {
 
   /// 条件(演算子 + 値)として読めない。
   invalidCondition,
+
+  /// 下限([FieldDefinition.ge])を下回っている(以上でない)。
+  belowMinimum,
+
+  /// 下限([FieldDefinition.gt])より大きくない。
+  notAboveMinimum,
+
+  /// 子が存在する間は外せない([FieldDefinition.lockedBy])。
+  lockedByChildren,
   parentCycle,
 
   /// 重複を認めない項目の組([EntityDefinition.uniqueKeys])が、ほかの1件と同じ。

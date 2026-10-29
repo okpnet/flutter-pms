@@ -117,7 +117,9 @@ class _EntityEditPageState extends State<EntityEditPage> {
         for (final f in definition.fields) {
           final value =
               record?.valueOf(f.key) ?? widget.initialValues[f.key] ?? '';
-          if (f.kind == FieldKind.choice || f.kind == FieldKind.reference) {
+          if (f.kind == FieldKind.choice ||
+              f.kind == FieldKind.reference ||
+              f.kind == FieldKind.flag) {
             _chosen[f.key] = value;
           } else {
             _text[f.key] = TextEditingController(text: value);
@@ -138,7 +140,10 @@ class _EntityEditPageState extends State<EntityEditPage> {
 
   Map<String, String> _currentValues(EntityDefinition definition) => {
     for (final f in definition.fields)
-      f.key: (f.kind == FieldKind.choice || f.kind == FieldKind.reference)
+      f.key:
+          (f.kind == FieldKind.choice ||
+              f.kind == FieldKind.reference ||
+              f.kind == FieldKind.flag)
           ? (_chosen[f.key] ?? '')
           : (_text[f.key]?.text ?? ''),
   };
@@ -146,6 +151,14 @@ class _EntityEditPageState extends State<EntityEditPage> {
   Future<void> _save() async {
     final definition = _definition!;
     final repository = _scope.catalog.repository(widget.entityKey)!;
+    final locked = await _lockedFlags(definition);
+    if (locked.isNotEmpty) {
+      setState(() {
+        _errors = locked;
+        _failure = null;
+      });
+      return;
+    }
     try {
       await repository.save(
         EntityRecord(
@@ -170,6 +183,27 @@ class _EntityEditPageState extends State<EntityEditPage> {
       return;
     }
     if (mounted) Navigator.of(context).pop();
+  }
+
+  /// 子が存在する間は外せない真偽([FieldDefinition.lockedBy])を、外そうとしていないか確かめる。
+  Future<Map<String, EntityFieldError>> _lockedFlags(
+    EntityDefinition definition,
+  ) async {
+    final id = widget.id;
+    final errors = <String, EntityFieldError>{};
+    if (id == null) return errors;
+    for (final f in definition.fields) {
+      final child = f.lockedBy;
+      if (f.kind != FieldKind.flag || child == null) continue;
+      final wasOn = _original?.valueOf(f.key) == flagOn;
+      if (!wasOn || _chosen[f.key] == flagOn) continue;
+      final repository = _scope.catalog.repository(child);
+      if (repository != null &&
+          (await repository.findByParent(id)).isNotEmpty) {
+        errors[f.key] = EntityFieldError.lockedByChildren;
+      }
+    }
+    return errors;
   }
 
   Future<void> _delete() async {
@@ -215,16 +249,28 @@ class _EntityEditPageState extends State<EntityEditPage> {
 
   String _displayName() => _name;
 
-  String _errorText(EntityScreenStrings s, EntityFieldError error) =>
-      switch (error) {
-        EntityFieldError.required => s.validation.required,
-        EntityFieldError.invalidNumber => s.validation.invalidNumber,
-        EntityFieldError.invalidDate => s.validation.invalidDate,
-        EntityFieldError.invalidChoice => s.validation.invalidChoice,
-        EntityFieldError.invalidCondition => s.validation.invalidCondition,
-        EntityFieldError.parentCycle => s.validation.parentCycle,
-        EntityFieldError.duplicate => s.validation.duplicate,
-      };
+  String _errorText(
+    EntityScreenStrings s,
+    EntityFieldError error, [
+    FieldDefinition? f,
+  ]) => switch (error) {
+    EntityFieldError.belowMinimum => s.validation.belowMinimum(
+      min: f?.ge ?? '',
+    ),
+    EntityFieldError.notAboveMinimum => s.validation.notAboveMinimum(
+      min: f?.gt ?? '',
+    ),
+    EntityFieldError.lockedByChildren => s.validation.lockedByChildren(
+      child: _scope.labels.entity(f?.lockedBy ?? ''),
+    ),
+    EntityFieldError.required => s.validation.required,
+    EntityFieldError.invalidNumber => s.validation.invalidNumber,
+    EntityFieldError.invalidDate => s.validation.invalidDate,
+    EntityFieldError.invalidChoice => s.validation.invalidChoice,
+    EntityFieldError.invalidCondition => s.validation.invalidCondition,
+    EntityFieldError.parentCycle => s.validation.parentCycle,
+    EntityFieldError.duplicate => s.validation.duplicate,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -296,18 +342,22 @@ class _EntityEditPageState extends State<EntityEditPage> {
 
   String? _error(String key) {
     final e = _errors[key];
-    return e == null ? null : _errorText(_scope.strings, e);
+    return e == null
+        ? null
+        : _errorText(_scope.strings, e, _definition?.field(key));
   }
 
   Widget _field(EntityDefinition definition, FieldDefinition f) {
     final strings = _scope.strings;
     if (f.readOnly) return _readOnlyField(f);
+    final disabled = _isDisabled(f);
     switch (f.kind) {
       case FieldKind.text:
       case FieldKind.number:
       case FieldKind.multiline:
         return TextField(
           controller: _text[f.key],
+          enabled: !disabled,
           maxLines: f.kind == FieldKind.multiline ? 3 : 1,
           keyboardType: f.kind == FieldKind.number
               ? const TextInputType.numberWithOptions(decimal: true)
@@ -330,6 +380,8 @@ class _EntityEditPageState extends State<EntityEditPage> {
             ),
           ),
         );
+      case FieldKind.flag:
+        return _flagField(f);
       case FieldKind.condition:
         return ConditionEditor(
           controller: _text[f.key]!,
@@ -347,9 +399,68 @@ class _EntityEditPageState extends State<EntityEditPage> {
     }
   }
 
+  /// 別の真偽(トグル)がオンになって、無効になっている項目か([FieldDefinition.disables])。
+  bool _isDisabled(FieldDefinition f) =>
+      _definition?.fields.any(
+        (o) =>
+            o.kind == FieldKind.flag &&
+            o.disables == f.key &&
+            _chosen[o.key] == flagOn,
+      ) ??
+      false;
+
+  /// 真偽の入力(チェックボックス・トグル)。理由のエラーは項目の下に出す。
+  Widget _flagField(FieldDefinition f) {
+    final on = _chosen[f.key] == flagOn;
+    final error = _error(f.key);
+    void change(bool? v) => setState(() {
+      final value = v ?? false;
+      _chosen[f.key] = value ? flagOn : '';
+      _errors = {..._errors}..remove(f.key);
+      final target = f.disables;
+      if (value && target != null) {
+        // 無効になる項目は、値を空にする
+        _text[target]?.clear();
+        if (_chosen.containsKey(target)) _chosen[target] = '';
+      }
+    });
+    final title = Text(_label(f));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (f.toggle)
+          SwitchListTile(
+            key: ValueKey('flag:${f.key}'),
+            contentPadding: EdgeInsets.zero,
+            title: title,
+            value: on,
+            onChanged: change,
+          )
+        else
+          CheckboxListTile(
+            key: ValueKey('flag:${f.key}'),
+            contentPadding: EdgeInsets.zero,
+            controlAffinity: ListTileControlAffinity.leading,
+            title: title,
+            value: on,
+            onChanged: change,
+          ),
+        if (error != null)
+          Text(
+            error,
+            key: ValueKey('flagError:${f.key}'),
+            style: TextStyle(color: Theme.of(context).colorScheme.error),
+          ),
+      ],
+    );
+  }
+
   /// 読み取り専用の項目(集計・計算された値)。表示だけで、入力できない。
   Widget _readOnlyField(FieldDefinition f) {
-    final raw = f.kind == FieldKind.choice || f.kind == FieldKind.reference
+    final raw =
+        f.kind == FieldKind.choice ||
+            f.kind == FieldKind.reference ||
+            f.kind == FieldKind.flag
         ? (_chosen[f.key] ?? '')
         : (_text[f.key]?.text ?? '');
     final text = switch (f.kind) {
@@ -360,6 +471,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
                 ?.label ??
             raw,
       FieldKind.condition => raw.isEmpty ? raw : ConditionValue.displayOf(raw),
+      FieldKind.flag => raw == flagOn ? _scope.strings.yes : _scope.strings.no,
       _ => raw,
     };
     return InputDecorator(

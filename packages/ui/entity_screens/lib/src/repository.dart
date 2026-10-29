@@ -64,10 +64,26 @@ class InMemoryEntityRepository implements IEntityRepository {
     final errors = <String, EntityFieldError>{};
     final values = <String, String>{};
     for (final f in definition.fields) {
-      final value = record.valueOf(f.key).trim();
+      var value = record.valueOf(f.key).trim();
+      // 別の項目がオン(トグル)で無効になっているときは、値を空にして検証しない
+      final disabledBy = definition.fields.where(
+        (o) =>
+            o.kind == FieldKind.flag &&
+            o.disables == f.key &&
+            record.valueOf(o.key) == flagOn,
+      );
+      if (disabledBy.isNotEmpty) value = '';
       values[f.key] = value;
-      final error = _validate(f, value);
+      final error = disabledBy.isNotEmpty ? null : _validate(f, value);
       if (error != null) errors[f.key] = error;
+      // 別の項目がオンでなければ必須
+      final unless = f.needUnless;
+      if (error == null &&
+          unless != null &&
+          value.isEmpty &&
+          record.valueOf(unless) != flagOn) {
+        errors[f.key] = EntityFieldError.required;
+      }
     }
     if (definition.isTree && record.id.isNotEmpty && record.parentId != null) {
       if (await _isSelfOrDescendant(record.id, record.parentId!)) {
@@ -124,8 +140,8 @@ class InMemoryEntityRepository implements IEntityRepository {
     if (f.readOnly) return null;
     if (value.isEmpty) return f.required ? EntityFieldError.required : null;
     return switch (f.kind) {
-      FieldKind.number =>
-        num.tryParse(value) == null ? EntityFieldError.invalidNumber : null,
+      FieldKind.number => _validateNumber(f, value),
+      FieldKind.flag => value == flagOn ? null : EntityFieldError.invalidChoice,
       FieldKind.date => _isDate(value) ? null : EntityFieldError.invalidDate,
       FieldKind.choice =>
         f.options.contains(value) ? null : EntityFieldError.invalidChoice,
@@ -135,6 +151,14 @@ class InMemoryEntityRepository implements IEntityRepository {
             : null,
       _ => null,
     };
+  }
+
+  static EntityFieldError? _validateNumber(FieldDefinition f, String value) {
+    final n = num.tryParse(value);
+    if (n == null) return EntityFieldError.invalidNumber;
+    if (f.ge != null && n < f.ge!) return EntityFieldError.belowMinimum;
+    if (f.gt != null && n <= f.gt!) return EntityFieldError.notAboveMinimum;
+    return null;
   }
 
   static bool _isDate(String value) {

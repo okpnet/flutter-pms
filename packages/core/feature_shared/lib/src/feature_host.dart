@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:go_router/go_router.dart';
 import 'package:logger_provider/logger_provider.dart';
 
+import 'busy.dart';
 import 'command_bus_provider.dart';
 import 'feature_module.dart';
 import 'go_router_destination_navigator.dart';
@@ -98,6 +99,9 @@ class _FeatureHostState extends State<FeatureHost> {
           debugShowCheckedModeBanner: false,
           theme: widget.themeOf?.call(ref),
           routerConfig: _router,
+          // 長時間の処理中は、画面全体の操作と戻る操作を無効にする
+          builder: (context, child) =>
+              BusyScope(child: child ?? const SizedBox.shrink()),
         ),
       ),
     );

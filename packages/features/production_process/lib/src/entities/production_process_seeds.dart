@@ -16,8 +16,8 @@ const Map<String, List<EntityRecord>> productionProcessSeeds = {
       EntityRecord(id: 'f448886c-0000-4000-8000-000000000005', values: {'code': 'T-210', 'name': '最終検査', 'pronunciation': 'サイシュウケンサ', 'nickname': '', 'detail': '', 'class': '50', 'default_time': '50', 'remarks': ''}, parentId: 'f448886c-0000-4000-8000-000000000004'),
     ],
     'taskres': [
-      EntityRecord(id: 'c6bd3dda-0000-4000-8000-000000000001', values: {'info_department_id': '', 'mstr_stakeholder_id': '9c2cec53-0000-4000-8000-000000000001', 'remarks': ''}, parentId: 'f448886c-0000-4000-8000-000000000002'),
-      EntityRecord(id: 'c6bd3dda-0000-4000-8000-000000000002', values: {'info_department_id': '', 'mstr_stakeholder_id': '9c2cec53-0000-4000-8000-000000000001', 'remarks': ''}, parentId: 'f448886c-0000-4000-8000-000000000003'),
+      EntityRecord(id: 'c6bd3dda-0000-4000-8000-000000000001', values: {'info_department_id': '', 'remarks': '', 'priority': ''}, parentId: 'f448886c-0000-4000-8000-000000000002'),
+      EntityRecord(id: 'c6bd3dda-0000-4000-8000-000000000002', values: {'info_department_id': '', 'remarks': '', 'priority': ''}, parentId: 'f448886c-0000-4000-8000-000000000003'),
     ],
     'operation': [
       EntityRecord(id: '533e8106-0000-4000-8000-000000000001', values: {'control_code': 'OPE-001', 'name': 'ユニットA製造', 'pronunciation': 'ユニットエーセイゾウ', 'nickname': '', 'detail': '', 'remarks': ''}),

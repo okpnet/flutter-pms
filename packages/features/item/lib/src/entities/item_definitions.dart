@@ -1,7 +1,7 @@
 // 生成物(tools/entity_gen/gen.js)。直接編集しない。
 import 'package:entity_screens/entity_screens.dart';
 
-/// 品目の実体の定義。キーは model_providers の各モデルパッケージ(gql/*.yaml)のビュー(DB の列)に合わせる。
+/// 品目の実体の定義。キーは graphql_provider_lib のビュー(DB の列)に合わせる。
 const List<EntityDefinition> itemDefinitions = [
     EntityDefinition(
       key: 'itemkind',
@@ -36,6 +36,7 @@ const List<EntityDefinition> itemDefinitions = [
         FieldDefinition(key: 'detail', kind: FieldKind.multiline, required: false),
         FieldDefinition(key: 'shared_unit_id', kind: FieldKind.reference, required: false, reference: 'unit'),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
+        FieldDefinition(key: 'catalog_item', kind: FieldKind.flag, required: false, lockedBy: 'itemsupplier'),
       ],
     ),
     EntityDefinition(
@@ -99,6 +100,16 @@ const List<EntityDefinition> itemDefinitions = [
         FieldDefinition(key: 'sequence', kind: FieldKind.number, required: false),
         FieldDefinition(key: 'default_interval', kind: FieldKind.number, required: false),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
+      ],
+    ),
+    EntityDefinition(
+      key: 'itemsupplier', owner: 'item', nest: NestedList(parent: 'item', where: {'catalog_item': '1'}, menuGroup: 'purchasing'), uniqueKeys: [['supplier']],
+      fields: [
+        FieldDefinition(key: 'supplier', kind: FieldKind.reference, reference: 'supplier'),
+        FieldDefinition(key: 'days', kind: FieldKind.number, ge: 0),
+        FieldDefinition(key: 'lot', kind: FieldKind.number, gt: 0),
+        FieldDefinition(key: 'cost', kind: FieldKind.number, required: false, ge: 0, needUnless: 'asking'),
+        FieldDefinition(key: 'asking', kind: FieldKind.flag, required: false, toggle: true, disables: 'cost'),
       ],
     ),
 ];

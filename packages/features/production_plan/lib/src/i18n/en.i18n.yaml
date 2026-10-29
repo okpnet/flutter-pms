@@ -1,0 +1,70 @@
+mrp:
+  title: Material requirements planning
+  menu: Material requirements planning
+  controlTitle: Material requirements planning (MRP)
+  redoLabel: Run as a re-MRP
+  redoNote: "Unchecked: calculates only the orders not yet planned (order MRP). Checked: rebuilds all demand after the orders were reviewed (re-MRP)."
+  run: Run MRP
+  running: Calculating
+  elapsed: Elapsed
+  empty:
+    title: Not run yet
+    message: The result appears here after you press "Run MRP".
+  confirm:
+    titleOrder: Run MRP?
+    titleRedo: Run re-MRP?
+    warnHeavy: This is heavy and takes time.
+    warnWide: It affects a wide range, including other users' work.
+    warnRedo: Re-MRP rebuilds all demand, so the impact is even larger than a normal MRP.
+    warnLock: You cannot operate or interrupt while it runs.
+    cancel: Cancel
+    go: Run
+  success:
+    title: MRP succeeded
+    at: Run at
+    mode: Mode
+    count: Suggestions
+    pending: Needs decision
+    late: Late
+    unit: ""
+  mode:
+    order: Order MRP
+    redo: Re-MRP
+  failure:
+    title: The calculation could not be completed
+    message: Please wait a while and run it again.
+    code: Error code
+  result:
+    title: MRP result (suggestions)
+    search: Search
+    decisionFilter: Decision
+    all: All
+    noRows: No matching suggestions
+    lateYes: Late
+    lateNo: ""
+  columns:
+    kind: Suggestion
+    itemCode: Item code
+    itemName: Item name
+    quantity: Quantity
+    allocation: Stock allocation
+    needDate: Need date
+    releaseDate: Release date
+    dueDate: Due date
+    late: Late
+    decision: Decision
+    message: Message
+  kind:
+    purchaseNew: Purchase (new)
+    productionNew: Production (new)
+    purchaseReschedule: Purchase reschedule
+    productionReschedule: Production reschedule
+    purchaseCancel: Purchase cancel
+    productionCancel: Production cancel
+    outsourceOption: Switch to outsourcing
+    excOverload: Equipment overload
+  decision:
+    pending: Needs decision
+    adopted: Adopted
+    rejected: Rejected
+    info: Info

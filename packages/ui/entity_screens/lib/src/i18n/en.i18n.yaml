@@ -25,10 +25,23 @@ condition:
   upper: Upper
   yes: Yes
   no: No
+yes: "Yes"
+no: "No"
+nested:
+  edit: Edit mode
+  done: Back to view
+  search: Search
+  sort: Sort
+  noSort: No sorting
+  add: Add
+  countSuffix: " count"
 validation:
   required: Required
   invalidNumber: Enter a number
   invalidDate: Enter a date as yyyy-MM-dd
+  belowMinimum: Enter $min or more
+  notAboveMinimum: Enter a value greater than $min
+  lockedByChildren: Cannot be turned off while $child exists
   invalidCondition: Select an operator and enter a value
   invalidChoice: Not one of the choices
   parentCycle: Itself or its descendants cannot be the parent

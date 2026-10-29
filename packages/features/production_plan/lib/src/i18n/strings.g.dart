@@ -3,10 +3,10 @@
 /// Source: lib/src/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 1
-/// Strings: 26
+/// Locales: 2
+/// Strings: 149 (74 per locale)
 ///
-/// Built on 2026-10-27 at 11:39 UTC
+/// Built on 2026-10-29 at 13:38 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -17,6 +17,7 @@ import 'package:slang/generated.dart';
 import 'package:slang/slang.dart';
 export 'package:slang/slang.dart';
 
+import 'strings_en.g.dart' deferred as l_en;
 part 'strings_ja.g.dart';
 
 /// Supported locales.
@@ -26,7 +27,8 @@ part 'strings_ja.g.dart';
 /// - Locale locale = ProductionPlanLocale.ja.flutterLocale // get flutter locale from enum
 /// - if (LocaleSettings.currentLocale == ProductionPlanLocale.ja) // locale check
 enum ProductionPlanLocale with BaseAppLocale<ProductionPlanLocale, ProductionPlanStrings> {
-	ja(languageCode: 'ja');
+	ja(languageCode: 'ja'),
+	en(languageCode: 'en');
 
 	const ProductionPlanLocale({
 		required this.languageCode,
@@ -51,6 +53,13 @@ enum ProductionPlanLocale with BaseAppLocale<ProductionPlanLocale, ProductionPla
 					cardinalResolver: cardinalResolver,
 					ordinalResolver: ordinalResolver,
 				);
+			case ProductionPlanLocale.en:
+				await l_en.loadLibrary();
+				return l_en.ProductionPlanStringsEn(
+					overrides: overrides,
+					cardinalResolver: cardinalResolver,
+					ordinalResolver: ordinalResolver,
+				);
 		}
 	}
 
@@ -63,6 +72,12 @@ enum ProductionPlanLocale with BaseAppLocale<ProductionPlanLocale, ProductionPla
 		switch (this) {
 			case ProductionPlanLocale.ja:
 				return ProductionPlanStringsJa(
+					overrides: overrides,
+					cardinalResolver: cardinalResolver,
+					ordinalResolver: ordinalResolver,
+				);
+			case ProductionPlanLocale.en:
+				return l_en.ProductionPlanStringsEn(
 					overrides: overrides,
 					cardinalResolver: cardinalResolver,
 					ordinalResolver: ordinalResolver,

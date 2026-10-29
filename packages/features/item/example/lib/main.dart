@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:item/item.dart';
 import 'package:production_process/production_process.dart';
+import 'package:shared_master/shared_master.dart';
 import 'package:system/system.dart';
 import 'package:theme_lib/theme_lib.dart';
 
@@ -24,8 +25,8 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FeatureHost(
     title: '品目 (example)',
-    modules: const [ItemModule(), ProductionProcessModule(), SystemModule()],
-    entries: const [FeatureHostEntry('品目区分', EntityListDestination('itemkind')), FeatureHostEntry('HSコード', EntityListDestination('hscode')), FeatureHostEntry('品目', EntityListDestination('item')), FeatureHostEntry('品目大きさ区分', EntityListDestination('itemsizekind'))],
+    modules: const [ItemModule(), ProductionProcessModule(), SharedMasterModule(), SystemModule()],
+    entries: const [FeatureHostEntry('品目区分', EntityListDestination('itemkind')), FeatureHostEntry('HSコード', EntityListDestination('hscode')), FeatureHostEntry('品目', EntityListDestination('item')), FeatureHostEntry('品目大きさ区分', EntityListDestination('itemsizekind')), FeatureHostEntry('品目仕入先', EntityListDestination('itemsupplier'))],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー
     overrides: [themeLoggerProvider.overrideWithValue(logger)],

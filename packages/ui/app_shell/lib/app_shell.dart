@@ -3,6 +3,7 @@
 /// - [AppMenu] / [AppMenuGroup] / [AppMenuItem]: サイドバーとハンバーガーメニューが共有するメニューの表示用モデル
 /// - [AppUser] / [UserMenuAction]: ログインユーザーの表示用モデル
 /// - [AppTitleBar] / [SideBar] / [HamburgerMenu] / [UserContainer]: 部品
+/// - [BusyOverlay]: 長時間の処理中に、画面全体の操作と戻る操作を無効にして「計算中」を示す覆い
 /// - [ScreenScaffold] / [ScreenTitle]: 機能の画面の骨組みと見出し(AppBar を使わない)
 /// - [MultiMainFrame] / [SingleMainFrame] / [SelectionFrame]: フレーム(画面の枠)
 ///
@@ -10,6 +11,7 @@
 library;
 
 export 'src/app_shell_labels.dart';
+export 'src/busy_overlay.dart';
 export 'src/hamburger_menu.dart';
 export 'src/main_frame.dart';
 export 'src/menu_model.dart';

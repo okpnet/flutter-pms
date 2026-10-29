@@ -56,6 +56,9 @@ class EntityScreenStringsEn extends EntityScreenStrings with BaseTranslations<En
 	@override String get children => 'items';
 	@override late final _EntityScreenStrings$confirmDelete$en confirmDelete = _EntityScreenStrings$confirmDelete$en._(_root);
 	@override late final _EntityScreenStrings$condition$en condition = _EntityScreenStrings$condition$en._(_root);
+	@override String get yes => 'Yes';
+	@override String get no => 'No';
+	@override late final _EntityScreenStrings$nested$en nested = _EntityScreenStrings$nested$en._(_root);
 	@override late final _EntityScreenStrings$validation$en validation = _EntityScreenStrings$validation$en._(_root);
 }
 
@@ -86,6 +89,22 @@ class _EntityScreenStrings$condition$en extends EntityScreenStrings$condition$ja
 	@override String get no => 'No';
 }
 
+// Path: nested
+class _EntityScreenStrings$nested$en extends EntityScreenStrings$nested$ja {
+	_EntityScreenStrings$nested$en._(EntityScreenStringsEn root) : this._root = root, super.internal(root);
+
+	final EntityScreenStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get edit => 'Edit mode';
+	@override String get done => 'Back to view';
+	@override String get search => 'Search';
+	@override String get sort => 'Sort';
+	@override String get noSort => 'No sorting';
+	@override String get add => 'Add';
+	@override String get countSuffix => ' count';
+}
+
 // Path: validation
 class _EntityScreenStrings$validation$en extends EntityScreenStrings$validation$ja {
 	_EntityScreenStrings$validation$en._(EntityScreenStringsEn root) : this._root = root, super.internal(root);
@@ -96,6 +115,9 @@ class _EntityScreenStrings$validation$en extends EntityScreenStrings$validation$
 	@override String get required => 'Required';
 	@override String get invalidNumber => 'Enter a number';
 	@override String get invalidDate => 'Enter a date as yyyy-MM-dd';
+	@override String belowMinimum({required Object min}) => 'Enter ${min} or more';
+	@override String notAboveMinimum({required Object min}) => 'Enter a value greater than ${min}';
+	@override String lockedByChildren({required Object child}) => 'Cannot be turned off while ${child} exists';
 	@override String get invalidCondition => 'Select an operator and enter a value';
 	@override String get invalidChoice => 'Not one of the choices';
 	@override String get parentCycle => 'Itself or its descendants cannot be the parent';
@@ -137,9 +159,21 @@ extension on EntityScreenStringsEn {
 			'condition.upper' => 'Upper',
 			'condition.yes' => 'Yes',
 			'condition.no' => 'No',
+			'yes' => 'Yes',
+			'no' => 'No',
+			'nested.edit' => 'Edit mode',
+			'nested.done' => 'Back to view',
+			'nested.search' => 'Search',
+			'nested.sort' => 'Sort',
+			'nested.noSort' => 'No sorting',
+			'nested.add' => 'Add',
+			'nested.countSuffix' => ' count',
 			'validation.required' => 'Required',
 			'validation.invalidNumber' => 'Enter a number',
 			'validation.invalidDate' => 'Enter a date as yyyy-MM-dd',
+			'validation.belowMinimum' => ({required Object min}) => 'Enter ${min} or more',
+			'validation.notAboveMinimum' => ({required Object min}) => 'Enter a value greater than ${min}',
+			'validation.lockedByChildren' => ({required Object child}) => 'Cannot be turned off while ${child} exists',
 			'validation.invalidCondition' => 'Select an operator and enter a value',
 			'validation.invalidChoice' => 'Not one of the choices',
 			'validation.parentCycle' => 'Itself or its descendants cannot be the parent',

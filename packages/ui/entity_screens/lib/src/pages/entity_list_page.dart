@@ -123,7 +123,13 @@ class _EntityListPageState extends State<EntityListPage> {
 
   Widget _table(_Loaded loaded) {
     final scope = widget.scope;
-    final columns = columnsOf(loaded.definition, scope.labels, loaded.names);
+    final columns = columnsOf(
+      loaded.definition,
+      scope.labels,
+      loaded.names,
+      yes: scope.strings.yes,
+      no: scope.strings.no,
+    );
     final config = TableConfig(
       sortEnabled: true,
       filterEnabled: true,

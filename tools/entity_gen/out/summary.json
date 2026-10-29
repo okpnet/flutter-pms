@@ -27,6 +27,11 @@
         "key": "itemsizekind",
         "label": "品目大きさ区分",
         "first": "ITE-001"
+      },
+      {
+        "key": "itemsupplier",
+        "label": "品目仕入先",
+        "first": ""
       }
     ],
     "production_process": [
@@ -311,12 +316,12 @@
     "system": [],
     "item": [
       "production_process",
+      "shared_master",
       "system"
     ],
     "production_process": [
       "item",
-      "organization",
-      "shared_master"
+      "organization"
     ],
     "sales": [],
     "shared_master": [],

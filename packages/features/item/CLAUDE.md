@@ -19,6 +19,11 @@
 4.  ログは `logger_provider` の `loggerProvider` を `ref` から直接取得し、この機能が発生元のエラーだけを出す。
 5.  ラベルは slang で多言語化し、列名は `schema.graphql` のコメントを使う。推論・仮置きしたラベルは `doc/log` に残す。
 
+## 購入品と品目仕入先
+1.  品目に「購入品」(`catalog_item`。DB の `mstr_item.catalog_item`、コメント『購入品』)のチェックボックスがある。品目の台帳には はい/いいえ の列。品目に仕入先(品目仕入先`itemsupplier`)が登録されている間は、チェックを外せない(理由を項目の下に表示してエラーにする)。
+2.  品目仕入先(`itemsupplier`、品目が所有する子の台帳。DB の `mstr_item_supplier`)の項目は、サプライヤー(参照、同じ品目に二重登録不可)、デリバリータイム(日)(必須、0以上)、最小発注ロット(必須、0より大きい)、単価(円)(言い値でなければ必須、0以上)、言い値区分(トグル。オンにすると単価を無効にして空にする)。優先順位(`priority`)・仕入先品番(`supplier_item_code`)・標準検品時間(`quality_inspection_time`)は実装しない。
+3.  品目仕入先の台帳は購買のメニュー(サプライヤーの次)に出す(表の中の表。`purchasing/CLAUDE.md`)。
+
 <!-- entity_gen:begin -->
 ## 実体の画面(生成)
 台帳(テーブル/ツリー)と編集の画面は、`tools/entity_gen/gen.js` が `tools/open-design` の画面定義から生成する(定義・サンプル・表示名・モジュール・テスト)。
@@ -29,7 +34,7 @@
 |---|---|---|---|---|
 | 品目区分 | `itemkind` | テーブル構造 | 5 |  |
 | HSコード | `hscode` | テーブル構造 | 4 | `item` |
-| 品目 | `item` | ツリー構造 | 11 | `itemkind`, `unit` |
+| 品目 | `item` | ツリー構造 | 12 | `itemkind`, `unit` |
 | HSコード | `itemhs` | 子の台帳(親: 品目) | 1 | `hscode` |
 | 品目大きさ区分 | `itemsizekind` | テーブル構造 | 6 | `unit` |
 | 品目大きさ | `itemsize` | 子の台帳(親: 品目) | 3 | `itemsizekind` |
@@ -37,7 +42,9 @@
 | 品目工程運用 | `itemop` | 子の台帳(親: 品目) | 7 | `operation` |
 | 製造元 | `itemmaker` | 子の台帳(親: 品目) | 2 |  |
 | 品目工程運用明細 | `itemoptask` | 子の台帳(親: 品目工程運用) | 4 | `item` |
+| 品目仕入先 | `itemsupplier` | 子の台帳(親: 品目) | 5 | `supplier` |
 <!-- entity_gen:end -->
+
 
 
 

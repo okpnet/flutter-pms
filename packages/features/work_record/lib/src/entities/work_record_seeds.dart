@@ -12,7 +12,7 @@ const Map<String, List<EntityRecord>> workRecordSeeds = {
       EntityRecord(id: '720e007c-0000-4000-8000-000000000001', values: {'register_at': '2026-10-20', 'trans_inventory_request_id': '032334d0-0000-4000-8000-000000000001', 'remarks': ''}),
     ],
     'invreq': [
-      EntityRecord(id: '032334d0-0000-4000-8000-000000000001', values: {'register_at': '2026-10-19', 'register_plan_at': '2026-10-10', 'trans_purchase_rez_id': '95407e7d-0000-4000-8000-000000000001', 'trans_product_rez_id': '1402345d-0000-4000-8000-000000000001', 'quantity': '300', 'remarks': ''}),
+      EntityRecord(id: '032334d0-0000-4000-8000-000000000001', values: {'register_at': '2026-10-19', 'register_plan_at': '2026-10-10', 'trans_purchase_rez_id': '95407e7d-0000-4000-8000-000000000001', 'trans_product_rez_id': '1402345d-0000-4000-8000-000000000001', 'quantity': '300', 'remarks': '', 'trans_resource_plan_id': ''}),
     ],
     'certificate': [
       EntityRecord(id: '45ec6270-0000-4000-8000-000000000001', values: {'serial': 'CT-2610-01', 'title': '丸棒 SS400 ミルシート', 'class': '', 'remarks': ''}),

@@ -21,6 +21,13 @@ module.exports = function writeExamples({ PROJECTS, rootsOf, dependsOn, features
     const mods = [pkg, ...[...deps].sort()];
     const imports = mods.map((m) => `import 'package:${m}/${m}.dart';`);
     const entries = [];
+    // 手書きの画面(資材所要計算)。窓口は確認用の代役を差し込む
+    let extraOverrides = '';
+    if (pkg === 'production_plan') {
+      imports.push("import 'package:production_plan/production_plan_api.dart';");
+      entries.push("FeatureHostEntry('資材所要計算', MrpDestination())");
+      extraOverrides = ', mrpGatewayProvider.overrideWithValue(DemoMrpGateway())';
+    }
     for (const r of roots) {
       entries.push(`FeatureHostEntry(${dq(r.label)}, EntityListDestination(${dq(r.key)}))`);
     }
@@ -56,7 +63,7 @@ module.exports = function writeExamples({ PROJECTS, rootsOf, dependsOn, features
       `    entries: const [${entries.join(', ')}],`,
       '    logger: logger,',
       '    // flgtable_lib / theme_lib が使うテーマ側のロガー',
-      '    overrides: [themeLoggerProvider.overrideWithValue(logger)],',
+      '    overrides: [themeLoggerProvider.overrideWithValue(logger)' + extraOverrides + '],',
       '    themeOf: (ref) => ref.watch(lightThemeProvider),',
       '  );',
       '}',

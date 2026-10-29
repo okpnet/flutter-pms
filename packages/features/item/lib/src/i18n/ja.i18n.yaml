@@ -3,6 +3,7 @@
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
 menu:
   group: "品目"
+  group_purchasing: "購買"
 entity:
   itemkind:
     title: "品目区分"
@@ -33,6 +34,7 @@ entity:
       f_detail: "詳細"
       f_shared_unit_id: "個別単位"
       f_remarks: "備考"
+      f_catalog_item: "購入品"
   itemhs:
     title: "HSコード"
     fields:
@@ -82,3 +84,12 @@ entity:
       f_sequence: "順"
       f_default_interval: "標準時間"
       f_remarks: "備考"
+  itemsupplier:
+    title: "品目仕入先"
+    fields:
+      f_supplier: "サプライヤー"
+      f_days: "デリバリータイム（日）"
+      f_lot: "最小発注ロット"
+      f_cost: "単価（円）"
+      f_cost__off: "言い値（都度確認）"
+      f_asking: "言い値区分"

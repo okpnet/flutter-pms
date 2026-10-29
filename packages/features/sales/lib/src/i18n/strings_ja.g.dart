@@ -129,7 +129,16 @@ class SalesStrings$entity$orderdetail$fields$ja {
 	String get f_quantity => '数量';
 
 	/// ja: '単価'
-	String get f_cost => '単価';
+	String get f_unit_price => '単価';
+
+	/// ja: '価格調整'
+	String get f_price_adjustment => '価格調整';
+
+	/// ja: '固定価格'
+	String get f_fixed_price => '固定価格';
+
+	/// ja: 'マスタ不備件数'
+	String get f_master_error_count => 'マスタ不備件数';
 
 	/// ja: '個別納期'
 	String get f_delivery_date => '個別納期';
@@ -159,7 +168,10 @@ extension on SalesStrings {
 			'entity.order.fields.f_remarks' => '備考',
 			'entity.orderdetail.title' => '受注明細',
 			'entity.orderdetail.fields.f_quantity' => '数量',
-			'entity.orderdetail.fields.f_cost' => '単価',
+			'entity.orderdetail.fields.f_unit_price' => '単価',
+			'entity.orderdetail.fields.f_price_adjustment' => '価格調整',
+			'entity.orderdetail.fields.f_fixed_price' => '固定価格',
+			'entity.orderdetail.fields.f_master_error_count' => 'マスタ不備件数',
 			'entity.orderdetail.fields.f_delivery_date' => '個別納期',
 			'entity.orderdetail.fields.f_deadline' => '個別完了期限',
 			'entity.orderdetail.fields.f_remarks' => '備考',

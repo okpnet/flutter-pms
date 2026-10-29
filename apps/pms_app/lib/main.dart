@@ -74,6 +74,9 @@ class _AppMain extends ConsumerState {
     return isInitialized
         ? MaterialApp.router(
             routerConfig: ref.read(rootRouterProvider),
+            //長時間の処理(資材所要計算など)の間は、メニューを含む画面全体の操作と戻る操作を無効にする
+            builder: (context, child) =>
+                BusyScope(child: child ?? const SizedBox.shrink()),
             theme: ref.watch(lightThemeProvider),
             darkTheme: ref.watch(darkThemeProvider),
             themeMode: ref.watch(themeModeProvider),

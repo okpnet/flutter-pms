@@ -87,7 +87,7 @@ const REVERSE = {
 };
 
 /* ------------------------------------------------------------------ 内部形式への変換 */
-const KIND = { t: 'text', x: 'multiline', n: 'number', d: 'date', s: 'choice', r: 'reference' };
+const KIND = { t: 'text', x: 'multiline', n: 'number', d: 'date', s: 'choice', r: 'reference', b: 'flag' };
 
 const byLabel = (key) => DOM.entities.find((x) => x.key === key)?.label ?? key;
 
@@ -99,7 +99,10 @@ function fromHtml(e) {
       const r = extra.ref;
       ref = r.startsWith('@') ? COLL[r.slice(1).split(':')[0]] : r;
     }
-    return { key, label, kind: k, required: extra.req !== false, options: k === 'choice' ? extra.opts : undefined, ref };
+    return {
+      key, label, kind: k, required: extra.req !== false, options: k === 'choice' ? extra.opts : undefined, ref,
+      toggle: extra.toggle, disables: extra.disables, ge: extra.ge, gt: extra.gt, needUnless: extra.needUnless, lockedBy: extra.lockedBy, uniq: extra.uniq,
+    };
   });
   if (e.parent && e.tree) {
     // 所有する親とツリーの親の両方を持つ実体: 所有する親は参照の項目にし、ツリーの親だけを親子にする
@@ -135,8 +138,58 @@ const htmlEntities = DOM.entities.filter((e) => !SKIP.has(e.key)).map(fromHtml);
 
 /** 画面案(Html)に無く、DB の変更で増えた項目。after の次に足し、サンプルの値は sample(行の番号)で作る。
  *  出典: model_providers の 20261027_0002(trans_purchase_detail.cost = 単価、NOT NULL)。 */
+/** DB の改名(model_providers の 20261029_0001): 明細の cost は unit_price になった。 */
+const FIELD_RENAMES = {
+  orderdetail: { cost: 'unit_price' },
+  unrecdetail: { cost: 'unit_price' },
+  /* 画面案の「購入品」は mstr_item.catalog_item(08_mrp.sql の購入品フラグ) */
+  item: { purchase: 'catalog_item' },
+};
+for (const e of htmlEntities) {
+  for (const [from, to] of Object.entries(FIELD_RENAMES[e.key] ?? {})) {
+    const fl = e.fields.find((x) => x.key === from);
+    if (!fl) continue;
+    fl.key = to;
+    for (const r of e.rows) { r.values[to] = r.values[from]; delete r.values[from]; }
+  }
+}
+/** DB で廃止された列(mstr_task_location の設備・利害関係者は、設備/外注の利用可能のテーブルへ移った)。 */
+const FIELD_REMOVALS = { taskres: ['mstr_equipment_id', 'mstr_stakeholder_id'] };
+for (const e of htmlEntities) {
+  for (const key of FIELD_REMOVALS[e.key] ?? []) {
+    e.fields = e.fields.filter((x) => x.key !== key);
+    for (const r of e.rows) delete r.values[key];
+  }
+}
+const empty = () => '';
 const FIELD_ADDITIONS = {
-  purdetail: [{ after: 'quantity', field: { key: 'cost', label: '単価', kind: 'number', required: true }, sample: (i) => String([1200, 900, 1500][i] ?? 1000) }],
+  purdetail: [
+    { after: 'quantity', field: { key: 'unit_price', label: '単価', kind: 'number', required: true }, sample: (i) => String([1200, 900, 1500][i] ?? 1000) },
+    { after: 'unit_price', field: { key: 'price_adjustment', label: '価格調整', kind: 'number', required: false }, sample: empty },
+    { after: 'price_adjustment', field: { key: 'fixed_price', label: '固定価格', kind: 'number', required: false }, sample: empty },
+    { after: 'period', field: { key: 'material_supply', label: '材料支給', kind: 'flag', required: false }, sample: empty },
+    { after: 'material_supply', field: { key: 'paid_supply', label: '有償支給', kind: 'flag', required: false }, sample: empty },
+  ],
+  /* model_providers の 20261029_0001: trans_operations_plan.quantity、trans_work_plan.sequence、
+     trans_resource_plan.parent_trans_operations_plan_id、trans_inventory_request.trans_resource_plan_id */
+  opsplan: [{ after: 'deadline', field: { key: 'quantity', label: '数量', kind: 'number', required: false }, sample: empty }],
+  workplan: [{ after: 'mstr_task_id', field: { key: 'sequence', label: '順', kind: 'number', required: false }, sample: empty }],
+  resplan: [{ after: 'trans_unrecognized_detail_id', field: { key: 'parent_trans_operations_plan_id', label: '親の生産計画', kind: 'reference', required: false, ref: 'opsplan' }, sample: empty }],
+  invreq: [{ after: '', field: { key: 'trans_resource_plan_id', label: '資材計画', kind: 'reference', required: false, ref: 'resplan' }, sample: empty }],
+  /* mstr_task_location.priority(優先順位) */
+  taskres: [{ after: 'info_department_id', field: { key: 'priority', label: '優先順位', kind: 'number', required: false }, sample: empty }],
+  orderdetail: [
+    { after: 'unit_price', field: { key: 'price_adjustment', label: '価格調整', kind: 'number', required: false }, sample: empty },
+    { after: 'price_adjustment', field: { key: 'fixed_price', label: '固定価格', kind: 'number', required: false }, sample: empty },
+    /* trans_order_detail.master_error_count: MRP 用のマスタ不備の件数(計算列。読み取り専用) */
+    { after: 'fixed_price', field: { key: 'master_error_count', label: 'マスタ不備件数', kind: 'number', required: false, readOnly: true }, sample: () => '0' },
+  ],
+  unrecdetail: [
+    { after: 'unit_price', field: { key: 'price_adjustment', label: '価格調整', kind: 'number', required: false }, sample: empty },
+    { after: 'price_adjustment', field: { key: 'fixed_price', label: '固定価格', kind: 'number', required: false }, sample: empty },
+    { after: 'deadline', field: { key: 'material_supply', label: '材料支給', kind: 'flag', required: false }, sample: empty },
+    { after: 'material_supply', field: { key: 'paid_supply', label: '有償支給', kind: 'flag', required: false }, sample: empty },
+  ],
   /* v_purchase_amount の集計列。読み取り専用(編集画面は表示だけ、台帳は読み取り専用の列) */
   purchase: [
     { after: 'deadline', field: { key: 'purchase_amount', label: '発注金額', kind: 'number', required: false, readOnly: true }, sample: (i, e, all) => String(amountOf(all, e.rows[i].legacy, false)) },
@@ -149,11 +202,25 @@ function amountOf(all, purchaseLegacy, received) {
   const recs = all.get('purchaserec')?.rows ?? [];
   let sum = 0;
   for (const d of details) {
-    const cost = Number(d.values.cost || 0);
+    const cost = Number(d.values.unit_price || 0);
     if (!received) { sum += Number(d.values.quantity || 0) * cost; continue; }
     for (const r of recs) if (r.values.trans_purchase_detail_id === d.legacy) sum += Number(r.values.quantity || 0) * cost;
   }
   return sum;
+}
+/* 画面案の「表の中の表」(タブの nest): 子の実体に、親・絞り込み・メニューのグループを持たせる */
+for (const g of DOM.groups) {
+  for (const sid of g.screens) {
+    const screen = DOM.screens.find((x) => x.id === sid);
+    for (const [, , rootKey, opts] of screen.tabs) {
+      if (!opts?.nest) continue;
+      const child = htmlEntities.find((x) => x.key === opts.nest);
+      if (!child) continue;
+      const renames = FIELD_RENAMES[rootKey] ?? {};
+      const where = Object.fromEntries(Object.entries(opts.where ?? {}).map(([k, v]) => [renames[k] ?? k, v]));
+      child.nest = { parent: rootKey, where, menuGroup: GROUP_PROJECT[g.id] };
+    }
+  }
 }
 const additionsByKey = new Map(htmlEntities.map((x) => [x.key, x]));
 // 定義の順(明細 → 発注)に足す: 発注の金額は、明細の単価から作る
@@ -312,13 +379,23 @@ function defsDart(pkg, list) {
           if (fl.ref) a.push(`reference: ${dq(fl.ref)}`);
           if (fl.picker) a.push('picker: true');
           if (fl.readOnly) a.push('readOnly: true');
+          if (fl.toggle) a.push('toggle: true');
+          if (fl.disables) a.push(`disables: ${dq(fl.disables)}`);
+          if (fl.ge != null) a.push(`ge: ${fl.ge}`);
+          if (fl.gt != null) a.push(`gt: ${fl.gt}`);
+          if (fl.needUnless) a.push(`needUnless: ${dq(fl.needUnless)}`);
+          if (fl.lockedBy) a.push(`lockedBy: ${dq(fl.lockedBy)}`);
           return `        FieldDefinition(${a.join(', ')}),`;
         })
         .join('\n');
       const a = [`key: ${dq(e.key)}`];
       if (e.owner) a.push(`owner: ${dq(e.owner)}`);
       if (e.isTree) a.push('isTree: true');
-      const uniq = UNIQUE[e.key];
+      const uniq = UNIQUE[e.key] ?? (e.fields.some((x) => x.uniq) ? e.fields.filter((x) => x.uniq).map((x) => [x.key]) : null);
+      if (e.nest) {
+        const where = Object.entries(e.nest.where).map(([k, v]) => `${dq(k)}: ${dq(v)}`).join(', ');
+        a.push(`nest: NestedList(parent: ${dq(e.nest.parent)}, where: {${where}}${e.nest.menuGroup ? `, menuGroup: ${dq(e.nest.menuGroup)}` : ''})`);
+      }
       if (uniq) a.push(`uniqueKeys: [${uniq.map((k) => `[${k.map(dq).join(', ')}]`).join(', ')}]`);
       const rev = REVERSE[e.key];
       if (rev) a.push(`reverseLists: [${rev.map((r) => `ReverseList(entity: ${dq(r.entity)}, field: ${dq(r.field)})`).join(', ')}]`);
@@ -346,7 +423,7 @@ function seedsDart(pkg, list) {
 
 function labelsDart(pkg) {
   const c = PROJECTS[pkg].cls;
-  return `// 生成物(tools/entity_gen/gen.js)。直接編集しない。\nimport 'package:entity_screens/entity_screens.dart';\n\nimport '../i18n/strings_provider.dart';\n\n/// ${PROJECTS[pkg].title}の実体と項目の表示名。言語ファイル(\`lib/src/i18n\`)の値を返す。\nclass ${c}Labels implements EntityLabels {\n  const ${c}Labels(this._t);\n\n  final ${c}Strings _t;\n\n  @override\n  String entity(String entityKey) =>\n      (_t['entity.\$entityKey.title'] as String?) ?? entityKey;\n\n  @override\n  String field(String entityKey, String fieldKey) =>\n      (_t['entity.\$entityKey.fields.f_\$fieldKey'] as String?) ?? fieldKey;\n\n  @override\n  String reverse(String entityKey, String reverseEntityKey) =>\n      (_t['entity.\$entityKey.reverse.\$reverseEntityKey'] as String?) ??\n      reverseEntityKey;\n\n  /// トップメニューのグループの表示名。\n  String get menuGroup => (_t['menu.group'] as String?) ?? '';\n}\n`;
+  return `// 生成物(tools/entity_gen/gen.js)。直接編集しない。\nimport 'package:entity_screens/entity_screens.dart';\n\nimport '../i18n/strings_provider.dart';\n\n/// ${PROJECTS[pkg].title}の実体と項目の表示名。言語ファイル(\`lib/src/i18n\`)の値を返す。\nclass ${c}Labels implements EntityLabels {\n  const ${c}Labels(this._t);\n\n  final ${c}Strings _t;\n\n  @override\n  String entity(String entityKey) =>\n      (_t['entity.\$entityKey.title'] as String?) ?? entityKey;\n\n  @override\n  String field(String entityKey, String fieldKey) =>\n      (_t['entity.\$entityKey.fields.f_\$fieldKey'] as String?) ?? fieldKey;\n\n  @override\n  String reverse(String entityKey, String reverseEntityKey) =>\n      (_t['entity.\$entityKey.reverse.\$reverseEntityKey'] as String?) ??\n      reverseEntityKey;\n\n  /// トップメニューのグループの表示名。\n  String get menuGroup => (_t['menu.group'] as String?) ?? '';\n\n  /// 別のグループ(表の中の表を出すグループ)の表示名。\n  String menuGroupOf(String groupId) =>\n      (_t['menu.group_$groupId'] as String?) ?? groupId;\n}\n`;
 }
 
 const YAML_MARKER = '# --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---';
@@ -359,9 +436,19 @@ function yamlJa(pkg, list, file) {
     hand = i >= 0 ? old.slice(0, i) : old;
   }
   const lines = [YAML_MARKER, `# ${PROJECTS[pkg].title}の実体と項目の表示名(日本語。基準言語)。`, '# 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。', ...(pkg === 'shared_master' ? [] : ['menu:', `  group: ${y(PROJECTS[pkg].title)}`]), 'entity:'];
+  const externalGroups = [...new Set(list.map((e) => e.nest?.menuGroup).filter((g) => g && g !== pkg))];
+  if (externalGroups.length && pkg !== 'shared_master') {
+    const at = lines.indexOf('entity:');
+    lines.splice(at, 0, ...externalGroups.map((g) => `  group_${g}: ${y(PROJECTS[g].title)}`));
+  }
   for (const e of list) {
     lines.push(`  ${e.key}:`, `    title: ${y(e.label)}`, '    fields:');
-    for (const fl of e.fields) lines.push(`      f_${fl.key}: ${y(fl.label)}`);
+    for (const fl of e.fields) {
+      lines.push(`      f_${fl.key}: ${y(fl.label)}`);
+      // 別の真偽(トグル)がオンで無効になる項目(例: 言い値のときの単価)の表示
+      const flag = e.fields.find((x) => x.disables === fl.key);
+      if (flag) lines.push(`      f_${fl.key}__off: ${y(flag.label.replace(/区分$/, '') + '（都度確認）')}`);
+    }
     if (REVERSE[e.key]) {
       lines.push('    reverse:');
       for (const r of REVERSE[e.key]) lines.push(`      ${r.entity}: ${y(r.label)}`);
@@ -382,13 +469,19 @@ function stringsProviderDart(pkg) {
 }
 
 function moduleDart(pkg, entityOnly) {
+  const externalGroups = [...new Set(entities.filter((e) => e.project === pkg).map((e) => e.nest?.menuGroup).filter((g) => g && g !== pkg))];
+  const externalBlock = externalGroups.length
+    ? '\n  @override\n  String menuGroupLabelFor(WidgetRef ref, String groupId) => switch (groupId) {\n' +
+      externalGroups.map((g) => '    ' + "'" + g + "'" + ' => ' + PROJECTS[pkg].cls + 'Labels(ref.watch(' + camel(pkg) + 'StringsProvider)).menuGroupOf(groupId),\n').join('') +
+      '    _ => groupId,\n  };\n'
+    : '';
   const c = PROJECTS[pkg].cls;
   const p = camel(pkg);
   const name = entityOnly ? `${c}EntityModule` : `${c}Module`;
   const file = entityOnly ? `${pkg}_entity_module.dart` : `${pkg}_module.dart`;
   return {
     file,
-    text: `import 'package:entity_screens/entity_screens.dart';\nimport 'package:feature_shared/feature_shared.dart';\nimport 'package:flutter_riverpod/flutter_riverpod.dart';\n\nimport 'entities/${pkg}_definitions.dart';\nimport 'entities/${pkg}_labels.dart';\nimport 'entities/${pkg}_seeds.dart';\nimport 'i18n/strings_provider.dart';\n\n/// ${PROJECTS[pkg].title}${entityOnly ? '(実体の画面)' : ''}をアプリへ組み込むための口。\n///\n/// 台帳・編集の画面は実体の定義から作る([EntityFeatureModule])。\n/// 取得元はサンプル(メモリ上)で、GraphQL 版は [repositories] を差し替える。\nclass ${name} extends EntityFeatureModule {\n  const ${name}();\n\n  @override\n  List<EntityDefinition> get definitions => ${p}Definitions;\n\n  @override\n  Map<String, List<EntityRecord>> get seeds => ${p}Seeds;\n\n  @override\n  EntityLabels labelsOf(WidgetRef ref) =>\n      ${c}Labels(ref.watch(${p}StringsProvider));\n${entityOnly ? '' : `\n  @override\n  String get menuGroupId => '${pkg}';\n\n  @override\n  String menuGroupLabel(WidgetRef ref) =>\n      ${c}Labels(ref.watch(${p}StringsProvider)).menuGroup;\n`}}\n`,
+    text: `import 'package:entity_screens/entity_screens.dart';\nimport 'package:feature_shared/feature_shared.dart';\nimport 'package:flutter_riverpod/flutter_riverpod.dart';\n\nimport 'entities/${pkg}_definitions.dart';\nimport 'entities/${pkg}_labels.dart';\nimport 'entities/${pkg}_seeds.dart';\nimport 'i18n/strings_provider.dart';\n\n/// ${PROJECTS[pkg].title}${entityOnly ? '(実体の画面)' : ''}をアプリへ組み込むための口。\n///\n/// 台帳・編集の画面は実体の定義から作る([EntityFeatureModule])。\n/// 取得元はサンプル(メモリ上)で、GraphQL 版は [repositories] を差し替える。\nclass ${name} extends EntityFeatureModule {\n  const ${name}();\n\n  @override\n  List<EntityDefinition> get definitions => ${p}Definitions;\n\n  @override\n  Map<String, List<EntityRecord>> get seeds => ${p}Seeds;\n\n  @override\n  EntityLabels labelsOf(WidgetRef ref) =>\n      ${c}Labels(ref.watch(${p}StringsProvider));\n${pkg === 'shared_master' ? '' : `\n  @override\n  String get menuGroupId => '${pkg}';\n\n  @override\n  String menuGroupLabel(WidgetRef ref) =>\n      ${c}Labels(ref.watch(${p}StringsProvider)).menuGroup;\n`}${externalBlock}}\n`,
   };
 }
 
@@ -397,7 +490,7 @@ function testDart(pkg, list, entityOnly) {
   const p = camel(pkg);
   const name = entityOnly ? `${c}EntityModule` : `${c}Module`;
   const modImport = entityOnly ? `package:${pkg}/src/${pkg}_entity_module.dart` : `package:${pkg}/${pkg}.dart`;
-  const roots = list.filter((e) => !e.owner).map((e) => e.key);
+  const roots = list.filter((e) => !e.owner || e.nest).map((e) => e.key);
   const ownTargets = new Set(list.map((e) => e.key));
   return `import 'package:entity_screens/entity_screens.dart';
 import 'package:feature_shared/feature_shared.dart';
@@ -470,7 +563,7 @@ for (const pkg of Object.keys(PROJECTS)) {
   const list = entities.filter((e) => e.project === pkg);
   if (!list.length) continue;
   const dir = path.join(features, pkg);
-  const entityOnly = pkg === 'shared_master';
+  const entityOnly = pkg === 'shared_master' || pkg === 'production_plan'; // 手書きの画面と束ねる
   write(path.join(dir, 'lib', 'src', 'entities', `${pkg}_definitions.dart`), defsDart(pkg, list));
   write(path.join(dir, 'lib', 'src', 'entities', `${pkg}_seeds.dart`), seedsDart(pkg, list));
   write(path.join(dir, 'lib', 'src', 'entities', `${pkg}_labels.dart`), labelsDart(pkg));
@@ -481,7 +574,7 @@ for (const pkg of Object.keys(PROJECTS)) {
   const m = moduleDart(pkg, entityOnly);
   write(path.join(dir, 'lib', 'src', m.file), m.text);
   write(path.join(dir, 'test', `${pkg}_entities_test.dart`), testDart(pkg, list, entityOnly));
-  rootsOf[pkg] = list.filter((e) => !e.owner).map((e) => ({ key: e.key, label: e.label, first: firstText(e) }));
+  rootsOf[pkg] = list.filter((e) => !e.owner || e.nest).map((e) => ({ key: e.key, label: e.label, first: firstText(e) }));
   const deps = new Set();
   for (const e of list) {
     for (const fl of e.fields) {

@@ -1,7 +1,7 @@
 // 生成物(tools/entity_gen/gen.js)。直接編集しない。
 import 'package:entity_screens/entity_screens.dart';
 
-/// 営業の実体の定義。キーは model_providers の各モデルパッケージ(gql/*.yaml)のビュー(DB の列)に合わせる。
+/// 営業の実体の定義。キーは graphql_provider_lib のビュー(DB の列)に合わせる。
 const List<EntityDefinition> salesDefinitions = [
     EntityDefinition(
       key: 'order',
@@ -18,7 +18,10 @@ const List<EntityDefinition> salesDefinitions = [
       key: 'orderdetail', owner: 'order',
       fields: [
         FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
-        FieldDefinition(key: 'cost', kind: FieldKind.number, required: false),
+        FieldDefinition(key: 'unit_price', kind: FieldKind.number, required: false),
+        FieldDefinition(key: 'price_adjustment', kind: FieldKind.number, required: false),
+        FieldDefinition(key: 'fixed_price', kind: FieldKind.number, required: false),
+        FieldDefinition(key: 'master_error_count', kind: FieldKind.number, required: false, readOnly: true),
         FieldDefinition(key: 'delivery_date', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'deadline', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),

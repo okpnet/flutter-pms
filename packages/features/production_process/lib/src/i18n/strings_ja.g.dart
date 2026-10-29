@@ -209,8 +209,8 @@ class ProductionProcessStrings$entity$taskres$fields$ja {
 	/// ja: '組織情報'
 	String get f_info_department_id => '組織情報';
 
-	/// ja: '利害関係者'
-	String get f_mstr_stakeholder_id => '利害関係者';
+	/// ja: '優先順位'
+	String get f_priority => '優先順位';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
@@ -293,7 +293,7 @@ extension on ProductionProcessStrings {
 			'entity.task.fields.f_remarks' => '備考',
 			'entity.taskres.title' => '工程場所',
 			'entity.taskres.fields.f_info_department_id' => '組織情報',
-			'entity.taskres.fields.f_mstr_stakeholder_id' => '利害関係者',
+			'entity.taskres.fields.f_priority' => '優先順位',
 			'entity.taskres.fields.f_remarks' => '備考',
 			'entity.operation.title' => '工程運用',
 			'entity.operation.fields.f_control_code' => '管理コード',

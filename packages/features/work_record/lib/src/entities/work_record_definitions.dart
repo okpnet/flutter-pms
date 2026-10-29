@@ -1,7 +1,7 @@
 // 生成物(tools/entity_gen/gen.js)。直接編集しない。
 import 'package:entity_screens/entity_screens.dart';
 
-/// 作業実績の実体の定義。キーは model_providers の各モデルパッケージ(gql/*.yaml)のビュー(DB の列)に合わせる。
+/// 作業実績の実体の定義。キーは graphql_provider_lib のビュー(DB の列)に合わせる。
 const List<EntityDefinition> workRecordDefinitions = [
     EntityDefinition(
       key: 'container', isTree: true,
@@ -28,6 +28,7 @@ const List<EntityDefinition> workRecordDefinitions = [
         FieldDefinition(key: 'trans_product_rez_id', kind: FieldKind.reference, required: false, reference: 'prodrez'),
         FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
+        FieldDefinition(key: 'trans_resource_plan_id', kind: FieldKind.reference, required: false, reference: 'resplan'),
       ],
     ),
     EntityDefinition(

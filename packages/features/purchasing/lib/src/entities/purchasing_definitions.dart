@@ -1,7 +1,7 @@
 // 生成物(tools/entity_gen/gen.js)。直接編集しない。
 import 'package:entity_screens/entity_screens.dart';
 
-/// 購買の実体の定義。キーは model_providers の各モデルパッケージ(gql/*.yaml)のビュー(DB の列)に合わせる。
+/// 購買の実体の定義。キーは graphql_provider_lib のビュー(DB の列)に合わせる。
 const List<EntityDefinition> purchasingDefinitions = [
     EntityDefinition(
       key: 'unrec',
@@ -17,8 +17,12 @@ const List<EntityDefinition> purchasingDefinitions = [
       key: 'unrecdetail', owner: 'unrec',
       fields: [
         FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
-        FieldDefinition(key: 'cost', kind: FieldKind.number, required: false),
+        FieldDefinition(key: 'unit_price', kind: FieldKind.number, required: false),
+        FieldDefinition(key: 'price_adjustment', kind: FieldKind.number, required: false),
+        FieldDefinition(key: 'fixed_price', kind: FieldKind.number, required: false),
         FieldDefinition(key: 'deadline', kind: FieldKind.date, required: false),
+        FieldDefinition(key: 'material_supply', kind: FieldKind.flag, required: false),
+        FieldDefinition(key: 'paid_supply', kind: FieldKind.flag, required: false),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),
@@ -39,8 +43,12 @@ const List<EntityDefinition> purchasingDefinitions = [
         FieldDefinition(key: 'trans_resource_plan_id', kind: FieldKind.reference, required: false, reference: 'resplan'),
         FieldDefinition(key: 'restocking_purchase', kind: FieldKind.choice, required: false, options: ['はい', 'いいえ']),
         FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
-        FieldDefinition(key: 'cost', kind: FieldKind.number),
+        FieldDefinition(key: 'unit_price', kind: FieldKind.number),
+        FieldDefinition(key: 'price_adjustment', kind: FieldKind.number, required: false),
+        FieldDefinition(key: 'fixed_price', kind: FieldKind.number, required: false),
         FieldDefinition(key: 'period', kind: FieldKind.date, required: false),
+        FieldDefinition(key: 'material_supply', kind: FieldKind.flag, required: false),
+        FieldDefinition(key: 'paid_supply', kind: FieldKind.flag, required: false),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),

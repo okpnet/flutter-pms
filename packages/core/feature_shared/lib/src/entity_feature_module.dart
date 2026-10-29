@@ -139,18 +139,27 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
     return [
       for (final key in entityKeys)
         MenuEntry(
-          groupId: menuGroupId,
-          groupLabel: group,
+          groupId: _menuGroupOf(key),
+          groupLabel: _menuGroupOf(key) == menuGroupId
+              ? group
+              : menuGroupLabelFor(ref, _menuGroupOf(key)),
           label: labels.entity(key),
           destination: EntityListDestination(key),
         ),
     ];
   }
 
-  /// 台帳から開ける実体(子の台帳を除く)のキー。
+  String _menuGroupOf(String key) =>
+      definitions.where((d) => d.key == key).firstOrNull?.nest?.menuGroup ??
+      menuGroupId;
+
+  /// 別のグループ(表の中の表の [NestedList.menuGroup])の表示名。機能が言語ごとの文字列で返す。
+  String menuGroupLabelFor(WidgetRef ref, String groupId) => groupId;
+
+  /// 台帳から開ける実体のキー(子の台帳を除く。表の中の表で出す子の台帳は含む)。
   List<String> get entityKeys => [
     for (final d in definitions)
-      if (!d.isChild) d.key,
+      if (!d.isChild || d.nest != null) d.key,
   ];
 
   /// 取得元。既定はサンプルのメモリ実装。
@@ -223,6 +232,11 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
           ],
         )
       else ...[
+        if (d.nest != null)
+          GoRoute(
+            path: listPath(d.key),
+            builder: (context, state) => _nested(d.key),
+          ),
         GoRoute(
           path: newPath(d.key),
           builder: (context, state) =>
@@ -285,6 +299,22 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
         onOpen: (r) => bus.execute(EntityEditDestination(key, id: r.id)),
         onCreate: () =>
             bus.execute(EntityEditDestination(key, initialValues: filter)),
+      );
+    },
+  );
+
+  /// 表の中の表の画面(親の表の各行に、子の表を入れる)。
+  Widget _nested(String key) => Consumer(
+    builder: (context, ref, _) {
+      final bus = ref.read(commandBusProvider);
+      return EntityNestedPage(
+        entityKey: key,
+        scope: _scope(ref),
+        onAdd: (parentId) =>
+            bus.execute(EntityEditDestination(key, parentId: parentId)),
+        onEdit: (child) => bus.execute(
+          EntityEditDestination(key, id: child.id, parentId: child.parentId),
+        ),
       );
     },
   );

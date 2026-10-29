@@ -24,4 +24,8 @@ class SalesLabels implements EntityLabels {
 
   /// トップメニューのグループの表示名。
   String get menuGroup => (_t['menu.group'] as String?) ?? '';
+
+  /// 別のグループ(表の中の表を出すグループ)の表示名。
+  String menuGroupOf(String groupId) =>
+      (_t['menu.group_$groupId'] as String?) ?? groupId;
 }

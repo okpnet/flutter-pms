@@ -211,6 +211,9 @@ class WorkRecordStrings$entity$invreq$fields$ja {
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
+
+	/// ja: '資材計画'
+	String get f_trans_resource_plan_id => '資材計画';
 }
 
 // Path: entity.certificate.fields
@@ -300,6 +303,7 @@ extension on WorkRecordStrings {
 			'entity.invreq.fields.f_trans_product_rez_id' => '生産引き当て',
 			'entity.invreq.fields.f_quantity' => '引当数量',
 			'entity.invreq.fields.f_remarks' => '備考',
+			'entity.invreq.fields.f_trans_resource_plan_id' => '資材計画',
 			'entity.certificate.title' => '成績書',
 			'entity.certificate.fields.f_serial' => 'シリアル番号',
 			'entity.certificate.fields.f_title' => '件名',

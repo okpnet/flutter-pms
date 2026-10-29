@@ -1,7 +1,7 @@
 // 生成物(tools/entity_gen/gen.js)。直接編集しない。
 import 'package:entity_screens/entity_screens.dart';
 
-/// 工程の実体の定義。キーは model_providers の各モデルパッケージ(gql/*.yaml)のビュー(DB の列)に合わせる。
+/// 工程の実体の定義。キーは graphql_provider_lib のビュー(DB の列)に合わせる。
 const List<EntityDefinition> productionProcessDefinitions = [
     EntityDefinition(
       key: 'taskgroup',
@@ -27,7 +27,7 @@ const List<EntityDefinition> productionProcessDefinitions = [
       key: 'taskres', owner: 'task',
       fields: [
         FieldDefinition(key: 'info_department_id', kind: FieldKind.reference, required: false, reference: 'department'),
-        FieldDefinition(key: 'mstr_stakeholder_id', kind: FieldKind.reference, required: false, reference: 'customer'),
+        FieldDefinition(key: 'priority', kind: FieldKind.number, required: false),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),

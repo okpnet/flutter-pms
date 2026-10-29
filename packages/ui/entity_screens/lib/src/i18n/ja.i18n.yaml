@@ -26,11 +26,24 @@ condition:
   upper: 上限
   yes: Yes
   no: No
+yes: はい
+no: いいえ
+nested:
+  edit: 編集モード
+  done: 閲覧に戻る
+  search: 検索
+  sort: 並べ替え
+  noSort: 並べ替えなし
+  add: 追加
+  countSuffix: 数
 validation:
   required: 必須です
   invalidNumber: 数値で入力してください
   invalidDate: 日付を yyyy-MM-dd で入力してください
   invalidChoice: 選択肢にない値です
+  belowMinimum: $min 以上で入力してください
+  notAboveMinimum: $min より大きい値を入力してください
+  lockedByChildren: $child がある間は外せません
   invalidCondition: 演算子と値を入力してください
   parentCycle: 自分または配下は親にできません
   hasChildren: 配下があるため削除できません

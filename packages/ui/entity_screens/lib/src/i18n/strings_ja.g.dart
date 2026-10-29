@@ -86,6 +86,14 @@ class EntityScreenStrings with BaseTranslations<EntityScreenLocale, EntityScreen
 
 	late final EntityScreenStrings$confirmDelete$ja confirmDelete = EntityScreenStrings$confirmDelete$ja.internal(_root);
 	late final EntityScreenStrings$condition$ja condition = EntityScreenStrings$condition$ja.internal(_root);
+
+	/// ja: 'はい'
+	String get yes => 'はい';
+
+	/// ja: 'いいえ'
+	String get no => 'いいえ';
+
+	late final EntityScreenStrings$nested$ja nested = EntityScreenStrings$nested$ja.internal(_root);
 	late final EntityScreenStrings$validation$ja validation = EntityScreenStrings$validation$ja.internal(_root);
 }
 
@@ -134,6 +142,36 @@ class EntityScreenStrings$condition$ja {
 	String get no => 'No';
 }
 
+// Path: nested
+class EntityScreenStrings$nested$ja {
+	EntityScreenStrings$nested$ja.internal(this._root);
+
+	final EntityScreenStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '編集モード'
+	String get edit => '編集モード';
+
+	/// ja: '閲覧に戻る'
+	String get done => '閲覧に戻る';
+
+	/// ja: '検索'
+	String get search => '検索';
+
+	/// ja: '並べ替え'
+	String get sort => '並べ替え';
+
+	/// ja: '並べ替えなし'
+	String get noSort => '並べ替えなし';
+
+	/// ja: '追加'
+	String get add => '追加';
+
+	/// ja: '数'
+	String get countSuffix => '数';
+}
+
 // Path: validation
 class EntityScreenStrings$validation$ja {
 	EntityScreenStrings$validation$ja.internal(this._root);
@@ -153,6 +191,15 @@ class EntityScreenStrings$validation$ja {
 
 	/// ja: '選択肢にない値です'
 	String get invalidChoice => '選択肢にない値です';
+
+	/// ja: '$min 以上で入力してください'
+	String belowMinimum({required Object min}) => '${min} 以上で入力してください';
+
+	/// ja: '$min より大きい値を入力してください'
+	String notAboveMinimum({required Object min}) => '${min} より大きい値を入力してください';
+
+	/// ja: '$child がある間は外せません'
+	String lockedByChildren({required Object child}) => '${child} がある間は外せません';
 
 	/// ja: '演算子と値を入力してください'
 	String get invalidCondition => '演算子と値を入力してください';
@@ -203,10 +250,22 @@ extension on EntityScreenStrings {
 			'condition.upper' => '上限',
 			'condition.yes' => 'Yes',
 			'condition.no' => 'No',
+			'yes' => 'はい',
+			'no' => 'いいえ',
+			'nested.edit' => '編集モード',
+			'nested.done' => '閲覧に戻る',
+			'nested.search' => '検索',
+			'nested.sort' => '並べ替え',
+			'nested.noSort' => '並べ替えなし',
+			'nested.add' => '追加',
+			'nested.countSuffix' => '数',
 			'validation.required' => '必須です',
 			'validation.invalidNumber' => '数値で入力してください',
 			'validation.invalidDate' => '日付を yyyy-MM-dd で入力してください',
 			'validation.invalidChoice' => '選択肢にない値です',
+			'validation.belowMinimum' => ({required Object min}) => '${min} 以上で入力してください',
+			'validation.notAboveMinimum' => ({required Object min}) => '${min} より大きい値を入力してください',
+			'validation.lockedByChildren' => ({required Object child}) => '${child} がある間は外せません',
 			'validation.invalidCondition' => '演算子と値を入力してください',
 			'validation.parentCycle' => '自分または配下は親にできません',
 			'validation.hasChildren' => '配下があるため削除できません',

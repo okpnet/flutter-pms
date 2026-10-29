@@ -17,7 +17,10 @@ entity:
     title: "受注明細"
     fields:
       f_quantity: "数量"
-      f_cost: "単価"
+      f_unit_price: "単価"
+      f_price_adjustment: "価格調整"
+      f_fixed_price: "固定価格"
+      f_master_error_count: "マスタ不備件数"
       f_delivery_date: "個別納期"
       f_deadline: "個別完了期限"
       f_remarks: "備考"

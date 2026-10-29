@@ -30,11 +30,12 @@
 |---|---|---|---|---|
 | 工程グループ | `taskgroup` | テーブル構造 | 2 |  |
 | 工程 | `task` | ツリー構造 | 8 |  |
-| 工程場所 | `taskres` | 子の台帳(親: 工程) | 3 | `department`, `customer` |
+| 工程場所 | `taskres` | 子の台帳(親: 工程) | 3 | `department` |
 | 工程運用 | `operation` | テーブル構造 | 6 |  |
 | 工程の選択 | `optask` | 子の台帳(親: 工程運用) | 2 | `task` |
 | 適用する品目の工程計画 | `opapply` | 子の台帳(親: 工程運用) | 1 | `item` |
 <!-- entity_gen:end -->
+
 
 
 

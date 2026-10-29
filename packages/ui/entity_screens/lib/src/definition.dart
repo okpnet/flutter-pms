@@ -20,7 +20,13 @@ enum FieldKind {
 
   /// JSON にできる条件(演算子 + 値。値は文字列の JSON)。入力は演算子をリストから選び、値は手で入力する。
   condition,
+
+  /// 真偽値(チェックボックス・トグル)。値は [flagOn](オン)または空(オフ)。
+  flag,
 }
+
+/// [FieldKind.flag] がオンのときの値。
+const String flagOn = '1';
 
 /// 項目の定義。表示名は含めず([EntityLabels]が言語ごとに返す)、キーと種類だけを持つ。
 ///
@@ -34,6 +40,12 @@ class FieldDefinition {
     this.reference,
     this.picker = false,
     this.readOnly = false,
+    this.toggle = false,
+    this.disables,
+    this.ge,
+    this.gt,
+    this.needUnless,
+    this.lockedBy,
   }) : assert(
          kind != FieldKind.reference || reference != null,
          'reference には参照先の実体キーが必要',
@@ -57,6 +69,23 @@ class FieldDefinition {
   /// 編集画面では表示だけ、台帳では列(読み取り専用の列)にする。入力・検証・保存の対象にしない。
   final bool readOnly;
 
+  /// [FieldKind.flag] をトグル(スイッチ)で入力する。false はチェックボックス。
+  final bool toggle;
+
+  /// [FieldKind.flag] がオンのとき、無効にして値を空にする別の項目のキー(例: 言い値のとき単価)。
+  final String? disables;
+
+  /// 数値の下限。[ge] は「以上」、[gt] は「より大きい」。
+  final num? ge;
+  final num? gt;
+
+  /// 別の [FieldKind.flag] 項目がオンでなければ必須にする(例: 言い値でなければ単価は必須)。
+  final String? needUnless;
+
+  /// [FieldKind.flag] を、この実体キーの子が存在する間は外せなくする
+  /// (例: 品目の購入品は、仕入先が登録されている間は外せない)。子は、この実体が所有する子の台帳。
+  final String? lockedBy;
+
   Map<String, Object?> toJson() => {
     'key': key,
     'kind': kind.name,
@@ -65,6 +94,12 @@ class FieldDefinition {
     'reference': reference,
     'picker': picker,
     'readOnly': readOnly,
+    'toggle': toggle,
+    'disables': disables,
+    'ge': ge,
+    'gt': gt,
+    'needUnless': needUnless,
+    'lockedBy': lockedBy,
   };
 }
 
@@ -82,6 +117,33 @@ class ReverseList {
   Map<String, Object?> toJson() => {'entity': entity, 'field': field};
 }
 
+/// 所有する子の台帳を、親の表の各行に子の表を入れた「表の中の表」で出す指定。
+///
+/// 子の実体の定義([EntityDefinition.nest])に持たせる。親の一覧は [where](項目のキー → 値)で絞る
+/// (例: 購入品にチェックの入った品目)。
+class NestedList {
+  const NestedList({
+    required this.parent,
+    this.where = const {},
+    this.menuGroup,
+  });
+
+  /// トップメニューのグループの識別子(例: 購買)。省略すると、機能のグループ。
+  final String? menuGroup;
+
+  /// 親の実体のキー(子の [EntityDefinition.owner])。
+  final String parent;
+
+  /// 親の行の絞り込み(項目のキー → 値)。
+  final Map<String, String> where;
+
+  Map<String, Object?> toJson() => {
+    'parent': parent,
+    'where': where,
+    'menuGroup': menuGroup,
+  };
+}
+
 /// 実体(台帳の1種類)の定義。
 class EntityDefinition {
   const EntityDefinition({
@@ -91,6 +153,7 @@ class EntityDefinition {
     this.isTree = false,
     this.uniqueKeys = const [],
     this.reverseLists = const [],
+    this.nest,
   }) : assert(!(isTree && owner != null), 'ツリーと所有は同時に持てない');
 
   /// 実体のキー(全体で一意。画面のパスにも使う)。
@@ -109,6 +172,9 @@ class EntityDefinition {
 
   /// この実体を参照している一覧(編集画面の下に読み取り専用で出す)。
   final List<ReverseList> reverseLists;
+
+  /// 子の台帳を、親の表の各行に子の表を入れた「表の中の表」で出す指定(台帳は `/e/<キー>`)。
+  final NestedList? nest;
 
   /// 親の編集画面の下に表示する子の台帳か。
   bool get isChild => owner != null;
@@ -153,6 +219,7 @@ class EntityDefinition {
     'isTree': isTree,
     'uniqueKeys': uniqueKeys,
     'reverseLists': [for (final r in reverseLists) r.toJson()],
+    'nest': nest?.toJson(),
     'fields': [for (final f in fields) f.toJson()],
   };
 }

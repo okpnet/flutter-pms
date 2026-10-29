@@ -1,33 +1,43 @@
-import 'package:entity_screens/entity_screens.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-import 'entities/production_plan_definitions.dart';
-import 'entities/production_plan_labels.dart';
-import 'entities/production_plan_seeds.dart';
-import 'i18n/strings_provider.dart';
+import 'mrp/mrp_module.dart';
+import 'production_plan_entity_module.dart';
 
-/// 生産計画をアプリへ組み込むための口。
+/// 生産計画をアプリへ組み込むための口。実体の画面(資材計画ほか)と、資材所要計算(MRP)を束ねる。
 ///
-/// 台帳・編集の画面は実体の定義から作る([EntityFeatureModule])。
-/// 取得元はサンプル(メモリ上)で、GraphQL 版は [repositories] を差し替える。
-class ProductionPlanModule extends EntityFeatureModule {
+/// パターン: Composite(同じ [FeatureModule] の窓口で区分のモジュールを1つに見せる)
+class ProductionPlanModule implements FeatureModule, MenuContributor {
   const ProductionPlanModule();
 
-  @override
-  List<EntityDefinition> get definitions => productionPlanDefinitions;
+  static const List<FeatureModule> _parts = [
+    ProductionPlanEntityModule(),
+    MrpModule(),
+  ];
 
   @override
-  Map<String, List<EntityRecord>> get seeds => productionPlanSeeds;
+  List<RouteBase> get routes => [for (final p in _parts) ...p.routes];
 
   @override
-  EntityLabels labelsOf(WidgetRef ref) =>
-      ProductionPlanLabels(ref.watch(productionPlanStringsProvider));
+  String? locationOf(PageDestination<Object?> destination) {
+    for (final p in _parts) {
+      final location = p.locationOf(destination);
+      if (location != null) return location;
+    }
+    return null;
+  }
 
   @override
-  String get menuGroupId => 'production_plan';
+  List<MenuEntry> menuEntries(WidgetRef ref) => [
+    for (final p in _parts)
+      if (p is MenuContributor) ...(p as MenuContributor).menuEntries(ref),
+  ];
 
   @override
-  String menuGroupLabel(WidgetRef ref) =>
-      ProductionPlanLabels(ref.watch(productionPlanStringsProvider)).menuGroup;
+  void registerHandlers(CommandHandlerRegistry registry, Ref ref) {
+    for (final p in _parts) {
+      p.registerHandlers(registry, ref);
+    }
+  }
 }

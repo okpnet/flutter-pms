@@ -201,10 +201,22 @@ class PurchasingStrings$entity$unrecdetail$fields$ja {
 	String get f_quantity => '数量';
 
 	/// ja: '単価'
-	String get f_cost => '単価';
+	String get f_unit_price => '単価';
+
+	/// ja: '価格調整'
+	String get f_price_adjustment => '価格調整';
+
+	/// ja: '固定価格'
+	String get f_fixed_price => '固定価格';
 
 	/// ja: '個別納期'
 	String get f_deadline => '個別納期';
+
+	/// ja: '材料支給'
+	String get f_material_supply => '材料支給';
+
+	/// ja: '有償支給'
+	String get f_paid_supply => '有償支給';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
@@ -255,10 +267,22 @@ class PurchasingStrings$entity$purdetail$fields$ja {
 	String get f_quantity => '数量';
 
 	/// ja: '単価'
-	String get f_cost => '単価';
+	String get f_unit_price => '単価';
+
+	/// ja: '価格調整'
+	String get f_price_adjustment => '価格調整';
+
+	/// ja: '固定価格'
+	String get f_fixed_price => '固定価格';
 
 	/// ja: '納期'
 	String get f_period => '納期';
+
+	/// ja: '材料支給'
+	String get f_material_supply => '材料支給';
+
+	/// ja: '有償支給'
+	String get f_paid_supply => '有償支給';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
@@ -335,8 +359,12 @@ extension on PurchasingStrings {
 			'entity.unrec.fields.f_remarks' => '備考',
 			'entity.unrecdetail.title' => '非計上明細',
 			'entity.unrecdetail.fields.f_quantity' => '数量',
-			'entity.unrecdetail.fields.f_cost' => '単価',
+			'entity.unrecdetail.fields.f_unit_price' => '単価',
+			'entity.unrecdetail.fields.f_price_adjustment' => '価格調整',
+			'entity.unrecdetail.fields.f_fixed_price' => '固定価格',
 			'entity.unrecdetail.fields.f_deadline' => '個別納期',
+			'entity.unrecdetail.fields.f_material_supply' => '材料支給',
+			'entity.unrecdetail.fields.f_paid_supply' => '有償支給',
 			'entity.unrecdetail.fields.f_remarks' => '備考',
 			'entity.purchase.title' => '発注',
 			'entity.purchase.fields.f_register_at' => '登録日',
@@ -349,8 +377,12 @@ extension on PurchasingStrings {
 			'entity.purdetail.fields.f_trans_resource_plan_id' => '資材計画',
 			'entity.purdetail.fields.f_restocking_purchase' => '在庫発注',
 			'entity.purdetail.fields.f_quantity' => '数量',
-			'entity.purdetail.fields.f_cost' => '単価',
+			'entity.purdetail.fields.f_unit_price' => '単価',
+			'entity.purdetail.fields.f_price_adjustment' => '価格調整',
+			'entity.purdetail.fields.f_fixed_price' => '固定価格',
 			'entity.purdetail.fields.f_period' => '納期',
+			'entity.purdetail.fields.f_material_supply' => '材料支給',
+			'entity.purdetail.fields.f_paid_supply' => '有償支給',
 			'entity.purdetail.fields.f_remarks' => '備考',
 			'entity.purchaserec.title' => '受入実績',
 			'entity.purchaserec.fields.f_trans_purchase_detail_id' => '発注明細',

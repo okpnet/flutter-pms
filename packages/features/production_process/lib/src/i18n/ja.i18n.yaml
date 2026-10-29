@@ -24,7 +24,7 @@ entity:
     title: "工程場所"
     fields:
       f_info_department_id: "組織情報"
-      f_mstr_stakeholder_id: "利害関係者"
+      f_priority: "優先順位"
       f_remarks: "備考"
   operation:
     title: "工程運用"
