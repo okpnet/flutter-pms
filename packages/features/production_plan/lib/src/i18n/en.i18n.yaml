@@ -63,6 +63,14 @@ mrp:
     productionCancel: Production cancel
     outsourceOption: Switch to outsourcing
     excOverload: Equipment overload
+    excExcess: Excess stock
+    excMaster: Master data issue
+    outsourceNew: Outsource (new)
+    outsourceCancel: Outsource (cancel)
+    planNew: Production plan (new)
+    planUpdate: Production plan (change)
+    planKeep: Production plan (keep)
+    planCancel: Production plan (cancel)
   decision:
     pending: Needs decision
     adopted: Adopted

@@ -107,6 +107,61 @@ void main() {
     });
   });
 
+  group('検証用サーバー(MRP の実行。テストデータを変更する)', () {
+    Future<String> japaneseId(GraphQLClient client) async {
+      final result = await client.query(
+        QueryOptions(
+          document: gql(
+            r'''query { allSharedLanguageCodes { nodes { sharedLanguageCodeId code } } }''',
+          ),
+          fetchPolicy: FetchPolicy.noCache,
+        ),
+      );
+      expect(result.hasException, isFalse, reason: '${result.exception}');
+      // DB の値は小文字(ja)。大文字小文字を区別せずに探す。
+      final nodes = (result.data!['allSharedLanguageCodes']['nodes'] as List)
+          .where((n) => (n['code'] as String).toUpperCase() == 'JA')
+          .toList();
+      expect(nodes, isNotEmpty, reason: 'language_code JA がありません');
+      return nodes.first['sharedLanguageCodeId'] as String;
+    }
+
+    Future<String> adminId(GraphQLClient client) async {
+      final result = await client.query(
+        QueryOptions(
+          document: gql(
+            r'''query { allInfoStaffs(filter: {code: {equalTo: "ADMIN"}}) { nodes { infoStaffId } } }''',
+          ),
+          fetchPolicy: FetchPolicy.noCache,
+        ),
+      );
+      expect(result.hasException, isFalse, reason: '${result.exception}');
+      final nodes = result.data!['allInfoStaffs']['nodes'] as List;
+      expect(nodes, isNotEmpty, reason: '担当者 ADMIN がありません');
+      return nodes.first['infoStaffId'] as String;
+    }
+
+    for (final mode in MrpMode.values) {
+      serverTest('${mode.name}MRP を実行して提案を受け取る', (server) async {
+        // MRP の計算は重く、検証用サーバーの既定の制限時間(20秒)を超えることがある。制限の無い接続を使う。
+        final client = _clientTo(server.url);
+        final gateway = GraphqlMrpGateway(
+          client: client,
+          languageCodeId: await japaneseId(client),
+        );
+        final result = await gateway.execute(
+          mode: mode,
+          staffId: await adminId(client),
+        );
+        expect(result.mode, mode);
+        expect(result.suggestions, isNotEmpty);
+        for (final s in result.suggestions) {
+          expect(s.itemCode, isNotEmpty, reason: s.message);
+        }
+      }, timeout: const Timeout(Duration(minutes: 6)));
+    }
+  });
+
   group('代役サーバー', () {
     late FaultyGraphqlServer server;
 

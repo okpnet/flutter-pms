@@ -8,6 +8,7 @@ query MrpPendingSuggestionPageRead(
   $offset: Int
   $filter: VMrpPendingSuggestionFilter = {and: []}
   $orderBy: [VMrpPendingSuggestionsOrderBy!]
+  $languageCodeId: UUID!
 ) {
   allVMrpPendingSuggestions(
     first: $first
@@ -31,6 +32,28 @@ query MrpPendingSuggestionPageRead(
       late
       itemHistoryId
       itemId
+
+      item: mstrItemByItemId {
+        mstrItemId
+        code
+        controlCode
+        symbol
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
       bomLevel
       planKind
       quantity
@@ -48,6 +71,28 @@ query MrpPendingSuggestionPageRead(
       transOperationsPlanId
       stakeholderHistoryId
       stakeholderId
+
+      stakeholder: mstrStakeholderByStakeholderId {
+        mstrStakeholderId
+        code
+        controlCode
+        symbol
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
       cost
       askingPrice
       transMrpSuggestionTaskId

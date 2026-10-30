@@ -8,6 +8,7 @@ query MrpPurchasePlanPageRead(
   $offset: Int
   $filter: VMrpPurchasePlanFilter = {and: []}
   $orderBy: [VMrpPurchasePlansOrderBy!]
+  $languageCodeId: UUID!
 ) {
   allVMrpPurchasePlans(
     first: $first
@@ -25,6 +26,28 @@ query MrpPurchasePlanPageRead(
       transMrpRunId
       kind
       stakeholderId
+
+      stakeholder: mstrStakeholderByStakeholderId {
+        mstrStakeholderId
+        code
+        controlCode
+        symbol
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
       releaseDate
       dueDate
       lineCount

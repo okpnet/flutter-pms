@@ -8,6 +8,7 @@ query MrpMasterIssuePageRead(
   $offset: Int
   $filter: VMrpMasterIssueFilter = {and: []}
   $orderBy: [VMrpMasterIssuesOrderBy!]
+  $languageCodeId: UUID!
 ) {
   allVMrpMasterIssues(
     first: $first
@@ -23,6 +24,28 @@ query MrpMasterIssuePageRead(
     nodes {
       issueKey
       itemId
+
+      item: mstrItemByItemId {
+        mstrItemId
+        code
+        controlCode
+        symbol
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
       itemCode
       issueCode
       severity

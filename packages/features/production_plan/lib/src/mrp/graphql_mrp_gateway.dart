@@ -16,6 +16,7 @@ class GraphqlMrpGateway implements IMrpGateway {
     required this.client,
     required this.languageCodeId,
     this.pageSize = 500,
+    this.timeout = const Duration(minutes: 10),
     DateTime Function()? now,
   }) : _now = now ?? DateTime.now;
 
@@ -23,6 +24,9 @@ class GraphqlMrpGateway implements IMrpGateway {
 
   /// 品目名の言語(`shared_language_code` の id)。
   final String languageCodeId;
+
+  /// 実行(`mrpExecute`)の通信の制限時間。サーバー側の制限(57014)より長くしておく。
+  final Duration timeout;
 
   /// 提案を1回に読み込む件数。
   final int pageSize;
@@ -35,17 +39,23 @@ class GraphqlMrpGateway implements IMrpGateway {
     List<String> orderDetailIds = const [],
     bool acceptLate = false,
   }) async {
-    final result = await client.mutate$MrpExecute(
-      Options$Mutation$MrpExecute(
-        variables: Variables$Mutation$MrpExecute(
-          input: Input$MrpExecuteInput(
-            pMode: mode.code,
-            pStaffId: staffId.isEmpty ? null : staffId,
-            pOrderDetailIds: orderDetailIds.isEmpty ? null : orderDetailIds,
-            pAcceptLate: acceptLate,
-          ),
-        ),
+    // MRP の計算は重く、クライアントの既定の制限時間(5秒)を超える。生成の Options は制限時間を持てないため、
+    // 生成の文書と変数で MutationOptions を組む。
+    final variables = Variables$Mutation$MrpExecute(
+      input: Input$MrpExecuteInput(
+        pMode: mode.code,
+        pStaffId: staffId.isEmpty ? null : staffId,
+        pOrderDetailIds: orderDetailIds.isEmpty ? null : orderDetailIds,
+        pAcceptLate: acceptLate,
+      ),
+    );
+    final result = await client.mutate(
+      MutationOptions<Mutation$MrpExecute>(
+        document: documentNodeMutationMrpExecute,
+        variables: variables.toJson(),
+        parserFn: (data) => Mutation$MrpExecute.fromJson(data),
         fetchPolicy: FetchPolicy.noCache,
+        queryRequestTimeout: timeout,
       ),
     );
     final failure = failureOf(result.exception);
@@ -117,7 +127,8 @@ class GraphqlMrpGateway implements IMrpGateway {
         .nodes;
     return MrpSuggestion(
       kind: kind,
-      itemCode: master?.code ?? '',
+      // 設備の過負荷など、品目の無い提案は設備のコードを品目コードの欄に出す。
+      itemCode: master?.code ?? node.equipment?.code ?? '',
       itemName: names?.firstOrNull?.dictionaryValue ?? '',
       quantity: num.tryParse(node.quantity ?? '') ?? 0,
       allocation: num.tryParse(node.allocatedQuantity ?? '') ?? 0,

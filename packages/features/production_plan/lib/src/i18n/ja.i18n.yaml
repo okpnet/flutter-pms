@@ -64,6 +64,14 @@ mrp:
     productionCancel: 生産の取消
     outsourceOption: 外注への切替
     excOverload: 設備の過負荷
+    excExcess: 在庫の過剰
+    excMaster: マスタの不備
+    outsourceNew: 外注（新規）
+    outsourceCancel: 外注の取消
+    planNew: 生産計画（新規）
+    planUpdate: 生産計画の変更
+    planKeep: 生産計画の維持
+    planCancel: 生産計画の取消
   decision:
     pending: 要判断
     adopted: 採用

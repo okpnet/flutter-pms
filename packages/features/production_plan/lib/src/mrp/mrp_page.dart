@@ -228,6 +228,14 @@ class _MrpPageState extends ConsumerState<MrpPage> {
     MrpSuggestionKind.productionCancel => t.kind.productionCancel as String,
     MrpSuggestionKind.outsourceOption => t.kind.outsourceOption as String,
     MrpSuggestionKind.excOverload => t.kind.excOverload as String,
+    MrpSuggestionKind.excExcess => t.kind.excExcess as String,
+    MrpSuggestionKind.excMaster => t.kind.excMaster as String,
+    MrpSuggestionKind.outsourceNew => t.kind.outsourceNew as String,
+    MrpSuggestionKind.outsourceCancel => t.kind.outsourceCancel as String,
+    MrpSuggestionKind.planNew => t.kind.planNew as String,
+    MrpSuggestionKind.planUpdate => t.kind.planUpdate as String,
+    MrpSuggestionKind.planKeep => t.kind.planKeep as String,
+    MrpSuggestionKind.planCancel => t.kind.planCancel as String,
   };
 
   String _decisionLabel(dynamic t, MrpDecision d) => switch (d) {

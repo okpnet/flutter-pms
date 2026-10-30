@@ -651,6 +651,20 @@ type HistoryMstrItem {
   mstrItemByMstrItemId: MstrItem
 }
 
+type HistoryMstrOutsourceAvailable {
+  historyId: UUID!
+  mstrOutsourceAvailableId: UUID!
+  revision: Int
+  mstrOutsourceAvailableByMstrOutsourceAvailableId: MstrOutsourceAvailable
+}
+
+type HistoryMstrStakeholder {
+  historyId: UUID!
+  mstrStakeholderId: UUID!
+  revision: Int
+  mstrStakeholderByMstrStakeholderId: MstrStakeholder
+}
+
 type Interval {
   seconds: Float
   minutes: Int
@@ -712,9 +726,31 @@ type MrpSetDecisionPayload {
   transMrpSuggestions: [TransMrpSuggestion]
 }
 
+type MstrEquipment {
+  mstrEquipmentId: UUID!
+  code: String!
+  controlCode: String
+  symbol: String
+}
+
 type MstrItem {
   mstrItemId: UUID!
   code: String!
+  controlCode: String
+  symbol: String
+  sharedAppellationByNames: SharedAppellation
+}
+
+type MstrOutsourceAvailable {
+  mstrOutsourceAvailableId: UUID!
+  symbol: String
+}
+
+type MstrStakeholder {
+  mstrStakeholderId: UUID!
+  code: String!
+  controlCode: String
+  symbol: String
   sharedAppellationByNames: SharedAppellation
 }
 
@@ -837,6 +873,7 @@ type TransMrpLoad {
   remarks: String
   updateAt: Datetime
   remove: Boolean
+  mstrEquipmentByMstrEquipmentId: MstrEquipment
 }
 
 type TransMrpLoadsConnection {
@@ -935,6 +972,15 @@ type TransMrpSuggestion {
   updateAt: Datetime
   remove: Boolean
   historyMstrItemByItemHistoryIdAndItemId: HistoryMstrItem
+  transOrderDetailByTransOrderDetailId: TransOrderDetail
+  transUnrecognizedDetailByTransUnrecognizedDetailId: TransUnrecognizedDetail
+  transResourcePlanByTransResourcePlanId: TransResourcePlan
+  transOperationsPlanByParentTransOperationsPlanId: TransOperationsPlan
+  transPurchaseDetailByTransPurchaseDetailId: TransPurchaseDetail
+  transOperationsPlanByTransOperationsPlanId: TransOperationsPlan
+  historyMstrStakeholderByStakeholderHistoryIdAndStakeholderId: HistoryMstrStakeholder
+  historyMstrOutsourceAvailableByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableId: HistoryMstrOutsourceAvailable
+  mstrEquipmentByMstrEquipmentId: MstrEquipment
 }
 
 type TransMrpSuggestionTask {
@@ -991,6 +1037,11 @@ type TransOperationsPlansConnection {
   totalCount: Int!
 }
 
+type TransOrderDetail {
+  transOrderDetailId: UUID!
+  symbol: String
+}
+
 type TransProductRez {
   transProductRezId: UUID!
   transWorkPlanId: UUID!
@@ -1008,6 +1059,11 @@ type TransProductRezsConnection {
   nodes: [TransProductRez]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type TransPurchaseDetail {
+  transPurchaseDetailId: UUID!
+  symbol: String
 }
 
 type TransPurchaseRez {
@@ -1053,6 +1109,11 @@ type TransResourcePlansConnection {
   nodes: [TransResourcePlan]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type TransUnrecognizedDetail {
+  transUnrecognizedDetailId: UUID!
+  symbol: String
 }
 
 type TransWorkPlan {
@@ -1116,6 +1177,7 @@ type VMrpMasterIssue {
   message: String
   refTable: String
   refId: UUID
+  mstrItemByItemId: MstrItem
 }
 
 type VMrpMasterIssuesConnection {
@@ -1164,6 +1226,8 @@ type VMrpPendingSuggestion {
   symbol: String
   remarks: String
   updateAt: Datetime
+  mstrItemByItemId: MstrItem
+  mstrStakeholderByStakeholderId: MstrStakeholder
 }
 
 type VMrpPendingSuggestionsConnection {
@@ -1183,6 +1247,7 @@ type VMrpPurchasePlan {
   amount: BigFloat
   lateCount: BigInt
   pendingCount: BigInt
+  mstrStakeholderByStakeholderId: MstrStakeholder
 }
 
 type VMrpPurchasePlansConnection {
@@ -1211,6 +1276,7 @@ type VResourcePlanCoverage {
   reservedPurchase: BigFloat
   reservedProduction: BigFloat
   shortage: BigFloat
+  mstrItemByItemId: MstrItem
 }
 
 type VResourcePlanCoveragesConnection {
@@ -1632,6 +1698,63 @@ input HistoryMstrItemFilter {
   not: HistoryMstrItemFilter
 }
 
+input HistoryMstrOutsourceAvailableFilter {
+  historyId: UUIDFilter
+  mstrOutsourceAvailableId: UUIDFilter
+  mstrTaskLocationId: UUIDFilter
+  mstrStakeholderId: UUIDFilter
+  materialSupply: BooleanFilter
+  paidSupply: BooleanFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transWorkPlansByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableIdExist: Boolean
+  transMrpSuggestionsByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableIdExist: Boolean
+  transMrpSuggestionTasksByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableIdExist: Boolean
+  mstrOutsourceAvailableByMstrOutsourceAvailableId: MstrOutsourceAvailableFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [HistoryMstrOutsourceAvailableFilter!]
+  or: [HistoryMstrOutsourceAvailableFilter!]
+  not: HistoryMstrOutsourceAvailableFilter
+}
+
+input HistoryMstrStakeholderFilter {
+  historyId: UUIDFilter
+  mstrStakeholderId: UUIDFilter
+  isCustomer: BooleanFilter
+  isSupplier: BooleanFilter
+  isLogistics: BooleanFilter
+  code: StringFilter
+  controlCode: StringFilter
+  names: UUIDFilter
+  mail: StringFilter
+  infoAddressId: UUIDFilter
+  mstrShippingKindId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transComplaintStakeholdersByStakeholderHistoryIdAndStakeholderIdExist: Boolean
+  transInspectRecordsByStakeholderHistoryIdAndStakeholderIdExist: Boolean
+  transInspectSchDetailsByStakeholderHistoryIdAndStakeholderIdExist: Boolean
+  transShippingOrdersByStakeholderHistoryIdAndStakeholderIdExist: Boolean
+  transPurchasesByStakeholderHistoryIdAndStakeholderIdExist: Boolean
+  transOrdersByStakeholderHistoryIdAndStakeholderIdExist: Boolean
+  transMrpSuggestionsByStakeholderHistoryIdAndStakeholderIdExist: Boolean
+  mstrStakeholderByMstrStakeholderId: MstrStakeholderFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [HistoryMstrStakeholderFilter!]
+  or: [HistoryMstrStakeholderFilter!]
+  not: HistoryMstrStakeholderFilter
+}
+
 input IntFilter {
   isNull: Boolean
   equalTo: Int
@@ -1732,6 +1855,41 @@ input MrpSetDecisionInput {
   pStaffId: UUID
 }
 
+input MstrEquipmentFilter {
+  mstrEquipmentId: UUIDFilter
+  mstrItemId: UUIDFilter
+  mstrEquipmentCategoryId: UUIDFilter
+  code: StringFilter
+  controlCode: StringFilter
+  labelCode: StringFilter
+  mstrLocationId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  mstrWorkCalendarsByMstrEquipmentIdExist: Boolean
+  mstrEquipmentEnvelopesByMstrEquipmentIdExist: Boolean
+  historyMstrEquipmentsByMstrEquipmentIdExist: Boolean
+  mstrInspectionOperationsByMstrEquipmentIdExist: Boolean
+  mstrEquipmentProvisionsByMstrEquipmentIdExist: Boolean
+  mstrEquipmentAvailablesByMstrEquipmentIdExist: Boolean
+  transMrpSuggestionsByMstrEquipmentIdExist: Boolean
+  transMrpLoadsByMstrEquipmentIdExist: Boolean
+  vEquipmentEquipmentAvailableCountByMstrEquipmentIdExists: Boolean
+  vEquipmentEquipmentProvisionCountByMstrEquipmentIdExists: Boolean
+  vEquipmentInspectionOperationCountByMstrEquipmentIdExists: Boolean
+  vInspectionStatusesByMstrEquipmentIdExist: Boolean
+  mstrEquipmentKindByMstrEquipmentCategoryIdExists: Boolean
+  mstrLocationByMstrLocationIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrEquipmentFilter!]
+  or: [MstrEquipmentFilter!]
+  not: MstrEquipmentFilter
+}
+
 input MstrItemFilter {
   mstrItemId: UUIDFilter
   mstrItemKindId: UUIDFilter
@@ -1791,6 +1949,71 @@ input MstrItemFilter {
   and: [MstrItemFilter!]
   or: [MstrItemFilter!]
   not: MstrItemFilter
+}
+
+input MstrOutsourceAvailableFilter {
+  mstrOutsourceAvailableId: UUIDFilter
+  mstrTaskLocationId: UUIDFilter
+  mstrStakeholderId: UUIDFilter
+  materialSupply: BooleanFilter
+  paidSupply: BooleanFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyMstrOutsourceAvailablesByMstrOutsourceAvailableIdExist: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrOutsourceAvailableFilter!]
+  or: [MstrOutsourceAvailableFilter!]
+  not: MstrOutsourceAvailableFilter
+}
+
+input MstrStakeholderFilter {
+  mstrStakeholderId: UUIDFilter
+  isCustomer: BooleanFilter
+  isSupplier: BooleanFilter
+  isLogistics: BooleanFilter
+  code: StringFilter
+  controlCode: StringFilter
+  names: UUIDFilter
+  mail: StringFilter
+  infoAddressId: UUIDFilter
+  mstrShippingKindId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  mstrItemSuppliersByMstrStakeholderIdExist: Boolean
+  historyMstrStakeholdersByMstrStakeholderIdExist: Boolean
+  mstrOutsourceAvailablesByMstrStakeholderIdExist: Boolean
+  mstrStakeholderProvisionsByMstrStakeholderIdExist: Boolean
+  transAuditsByMstrStakeholderIdExist: Boolean
+  mstrInspectionsByExternalInspectionExist: Boolean
+  mstrStakeholderContactsByMstrStakeholderIdExist: Boolean
+  vInspectionStatusesBySupplierIdExist: Boolean
+  vMrpPendingSuggestionsByStakeholderIdExist: Boolean
+  vMrpPurchasePlansByStakeholderIdExist: Boolean
+  vPurchaseAmountsBySupplierIdExist: Boolean
+  vPurchaseDeliveryCompliancesBySupplierIdExist: Boolean
+  vSalesRecordsByCustomerIdExist: Boolean
+  vShippingDeliveryCompliancesByCustomerIdExist: Boolean
+  vShippingOrderStatusesByCustomerIdExist: Boolean
+  vStakeholderOutsourceAvailableCountByMstrStakeholderIdExists: Boolean
+  vStakeholderStakeholderContactCountByMstrStakeholderIdExists: Boolean
+  vStakeholderStakeholderProvisionCountByMstrStakeholderIdExists: Boolean
+  sharedAppellationByNames: SharedAppellationFilter
+  infoAddressByInfoAddressIdExists: Boolean
+  mstrShippingKindByMstrShippingKindIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrStakeholderFilter!]
+  or: [MstrStakeholderFilter!]
+  not: MstrStakeholderFilter
 }
 
 input MstrTaskFilter {
@@ -2103,6 +2326,7 @@ input TransMrpLoadFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  mstrEquipmentByMstrEquipmentId: MstrEquipmentFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransMrpLoadFilter!]
   or: [TransMrpLoadFilter!]
@@ -2217,15 +2441,24 @@ input TransMrpSuggestionFilter {
   transMrpSuggestionByParentTransMrpSuggestionIdExists: Boolean
   historyMstrItemByItemHistoryIdAndItemId: HistoryMstrItemFilter
   historyMstrItemByItemHistoryIdAndItemIdExists: Boolean
+  transOrderDetailByTransOrderDetailId: TransOrderDetailFilter
   transOrderDetailByTransOrderDetailIdExists: Boolean
+  transUnrecognizedDetailByTransUnrecognizedDetailId: TransUnrecognizedDetailFilter
   transUnrecognizedDetailByTransUnrecognizedDetailIdExists: Boolean
+  transResourcePlanByTransResourcePlanId: TransResourcePlanFilter
   transResourcePlanByTransResourcePlanIdExists: Boolean
+  transOperationsPlanByParentTransOperationsPlanId: TransOperationsPlanFilter
   transOperationsPlanByParentTransOperationsPlanIdExists: Boolean
+  transPurchaseDetailByTransPurchaseDetailId: TransPurchaseDetailFilter
   transPurchaseDetailByTransPurchaseDetailIdExists: Boolean
+  transOperationsPlanByTransOperationsPlanId: TransOperationsPlanFilter
   transOperationsPlanByTransOperationsPlanIdExists: Boolean
+  historyMstrStakeholderByStakeholderHistoryIdAndStakeholderId: HistoryMstrStakeholderFilter
   historyMstrStakeholderByStakeholderHistoryIdAndStakeholderIdExists: Boolean
   transMrpSuggestionTaskByTransMrpSuggestionTaskIdExists: Boolean
+  historyMstrOutsourceAvailableByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableId: HistoryMstrOutsourceAvailableFilter
   historyMstrOutsourceAvailableByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableIdExists: Boolean
+  mstrEquipmentByMstrEquipmentId: MstrEquipmentFilter
   mstrEquipmentByMstrEquipmentIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransMrpSuggestionFilter!]
@@ -2298,6 +2531,37 @@ input TransOperationsPlanPatch {
   remarks: String
 }
 
+input TransOrderDetailFilter {
+  transOrderDetailId: UUIDFilter
+  transOrderId: UUIDFilter
+  itemHistoryId: UUIDFilter
+  itemId: UUIDFilter
+  quantity: BigFloatFilter
+  unitPrice: BigFloatFilter
+  priceAdjustment: BigFloatFilter
+  fixedPrice: BigFloatFilter
+  deliveryDate: DatetimeFilter
+  deadline: DatetimeFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  masterErrorCount: IntFilter
+  transOrderDetailRisksByTransOrderDetailIdExist: Boolean
+  transShippingOrderDetailsByTransOrderDetailIdExist: Boolean
+  transResourcePlansByTransOrderDetailIdExist: Boolean
+  transMrpSuggestionsByTransOrderDetailIdExist: Boolean
+  vOrderDetailOrderDetailRiskCountByTransOrderDetailIdExists: Boolean
+  vOrderDetailShippingOrderDetailCountByTransOrderDetailIdExists: Boolean
+  vResourcePlanCoveragesByTransOrderDetailIdExist: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransOrderDetailFilter!]
+  or: [TransOrderDetailFilter!]
+  not: TransOrderDetailFilter
+}
+
 input TransProductRezFilter {
   transProductRezId: UUIDFilter
   transWorkPlanId: UUIDFilter
@@ -2320,6 +2584,41 @@ input TransProductRezPatch {
   transWorkPlanId: UUID
   quantity: BigFloat
   remarks: String
+}
+
+input TransPurchaseDetailFilter {
+  transPurchaseDetailId: UUIDFilter
+  transPurchaseId: UUIDFilter
+  transResourcePlanId: UUIDFilter
+  restockingPurchase: BooleanFilter
+  quantity: BigFloatFilter
+  unitPrice: BigFloatFilter
+  priceAdjustment: BigFloatFilter
+  fixedPrice: BigFloatFilter
+  period: DatetimeFilter
+  itemHistoryId: UUIDFilter
+  itemId: UUIDFilter
+  materialSupply: BooleanFilter
+  paidSupply: BooleanFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transInspectSchDetailsByTransPurchaseDetailIdExist: Boolean
+  transPurchaseRecsByTransPurchaseDetailIdExist: Boolean
+  transPurchaseRezsByTransPurchaseDetailIdExist: Boolean
+  transWorkPlansByTransPurchaseDetailIdExist: Boolean
+  transMrpSuggestionsByTransPurchaseDetailIdExist: Boolean
+  transMrpPeggingsByTransPurchaseDetailIdExist: Boolean
+  vPurchaseDetailPurchaseRecCountByTransPurchaseDetailIdExists: Boolean
+  vPurchaseDetailPurchaseRezCountByTransPurchaseDetailIdExists: Boolean
+  transResourcePlanByTransResourcePlanIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransPurchaseDetailFilter!]
+  or: [TransPurchaseDetailFilter!]
+  not: TransPurchaseDetailFilter
 }
 
 input TransPurchaseRezFilter {
@@ -2389,6 +2688,32 @@ input TransResourcePlanPatch {
   itemHistoryId: UUID
   itemId: UUID
   remarks: String
+}
+
+input TransUnrecognizedDetailFilter {
+  transUnrecognizedDetailId: UUIDFilter
+  transUnrecognizedId: UUIDFilter
+  quantity: BigFloatFilter
+  unitPrice: BigFloatFilter
+  priceAdjustment: BigFloatFilter
+  fixedPrice: BigFloatFilter
+  deadline: DatetimeFilter
+  itemHistoryId: UUIDFilter
+  itemId: UUIDFilter
+  materialSupply: BooleanFilter
+  paidSupply: BooleanFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transResourcePlansByTransUnrecognizedDetailIdExist: Boolean
+  transMrpSuggestionsByTransUnrecognizedDetailIdExist: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransUnrecognizedDetailFilter!]
+  or: [TransUnrecognizedDetailFilter!]
+  not: TransUnrecognizedDetailFilter
 }
 
 input TransWorkPlanFilter {
@@ -2514,6 +2839,7 @@ input VMrpMasterIssueFilter {
   message: StringFilter
   refTable: StringFilter
   refId: UUIDFilter
+  mstrItemByItemId: MstrItemFilter
   mstrItemByItemIdExists: Boolean
   and: [VMrpMasterIssueFilter!]
   or: [VMrpMasterIssueFilter!]
@@ -2565,7 +2891,9 @@ input VMrpPendingSuggestionFilter {
   remove: BooleanFilter
   transMrpSuggestionByTransMrpSuggestionIdExists: Boolean
   transMrpRunByTransMrpRunIdExists: Boolean
+  mstrItemByItemId: MstrItemFilter
   mstrItemByItemIdExists: Boolean
+  mstrStakeholderByStakeholderId: MstrStakeholderFilter
   mstrStakeholderByStakeholderIdExists: Boolean
   and: [VMrpPendingSuggestionFilter!]
   or: [VMrpPendingSuggestionFilter!]
@@ -2584,6 +2912,7 @@ input VMrpPurchasePlanFilter {
   lateCount: BigIntFilter
   pendingCount: BigIntFilter
   transMrpRunByTransMrpRunIdExists: Boolean
+  mstrStakeholderByStakeholderId: MstrStakeholderFilter
   mstrStakeholderByStakeholderIdExists: Boolean
   and: [VMrpPurchasePlanFilter!]
   or: [VMrpPurchasePlanFilter!]
@@ -2618,6 +2947,7 @@ input VResourcePlanCoverageFilter {
   reservedProduction: BigFloatFilter
   shortage: BigFloatFilter
   transResourcePlanByTransResourcePlanIdExists: Boolean
+  mstrItemByItemId: MstrItemFilter
   mstrItemByItemIdExists: Boolean
   transOrderDetailByTransOrderDetailIdExists: Boolean
   and: [VResourcePlanCoverageFilter!]

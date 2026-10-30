@@ -185,6 +185,14 @@ class _ProductionPlanStrings$mrp$kind$en extends ProductionPlanStrings$mrp$kind$
 	@override String get productionCancel => 'Production cancel';
 	@override String get outsourceOption => 'Switch to outsourcing';
 	@override String get excOverload => 'Equipment overload';
+	@override String get excExcess => 'Excess stock';
+	@override String get excMaster => 'Master data issue';
+	@override String get outsourceNew => 'Outsource (new)';
+	@override String get outsourceCancel => 'Outsource (cancel)';
+	@override String get planNew => 'Production plan (new)';
+	@override String get planUpdate => 'Production plan (change)';
+	@override String get planKeep => 'Production plan (keep)';
+	@override String get planCancel => 'Production plan (cancel)';
 }
 
 // Path: mrp.decision
@@ -264,6 +272,14 @@ extension on ProductionPlanStringsEn {
 			'mrp.kind.productionCancel' => 'Production cancel',
 			'mrp.kind.outsourceOption' => 'Switch to outsourcing',
 			'mrp.kind.excOverload' => 'Equipment overload',
+			'mrp.kind.excExcess' => 'Excess stock',
+			'mrp.kind.excMaster' => 'Master data issue',
+			'mrp.kind.outsourceNew' => 'Outsource (new)',
+			'mrp.kind.outsourceCancel' => 'Outsource (cancel)',
+			'mrp.kind.planNew' => 'Production plan (new)',
+			'mrp.kind.planUpdate' => 'Production plan (change)',
+			'mrp.kind.planKeep' => 'Production plan (keep)',
+			'mrp.kind.planCancel' => 'Production plan (cancel)',
 			'mrp.decision.pending' => 'Needs decision',
 			'mrp.decision.adopted' => 'Adopted',
 			'mrp.decision.rejected' => 'Rejected',

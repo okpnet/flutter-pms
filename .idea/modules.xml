@@ -2,23 +2,60 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<module fileurl="file://$PROJECT_DIR$/packages/features/app_core/melos_app_core.iml" filepath="$PROJECT_DIR$/packages/features/app_core/melos_app_core.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/ui/app_shell/melos_app_shell.iml" filepath="$PROJECT_DIR$/packages/ui/app_shell/melos_app_shell.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/core/baton_lib/melos_baton_lib.iml" filepath="$PROJECT_DIR$/packages/core/baton_lib/melos_baton_lib.iml"/>
-<module fileurl="file://$PROJECT_DIR$/packages/features/customer/melos_customer.iml" filepath="$PROJECT_DIR$/packages/features/customer/melos_customer.iml"/>
-<module fileurl="file://$PROJECT_DIR$/packages/features/customer_api/melos_customer_api.iml" filepath="$PROJECT_DIR$/packages/features/customer_api/melos_customer_api.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/dashboard_container/melos_dashboard_container.iml" filepath="$PROJECT_DIR$/packages/features/dashboard_container/melos_dashboard_container.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/foundation/data_strategist/melos_data_strategist.iml" filepath="$PROJECT_DIR$/packages/foundation/data_strategist/melos_data_strategist.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/infra/data_test_harness/melos_data_test_harness.iml" filepath="$PROJECT_DIR$/packages/infra/data_test_harness/melos_data_test_harness.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/ui/entity_screens/melos_entity_screens.iml" filepath="$PROJECT_DIR$/packages/ui/entity_screens/melos_entity_screens.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/core/feature_shared/melos_feature_shared.iml" filepath="$PROJECT_DIR$/packages/core/feature_shared/melos_feature_shared.iml"/>
-<module fileurl="file://$PROJECT_DIR$/packages/infra/graphql_lib/melos_gqlib.iml" filepath="$PROJECT_DIR$/packages/infra/graphql_lib/melos_gqlib.iml"/>
-<module fileurl="file://$PROJECT_DIR$/packages/infra/graphql_provider_lib/melos_gqlprvlib.iml" filepath="$PROJECT_DIR$/packages/infra/graphql_provider_lib/melos_gqlprvlib.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/ui/flgtable_lib/melos_flgtable_lib.iml" filepath="$PROJECT_DIR$/packages/ui/flgtable_lib/melos_flgtable_lib.iml"/>
+<module fileurl="file://$PROJECT_DIR$/tools/gql_schema_pruner/melos_gql_schema_pruner.iml" filepath="$PROJECT_DIR$/tools/gql_schema_pruner/melos_gql_schema_pruner.iml"/>
+<module fileurl="file://$PROJECT_DIR$/tools/gql_yaml2graphql/melos_gql_yaml2graphql.iml" filepath="$PROJECT_DIR$/tools/gql_yaml2graphql/melos_gql_yaml2graphql.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/ui/grid_extensions/melos_grid_extensions.iml" filepath="$PROJECT_DIR$/packages/ui/grid_extensions/melos_grid_extensions.iml"/>
-<module fileurl="file://$PROJECT_DIR$/packages/foundation/logger_lib/melos_logger_lib.iml" filepath="$PROJECT_DIR$/packages/foundation/logger_lib/melos_logger_lib.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/item/melos_item.iml" filepath="$PROJECT_DIR$/packages/features/item/melos_item.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/model_providers/item_model/melos_item_model.iml" filepath="$PROJECT_DIR$/packages/model_providers/item_model/melos_item_model.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/infra/logger_provider/melos_logger_provider.iml" filepath="$PROJECT_DIR$/packages/infra/logger_provider/melos_logger_provider.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/maintenance/melos_maintenance.iml" filepath="$PROJECT_DIR$/packages/features/maintenance/melos_maintenance.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/organization/melos_organization.iml" filepath="$PROJECT_DIR$/packages/features/organization/melos_organization.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/model_providers/organization_model/melos_organization_model.iml" filepath="$PROJECT_DIR$/packages/model_providers/organization_model/melos_organization_model.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/core/page_mediator_extension/melos_page_mediator_extension.iml" filepath="$PROJECT_DIR$/packages/core/page_mediator_extension/melos_page_mediator_extension.iml"/>
 <module fileurl="file://$PROJECT_DIR$/apps/pms_app/melos_pms_app.iml" filepath="$PROJECT_DIR$/apps/pms_app/melos_pms_app.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/pms_authenticator/melos_pms_authenticator.iml" filepath="$PROJECT_DIR$/packages/features/pms_authenticator/melos_pms_authenticator.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/infra/pms_graphql/melos_pms_graphql.iml" filepath="$PROJECT_DIR$/packages/infra/pms_graphql/melos_pms_graphql.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/production_plan/melos_production_plan.iml" filepath="$PROJECT_DIR$/packages/features/production_plan/melos_production_plan.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/model_providers/production_plan_model/melos_production_plan_model.iml" filepath="$PROJECT_DIR$/packages/model_providers/production_plan_model/melos_production_plan_model.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/production_process/melos_production_process.iml" filepath="$PROJECT_DIR$/packages/features/production_process/melos_production_process.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/purchasing/melos_purchasing.iml" filepath="$PROJECT_DIR$/packages/features/purchasing/melos_purchasing.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/model_providers/purchasing_model/melos_purchasing_model.iml" filepath="$PROJECT_DIR$/packages/model_providers/purchasing_model/melos_purchasing_model.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/quality/melos_quality.iml" filepath="$PROJECT_DIR$/packages/features/quality/melos_quality.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/quality_common/melos_quality_common.iml" filepath="$PROJECT_DIR$/packages/features/quality_common/melos_quality_common.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/quality_document/melos_quality_document.iml" filepath="$PROJECT_DIR$/packages/features/quality_document/melos_quality_document.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/model_providers/quality_document_model/melos_quality_document_model.iml" filepath="$PROJECT_DIR$/packages/model_providers/quality_document_model/melos_quality_document_model.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/model_providers/quality_model/melos_quality_model.iml" filepath="$PROJECT_DIR$/packages/model_providers/quality_model/melos_quality_model.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/foundation/query_builder/melos_query_builder.iml" filepath="$PROJECT_DIR$/packages/foundation/query_builder/melos_query_builder.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/resource/melos_resource.iml" filepath="$PROJECT_DIR$/packages/features/resource/melos_resource.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/model_providers/resource_model/melos_resource_model.iml" filepath="$PROJECT_DIR$/packages/model_providers/resource_model/melos_resource_model.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/sales/melos_sales.iml" filepath="$PROJECT_DIR$/packages/features/sales/melos_sales.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/model_providers/sales_model/melos_sales_model.iml" filepath="$PROJECT_DIR$/packages/model_providers/sales_model/melos_sales_model.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/core/settings_keeper/melos_settings_keeper.iml" filepath="$PROJECT_DIR$/packages/core/settings_keeper/melos_settings_keeper.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/shared_master/melos_shared_master.iml" filepath="$PROJECT_DIR$/packages/features/shared_master/melos_shared_master.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/model_providers/shared_master_model/melos_shared_master_model.iml" filepath="$PROJECT_DIR$/packages/model_providers/shared_master_model/melos_shared_master_model.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/system/melos_system.iml" filepath="$PROJECT_DIR$/packages/features/system/melos_system.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/model_providers/system_model/melos_system_model.iml" filepath="$PROJECT_DIR$/packages/model_providers/system_model/melos_system_model.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/ui/theme_lib/melos_theme_lib.iml" filepath="$PROJECT_DIR$/packages/ui/theme_lib/melos_theme_lib.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/ui/ui_mapper/melos_ui_mapper.iml" filepath="$PROJECT_DIR$/packages/ui/ui_mapper/melos_ui_mapper.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/foundation/undo_redo/melos_undo_redo.iml" filepath="$PROJECT_DIR$/packages/foundation/undo_redo/melos_undo_redo.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/ui/view_responsiveness/melos_view_responsiveness.iml" filepath="$PROJECT_DIR$/packages/ui/view_responsiveness/melos_view_responsiveness.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/work_record/melos_work_record.iml" filepath="$PROJECT_DIR$/packages/features/work_record/melos_work_record.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/model_providers/work_record_model/melos_work_record_model.iml" filepath="$PROJECT_DIR$/packages/model_providers/work_record_model/melos_work_record_model.iml"/>
 <module fileurl="file://$PROJECT_DIR$/melos_flutter_pms_workspace.iml" filepath="$PROJECT_DIR$/melos_flutter_pms_workspace.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/customer/melos_customer.iml" filepath="$PROJECT_DIR$/packages/features/customer/melos_customer.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/customer_api/melos_customer_api.iml" filepath="$PROJECT_DIR$/packages/features/customer_api/melos_customer_api.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/infra/graphql_lib/melos_gqlib.iml" filepath="$PROJECT_DIR$/packages/infra/graphql_lib/melos_gqlib.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/infra/graphql_provider_lib/melos_gqlprvlib.iml" filepath="$PROJECT_DIR$/packages/infra/graphql_provider_lib/melos_gqlprvlib.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/foundation/logger_lib/melos_logger_lib.iml" filepath="$PROJECT_DIR$/packages/foundation/logger_lib/melos_logger_lib.iml"/>
     </modules>
   </component>
 </project>

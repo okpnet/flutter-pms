@@ -25,6 +25,14 @@ query MrpLoadPageRead(
       transMrpLoadId
       transMrpRunId
       mstrEquipmentId
+
+      equipment: mstrEquipmentByMstrEquipmentId {
+        mstrEquipmentId
+        code
+        controlCode
+        symbol
+      }
+
       loadDate
       capacityHours
       committedHours

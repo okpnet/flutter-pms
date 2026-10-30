@@ -80,3 +80,10 @@
 3.  **モデルのテスト**: 往復変換(`*_flatten_roundtrip_test.dart`)、RFE⇔Edit(`rfe_edit_interconversion_test.dart`)、検索条件の対応表(`filter_spec_roundtrip_test.dart`)。サーバーを使わない。
 - `test/server_read_test.dart`は生成物(`dart run tools/gql_yaml2graphql/bin/gen_server_test.dart --root packages/model_providers`、`melos run gql:test`)。直接編集しない。画面(readクエリ)を追加したら再生成する。
 - 各パッケージの`dart_test.yaml`に`server`タグの宣言が必要(生成が作る)。
+
+## テストデータ
+検証用サーバー(DB)にはテストデータ(`tools/docker/postgresql/scripts/10_mrp_dummy.sql`)が入っている。
+1.  言語は `JA`(`shared_language_code` の `code`。DB の値は小文字 `ja` なので、大文字小文字を区別せずに探す)で進める。担当者は `ADMIN`(`info_staff.code`)。
+1.  注文の追加、MRP、再MRP の実行テストに使ってよい(データが変わる)。読み取りだけのテストと分け、変更するテストの名前に明記する。
+1.  `mrpExecute` は重い(受注MRPで2分ほど)。`GraphQLClient` の既定の制限時間(5秒)と、`TestServer.provider` の制限時間(20秒)を超えるため、変更するテストは制限の無い接続(`HttpLink(server.url)`)を使い、テストの制限時間も長くする。
+1.  外部キーがある参照は、品目などの名前・各コード・symbol を読み込みに含める。外部キーが無い場合は、DB の Issue(`tools/docker/postgresql/issue/`)に外部キーが必要なことを追加する。

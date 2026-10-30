@@ -323,6 +323,30 @@ class ProductionPlanStrings$mrp$kind$ja {
 
 	/// ja: '設備の過負荷'
 	String get excOverload => '設備の過負荷';
+
+	/// ja: '在庫の過剰'
+	String get excExcess => '在庫の過剰';
+
+	/// ja: 'マスタの不備'
+	String get excMaster => 'マスタの不備';
+
+	/// ja: '外注（新規）'
+	String get outsourceNew => '外注（新規）';
+
+	/// ja: '外注の取消'
+	String get outsourceCancel => '外注の取消';
+
+	/// ja: '生産計画（新規）'
+	String get planNew => '生産計画（新規）';
+
+	/// ja: '生産計画の変更'
+	String get planUpdate => '生産計画の変更';
+
+	/// ja: '生産計画の維持'
+	String get planKeep => '生産計画の維持';
+
+	/// ja: '生産計画の取消'
+	String get planCancel => '生産計画の取消';
 }
 
 // Path: mrp.decision
@@ -594,6 +618,14 @@ extension on ProductionPlanStrings {
 			'mrp.kind.productionCancel' => '生産の取消',
 			'mrp.kind.outsourceOption' => '外注への切替',
 			'mrp.kind.excOverload' => '設備の過負荷',
+			'mrp.kind.excExcess' => '在庫の過剰',
+			'mrp.kind.excMaster' => 'マスタの不備',
+			'mrp.kind.outsourceNew' => '外注（新規）',
+			'mrp.kind.outsourceCancel' => '外注の取消',
+			'mrp.kind.planNew' => '生産計画（新規）',
+			'mrp.kind.planUpdate' => '生産計画の変更',
+			'mrp.kind.planKeep' => '生産計画の維持',
+			'mrp.kind.planCancel' => '生産計画の取消',
 			'mrp.decision.pending' => '要判断',
 			'mrp.decision.adopted' => '採用',
 			'mrp.decision.rejected' => '却下',

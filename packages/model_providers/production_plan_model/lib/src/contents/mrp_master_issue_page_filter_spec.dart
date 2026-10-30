@@ -9,6 +9,13 @@ abstract class MrpMasterIssuePageFilterSpec {
   static const FlatFilterSpec spec = FlatFilterSpec('VMrpMasterIssueFilter', {
     'issueKey': FlatFilterPath([], 'issueKey'),
     'itemId': FlatFilterPath([], 'itemId'),
+    'item||mstrItemId': FlatFilterPath([FilterStep('mstrItemByItemId')], 'mstrItemId'),
+    'item||code': FlatFilterPath([FilterStep('mstrItemByItemId')], 'code'),
+    'item||controlCode': FlatFilterPath([FilterStep('mstrItemByItemId')], 'controlCode'),
+    'item||symbol': FlatFilterPath([FilterStep('mstrItemByItemId')], 'symbol'),
+    'item||labels||sharedAppellationsId': FlatFilterPath([FilterStep('mstrItemByItemId'), FilterStep('sharedAppellationByNames')], 'sharedAppellationsId'),
+    'item||labels||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId': FlatFilterPath([FilterStep('mstrItemByItemId'), FilterStep('sharedAppellationByNames'), FilterStep('sharedDictionaryBySharedDictionaryNameId')], 'sharedDictionaryId'),
+    'item||labels||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue': FlatFilterPath([FilterStep('mstrItemByItemId'), FilterStep('sharedAppellationByNames'), FilterStep('sharedDictionaryBySharedDictionaryNameId'), FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {'sharedLanguageCodeId': 'languageCodeId'})], 'dictionaryValue'),
     'itemCode': FlatFilterPath([], 'itemCode'),
     'issueCode': FlatFilterPath([], 'issueCode'),
     'severity': FlatFilterPath([], 'severity'),

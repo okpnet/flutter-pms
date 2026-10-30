@@ -42,6 +42,8 @@ query MrpSuggestionPageRead(
         master: mstrItemByMstrItemId {
           mstrItemId
           code
+          controlCode
+          symbol
 
           labels: sharedAppellationByNames {
             sharedAppellationsId
@@ -69,19 +71,103 @@ query MrpSuggestionPageRead(
       dueAt
       oldDueAt
       transOrderDetailId
+
+      order_detail: transOrderDetailByTransOrderDetailId {
+        transOrderDetailId
+        symbol
+      }
+
       transUnrecognizedDetailId
+
+      unrecognized_detail: transUnrecognizedDetailByTransUnrecognizedDetailId {
+        transUnrecognizedDetailId
+        symbol
+      }
+
       transResourcePlanId
+
+      resource_plan: transResourcePlanByTransResourcePlanId {
+        transResourcePlanId
+        symbol
+      }
+
       parentTransOperationsPlanId
+
+      parent_operations_plan: transOperationsPlanByParentTransOperationsPlanId {
+        transOperationsPlanId
+        symbol
+      }
+
       transPurchaseDetailId
+
+      purchase_detail: transPurchaseDetailByTransPurchaseDetailId {
+        transPurchaseDetailId
+        symbol
+      }
+
       transOperationsPlanId
+
+      operations_plan: transOperationsPlanByTransOperationsPlanId {
+        transOperationsPlanId
+        symbol
+      }
+
       stakeholderHistoryId
       stakeholderId
+
+      stakeholder: historyMstrStakeholderByStakeholderHistoryIdAndStakeholderId {
+        historyId
+        mstrStakeholderId
+        revision
+
+        master: mstrStakeholderByMstrStakeholderId {
+          mstrStakeholderId
+          code
+          controlCode
+          symbol
+
+          labels: sharedAppellationByNames {
+            sharedAppellationsId
+            sharedDictionaryBySharedDictionaryNameId {
+              sharedDictionaryId
+              value: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $languageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+          }
+        }
+      }
+
       cost
       askingPrice
       transMrpSuggestionTaskId
       mstrOutsourceAvailableHistoryId
       mstrOutsourceAvailableId
+
+      outsource_available: historyMstrOutsourceAvailableByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableId {
+        historyId
+        mstrOutsourceAvailableId
+        revision
+
+        master: mstrOutsourceAvailableByMstrOutsourceAvailableId {
+          mstrOutsourceAvailableId
+          symbol
+        }
+      }
+
       mstrEquipmentId
+
+      equipment: mstrEquipmentByMstrEquipmentId {
+        mstrEquipmentId
+        code
+        controlCode
+        symbol
+      }
+
       loadDate
       message
       appliedAt

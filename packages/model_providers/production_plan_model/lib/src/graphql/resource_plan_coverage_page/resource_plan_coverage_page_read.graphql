@@ -8,6 +8,7 @@ query ResourcePlanCoveragePageRead(
   $offset: Int
   $filter: VResourcePlanCoverageFilter = {and: []}
   $orderBy: [VResourcePlanCoveragesOrderBy!]
+  $languageCodeId: UUID!
 ) {
   allVResourcePlanCoverages(
     first: $first
@@ -23,6 +24,28 @@ query ResourcePlanCoveragePageRead(
     nodes {
       transResourcePlanId
       itemId
+
+      item: mstrItemByItemId {
+        mstrItemId
+        code
+        controlCode
+        symbol
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
       planKind
       transOrderDetailId
       transUnrecognizedDetailId

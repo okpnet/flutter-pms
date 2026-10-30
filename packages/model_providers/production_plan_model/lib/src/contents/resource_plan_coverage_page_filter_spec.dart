@@ -9,6 +9,13 @@ abstract class ResourcePlanCoveragePageFilterSpec {
   static const FlatFilterSpec spec = FlatFilterSpec('VResourcePlanCoverageFilter', {
     'transResourcePlanId': FlatFilterPath([], 'transResourcePlanId'),
     'itemId': FlatFilterPath([], 'itemId'),
+    'item||mstrItemId': FlatFilterPath([FilterStep('mstrItemByItemId')], 'mstrItemId'),
+    'item||code': FlatFilterPath([FilterStep('mstrItemByItemId')], 'code'),
+    'item||controlCode': FlatFilterPath([FilterStep('mstrItemByItemId')], 'controlCode'),
+    'item||symbol': FlatFilterPath([FilterStep('mstrItemByItemId')], 'symbol'),
+    'item||labels||sharedAppellationsId': FlatFilterPath([FilterStep('mstrItemByItemId'), FilterStep('sharedAppellationByNames')], 'sharedAppellationsId'),
+    'item||labels||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId': FlatFilterPath([FilterStep('mstrItemByItemId'), FilterStep('sharedAppellationByNames'), FilterStep('sharedDictionaryBySharedDictionaryNameId')], 'sharedDictionaryId'),
+    'item||labels||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue': FlatFilterPath([FilterStep('mstrItemByItemId'), FilterStep('sharedAppellationByNames'), FilterStep('sharedDictionaryBySharedDictionaryNameId'), FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {'sharedLanguageCodeId': 'languageCodeId'})], 'dictionaryValue'),
     'planKind': FlatFilterPath([], 'planKind'),
     'transOrderDetailId': FlatFilterPath([], 'transOrderDetailId'),
     'transUnrecognizedDetailId': FlatFilterPath([], 'transUnrecognizedDetailId'),

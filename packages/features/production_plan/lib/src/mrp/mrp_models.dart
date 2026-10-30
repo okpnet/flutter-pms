@@ -21,7 +21,15 @@ enum MrpSuggestionKind {
   purchaseCancel('PURCHASE_CANCEL'),
   productionCancel('PRODUCTION_CANCEL'),
   outsourceOption('OUTSOURCE_OPTION'),
-  excOverload('EXC_OVERLOAD');
+  excOverload('EXC_OVERLOAD'),
+  excExcess('EXC_EXCESS'),
+  excMaster('EXC_MASTER'),
+  outsourceNew('OUTSOURCE_NEW'),
+  outsourceCancel('OUTSOURCE_CANCEL'),
+  planNew('PLAN_NEW'),
+  planUpdate('PLAN_UPDATE'),
+  planKeep('PLAN_KEEP'),
+  planCancel('PLAN_CANCEL');
 
   const MrpSuggestionKind(this.code);
 

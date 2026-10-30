@@ -42,6 +42,8 @@ MrpItemFields: &MrpItemFields
   columns:
     - mstr_item_id
     - code
+    - control_code
+    - symbol
     - name: labels
       as: labels
       arrayType: toFirstOne
@@ -63,6 +65,115 @@ MrpItemHistoryFields: &MrpItemHistoryFields
       arrayType: toFirstOne
       using: mstr_item_id
       <<: *MrpItemFields
+
+# MRP提案の利害関係者(仕入先・顧客。コード・symbol・名称)
+MrpStakeholderFields: &MrpStakeholderFields
+  kind: read
+  from: mstr_stakeholder
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_stakeholder_id
+    - code
+    - control_code
+    - symbol
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields
+
+# MRP提案の利害関係者の履歴
+MrpStakeholderHistoryFields: &MrpStakeholderHistoryFields
+  kind: read
+  from: history_mstr_stakeholder
+  columns:
+    - history_id
+    - mstr_stakeholder_id
+    - revision
+    - name: master
+      as: master
+      arrayType: toFirstOne
+      using: mstr_stakeholder_id
+      <<: *MrpStakeholderFields
+
+# MRP提案の設備(コード・symbol)
+MrpEquipmentFields: &MrpEquipmentFields
+  kind: read
+  from: mstr_equipment
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_equipment_id
+    - code
+    - control_code
+    - symbol
+
+# MRP提案の外注可能の履歴(symbol)
+MrpOutsourceAvailableHistoryFields: &MrpOutsourceAvailableHistoryFields
+  kind: read
+  from: history_mstr_outsource_available
+  columns:
+    - history_id
+    - mstr_outsource_available_id
+    - revision
+    - name: master
+      as: master
+      arrayType: toFirstOne
+      using: mstr_outsource_available_id
+      kind: read
+      from: mstr_outsource_available
+      columns:
+        - mstr_outsource_available_id
+        - symbol
+
+# MRP提案が参照する trans_order_detail(symbol)
+MrpOrderDetailFields: &MrpOrderDetailFields
+  kind: read
+  from: trans_order_detail
+  columns:
+    - trans_order_detail_id
+    - symbol
+
+# MRP提案が参照する trans_unrecognized_detail(symbol)
+MrpUnrecognizedDetailFields: &MrpUnrecognizedDetailFields
+  kind: read
+  from: trans_unrecognized_detail
+  columns:
+    - trans_unrecognized_detail_id
+    - symbol
+
+# MRP提案が参照する trans_resource_plan(symbol)
+MrpResourcePlanFields: &MrpResourcePlanFields
+  kind: read
+  from: trans_resource_plan
+  columns:
+    - trans_resource_plan_id
+    - symbol
+
+# MRP提案が参照する trans_operations_plan(symbol)
+MrpOperationsPlanFields: &MrpOperationsPlanFields
+  kind: read
+  from: trans_operations_plan
+  columns:
+    - trans_operations_plan_id
+    - symbol
+
+# MRP提案が参照する trans_purchase_detail(symbol)
+MrpPurchaseDetailFields: &MrpPurchaseDetailFields
+  kind: read
+  from: trans_purchase_detail
+  columns:
+    - trans_purchase_detail_id
+    - symbol
 
 # MRP提案(trans_mrp_suggestion)
 MrpSuggestionPage:
@@ -101,19 +212,64 @@ MrpSuggestionPage:
     - due_at
     - old_due_at
     - trans_order_detail_id
+    - name: order_detail
+      as: order_detail
+      arrayType: toFirstOne
+      using: trans_order_detail_id
+      <<: *MrpOrderDetailFields
     - trans_unrecognized_detail_id
+    - name: unrecognized_detail
+      as: unrecognized_detail
+      arrayType: toFirstOne
+      using: trans_unrecognized_detail_id
+      <<: *MrpUnrecognizedDetailFields
     - trans_resource_plan_id
+    - name: resource_plan
+      as: resource_plan
+      arrayType: toFirstOne
+      using: trans_resource_plan_id
+      <<: *MrpResourcePlanFields
     - parent_trans_operations_plan_id
+    - name: parent_operations_plan
+      as: parent_operations_plan
+      arrayType: toFirstOne
+      using: parent_trans_operations_plan_id
+      <<: *MrpOperationsPlanFields
     - trans_purchase_detail_id
+    - name: purchase_detail
+      as: purchase_detail
+      arrayType: toFirstOne
+      using: trans_purchase_detail_id
+      <<: *MrpPurchaseDetailFields
     - trans_operations_plan_id
+    - name: operations_plan
+      as: operations_plan
+      arrayType: toFirstOne
+      using: trans_operations_plan_id
+      <<: *MrpOperationsPlanFields
     - stakeholder_history_id
     - stakeholder_id
+    - name: stakeholder
+      as: stakeholder
+      arrayType: toFirstOne
+      using: [stakeholder_history_id, stakeholder_id]
+      <<: *MrpStakeholderHistoryFields
     - cost
     - asking_price
     - trans_mrp_suggestion_task_id
     - mstr_outsource_available_history_id
     - mstr_outsource_available_id
+    - name: outsource_available
+      as: outsource_available
+      arrayType: toFirstOne
+      using: [mstr_outsource_available_history_id, mstr_outsource_available_id]
+      <<: *MrpOutsourceAvailableHistoryFields
     - mstr_equipment_id
+    - name: equipment
+      as: equipment
+      arrayType: toFirstOne
+      using: mstr_equipment_id
+      <<: *MrpEquipmentFields
     - load_date
     - message
     - applied_at
@@ -186,6 +342,11 @@ MrpLoadPage:
     - trans_mrp_load_id
     - trans_mrp_run_id
     - mstr_equipment_id
+    - name: equipment
+      as: equipment
+      arrayType: toFirstOne
+      using: mstr_equipment_id
+      <<: *MrpEquipmentFields
     - load_date
     - capacity_hours
     - committed_hours
@@ -200,6 +361,8 @@ MrpPendingSuggestionPage:
   kind: read
   from: v_mrp_pending_suggestion
   filter: true
+  requiredWhere:
+    - languageCode
   columns:
     - trans_mrp_suggestion_id
     - trans_mrp_run_id
@@ -211,6 +374,11 @@ MrpPendingSuggestionPage:
     - late
     - item_history_id
     - item_id
+    - name: item
+      as: item
+      arrayType: toFirstOne
+      using: item_id
+      <<: *MrpItemFields
     - bom_level
     - plan_kind
     - quantity
@@ -228,6 +396,11 @@ MrpPendingSuggestionPage:
     - trans_operations_plan_id
     - stakeholder_history_id
     - stakeholder_id
+    - name: stakeholder
+      as: stakeholder
+      arrayType: toFirstOne
+      using: stakeholder_id
+      <<: *MrpStakeholderFields
     - cost
     - asking_price
     - trans_mrp_suggestion_task_id
@@ -246,11 +419,18 @@ MrpPurchasePlanPage:
   kind: read
   from: v_mrp_purchase_plan
   filter: true
+  requiredWhere:
+    - languageCode
   columns:
     - plan_key
     - trans_mrp_run_id
     - kind
     - stakeholder_id
+    - name: stakeholder
+      as: stakeholder
+      arrayType: toFirstOne
+      using: stakeholder_id
+      <<: *MrpStakeholderFields
     - release_date
     - due_date
     - line_count
@@ -263,9 +443,16 @@ MrpMasterIssuePage:
   kind: read
   from: v_mrp_master_issue
   filter: true
+  requiredWhere:
+    - languageCode
   columns:
     - issue_key
     - item_id
+    - name: item
+      as: item
+      arrayType: toFirstOne
+      using: item_id
+      <<: *MrpItemFields
     - item_code
     - issue_code
     - severity
@@ -278,9 +465,16 @@ ResourcePlanCoveragePage:
   kind: read
   from: v_resource_plan_coverage
   filter: true
+  requiredWhere:
+    - languageCode
   columns:
     - trans_resource_plan_id
     - item_id
+    - name: item
+      as: item
+      arrayType: toFirstOne
+      using: item_id
+      <<: *MrpItemFields
     - plan_kind
     - trans_order_detail_id
     - trans_unrecognized_detail_id

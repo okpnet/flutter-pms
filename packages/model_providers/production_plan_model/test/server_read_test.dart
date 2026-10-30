@@ -29,7 +29,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryMrpMasterIssuePageRead,
-          variables: Variables$Query$MrpMasterIssuePageRead(first: 1).toJson(),
+          variables: Variables$Query$MrpMasterIssuePageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -53,7 +53,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryMrpPendingSuggestionPageRead,
-          variables: Variables$Query$MrpPendingSuggestionPageRead(first: 1).toJson(),
+          variables: Variables$Query$MrpPendingSuggestionPageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -65,7 +65,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryMrpPurchasePlanPageRead,
-          variables: Variables$Query$MrpPurchasePlanPageRead(first: 1).toJson(),
+          variables: Variables$Query$MrpPurchasePlanPageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -149,7 +149,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryResourcePlanCoveragePageRead,
-          variables: Variables$Query$ResourcePlanCoveragePageRead(first: 1).toJson(),
+          variables: Variables$Query$ResourcePlanCoveragePageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');

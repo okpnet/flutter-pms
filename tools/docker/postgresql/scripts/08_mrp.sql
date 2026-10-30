@@ -1005,6 +1005,8 @@ it AS (
     SELECT i.mstr_item_id, i.code, i.remove, tests.mrp_proc_type(i.mstr_item_id) AS pt,
            COALESCE(i.catalog_item, FALSE) AS flag
     FROM tests.mstr_item AS i
+    -- 設備の品目はMRPで計画しないので点検しない
+    WHERE NOT EXISTS (SELECT 1 FROM tests.mstr_equipment AS e WHERE e.mstr_item_id = i.mstr_item_id AND e.remove IS FALSE)
 ),
 routing AS (
     SELECT iot.mstr_item_operation_task_id, iot.mstr_item_id, iot.default_interval, iot.sequence,
