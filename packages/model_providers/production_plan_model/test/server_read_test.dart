@@ -89,7 +89,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryMrpSuggestionPageRead,
-          variables: Variables$Query$MrpSuggestionPageRead(first: 1).toJson(),
+          variables: Variables$Query$MrpSuggestionPageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');

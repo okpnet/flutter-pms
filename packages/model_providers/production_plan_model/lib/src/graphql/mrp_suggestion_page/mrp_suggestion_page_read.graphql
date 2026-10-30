@@ -8,6 +8,7 @@ query MrpSuggestionPageRead(
   $offset: Int
   $filter: TransMrpSuggestionFilter = {and: []}
   $orderBy: [TransMrpSuggestionsOrderBy!]
+  $languageCodeId: UUID!
   $removed: Boolean = false
 ) {
   allTransMrpSuggestions(
@@ -32,6 +33,32 @@ query MrpSuggestionPageRead(
       late
       itemHistoryId
       itemId
+
+      item: historyMstrItemByItemHistoryIdAndItemId {
+        historyId
+        mstrItemId
+        revision
+
+        master: mstrItemByMstrItemId {
+          mstrItemId
+          code
+
+          labels: sharedAppellationByNames {
+            sharedAppellationsId
+            sharedDictionaryBySharedDictionaryNameId {
+              sharedDictionaryId
+              value: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $languageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+          }
+        }
+      }
+
       bomLevel
       planKind
       quantity

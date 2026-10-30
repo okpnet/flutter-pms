@@ -644,6 +644,13 @@ type HistoryInfoStaff {
   sharedAppellationByNames: SharedAppellation
 }
 
+type HistoryMstrItem {
+  historyId: UUID!
+  mstrItemId: UUID!
+  revision: Int
+  mstrItemByMstrItemId: MstrItem
+}
+
 type Interval {
   seconds: Float
   minutes: Int
@@ -703,6 +710,12 @@ type MrpRunPayload {
 
 type MrpSetDecisionPayload {
   transMrpSuggestions: [TransMrpSuggestion]
+}
+
+type MstrItem {
+  mstrItemId: UUID!
+  code: String!
+  sharedAppellationByNames: SharedAppellation
 }
 
 type MstrTask {
@@ -921,6 +934,7 @@ type TransMrpSuggestion {
   remarks: String
   updateAt: Datetime
   remove: Boolean
+  historyMstrItemByItemHistoryIdAndItemId: HistoryMstrItem
 }
 
 type TransMrpSuggestionTask {
@@ -1584,6 +1598,40 @@ input HistoryInfoStaffFilter {
   not: HistoryInfoStaffFilter
 }
 
+input HistoryMstrItemFilter {
+  historyId: UUIDFilter
+  mstrItemId: UUIDFilter
+  mstrItemKindId: UUIDFilter
+  code: StringFilter
+  identification: StringFilter
+  controlCode: StringFilter
+  mstrManufacturerId: UUIDFilter
+  names: UUIDFilter
+  labelCode: StringFilter
+  catalogItem: BooleanFilter
+  details: UUIDFilter
+  sharedUnitId: UUIDFilter
+  mstrItemLotId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transUnrecognizedDetailsByItemHistoryIdAndItemIdExist: Boolean
+  transPurchaseDetailsByItemHistoryIdAndItemIdExist: Boolean
+  transOrderDetailsByItemHistoryIdAndItemIdExist: Boolean
+  transResourcePlansByItemHistoryIdAndItemIdExist: Boolean
+  transMrpSuggestionsByItemHistoryIdAndItemIdExist: Boolean
+  mstrItemByMstrItemId: MstrItemFilter
+  mstrItemLotByMstrItemLotIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [HistoryMstrItemFilter!]
+  or: [HistoryMstrItemFilter!]
+  not: HistoryMstrItemFilter
+}
+
 input IntFilter {
   isNull: Boolean
   equalTo: Int
@@ -1682,6 +1730,67 @@ input MrpSetDecisionInput {
   pDecision: Int
   pSuggestionIds: [UUID]
   pStaffId: UUID
+}
+
+input MstrItemFilter {
+  mstrItemId: UUIDFilter
+  mstrItemKindId: UUIDFilter
+  code: StringFilter
+  identification: StringFilter
+  controlCode: StringFilter
+  mstrManufacturerId: UUIDFilter
+  names: UUIDFilter
+  labelCode: StringFilter
+  catalogItem: BooleanFilter
+  details: UUIDFilter
+  sharedUnitId: UUIDFilter
+  mstrItemLotId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  mstrItemSuppliersByMstrItemIdExist: Boolean
+  mstrItemTaskCostsByMstrItemIdExist: Boolean
+  mstrItemOperationsByMstrItemIdExist: Boolean
+  mstrItemHcdcsByMstrItemIdExist: Boolean
+  mstrItemProvisionsByMstrItemIdExist: Boolean
+  historyMstrItemsByMstrItemIdExist: Boolean
+  mstrInspectionsByMstrItemIdExist: Boolean
+  mstrItemActualSizesByMstrItemIdExist: Boolean
+  mstrItemOperationTasksByMstrItemIdExist: Boolean
+  mstrItemTreesByMstrItemIdExist: Boolean
+  mstrItemTreesByParentMstrItemIdExist: Boolean
+  mstrEquipmentsByMstrItemIdExist: Boolean
+  vItemDescendantByAncestorMstrItemIdExists: Boolean
+  vItemEquipmentCountByMstrItemIdExists: Boolean
+  vItemInspectionCountByMstrItemIdExists: Boolean
+  vItemItemActualSizeCountByMstrItemIdExists: Boolean
+  vItemItemHcdcsCountByMstrItemIdExists: Boolean
+  vItemItemOperationCountByMstrItemIdExists: Boolean
+  vItemItemOperationTaskCountByMstrItemIdExists: Boolean
+  vItemItemProvisionCountByMstrItemIdExists: Boolean
+  vItemOnHandByItemIdExists: Boolean
+  vMrpMasterIssuesByItemIdExist: Boolean
+  vMrpPendingSuggestionsByItemIdExist: Boolean
+  vMrpVisiterItemsByItemIdExist: Boolean
+  vPurchaseAmountsByMstrItemIdExist: Boolean
+  vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
+  vResourcePlanCoveragesByItemIdExist: Boolean
+  vSalesRecordsByMstrItemIdExist: Boolean
+  vShippingDeliveryCompliancesByMstrItemIdExist: Boolean
+  vShippingOrderStatusesByMstrItemIdExist: Boolean
+  mstrManufacturerByMstrManufacturerIdExists: Boolean
+  sharedAppellationByNames: SharedAppellationFilter
+  sharedTextByDetailsExists: Boolean
+  sharedUnitBySharedUnitIdExists: Boolean
+  mstrItemLotByMstrItemLotIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrItemFilter!]
+  or: [MstrItemFilter!]
+  not: MstrItemFilter
 }
 
 input MstrTaskFilter {
@@ -2106,6 +2215,7 @@ input TransMrpSuggestionFilter {
   transMrpPeggingsBySupplyTransMrpSuggestionIdExist: Boolean
   vMrpPendingSuggestionByTransMrpSuggestionIdExists: Boolean
   transMrpSuggestionByParentTransMrpSuggestionIdExists: Boolean
+  historyMstrItemByItemHistoryIdAndItemId: HistoryMstrItemFilter
   historyMstrItemByItemHistoryIdAndItemIdExists: Boolean
   transOrderDetailByTransOrderDetailIdExists: Boolean
   transUnrecognizedDetailByTransUnrecognizedDetailIdExists: Boolean

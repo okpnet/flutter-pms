@@ -13,7 +13,8 @@
     2.  実行中は画面全体の操作と戻る操作を無効にし(`busyProvider`)、「計算中」と経過時間を出す。
     3.  成功したら「MRPが成功しました」のお知らせ(実行日時・受注MRPか再MRPか・提案件数・要判断件数・遅れ件数)と、結果の表(提案種別・品目コード・品目名・数量・在庫引当・必要日・発注日・着手日・納期・遅れ・判断・メッセージ。判断での絞り込み・並べ替え・検索)を出す。
     4.  失敗したら、エラーコードに関わらず「しばらく時間をおいて、もう一度実行してください」を出し、エラーコード(想定: 57014=タイムアウト、MRP00=引数エラー)を小さく添える。失敗後は操作が元に戻り、再実行できる。
-    5.  実行は窓口(`IMrpGateway`、`mrpGatewayProvider`)で行い、実体(DB 関数 `tests.mrp_execute` を呼ぶメソッド `mrpExecute` と提案の読み込み)はアプリが差し込む。既定は実体なし(失敗にする)。実行者は `mrpStaffIdProvider`。
+    5.  実行は窓口(`IMrpGateway`、`mrpGatewayProvider`)で行う。実体は `GraphqlMrpGateway`(`lib/src/mrp/graphql_mrp_gateway.dart`。メソッド `mrpExecute` で計算し、`MrpSuggestionPage` で実行の提案を読む)で、アプリが `GraphQLClient` と品目名の言語(`languageCodeId`)を渡して差し込む。既定は実体なし(失敗にする)。実行者は `mrpStaffIdProvider`。失敗のコードは、サーバーの SQLSTATE(`MRP00` など)、通信の制限時間 `57014`、認証エラー `HTTP_<ステータス>`、それ以外の通信の失敗 `NETWORK`。
+    6.  通信テストは `test/graphql_mrp_gateway_test.dart`。検証用サーバーでは提案の読み込みだけ(`mrpExecute` はデータを変更するため実行しない)、実行・通信の異常は代役サーバーで確認する。
 
 ## 参照するモデル
 `packages/model_providers/*_model/gql/` の次を列・フィールドの参照元とし、モデルは `lib/src/graphql` のクラスを使う。

@@ -25,12 +25,17 @@ dependencies:
   flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  graphql: ^5.2.3
+  production_plan_model:
+    path: ../../model_providers/production_plan_model
   entity_screens:
     path: ../../ui/entity_screens
 
 dev_dependencies:
   theme_lib:
     path: ../../ui/theme_lib
+  data_test_harness:
+    path: ../../infra/data_test_harness
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

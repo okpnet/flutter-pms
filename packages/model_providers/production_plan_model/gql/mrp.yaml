@@ -29,11 +29,48 @@ MrpRunPage:
     - remarks
     - update_at
 
+# MRP提案の品目(コードと名称だけ。画面に出すための軽い結合)
+MrpItemFields: &MrpItemFields
+  kind: read
+  from: mstr_item
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields
+
+# MRP提案の品目の履歴
+MrpItemHistoryFields: &MrpItemHistoryFields
+  kind: read
+  from: history_mstr_item
+  columns:
+    - history_id
+    - mstr_item_id
+    - revision
+    - name: master
+      as: master
+      arrayType: toFirstOne
+      using: mstr_item_id
+      <<: *MrpItemFields
+
 # MRP提案(trans_mrp_suggestion)
 MrpSuggestionPage:
   kind: read
   from: trans_mrp_suggestion
   filter: true
+  requiredWhere:
+    - languageCode
   defaultWhere:
     - column: remove
       operator: =
@@ -49,6 +86,11 @@ MrpSuggestionPage:
     - late
     - item_history_id
     - item_id
+    - name: item
+      as: item
+      arrayType: toFirstOne
+      using: [item_history_id, item_id]
+      <<: *MrpItemHistoryFields
     - bom_level
     - plan_kind
     - quantity
