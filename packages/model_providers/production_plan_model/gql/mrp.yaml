@@ -107,6 +107,8 @@ MrpStakeholderHistoryFields: &MrpStakeholderHistoryFields
 MrpEquipmentFields: &MrpEquipmentFields
   kind: read
   from: mstr_equipment
+  requiredWhere:
+    - languageCode
   defaultWhere:
     - column: remove
       operator: =
@@ -116,6 +118,13 @@ MrpEquipmentFields: &MrpEquipmentFields
     - code
     - control_code
     - symbol
+    # 設備は品目に紐づく。名称は品目の名称
+    - mstr_item_id
+    - name: item
+      as: item
+      arrayType: toFirstOne
+      using: mstr_item_id
+      <<: *MrpItemFields
 
 # MRP提案の外注可能の履歴(symbol)
 MrpOutsourceAvailableHistoryFields: &MrpOutsourceAvailableHistoryFields
@@ -334,6 +343,8 @@ MrpLoadPage:
   kind: read
   from: trans_mrp_load
   filter: true
+  requiredWhere:
+    - languageCode
   defaultWhere:
     - column: remove
       operator: =
@@ -389,11 +400,41 @@ MrpPendingSuggestionPage:
     - due_at
     - old_due_at
     - trans_order_detail_id
+    - name: order_detail
+      as: order_detail
+      arrayType: toFirstOne
+      using: trans_order_detail_id
+      <<: *MrpOrderDetailFields
     - trans_unrecognized_detail_id
+    - name: unrecognized_detail
+      as: unrecognized_detail
+      arrayType: toFirstOne
+      using: trans_unrecognized_detail_id
+      <<: *MrpUnrecognizedDetailFields
     - trans_resource_plan_id
+    - name: resource_plan
+      as: resource_plan
+      arrayType: toFirstOne
+      using: trans_resource_plan_id
+      <<: *MrpResourcePlanFields
     - parent_trans_operations_plan_id
+    - name: parent_operations_plan
+      as: parent_operations_plan
+      arrayType: toFirstOne
+      using: parent_trans_operations_plan_id
+      <<: *MrpOperationsPlanFields
     - trans_purchase_detail_id
+    - name: purchase_detail
+      as: purchase_detail
+      arrayType: toFirstOne
+      using: trans_purchase_detail_id
+      <<: *MrpPurchaseDetailFields
     - trans_operations_plan_id
+    - name: operations_plan
+      as: operations_plan
+      arrayType: toFirstOne
+      using: trans_operations_plan_id
+      <<: *MrpOperationsPlanFields
     - stakeholder_history_id
     - stakeholder_id
     - name: stakeholder
@@ -406,7 +447,17 @@ MrpPendingSuggestionPage:
     - trans_mrp_suggestion_task_id
     - mstr_outsource_available_history_id
     - mstr_outsource_available_id
+    - name: outsource_available
+      as: outsource_available
+      arrayType: toFirstOne
+      using: [mstr_outsource_available_history_id, mstr_outsource_available_id]
+      <<: *MrpOutsourceAvailableHistoryFields
     - mstr_equipment_id
+    - name: equipment
+      as: equipment
+      arrayType: toFirstOne
+      using: mstr_equipment_id
+      <<: *MrpEquipmentFields
     - load_date
     - message
     - applied_at

@@ -1057,6 +1057,7 @@ input HistoryInfoStaffFilter {
   transMrpSuggestionTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vMrpPendingSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryInfoStaffFilter!]
@@ -1090,6 +1091,7 @@ input HistoryMstrStakeholderFilter {
   transPurchasesByStakeholderHistoryIdAndStakeholderIdExist: Boolean
   transOrdersByStakeholderHistoryIdAndStakeholderIdExist: Boolean
   transMrpSuggestionsByStakeholderHistoryIdAndStakeholderIdExist: Boolean
+  vMrpPendingSuggestionsByStakeholderHistoryIdAndStakeholderIdExist: Boolean
   mstrStakeholderByMstrStakeholderId: MstrStakeholderFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryMstrStakeholderFilter!]
@@ -1508,6 +1510,7 @@ input TransOrderDetailFilter {
   transShippingOrderDetailsByTransOrderDetailIdExist: Boolean
   transResourcePlansByTransOrderDetailIdExist: Boolean
   transMrpSuggestionsByTransOrderDetailIdExist: Boolean
+  vMrpPendingSuggestionsByTransOrderDetailIdExist: Boolean
   vOrderDetailOrderDetailRiskCountByTransOrderDetailId: VOrderDetailOrderDetailRiskCountFilter
   vOrderDetailOrderDetailRiskCountByTransOrderDetailIdExists: Boolean
   vOrderDetailShippingOrderDetailCountByTransOrderDetailId: VOrderDetailShippingOrderDetailCountFilter

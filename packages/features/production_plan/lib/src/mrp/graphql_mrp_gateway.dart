@@ -120,16 +120,25 @@ class GraphqlMrpGateway implements IMrpGateway {
       throw MrpFailure('MRP_UNKNOWN_KIND', '未知の提案種別: ${node.kind}');
     }
     final master = node.item?.master;
-    final names = master
-        ?.labels
-        ?.sharedDictionaryBySharedDictionaryNameId
-        ?.value
-        .nodes;
+    final names =
+        master?.labels?.sharedDictionaryBySharedDictionaryNameId?.value.nodes;
     return MrpSuggestion(
       kind: kind,
       // 設備の過負荷など、品目の無い提案は設備のコードを品目コードの欄に出す。
       itemCode: master?.code ?? node.equipment?.code ?? '',
-      itemName: names?.firstOrNull?.dictionaryValue ?? '',
+      // 設備は品目に紐づくので、品目の無い提案は設備の品目の名称を出す。
+      itemName:
+          names?.firstOrNull?.dictionaryValue ??
+          node
+              .equipment
+              ?.item
+              ?.labels
+              ?.sharedDictionaryBySharedDictionaryNameId
+              ?.value
+              .nodes
+              .firstOrNull
+              ?.dictionaryValue ??
+          '',
       quantity: num.tryParse(node.quantity ?? '') ?? 0,
       allocation: num.tryParse(node.allocatedQuantity ?? '') ?? 0,
       needDate: node.needAt,
@@ -151,8 +160,7 @@ class GraphqlMrpGateway implements IMrpGateway {
     for (final error in exception.graphqlErrors) {
       final extensions = error.extensions ?? const {};
       final inner = extensions['exception'];
-      final code =
-          extensions['code'] ?? (inner is Map ? inner['code'] : null);
+      final code = extensions['code'] ?? (inner is Map ? inner['code'] : null);
       if (code != null) return MrpFailure('$code', error.message);
     }
     final link = exception.linkException;

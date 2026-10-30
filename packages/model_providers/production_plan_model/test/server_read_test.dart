@@ -17,7 +17,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryMrpLoadPageRead,
-          variables: Variables$Query$MrpLoadPageRead(first: 1).toJson(),
+          variables: Variables$Query$MrpLoadPageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -214,7 +214,7 @@ void main() {
 
     QueryOptions options() => QueryOptions(
       document: documentNodeQueryMrpLoadPageRead,
-      variables: Variables$Query$MrpLoadPageRead(first: 1).toJson(),
+      variables: Variables$Query$MrpLoadPageRead(first: 1, languageCodeId: _zeroId).toJson(),
     );
 
     // 代役サーバーの既定の応答に合う、中身の無い問い合わせ(応答の読み取りを確認しないテスト用)。

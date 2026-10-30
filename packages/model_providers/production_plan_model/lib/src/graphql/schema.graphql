@@ -728,9 +728,11 @@ type MrpSetDecisionPayload {
 
 type MstrEquipment {
   mstrEquipmentId: UUID!
+  mstrItemId: UUID!
   code: String!
   controlCode: String
   symbol: String
+  mstrItemByMstrItemId: MstrItem
 }
 
 type MstrItem {
@@ -1228,6 +1230,14 @@ type VMrpPendingSuggestion {
   updateAt: Datetime
   mstrItemByItemId: MstrItem
   mstrStakeholderByStakeholderId: MstrStakeholder
+  transOrderDetailByTransOrderDetailId: TransOrderDetail
+  transUnrecognizedDetailByTransUnrecognizedDetailId: TransUnrecognizedDetail
+  transResourcePlanByTransResourcePlanId: TransResourcePlan
+  transOperationsPlanByParentTransOperationsPlanId: TransOperationsPlan
+  transOperationsPlanByTransOperationsPlanId: TransOperationsPlan
+  transPurchaseDetailByTransPurchaseDetailId: TransPurchaseDetail
+  mstrEquipmentByMstrEquipmentId: MstrEquipment
+  historyMstrOutsourceAvailableByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableId: HistoryMstrOutsourceAvailable
 }
 
 type VMrpPendingSuggestionsConnection {
@@ -1657,6 +1667,7 @@ input HistoryInfoStaffFilter {
   transMrpSuggestionTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vMrpPendingSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryInfoStaffFilter!]
@@ -1690,6 +1701,7 @@ input HistoryMstrItemFilter {
   transOrderDetailsByItemHistoryIdAndItemIdExist: Boolean
   transResourcePlansByItemHistoryIdAndItemIdExist: Boolean
   transMrpSuggestionsByItemHistoryIdAndItemIdExist: Boolean
+  vMrpPendingSuggestionsByItemHistoryIdAndItemIdExist: Boolean
   mstrItemByMstrItemId: MstrItemFilter
   mstrItemLotByMstrItemLotIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -1715,6 +1727,7 @@ input HistoryMstrOutsourceAvailableFilter {
   transWorkPlansByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableIdExist: Boolean
   transMrpSuggestionsByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableIdExist: Boolean
   transMrpSuggestionTasksByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableIdExist: Boolean
+  vMrpPendingSuggestionsByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableIdExist: Boolean
   mstrOutsourceAvailableByMstrOutsourceAvailableId: MstrOutsourceAvailableFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryMstrOutsourceAvailableFilter!]
@@ -1748,6 +1761,7 @@ input HistoryMstrStakeholderFilter {
   transPurchasesByStakeholderHistoryIdAndStakeholderIdExist: Boolean
   transOrdersByStakeholderHistoryIdAndStakeholderIdExist: Boolean
   transMrpSuggestionsByStakeholderHistoryIdAndStakeholderIdExist: Boolean
+  vMrpPendingSuggestionsByStakeholderHistoryIdAndStakeholderIdExist: Boolean
   mstrStakeholderByMstrStakeholderId: MstrStakeholderFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryMstrStakeholderFilter!]
@@ -1882,6 +1896,8 @@ input MstrEquipmentFilter {
   vEquipmentEquipmentProvisionCountByMstrEquipmentIdExists: Boolean
   vEquipmentInspectionOperationCountByMstrEquipmentIdExists: Boolean
   vInspectionStatusesByMstrEquipmentIdExist: Boolean
+  vMrpPendingSuggestionsByMstrEquipmentIdExist: Boolean
+  mstrItemByMstrItemId: MstrItemFilter
   mstrEquipmentKindByMstrEquipmentCategoryIdExists: Boolean
   mstrLocationByMstrLocationIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -2438,6 +2454,7 @@ input TransMrpSuggestionFilter {
   transMrpPeggingsByDemandTransMrpSuggestionIdExist: Boolean
   transMrpPeggingsBySupplyTransMrpSuggestionIdExist: Boolean
   vMrpPendingSuggestionByTransMrpSuggestionIdExists: Boolean
+  vMrpPendingSuggestionsByParentTransMrpSuggestionIdExist: Boolean
   transMrpSuggestionByParentTransMrpSuggestionIdExists: Boolean
   historyMstrItemByItemHistoryIdAndItemId: HistoryMstrItemFilter
   historyMstrItemByItemHistoryIdAndItemIdExists: Boolean
@@ -2488,6 +2505,7 @@ input TransMrpSuggestionTaskFilter {
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
   transMrpSuggestionsByTransMrpSuggestionTaskIdExist: Boolean
+  vMrpPendingSuggestionsByTransMrpSuggestionTaskIdExist: Boolean
   transWorkPlanByTransWorkPlanIdExists: Boolean
   historyMstrEquipmentAvailableByMstrEquipmentAvailableHistoryIdAndMstrEquipmentAvailableIdExists: Boolean
   historyMstrOutsourceAvailableByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableIdExists: Boolean
@@ -2514,6 +2532,8 @@ input TransOperationsPlanFilter {
   transMrpSuggestionsByParentTransOperationsPlanIdExist: Boolean
   transMrpSuggestionsByTransOperationsPlanIdExist: Boolean
   transMrpPeggingsByTransOperationsPlanIdExist: Boolean
+  vMrpPendingSuggestionsByParentTransOperationsPlanIdExist: Boolean
+  vMrpPendingSuggestionsByTransOperationsPlanIdExist: Boolean
   vOperationsPlanWorkPlanCountByTransOperationsPlanId: VOperationsPlanWorkPlanCountFilter
   vOperationsPlanWorkPlanCountByTransOperationsPlanIdExists: Boolean
   vWorkPlanDeliveryCompliancesByTransOperationsPlanIdExist: Boolean
@@ -2553,6 +2573,7 @@ input TransOrderDetailFilter {
   transShippingOrderDetailsByTransOrderDetailIdExist: Boolean
   transResourcePlansByTransOrderDetailIdExist: Boolean
   transMrpSuggestionsByTransOrderDetailIdExist: Boolean
+  vMrpPendingSuggestionsByTransOrderDetailIdExist: Boolean
   vOrderDetailOrderDetailRiskCountByTransOrderDetailIdExists: Boolean
   vOrderDetailShippingOrderDetailCountByTransOrderDetailIdExists: Boolean
   vResourcePlanCoveragesByTransOrderDetailIdExist: Boolean
@@ -2612,6 +2633,7 @@ input TransPurchaseDetailFilter {
   transWorkPlansByTransPurchaseDetailIdExist: Boolean
   transMrpSuggestionsByTransPurchaseDetailIdExist: Boolean
   transMrpPeggingsByTransPurchaseDetailIdExist: Boolean
+  vMrpPendingSuggestionsByTransPurchaseDetailIdExist: Boolean
   vPurchaseDetailPurchaseRecCountByTransPurchaseDetailIdExists: Boolean
   vPurchaseDetailPurchaseRezCountByTransPurchaseDetailIdExists: Boolean
   transResourcePlanByTransResourcePlanIdExists: Boolean
@@ -2666,6 +2688,7 @@ input TransResourcePlanFilter {
   transPurchaseDetailsByTransResourcePlanIdExist: Boolean
   transOperationsPlansByTransResourcePlanIdExist: Boolean
   transMrpSuggestionsByTransResourcePlanIdExist: Boolean
+  vMrpPendingSuggestionsByTransResourcePlanIdExist: Boolean
   vResourcePlanCoverageByTransResourcePlanIdExists: Boolean
   transOperationsPlanByParentTransOperationsPlanIdExists: Boolean
   transOrderDetailByTransOrderDetailIdExists: Boolean
@@ -2710,6 +2733,7 @@ input TransUnrecognizedDetailFilter {
   remove: BooleanFilter
   transResourcePlansByTransUnrecognizedDetailIdExist: Boolean
   transMrpSuggestionsByTransUnrecognizedDetailIdExist: Boolean
+  vMrpPendingSuggestionsByTransUnrecognizedDetailIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransUnrecognizedDetailFilter!]
   or: [TransUnrecognizedDetailFilter!]
@@ -2891,10 +2915,31 @@ input VMrpPendingSuggestionFilter {
   remove: BooleanFilter
   transMrpSuggestionByTransMrpSuggestionIdExists: Boolean
   transMrpRunByTransMrpRunIdExists: Boolean
+  transMrpSuggestionByParentTransMrpSuggestionIdExists: Boolean
+  transMrpSuggestionTaskByTransMrpSuggestionTaskIdExists: Boolean
   mstrItemByItemId: MstrItemFilter
   mstrItemByItemIdExists: Boolean
+  historyMstrItemByItemHistoryIdAndItemIdExists: Boolean
   mstrStakeholderByStakeholderId: MstrStakeholderFilter
   mstrStakeholderByStakeholderIdExists: Boolean
+  historyMstrStakeholderByStakeholderHistoryIdAndStakeholderIdExists: Boolean
+  transOrderDetailByTransOrderDetailId: TransOrderDetailFilter
+  transOrderDetailByTransOrderDetailIdExists: Boolean
+  transUnrecognizedDetailByTransUnrecognizedDetailId: TransUnrecognizedDetailFilter
+  transUnrecognizedDetailByTransUnrecognizedDetailIdExists: Boolean
+  transResourcePlanByTransResourcePlanId: TransResourcePlanFilter
+  transResourcePlanByTransResourcePlanIdExists: Boolean
+  transOperationsPlanByParentTransOperationsPlanId: TransOperationsPlanFilter
+  transOperationsPlanByParentTransOperationsPlanIdExists: Boolean
+  transOperationsPlanByTransOperationsPlanId: TransOperationsPlanFilter
+  transOperationsPlanByTransOperationsPlanIdExists: Boolean
+  transPurchaseDetailByTransPurchaseDetailId: TransPurchaseDetailFilter
+  transPurchaseDetailByTransPurchaseDetailIdExists: Boolean
+  mstrEquipmentByMstrEquipmentId: MstrEquipmentFilter
+  mstrEquipmentByMstrEquipmentIdExists: Boolean
+  historyMstrOutsourceAvailableByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableId: HistoryMstrOutsourceAvailableFilter
+  historyMstrOutsourceAvailableByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [VMrpPendingSuggestionFilter!]
   or: [VMrpPendingSuggestionFilter!]
   not: VMrpPendingSuggestionFilter

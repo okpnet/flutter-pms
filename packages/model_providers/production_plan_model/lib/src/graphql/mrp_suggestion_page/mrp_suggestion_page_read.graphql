@@ -166,6 +166,28 @@ query MrpSuggestionPageRead(
         code
         controlCode
         symbol
+        mstrItemId
+
+        item: mstrItemByMstrItemId {
+          mstrItemId
+          code
+          controlCode
+          symbol
+
+          labels: sharedAppellationByNames {
+            sharedAppellationsId
+            sharedDictionaryBySharedDictionaryNameId {
+              sharedDictionaryId
+              value: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $languageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+          }
+        }
       }
 
       loadDate

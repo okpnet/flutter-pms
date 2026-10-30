@@ -8,6 +8,7 @@ query MrpLoadPageRead(
   $offset: Int
   $filter: TransMrpLoadFilter = {and: []}
   $orderBy: [TransMrpLoadsOrderBy!]
+  $languageCodeId: UUID!
   $removed: Boolean = false
 ) {
   allTransMrpLoads(
@@ -31,6 +32,28 @@ query MrpLoadPageRead(
         code
         controlCode
         symbol
+        mstrItemId
+
+        item: mstrItemByMstrItemId {
+          mstrItemId
+          code
+          controlCode
+          symbol
+
+          labels: sharedAppellationByNames {
+            sharedAppellationsId
+            sharedDictionaryBySharedDictionaryNameId {
+              sharedDictionaryId
+              value: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $languageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+          }
+        }
       }
 
       loadDate

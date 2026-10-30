@@ -1073,6 +1073,7 @@ input HistoryInfoStaffFilter {
   transMrpSuggestionTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vMrpPendingSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryInfoStaffFilter!]
@@ -1556,6 +1557,7 @@ input TransPurchaseDetailFilter {
   transWorkPlansByTransPurchaseDetailIdExist: Boolean
   transMrpSuggestionsByTransPurchaseDetailIdExist: Boolean
   transMrpPeggingsByTransPurchaseDetailIdExist: Boolean
+  vMrpPendingSuggestionsByTransPurchaseDetailIdExist: Boolean
   vPurchaseDetailPurchaseRecCountByTransPurchaseDetailId: VPurchaseDetailPurchaseRecCountFilter
   vPurchaseDetailPurchaseRecCountByTransPurchaseDetailIdExists: Boolean
   vPurchaseDetailPurchaseRezCountByTransPurchaseDetailId: VPurchaseDetailPurchaseRezCountFilter
@@ -1678,6 +1680,7 @@ input TransUnrecognizedDetailFilter {
   remove: BooleanFilter
   transResourcePlansByTransUnrecognizedDetailIdExist: Boolean
   transMrpSuggestionsByTransUnrecognizedDetailIdExist: Boolean
+  vMrpPendingSuggestionsByTransUnrecognizedDetailIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransUnrecognizedDetailFilter!]

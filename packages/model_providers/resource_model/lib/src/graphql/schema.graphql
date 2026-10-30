@@ -1975,6 +1975,7 @@ input HistoryInfoStaffFilter {
   transMrpSuggestionTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vMrpPendingSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryInfoStaffFilter!]
@@ -2365,6 +2366,7 @@ input MstrEquipmentFilter {
   vEquipmentInspectionOperationCountByMstrEquipmentId: VEquipmentInspectionOperationCountFilter
   vEquipmentInspectionOperationCountByMstrEquipmentIdExists: Boolean
   vInspectionStatusesByMstrEquipmentIdExist: Boolean
+  vMrpPendingSuggestionsByMstrEquipmentIdExist: Boolean
   mstrItemByMstrItemId: MstrItemFilter
   mstrEquipmentKindByMstrEquipmentCategoryId: MstrEquipmentKindFilter
   mstrEquipmentKindByMstrEquipmentCategoryIdExists: Boolean
