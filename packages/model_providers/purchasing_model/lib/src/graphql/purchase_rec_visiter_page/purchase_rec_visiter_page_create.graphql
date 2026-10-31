@@ -1,0 +1,30 @@
+# purchase_rec_visiter_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #PurchaseRecVisiterPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation PurchaseRecVisiterPageCreate(
+  $transPurchaseRecId: UUID
+  $transVisiterId: UUID
+  $quantity: BigFloat
+  $remarks: String
+) {
+  createTransPurchaseRecVisiter(
+    input: {
+      transPurchaseRecVisiter: {
+        transPurchaseRecId: $transPurchaseRecId
+        transVisiterId: $transVisiterId
+        quantity: $quantity
+        remarks: $remarks
+      }
+    }
+  ) {
+    transPurchaseRecVisiter {
+      transPurchaseRecVisiterId
+      transPurchaseRecId
+      transVisiterId
+      quantity
+      remarks
+    }
+  }
+}

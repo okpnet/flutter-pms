@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -2314,8 +2314,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=品質
-Left=3700
-Top=450
+Left=4050
+Top=700
 Field="注文苦情ID","trans_complaint_order_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="異常ID","trans_complaint_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="注文ID","trans_order_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
@@ -2325,7 +2325,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20261009152231
-Position="品質",3700,450
+Position="品質",4050,700
 ZOrder=277
 
 [Entity]
@@ -2335,8 +2335,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=品質
-Left=450
-Top=1100
+Left=650
+Top=250
 Field="工程苦情ID","trans_complaint_process_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="異常ID","trans_complaint_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="工程ID","mstr_task_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
@@ -2346,7 +2346,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20261009154536
-Position="品質",450,1100
+Position="品質",650,250
 ZOrder=278
 
 [Entity]
@@ -2356,8 +2356,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=品質
-Left=2250
-Top=250
+Left=3950
+Top=150
 Field="設備苦情ID","trans_complaint_equipment_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="異常ID","trans_complaint_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
@@ -2368,7 +2368,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20261010080843
-Position="品質",2250,250
+Position="品質",3950,150
 ZOrder=279
 
 [Entity]
@@ -2378,8 +2378,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=品質
-Left=550
-Top=400
+Left=2200
+Top=100
 Field="利害関係者苦情ID","trans_complaint_stakeholder_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="異常ID","trans_complaint_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
@@ -2390,7 +2390,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20261009160538
-Position="品質",550,400
+Position="品質",2200,100
 ZOrder=280
 
 [Relation]
@@ -15406,7 +15406,7 @@ Fields1=trans_complaint_id
 Fields2=trans_complaint_id
 Cardinarity1=
 Cardinarity2=
-Position="品質",0,2550,7450,2780,R,R,""
+Position="品質",0,2550,7450,2753,R,R,""
 Dependence=0
 Caption=
 PName=
@@ -15414,7 +15414,7 @@ ModifiedDateTime=20261009151005
 LineMode=0
 Bar1=255
 Bar2=745
-Bar3=278
+Bar3=275
 TermPos1=R
 TermPos2=R
 ZOrder=1017
@@ -15428,14 +15428,14 @@ Fields1=trans_complaint_id
 Fields2=trans_complaint_id
 Cardinarity1=
 Cardinarity2=
-Position="品質",0,939,9061,6078,R,R,""
+Position="品質",0,6681,5974,6078,R,R,""
 Dependence=0
 Caption=
 PName=
 ModifiedDateTime=20261009143039
 LineMode=0
-Bar1=94
-Bar2=906
+Bar1=668
+Bar2=597
 Bar3=608
 TermPos1=R
 TermPos2=R
@@ -15450,13 +15450,13 @@ Fields1=trans_complaint_id
 Fields2=trans_complaint_id
 Cardinarity1=
 Cardinarity2=
-Position="品質",0,3449,6285,3182,R,R,""
+Position="品質",0,0,6285,3182,R,R,""
 Dependence=0
 Caption=
 PName=
 ModifiedDateTime=20261009143046
 LineMode=0
-Bar1=345
+Bar1=0
 Bar2=628
 Bar3=318
 TermPos1=R
@@ -17748,9 +17748,9 @@ Caption=
 PName=
 ModifiedDateTime=20260928105904
 LineMode=0
-Bar1=285
-Bar2=715
-Bar3=380
+Bar1=50
+Bar2=950
+Bar3=743
 TermPos1=R
 TermPos2=R
 ZOrder=1145
@@ -20309,9 +20309,9 @@ Caption=
 PName=
 ModifiedDateTime=20261014093323
 LineMode=0
-Bar1=495
-Bar2=505
-Bar3=53
+Bar1=743
+Bar2=257
+Bar3=50
 TermPos1=R
 TermPos2=R
 ZOrder=1274
@@ -23456,3 +23456,176 @@ Bar3=50
 TermPos1=R
 TermPos2=R
 ZOrder=-541
+
+[Entity]
+PName=trans_complaint_work
+LName=作業異常
+Comment=
+TableInnerOption=
+TableOption=
+Page=品質
+Left=300
+Top=800
+Field="作業異常ID","trans_complaint_work_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="異常ID","trans_complaint_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業実績ID","trans_work_record_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="異常数量","quantity","*@QTY","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@SYMBOL","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20261031225553
+Position="品質",300,800
+ZOrder=1464
+
+[Relation]
+Entity1=trans_work_record
+Entity2=trans_complaint_work
+RelationType1=1
+RelationType2=3
+Fields1=trans_work_record_id
+Fields2=trans_work_record_id
+Cardinarity1=
+Cardinarity2=
+Position="作業トランザクション",0,1267,8733,1802,R,R,""
+Position="品質",0,2667,7333,2574,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=267
+Bar2=733
+Bar3=257
+TermPos1=R
+TermPos2=R
+ZOrder=1465
+
+[Relation]
+Entity1=trans_complaint
+Entity2=trans_complaint_work
+RelationType1=2
+RelationType2=2
+Fields1=trans_complaint_id
+Fields2=trans_complaint_id
+Cardinarity1=
+Cardinarity2=
+Position="品質",0,2794,7206,0,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20261031225904
+LineMode=0
+Bar1=279
+Bar2=721
+Bar3=0
+TermPos1=R
+TermPos2=R
+ZOrder=1466
+
+[Entity]
+PName=trans_complaint_purchase_rec
+LName=受入異常
+Comment=
+TableInnerOption=
+TableOption=
+Page=品質
+Left=400
+Top=1350
+Field="受入異常ID","trans_complaint_purchase_rec_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="異常ID","trans_complaint_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="受入実績ID","trans_purchase_rec_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
+Field="異常数量","quantity","*@QTY","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@SYMBOL","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20261031225938
+Position="品質",400,1350
+ZOrder=1467
+
+[Relation]
+Entity1=trans_complaint
+Entity2=trans_complaint_purchase_rec
+RelationType1=2
+RelationType2=2
+Fields1=trans_complaint_id
+Fields2=trans_complaint_id
+Cardinarity1=
+Cardinarity2=
+Position="品質",0,5371,8071,0,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20261031225910
+LineMode=0
+Bar1=537
+Bar2=807
+Bar3=0
+TermPos1=R
+TermPos2=R
+ZOrder=1468
+
+[Relation]
+Entity1=trans_purchase_rec
+Entity2=trans_complaint_purchase_rec
+RelationType1=1
+RelationType2=3
+Fields1=trans_purchase_rec_id
+Fields2=trans_purchase_rec_id
+Cardinarity1=
+Cardinarity2=
+Position="品質",0,799,9201,1481,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=80
+Bar2=920
+Bar3=148
+TermPos1=R
+TermPos2=R
+ZOrder=1469
+
+[Relation]
+Entity1=history_info_staff
+Entity2=trans_complaint_purchase_rec
+RelationType1=1
+RelationType2=3
+Fields1=history_id,info_staff_id
+Fields2=update_user_history_id,update_user_id
+Cardinarity1=
+Cardinarity2=
+Position="品質",0,799,9201,500,R,R,""
+Dependence=0
+Caption=auto create.
+PName=
+LineMode=0
+Bar1=80
+Bar2=920
+Bar3=50
+TermPos1=R
+TermPos2=R
+ZOrder=-542
+
+[Relation]
+Entity1=history_info_staff
+Entity2=trans_complaint_work
+RelationType1=1
+RelationType2=3
+Fields1=history_id,info_staff_id
+Fields2=update_user_history_id,update_user_id
+Cardinarity1=
+Cardinarity2=
+Position="品質",0,656,9344,500,R,R,""
+Dependence=0
+Caption=auto create.
+PName=
+LineMode=0
+Bar1=66
+Bar2=934
+Bar3=50
+TermPos1=R
+TermPos2=R
+ZOrder=-543

@@ -1,0 +1,30 @@
+# purchase_rec_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #PurchaseRecPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation PurchaseRecPageCreate(
+  $transPurchaseDetailId: UUID
+  $receiveAt: Datetime
+  $quantity: BigFloat
+  $remarks: String
+) {
+  createTransPurchaseRec(
+    input: {
+      transPurchaseRec: {
+        transPurchaseDetailId: $transPurchaseDetailId
+        receiveAt: $receiveAt
+        quantity: $quantity
+        remarks: $remarks
+      }
+    }
+  ) {
+    transPurchaseRec {
+      transPurchaseRecId
+      transPurchaseDetailId
+      receiveAt
+      quantity
+      remarks
+    }
+  }
+}

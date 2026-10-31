@@ -37,6 +37,7 @@ graph TD;
 | 流れ | `lib/src/logic/scan_flow.dart` | `ScanFlow`(State)。段階ごとの判定と登録。通知・履歴は種類(enum)で持つ |
 | 取得元 | `lib/src/logic/scan_gateway.dart` | `IScanGateway`(Strategy)。照会 `find`、棚出庫 `startWork`、入庫 `putAway`、点検 `recordInspection` |
 | 暫定の取得元 | `lib/src/logic/in_memory_scan_gateway.dart` | メモリ上のサンプル(プロトタイプと同じ値)。GraphQL 版は `scanGatewayProvider` を差し替える |
+| GraphQL の取得元 | `lib/src/logic/graphql_scan_gateway.dart` | `GraphqlScanGateway`(Adapter)。`barcode_entry_model` の `ScanClient` だけを使い、生成された型を読み込まない。登録は作業実績・ビジター・入庫を、クライアントで順に呼ぶ組み合わせ |
 | 画面 | `lib/src/page/` | ページ・モジュール・遷移先・パス・種類から文字列への変換 |
 | 文字列 | `lib/src/i18n` | slang の Yaml(日本語。`string_interpolation: braces`) |
 
@@ -52,3 +53,6 @@ graph TD;
 実績登録専用のアプリは `apps/entry_app`(Android・Windows)。このプロジェクトだけを載せる。
 
 `example` は `feature_shared` の `FeatureHost` でこの機能だけを載せる。`flutter run -d windows`。起動と symbol の読み込みは `example/test/widget_test.dart`、流れの判定は `test/barcode_entry_test.dart`。
+
+## GraphQL 版の制限
+棚出庫(払出)・単位・設備点検・異常の登録は、DB の構成から決められず未対応(`issue/20261031_0003.md`)。不合格の理由は備考に残す。登録の通信テストは書かない(読み取り専用)。モデルは `packages/model_providers/barcode_entry_model` だけに依存する。

@@ -1,0 +1,48 @@
+# work_record_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #WorkRecordPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation WorkRecordPageCreate(
+  $transWorkPlanId: UUID
+  $nthTime: Int
+  $startAt: Datetime
+  $stopAt: Datetime
+  $qty: BigFloat
+  $staffHistoryId: UUID
+  $staffId: UUID
+  $equipmentHistoryId: UUID
+  $equipmentId: UUID
+  $remarks: String
+) {
+  createTransWorkRecord(
+    input: {
+      transWorkRecord: {
+        transWorkPlanId: $transWorkPlanId
+        nthTime: $nthTime
+        startAt: $startAt
+        stopAt: $stopAt
+        qty: $qty
+        staffHistoryId: $staffHistoryId
+        staffId: $staffId
+        equipmentHistoryId: $equipmentHistoryId
+        equipmentId: $equipmentId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transWorkRecord {
+      transWorkRecordId
+      transWorkPlanId
+      nthTime
+      startAt
+      stopAt
+      qty
+      staffHistoryId
+      staffId
+      equipmentHistoryId
+      equipmentId
+      remarks
+    }
+  }
+}

@@ -16,6 +16,9 @@ dependencies:
     path: ../../packages/core/feature_shared
   barcode_entry:
     path: ../../packages/features/barcode_entry
+  barcode_entry_model:
+    path: ../../packages/model_providers/barcode_entry_model
+  graphql: ^5.2.3
   logger_provider:
     path: ../../packages/infra/logger_provider
   theme_lib:

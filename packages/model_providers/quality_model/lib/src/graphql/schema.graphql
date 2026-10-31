@@ -1802,6 +1802,8 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transComplaintPurchaseRecsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintWorksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -3038,6 +3040,8 @@ input TransComplaintFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transComplaintPurchaseRecsByTransComplaintIdExist: Boolean
+  transComplaintWorksByTransComplaintIdExist: Boolean
   transComplaintReceivesByTransComplaintIdExist: Boolean
   transComplaintFilesByTransComplaintIdExist: Boolean
   transComplaintStakeholdersByTransComplaintIdExist: Boolean

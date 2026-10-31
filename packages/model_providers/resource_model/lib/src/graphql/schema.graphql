@@ -1720,6 +1720,8 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transComplaintPurchaseRecsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintWorksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean

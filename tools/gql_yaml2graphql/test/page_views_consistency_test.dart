@@ -157,6 +157,7 @@ void main() {
       for (final e in views.entries) {
         final node = e.value;
         if (node is! Map || node['kind'] != 'read' || !e.key.endsWith('Page') || node['from'] == null) continue;
+        if (node['lightRead'] == true) continue; // 子のレコード数を読まない軽い読み込み(symbol の照会用)
         final type = schema.typeOfTable(node['from'] as String);
         final fields = schema.objects[type] ?? const <String, FieldInfo>{};
         // 親が1行ずつ持つ集計(単数の関連)。例: InfoCompany.vCompanyDepartmentCountByInfoCompanyId

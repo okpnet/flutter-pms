@@ -1,0 +1,32 @@
+# scan_purchase_detail_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ScanPurchaseDetailPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ScanPurchaseDetailPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransPurchaseDetailFilter = {and: []}
+  $orderBy: [TransPurchaseDetailsOrderBy!]
+  $removed: Boolean = false
+) {
+  allTransPurchaseDetails(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transPurchaseDetailId
+      symbol
+      quantity
+      itemId
+      itemHistoryId
+    }
+  }
+}

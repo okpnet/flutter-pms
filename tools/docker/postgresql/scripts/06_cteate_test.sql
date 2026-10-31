@@ -89,7 +89,31 @@ $BODY$
 LANGUAGE plpgsql;
 COMMENT ON FUNCTION tests.trg_gen_text_summary() IS 'text_valueからlead_text(導入文)とchar_count(文字数)を算出する';
 
---239.create tables
+--241.create tables
+create table tests.trans_complaint_purchase_rec (
+    trans_complaint_purchase_rec_id uuid default gen_random_uuid(),
+    trans_complaint_id uuid not null,
+    trans_purchase_rec_id uuid default gen_random_uuid(),
+    quantity decimal(10,2) default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.trans_complaint_work (
+    trans_complaint_work_id uuid default gen_random_uuid(),
+    trans_complaint_id uuid not null,
+    trans_work_record_id uuid not null,
+    quantity decimal(10,2) default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
 create table tests.history_mstr_item_supplier (
     history_id uuid default gen_random_uuid(),
     mstr_item_supplier_id uuid not null,
@@ -3543,7 +3567,29 @@ create table tests.info_office (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
---239.add table comments
+--241.add table comments
+comment on table tests.trans_complaint_purchase_rec is '受入異常';
+comment on column tests.trans_complaint_purchase_rec.trans_complaint_purchase_rec_id is '受入異常ID';
+comment on column tests.trans_complaint_purchase_rec.trans_complaint_id is '異常ID';
+comment on column tests.trans_complaint_purchase_rec.trans_purchase_rec_id is '受入実績ID';
+comment on column tests.trans_complaint_purchase_rec.quantity is '異常数量';
+comment on column tests.trans_complaint_purchase_rec.symbol is 'リニアシンボル';
+comment on column tests.trans_complaint_purchase_rec.remarks is '備考';
+comment on column tests.trans_complaint_purchase_rec.update_at is '更新日時';
+comment on column tests.trans_complaint_purchase_rec.update_user_id is '更新者ID';
+comment on column tests.trans_complaint_purchase_rec.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_complaint_purchase_rec.remove is '削除';
+comment on table tests.trans_complaint_work is '作業異常';
+comment on column tests.trans_complaint_work.trans_complaint_work_id is '作業異常ID';
+comment on column tests.trans_complaint_work.trans_complaint_id is '異常ID';
+comment on column tests.trans_complaint_work.trans_work_record_id is '作業実績ID';
+comment on column tests.trans_complaint_work.quantity is '異常数量';
+comment on column tests.trans_complaint_work.symbol is 'リニアシンボル';
+comment on column tests.trans_complaint_work.remarks is '備考';
+comment on column tests.trans_complaint_work.update_at is '更新日時';
+comment on column tests.trans_complaint_work.update_user_id is '更新者ID';
+comment on column tests.trans_complaint_work.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_complaint_work.remove is '削除';
 comment on table tests.history_mstr_item_supplier is '品目仕入先マスタ履歴';
 comment on column tests.history_mstr_item_supplier.history_id is '履歴ID';
 comment on column tests.history_mstr_item_supplier.mstr_item_supplier_id is '品目仕入先ID';
@@ -6758,7 +6804,19 @@ comment on column tests.info_office.update_at is '更新日時';
 comment on column tests.info_office.update_user_id is '更新者ID';
 comment on column tests.info_office.update_user_history_id is '更新者履歴ID';
 comment on column tests.info_office.remove is '削除';
---239.add table primary key and index
+--241.add table primary key and index
+create unique index trans_complaint_purchase_rec_PKI
+    on tests.trans_complaint_purchase_rec(trans_complaint_purchase_rec_id);
+alter table tests.trans_complaint_purchase_rec
+    add constraint trans_complaint_purchase_rec_PKC primary key (trans_complaint_purchase_rec_id);
+alter table tests.trans_complaint_purchase_rec
+     add constraint trans_complaint_purchase_rec_IX1 unique  (symbol);
+create unique index trans_complaint_work_PKI
+    on tests.trans_complaint_work(trans_complaint_work_id);
+alter table tests.trans_complaint_work
+    add constraint trans_complaint_work_PKC primary key (trans_complaint_work_id);
+alter table tests.trans_complaint_work
+     add constraint trans_complaint_work_IX1 unique  (symbol);
 create unique index history_mstr_item_supplier_PKI
     on tests.history_mstr_item_supplier(history_id,mstr_item_supplier_id);
 alter table tests.history_mstr_item_supplier
@@ -8222,7 +8280,13 @@ alter table tests.info_office
     add constraint info_office_PKC primary key (info_office_id);
 alter table tests.info_office
      add constraint info_office_IX1 unique  (symbol);
---239.add table foreign key
+--241.add table foreign key
+alter table tests.trans_complaint_purchase_rec add constraint trans_complaint_purchase_rec_FK1 foreign key (trans_purchase_rec_id) references tests.trans_purchase_rec (trans_purchase_rec_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_purchase_rec add constraint trans_complaint_purchase_rec_FK2 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_purchase_rec add constraint trans_complaint_purchase_rec_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_work add constraint trans_complaint_work_FK1 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_work add constraint trans_complaint_work_FK2 foreign key (trans_work_record_id) references tests.trans_work_record (trans_work_record_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_work add constraint trans_complaint_work_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_item_supplier add constraint history_mstr_item_supplier_FK1 foreign key (mstr_item_supplier_id) references tests.mstr_item_supplier (mstr_item_supplier_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_item_supplier add constraint history_mstr_item_supplier_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_item_supplier add constraint mstr_item_supplier_FK1 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8892,7 +8956,55 @@ alter table tests.info_office add constraint info_office_FK1 foreign key (names)
 alter table tests.info_office add constraint info_office_FK2 foreign key (info_company_id) references tests.info_company (info_company_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK3 foreign key (info_address_id) references tests.info_address (info_address_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
---239.add table trigger
+--241.add table trigger
+-- trans_complaint_purchase_rec update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_purchase_rec() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_complaint_purchase_rec_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_complaint_purchase_rec BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_purchase_rec FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_complaint_purchase_rec();
+
+
+CREATE TRIGGER trg_04_symbol_trans_complaint_purchase_rec BEFORE INSERT ON tests.trans_complaint_purchase_rec FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_complaint_work update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_work() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_complaint_work_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_complaint_work BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_work FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_complaint_work();
+
+
+CREATE TRIGGER trg_04_symbol_trans_complaint_work BEFORE INSERT ON tests.trans_complaint_work FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- history_mstr_item_supplier update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item_supplier() RETURNS trigger AS
 $BODY$

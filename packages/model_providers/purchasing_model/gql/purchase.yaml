@@ -208,3 +208,35 @@ PurchaseRecPageEdit:
     - update_user_history_id
     - remove
 
+
+# ---- 登録(kind: create)。バーコード実績登録(barcode_entry)の受入検品・受入異常で使う ----
+
+# trans_purchase_recの登録(購入品受入)
+PurchaseRecPageCreate:
+  kind: create
+  from: trans_purchase_rec
+  columns:
+    - trans_purchase_detail_id
+    - receive_at
+    - quantity
+    - remarks
+
+# trans_purchase_rec_visiterの登録(受入と棚ビジターの結び付き)
+PurchaseRecVisiterPageCreate:
+  kind: create
+  from: trans_purchase_rec_visiter
+  columns:
+    - trans_purchase_rec_id
+    - trans_visiter_id
+    - quantity
+    - remarks
+
+# trans_complaint_purchase_recの登録(受入異常)
+ComplaintPurchaseRecPageCreate:
+  kind: create
+  from: trans_complaint_purchase_rec
+  columns:
+    - trans_complaint_id
+    - trans_purchase_rec_id
+    - quantity
+    - remarks

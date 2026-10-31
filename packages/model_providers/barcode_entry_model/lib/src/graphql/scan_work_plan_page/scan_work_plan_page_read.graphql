@@ -1,0 +1,64 @@
+# scan_work_plan_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ScanWorkPlanPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ScanWorkPlanPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransWorkPlanFilter = {and: []}
+  $orderBy: [TransWorkPlansOrderBy!]
+  $languageCodeId: UUID!
+  $removed: Boolean = false
+) {
+  allTransWorkPlans(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transWorkPlanId
+      symbol
+      sequence
+      mstrTaskId
+
+      task: mstrTaskByMstrTaskId {
+        mstrTaskId
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
+      transOperationsPlanId
+
+      operations_plan: transOperationsPlanByTransOperationsPlanId {
+        transOperationsPlanId
+        quantity
+        transResourcePlanId
+
+        resource_plan: transResourcePlanByTransResourcePlanId {
+          transResourcePlanId
+          itemId
+          itemHistoryId
+        }
+      }
+    }
+  }
+}

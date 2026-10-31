@@ -16,6 +16,7 @@ import 'package:gql_yaml2graphql/src/yaml_loader.dart';
 
 
 void main() {
+  createTests();
   test('名前の規則', () {
     expect(camel('update_at'), 'updateAt');
     expect(camel('iso3166_3'), 'iso31663');
@@ -175,4 +176,57 @@ Child:
     }, skip: skip);
   });
 
+}
+
+void createTests() {
+  test('登録(kind: create)は createXxx のミューテーションを作る', () {
+    expect(directoryOf('ConveyPageCreate'), 'convey_page');
+    expect(isGenerationTarget('ConveyPageCreate'), isTrue);
+    const schema = '''
+type Query { nodeId: ID }
+type Mutation { createTransConvey(input: CreateTransConveyInput!): CreateTransConveyPayload }
+type CreateTransConveyPayload { transConvey: TransConvey }
+type TransConvey { transConveyId: UUID! quantity: BigFloat remarks: String }
+input CreateTransConveyInput { transConvey: TransConveyInput! }
+input TransConveyInput { transConveyId: UUID quantity: BigFloat remarks: String }
+scalar UUID
+scalar BigFloat
+''';
+    final r = generateAll(
+      viewYaml: '''
+ConveyPageCreate:
+  kind: create
+  from: trans_convey
+  columns: [quantity, remarks]
+''',
+      schemaText: schema,
+    );
+    expect(r.log.errors, isEmpty);
+    final text = r.files['convey_page/convey_page_create.graphql']!;
+    expect(text, contains('mutation ConveyPageCreate('));
+    expect(text, contains(r'$quantity: BigFloat'));
+    expect(text, contains('createTransConvey('));
+    expect(text, contains('transConveyId'));
+  });
+
+  test('登録の列が入力型に無いときはエラー', () {
+    final r = generateAll(
+      viewYaml: '''
+ConveyPageCreate:
+  kind: create
+  from: trans_convey
+  columns: [nothing]
+''',
+      schemaText: '''
+type Query { nodeId: ID }
+type Mutation { createTransConvey(input: CreateTransConveyInput!): CreateTransConveyPayload }
+type CreateTransConveyPayload { transConvey: TransConvey }
+type TransConvey { transConveyId: UUID! }
+input CreateTransConveyInput { transConvey: TransConveyInput! }
+input TransConveyInput { transConveyId: UUID }
+scalar UUID
+''',
+    );
+    expect(r.log.errors, isNotEmpty);
+  });
 }

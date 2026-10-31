@@ -1,0 +1,30 @@
+# visiter_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #VisiterPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation VisiterPageCreate(
+  $transContainerId: UUID
+  $status: Int
+  $quantity: BigFloat
+  $remarks: String
+) {
+  createTransVisiter(
+    input: {
+      transVisiter: {
+        transContainerId: $transContainerId
+        status: $status
+        quantity: $quantity
+        remarks: $remarks
+      }
+    }
+  ) {
+    transVisiter {
+      transVisiterId
+      transContainerId
+      status
+      quantity
+      remarks
+    }
+  }
+}

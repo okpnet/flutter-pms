@@ -410,3 +410,66 @@ ContainerTreePageEdit:
     - update_user_id
     - update_user_history_id
     - remove
+
+# ---- 登録(kind: create)。バーコード実績登録(barcode_entry)の作業実績・入庫/払出・作業異常で使う ----
+
+# trans_work_recordの登録(作業実績)
+WorkRecordPageCreate:
+  kind: create
+  from: trans_work_record
+  columns:
+    - trans_work_plan_id
+    - nth_time
+    - start_at
+    - stop_at
+    - qty
+    - staff_history_id
+    - staff_id
+    - equipment_history_id
+    - equipment_id
+    - remarks
+
+# trans_work_record_visiterの登録(作業実績と棚ビジターの結び付き)
+WorkRecordVisiterPageCreate:
+  kind: create
+  from: trans_work_record_visiter
+  columns:
+    - trans_visiter_id
+    - trans_work_record_id
+    - quantity
+    - remarks
+
+# trans_visiterの登録(棚ビジター)
+VisiterPageCreate:
+  kind: create
+  from: trans_visiter
+  columns:
+    - trans_container_id
+    - status
+    - quantity
+    - remarks
+
+# trans_conveyの登録(棚への入庫/払出。receive が入庫)
+ConveyPageCreate:
+  kind: create
+  from: trans_convey
+  columns:
+    - trans_visiter_id
+    - receive
+    - convey_at
+    - quantity
+    - location_history_id
+    - location_id
+    - staff_history_id
+    - staff_id
+    - remarks
+
+# trans_complaint_workの登録(作業異常)
+ComplaintWorkPageCreate:
+  kind: create
+  from: trans_complaint_work
+  columns:
+    - trans_complaint_id
+    - trans_work_record_id
+    - quantity
+    - remarks

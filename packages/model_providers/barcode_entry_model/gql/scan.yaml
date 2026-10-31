@@ -1,0 +1,204 @@
+# yaml-language-server: $schema=../../schema.json
+#
+# バーコード実績登録(barcode_entry)の読み込み。symbol で対象を引く(読み込み専用。symbol は読込しかできない)。
+# 登録(作業実績・入庫/払出・受入)は、work_record_model・purchasing_model の `~PageCreate` を使う。
+# 共通の部品(呼称・更新者)は gql_shared を使う。
+
+# 作業指示(工程。trans_work_plan)を symbol で引く。指示数量は作業計画(trans_operations_plan)、品目は資源計画(trans_resource_plan)
+ScanWorkPlanPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(symbol の照会用。要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: trans_work_plan
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_work_plan_id
+    - symbol
+    - sequence
+    - mstr_task_id
+    - name: task
+      as: task
+      arrayType: toFirstOne
+      using: mstr_task_id
+      kind: read
+      from: mstr_task
+      columns:
+        - mstr_task_id
+        - name: labels
+          as: labels
+          arrayType: toFirstOne
+          using: names
+          pick:
+            - name
+          <<: *AppellationLabelsReadFields
+    - trans_operations_plan_id
+    - name: operations_plan
+      as: operations_plan
+      arrayType: toFirstOne
+      using: trans_operations_plan_id
+      kind: read
+      from: trans_operations_plan
+      columns:
+        - trans_operations_plan_id
+        - quantity
+        - trans_resource_plan_id
+        - name: resource_plan
+          as: resource_plan
+          arrayType: toFirstOne
+          using: trans_resource_plan_id
+          kind: read
+          from: trans_resource_plan
+          columns:
+            - trans_resource_plan_id
+            - item_id
+            - item_history_id
+
+# 作業指示ごとの作業実績(完了数量・開始の判定)
+ScanWorkRecordPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(symbol の照会用。要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: trans_work_record
+  filter: true
+  requiredWhere:
+    - trans_work_plan_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_work_record_id
+    - trans_work_plan_id
+    - nth_time
+    - start_at
+    - stop_at
+    - qty
+
+# 棚(trans_container)を symbol で引く
+ScanContainerPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(symbol の照会用。要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: trans_container
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_container_id
+    - code
+    - symbol
+    - mstr_location_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *FlexibleLabelReadFields
+
+# 棚にあるビジター(在庫)
+ScanVisiterPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(symbol の照会用。要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: trans_visiter
+  filter: true
+  requiredWhere:
+    - trans_container_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_visiter_id
+    - trans_container_id
+    - status
+    - quantity
+    - symbol
+
+# 発注明細(購入品)を symbol で引く
+ScanPurchaseDetailPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(symbol の照会用。要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: trans_purchase_detail
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_purchase_detail_id
+    - symbol
+    - quantity
+    - item_id
+    - item_history_id
+
+# 発注明細ごとの受入実績(受入済み数量)
+ScanPurchaseRecPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(symbol の照会用。要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: trans_purchase_rec
+  filter: true
+  requiredWhere:
+    - trans_purchase_detail_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_purchase_rec_id
+    - trans_purchase_detail_id
+    - receive_at
+    - quantity
+
+# 品目を symbol または id で引く(名称つき)
+ScanItemPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(symbol の照会用。要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: mstr_item
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_id
+    - code
+    - symbol
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields
+
+# 設備を symbol で引く(名称は品目の名称)
+ScanEquipmentPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(symbol の照会用。要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: mstr_equipment
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_equipment_id
+    - code
+    - symbol
+    - mstr_item_id

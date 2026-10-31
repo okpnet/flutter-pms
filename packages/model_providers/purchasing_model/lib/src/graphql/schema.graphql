@@ -338,6 +338,18 @@ enum VPurchaseDeliveryCompliancesOrderBy {
   RECEIVED_QUANTITY_DESC
 }
 
+type CreateTransComplaintPurchaseRecPayload {
+  transComplaintPurchaseRec: TransComplaintPurchaseRec
+}
+
+type CreateTransPurchaseRecPayload {
+  transPurchaseRec: TransPurchaseRec
+}
+
+type CreateTransPurchaseRecVisiterPayload {
+  transPurchaseRecVisiter: TransPurchaseRecVisiter
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -440,6 +452,9 @@ type MstrStakeholdersConnection {
 }
 
 type Mutation {
+  createTransComplaintPurchaseRec(input: CreateTransComplaintPurchaseRecInput!): CreateTransComplaintPurchaseRecPayload
+  createTransPurchaseRec(input: CreateTransPurchaseRecInput!): CreateTransPurchaseRecPayload
+  createTransPurchaseRecVisiter(input: CreateTransPurchaseRecVisiterInput!): CreateTransPurchaseRecVisiterPayload
   updateMstrItemSupplierByMstrItemSupplierId(input: UpdateMstrItemSupplierByMstrItemSupplierIdInput!): UpdateMstrItemSupplierPayload
   updateMstrStakeholderByMstrStakeholderId(input: UpdateMstrStakeholderByMstrStakeholderIdInput!): UpdateMstrStakeholderPayload
   updateTransPurchaseByTransPurchaseId(input: UpdateTransPurchaseByTransPurchaseIdInput!): UpdateTransPurchasePayload
@@ -491,6 +506,14 @@ type SharedDictionaryValue {
 
 type SharedDictionaryValuesConnection {
   nodes: [SharedDictionaryValue]!
+}
+
+type TransComplaintPurchaseRec {
+  transComplaintPurchaseRecId: UUID!
+  transComplaintId: UUID!
+  transPurchaseRecId: UUID
+  quantity: BigFloat
+  remarks: String
 }
 
 type TransPurchase {
@@ -560,6 +583,14 @@ type TransPurchaseRec {
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
   vPurchaseRecPurchaseCertificationCountByTransPurchaseRecId: VPurchaseRecPurchaseCertificationCount
   vPurchaseRecPurchaseRecVisiterCountByTransPurchaseRecId: VPurchaseRecPurchaseRecVisiterCount
+}
+
+type TransPurchaseRecVisiter {
+  transPurchaseRecVisiterId: UUID!
+  transPurchaseRecId: UUID!
+  transVisiterId: UUID!
+  quantity: BigFloat
+  remarks: String
 }
 
 type TransPurchaseRecsConnection {
@@ -774,6 +805,18 @@ input BooleanFilter {
   greaterThanOrEqualTo: Boolean
 }
 
+input CreateTransComplaintPurchaseRecInput {
+  transComplaintPurchaseRec: TransComplaintPurchaseRecInput!
+}
+
+input CreateTransPurchaseRecInput {
+  transPurchaseRec: TransPurchaseRecInput!
+}
+
+input CreateTransPurchaseRecVisiterInput {
+  transPurchaseRecVisiter: TransPurchaseRecVisiterInput!
+}
+
 input DateFilter {
   isNull: Boolean
   equalTo: Date
@@ -818,6 +861,8 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transComplaintPurchaseRecsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintWorksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1531,6 +1576,13 @@ input StringFilter {
   greaterThanOrEqualToInsensitive: String
 }
 
+input TransComplaintPurchaseRecInput {
+  transComplaintId: UUID
+  transPurchaseRecId: UUID
+  quantity: BigFloat
+  remarks: String
+}
+
 input TransPurchaseDetailFilter {
   transPurchaseDetailId: UUIDFilter
   transPurchaseId: UUIDFilter
@@ -1640,6 +1692,7 @@ input TransPurchaseRecFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transComplaintPurchaseRecsByTransPurchaseRecIdExist: Boolean
   transPurchaseRecVisitersByTransPurchaseRecIdExist: Boolean
   transPurchaseCertificationsByTransPurchaseRecIdExist: Boolean
   vPurchaseRecPurchaseCertificationCountByTransPurchaseRecId: VPurchaseRecPurchaseCertificationCountFilter
@@ -1653,9 +1706,23 @@ input TransPurchaseRecFilter {
   not: TransPurchaseRecFilter
 }
 
+input TransPurchaseRecInput {
+  transPurchaseDetailId: UUID
+  receiveAt: Datetime
+  quantity: BigFloat
+  remarks: String
+}
+
 input TransPurchaseRecPatch {
   transPurchaseDetailId: UUID
   receiveAt: Datetime
+  quantity: BigFloat
+  remarks: String
+}
+
+input TransPurchaseRecVisiterInput {
+  transPurchaseRecId: UUID
+  transVisiterId: UUID
   quantity: BigFloat
   remarks: String
 }

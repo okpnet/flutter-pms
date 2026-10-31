@@ -22,10 +22,13 @@ dependencies:
   go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   mobile_scanner: ^7.0.1
+  barcode_entry_model:
+    path: ../../model_providers/barcode_entry_model
   logger_provider:
     path: ../../infra/logger_provider
 
 dev_dependencies:
+  graphql: ^5.2.3
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

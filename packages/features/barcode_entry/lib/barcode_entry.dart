@@ -1,6 +1,7 @@
 /// バーコード実績登録(実装)。アプリだけが読み込む。
 ///
 /// - [BarcodeEntryModule]: アプリへ組み込む口
+/// - [GraphqlScanGateway]: 照会と登録の実体(GraphQL。`ScanClient` から作る)
 /// - [scanGatewayProvider]: 読み込んだ symbol の照会と登録の取得元の差し込み口(既定はメモリ上のサンプル)
 /// - [scanFlowProvider]: 読み込みの流れ(状態と操作)
 /// 他の機能が使う遷移先の型は `barcode_entry_api.dart` を読み込む。
@@ -8,6 +9,7 @@ library;
 
 export 'src/i18n/strings_provider.dart'
     show BarcodeEntryStrings, barcodeEntryStringsProvider;
+export 'src/logic/graphql_scan_gateway.dart';
 export 'src/logic/in_memory_scan_gateway.dart';
 export 'src/logic/scan_flow.dart';
 export 'src/logic/scan_gateway.dart';

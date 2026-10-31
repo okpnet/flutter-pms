@@ -6,3 +6,4 @@
 2.  配線は `feature_shared` の `FeatureHost`(GoRouter・CommandBus・ハンドラ登録)。機能を足すときは `modules` と `entries` に足す。
 3.  取得元(`scanGatewayProvider`)は暫定でメモリ上のサンプル。GraphQL 版の取得元と認証(PocketBase。`pageSessionMediatorProvider`)は導入後にここで差し込む。
 4.  機能同士・アプリは `xxx_api.dart` の型だけを使う(`barcode_entry.dart` はアプリだけが読み込む)。
+5.  取得元は起動時の指定で選ぶ: `--dart-define=ENTRY_GRAPHQL_URL=http://.../graphql --dart-define=ENTRY_LANGUAGE_CODE_ID=<言語のid> --dart-define=ENTRY_STAFF_ID=<作業者のid>`。接続先と言語のどちらかが無ければ、メモリ上のサンプル。作業者のidは認証(PocketBase)の導入後にログインユーザーから与える。

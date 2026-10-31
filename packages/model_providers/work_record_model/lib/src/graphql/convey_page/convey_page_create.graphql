@@ -1,0 +1,45 @@
+# convey_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ConveyPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ConveyPageCreate(
+  $transVisiterId: UUID
+  $receive: Boolean
+  $conveyAt: Datetime
+  $quantity: BigFloat
+  $locationHistoryId: UUID
+  $locationId: UUID
+  $staffHistoryId: UUID
+  $staffId: UUID
+  $remarks: String
+) {
+  createTransConvey(
+    input: {
+      transConvey: {
+        transVisiterId: $transVisiterId
+        receive: $receive
+        conveyAt: $conveyAt
+        quantity: $quantity
+        locationHistoryId: $locationHistoryId
+        locationId: $locationId
+        staffHistoryId: $staffHistoryId
+        staffId: $staffId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transConvey {
+      transConveyId
+      transVisiterId
+      receive
+      conveyAt
+      quantity
+      locationHistoryId
+      locationId
+      staffHistoryId
+      staffId
+      remarks
+    }
+  }
+}

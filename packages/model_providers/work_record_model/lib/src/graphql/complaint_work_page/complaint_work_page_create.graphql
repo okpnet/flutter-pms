@@ -1,0 +1,30 @@
+# complaint_work_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintWorkPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintWorkPageCreate(
+  $transComplaintId: UUID
+  $transWorkRecordId: UUID
+  $quantity: BigFloat
+  $remarks: String
+) {
+  createTransComplaintWork(
+    input: {
+      transComplaintWork: {
+        transComplaintId: $transComplaintId
+        transWorkRecordId: $transWorkRecordId
+        quantity: $quantity
+        remarks: $remarks
+      }
+    }
+  ) {
+    transComplaintWork {
+      transComplaintWorkId
+      transComplaintId
+      transWorkRecordId
+      quantity
+      remarks
+    }
+  }
+}

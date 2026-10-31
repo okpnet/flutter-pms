@@ -41,10 +41,15 @@ class CallbackServer {
 
       final code = uri.queryParameters['code'];
       if (code == null) {
+        // 応答を閉じないと、呼び出し側(ブラウザ)が待ち続ける
+        request.response
+          ..statusCode = HttpStatus.badRequest
+          ..close();
         failerDelegate?.call();
         logger?.error('CALLBACK QUERYPARAMETER CODE NULL');
         return;
       }
+      request.response.close();
       //debug
       // log('code:$code');
       completeDelegate(code);

@@ -1,0 +1,45 @@
+# scan_item_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ScanItemPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ScanItemPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: MstrItemFilter = {and: []}
+  $orderBy: [MstrItemsOrderBy!]
+  $languageCodeId: UUID!
+  $removed: Boolean = false
+) {
+  allMstrItems(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrItemId
+      code
+      symbol
+
+      labels: sharedAppellationByNames {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+    }
+  }
+}

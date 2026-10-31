@@ -26,6 +26,7 @@
 | `shared_master_model` | 出荷区分・利害関係者 |
 | `system_model` | 単位 |
 | `work_record_model` | ビジター・作業実績、棚在庫状況 |
+| `barcode_entry_model` | バーコード実績登録(symbol による照会。登録は `work_record_model`・`purchasing_model` を使う) |
 
 ## ダッシュボード用のビュー
 
@@ -87,3 +88,9 @@
 1.  注文の追加、MRP、再MRP の実行テストに使ってよい(データが変わる)。読み取りだけのテストと分け、変更するテストの名前に明記する。
 1.  `mrpExecute` は重い(受注MRPで2分ほど)。`GraphQLClient` の既定の制限時間(5秒)と、`TestServer.provider` の制限時間(20秒)を超えるため、変更するテストは制限の無い接続(`HttpLink(server.url)`)を使い、テストの制限時間も長くする。
 1.  外部キーがある参照は、品目などの名前・各コード・symbol を読み込みに含める。外部キーが無い場合は、DB の Issue(`tools/docker/postgresql/issue/`)に外部キーが必要なことを追加する。
+
+## 登録(`kind: create`)
+1.  登録の mutation は YAML の `~PageCreate`(`kind: create`)から生成する。列は列名だけ(入れ子は対象外)。出力は `<dir>/<dir>_create.graphql`、操作名は `~PageCreate`。更新(`~PageEdit`)とは別に書き、列は更新に合わせる。
+2.  複数のテーブルにまたがる登録は、DB の関数にせずクライアントで順に呼ぶ。部品(1テーブル)と組み合わせをモデルの窓口(例: `barcode_entry_model` の `ScanClient`)に持たせる。生成された型は窓口の中に隠し、平らな型で返す。
+3.  symbol で対象を引くだけの軽い読み込みは、`lightRead: true` を付ける(子のレコード数 `v_*_count` を読まない。要件0056の検査の対象外)。
+4.  登録の通信テストは書かない(検証用サーバーは読み取り専用)。登録の呼び出しの順序と値は、代役の通信路で確認する。

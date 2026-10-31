@@ -338,6 +338,26 @@ enum VShelfInventoryStatusesOrderBy {
   PRIMARY_KEY_DESC
 }
 
+type CreateTransComplaintWorkPayload {
+  transComplaintWork: TransComplaintWork
+}
+
+type CreateTransConveyPayload {
+  transConvey: TransConvey
+}
+
+type CreateTransVisiterPayload {
+  transVisiter: TransVisiter
+}
+
+type CreateTransWorkRecordPayload {
+  transWorkRecord: TransWorkRecord
+}
+
+type CreateTransWorkRecordVisiterPayload {
+  transWorkRecordVisiter: TransWorkRecordVisiter
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -392,6 +412,11 @@ type MstrLocation {
 }
 
 type Mutation {
+  createTransComplaintWork(input: CreateTransComplaintWorkInput!): CreateTransComplaintWorkPayload
+  createTransConvey(input: CreateTransConveyInput!): CreateTransConveyPayload
+  createTransVisiter(input: CreateTransVisiterInput!): CreateTransVisiterPayload
+  createTransWorkRecord(input: CreateTransWorkRecordInput!): CreateTransWorkRecordPayload
+  createTransWorkRecordVisiter(input: CreateTransWorkRecordVisiterInput!): CreateTransWorkRecordVisiterPayload
   updateTransCertificateByTransCertificateId(input: UpdateTransCertificateByTransCertificateIdInput!): UpdateTransCertificatePayload
   updateTransContainerByTransContainerId(input: UpdateTransContainerByTransContainerIdInput!): UpdateTransContainerPayload
   updateTransContainerTreeByTransContainerTreeId(input: UpdateTransContainerTreeByTransContainerTreeIdInput!): UpdateTransContainerTreePayload
@@ -474,6 +499,14 @@ type TransCertificatesConnection {
   nodes: [TransCertificate]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type TransComplaintWork {
+  transComplaintWorkId: UUID!
+  transComplaintId: UUID!
+  transWorkRecordId: UUID!
+  quantity: BigFloat
+  remarks: String
 }
 
 type TransContainer {
@@ -677,6 +710,14 @@ type TransWorkRecordCertificatesConnection {
   totalCount: Int!
 }
 
+type TransWorkRecordVisiter {
+  transWorkRecordVisiterId: UUID!
+  transVisiterId: UUID!
+  transWorkRecordId: UUID!
+  quantity: BigFloat
+  remarks: String
+}
+
 type TransWorkRecordsConnection {
   nodes: [TransWorkRecord]!
   pageInfo: PageInfo!
@@ -836,6 +877,26 @@ input BooleanFilter {
   greaterThanOrEqualTo: Boolean
 }
 
+input CreateTransComplaintWorkInput {
+  transComplaintWork: TransComplaintWorkInput!
+}
+
+input CreateTransConveyInput {
+  transConvey: TransConveyInput!
+}
+
+input CreateTransVisiterInput {
+  transVisiter: TransVisiterInput!
+}
+
+input CreateTransWorkRecordInput {
+  transWorkRecord: TransWorkRecordInput!
+}
+
+input CreateTransWorkRecordVisiterInput {
+  transWorkRecordVisiter: TransWorkRecordVisiterInput!
+}
+
 input DatetimeFilter {
   isNull: Boolean
   equalTo: Datetime
@@ -866,6 +927,8 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transComplaintPurchaseRecsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintWorksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1457,6 +1520,13 @@ input TransCertificatePatch {
   transLabelToTitles: TransCertificateFk1Input
 }
 
+input TransComplaintWorkInput {
+  transComplaintId: UUID
+  transWorkRecordId: UUID
+  quantity: BigFloat
+  remarks: String
+}
+
 input TransContainerFilter {
   transContainerId: UUIDFilter
   code: StringFilter
@@ -1523,6 +1593,18 @@ input TransConveyFilter {
   and: [TransConveyFilter!]
   or: [TransConveyFilter!]
   not: TransConveyFilter
+}
+
+input TransConveyInput {
+  transVisiterId: UUID
+  receive: Boolean
+  conveyAt: Datetime
+  quantity: BigFloat
+  locationHistoryId: UUID
+  locationId: UUID
+  staffHistoryId: UUID
+  staffId: UUID
+  remarks: String
 }
 
 input TransConveyPatch {
@@ -1740,6 +1822,13 @@ input TransVisiterFilter {
   not: TransVisiterFilter
 }
 
+input TransVisiterInput {
+  transContainerId: UUID
+  status: Int
+  quantity: BigFloat
+  remarks: String
+}
+
 input TransVisiterPatch {
   transContainerId: UUID
   status: Int
@@ -1787,6 +1876,7 @@ input TransWorkRecordFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transComplaintWorksByTransWorkRecordIdExist: Boolean
   transWorkRecordVisitersByTransWorkRecordIdExist: Boolean
   transWorkRecordCertificatesByTransWorkRecordIdExist: Boolean
   vWorkRecordWorkRecordCertificateCountByTransWorkRecordId: VWorkRecordWorkRecordCertificateCountFilter
@@ -1802,6 +1892,19 @@ input TransWorkRecordFilter {
   not: TransWorkRecordFilter
 }
 
+input TransWorkRecordInput {
+  transWorkPlanId: UUID
+  nthTime: Int
+  startAt: Datetime
+  stopAt: Datetime
+  qty: BigFloat
+  staffHistoryId: UUID
+  staffId: UUID
+  equipmentHistoryId: UUID
+  equipmentId: UUID
+  remarks: String
+}
+
 input TransWorkRecordPatch {
   transWorkPlanId: UUID
   nthTime: Int
@@ -1812,6 +1915,13 @@ input TransWorkRecordPatch {
   staffId: UUID
   equipmentHistoryId: UUID
   equipmentId: UUID
+  remarks: String
+}
+
+input TransWorkRecordVisiterInput {
+  transVisiterId: UUID
+  transWorkRecordId: UUID
+  quantity: BigFloat
   remarks: String
 }
 
