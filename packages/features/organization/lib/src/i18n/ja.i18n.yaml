@@ -69,6 +69,12 @@ entity:
       f_pronunciation: "読み"
       f_nickname: "略称"
       f_site: "事業所"
+    reverse:
+      assignment: "割当"
+      approver: "承認できる人"
+      taskres: "工程場所"
+      preventiondetail: "未然防止処置"
+      audit: "監査"
   departmentkind:
     title: "部署区分の割当"
     fields:

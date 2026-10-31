@@ -31,6 +31,9 @@ dependencies:
   shared_master:
     path: ../../shared_master
 
+  resource:
+    path: ../../resource
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

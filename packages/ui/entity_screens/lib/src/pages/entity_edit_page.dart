@@ -303,14 +303,18 @@ class _EntityEditPageState extends State<EntityEditPage> {
           if (definition.isTree) _parentField(definition),
           if (_failure != null)
             Text(_failure!, style: TextStyle(color: theme.colorScheme.error)),
-          Row(
-            spacing: 12,
-            children: [
-              FilledButton(onPressed: _save, child: Text(strings.save)),
-              if (!_isNew)
-                OutlinedButton(onPressed: _delete, child: Text(strings.delete)),
-            ],
-          ),
+          if (!definition.viewOnly)
+            Row(
+              spacing: 12,
+              children: [
+                FilledButton(onPressed: _save, child: Text(strings.save)),
+                if (!_isNew)
+                  OutlinedButton(
+                    onPressed: _delete,
+                    child: Text(strings.delete),
+                  ),
+              ],
+            ),
           if (!_isNew)
             for (final reverse in definition.reverseLists)
               _ReverseSection(

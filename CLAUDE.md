@@ -32,8 +32,9 @@ cd apps\pms_app; flutter run -d windows          # アプリ起動
 `apps` → `features` → `core` → `ui` / `model_providers` / `infra` → `foundation`
 
 - `apps/pms_app`: シェルアプリ。旧 mock_up を移設したもので、GoRouter を構築する。このプロジェクトの規則・指示は [apps/pms_app/CLAUDE.md](apps/pms_app/CLAUDE.md) を参照。
+- `apps/entry_app`: 実績登録専用アプリ(Android・Windows)。`barcode_entry` だけを載せる。規則は [apps/entry_app/CLAUDE.md](apps/entry_app/CLAUDE.md)。
 - `packages/features/`: 1機能=1パッケージ `xxx`(実装=画面・ルート・ハンドラ、`XxxModule implements FeatureModule`)。契約(遷移先・命令の型)は同じパッケージの `lib/xxx_api.dart`(契約だけのバレル)で公開し、実装の入口 `lib/xxx.dart` はアプリだけが読み込む。機能同士・アプリは `xxx_api.dart` の型だけを使い、`lib/src` や実装の入口は読み込まない。
-- `packages/core/`: `baton_lib`(コマンドバス)、`feature_shared`(機能とアプリの仲介)、`settings_keeper`(ローカル設定の保存と復元)、`page_mediator_extension`(ページ用の拡張。データ取得・設定の保存・セッション確認の窓口)。
+- `packages/core/`: `baton_lib`(コマンドバス)、`feature_shared`(機能とアプリの仲介)、`settings_keeper`(ローカル設定の保存と復元)、`page_mediator_extension`(ページ用の拡張。データ取得・設定の保存・セッション確認の窓口)、`selection_result`(選択画面が返す選択の結果`Selection`。対象の種類・一意な id・表示名・追加の値。JSON の`encode`/`decode`でも受け渡せる)。
 - `packages/ui/`: UI基盤。`entity_screens`(実体の定義から台帳・編集の画面を作る)、`app_shell`(タイトルバー・サイドバー・ハンバーガー・ログインユーザーの枠)を含む。
 - `packages/model_providers/`: 機能ごとの GraphQL モデル(`xxx_model`)。下の「GraphQL モデル生成ルール」を参照。
 - `packages/infra/`(pms_graphql, logger_provider, data_test_harness), `packages/foundation/`(画面を持たない汎用部品)。
@@ -49,6 +50,10 @@ cd apps\pms_app; flutter run -d windows          # アプリ起動
 ### data_test_harness(テスト専用の道具)
 
 アプリ・機能・foundation は GraphQL の接続先を持たない。取得元は `IDataRepository`(`data_strategist`)で受け、GraphQL の実装(`pms_graphql` の `GraphqlDataRepository`)はアプリが組み立てる。テストの接続先(検証用サーバー)と取得元の代役(`RecordingDataRepository`)は `packages/infra/data_test_harness` だけが持ち、使う側は必ず `dev_dependencies` に書く(`dependencies` に書くと検査テストが失敗する)。`data_strategist` と `query_builder` のテストは、循環を避けるためこのパッケージに依存せず、GraphQL に接続しない。詳細は [packages/infra/data_test_harness/CLAUDE.md](packages/infra/data_test_harness/CLAUDE.md) を参照。
+
+## 認証
+
+認証は PocketBase に切り替える。Keycloak を使う `packages/features/pms_authenticator` には、これ以上着手しない(アプリへの接続・テストの修正を含む)。導入までのログインは、仮のボタンで標準のユーザーに戻す。PocketBase の導入は、認証の窓口(`page_mediator_extension` の `IPageSessionMediator`)の実装として差し込む想定で、別の Issue で行う。
 
 ## バージョン管理
 

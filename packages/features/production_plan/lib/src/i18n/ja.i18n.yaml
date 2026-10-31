@@ -47,6 +47,7 @@ mrp:
     kind: 提案種別
     itemCode: 品目コード
     itemName: 品目名
+    symbol: シンボル
     quantity: 数量
     allocation: 在庫引当
     needDate: 必要日
@@ -121,3 +122,45 @@ entity:
       f_trans_purchase_detail_id: "発注明細"
       f_quantity: "引当数量"
       f_remarks: "備考"
+  mrppending:
+    title: "要判断の提案"
+    fields:
+      f_kind: "提案種別"
+      f_item: "品目"
+      f_quantity: "数量"
+      f_need_at: "必要日"
+      f_release_at: "発注日（着手日）"
+      f_due_at: "納期"
+      f_late: "遅れ"
+      f_message: "メッセージ"
+      f_symbol: "シンボル"
+  mrppurchase:
+    title: "発注予定"
+    fields:
+      f_kind: "提案種別"
+      f_supplier: "サプライヤー"
+      f_release_date: "発注日"
+      f_due_date: "納期"
+      f_line_count: "明細数"
+      f_amount: "金額"
+      f_late_count: "遅れ件数"
+      f_pending_count: "要判断件数"
+  mrpissue:
+    title: "マスタ不備"
+    fields:
+      f_item: "品目"
+      f_issue_code: "不備の種類"
+      f_severity: "重大度"
+      f_message: "メッセージ"
+      f_ref_table: "参照先のテーブル"
+  mrpcoverage:
+    title: "資材計画の充足状況"
+    fields:
+      f_item: "品目"
+      f_plan_kind: "計画の種別"
+      f_deadline: "期限"
+      f_quantity: "数量"
+      f_reserved_stock: "在庫引当"
+      f_reserved_purchase: "購買引当"
+      f_reserved_production: "生産引当"
+      f_shortage: "不足"

@@ -12,6 +12,7 @@
 library;
 
 export 'package:baton_lib/baton_lib.dart';
+export 'package:selection_result/selection_result.dart';
 
 export 'src/busy.dart';
 

@@ -28,6 +28,12 @@ dependencies:
   sales:
     path: ../../sales
 
+  item:
+    path: ../../item
+
+  shared_master:
+    path: ../../shared_master
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

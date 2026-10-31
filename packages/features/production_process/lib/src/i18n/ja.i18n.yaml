@@ -20,6 +20,11 @@ entity:
       f_class: "区分"
       f_default_time: "標準時間"
       f_remarks: "備考"
+    reverse:
+      optask: "工程の選択"
+      workplan: "生産計画明細"
+      cproc: "工程苦情"
+      taskrisk: "工程リスク"
   taskres:
     title: "工程場所"
     fields:
@@ -44,3 +49,17 @@ entity:
     title: "適用する品目の工程計画"
     fields:
       f_item: "品目"
+  taskavailable:
+    title: "使える設備"
+    fields:
+      f_equipment: "設備"
+      f_delivery_interval: "デリバリー間隔（時間）"
+      f_remarks: "備考"
+  taskoutsource:
+    title: "使える外部委託"
+    fields:
+      f_supplier: "外部供給者"
+      f_delivery_interval: "デリバリー間隔（時間）"
+      f_material_supply: "材料支給"
+      f_paid_supply: "有償支給"
+      f_remarks: "備考"

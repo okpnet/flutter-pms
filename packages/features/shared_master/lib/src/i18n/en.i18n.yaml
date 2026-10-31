@@ -35,3 +35,5 @@ menu:
 stakeholder:
   customerLedger: Customers
   supplierLedger: Suppliers
+  customerPick: Select a customer
+  supplierPick: Select a supplier

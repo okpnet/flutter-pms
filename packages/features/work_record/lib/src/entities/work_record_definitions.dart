@@ -58,4 +58,13 @@ const List<EntityDefinition> workRecordDefinitions = [
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),
+    EntityDefinition(
+      key: 'mrpvisiter', viewOnly: true,
+      fields: [
+        FieldDefinition(key: 'item', kind: FieldKind.reference, required: false, reference: 'item', readOnly: true),
+        FieldDefinition(key: 'item_count', kind: FieldKind.number, required: false, readOnly: true),
+        FieldDefinition(key: 'finished', kind: FieldKind.flag, required: false, readOnly: true),
+        FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false, readOnly: true),
+      ],
+    ),
 ];

@@ -125,6 +125,8 @@ void main() {
     // 結果の表
     expect(find.text('SUS304丸棒 φ20'), findsOneWidget);
     expect(find.text('発注（新規）'), findsWidgets);
+    // 提案の symbol
+    expect(find.text('MS-0001'), findsOneWidget);
   });
 
   testWidgets('判断での絞り込みと検索ができる', (tester) async {

@@ -21,6 +21,9 @@
 4.  ログは `logger_provider` の `loggerProvider` を `ref` から直接取得し、この機能が発生元のエラーだけを出す。
 5.  ラベルは slang で多言語化し、列名は `schema.graphql` のコメントを使う。推論・仮置きしたラベルは `doc/log` に残す。
 
+## 稼働カレンダー
+稼働カレンダー(`workcalendar`、DB の `mstr_work_calendar`)は台帳と編集。項目は稼働日・設備(空は全体の稼働日)・開始時刻・稼働時間(HH:MM)・休業日(真偽)・備考。
+
 <!-- entity_gen:begin -->
 ## 実体の画面(生成)
 台帳(テーブル/ツリー)と編集の画面は、`tools/entity_gen/gen.js` が `tools/open-design` の画面定義から生成する(定義・サンプル・表示名・モジュール・テスト)。
@@ -43,6 +46,7 @@
 | 予定明細 | `scheduledetail` | 子の台帳(親: 点検予定) | 4 | `inspectionitem`, `staff` |
 | 点検実施 | `inspectionresult` | 子の台帳(親: 予定明細) | 5 | `staff` |
 | ファイル | `inspectionfile` | 子の台帳(親: 点検実施) | 3 |  |
+| 稼働カレンダー | `workcalendar` | テーブル構造 | 6 | `equipment` |
 <!-- entity_gen:end -->
 
 

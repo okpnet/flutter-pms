@@ -27,6 +27,9 @@
 4.  ログは `logger_provider` の `loggerProvider` を `ref` から直接取得し、この機能が発生元のエラーだけを出す。
 5.  ラベルは slang で多言語化し、列名は `schema.graphql` のコメントを使う。推論・仮置きしたラベルは `doc/log` に残す。
 
+## 資材所要計算の結果(読み取り専用)
+資材所要計算の結果は、読み取り専用(`viewOnly`)の台帳として「生産計画」のメニューに出す: 要判断の提案(`mrppending`、`v_mrp_pending_suggestion`)、発注予定(`mrppurchase`、`v_mrp_purchase_plan`)、マスタ不備(`mrpissue`、`v_mrp_master_issue`)、資材計画の充足状況(`mrpcoverage`、`v_resource_plan_coverage`)。資材所要計算の画面の結果の表には、提案の `symbol` の列がある。
+
 <!-- entity_gen:begin -->
 ## 実体の画面(生成)
 台帳(テーブル/ツリー)と編集の画面は、`tools/entity_gen/gen.js` が `tools/open-design` の画面定義から生成する(定義・サンプル・表示名・モジュール・テスト)。
@@ -40,7 +43,12 @@
 | 生産計画明細 | `workplan` | 子の台帳(親: 生産計画) | 6 | `task` |
 | 生産引き当て予約 | `prodrez` | テーブル構造 | 3 | `workplan` |
 | 購買引き当て予約 | `purrez` | テーブル構造 | 3 | `purdetail` |
+| 要判断の提案 | `mrppending` | テーブル構造 | 9 | `item` |
+| 発注予定 | `mrppurchase` | テーブル構造 | 8 | `supplier` |
+| マスタ不備 | `mrpissue` | テーブル構造 | 5 | `item` |
+| 資材計画の充足状況 | `mrpcoverage` | テーブル構造 | 8 | `item` |
 <!-- entity_gen:end -->
+
 
 
 

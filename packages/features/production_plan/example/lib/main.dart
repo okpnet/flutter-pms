@@ -1,11 +1,13 @@
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:logger_provider/logger_provider.dart';
+import 'package:item/item.dart';
 import 'package:production_plan/production_plan.dart';
 import 'package:production_plan/production_plan_api.dart';
 import 'package:production_process/production_process.dart';
 import 'package:purchasing/purchasing.dart';
 import 'package:sales/sales.dart';
+import 'package:shared_master/shared_master.dart';
 import 'package:theme_lib/theme_lib.dart';
 
 Future<void> main() async {
@@ -26,8 +28,8 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FeatureHost(
     title: '生産計画 (example)',
-    modules: const [ProductionPlanModule(), ProductionProcessModule(), PurchasingModule(), SalesModule()],
-    entries: const [FeatureHostEntry('資材所要計算', MrpDestination()), FeatureHostEntry('資材計画', EntityListDestination('resplan')), FeatureHostEntry('生産引き当て予約', EntityListDestination('prodrez')), FeatureHostEntry('購買引き当て予約', EntityListDestination('purrez'))],
+    modules: const [ProductionPlanModule(), ItemModule(), ProductionProcessModule(), PurchasingModule(), SalesModule(), SharedMasterModule()],
+    entries: const [FeatureHostEntry('資材所要計算', MrpDestination()), FeatureHostEntry('資材計画', EntityListDestination('resplan')), FeatureHostEntry('生産引き当て予約', EntityListDestination('prodrez')), FeatureHostEntry('購買引き当て予約', EntityListDestination('purrez')), FeatureHostEntry('要判断の提案', EntityListDestination('mrppending')), FeatureHostEntry('発注予定', EntityListDestination('mrppurchase')), FeatureHostEntry('マスタ不備', EntityListDestination('mrpissue')), FeatureHostEntry('資材計画の充足状況', EntityListDestination('mrpcoverage'))],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー
     overrides: [themeLoggerProvider.overrideWithValue(logger), mrpGatewayProvider.overrideWithValue(DemoMrpGateway())],

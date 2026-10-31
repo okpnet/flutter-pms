@@ -1,0 +1,106 @@
+# バーコード実績登録の文字列(日本語。基準言語)。
+menu:
+  group: 作業実績
+  item: バーコード
+title: バーコード
+steps:
+  top: リーディングトップ
+  start: 開始の選択
+  issueShelf: 棚出庫処理
+  qty: 数量入力
+  eval: 評価
+  ng: 不合格処理
+  putShelf: 棚移動リーディング(入庫処理)
+  stockItem: 製品/購入品リーディング
+  stockQty: 数量入力
+  recvQty: 受入検品(数量入力)
+  recvEval: 受入検品(評価)
+  equipment: 設備点検
+kinds:
+  work: 作業指示
+  shelf: 棚
+  purchase: 購入品
+  item: 製品/購入品
+  equipment: 設備
+modes:
+  work:
+    label: 作業実績
+    hint: 作業指示(製造/委託品)のバーコードを読み取ります。
+  receive:
+    label: 受入検品
+    hint: 購入品(発注明細)のバーコードを読み取ります。
+  shelf:
+    label: 棚移動
+    hint: 棚のバーコードを読み取り、続けて製品/購入品を読み取ります。
+  equipment:
+    label: 設備点検
+    hint: 設備のバーコードを読み取ります。
+input:
+  topTitle: バーコードの読込
+  topHint: バーコードリーダーで読み取るか、文字を入力して Enter を押します。種類は自動で判定します(上の種類を選ぶと、その種類だけを受け付けます)。
+  label: バーコード / 入力
+  commit: 決定
+  camera: カメラで読み取る
+  cameraClose: カメラを閉じる
+  cameraError: カメラを使えません。権限を確認するか、リーダー・手入力を使ってください。
+  cancel: 取り消し
+  qtyLabel: 数量
+  startQuestion: この作業を開始しますか(材料を棚から出庫します)。
+  answerYes: はい
+  answerNo: いいえ
+  pass: 合格
+  fail: 不合格
+  evalQuestion: 評価を選んでください。
+  ngReason: 不合格の理由
+  ngConfirm: 不合格として進める
+  issueShelfHint: 「{item}」の材料を取り出す棚を読み取ると、出庫して作業を開始します。
+  putShelfHint: '{judge}品{qty}{unit}を入れる棚を読み取ると、入庫処理をします。'
+  stockItemHint: '「{shelf}」へ入れる製品/購入品を読み取ります。'
+  qtyHint: '残り {remain}{unit}(1以上の整数)'
+  inspectionSave: 点検結果を記録
+  inspectionResults:
+    pass: 合格
+    fail: 不合格
+    recheck: 要再点検
+  judgePass: 合格
+  judgeFail: 不合格
+ngReasons:
+  dimension: 寸法不良
+  appearance: 外観不良
+  material: 材料不良
+  shortage: 数量不足
+  other: その他
+notice:
+  empty: バーコードを読み取るか、文字を入力してください。
+  unknown: '「{value}」は登録されていないバーコードです。もう一度読み取ってください。'
+  wrongKind: '「{mode}」では{expected}のバーコードを読み取ります。読み取ったのは{actual}です。'
+  needShelfFirst: 製品/購入品は、先に棚のバーコードを読み取ってください(棚移動)。
+  expectShelf: '{actual}のバーコードです。棚のバーコードを読み取ってください。'
+  expectItem: '{actual}のバーコードです。製品/購入品のバーコードを読み取ってください。'
+  qtyInvalid: 数量は1以上の整数で入力してください。
+  qtyOverWork: 指示数量の残りは{remain}{unit}です。それ以下の数量を入力してください。
+  qtyOverPurchase: 発注数量の残りは{remain}{unit}です。それ以下の数量を入力してください。
+  workDone: この作業指示は、指示数量まで完了しています。次のバーコードを読み取ってください。
+  purchaseDone: この購入品は、発注数量まで受け入れ済みです。次のバーコードを読み取ってください。
+  canceled: 取り消しました。最初から読み取ってください。
+  notStarted: 開始しませんでした。次のバーコードを読み取ってください。
+  started: '{shelf}から出庫し、作業を開始しました。次のバーコードを読み取ってください。'
+  stored: '{shelf}へ入庫しました。次のバーコードを読み取ってください。'
+  inspected: 点検結果を記録しました。次のバーコードを読み取ってください。
+  failed: 登録できませんでした。通信の状態を確認して、もう一度お試しください。
+log:
+  title: 履歴
+  empty: まだ履歴はありません。
+  unknown: '読み取れないバーコード: {value}'
+  workDone: '{sym} {item}／{task}: 指示数量が完了しています'
+  purchaseDone: '{sym} {item}: 受入が完了しています'
+  canceled: 取り消しました
+  notStarted: '{sym}: 開始しませんでした'
+  started: '{sym} {item}／{task}: {shelf}から材料を出庫し、作業を開始'
+  storedWork: '{sym} {item}／{task}: {qty}{unit}を{judge}として{shelf}へ入庫'
+  storedWorkDone: '{sym} {item}／{task}: {qty}{unit}を{judge}として{shelf}へ入庫(指示数量が完了)'
+  storedPurchase: '{sym} {item}: {qty}{unit}を受入検品({judge})、{shelf}へ入庫'
+  storedItem: '{shelf}: {item} {qty}{unit}を入庫'
+  inspected: '設備点検 {code} {name}: {count}項目を記録(すべて合格)'
+  inspectedWithIssue: '設備点検 {code} {name}: {count}項目を記録(要確認 {issues}件)'
+  failed: '登録に失敗: {sym}'

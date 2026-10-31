@@ -107,6 +107,10 @@ class ProductionPlanStrings$entity$ja {
 	late final ProductionPlanStrings$entity$workplan$ja workplan = ProductionPlanStrings$entity$workplan$ja.internal(_root);
 	late final ProductionPlanStrings$entity$prodrez$ja prodrez = ProductionPlanStrings$entity$prodrez$ja.internal(_root);
 	late final ProductionPlanStrings$entity$purrez$ja purrez = ProductionPlanStrings$entity$purrez$ja.internal(_root);
+	late final ProductionPlanStrings$entity$mrppending$ja mrppending = ProductionPlanStrings$entity$mrppending$ja.internal(_root);
+	late final ProductionPlanStrings$entity$mrppurchase$ja mrppurchase = ProductionPlanStrings$entity$mrppurchase$ja.internal(_root);
+	late final ProductionPlanStrings$entity$mrpissue$ja mrpissue = ProductionPlanStrings$entity$mrpissue$ja.internal(_root);
+	late final ProductionPlanStrings$entity$mrpcoverage$ja mrpcoverage = ProductionPlanStrings$entity$mrpcoverage$ja.internal(_root);
 }
 
 // Path: mrp.empty
@@ -266,6 +270,9 @@ class ProductionPlanStrings$mrp$columns$ja {
 
 	/// ja: '品目名'
 	String get itemName => '品目名';
+
+	/// ja: 'シンボル'
+	String get symbol => 'シンボル';
 
 	/// ja: '数量'
 	String get quantity => '数量';
@@ -440,6 +447,62 @@ class ProductionPlanStrings$entity$purrez$ja {
 	late final ProductionPlanStrings$entity$purrez$fields$ja fields = ProductionPlanStrings$entity$purrez$fields$ja.internal(_root);
 }
 
+// Path: entity.mrppending
+class ProductionPlanStrings$entity$mrppending$ja {
+	ProductionPlanStrings$entity$mrppending$ja.internal(this._root);
+
+	final ProductionPlanStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '要判断の提案'
+	String get title => '要判断の提案';
+
+	late final ProductionPlanStrings$entity$mrppending$fields$ja fields = ProductionPlanStrings$entity$mrppending$fields$ja.internal(_root);
+}
+
+// Path: entity.mrppurchase
+class ProductionPlanStrings$entity$mrppurchase$ja {
+	ProductionPlanStrings$entity$mrppurchase$ja.internal(this._root);
+
+	final ProductionPlanStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '発注予定'
+	String get title => '発注予定';
+
+	late final ProductionPlanStrings$entity$mrppurchase$fields$ja fields = ProductionPlanStrings$entity$mrppurchase$fields$ja.internal(_root);
+}
+
+// Path: entity.mrpissue
+class ProductionPlanStrings$entity$mrpissue$ja {
+	ProductionPlanStrings$entity$mrpissue$ja.internal(this._root);
+
+	final ProductionPlanStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'マスタ不備'
+	String get title => 'マスタ不備';
+
+	late final ProductionPlanStrings$entity$mrpissue$fields$ja fields = ProductionPlanStrings$entity$mrpissue$fields$ja.internal(_root);
+}
+
+// Path: entity.mrpcoverage
+class ProductionPlanStrings$entity$mrpcoverage$ja {
+	ProductionPlanStrings$entity$mrpcoverage$ja.internal(this._root);
+
+	final ProductionPlanStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '資材計画の充足状況'
+	String get title => '資材計画の充足状況';
+
+	late final ProductionPlanStrings$entity$mrpcoverage$fields$ja fields = ProductionPlanStrings$entity$mrpcoverage$fields$ja.internal(_root);
+}
+
 // Path: entity.resplan.fields
 class ProductionPlanStrings$entity$resplan$fields$ja {
 	ProductionPlanStrings$entity$resplan$fields$ja.internal(this._root);
@@ -554,6 +617,132 @@ class ProductionPlanStrings$entity$purrez$fields$ja {
 	String get f_remarks => '備考';
 }
 
+// Path: entity.mrppending.fields
+class ProductionPlanStrings$entity$mrppending$fields$ja {
+	ProductionPlanStrings$entity$mrppending$fields$ja.internal(this._root);
+
+	final ProductionPlanStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '提案種別'
+	String get f_kind => '提案種別';
+
+	/// ja: '品目'
+	String get f_item => '品目';
+
+	/// ja: '数量'
+	String get f_quantity => '数量';
+
+	/// ja: '必要日'
+	String get f_need_at => '必要日';
+
+	/// ja: '発注日（着手日）'
+	String get f_release_at => '発注日（着手日）';
+
+	/// ja: '納期'
+	String get f_due_at => '納期';
+
+	/// ja: '遅れ'
+	String get f_late => '遅れ';
+
+	/// ja: 'メッセージ'
+	String get f_message => 'メッセージ';
+
+	/// ja: 'シンボル'
+	String get f_symbol => 'シンボル';
+}
+
+// Path: entity.mrppurchase.fields
+class ProductionPlanStrings$entity$mrppurchase$fields$ja {
+	ProductionPlanStrings$entity$mrppurchase$fields$ja.internal(this._root);
+
+	final ProductionPlanStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '提案種別'
+	String get f_kind => '提案種別';
+
+	/// ja: 'サプライヤー'
+	String get f_supplier => 'サプライヤー';
+
+	/// ja: '発注日'
+	String get f_release_date => '発注日';
+
+	/// ja: '納期'
+	String get f_due_date => '納期';
+
+	/// ja: '明細数'
+	String get f_line_count => '明細数';
+
+	/// ja: '金額'
+	String get f_amount => '金額';
+
+	/// ja: '遅れ件数'
+	String get f_late_count => '遅れ件数';
+
+	/// ja: '要判断件数'
+	String get f_pending_count => '要判断件数';
+}
+
+// Path: entity.mrpissue.fields
+class ProductionPlanStrings$entity$mrpissue$fields$ja {
+	ProductionPlanStrings$entity$mrpissue$fields$ja.internal(this._root);
+
+	final ProductionPlanStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '品目'
+	String get f_item => '品目';
+
+	/// ja: '不備の種類'
+	String get f_issue_code => '不備の種類';
+
+	/// ja: '重大度'
+	String get f_severity => '重大度';
+
+	/// ja: 'メッセージ'
+	String get f_message => 'メッセージ';
+
+	/// ja: '参照先のテーブル'
+	String get f_ref_table => '参照先のテーブル';
+}
+
+// Path: entity.mrpcoverage.fields
+class ProductionPlanStrings$entity$mrpcoverage$fields$ja {
+	ProductionPlanStrings$entity$mrpcoverage$fields$ja.internal(this._root);
+
+	final ProductionPlanStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '品目'
+	String get f_item => '品目';
+
+	/// ja: '計画の種別'
+	String get f_plan_kind => '計画の種別';
+
+	/// ja: '期限'
+	String get f_deadline => '期限';
+
+	/// ja: '数量'
+	String get f_quantity => '数量';
+
+	/// ja: '在庫引当'
+	String get f_reserved_stock => '在庫引当';
+
+	/// ja: '購買引当'
+	String get f_reserved_purchase => '購買引当';
+
+	/// ja: '生産引当'
+	String get f_reserved_production => '生産引当';
+
+	/// ja: '不足'
+	String get f_shortage => '不足';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -602,6 +791,7 @@ extension on ProductionPlanStrings {
 			'mrp.columns.kind' => '提案種別',
 			'mrp.columns.itemCode' => '品目コード',
 			'mrp.columns.itemName' => '品目名',
+			'mrp.columns.symbol' => 'シンボル',
 			'mrp.columns.quantity' => '数量',
 			'mrp.columns.allocation' => '在庫引当',
 			'mrp.columns.needDate' => '必要日',
@@ -659,6 +849,40 @@ extension on ProductionPlanStrings {
 			'entity.purrez.fields.f_trans_purchase_detail_id' => '発注明細',
 			'entity.purrez.fields.f_quantity' => '引当数量',
 			'entity.purrez.fields.f_remarks' => '備考',
+			'entity.mrppending.title' => '要判断の提案',
+			'entity.mrppending.fields.f_kind' => '提案種別',
+			'entity.mrppending.fields.f_item' => '品目',
+			'entity.mrppending.fields.f_quantity' => '数量',
+			'entity.mrppending.fields.f_need_at' => '必要日',
+			'entity.mrppending.fields.f_release_at' => '発注日（着手日）',
+			'entity.mrppending.fields.f_due_at' => '納期',
+			'entity.mrppending.fields.f_late' => '遅れ',
+			'entity.mrppending.fields.f_message' => 'メッセージ',
+			'entity.mrppending.fields.f_symbol' => 'シンボル',
+			'entity.mrppurchase.title' => '発注予定',
+			'entity.mrppurchase.fields.f_kind' => '提案種別',
+			'entity.mrppurchase.fields.f_supplier' => 'サプライヤー',
+			'entity.mrppurchase.fields.f_release_date' => '発注日',
+			'entity.mrppurchase.fields.f_due_date' => '納期',
+			'entity.mrppurchase.fields.f_line_count' => '明細数',
+			'entity.mrppurchase.fields.f_amount' => '金額',
+			'entity.mrppurchase.fields.f_late_count' => '遅れ件数',
+			'entity.mrppurchase.fields.f_pending_count' => '要判断件数',
+			'entity.mrpissue.title' => 'マスタ不備',
+			'entity.mrpissue.fields.f_item' => '品目',
+			'entity.mrpissue.fields.f_issue_code' => '不備の種類',
+			'entity.mrpissue.fields.f_severity' => '重大度',
+			'entity.mrpissue.fields.f_message' => 'メッセージ',
+			'entity.mrpissue.fields.f_ref_table' => '参照先のテーブル',
+			'entity.mrpcoverage.title' => '資材計画の充足状況',
+			'entity.mrpcoverage.fields.f_item' => '品目',
+			'entity.mrpcoverage.fields.f_plan_kind' => '計画の種別',
+			'entity.mrpcoverage.fields.f_deadline' => '期限',
+			'entity.mrpcoverage.fields.f_quantity' => '数量',
+			'entity.mrpcoverage.fields.f_reserved_stock' => '在庫引当',
+			'entity.mrpcoverage.fields.f_reserved_purchase' => '購買引当',
+			'entity.mrpcoverage.fields.f_reserved_production' => '生産引当',
+			'entity.mrpcoverage.fields.f_shortage' => '不足',
 			_ => null,
 		};
 	}

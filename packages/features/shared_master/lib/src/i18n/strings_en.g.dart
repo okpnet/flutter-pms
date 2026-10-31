@@ -98,6 +98,8 @@ class _SharedMasterStrings$stakeholder$en extends SharedMasterStrings$stakeholde
 	// Translations
 	@override String get customerLedger => 'Customers';
 	@override String get supplierLedger => 'Suppliers';
+	@override String get customerPick => 'Select a customer';
+	@override String get supplierPick => 'Select a supplier';
 }
 
 // Path: shippingKind.columns
@@ -186,6 +188,8 @@ extension on SharedMasterStringsEn {
 			'menu.purchasing' => 'Purchasing',
 			'stakeholder.customerLedger' => 'Customers',
 			'stakeholder.supplierLedger' => 'Suppliers',
+			'stakeholder.customerPick' => 'Select a customer',
+			'stakeholder.supplierPick' => 'Select a supplier',
 			_ => null,
 		};
 	}

@@ -25,7 +25,21 @@ class ExampleApp extends StatelessWidget {
   Widget build(BuildContext context) => FeatureHost(
     title: '資源 (example)',
     modules: const [ResourceModule(), ItemModule(), OrganizationModule()],
-    entries: const [FeatureHostEntry('力量', EntityListDestination('capability')), FeatureHostEntry('資格', EntityListDestination('license')), FeatureHostEntry('場所', EntityListDestination('location')), FeatureHostEntry('設備分類', EntityListDestination('equipmentcategory')), FeatureHostEntry('設備', EntityListDestination('equipment')), FeatureHostEntry('点検整備区分', EntityListDestination('inspectionkind')), FeatureHostEntry('点検整備項目', EntityListDestination('inspectionitem')), FeatureHostEntry('設備点検整備運用', EntityListDestination('inspectionoperation')), FeatureHostEntry('点検予定', EntityListDestination('inspectionschedule'))],
+    entries: const [
+      FeatureHostEntry('力量', EntityListDestination('capability')),
+      FeatureHostEntry('資格', EntityListDestination('license')),
+      FeatureHostEntry('場所', EntityListDestination('location')),
+      FeatureHostEntry('設備分類', EntityListDestination('equipmentcategory')),
+      FeatureHostEntry('設備', EntityListDestination('equipment')),
+      FeatureHostEntry('点検整備区分', EntityListDestination('inspectionkind')),
+      FeatureHostEntry('点検整備項目', EntityListDestination('inspectionitem')),
+      FeatureHostEntry(
+        '設備点検整備運用',
+        EntityListDestination('inspectionoperation'),
+      ),
+      FeatureHostEntry('点検予定', EntityListDestination('inspectionschedule')),
+      FeatureHostEntry('稼働カレンダー', EntityListDestination('workcalendar')),
+    ],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー
     overrides: [themeLoggerProvider.overrideWithValue(logger)],

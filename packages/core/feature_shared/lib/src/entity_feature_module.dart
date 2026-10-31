@@ -3,6 +3,7 @@ import 'package:entity_screens/entity_screens.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:selection_result/selection_result.dart';
 
 import 'command_bus_provider.dart';
 import 'feature_module.dart';
@@ -27,17 +28,26 @@ final class EntityListDestination extends PageDestination<void> {
   };
 }
 
-/// 実体の台帳を開いて 1 件を選び、その id を返す(取り消しは null)。
+/// 実体の台帳を開いて 1 件を選び、選択の結果([Selection]: 実体のキー・id・表示名)を返す(取り消しは null)。
 ///
 /// 別の機能の実体を選ぶとき(例: 設備が品目を選ぶ)に、機能同士がコンパイル時に依存せず、
 /// 実体のキーだけで使う。選択の結果は CommandBus で受け取る。
-final class EntityPickerDestination extends PageDestination<String?> {
+/// [entityKey] は、実体のキーのほか、別名(例: `supplier`。[EntityFeatureModule.pickAliases])も使える。
+final class EntityPickerDestination extends PageDestination<Selection?> {
   const EntityPickerDestination(this.entityKey);
 
   final String entityKey;
 
   @override
   Map<String, Object?> toJson() => {...super.toJson(), 'entityKey': entityKey};
+}
+
+/// 選択の別名。別名のキー(例: `supplier`)で選ぶと、[entityKey] の台帳を [filter] で絞って開く。
+class PickAlias {
+  const PickAlias(this.entityKey, {this.filter = const {}});
+
+  final String entityKey;
+  final Map<String, String> filter;
 }
 
 /// 実体の編集へ。[id] が null なら新規。子の台帳の新規は [parentId] に所有する親の id。
@@ -119,6 +129,13 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
     String entityKey,
     Map<String, String> filter,
   ) => null;
+
+  /// 選択の別名(別名のキー → 台帳と絞り込み)。同じ実体を役割ごとの選択画面として開くときに使う
+  /// (例: 利害関係者のうち `is_supplier: はい` を `supplier` の選択とする)。
+  Map<String, PickAlias> get pickAliases => const {};
+
+  /// 選択画面の見出し。[key] は選択に使ったキー(別名を含む)。null は「<実体の名称>の選択」。
+  String? pickTitle(WidgetRef ref, String key) => null;
 
   /// ツリーの台帳の親の付け替え(ドラッグ&ドロップ)を受けるハンドラ。null なら付け替えを有効にしない。
   /// 更新と検証(循環・権限)は、継承する側が実装する。
@@ -202,7 +219,20 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
       if (e.key.startsWith(prefix)) e.key.substring(prefix.length): e.value,
   };
   static String editPath(String entityKey, String id) => '/e/$entityKey/$id';
-  static String pickPath(String entityKey) => '/e/$entityKey/pick';
+  static String pickPath(
+    String entityKey, {
+    Map<String, String> filter = const {},
+    String? alias,
+  }) {
+    final query = {
+      for (final e in filter.entries) '$_filterPrefix${e.key}': e.value,
+      'as': ?alias,
+    };
+    return Uri(
+      path: '/e/$entityKey/pick',
+      queryParameters: query.isEmpty ? null : query,
+    ).toString();
+  }
 
   @override
   List<RouteBase> get routes => [
@@ -214,7 +244,14 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
               _list(d.key, _withPrefix(state.uri, _filterPrefix)),
           routes: [
             // ':id' より先に置く('new'・'pick' が id として解釈されないように)
-            GoRoute(path: 'pick', builder: (context, state) => _pick(d.key)),
+            GoRoute(
+              path: 'pick',
+              builder: (context, state) => _pick(
+                d.key,
+                _withPrefix(state.uri, _filterPrefix),
+                state.uri.queryParameters['as'],
+              ),
+            ),
             GoRoute(
               path: 'new',
               builder: (context, state) => _edit(
@@ -257,6 +294,13 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
             when entityKeys.contains(entityKey) =>
           listPath(entityKey, filter: filter),
         EntityPickerDestination(:final entityKey)
+            when pickAliases.containsKey(entityKey) =>
+          pickPath(
+            pickAliases[entityKey]!.entityKey,
+            filter: pickAliases[entityKey]!.filter,
+            alias: entityKey,
+          ),
+        EntityPickerDestination(:final entityKey)
             when entityKeys.contains(entityKey) =>
           pickPath(entityKey),
         EntityEditDestination(
@@ -295,6 +339,7 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
         scope: _scope(ref),
         filter: filter,
         title: listTitle(ref, key, filter),
+        showCreate: !definitions.any((d) => d.key == key && d.viewOnly),
         onReparent: reparentHandler(ref, key),
         onOpen: (r) => bus.execute(EntityEditDestination(key, id: r.id)),
         onCreate: () =>
@@ -320,15 +365,33 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
   );
 
   /// 選択画面。台帳の行を選ぶと、その id を返して閉じる。
-  Widget _pick(String key) => Consumer(
-    builder: (context, ref, _) => EntityListPage(
-      entityKey: key,
-      scope: _scope(ref),
-      showCreate: false,
-      onOpen: (r) async => Navigator.of(context).pop(r.id),
-      onCreate: () async {},
-    ),
-  );
+  Widget _pick(String key, Map<String, String> filter, String? alias) =>
+      Consumer(
+        builder: (context, ref, _) {
+          final scope = _scope(ref);
+          final asKey = alias ?? key;
+          return EntityListPage(
+            key: ValueKey('pick:$key?$filter'),
+            entityKey: key,
+            scope: scope,
+            filter: filter,
+            title:
+                pickTitle(ref, asKey) ??
+                scope.strings.pickTitle(name: scope.labels.entity(asKey)),
+            showCreate: false,
+            onOpen: (r) async {
+              final repository = scope.catalog.repository(key);
+              final label = repository == null
+                  ? r.id
+                  : EntityCatalog.displayLabel(repository.definition, r);
+              Navigator.of(context).pop(
+                Selection(entityKey: asKey, id: r.id, label: label),
+              );
+            },
+            onCreate: () async {},
+          );
+        },
+      );
 
   Widget _edit(
     String key,
@@ -343,7 +406,8 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
         id: id,
         parentId: parentId,
         initialValues: initialValues,
-        onPick: (entityKey) => bus.execute(EntityPickerDestination(entityKey)),
+        onPick: (entityKey) async =>
+            (await bus.execute(EntityPickerDestination(entityKey)))?.id,
         scope: _scope(ref),
         onOpenChild: (childKey, childId, ownerId) => bus.execute(
           EntityEditDestination(childKey, id: childId, parentId: ownerId),

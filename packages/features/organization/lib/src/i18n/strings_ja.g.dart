@@ -169,6 +169,7 @@ class OrganizationStrings$entity$department$ja {
 	String get title => '部署';
 
 	late final OrganizationStrings$entity$department$fields$ja fields = OrganizationStrings$entity$department$fields$ja.internal(_root);
+	late final OrganizationStrings$entity$department$reverse$ja reverse = OrganizationStrings$entity$department$reverse$ja.internal(_root);
 }
 
 // Path: entity.departmentkind
@@ -450,6 +451,30 @@ class OrganizationStrings$entity$department$fields$ja {
 	String get f_site => '事業所';
 }
 
+// Path: entity.department.reverse
+class OrganizationStrings$entity$department$reverse$ja {
+	OrganizationStrings$entity$department$reverse$ja.internal(this._root);
+
+	final OrganizationStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '割当'
+	String get assignment => '割当';
+
+	/// ja: '承認できる人'
+	String get approver => '承認できる人';
+
+	/// ja: '工程場所'
+	String get taskres => '工程場所';
+
+	/// ja: '未然防止処置'
+	String get preventiondetail => '未然防止処置';
+
+	/// ja: '監査'
+	String get audit => '監査';
+}
+
 // Path: entity.departmentkind.fields
 class OrganizationStrings$entity$departmentkind$fields$ja {
 	OrganizationStrings$entity$departmentkind$fields$ja.internal(this._root);
@@ -654,6 +679,11 @@ extension on OrganizationStrings {
 			'entity.department.fields.f_pronunciation' => '読み',
 			'entity.department.fields.f_nickname' => '略称',
 			'entity.department.fields.f_site' => '事業所',
+			'entity.department.reverse.assignment' => '割当',
+			'entity.department.reverse.approver' => '承認できる人',
+			'entity.department.reverse.taskres' => '工程場所',
+			'entity.department.reverse.preventiondetail' => '未然防止処置',
+			'entity.department.reverse.audit' => '監査',
 			'entity.departmentkind.title' => '部署区分の割当',
 			'entity.departmentkind.fields.f_kind' => '部署区分',
 			'entity.staff.title' => '作業者',

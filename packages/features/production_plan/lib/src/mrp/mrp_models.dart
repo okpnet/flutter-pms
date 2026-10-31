@@ -68,6 +68,7 @@ class MrpSuggestion {
     this.dueDate,
     this.late = false,
     this.message = '',
+    this.symbol = '',
   });
 
   final MrpSuggestionKind kind;
@@ -88,6 +89,9 @@ class MrpSuggestion {
   final MrpDecision decision;
   final String message;
 
+  /// 提案の `symbol`(バーコードなどで画面を特定する短い識別子)。無いときは空。
+  final String symbol;
+
   Map<String, Object?> toJson() => {
     'kind': kind.code,
     'itemCode': itemCode,
@@ -100,6 +104,7 @@ class MrpSuggestion {
     'late': late,
     'decision': decision.code,
     'message': message,
+    'symbol': symbol,
   };
 }
 

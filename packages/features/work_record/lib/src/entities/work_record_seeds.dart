@@ -23,4 +23,7 @@ const Map<String, List<EntityRecord>> workRecordSeeds = {
     'wrcert': [
       EntityRecord(id: '9ec8860e-0000-4000-8000-000000000001', values: {'trans_certificate_id': '45ec6270-0000-4000-8000-000000000001', 'remarks': ''}, parentId: '777d341e-0000-4000-8000-000000000001'),
     ],
+    'mrpvisiter': [
+      EntityRecord(id: '9ca8f31a-0000-4000-8000-000000000001', values: {'item': '9f3833e6-0000-4000-8000-000000000001', 'item_count': '2', 'finished': '', 'quantity': '30'}),
+    ],
 };

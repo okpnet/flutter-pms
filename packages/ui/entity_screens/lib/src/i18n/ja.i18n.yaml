@@ -8,6 +8,7 @@ parent: 親
 noParent: 最上位(親なし)
 unselected: 未選択
 pick: 選択
+pickTitle: ${name}の選択
 clear: 解除
 notFound: データが見つかりません
 loadFailed: 読み込めません

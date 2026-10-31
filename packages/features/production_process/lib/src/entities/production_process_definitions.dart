@@ -11,7 +11,7 @@ const List<EntityDefinition> productionProcessDefinitions = [
       ],
     ),
     EntityDefinition(
-      key: 'task', isTree: true,
+      key: 'task', isTree: true, reverseLists: [ReverseList(entity: 'optask', field: 'task'), ReverseList(entity: 'workplan', field: 'mstr_task_id'), ReverseList(entity: 'cproc', field: 'mstr_task_id'), ReverseList(entity: 'taskrisk', field: 'mstr_task_id')],
       fields: [
         FieldDefinition(key: 'code'),
         FieldDefinition(key: 'name'),
@@ -53,6 +53,24 @@ const List<EntityDefinition> productionProcessDefinitions = [
       key: 'opapply', owner: 'operation',
       fields: [
         FieldDefinition(key: 'item', kind: FieldKind.reference, reference: 'item'),
+      ],
+    ),
+    EntityDefinition(
+      key: 'taskavailable', owner: 'taskres',
+      fields: [
+        FieldDefinition(key: 'equipment', kind: FieldKind.reference, reference: 'equipment'),
+        FieldDefinition(key: 'delivery_interval', kind: FieldKind.number, required: false, ge: 0),
+        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
+      ],
+    ),
+    EntityDefinition(
+      key: 'taskoutsource', owner: 'taskres',
+      fields: [
+        FieldDefinition(key: 'supplier', kind: FieldKind.reference, reference: 'supplier'),
+        FieldDefinition(key: 'delivery_interval', kind: FieldKind.number, required: false, ge: 0),
+        FieldDefinition(key: 'material_supply', kind: FieldKind.flag, required: false),
+        FieldDefinition(key: 'paid_supply', kind: FieldKind.flag, required: false),
+        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),
 ];

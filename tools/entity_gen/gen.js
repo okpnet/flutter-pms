@@ -84,6 +84,32 @@ const UNIQUE = {
 const REVERSE = {
   capability: [{ entity: 'staffcapability', field: 'capability', label: '保持者' }],
   license: [{ entity: 'stafflicense', field: 'license', label: '保持者' }],
+  // 参照している一覧(逆引き)。編集画面の下に読み取り専用で表示する
+  item: [
+    { entity: 'itemoptask', field: 'mstr_item_id', label: '品目工程運用明細' },
+    { entity: 'opapply', field: 'item', label: '適用する品目の工程計画' },
+    { entity: 'purchaseline', field: 'item', label: '受入明細' },
+    { entity: 'equipment', field: 'item', label: '設備' },
+  ],
+  stakeholder: [
+    { entity: 'itemsupplier', field: 'supplier', label: '品目仕入先' },
+    { entity: 'audit', field: 'mstr_stakeholder_id', label: '監査' },
+  ],
+  equipment: [{ entity: 'inspectionoperation', field: 'equipment', label: '設備点検整備運用' }],
+  department: [
+    { entity: 'assignment', field: 'department', label: '割当' },
+    { entity: 'approver', field: 'department', label: '承認できる人' },
+    { entity: 'taskres', field: 'info_department_id', label: '工程場所' },
+    { entity: 'preventiondetail', field: 'info_department_id', label: '未然防止処置' },
+    { entity: 'audit', field: 'info_department_id', label: '監査' },
+  ],
+  location: [{ entity: 'equipment', field: 'location', label: '設備' }],
+  task: [
+    { entity: 'optask', field: 'task', label: '工程の選択' },
+    { entity: 'workplan', field: 'mstr_task_id', label: '生産計画明細' },
+    { entity: 'cproc', field: 'mstr_task_id', label: '工程苦情' },
+    { entity: 'taskrisk', field: 'mstr_task_id', label: '工程リスク' },
+  ],
 };
 
 /* ------------------------------------------------------------------ 内部形式への変換 */
@@ -100,8 +126,8 @@ function fromHtml(e) {
       ref = r.startsWith('@') ? COLL[r.slice(1).split(':')[0]] : r;
     }
     return {
-      key, label, kind: k, required: extra.req !== false, options: k === 'choice' ? extra.opts : undefined, ref,
-      toggle: extra.toggle, disables: extra.disables, ge: extra.ge, gt: extra.gt, needUnless: extra.needUnless, lockedBy: extra.lockedBy, uniq: extra.uniq,
+      key, label, kind: k, required: e.viewOnly ? false : extra.req !== false, readOnly: e.viewOnly ? true : extra.readOnly, options: k === 'choice' ? extra.opts : undefined, ref,
+      toggle: extra.toggle, disables: extra.disables, ge: extra.ge, gt: extra.gt, needUnless: extra.needUnless, lockedBy: extra.lockedBy, uniq: extra.uniq, picker: extra.picker,
     };
   });
   if (e.parent && e.tree) {
@@ -131,7 +157,7 @@ function fromHtml(e) {
   if (e.parent && e.tree) {
     return { key: e.key, label: e.label, isTree: true, hintParent: e.parent.ent, fields, rows };
   }
-  return { key: e.key, label: e.label, owner: e.parent?.ent, isTree: !!e.tree, fields, rows };
+  return { key: e.key, label: e.label, owner: e.parent?.ent, isTree: !!e.tree, viewOnly: !!e.viewOnly, fields, rows };
 }
 
 const htmlEntities = DOM.entities.filter((e) => !SKIP.has(e.key)).map(fromHtml);
@@ -319,7 +345,7 @@ for (const [k, groups] of Object.entries(UNIQUE)) {
 for (const [k, list] of Object.entries(REVERSE)) {
   for (const r of list) {
     const t = entities.find((x) => x.key === r.entity);
-    if (!t || !t.fields.some((x) => x.key === r.field && x.ref === k)) warnings.push(`REVERSE: ${k} ← ${r.entity}.${r.field} が合わない`);
+    if (!t || !t.fields.some((x) => x.key === r.field && (x.ref === k || (k === 'stakeholder' && STAKEHOLDER_ALIASES[x.ref])))) warnings.push(`REVERSE: ${k} ← ${r.entity}.${r.field} が合わない`);
   }
 }
 function resolveRef(refKey, legacy, where) {
@@ -396,6 +422,7 @@ function defsDart(pkg, list) {
         const where = Object.entries(e.nest.where).map(([k, v]) => `${dq(k)}: ${dq(v)}`).join(', ');
         a.push(`nest: NestedList(parent: ${dq(e.nest.parent)}, where: {${where}}${e.nest.menuGroup ? `, menuGroup: ${dq(e.nest.menuGroup)}` : ''})`);
       }
+      if (e.viewOnly) a.push('viewOnly: true');
       if (uniq) a.push(`uniqueKeys: [${uniq.map((k) => `[${k.map(dq).join(', ')}]`).join(', ')}]`);
       const rev = REVERSE[e.key];
       if (rev) a.push(`reverseLists: [${rev.map((r) => `ReverseList(entity: ${dq(r.entity)}, field: ${dq(r.field)})`).join(', ')}]`);

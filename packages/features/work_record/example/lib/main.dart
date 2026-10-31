@@ -1,6 +1,7 @@
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:logger_provider/logger_provider.dart';
+import 'package:item/item.dart';
 import 'package:production_plan/production_plan.dart';
 import 'package:work_record/work_record.dart';
 import 'package:theme_lib/theme_lib.dart';
@@ -23,8 +24,8 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FeatureHost(
     title: '作業実績 (example)',
-    modules: const [WorkRecordModule(), ProductionPlanModule()],
-    entries: const [FeatureHostEntry('コンテナ', EntityListDestination('container')), FeatureHostEntry('引き当て', EntityListDestination('invapply')), FeatureHostEntry('引き当て予約', EntityListDestination('invreq')), FeatureHostEntry('成績書', EntityListDestination('certificate')), FeatureHostEntry('作業実績', EntityListDestination('workrec'))],
+    modules: const [WorkRecordModule(), ItemModule(), ProductionPlanModule()],
+    entries: const [FeatureHostEntry('コンテナ', EntityListDestination('container')), FeatureHostEntry('引き当て', EntityListDestination('invapply')), FeatureHostEntry('引き当て予約', EntityListDestination('invreq')), FeatureHostEntry('成績書', EntityListDestination('certificate')), FeatureHostEntry('作業実績', EntityListDestination('workrec')), FeatureHostEntry('ビジター品目', EntityListDestination('mrpvisiter'))],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー
     overrides: [themeLoggerProvider.overrideWithValue(logger)],

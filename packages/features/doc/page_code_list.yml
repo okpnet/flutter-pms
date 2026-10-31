@@ -1,0 +1,557 @@
+# 機能コード・画面コードの一覧(生成: node tools/entity_gen/page_codes.js)。
+# 機能コード(1文字) + 画面コード(1文字) = 画面のコード(例: 品目台帳 II)。大文字英数 36 種ずつ。
+# 既に割り当てたコードは変えない(バーコードに印字するため)。画面の追加・削除のたびにレビューする。
+# バーコードを読み込んで遷移する機能(登録画面からのみ使用)は未実装。
+features:
+  - feature: app_core
+    code: A
+    label: アプリの基本(ブート・ダッシュボード・設定ほか)
+    screens:
+      - screen: boot
+        code: B
+        page: AB
+        label: ブート
+      - screen: dashboard
+        code: D
+        page: AD
+        label: ダッシュボード
+      - screen: settings
+        code: S
+        page: AS
+        label: 設定
+      - screen: logout
+        code: O
+        page: AO
+        label: ログアウト
+      - screen: error
+        code: E
+        page: AE
+        label: エラー
+      - screen: login
+        code: L
+        page: AL
+        label: ログイン
+  - feature: organization
+    code: O
+    label: 会社情報
+    screens:
+      - screen: company
+        code: C
+        page: OC
+        label: 会社情報
+      - screen: provision
+        code: P
+        page: OP
+        label: 提供
+      - screen: position
+        code: O
+        page: OO
+        label: 役割(役職)
+      - screen: assignment
+        code: A
+        page: OA
+        label: 割当
+      - screen: site
+        code: S
+        page: OS
+        label: 事業所
+      - screen: deptkind
+        code: D
+        page: OD
+        label: 部署区分
+      - screen: department
+        code: E
+        page: OE
+        label: 部署
+      - screen: departmentkind
+        code: R
+        page: OR
+        label: 部署区分の割当
+      - screen: staff
+        code: T
+        page: OT
+        label: 作業者
+      - screen: staffcapability
+        code: F
+        page: OF
+        label: 作業者の力量
+      - screen: stafflicense
+        code: L
+        page: OL
+        label: 作業者の資格
+      - screen: approvalpattern
+        code: V
+        page: OV
+        label: 承認パターン
+      - screen: approver
+        code: B
+        page: OB
+        label: 承認できる人
+  - feature: resource
+    code: R
+    label: 資源
+    screens:
+      - screen: capability
+        code: C
+        page: RC
+        label: 力量
+      - screen: license
+        code: L
+        page: RL
+        label: 資格
+      - screen: location
+        code: O
+        page: RO
+        label: 場所
+      - screen: equipmentcategory
+        code: E
+        page: RE
+        label: 設備分類
+      - screen: equipment
+        code: Q
+        page: RQ
+        label: 設備
+      - screen: inspectionkind
+        code: I
+        page: RI
+        label: 点検整備区分
+      - screen: inspectionitem
+        code: N
+        page: RN
+        label: 点検整備項目
+      - screen: inspectionformula
+        code: S
+        page: RS
+        label: 点検整備算式
+      - screen: inspectionoperation
+        code: P
+        page: RP
+        label: 設備点検整備運用
+      - screen: operationline
+        code: R
+        page: RR
+        label: 運用明細
+      - screen: inspectionschedule
+        code: T
+        page: RT
+        label: 点検予定
+      - screen: scheduledetail
+        code: H
+        page: RH
+        label: 予定明細
+      - screen: inspectionresult
+        code: U
+        page: RU
+        label: 点検実施
+      - screen: inspectionfile
+        code: F
+        page: RF
+        label: ファイル
+      - screen: workcalendar
+        code: W
+        page: RW
+        label: 稼働カレンダー
+  - feature: system
+    code: Y
+    label: システム
+    screens:
+      - screen: unit
+        code: U
+        page: YU
+        label: 単位
+  - feature: item
+    code: I
+    label: 品目
+    screens:
+      - screen: itemkind
+        code: K
+        page: IK
+        label: 品目区分
+      - screen: hscode
+        code: H
+        page: IH
+        label: HSコード
+      - screen: item
+        code: I
+        page: II
+        label: 品目
+      - screen: itemhs
+        code: T
+        page: IT
+        label: HSコード
+      - screen: itemsizekind
+        code: Z
+        page: IZ
+        label: 品目大きさ区分
+      - screen: itemsize
+        code: E
+        page: IE
+        label: 品目大きさ
+      - screen: itempack
+        code: M
+        page: IM
+        label: 梱包サイズ
+      - screen: itemop
+        code: O
+        page: IO
+        label: 品目工程運用
+      - screen: itemmaker
+        code: A
+        page: IA
+        label: 製造元
+      - screen: itemoptask
+        code: P
+        page: IP
+        label: 品目工程運用明細
+      - screen: itemsupplier
+        code: S
+        page: IS
+        label: 品目仕入先
+      - screen: itemtaskcost
+        code: C
+        page: IC
+        label: 品目の作業単価
+      - screen: itemonhand
+        code: N
+        page: IN
+        label: 品目の在庫
+  - feature: production_process
+    code: T
+    label: 工程
+    screens:
+      - screen: taskgroup
+        code: T
+        page: TT
+        label: 工程グループ
+      - screen: task
+        code: A
+        page: TA
+        label: 工程
+      - screen: taskres
+        code: S
+        page: TS
+        label: 工程場所
+      - screen: operation
+        code: O
+        page: TO
+        label: 工程運用
+      - screen: optask
+        code: P
+        page: TP
+        label: 工程の選択
+      - screen: opapply
+        code: L
+        page: TL
+        label: 適用する品目の工程計画
+      - screen: taskavailable
+        code: K
+        page: TK
+        label: 使える設備
+      - screen: taskoutsource
+        code: U
+        page: TU
+        label: 使える外部委託
+  - feature: sales
+    code: S
+    label: 営業
+    screens:
+      - screen: order
+        code: O
+        page: SO
+        label: 受注
+      - screen: orderdetail
+        code: R
+        page: SR
+        label: 受注明細
+  - feature: shared_master
+    code: H
+    label: 共有マスタ
+    screens:
+      - screen: shipkind
+        code: K
+        page: HK
+        label: 配送区分
+      - screen: stakeholder
+        code: S
+        page: HS
+        label: 利害関係者
+      - screen: contact
+        code: C
+        page: HC
+        label: 担当者
+  - feature: purchasing
+    code: P
+    label: 購買
+    screens:
+      - screen: unrec
+        code: U
+        page: PU
+        label: 非計上
+      - screen: unrecdetail
+        code: N
+        page: PN
+        label: 非計上明細
+      - screen: purchase
+        code: P
+        page: PP
+        label: 発注
+      - screen: purdetail
+        code: R
+        page: PR
+        label: 発注明細
+      - screen: purchaserec
+        code: C
+        page: PC
+        label: 受入実績
+      - screen: purchaseline
+        code: H
+        page: PH
+        label: 受入明細
+      - screen: purcert
+        code: E
+        page: PE
+        label: 発注品目成績書
+  - feature: production_plan
+    code: L
+    label: 生産計画
+    screens:
+      - screen: mrp
+        code: M
+        page: LM
+        label: 資材所要計算(MRP)
+      - screen: resplan
+        code: R
+        page: LR
+        label: 資材計画
+      - screen: opsplan
+        code: O
+        page: LO
+        label: 生産計画
+      - screen: workplan
+        code: W
+        page: LW
+        label: 生産計画明細
+      - screen: prodrez
+        code: P
+        page: LP
+        label: 生産引き当て予約
+      - screen: purrez
+        code: U
+        page: LU
+        label: 購買引き当て予約
+      - screen: mrppending
+        code: E
+        page: LE
+        label: 要判断の提案
+      - screen: mrppurchase
+        code: C
+        page: LC
+        label: 発注予定
+      - screen: mrpissue
+        code: I
+        page: LI
+        label: マスタ不備
+      - screen: mrpcoverage
+        code: V
+        page: LV
+        label: 資材計画の充足状況
+  - feature: work_record
+    code: W
+    label: 作業実績
+    screens:
+      - screen: container
+        code: C
+        page: WC
+        label: コンテナ
+      - screen: invapply
+        code: I
+        page: WI
+        label: 引き当て
+      - screen: invreq
+        code: N
+        page: WN
+        label: 引き当て予約
+      - screen: certificate
+        code: E
+        page: WE
+        label: 成績書
+      - screen: workrec
+        code: W
+        page: WW
+        label: 作業実績
+      - screen: wrcert
+        code: R
+        page: WR
+        label: 作業成績書
+      - screen: mrpvisiter
+        code: M
+        page: WM
+        label: ビジター品目
+  - feature: quality_common
+    code: C
+    label: 品質共通
+    screens:
+      - screen: disposal
+        code: D
+        page: CD
+        label: 異常処置
+      - screen: recur
+        code: R
+        page: CR
+        label: 再発防止処置
+      - screen: obsdisp
+        code: O
+        page: CO
+        label: 処置監視
+      - screen: obsprev
+        code: B
+        page: CB
+        label: 再発防止監視
+      - screen: risk
+        code: I
+        page: CI
+        label: リスク
+      - screen: prevention
+        code: P
+        page: CP
+        label: 未然防止
+      - screen: preventiondetail
+        code: E
+        page: CE
+        label: 未然防止処置
+      - screen: auditstdcheck
+        code: A
+        page: CA
+        label: 監査標準項目
+  - feature: quality_document
+    code: G
+    label: 品質管理文書
+    screens:
+      - screen: doctier
+        code: D
+        page: GD
+        label: 文書階層
+      - screen: doc
+        code: O
+        page: GO
+        label: 文書
+      - screen: doccontent
+        code: C
+        page: GC
+        label: 文書コンテンツ
+      - screen: report
+        code: R
+        page: GR
+        label: レポート
+  - feature: quality
+    code: Q
+    label: 品質管理
+    screens:
+      - screen: complaint
+        code: C
+        page: QC
+        label: 異常
+      - screen: compreceive
+        code: O
+        page: QO
+        label: 異常報告受領
+      - screen: compstake
+        code: M
+        page: QM
+        label: 利害関係者苦情
+      - screen: compfile
+        code: P
+        page: QP
+        label: 異常報告ファイル
+      - screen: corder
+        code: R
+        page: QR
+        label: 注文苦情
+      - screen: corderimp
+        code: D
+        page: QD
+        label: 取込
+      - screen: cproc
+        code: A
+        page: QA
+        label: 工程苦情
+      - screen: cprocimp
+        code: I
+        page: QI
+        label: 取込
+      - screen: cequip
+        code: E
+        page: QE
+        label: 設備苦情
+      - screen: cequipimp
+        code: Q
+        page: QQ
+        label: 取込
+      - screen: orderrisk
+        code: S
+        page: QS
+        label: 注文リスク
+      - screen: orderdetailrisk
+        code: T
+        page: QT
+        label: 受注明細リスク
+      - screen: odrimp
+        code: B
+        page: QB
+        label: 取込：リスク
+      - screen: taskrisk
+        code: K
+        page: QK
+        label: 工程リスク
+      - screen: trimp
+        code: F
+        page: QF
+        label: 取込：リスク
+      - screen: auditstd
+        code: U
+        page: QU
+        label: 監査標準
+      - screen: auditstdimp
+        code: G
+        page: QG
+        label: 取込：監査標準項目
+      - screen: auditteam
+        code: H
+        page: QH
+        label: 監査チーム
+      - screen: auditor
+        code: J
+        page: QJ
+        label: 監査員
+      - screen: audit
+        code: L
+        page: QL
+        label: 監査
+      - screen: auditteamlink
+        code: N
+        page: QN
+        label: 監査チーム
+      - screen: auditmember
+        code: V
+        page: QV
+        label: 監査参加者
+  - feature: maintenance
+    code: M
+    label: メンテナンス
+    screens:
+      - screen: maintenance
+        code: M
+        page: MM
+        label: メンテナンス中
+  - feature: barcode_entry
+    code: E
+    label: バーコード実績登録
+    screens:
+      - screen: top
+        code: T
+        page: ET
+        label: リーディングトップ
+  - feature: dashboard_container
+    code: B
+    label: ダッシュボードのコンテナ
+    screens:

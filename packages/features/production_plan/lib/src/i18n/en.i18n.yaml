@@ -46,6 +46,7 @@ mrp:
     kind: Suggestion
     itemCode: Item code
     itemName: Item name
+    symbol: Symbol
     quantity: Quantity
     allocation: Stock allocation
     needDate: Need date

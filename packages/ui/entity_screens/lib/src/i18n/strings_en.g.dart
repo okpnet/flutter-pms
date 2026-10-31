@@ -46,6 +46,7 @@ class EntityScreenStringsEn extends EntityScreenStrings with BaseTranslations<En
 	@override String get parent => 'Parent';
 	@override String get noParent => 'Top level (no parent)';
 	@override String get pick => 'Select';
+	@override String pickTitle({required Object name}) => 'Select ${name}';
 	@override String get clear => 'Clear';
 	@override String get unselected => 'Not selected';
 	@override String get notFound => 'Data not found';
@@ -142,6 +143,7 @@ extension on EntityScreenStringsEn {
 			'parent' => 'Parent',
 			'noParent' => 'Top level (no parent)',
 			'pick' => 'Select',
+			'pickTitle' => ({required Object name}) => 'Select ${name}',
 			'clear' => 'Clear',
 			'unselected' => 'Not selected',
 			'notFound' => 'Data not found',

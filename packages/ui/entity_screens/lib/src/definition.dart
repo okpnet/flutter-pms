@@ -154,6 +154,7 @@ class EntityDefinition {
     this.uniqueKeys = const [],
     this.reverseLists = const [],
     this.nest,
+    this.viewOnly = false,
   }) : assert(!(isTree && owner != null), 'ツリーと所有は同時に持てない');
 
   /// 実体のキー(全体で一意。画面のパスにも使う)。
@@ -175,6 +176,9 @@ class EntityDefinition {
 
   /// 子の台帳を、親の表の各行に子の表を入れた「表の中の表」で出す指定(台帳は `/e/<キー>`)。
   final NestedList? nest;
+
+  /// 読み取り専用の実体(DB のビューなど)。台帳に「新規」を出さず、編集画面に保存・削除を出さない。
+  final bool viewOnly;
 
   /// 親の編集画面の下に表示する子の台帳か。
   bool get isChild => owner != null;
@@ -220,6 +224,7 @@ class EntityDefinition {
     'uniqueKeys': uniqueKeys,
     'reverseLists': [for (final r in reverseLists) r.toJson()],
     'nest': nest?.toJson(),
+    'viewOnly': viewOnly,
     'fields': [for (final f in fields) f.toJson()],
   };
 }

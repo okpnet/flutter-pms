@@ -124,6 +124,13 @@ const List<EntityDefinition> organizationDefinitions = [
     uniqueKeys: [
       ['code'],
     ],
+    reverseLists: [
+      ReverseList(entity: 'assignment', field: 'department'),
+      ReverseList(entity: 'approver', field: 'department'),
+      ReverseList(entity: 'taskres', field: 'info_department_id'),
+      ReverseList(entity: 'preventiondetail', field: 'info_department_id'),
+      ReverseList(entity: 'audit', field: 'info_department_id'),
+    ],
     fields: [
       FieldDefinition(key: 'code'),
       FieldDefinition(key: 'name'),

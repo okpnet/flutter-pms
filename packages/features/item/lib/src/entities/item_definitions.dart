@@ -23,7 +23,7 @@ const List<EntityDefinition> itemDefinitions = [
       ],
     ),
     EntityDefinition(
-      key: 'item', isTree: true,
+      key: 'item', isTree: true, reverseLists: [ReverseList(entity: 'itemoptask', field: 'mstr_item_id'), ReverseList(entity: 'opapply', field: 'item'), ReverseList(entity: 'purchaseline', field: 'item'), ReverseList(entity: 'equipment', field: 'item')],
       fields: [
         FieldDefinition(key: 'code'),
         FieldDefinition(key: 'identification', required: false),
@@ -105,11 +105,27 @@ const List<EntityDefinition> itemDefinitions = [
     EntityDefinition(
       key: 'itemsupplier', owner: 'item', nest: NestedList(parent: 'item', where: {'catalog_item': '1'}, menuGroup: 'purchasing'), uniqueKeys: [['supplier']],
       fields: [
-        FieldDefinition(key: 'supplier', kind: FieldKind.reference, reference: 'supplier'),
+        FieldDefinition(key: 'supplier', kind: FieldKind.reference, reference: 'supplier', picker: true),
         FieldDefinition(key: 'days', kind: FieldKind.number, ge: 0),
         FieldDefinition(key: 'lot', kind: FieldKind.number, gt: 0),
         FieldDefinition(key: 'cost', kind: FieldKind.number, required: false, ge: 0, needUnless: 'asking'),
         FieldDefinition(key: 'asking', kind: FieldKind.flag, required: false, toggle: true, disables: 'cost'),
+      ],
+    ),
+    EntityDefinition(
+      key: 'itemtaskcost', owner: 'item',
+      fields: [
+        FieldDefinition(key: 'taskres', kind: FieldKind.reference, reference: 'taskres'),
+        FieldDefinition(key: 'cost', kind: FieldKind.number, ge: 0),
+        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
+      ],
+    ),
+    EntityDefinition(
+      key: 'itemonhand', viewOnly: true,
+      fields: [
+        FieldDefinition(key: 'item', kind: FieldKind.reference, required: false, reference: 'item', readOnly: true),
+        FieldDefinition(key: 'on_hand_quantity', kind: FieldKind.number, required: false, readOnly: true),
+        FieldDefinition(key: 'visiter_count', kind: FieldKind.number, required: false, readOnly: true),
       ],
     ),
 ];

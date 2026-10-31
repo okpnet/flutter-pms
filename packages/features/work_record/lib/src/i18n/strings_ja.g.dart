@@ -64,6 +64,7 @@ class WorkRecordStrings$entity$ja {
 	late final WorkRecordStrings$entity$certificate$ja certificate = WorkRecordStrings$entity$certificate$ja.internal(_root);
 	late final WorkRecordStrings$entity$workrec$ja workrec = WorkRecordStrings$entity$workrec$ja.internal(_root);
 	late final WorkRecordStrings$entity$wrcert$ja wrcert = WorkRecordStrings$entity$wrcert$ja.internal(_root);
+	late final WorkRecordStrings$entity$mrpvisiter$ja mrpvisiter = WorkRecordStrings$entity$mrpvisiter$ja.internal(_root);
 }
 
 // Path: entity.container
@@ -148,6 +149,20 @@ class WorkRecordStrings$entity$wrcert$ja {
 	String get title => '作業成績書';
 
 	late final WorkRecordStrings$entity$wrcert$fields$ja fields = WorkRecordStrings$entity$wrcert$fields$ja.internal(_root);
+}
+
+// Path: entity.mrpvisiter
+class WorkRecordStrings$entity$mrpvisiter$ja {
+	WorkRecordStrings$entity$mrpvisiter$ja.internal(this._root);
+
+	final WorkRecordStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'ビジター品目'
+	String get title => 'ビジター品目';
+
+	late final WorkRecordStrings$entity$mrpvisiter$fields$ja fields = WorkRecordStrings$entity$mrpvisiter$fields$ja.internal(_root);
 }
 
 // Path: entity.container.fields
@@ -279,6 +294,27 @@ class WorkRecordStrings$entity$wrcert$fields$ja {
 	String get f_remarks => '備考';
 }
 
+// Path: entity.mrpvisiter.fields
+class WorkRecordStrings$entity$mrpvisiter$fields$ja {
+	WorkRecordStrings$entity$mrpvisiter$fields$ja.internal(this._root);
+
+	final WorkRecordStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '品目'
+	String get f_item => '品目';
+
+	/// ja: '品目数'
+	String get f_item_count => '品目数';
+
+	/// ja: '完了'
+	String get f_finished => '完了';
+
+	/// ja: '数量'
+	String get f_quantity => '数量';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -319,6 +355,11 @@ extension on WorkRecordStrings {
 			'entity.wrcert.title' => '作業成績書',
 			'entity.wrcert.fields.f_trans_certificate_id' => '成績書',
 			'entity.wrcert.fields.f_remarks' => '備考',
+			'entity.mrpvisiter.title' => 'ビジター品目',
+			'entity.mrpvisiter.fields.f_item' => '品目',
+			'entity.mrpvisiter.fields.f_item_count' => '品目数',
+			'entity.mrpvisiter.fields.f_finished' => '完了',
+			'entity.mrpvisiter.fields.f_quantity' => '数量',
 			_ => null,
 		};
 	}

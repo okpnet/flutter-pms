@@ -1,0 +1,20 @@
+name: selection_result
+description: "選択画面が呼び出し元へ返す選択の結果(対象の種類・一意な id・任意の値)。JSON にもできる。"
+version: 0.0.1
+homepage:
+publish_to: "none"
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

@@ -160,6 +160,7 @@ class _ProductionPlanStrings$mrp$columns$en extends ProductionPlanStrings$mrp$co
 	@override String get kind => 'Suggestion';
 	@override String get itemCode => 'Item code';
 	@override String get itemName => 'Item name';
+	@override String get symbol => 'Symbol';
 	@override String get quantity => 'Quantity';
 	@override String get allocation => 'Stock allocation';
 	@override String get needDate => 'Need date';
@@ -256,6 +257,7 @@ extension on ProductionPlanStringsEn {
 			'mrp.columns.kind' => 'Suggestion',
 			'mrp.columns.itemCode' => 'Item code',
 			'mrp.columns.itemName' => 'Item name',
+			'mrp.columns.symbol' => 'Symbol',
 			'mrp.columns.quantity' => 'Quantity',
 			'mrp.columns.allocation' => 'Stock allocation',
 			'mrp.columns.needDate' => 'Need date',

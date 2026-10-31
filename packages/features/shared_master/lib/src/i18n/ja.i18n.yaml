@@ -37,6 +37,8 @@ menu:
 stakeholder:
   customerLedger: 顧客台帳
   supplierLedger: 外部供給者台帳
+  customerPick: 顧客の選択
+  supplierPick: サプライヤーの選択
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 共有マスタの実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
@@ -55,6 +57,9 @@ entity:
       f_mail: "メール"
       f_mstr_shipping_kind_id: "配送区分"
       f_remarks: "備考"
+    reverse:
+      itemsupplier: "品目仕入先"
+      audit: "監査"
   contact:
     title: "担当者"
     fields:

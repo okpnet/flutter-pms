@@ -4,7 +4,7 @@ import 'package:entity_screens/entity_screens.dart';
 /// 共有マスタの実体の定義。キーは graphql_provider_lib のビュー(DB の列)に合わせる。
 const List<EntityDefinition> sharedMasterDefinitions = [
     EntityDefinition(
-      key: 'stakeholder', uniqueKeys: [['code']],
+      key: 'stakeholder', uniqueKeys: [['code']], reverseLists: [ReverseList(entity: 'itemsupplier', field: 'supplier'), ReverseList(entity: 'audit', field: 'mstr_stakeholder_id')],
       fields: [
         FieldDefinition(key: 'code'),
         FieldDefinition(key: 'control_code', required: false),

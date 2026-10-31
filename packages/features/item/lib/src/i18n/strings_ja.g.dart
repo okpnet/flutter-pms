@@ -72,6 +72,8 @@ class ItemStrings$entity$ja {
 	late final ItemStrings$entity$itemmaker$ja itemmaker = ItemStrings$entity$itemmaker$ja.internal(_root);
 	late final ItemStrings$entity$itemoptask$ja itemoptask = ItemStrings$entity$itemoptask$ja.internal(_root);
 	late final ItemStrings$entity$itemsupplier$ja itemsupplier = ItemStrings$entity$itemsupplier$ja.internal(_root);
+	late final ItemStrings$entity$itemtaskcost$ja itemtaskcost = ItemStrings$entity$itemtaskcost$ja.internal(_root);
+	late final ItemStrings$entity$itemonhand$ja itemonhand = ItemStrings$entity$itemonhand$ja.internal(_root);
 }
 
 // Path: entity.itemkind
@@ -114,6 +116,7 @@ class ItemStrings$entity$item$ja {
 	String get title => '品目';
 
 	late final ItemStrings$entity$item$fields$ja fields = ItemStrings$entity$item$fields$ja.internal(_root);
+	late final ItemStrings$entity$item$reverse$ja reverse = ItemStrings$entity$item$reverse$ja.internal(_root);
 }
 
 // Path: entity.itemhs
@@ -228,6 +231,34 @@ class ItemStrings$entity$itemsupplier$ja {
 	late final ItemStrings$entity$itemsupplier$fields$ja fields = ItemStrings$entity$itemsupplier$fields$ja.internal(_root);
 }
 
+// Path: entity.itemtaskcost
+class ItemStrings$entity$itemtaskcost$ja {
+	ItemStrings$entity$itemtaskcost$ja.internal(this._root);
+
+	final ItemStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '品目の作業単価'
+	String get title => '品目の作業単価';
+
+	late final ItemStrings$entity$itemtaskcost$fields$ja fields = ItemStrings$entity$itemtaskcost$fields$ja.internal(_root);
+}
+
+// Path: entity.itemonhand
+class ItemStrings$entity$itemonhand$ja {
+	ItemStrings$entity$itemonhand$ja.internal(this._root);
+
+	final ItemStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '品目の在庫'
+	String get title => '品目の在庫';
+
+	late final ItemStrings$entity$itemonhand$fields$ja fields = ItemStrings$entity$itemonhand$fields$ja.internal(_root);
+}
+
 // Path: entity.itemkind.fields
 class ItemStrings$entity$itemkind$fields$ja {
 	ItemStrings$entity$itemkind$fields$ja.internal(this._root);
@@ -316,6 +347,27 @@ class ItemStrings$entity$item$fields$ja {
 
 	/// ja: '購入品'
 	String get f_catalog_item => '購入品';
+}
+
+// Path: entity.item.reverse
+class ItemStrings$entity$item$reverse$ja {
+	ItemStrings$entity$item$reverse$ja.internal(this._root);
+
+	final ItemStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '品目工程運用明細'
+	String get itemoptask => '品目工程運用明細';
+
+	/// ja: '適用する品目の工程計画'
+	String get opapply => '適用する品目の工程計画';
+
+	/// ja: '受入明細'
+	String get purchaseline => '受入明細';
+
+	/// ja: '設備'
+	String get equipment => '設備';
 }
 
 // Path: entity.itemhs.fields
@@ -492,6 +544,42 @@ class ItemStrings$entity$itemsupplier$fields$ja {
 	String get f_asking => '言い値区分';
 }
 
+// Path: entity.itemtaskcost.fields
+class ItemStrings$entity$itemtaskcost$fields$ja {
+	ItemStrings$entity$itemtaskcost$fields$ja.internal(this._root);
+
+	final ItemStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '工程場所'
+	String get f_taskres => '工程場所';
+
+	/// ja: '作業単価（円）'
+	String get f_cost => '作業単価（円）';
+
+	/// ja: '備考'
+	String get f_remarks => '備考';
+}
+
+// Path: entity.itemonhand.fields
+class ItemStrings$entity$itemonhand$fields$ja {
+	ItemStrings$entity$itemonhand$fields$ja.internal(this._root);
+
+	final ItemStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '品目'
+	String get f_item => '品目';
+
+	/// ja: '現在庫'
+	String get f_on_hand_quantity => '現在庫';
+
+	/// ja: 'ビジター数'
+	String get f_visiter_count => 'ビジター数';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -526,6 +614,10 @@ extension on ItemStrings {
 			'entity.item.fields.f_shared_unit_id' => '個別単位',
 			'entity.item.fields.f_remarks' => '備考',
 			'entity.item.fields.f_catalog_item' => '購入品',
+			'entity.item.reverse.itemoptask' => '品目工程運用明細',
+			'entity.item.reverse.opapply' => '適用する品目の工程計画',
+			'entity.item.reverse.purchaseline' => '受入明細',
+			'entity.item.reverse.equipment' => '設備',
 			'entity.itemhs.title' => 'HSコード',
 			'entity.itemhs.fields.f_hs' => 'HSコード',
 			'entity.itemsizekind.title' => '品目大きさ区分',
@@ -568,6 +660,14 @@ extension on ItemStrings {
 			'entity.itemsupplier.fields.f_cost' => '単価（円）',
 			'entity.itemsupplier.fields.f_cost__off' => '言い値（都度確認）',
 			'entity.itemsupplier.fields.f_asking' => '言い値区分',
+			'entity.itemtaskcost.title' => '品目の作業単価',
+			'entity.itemtaskcost.fields.f_taskres' => '工程場所',
+			'entity.itemtaskcost.fields.f_cost' => '作業単価（円）',
+			'entity.itemtaskcost.fields.f_remarks' => '備考',
+			'entity.itemonhand.title' => '品目の在庫',
+			'entity.itemonhand.fields.f_item' => '品目',
+			'entity.itemonhand.fields.f_on_hand_quantity' => '現在庫',
+			'entity.itemonhand.fields.f_visiter_count' => 'ビジター数',
 			_ => null,
 		};
 	}

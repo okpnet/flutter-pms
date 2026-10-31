@@ -35,6 +35,11 @@ entity:
       f_shared_unit_id: "個別単位"
       f_remarks: "備考"
       f_catalog_item: "購入品"
+    reverse:
+      itemoptask: "品目工程運用明細"
+      opapply: "適用する品目の工程計画"
+      purchaseline: "受入明細"
+      equipment: "設備"
   itemhs:
     title: "HSコード"
     fields:
@@ -93,3 +98,15 @@ entity:
       f_cost: "単価（円）"
       f_cost__off: "言い値（都度確認）"
       f_asking: "言い値区分"
+  itemtaskcost:
+    title: "品目の作業単価"
+    fields:
+      f_taskres: "工程場所"
+      f_cost: "作業単価（円）"
+      f_remarks: "備考"
+  itemonhand:
+    title: "品目の在庫"
+    fields:
+      f_item: "品目"
+      f_on_hand_quantity: "現在庫"
+      f_visiter_count: "ビジター数"

@@ -72,6 +72,7 @@ class ResourceStrings$entity$ja {
 	late final ResourceStrings$entity$scheduledetail$ja scheduledetail = ResourceStrings$entity$scheduledetail$ja.internal(_root);
 	late final ResourceStrings$entity$inspectionresult$ja inspectionresult = ResourceStrings$entity$inspectionresult$ja.internal(_root);
 	late final ResourceStrings$entity$inspectionfile$ja inspectionfile = ResourceStrings$entity$inspectionfile$ja.internal(_root);
+	late final ResourceStrings$entity$workcalendar$ja workcalendar = ResourceStrings$entity$workcalendar$ja.internal(_root);
 }
 
 // Path: entity.capability
@@ -116,6 +117,7 @@ class ResourceStrings$entity$location$ja {
 	String get title => '場所';
 
 	late final ResourceStrings$entity$location$fields$ja fields = ResourceStrings$entity$location$fields$ja.internal(_root);
+	late final ResourceStrings$entity$location$reverse$ja reverse = ResourceStrings$entity$location$reverse$ja.internal(_root);
 }
 
 // Path: entity.equipmentcategory
@@ -144,6 +146,7 @@ class ResourceStrings$entity$equipment$ja {
 	String get title => '設備';
 
 	late final ResourceStrings$entity$equipment$fields$ja fields = ResourceStrings$entity$equipment$fields$ja.internal(_root);
+	late final ResourceStrings$entity$equipment$reverse$ja reverse = ResourceStrings$entity$equipment$reverse$ja.internal(_root);
 }
 
 // Path: entity.inspectionkind
@@ -272,6 +275,20 @@ class ResourceStrings$entity$inspectionfile$ja {
 	late final ResourceStrings$entity$inspectionfile$fields$ja fields = ResourceStrings$entity$inspectionfile$fields$ja.internal(_root);
 }
 
+// Path: entity.workcalendar
+class ResourceStrings$entity$workcalendar$ja {
+	ResourceStrings$entity$workcalendar$ja.internal(this._root);
+
+	final ResourceStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '稼働カレンダー'
+	String get title => '稼働カレンダー';
+
+	late final ResourceStrings$entity$workcalendar$fields$ja fields = ResourceStrings$entity$workcalendar$fields$ja.internal(_root);
+}
+
 // Path: entity.capability.fields
 class ResourceStrings$entity$capability$fields$ja {
 	ResourceStrings$entity$capability$fields$ja.internal(this._root);
@@ -392,6 +409,18 @@ class ResourceStrings$entity$location$fields$ja {
 	String get f_remarks => '備考';
 }
 
+// Path: entity.location.reverse
+class ResourceStrings$entity$location$reverse$ja {
+	ResourceStrings$entity$location$reverse$ja.internal(this._root);
+
+	final ResourceStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '設備'
+	String get equipment => '設備';
+}
+
 // Path: entity.equipmentcategory.fields
 class ResourceStrings$entity$equipmentcategory$fields$ja {
 	ResourceStrings$entity$equipmentcategory$fields$ja.internal(this._root);
@@ -444,6 +473,18 @@ class ResourceStrings$entity$equipment$fields$ja {
 
 	/// ja: '場所'
 	String get f_location => '場所';
+}
+
+// Path: entity.equipment.reverse
+class ResourceStrings$entity$equipment$reverse$ja {
+	ResourceStrings$entity$equipment$reverse$ja.internal(this._root);
+
+	final ResourceStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '設備点検整備運用'
+	String get inspectionoperation => '設備点検整備運用';
 }
 
 // Path: entity.inspectionkind.fields
@@ -623,6 +664,33 @@ class ResourceStrings$entity$inspectionfile$fields$ja {
 	String get f_regdate => '登録日';
 }
 
+// Path: entity.workcalendar.fields
+class ResourceStrings$entity$workcalendar$fields$ja {
+	ResourceStrings$entity$workcalendar$fields$ja.internal(this._root);
+
+	final ResourceStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '稼働日'
+	String get f_work_date => '稼働日';
+
+	/// ja: '設備'
+	String get f_equipment => '設備';
+
+	/// ja: '開始時刻'
+	String get f_start_time => '開始時刻';
+
+	/// ja: '稼働時間（HH:MM）'
+	String get f_work_interval => '稼働時間（HH:MM）';
+
+	/// ja: '休業日'
+	String get f_holiday => '休業日';
+
+	/// ja: '備考'
+	String get f_remarks => '備考';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -660,6 +728,7 @@ extension on ResourceStrings {
 			'entity.location.fields.f_pronunciation' => '読み',
 			'entity.location.fields.f_use' => '使用',
 			'entity.location.fields.f_remarks' => '備考',
+			'entity.location.reverse.equipment' => '設備',
 			'entity.equipmentcategory.title' => '設備分類',
 			'entity.equipmentcategory.fields.f_code' => '分類コード',
 			'entity.equipmentcategory.fields.f_name' => '分類名称',
@@ -674,6 +743,7 @@ extension on ResourceStrings {
 			'entity.equipment.fields.f_item' => '品目(設備名)',
 			'entity.equipment.fields.f_category' => '設備分類',
 			'entity.equipment.fields.f_location' => '場所',
+			'entity.equipment.reverse.inspectionoperation' => '設備点検整備運用',
 			'entity.inspectionkind.title' => '点検整備区分',
 			'entity.inspectionkind.fields.f_code' => '区分コード',
 			'entity.inspectionkind.fields.f_name' => '区分名称',
@@ -715,6 +785,13 @@ extension on ResourceStrings {
 			'entity.inspectionfile.fields.f_fname' => 'ファイル名',
 			'entity.inspectionfile.fields.f_ftype' => '種類',
 			'entity.inspectionfile.fields.f_regdate' => '登録日',
+			'entity.workcalendar.title' => '稼働カレンダー',
+			'entity.workcalendar.fields.f_work_date' => '稼働日',
+			'entity.workcalendar.fields.f_equipment' => '設備',
+			'entity.workcalendar.fields.f_start_time' => '開始時刻',
+			'entity.workcalendar.fields.f_work_interval' => '稼働時間（HH:MM）',
+			'entity.workcalendar.fields.f_holiday' => '休業日',
+			'entity.workcalendar.fields.f_remarks' => '備考',
 			_ => null,
 		};
 	}

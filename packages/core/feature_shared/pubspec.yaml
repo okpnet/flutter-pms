@@ -18,6 +18,8 @@ dependencies:
     path: ../baton_lib
   flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  selection_result:
+    path: ../selection_result
   logger_provider:
     path: ../../infra/logger_provider
   settings_keeper:

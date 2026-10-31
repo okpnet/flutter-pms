@@ -9,7 +9,7 @@ void main() {
   const module = WorkRecordModule();
 
   test('台帳を持つ実体のルートがある(子の台帳は編集だけ)', () {
-    expect(module.entityKeys, ['container','invapply','invreq','certificate','workrec']);
+    expect(module.entityKeys, ['container','invapply','invreq','certificate','workrec','mrpvisiter']);
     expect(module.routes, isNotEmpty);
   });
 

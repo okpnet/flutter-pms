@@ -63,6 +63,9 @@ class EntityScreenStrings with BaseTranslations<EntityScreenLocale, EntityScreen
 	/// ja: '選択'
 	String get pick => '選択';
 
+	/// ja: '${name}の選択'
+	String pickTitle({required Object name}) => '${name}の選択';
+
 	/// ja: '解除'
 	String get clear => '解除';
 
@@ -234,6 +237,7 @@ extension on EntityScreenStrings {
 			'noParent' => '最上位(親なし)',
 			'unselected' => '未選択',
 			'pick' => '選択',
+			'pickTitle' => ({required Object name}) => '${name}の選択',
 			'clear' => '解除',
 			'notFound' => 'データが見つかりません',
 			'loadFailed' => '読み込めません',

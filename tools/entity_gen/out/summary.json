@@ -32,6 +32,11 @@
         "key": "itemsupplier",
         "label": "品目仕入先",
         "first": ""
+      },
+      {
+        "key": "itemonhand",
+        "label": "品目の在庫",
+        "first": "120"
       }
     ],
     "production_process": [
@@ -97,6 +102,26 @@
         "key": "purrez",
         "label": "購買引き当て予約",
         "first": "800"
+      },
+      {
+        "key": "mrppending",
+        "label": "要判断の提案",
+        "first": "PURCHASE_NEW"
+      },
+      {
+        "key": "mrppurchase",
+        "label": "発注予定",
+        "first": "PURCHASE_NEW"
+      },
+      {
+        "key": "mrpissue",
+        "label": "マスタ不備",
+        "first": "NO_SUPPLIER"
+      },
+      {
+        "key": "mrpcoverage",
+        "label": "資材計画の充足状況",
+        "first": "PURCHASE"
       }
     ],
     "work_record": [
@@ -124,6 +149,11 @@
         "key": "workrec",
         "label": "作業実績",
         "first": "40"
+      },
+      {
+        "key": "mrpvisiter",
+        "label": "ビジター品目",
+        "first": "2"
       }
     ],
     "quality_common": [
@@ -277,6 +307,11 @@
         "key": "inspectionschedule",
         "label": "点検予定",
         "first": "IS-001"
+      },
+      {
+        "key": "workcalendar",
+        "label": "稼働カレンダー",
+        "first": "08:30"
       }
     ],
     "organization": [
@@ -321,7 +356,9 @@
     ],
     "production_process": [
       "item",
-      "organization"
+      "organization",
+      "resource",
+      "shared_master"
     ],
     "sales": [],
     "shared_master": [],
@@ -332,11 +369,14 @@
       "work_record"
     ],
     "production_plan": [
+      "item",
       "production_process",
       "purchasing",
-      "sales"
+      "sales",
+      "shared_master"
     ],
     "work_record": [
+      "item",
       "production_plan"
     ],
     "quality_common": [

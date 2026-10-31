@@ -80,6 +80,7 @@ class DemoMrpGateway implements IMrpGateway {
   static final demoSuggestions = <MrpSuggestion>[
     MrpSuggestion(
       kind: MrpSuggestionKind.purchaseNew,
+      symbol: 'MS-0001',
       itemCode: 'M-1001',
       itemName: 'SUS304丸棒 φ20',
       quantity: 2100,

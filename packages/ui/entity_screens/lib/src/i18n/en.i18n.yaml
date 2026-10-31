@@ -6,6 +6,7 @@ add: Add
 parent: Parent
 noParent: Top level (no parent)
 pick: Select
+pickTitle: Select $name
 clear: Clear
 unselected: Not selected
 notFound: Data not found

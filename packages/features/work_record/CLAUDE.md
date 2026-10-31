@@ -22,6 +22,9 @@
 4.  ログは `logger_provider` の `loggerProvider` を `ref` から直接取得し、この機能が発生元のエラーだけを出す。
 5.  ラベルは slang で多言語化し、列名は `schema.graphql` のコメントを使う。推論・仮置きしたラベルは `doc/log` に残す。
 
+## ビジター品目(読み取り専用)
+MRP のビジター品目(`mrpvisiter`、`v_mrp_visiter_item`)は、読み取り専用(`viewOnly`)の台帳として出す。項目は品目・品目数・完了・数量。
+
 <!-- entity_gen:begin -->
 ## 実体の画面(生成)
 台帳(テーブル/ツリー)と編集の画面は、`tools/entity_gen/gen.js` が `tools/open-design` の画面定義から生成する(定義・サンプル・表示名・モジュール・テスト)。
@@ -36,6 +39,7 @@
 | 成績書 | `certificate` | テーブル構造 | 4 |  |
 | 作業実績 | `workrec` | テーブル構造 | 6 | `workplan` |
 | 作業成績書 | `wrcert` | 子の台帳(親: 作業実績) | 2 | `certificate` |
+| ビジター品目 | `mrpvisiter` | テーブル構造 | 4 | `item` |
 <!-- entity_gen:end -->
 
 

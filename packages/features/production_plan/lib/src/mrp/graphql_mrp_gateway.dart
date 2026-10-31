@@ -147,6 +147,7 @@ class GraphqlMrpGateway implements IMrpGateway {
       late: node.late ?? false,
       decision: MrpDecision.ofCode(node.decision ?? 0) ?? MrpDecision.pending,
       message: node.message ?? '',
+      symbol: node.symbol ?? '',
     );
   }
 

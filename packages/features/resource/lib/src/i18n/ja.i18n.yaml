@@ -40,6 +40,8 @@ entity:
       f_pronunciation: "読み"
       f_use: "使用"
       f_remarks: "備考"
+    reverse:
+      equipment: "設備"
   equipmentcategory:
     title: "設備分類"
     fields:
@@ -58,6 +60,8 @@ entity:
       f_item: "品目(設備名)"
       f_category: "設備分類"
       f_location: "場所"
+    reverse:
+      inspectionoperation: "設備点検整備運用"
   inspectionkind:
     title: "点検整備区分"
     fields:
@@ -117,3 +121,12 @@ entity:
       f_fname: "ファイル名"
       f_ftype: "種類"
       f_regdate: "登録日"
+  workcalendar:
+    title: "稼働カレンダー"
+    fields:
+      f_work_date: "稼働日"
+      f_equipment: "設備"
+      f_start_time: "開始時刻"
+      f_work_interval: "稼働時間（HH:MM）"
+      f_holiday: "休業日"
+      f_remarks: "備考"

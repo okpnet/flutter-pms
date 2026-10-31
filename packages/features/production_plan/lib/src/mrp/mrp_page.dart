@@ -257,7 +257,7 @@ class _MrpPageState extends ConsumerState<MrpPage> {
       for (final s in r.suggestions)
         if ((_decision == null || s.decision == _decision) &&
             (keyword.isEmpty ||
-                '${s.itemCode} ${s.itemName} ${_kindLabel(t, s.kind)} ${s.message}'
+                '${s.itemCode} ${s.itemName} ${s.symbol} ${_kindLabel(t, s.kind)} ${s.message}'
                     .toLowerCase()
                     .contains(keyword)))
           s,
@@ -277,6 +277,11 @@ class _MrpPageState extends ConsumerState<MrpPage> {
         key: 'itemName',
         label: t.columns.itemName as String,
         getter: (s) => s.itemName,
+      ),
+      ColumnDefinition(
+        key: 'symbol',
+        label: t.columns.symbol as String,
+        getter: (s) => s.symbol,
       ),
       ColumnDefinition(
         key: 'quantity',

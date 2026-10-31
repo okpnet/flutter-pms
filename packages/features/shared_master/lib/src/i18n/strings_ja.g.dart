@@ -129,6 +129,12 @@ class SharedMasterStrings$stakeholder$ja {
 
 	/// ja: '外部供給者台帳'
 	String get supplierLedger => '外部供給者台帳';
+
+	/// ja: '顧客の選択'
+	String get customerPick => '顧客の選択';
+
+	/// ja: 'サプライヤーの選択'
+	String get supplierPick => 'サプライヤーの選択';
 }
 
 // Path: entity
@@ -229,6 +235,7 @@ class SharedMasterStrings$entity$stakeholder$ja {
 	String get title => '利害関係者';
 
 	late final SharedMasterStrings$entity$stakeholder$fields$ja fields = SharedMasterStrings$entity$stakeholder$fields$ja.internal(_root);
+	late final SharedMasterStrings$entity$stakeholder$reverse$ja reverse = SharedMasterStrings$entity$stakeholder$reverse$ja.internal(_root);
 }
 
 // Path: entity.contact
@@ -285,6 +292,21 @@ class SharedMasterStrings$entity$stakeholder$fields$ja {
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
+}
+
+// Path: entity.stakeholder.reverse
+class SharedMasterStrings$entity$stakeholder$reverse$ja {
+	SharedMasterStrings$entity$stakeholder$reverse$ja.internal(this._root);
+
+	final SharedMasterStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '品目仕入先'
+	String get itemsupplier => '品目仕入先';
+
+	/// ja: '監査'
+	String get audit => '監査';
 }
 
 // Path: entity.contact.fields
@@ -345,6 +367,8 @@ extension on SharedMasterStrings {
 			'menu.purchasing' => '購買',
 			'stakeholder.customerLedger' => '顧客台帳',
 			'stakeholder.supplierLedger' => '外部供給者台帳',
+			'stakeholder.customerPick' => '顧客の選択',
+			'stakeholder.supplierPick' => 'サプライヤーの選択',
 			'entity.stakeholder.title' => '利害関係者',
 			'entity.stakeholder.fields.f_code' => '利害関係者コード',
 			'entity.stakeholder.fields.f_control_code' => '管理コード',
@@ -357,6 +381,8 @@ extension on SharedMasterStrings {
 			'entity.stakeholder.fields.f_mail' => 'メール',
 			'entity.stakeholder.fields.f_mstr_shipping_kind_id' => '配送区分',
 			'entity.stakeholder.fields.f_remarks' => '備考',
+			'entity.stakeholder.reverse.itemsupplier' => '品目仕入先',
+			'entity.stakeholder.reverse.audit' => '監査',
 			'entity.contact.title' => '担当者',
 			'entity.contact.fields.f_name' => '氏名',
 			'entity.contact.fields.f_dept' => '部署',

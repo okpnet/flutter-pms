@@ -33,4 +33,12 @@ const Map<String, List<EntityRecord>> productionProcessSeeds = {
       EntityRecord(id: '41df26c2-0000-4000-8000-000000000001', values: {'item': '9f3833e6-0000-4000-8000-000000000001'}, parentId: '533e8106-0000-4000-8000-000000000001'),
       EntityRecord(id: '41df26c2-0000-4000-8000-000000000002', values: {'item': '9f3833e6-0000-4000-8000-000000000002'}, parentId: '533e8106-0000-4000-8000-000000000002'),
     ],
+    'taskavailable': [
+      EntityRecord(id: 'd38ad0af-0000-4000-8000-000000000001', values: {'equipment': 'ce7228f7-0000-4000-8000-000000000001', 'delivery_interval': '24', 'remarks': ''}, parentId: 'c6bd3dda-0000-4000-8000-000000000001'),
+      EntityRecord(id: 'd38ad0af-0000-4000-8000-000000000002', values: {'equipment': 'ce7228f7-0000-4000-8000-000000000003', 'delivery_interval': '48', 'remarks': ''}, parentId: 'c6bd3dda-0000-4000-8000-000000000002'),
+    ],
+    'taskoutsource': [
+      EntityRecord(id: 'a1e71595-0000-4000-8000-000000000001', values: {'supplier': '9c2cec53-0000-4000-8000-000000000004', 'delivery_interval': '72', 'material_supply': '1', 'paid_supply': '', 'remarks': ''}, parentId: 'c6bd3dda-0000-4000-8000-000000000001'),
+      EntityRecord(id: 'a1e71595-0000-4000-8000-000000000002', values: {'supplier': '9c2cec53-0000-4000-8000-000000000005', 'delivery_interval': '96', 'material_supply': '', 'paid_supply': '1', 'remarks': ''}, parentId: 'c6bd3dda-0000-4000-8000-000000000002'),
+    ],
 };

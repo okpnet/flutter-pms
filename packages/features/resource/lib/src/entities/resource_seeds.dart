@@ -897,4 +897,39 @@ const Map<String, List<EntityRecord>> resourceSeeds = {
       parentId: '5dc84e7a-0000-4000-8000-000000000002',
     ),
   ],
+  'workcalendar': [
+    EntityRecord(
+      id: '2d036236-0000-4000-8000-000000000001',
+      values: {
+        'work_date': '2026-11-02',
+        'equipment': '',
+        'start_time': '08:30',
+        'work_interval': '08:00',
+        'holiday': '',
+        'remarks': '',
+      },
+    ),
+    EntityRecord(
+      id: '2d036236-0000-4000-8000-000000000002',
+      values: {
+        'work_date': '2026-11-03',
+        'equipment': '',
+        'start_time': '08:30',
+        'work_interval': '08:00',
+        'holiday': '1',
+        'remarks': '文化の日',
+      },
+    ),
+    EntityRecord(
+      id: '2d036236-0000-4000-8000-000000000003',
+      values: {
+        'work_date': '2026-11-04',
+        'equipment': 'ce7228f7-0000-4000-8000-000000000001',
+        'start_time': '08:30',
+        'work_interval': '10:00',
+        'holiday': '',
+        'remarks': '',
+      },
+    ),
+  ],
 };

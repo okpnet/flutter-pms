@@ -19,6 +19,23 @@ class StakeholderModule extends SharedMasterEntityModule {
     'supplier': 'is_supplier',
   };
 
+  /// 顧客・外部供給者の選択は、利害関係者の台帳を役割で絞って開く(台帳の画面をそのまま使う)。
+  @override
+  Map<String, PickAlias> get pickAliases => {
+    for (final MapEntry(key: alias, value: flag) in _aliases.entries)
+      alias: PickAlias(stakeholderEntityKey, filter: {flag: stakeholderRoleOn}),
+  };
+
+  @override
+  String? pickTitle(WidgetRef ref, String key) {
+    final t = ref.watch(sharedMasterStringsProvider).stakeholder;
+    return switch (key) {
+      'customer' => t.customerPick,
+      'supplier' => t.supplierPick,
+      _ => null,
+    };
+  }
+
   @override
   String? listTitle(
     WidgetRef ref,

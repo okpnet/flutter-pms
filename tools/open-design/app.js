@@ -37,6 +37,8 @@
     search: "M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14M20 20l-4-4",
     more: "M5 12h.01M12 12h.01M19 12h.01",
     alert: "M12 3l10 18H2zM12 10v5M12 18h.01",
+    camera: "M4 8h3l2-3h6l2 3h3v11H4zM12 17a3.5 3.5 0 1 0 .01 0",
+    barcode: "M4 5v14M7 5v14M11 5v14M14 5v14M18 5v14M21 5v14",
     refresh: "M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7",
     gear: "M12 9a3 3 0 1 0 .01 0M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.9a7 7 0 0 0-2-1.2L14.2 3h-4l-.4 2.6a7 7 0 0 0-2 1.2l-2.3-.9-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 2 1.2l.4 2.6h4l.4-2.6a7 7 0 0 0 2-1.2l2.3.9 2-3.4-2-1.5c.1-.4.1-.8.1-1.2",
     list: "M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01",
@@ -92,6 +94,7 @@
   const ROUTES = {
     home: "ダッシュボード",
     "maintenance-mode": "メンテナンス中",
+    barcode: "バーコード",
     customers: "顧客",
     orders: "出荷",
     production: "生産計画",
@@ -179,6 +182,7 @@
   };
   const currentRoute = () => parseRoute().name;
   const crumbOf = (route) => ({
+    barcode: "作業実績",
     mrp: "生産計画",
     "company/edit": "会社情報",
     "company/provision": "会社情報 › 編集",
@@ -2608,13 +2612,270 @@
     return DOM.groups.map((g) => `<section class="card list-card" aria-labelledby="mg-${g.id}"><h2 class="sec-title menu-title" id="mg-${g.id}">${icon(g.icon)}${g.label}</h2>${g.screens.map((sid) => {
       const S = GS[sid];
       return row(`#/g/${sid}`, S.icon, S.label, S.tabs.map((t) => t.label).join("・"));
-    }).join("")}${g.id === "plan" ? row("#/mrp", "box", "資材所要計算", "MRP・再MRPの実行") : ""}</section>`).join("") +
+    }).join("")}${g.id === "result" ? row("#/barcode", "barcode", "バーコード", "作業実績・受入検品・棚移動・設備点検") : ""}${g.id === "plan" ? row("#/mrp", "box", "資材所要計算", "MRP・再MRPの実行") : ""}</section>`).join("") +
       `<section class="card list-card" aria-label="アプリケーション">${row("#/settings", "gear", "設定", "自分のイメージ・読込件数・テーマ・言語・画面の列")}</section>`;
   }
 
   /* ---------- AppCore: boot / login / error / settings ---------- */
   let loginMsg = "";
   let gErr = { title: "認証サーバーに接続できません", msg: "ネットワークの状態を確認して、もう一度お試しください。", code: "KC-503" };
+  /* ---------- barcode: 作業実績 › バーコード ----------
+     バーコードリーダー（キーボード入力として届く。末尾の Enter で確定）・スマートフォン・タブレットから、
+     symbol を読み込んで作業を進める画面。コマンド分岐は symbol の種類で決まる（data.extra.js の barcode）。
+       WO-… 製造/委託品の作業指示 → 状態: 未開始 → 開始の選択 → 棚出庫 → 開始中
+                                          開始中 → 数量入力 → 評価 → (不合格処理) → 棚移動リーディング → 入庫
+                                          指示数量完了 → リーディングトップへ
+       SH-… 棚 → 製品/購入品リーディング → 数量入力 → 入庫
+       PO-… 購入品 → 受入検品（数量入力 → 評価 → (不合格処理) → 棚移動リーディング → 入庫）
+       EQ-… 設備 → 設備点検（点検項目ごとに結果を記録）
+     状態はこの画面の中だけで更新する（プロトタイプ）。 */
+  const BCD = X.barcode ?? { workOrders: [], shelves: [], purchases: [], items: [] };
+  const BC = { mode: null, step: "top", ctx: {}, msg: "", err: false, log: [], cam: false };
+  const BC_KIND = { work: "作業指示", shelf: "棚", purchase: "購入品", item: "製品/購入品", equipment: "設備" };
+  const BC_MODES = [
+    { id: "work", label: "作業実績", kind: "work", ic: "wrench", hint: "作業指示（製造/委託品）のバーコードを読み取ります。" },
+    { id: "recv", label: "受入検品", kind: "purchase", ic: "truck", hint: "購入品（発注明細）のバーコードを読み取ります。" },
+    { id: "shelf", label: "棚移動", kind: "shelf", ic: "box", hint: "棚のバーコードを読み取り、続けて製品/購入品を読み取ります。" },
+    { id: "equip", label: "設備点検", kind: "equipment", ic: "factory", hint: "設備のバーコードを読み取ります。" },
+  ];
+  const BC_STEP = {
+    top: "リーディングトップ", start: "開始の選択", issueShelf: "棚出庫処理", qty: "数量入力", eval: "評価", ng: "不合格処理",
+    putShelf: "棚移動リーディング（入庫処理）", stockItem: "製品/購入品リーディング", stockQty: "数量入力", recvQty: "受入検品（数量入力）",
+    recvEval: "受入検品（評価）", eq: "設備点検",
+  };
+  const BC_NG = ["寸法不良", "外観不良", "材料不良", "数量不足", "その他"];
+  const BC_RESULT = ["合格", "不合格", "要再点検"];
+  const bcFind = (raw) => {
+    const s = String(raw).trim().toUpperCase();
+    const pick = (list, kind) => { const r = list.find((x) => x.sym === s); return r ? { kind, rec: r } : null; };
+    return pick(BCD.workOrders, "work") ?? pick(BCD.shelves, "shelf") ?? pick(BCD.purchases, "purchase") ?? pick(BCD.items, "item")
+      ?? ((e) => (e ? { kind: "equipment", rec: e } : null))(D.equipments.find((x) => String(x.code).toUpperCase() === s));
+  };
+  const bcSay = (msg, err = false) => { BC.msg = msg; BC.err = err; };
+  const bcLog = (text, ok = true) => { BC.log = [{ t: new Date().toTimeString().slice(0, 8), text, ok }, ...BC.log].slice(0, 20); };
+  const bcReset = (msg = "") => { BC.step = "top"; BC.ctx = {}; bcSay(msg); };
+  const bcRemain = (w) => Math.max(0, w.qty - w.done);
+  const bcPoRemain = (p) => Math.max(0, p.qty - (p.received ?? 0));
+
+  /* 入庫処理: 作業/受入/棚移動のどれでも、最後は棚へ入庫してリーディングトップへ戻る */
+  function bcPut(shelf) {
+    const c = BC.ctx;
+    const judge = c.ng ? `不合格（${c.reason}）` : "合格";
+    let line;
+    if (c.wo) {
+      const w = c.wo;
+      w.done += c.qty;
+      if (c.ng) w.ng = (w.ng ?? 0) + c.qty;
+      w.state = w.done >= w.qty ? "完了" : "開始中";
+      line = `${w.sym} ${w.item}／${w.task}: ${c.qty}${w.unit}を${judge}として${shelf.name}へ入庫${w.state === "完了" ? "（指示数量が完了）" : ""}`;
+    } else if (c.po) {
+      const p = c.po;
+      p.received = (p.received ?? 0) + c.qty;
+      line = `${p.sym} ${p.item}: ${c.qty}${p.unit}を受入検品（${judge}）、${shelf.name}へ入庫`;
+    } else {
+      line = `${shelf.name}: ${c.item.name} ${c.qty}${c.item.unit}を入庫`;
+    }
+    bcLog(line, !c.ng);
+    bcReset(`${shelf.name}へ入庫しました。次のバーコードを読み取ってください。`);
+  }
+
+  /* 読み込み/入力の確定（Enter・リーダーの確定・読み取りボタン）。いまのステップで受け付ける内容を判定する */
+  function bcSubmit(raw) {
+    const v = String(raw ?? "").trim();
+    bcSay("");
+    if (!v) return bcSay("バーコードを読み取るか、文字を入力してください。", true);
+    const st = BC.step, c = BC.ctx;
+    const unknown = () => { bcLog(`読み取れないバーコード: ${v}`, false); return bcSay(`「${v}」は登録されていないバーコードです。もう一度読み取ってください。`, true); };
+    if (st === "top") {
+      const f = bcFind(v);
+      if (!f) return unknown();
+      const m = BC_MODES.find((x) => x.id === BC.mode);
+      if (m && m.kind !== f.kind) return bcSay(`「${m.label}」では${BC_KIND[m.kind]}のバーコードを読み取ります。読み取ったのは${BC_KIND[f.kind]}です。`, true);
+      if (f.kind === "work") {
+        const w = f.rec;
+        c.wo = w;
+        if (w.done >= w.qty) { bcLog(`${w.sym} ${w.item}／${w.task}: 指示数量が完了しています`); return bcReset("この作業指示は、指示数量まで完了しています。次のバーコードを読み取ってください。"); }
+        BC.step = w.state === "開始中" ? "qty" : "start";
+        return;
+      }
+      if (f.kind === "shelf") { c.shelf = f.rec; BC.step = "stockItem"; return; }
+      if (f.kind === "purchase") {
+        c.po = f.rec;
+        if (bcPoRemain(f.rec) === 0) { bcLog(`${f.rec.sym} ${f.rec.item}: 受入が完了しています`); return bcReset("この購入品は、発注数量まで受け入れ済みです。"); }
+        BC.step = "recvQty";
+        return;
+      }
+      if (f.kind === "equipment") { c.eq = f.rec; BC.step = "eq"; return; }
+      return bcSay("製品/購入品は、先に棚のバーコードを読み取ってください（棚移動）。", true);
+    }
+    if (st === "issueShelf" || st === "putShelf") {
+      const f = bcFind(v);
+      if (!f) return unknown();
+      if (f.kind !== "shelf") return bcSay(`${BC_KIND[f.kind]}のバーコードです。棚のバーコードを読み取ってください。`, true);
+      if (st === "putShelf") return bcPut(f.rec);
+      c.wo.state = "開始中";
+      bcLog(`${c.wo.sym} ${c.wo.item}／${c.wo.task}: ${f.rec.name}から材料を出庫し、作業を開始`);
+      return bcReset(`${f.rec.name}から出庫し、作業を開始しました。次のバーコードを読み取ってください。`);
+    }
+    if (st === "stockItem") {
+      const f = bcFind(v);
+      if (!f) return unknown();
+      if (f.kind !== "item") return bcSay(`${BC_KIND[f.kind]}のバーコードです。製品/購入品のバーコードを読み取ってください。`, true);
+      c.item = f.rec;
+      BC.step = "stockQty";
+      return;
+    }
+    if (st === "qty" || st === "stockQty" || st === "recvQty") {
+      const n = Number(v);
+      if (!Number.isInteger(n) || n <= 0) return bcSay("数量は1以上の整数で入力してください。", true);
+      if (st === "qty" && n > bcRemain(c.wo)) return bcSay(`指示数量の残りは${bcRemain(c.wo)}${c.wo.unit}です。それ以下の数量を入力してください。`, true);
+      if (st === "recvQty" && n > bcPoRemain(c.po)) return bcSay(`発注数量の残りは${bcPoRemain(c.po)}${c.po.unit}です。それ以下の数量を入力してください。`, true);
+      c.qty = n;
+      if (st === "stockQty") return bcPut(c.shelf);
+      BC.step = st === "qty" ? "eval" : "recvEval";
+    }
+  }
+
+  function bcAct(a, arg, root) {
+    const c = BC.ctx;
+    bcSay("");
+    if (a === "mode") { BC.mode = BC.mode === arg ? null : arg; return; }
+    if (a === "sample") return bcSubmit(arg);
+    if (a === "cancel") { bcLog("取り消しました", false); return bcReset("取り消しました。最初から読み取ってください。"); }
+    if (a === "cam") { BC.cam = !BC.cam; if (!BC.cam) bcCamStop(); return; }
+    if (a === "yes") { BC.step = "issueShelf"; return; }
+    if (a === "no") { bcLog(`${c.wo.sym}: 開始しませんでした`); return bcReset("開始しませんでした。次のバーコードを読み取ってください。"); }
+    if (a === "ok") { c.ng = false; BC.step = "putShelf"; return; }
+    if (a === "bad") { c.ng = true; BC.step = "ng"; return; }
+    if (a === "confirmNg") { c.reason = root.querySelector("[data-bc-reason]")?.value || BC_NG[0]; BC.step = "putShelf"; return; }
+    if (a === "eqsave") {
+      const rs = [...root.querySelectorAll("[data-bc-eq]")].map((s) => s.value);
+      const bad = rs.filter((x) => x !== "合格").length;
+      bcLog(`設備点検 ${c.eq.code} ${c.eq.name}: ${rs.length}項目を記録${bad ? `（要確認 ${bad}件）` : "（すべて合格）"}`, bad === 0);
+      return bcReset("点検結果を記録しました。次のバーコードを読み取ってください。");
+    }
+  }
+
+  /* スマートフォン/タブレットのカメラ読み取り（ブラウザが BarcodeDetector に対応しているときだけ） */
+  let bcStream = null, bcTimer = null;
+  const bcCamOk = () => "BarcodeDetector" in window && !!navigator.mediaDevices?.getUserMedia;
+  function bcCamStop() {
+    clearInterval(bcTimer);
+    bcTimer = null;
+    bcStream?.getTracks().forEach((t) => t.stop());
+    bcStream = null;
+  }
+  async function bcCamStart() {
+    const v = document.getElementById("bc-video");
+    if (!v || bcStream) return;
+    try {
+      bcStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false });
+      v.srcObject = bcStream;
+      await v.play();
+      const det = new BarcodeDetector();
+      bcTimer = setInterval(async () => {
+        try {
+          const r = await det.detect(v);
+          if (r[0]) { const raw = r[0].rawValue; bcCamStop(); BC.cam = false; bcSubmit(raw); render(); }
+        } catch { /* 読めるまで続ける */ }
+      }, 300);
+    } catch {
+      bcCamStop();
+      BC.cam = false;
+      bcSay("カメラを開けませんでした。権限を確認するか、文字で入力してください。", true);
+      render();
+    }
+  }
+
+  function barcodeScreen() {
+    const c = BC.ctx, st = BC.step;
+    const m = BC_MODES.find((x) => x.id === BC.mode);
+    const btn = (a, label, { cls = "btn", arg = "", ic = "" } = {}) => `<button class="${cls}" type="button" data-bc-act="${a}" data-arg="${esc(arg)}">${ic ? icon(ic) : ""}<span>${label}</span></button>`;
+    const cancel = st === "top" ? "" : `<div class="form-actions">${btn("cancel", "取り消して最初に戻る")}</div>`;
+    const cam = bcCamOk() ? btn("cam", BC.cam ? "カメラを止める" : "カメラで読む", { ic: "camera" }) : "";
+    const form = (label, hint, { num = false } = {}) => `<form class="bc-form" data-bc-form novalidate>
+        <label for="bc-input">${label}</label>
+        <div class="bc-row"><input id="bc-input" name="v" ${num ? 'type="number" inputmode="numeric" min="1" step="1"' : 'type="text" autocapitalize="characters" spellcheck="false" inputmode="text"'} autocomplete="off" enterkeyhint="done" aria-describedby="bc-hint">
+          <button class="btn btn-primary" type="submit">${num ? "確定" : "問い合わせ"}</button>${num ? "" : cam}</div>
+        <p class="note" id="bc-hint">${hint}</p>
+        ${BC.cam && !num ? `<video id="bc-video" class="bc-video" playsinline muted aria-label="カメラの映像"></video>` : ""}
+      </form>`;
+    const choices = (list) => `<div class="bc-choices">${list.join("")}</div>`;
+    const stateChip = (s) => chip(s, s === "完了" ? "check" : s === "開始中" ? "pencil" : "", s === "完了" ? "ok" : s === "開始中" ? "line" : "mute");
+    const kv = (k, v) => `<div class="kv"><dt>${k}</dt><dd>${v}</dd></div>`;
+    const info = [];
+    if (c.wo) info.push(kv("作業指示", `<span class="od-nowrap">${esc(c.wo.sym)}</span>`), kv("品目・工程", esc(`${c.wo.item}／${c.wo.task}${c.wo.outsourced ? "（委託）" : ""}`)), kv("状態", stateChip(c.wo.state)), kv("数量", `完了 ${c.wo.done} ／ 指示 ${c.wo.qty}${esc(c.wo.unit)}（残り ${bcRemain(c.wo)}）`));
+    if (c.po) info.push(kv("購入品", `<span class="od-nowrap">${esc(c.po.sym)}</span>`), kv("品目", esc(c.po.item)), kv("仕入先", esc(c.po.supplier)), kv("数量", `受入済 ${c.po.received ?? 0} ／ 発注 ${c.po.qty}${esc(c.po.unit)}`));
+    if (c.shelf) info.push(kv("棚", esc(`${c.shelf.name}（${c.shelf.sym}）`)));
+    if (c.item) info.push(kv("製品/購入品", esc(`${c.item.name}（${c.item.sym}）`)));
+    if (c.eq) info.push(kv("設備", esc(`${c.eq.name}（${c.eq.code}）`)));
+    if (c.qty) info.push(kv("入力した数量", `<span class="od-nowrap">${c.qty}${esc((c.wo ?? c.po ?? c.item)?.unit ?? "")}</span>`));
+    if (c.ng) info.push(kv("不合格の理由", esc(c.reason ?? "未選択")));
+    let body;
+    if (st === "top") {
+      const modes = `<div class="bc-modes" role="group" aria-label="読み取りの種類">${BC_MODES.map((x) => `<button class="bc-mode" type="button" data-bc-act="mode" data-arg="${x.id}" aria-pressed="${BC.mode === x.id}">${icon(x.ic)}<span>${x.label}</span></button>`).join("")}</div>`;
+      body = `${form("バーコードの読込", m ? m.hint : "バーコードリーダーで読み取るか、文字を入力して Enter を押します。種類は自動で判定します（下の種類を選ぶと、その種類だけを受け付けます）。")}${modes}`;
+    } else if (st === "start") {
+      body = `<p class="bc-ask">この作業は未開始です。開始しますか？</p>${choices([btn("yes", "はい（棚から出庫して開始）", { cls: "btn btn-primary bc-big" }), btn("no", "いいえ", { cls: "btn bc-big" })])}`;
+    } else if (st === "issueShelf") {
+      body = form("材料を出庫する棚のバーコード", `「${esc(c.wo.item)}」の材料を取り出す棚を読み取ると、出庫して作業を開始します（材料棚の例: ${esc(BCD.shelves.find((x) => x.use === "材料")?.sym ?? "")}）。`);
+    } else if (st === "qty") {
+      body = form("完了した数量", `残り ${bcRemain(c.wo)}${esc(c.wo.unit)} まで入力できます。入力して Enter で確定します。`, { num: true });
+    } else if (st === "eval" || st === "recvEval") {
+      body = `<p class="bc-ask">${st === "eval" ? "完了した分の評価を選んでください。" : "受入検品の評価を選んでください。"}</p>${choices([btn("ok", "合格", { cls: "btn btn-primary bc-big", ic: "check" }), btn("bad", "不合格", { cls: "btn btn-danger bc-big", ic: "alert" })])}`;
+    } else if (st === "ng") {
+      body = `<div class="field-row"><label for="bc-reason">不合格の理由</label><select id="bc-reason" data-bc-reason>${BC_NG.map((x) => `<option>${x}</option>`).join("")}</select></div>
+        <p class="note">不合格品は、続けて棚へ入庫します（不良品棚の例: ${esc(BCD.shelves.find((x) => x.use === "不良品")?.sym ?? "")}）。</p>
+        <div class="form-actions">${btn("confirmNg", "不合格として処理する", { cls: "btn btn-danger bc-big" })}</div>`;
+    } else if (st === "putShelf") {
+      body = form("入庫する棚のバーコード", `${c.ng ? "不合格品" : "合格品"}${c.qty}${esc((c.wo ?? c.po)?.unit ?? "")}を入れる棚を読み取ると、入庫処理をします。`);
+    } else if (st === "stockItem") {
+      body = form("製品/購入品のバーコード", `「${esc(c.shelf.name)}」へ入れる製品/購入品を読み取ります。`);
+    } else if (st === "stockQty") {
+      body = form("入庫する数量", `「${esc(c.item.name)}」を「${esc(c.shelf.name)}」へ入庫します。数量を入力して Enter で確定します。`, { num: true });
+    } else if (st === "recvQty") {
+      body = form("受入数量", `発注数量の残り ${bcPoRemain(c.po)}${esc(c.po.unit)} まで入力できます。入力して Enter で確定します。`, { num: true });
+    } else if (st === "eq") {
+      const ops = D.inspOps.filter((o) => o.equip === c.eq.id);
+      const items = [...new Set(D.inspLines.filter((l) => ops.some((o) => o.id === l.op)).map((l) => l.item))].map((id) => D.inspItems.find((i) => i.id === id)).filter(Boolean);
+      body = items.length
+        ? `<ul class="bc-eq">${items.map((i) => `<li><label for="bc-eq-${i.id}">${esc(i.name)}<span class="muted">${esc(i.criteria ?? "")}</span></label><select id="bc-eq-${i.id}" data-bc-eq="${i.id}">${BC_RESULT.map((r) => `<option>${r}</option>`).join("")}</select></li>`).join("")}</ul>
+          <div class="form-actions">${btn("eqsave", "点検結果を記録する", { cls: "btn btn-primary bc-big", ic: "check" })}</div>`
+        : emptyState("この設備の点検整備項目がありません", "保全の運用台帳に、この設備の運用と運用明細を登録してください。");
+    }
+    const samples = ["work", "purchase", "shelf", "item", "equipment"].map((k) => {
+      const list = k === "work" ? BCD.workOrders : k === "purchase" ? BCD.purchases : k === "shelf" ? BCD.shelves : k === "item" ? BCD.items : D.equipments.slice(0, 3).map((e) => ({ sym: e.code, name: e.name }));
+      return `<li><span class="muted">${BC_KIND[k]}</span><span class="bc-chips">${list.map((r) => `<button class="fchip" type="button" data-bc-act="sample" data-arg="${esc(r.sym)}" title="${esc(r.name ?? r.item ?? "")}">${esc(r.sym)}</button>`).join("")}</span></li>`;
+    }).join("");
+    const history = BC.log.length
+      ? `<ul class="bc-log">${BC.log.map((l) => `<li class="${l.ok ? "" : "is-ng"}"><span class="od-nowrap muted">${l.t}</span><span>${l.ok ? "" : `<span class="sr-only">要確認：</span>`}${esc(l.text)}</span></li>`).join("")}</ul>`
+      : emptyState("まだ処理がありません", "読み取った内容と処理結果が、ここに新しい順で残ります。");
+    const msgHtml = `<p class="bc-msg ${BC.err ? "is-err" : ""}" role="${BC.err ? "alert" : "status"}">${BC.err ? icon("alert") : ""}<span>${esc(BC.msg)}</span></p>`;
+    return `<div class="bc">
+      <section class="card bc-main" aria-labelledby="bc-h">
+        <h2 class="${st === "top" ? "sr-only" : "sec-title"}" id="bc-h">${st === "top" ? "バーコードの読込" : BC_STEP[st]}</h2>
+        ${st === "top" ? "" : msgHtml}
+        ${info.length ? `<dl class="bc-info">${info.join("")}</dl>` : ""}
+        ${body}
+        ${st === "top" ? msgHtml : ""}
+        ${cancel}
+      </section>
+      <aside class="bc-side" aria-label="補助情報">
+        <details class="card bc-samples"><summary>試すためのバーコード（プロトタイプ用）</summary><ul>${samples}</ul><p class="note">押すと、そのバーコードを読み取ったことになります。</p></details>
+        <section class="card" aria-labelledby="bc-lh"><h2 class="sec-title" id="bc-lh">処理の履歴</h2>${history}</section>
+      </aside>
+    </div>`;
+  }
+  function bindBarcode() {
+    const root = document.querySelector(".bc");
+    if (!root) return;
+    const redo = () => { const keep = scroller().scrollTop; render(); scroller().scrollTop = keep; };
+    root.querySelectorAll("[data-bc-form]").forEach((f) => f.addEventListener("submit", (e) => { e.preventDefault(); bcSubmit(f.elements.v.value); redo(); }));
+    root.querySelectorAll("[data-bc-act]").forEach((b) => b.addEventListener("click", () => { bcAct(b.dataset.bcAct, b.dataset.arg, root); redo(); }));
+    document.getElementById("bc-input")?.focus({ preventScroll: true });
+    if (BC.cam) bcCamStart();
+  }
+
   /* ---------- maintenance mode ----------
      メンテナンスフラグがオンのあいだは、どの画面でも「メンテナンス中」だけを表示する（サインイン前も同じ）。
      フラグ: data.extra.js の maintenance.enabled / localStorage "od.maintenance"="1" / URL の ?maintenance=1。
@@ -2791,6 +3052,7 @@
       move(e);
     }));
     document.querySelectorAll("[data-theme-pick]").forEach((r) => r.addEventListener("change", () => { SETTINGS.theme = r.value; applyTheme(); }));
+    bindBarcode();
     document.querySelector("[data-mnt-reload]")?.addEventListener("click", () => location.reload());
     document.querySelector("[data-lang]")?.addEventListener("change", (e) => { SETTINGS.lang = e.target.value; });
     const setPhoto = (url) => {
@@ -2877,7 +3139,7 @@
       { id: "maintenance", icon: "wrench", label: "保全" },
     ] },
     ...DOM.groups.map((g) => ({ group: `g_${g.id}`, icon: g.icon, label: g.label,
-      children: g.screens.map((sid) => ({ id: `g/${sid}`, icon: GS[sid].icon, label: GS[sid].label })) })),
+      children: [...(g.id === "result" ? [{ id: "barcode", icon: "barcode", label: "バーコード" }] : []), ...g.screens.map((sid) => ({ id: `g/${sid}`, icon: GS[sid].icon, label: GS[sid].label }))] })),
     { id: "company", icon: "building", label: "会社情報" },
     { id: "maintenance-mode", icon: "wrench", label: "メンテナンス中" },
   ];
@@ -2965,6 +3227,7 @@
   function render() {
     const P = parseRoute();
     const mntLive = maintenanceOn();
+    if (P.name !== "barcode" || mntLive) { BC.cam = false; bcCamStop(); }
     const route = mntLive ? "maintenance-mode" : P.name;
     const isLogout = route === "logout";
     const title = route === "maintenance/entity" ? `${ENT[P.ent]?.label ?? "保全"}の編集`
@@ -3045,6 +3308,7 @@
         "g/entity": () => gEntityScreen(P.ent, P.id, P.parentId),
         menu: menuScreen,
         "maintenance-mode": () => downtimeScreen(false),
+        barcode: barcodeScreen,
         settings: settingsScreen,
       }[route]();
       screen.innerHTML = pageHead(title, crumbOf(route)) + `<div class="${mobile ? "m-body" : "page-body"}">${["home", "orders", "production"].includes(route) ? dashTabs(route) : ""}${body}</div>`;

@@ -4,6 +4,31 @@
 window.OD_EXTRA = {
   /* メンテナンスフラグ。enabled を true にすると、サインイン前を含むすべての画面がメンテナンス中の表示になる */
   maintenance: { enabled: false, from: "2026年10月27日 22:00", to: "2026年10月28日 06:00", scope: "すべての画面（閲覧・編集・ログイン）", message: "システムの保守作業を行っています。作業が終わるまで、ご利用いただけません。ご不便をおかけします。" },
+  /* バーコード画面（作業実績 › バーコード）のサンプル。symbol は大文字。状態は画面の中だけで更新する */
+  barcode: {
+    workOrders: [
+      { sym: "WO-2610-001", item: "ユニットA", task: "組立", qty: 100, done: 0, unit: "台", state: "未開始", outsourced: false },
+      { sym: "WO-2610-002", item: "ブラケット", task: "旋削", qty: 200, done: 80, unit: "個", state: "開始中", outsourced: false },
+      { sym: "WO-2610-003", item: "シャフト", task: "フライス", qty: 50, done: 50, unit: "本", state: "完了", outsourced: false },
+      { sym: "WO-2610-004", item: "ユニットA 標準", task: "表面処理", qty: 120, done: 0, unit: "個", state: "未開始", outsourced: true },
+    ],
+    shelves: [
+      { sym: "SH-M-01", name: "材料棚 M-1", use: "材料" },
+      { sym: "SH-A-01", name: "完成品棚 A-1", use: "完成品" },
+      { sym: "SH-A-02", name: "完成品棚 A-2", use: "完成品" },
+      { sym: "SH-R-01", name: "受入棚 R-1", use: "受入" },
+      { sym: "SH-X-01", name: "不良品棚 X-1", use: "不良品" },
+    ],
+    purchases: [
+      { sym: "PO-2610-001-1", item: "丸棒 SS400", qty: 200, unit: "本", supplier: "大和鋼材株式会社", received: 0 },
+      { sym: "PO-2610-002-1", item: "ボルト M8×20", qty: 5000, unit: "個", supplier: "北斗ファスナー株式会社", received: 1000 },
+    ],
+    items: [
+      { sym: "IT-UNIT-A", name: "ユニットA", unit: "台" },
+      { sym: "IT-BRKT", name: "ブラケット", unit: "個" },
+      { sym: "IT-BAR", name: "丸棒 SS400", unit: "本" },
+    ],
+  },
   company: { pronunciation: "サンプルセイコウカブシキガイシャ", nickname: "サンプル精工", web_page: "https://www.example.co.jp", remarks: "" },
   siteCode: { hq: ["HQ", "ホンシャ"], kt: ["KT", "カントウコウジョウ"], ks: ["KS", "カンサイコウジョウ"], ch: ["CH", "チュウブブツリュウ"], ky: ["KY", "キュウシュウエイギョウショ"], hk: ["HK", "ホッカイドウエイギョウショ"] },
   /* 名称 -> 読み（部署・役割・力量・資格・場所・設備分類・設備・点検整備・承認パターン・従業員） */

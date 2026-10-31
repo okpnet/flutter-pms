@@ -9,7 +9,7 @@ void main() {
   const module = ProductionPlanEntityModule();
 
   test('台帳を持つ実体のルートがある(子の台帳は編集だけ)', () {
-    expect(module.entityKeys, ['resplan','prodrez','purrez']);
+    expect(module.entityKeys, ['resplan','prodrez','purrez','mrppending','mrppurchase','mrpissue','mrpcoverage']);
     expect(module.routes, isNotEmpty);
   });
 

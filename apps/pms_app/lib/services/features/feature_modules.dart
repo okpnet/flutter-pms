@@ -1,4 +1,5 @@
 import 'package:app_core/app_core.dart';
+import 'package:barcode_entry/barcode_entry.dart';
 import 'package:item/item.dart';
 import 'package:maintenance/maintenance.dart';
 import 'package:organization/organization.dart';
@@ -32,6 +33,7 @@ const List<FeatureModule> featureModules = [
   ProductionPlanModule(),
   ProductionProcessModule(),
   WorkRecordModule(),
+  BarcodeEntryModule(),
   QualityModule(),
   QualityCommonModule(),
   QualityDocumentModule(),

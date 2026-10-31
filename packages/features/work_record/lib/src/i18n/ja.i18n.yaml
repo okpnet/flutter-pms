@@ -47,3 +47,10 @@ entity:
     fields:
       f_trans_certificate_id: "成績書"
       f_remarks: "備考"
+  mrpvisiter:
+    title: "ビジター品目"
+    fields:
+      f_item: "品目"
+      f_item_count: "品目数"
+      f_finished: "完了"
+      f_quantity: "数量"

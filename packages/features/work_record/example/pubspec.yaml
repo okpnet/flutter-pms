@@ -22,6 +22,9 @@ dependencies:
   production_plan:
     path: ../../production_plan
 
+  item:
+    path: ../../item
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

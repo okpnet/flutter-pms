@@ -64,6 +64,8 @@ class ProductionProcessStrings$entity$ja {
 	late final ProductionProcessStrings$entity$operation$ja operation = ProductionProcessStrings$entity$operation$ja.internal(_root);
 	late final ProductionProcessStrings$entity$optask$ja optask = ProductionProcessStrings$entity$optask$ja.internal(_root);
 	late final ProductionProcessStrings$entity$opapply$ja opapply = ProductionProcessStrings$entity$opapply$ja.internal(_root);
+	late final ProductionProcessStrings$entity$taskavailable$ja taskavailable = ProductionProcessStrings$entity$taskavailable$ja.internal(_root);
+	late final ProductionProcessStrings$entity$taskoutsource$ja taskoutsource = ProductionProcessStrings$entity$taskoutsource$ja.internal(_root);
 }
 
 // Path: entity.taskgroup
@@ -92,6 +94,7 @@ class ProductionProcessStrings$entity$task$ja {
 	String get title => '工程';
 
 	late final ProductionProcessStrings$entity$task$fields$ja fields = ProductionProcessStrings$entity$task$fields$ja.internal(_root);
+	late final ProductionProcessStrings$entity$task$reverse$ja reverse = ProductionProcessStrings$entity$task$reverse$ja.internal(_root);
 }
 
 // Path: entity.taskres
@@ -150,6 +153,34 @@ class ProductionProcessStrings$entity$opapply$ja {
 	late final ProductionProcessStrings$entity$opapply$fields$ja fields = ProductionProcessStrings$entity$opapply$fields$ja.internal(_root);
 }
 
+// Path: entity.taskavailable
+class ProductionProcessStrings$entity$taskavailable$ja {
+	ProductionProcessStrings$entity$taskavailable$ja.internal(this._root);
+
+	final ProductionProcessStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '使える設備'
+	String get title => '使える設備';
+
+	late final ProductionProcessStrings$entity$taskavailable$fields$ja fields = ProductionProcessStrings$entity$taskavailable$fields$ja.internal(_root);
+}
+
+// Path: entity.taskoutsource
+class ProductionProcessStrings$entity$taskoutsource$ja {
+	ProductionProcessStrings$entity$taskoutsource$ja.internal(this._root);
+
+	final ProductionProcessStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '使える外部委託'
+	String get title => '使える外部委託';
+
+	late final ProductionProcessStrings$entity$taskoutsource$fields$ja fields = ProductionProcessStrings$entity$taskoutsource$fields$ja.internal(_root);
+}
+
 // Path: entity.taskgroup.fields
 class ProductionProcessStrings$entity$taskgroup$fields$ja {
 	ProductionProcessStrings$entity$taskgroup$fields$ja.internal(this._root);
@@ -196,6 +227,27 @@ class ProductionProcessStrings$entity$task$fields$ja {
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
+}
+
+// Path: entity.task.reverse
+class ProductionProcessStrings$entity$task$reverse$ja {
+	ProductionProcessStrings$entity$task$reverse$ja.internal(this._root);
+
+	final ProductionProcessStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '工程の選択'
+	String get optask => '工程の選択';
+
+	/// ja: '生産計画明細'
+	String get workplan => '生産計画明細';
+
+	/// ja: '工程苦情'
+	String get cproc => '工程苦情';
+
+	/// ja: '工程リスク'
+	String get taskrisk => '工程リスク';
 }
 
 // Path: entity.taskres.fields
@@ -270,6 +322,48 @@ class ProductionProcessStrings$entity$opapply$fields$ja {
 	String get f_item => '品目';
 }
 
+// Path: entity.taskavailable.fields
+class ProductionProcessStrings$entity$taskavailable$fields$ja {
+	ProductionProcessStrings$entity$taskavailable$fields$ja.internal(this._root);
+
+	final ProductionProcessStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '設備'
+	String get f_equipment => '設備';
+
+	/// ja: 'デリバリー間隔（時間）'
+	String get f_delivery_interval => 'デリバリー間隔（時間）';
+
+	/// ja: '備考'
+	String get f_remarks => '備考';
+}
+
+// Path: entity.taskoutsource.fields
+class ProductionProcessStrings$entity$taskoutsource$fields$ja {
+	ProductionProcessStrings$entity$taskoutsource$fields$ja.internal(this._root);
+
+	final ProductionProcessStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '外部供給者'
+	String get f_supplier => '外部供給者';
+
+	/// ja: 'デリバリー間隔（時間）'
+	String get f_delivery_interval => 'デリバリー間隔（時間）';
+
+	/// ja: '材料支給'
+	String get f_material_supply => '材料支給';
+
+	/// ja: '有償支給'
+	String get f_paid_supply => '有償支給';
+
+	/// ja: '備考'
+	String get f_remarks => '備考';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -291,6 +385,10 @@ extension on ProductionProcessStrings {
 			'entity.task.fields.f_class' => '区分',
 			'entity.task.fields.f_default_time' => '標準時間',
 			'entity.task.fields.f_remarks' => '備考',
+			'entity.task.reverse.optask' => '工程の選択',
+			'entity.task.reverse.workplan' => '生産計画明細',
+			'entity.task.reverse.cproc' => '工程苦情',
+			'entity.task.reverse.taskrisk' => '工程リスク',
 			'entity.taskres.title' => '工程場所',
 			'entity.taskres.fields.f_info_department_id' => '組織情報',
 			'entity.taskres.fields.f_priority' => '優先順位',
@@ -307,6 +405,16 @@ extension on ProductionProcessStrings {
 			'entity.optask.fields.f_seq' => '順',
 			'entity.opapply.title' => '適用する品目の工程計画',
 			'entity.opapply.fields.f_item' => '品目',
+			'entity.taskavailable.title' => '使える設備',
+			'entity.taskavailable.fields.f_equipment' => '設備',
+			'entity.taskavailable.fields.f_delivery_interval' => 'デリバリー間隔（時間）',
+			'entity.taskavailable.fields.f_remarks' => '備考',
+			'entity.taskoutsource.title' => '使える外部委託',
+			'entity.taskoutsource.fields.f_supplier' => '外部供給者',
+			'entity.taskoutsource.fields.f_delivery_interval' => 'デリバリー間隔（時間）',
+			'entity.taskoutsource.fields.f_material_supply' => '材料支給',
+			'entity.taskoutsource.fields.f_paid_supply' => '有償支給',
+			'entity.taskoutsource.fields.f_remarks' => '備考',
 			_ => null,
 		};
 	}

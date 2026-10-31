@@ -54,4 +54,13 @@ const Map<String, List<EntityRecord>> itemSeeds = {
       EntityRecord(id: '15863b3e-0000-4000-8000-000000000002', values: {'supplier': '9c2cec53-0000-4000-8000-000000000005', 'days': '7', 'lot': '200', 'cost': '', 'asking': '1'}, parentId: '9f3833e6-0000-4000-8000-000000000004'),
       EntityRecord(id: '15863b3e-0000-4000-8000-000000000003', values: {'supplier': '9c2cec53-0000-4000-8000-000000000004', 'days': '3', 'lot': '1000', 'cost': '12', 'asking': ''}, parentId: '9f3833e6-0000-4000-8000-000000000005'),
     ],
+    'itemtaskcost': [
+      EntityRecord(id: '4041f1e2-0000-4000-8000-000000000001', values: {'taskres': 'c6bd3dda-0000-4000-8000-000000000001', 'cost': '1200', 'remarks': ''}, parentId: '9f3833e6-0000-4000-8000-000000000004'),
+      EntityRecord(id: '4041f1e2-0000-4000-8000-000000000002', values: {'taskres': 'c6bd3dda-0000-4000-8000-000000000002', 'cost': '1500', 'remarks': ''}, parentId: '9f3833e6-0000-4000-8000-000000000004'),
+    ],
+    'itemonhand': [
+      EntityRecord(id: '8fee4116-0000-4000-8000-000000000001', values: {'item': '9f3833e6-0000-4000-8000-000000000001', 'on_hand_quantity': '120', 'visiter_count': '3'}),
+      EntityRecord(id: '8fee4116-0000-4000-8000-000000000002', values: {'item': '9f3833e6-0000-4000-8000-000000000002', 'on_hand_quantity': '40', 'visiter_count': '1'}),
+      EntityRecord(id: '8fee4116-0000-4000-8000-000000000003', values: {'item': '9f3833e6-0000-4000-8000-000000000003', 'on_hand_quantity': '0', 'visiter_count': '0'}),
+    ],
 };

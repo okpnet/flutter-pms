@@ -783,3 +783,52 @@ body[data-device="mobile"] .phone-content { position: relative; }
 body[data-device="mobile"] .nest { padding: var(--sp-3); }
 body[data-device="mobile"] .tbl tr.nest-row { padding: 0; border-bottom: 1px solid var(--line); }
 @media (prefers-reduced-motion: reduce) { .field-row.is-switch input, .field-row.is-switch input::before { transition-duration: 1ms; } }
+
+/* ---------- Barcode (作業実績 › バーコード) ---------- */
+.bc { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--sp-5); align-items: start; }
+body[data-device="mobile"] .bc, body[data-device="tablet"] .bc { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 900px) { body[data-device="pc"] .bc { grid-template-columns: minmax(0, 1fr); } }
+.bc-main { display: grid; gap: var(--sp-4); }
+.bc-side { display: grid; gap: var(--sp-4); }
+.bc-msg { display: flex; align-items: flex-start; gap: var(--sp-2); min-height: 0; margin: 0; --od-icon-size: 20px; }
+.bc-msg:has(span:empty) { display: none; }
+.bc-msg.is-err { padding: var(--sp-3) var(--sp-4); border: 2px solid var(--danger); border-radius: var(--radius); background: var(--danger-soft); font-weight: 600; }
+.bc-msg.is-err .od-icon { color: var(--danger); margin-top: 2px; }
+.bc-info { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-3); margin: 0; }
+body[data-device="mobile"] .bc-info { grid-template-columns: minmax(0, 1fr); }
+.bc-info .kv { padding: var(--sp-3) var(--sp-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface-2); }
+.bc-info dt { font-size: var(--fs-sm); color: var(--muted); font-weight: 600; }
+.bc-info dd { margin: 0; font-weight: 600; }
+.bc-modes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-3); }
+body[data-device="mobile"] .bc-modes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.bc-mode { display: grid; justify-items: center; align-content: center; gap: var(--sp-1); min-height: 80px; padding: var(--sp-3); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); font-weight: 700; --od-icon-size: 28px; transition: background var(--dur-s) ease-out, border-color var(--dur-s) ease-out; }
+.bc-mode[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+@media (hover: hover) { .bc-mode[aria-pressed="false"]:hover { background: var(--surface-2); } }
+.bc-form { display: grid; gap: var(--sp-2); }
+.bc-form label { font-weight: 700; }
+.bc-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.bc-row input { flex: 1 1 200px; min-width: 0; min-height: 56px; padding: 0 var(--sp-4); border: 2px solid var(--line); border-radius: var(--radius); background: var(--surface); color: inherit; font: inherit; font-size: var(--fs-lg); }
+.bc-row input:focus-visible { border-color: var(--focus); }
+.bc-row .btn { min-height: 56px; }
+.bc-video { width: 100%; max-height: 40dvh; border-radius: var(--radius); background: #000; }
+.bc-ask { margin: 0; font-size: var(--fs-lg); font-weight: 700; }
+.bc-choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-3); }
+body[data-device="mobile"] .bc-choices { grid-template-columns: minmax(0, 1fr); }
+.bc-big { min-height: 64px; font-size: var(--fs-lg); }
+.bc .btn-danger { background: var(--danger); border-color: var(--danger); color: #fff; }
+.bc-eq { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); }
+.bc-eq li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--sp-3); align-items: center; padding: var(--sp-3) var(--sp-4); border: 1px solid var(--line); border-radius: var(--radius); }
+.bc-eq label { display: grid; gap: 2px; font-weight: 600; }
+.bc-eq select { min-height: 44px; }
+.bc-samples summary { cursor: pointer; font-weight: 700; min-height: 44px; display: flex; align-items: center; }
+.bc-samples ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); }
+.bc-samples li { display: grid; gap: var(--sp-1); }
+.bc-chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.bc-log { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.bc-log li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--sp-3); padding: var(--sp-2) 0; border-top: 1px solid var(--line); font-size: var(--fs-sm); }
+.bc-log li.is-ng { color: var(--danger); }
+/* Barcode: top label is the title; on mobile the input and button fill the tile width */
+.bc-form > label { font-size: var(--fs-lg); }
+body[data-device="mobile"] .bc-row { flex-direction: column; flex-wrap: nowrap; }
+body[data-device="mobile"] .bc-row > * { width: 100%; flex: none; }
+body[data-device="mobile"] .bc-row input { flex: none; }

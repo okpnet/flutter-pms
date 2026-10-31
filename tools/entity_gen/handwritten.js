@@ -215,5 +215,16 @@ module.exports = function build(D, X) {
     rows: D.inspFiles.map((x) => row(x.id, { fname: x.fname, ftype: x.ftype, regdate: x.regdate }, x.rec)),
   });
 
+  // 稼働カレンダー(mstr_work_calendar。設備が空の日は全体の稼働日)。画面案に無く、DB の変更で増えた(20261031_0001 の採択)
+  out.push({
+    key: 'workcalendar', label: '稼働カレンダー', project: 'resource',
+    fields: [f('work_date', '稼働日', 'date'), f('equipment', '設備', 'reference', { ref: 'equipment', req: false }), f('start_time', '開始時刻'), f('work_interval', '稼働時間（HH:MM）'), f('holiday', '休業日', 'flag', { req: false }), f('remarks', '備考', 'multiline', { req: false })],
+    rows: [
+      row('wc1', { work_date: '2026-11-02', equipment: '', start_time: '08:30', work_interval: '08:00', holiday: '', remarks: '' }),
+      row('wc2', { work_date: '2026-11-03', equipment: '', start_time: '08:30', work_interval: '08:00', holiday: '1', remarks: '文化の日' }),
+      row('wc3', { work_date: '2026-11-04', equipment: D.equipments[0].id, start_time: '08:30', work_interval: '10:00', holiday: '', remarks: '' }),
+    ],
+  });
+
   return out;
 };

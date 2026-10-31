@@ -20,6 +20,9 @@
 4.  ログは `logger_provider` の `loggerProvider` を `ref` から直接取得し、この機能が発生元のエラーだけを出す。
 5.  ラベルは slang で多言語化し、列名は `schema.graphql` のコメントを使う。推論・仮置きしたラベルは `doc/log` に残す。
 
+## 工程場所で使える設備・外部委託
+工程場所(`taskres`)が所有する子の台帳として、使える設備(`taskavailable`、DB の `mstr_equipment_available`)と使える外部委託(`taskoutsource`、`mstr_outsource_available`)を持つ。デリバリー間隔は DB では interval で、画面では時間(数値)で扱う。外部委託には材料支給・有償支給(真偽)がある。
+
 <!-- entity_gen:begin -->
 ## 実体の画面(生成)
 台帳(テーブル/ツリー)と編集の画面は、`tools/entity_gen/gen.js` が `tools/open-design` の画面定義から生成する(定義・サンプル・表示名・モジュール・テスト)。
@@ -34,6 +37,8 @@
 | 工程運用 | `operation` | テーブル構造 | 6 |  |
 | 工程の選択 | `optask` | 子の台帳(親: 工程運用) | 2 | `task` |
 | 適用する品目の工程計画 | `opapply` | 子の台帳(親: 工程運用) | 1 | `item` |
+| 使える設備 | `taskavailable` | 子の台帳(親: 工程場所) | 3 | `equipment` |
+| 使える外部委託 | `taskoutsource` | 子の台帳(親: 工程場所) | 5 | `supplier` |
 <!-- entity_gen:end -->
 
 

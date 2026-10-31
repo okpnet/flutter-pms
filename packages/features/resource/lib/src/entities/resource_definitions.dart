@@ -72,6 +72,7 @@ const List<EntityDefinition> resourceDefinitions = [
     uniqueKeys: [
       ['code'],
     ],
+    reverseLists: [ReverseList(entity: 'equipment', field: 'location')],
     fields: [
       FieldDefinition(key: 'code'),
       FieldDefinition(key: 'control_code', required: false),
@@ -111,6 +112,9 @@ const List<EntityDefinition> resourceDefinitions = [
     key: 'equipment',
     uniqueKeys: [
       ['code'],
+    ],
+    reverseLists: [
+      ReverseList(entity: 'inspectionoperation', field: 'equipment'),
     ],
     fields: [
       FieldDefinition(key: 'code'),
@@ -275,6 +279,26 @@ const List<EntityDefinition> resourceDefinitions = [
         options: ['写真', '帳票'],
       ),
       FieldDefinition(key: 'regdate', kind: FieldKind.date),
+    ],
+  ),
+  EntityDefinition(
+    key: 'workcalendar',
+    fields: [
+      FieldDefinition(key: 'work_date', kind: FieldKind.date),
+      FieldDefinition(
+        key: 'equipment',
+        kind: FieldKind.reference,
+        required: false,
+        reference: 'equipment',
+      ),
+      FieldDefinition(key: 'start_time'),
+      FieldDefinition(key: 'work_interval'),
+      FieldDefinition(key: 'holiday', kind: FieldKind.flag, required: false),
+      FieldDefinition(
+        key: 'remarks',
+        kind: FieldKind.multiline,
+        required: false,
+      ),
     ],
   ),
 ];
