@@ -5,7 +5,7 @@
 ## 構成
 
 - `xxx_model/`: 機能 `xxx` に対応するモデルパッケージ。1機能=1パッケージ。
-  - `gql/*.yaml`: 人が書く入力(読み込み `kind: read` と書き込み `kind: edit`)。
+  - `gql/*.yaml`: 人が書く入力(読み込み `kind: read`、書き込み `kind: edit`、登録 `kind: create`、DB の関数の呼び出し `kind: function`)。
   - `lib/src/graphql/`: YAML から生成した `.graphql`、抜き出した画面用 `schema.graphql`、`*.graphql.dart`(Git 管理外)。
   - `lib/src/contents/`: 検索条件の対応表(`*_filter_spec.dart`、生成物)。
   - `lib/xxx_model.dart`: 生成物を束ねるバレルファイル(生成物)。
@@ -102,3 +102,9 @@
 2.  複数のテーブルにまたがる登録は、DB の関数にせずクライアントで順に呼ぶ。部品(1テーブル)と組み合わせをモデルの窓口(例: `barcode_entry_model` の `ScanClient`)に持たせる。生成された型は窓口の中に隠し、平らな型で返す。
 3.  symbol で対象を引くだけの軽い読み込みは、`lightRead: true` を付ける(子のレコード数 `v_*_count` を読まない。要件0056の検査の対象外)。
 4.  登録の通信テストは書かない(検証用サーバーは読み取り専用)。登録の呼び出しの順序と値は、代役の通信路で確認する。
+
+## DB の関数の呼び出し(`kind: function`)
+1.  DB の関数(PostGraphile のミューテーション)は YAML の `~PageCall`(`kind: function`)から生成する。`mutation:` にミューテーション名、`returns:` にペイロードの中の戻り値のフィールド、`columns:` に戻り値の列を書く。引数は入力の名前のまま(`pSrc` など)の変数になる(`args:` で絞れる。省略時は `clientMutationId` を除くすべて)。出力は `<dir>/<dir>_call.graphql`、操作名は `~PageCall`。
+2.  複数の行を作る操作は、クライアントで順に呼ばず DB の関数にする(1回の呼び出し = 1トランザクション)。棚ビジターの `visiter_issue`(払出)・`visiter_move`(移動・隔離)・`visiter_adjust`(棚卸し)は `work_record_model/gql/visiter_ledger.yaml` にあり、`ScanClient` の `issueLot`・`moveLot`・`adjustLot` が呼ぶ。担当者を省略すると DB が認証の担当者を使う。
+3.  関数のエラーは errcode で判定する(`ScanClientException.code`): VIS00 担当者 / VIS01 在庫 / VIS02 数量 / VIS03 数量が足りない / VIS04 取り出せない / VIS05 場所 / VIS06 棚 / VIS07 作業実績。出しすぎは DB(関数とトリガー)が止めるので、クライアントで事前に検査しない。
+4.  関数は検証用サーバーのデータを変えるため、通信テストは書かない。呼び出しの引数は、代役の通信路で確認する。

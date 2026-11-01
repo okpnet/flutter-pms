@@ -431,6 +431,9 @@
     +   伝票数量不一致台帳[VisiterOriginCheckPage]
     +   異常登録漏れ台帳[ComplaintTargetVisiterPage]
     +   異常対象台帳[ComplaintTargetPage]
+    +   棚ビジター払出登録[VisiterIssuePageCall]
+    +   棚ビジター移動登録[VisiterMovePageCall]    +   棚ビジター棚卸し登録[VisiterAdjustPageCall]
+    +   棚ビジター棚卸し登録[VisiterAdjustPageCall]
 ##  バーコード実績登録
 ### 照会(symbol で対象を引く。読み込み専用)
 1.  照会

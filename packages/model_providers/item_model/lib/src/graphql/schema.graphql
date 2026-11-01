@@ -476,6 +476,10 @@ enum VItemOnHandsOrderBy {
   NATURAL
   ITEM_ID_ASC
   ITEM_ID_DESC
+  ITEM_SYMBOL_ASC
+  ITEM_SYMBOL_DESC
+  ITEM_CODE_ASC
+  ITEM_CODE_DESC
   ON_HAND_QUANTITY_ASC
   ON_HAND_QUANTITY_DESC
   HELD_QUANTITY_ASC
@@ -3277,6 +3281,8 @@ input VItemKindItemCountFilter {
 
 input VItemOnHandFilter {
   itemId: UUIDFilter
+  itemSymbol: StringFilter
+  itemCode: StringFilter
   onHandQuantity: BigFloatFilter
   heldQuantity: BigFloatFilter
   availableQuantity: BigFloatFilter

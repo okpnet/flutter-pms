@@ -290,6 +290,8 @@ enum VMrpVisiterItemsOrderBy {
   NATURAL
   TRANS_VISITER_ID_ASC
   TRANS_VISITER_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
   ITEM_ID_ASC
   ITEM_ID_DESC
   ITEM_COUNT_ASC
@@ -312,6 +314,8 @@ enum VShelfInventoryStatusesOrderBy {
   NATURAL
   TRANS_VISITER_ID_ASC
   TRANS_VISITER_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
   PARENT_TRANS_VISITER_ID_ASC
   PARENT_TRANS_VISITER_ID_DESC
   ROOT_VISITER_ID_ASC
@@ -362,6 +366,8 @@ enum VVisiterHoldWithoutComplaintsOrderBy {
   NATURAL
   TRANS_VISITER_ID_ASC
   TRANS_VISITER_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
   TRANS_CONTAINER_ID_ASC
   TRANS_CONTAINER_ID_DESC
   MSTR_LOCATION_ID_ASC
@@ -380,6 +386,8 @@ enum VVisiterIssuablesOrderBy {
   NATURAL
   TRANS_VISITER_ID_ASC
   TRANS_VISITER_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
   TRANS_CONTAINER_ID_ASC
   TRANS_CONTAINER_ID_DESC
   QUANTITY_ASC
@@ -400,6 +408,8 @@ enum VVisiterLedgerIssuesOrderBy {
   NATURAL
   TRANS_VISITER_ID_ASC
   TRANS_VISITER_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
   ISSUE_KIND_ASC
   ISSUE_KIND_DESC
   ROW_QUANTITY_ASC
@@ -420,6 +430,8 @@ enum VVisiterOriginChecksOrderBy {
   ORIGIN_KIND_DESC
   ORIGIN_ID_ASC
   ORIGIN_ID_DESC
+  ORIGIN_SYMBOL_ASC
+  ORIGIN_SYMBOL_DESC
   TRANS_PURCHASE_REC_ID_ASC
   TRANS_PURCHASE_REC_ID_DESC
   TRANS_WORK_RECORD_ID_ASC
@@ -525,6 +537,9 @@ type Mutation {
   updateTransVisiterByTransVisiterId(input: UpdateTransVisiterByTransVisiterIdInput!): UpdateTransVisiterPayload
   updateTransWorkRecordByTransWorkRecordId(input: UpdateTransWorkRecordByTransWorkRecordIdInput!): UpdateTransWorkRecordPayload
   updateTransWorkRecordCertificateByTransWorkRecordCertificateId(input: UpdateTransWorkRecordCertificateByTransWorkRecordCertificateIdInput!): UpdateTransWorkRecordCertificatePayload
+  visiterAdjust(input: VisiterAdjustInput!): VisiterAdjustPayload
+  visiterIssue(input: VisiterIssueInput!): VisiterIssuePayload
+  visiterMove(input: VisiterMoveInput!): VisiterMovePayload
 }
 
 type PageInfo {
@@ -951,6 +966,7 @@ type VVisiterHoldWithoutComplaintsConnection {
 
 type VVisiterIssuable {
   transVisiterId: UUID!
+  symbol: String
   transContainerId: UUID
   quantity: BigFloat
   release: Boolean
@@ -1011,6 +1027,18 @@ type VWorkRecordWorkRecordCertificateCount {
 
 type VWorkRecordWorkRecordVisiterCount {
   transWorkRecordId: UUID
+}
+
+type VisiterAdjustPayload {
+  transVisiter: TransVisiter
+}
+
+type VisiterIssuePayload {
+  transVisiter: TransVisiter
+}
+
+type VisiterMovePayload {
+  transVisiter: TransVisiter
 }
 
 input BigFloatFilter {
@@ -2250,6 +2278,7 @@ input VContainerVisiterCountFilter {
 
 input VMrpVisiterItemFilter {
   transVisiterId: UUIDFilter
+  symbol: StringFilter
   itemId: UUIDFilter
   itemCount: IntFilter
   finished: BooleanFilter
@@ -2266,6 +2295,7 @@ input VMrpVisiterItemFilter {
 
 input VShelfInventoryStatusFilter {
   transVisiterId: UUIDFilter
+  symbol: StringFilter
   parentTransVisiterId: UUIDFilter
   rootVisiterId: UUIDFilter
   transContainerId: UUIDFilter
@@ -2320,6 +2350,7 @@ input VVisiterConveyCountFilter {
 
 input VVisiterHoldWithoutComplaintFilter {
   transVisiterId: UUIDFilter
+  symbol: StringFilter
   transContainerId: UUIDFilter
   mstrLocationId: UUIDFilter
   quantity: BigFloatFilter
@@ -2335,6 +2366,7 @@ input VVisiterHoldWithoutComplaintFilter {
 
 input VVisiterIssuableFilter {
   transVisiterId: UUIDFilter
+  symbol: StringFilter
   transContainerId: UUIDFilter
   quantity: BigFloatFilter
   release: BooleanFilter
@@ -2350,6 +2382,7 @@ input VVisiterIssuableFilter {
 
 input VVisiterLedgerIssueFilter {
   transVisiterId: UUIDFilter
+  symbol: StringFilter
   issueKind: StringFilter
   rowQuantity: BigFloatFilter
   balance: BigFloatFilter
@@ -2366,6 +2399,7 @@ input VVisiterLedgerIssueFilter {
 input VVisiterOriginCheckFilter {
   originKind: StringFilter
   originId: UUIDFilter
+  originSymbol: StringFilter
   transPurchaseRecId: UUIDFilter
   transWorkRecordId: UUIDFilter
   recordQuantity: BigFloatFilter
@@ -2421,6 +2455,36 @@ input VWorkRecordWorkRecordVisiterCountFilter {
   and: [VWorkRecordWorkRecordVisiterCountFilter!]
   or: [VWorkRecordWorkRecordVisiterCountFilter!]
   not: VWorkRecordWorkRecordVisiterCountFilter
+}
+
+input VisiterAdjustInput {
+  pLot: UUID
+  pCounted: BigFloat
+  pStaffId: UUID
+  pLocationId: UUID
+  pAt: Datetime
+  pRemarks: String
+}
+
+input VisiterIssueInput {
+  pSrc: UUID
+  pQty: BigFloat
+  pWorkRecordId: UUID
+  pStaffId: UUID
+  pLocationId: UUID
+  pAt: Datetime
+  pRemarks: String
+}
+
+input VisiterMoveInput {
+  pSrc: UUID
+  pContainerId: UUID
+  pQty: BigFloat
+  pHold: Boolean
+  pStaffId: UUID
+  pLocationId: UUID
+  pAt: Datetime
+  pRemarks: String
 }
 
 input updateTransLabelOnTransCertificateForTransCertificateFk1Patch {

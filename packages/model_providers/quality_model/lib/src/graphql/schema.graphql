@@ -764,6 +764,8 @@ enum VComplaintTargetVisitersOrderBy {
   COMPLAINT_TARGET_VISITER_KEY_DESC
   TRANS_COMPLAINT_ID_ASC
   TRANS_COMPLAINT_ID_DESC
+  COMPLAINT_SYMBOL_ASC
+  COMPLAINT_SYMBOL_DESC
   TARGET_KIND_ASC
   TARGET_KIND_DESC
   TARGET_LINK_ID_ASC
@@ -776,6 +778,8 @@ enum VComplaintTargetVisitersOrderBy {
   COMPLAINT_QUANTITY_DESC
   TRANS_VISITER_ID_ASC
   TRANS_VISITER_ID_DESC
+  VISITER_SYMBOL_ASC
+  VISITER_SYMBOL_DESC
   VISITER_QUANTITY_ASC
   VISITER_QUANTITY_DESC
   RELEASE_ASC
@@ -798,6 +802,8 @@ enum VComplaintTargetsOrderBy {
   TARGET_LINK_ID_DESC
   TRANS_COMPLAINT_ID_ASC
   TRANS_COMPLAINT_ID_DESC
+  COMPLAINT_SYMBOL_ASC
+  COMPLAINT_SYMBOL_DESC
   TARGET_KIND_ASC
   TARGET_KIND_DESC
   TRANS_PURCHASE_REC_ID_ASC
@@ -4395,6 +4401,7 @@ input VComplaintDisposalCountFilter {
 input VComplaintTargetFilter {
   targetLinkId: UUIDFilter
   transComplaintId: UUIDFilter
+  complaintSymbol: StringFilter
   targetKind: StringFilter
   transPurchaseRecId: UUIDFilter
   transWorkRecordId: UUIDFilter
@@ -4417,12 +4424,14 @@ input VComplaintTargetFilter {
 input VComplaintTargetVisiterFilter {
   complaintTargetVisiterKey: StringFilter
   transComplaintId: UUIDFilter
+  complaintSymbol: StringFilter
   targetKind: StringFilter
   targetLinkId: UUIDFilter
   transPurchaseRecId: UUIDFilter
   transWorkRecordId: UUIDFilter
   complaintQuantity: BigFloatFilter
   transVisiterId: UUIDFilter
+  visiterSymbol: StringFilter
   visiterQuantity: BigFloatFilter
   release: BooleanFilter
   transComplaintVisiterId: UUIDFilter

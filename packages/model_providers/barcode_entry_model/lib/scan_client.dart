@@ -17,10 +17,13 @@ import 'package:work_record_model/work_record_model.dart' as wr;
 
 /// 通信・サーバーの異常。
 class ScanClientException implements Exception {
-  const ScanClientException(this.message);
+  const ScanClientException(this.message, {this.code});
   final String message;
+
+  /// DB の関数のエラーコード(`VIS03` 数量が足りない、`VIS04` 取り出せない など)。無ければ null。
+  final String? code;
   @override
-  String toString() => 'ScanClientException: $message';
+  String toString() => 'ScanClientException: ${code == null ? '' : '[$code] '}$message';
 }
 
 /// symbol で引いた対象の種類。
@@ -97,9 +100,11 @@ class ScanClient {
           );
     final e = result.exception;
     if (e != null) {
-      throw ScanClientException(
-        e.graphqlErrors.isNotEmpty ? e.graphqlErrors.first.message : '${e.linkException ?? e}',
-      );
+      final g = e.graphqlErrors.isEmpty ? null : e.graphqlErrors.first;
+      final ext = g?.extensions;
+      final exception = ext?['exception'];
+      final code = ext?['errcode'] ?? (exception is Map ? exception['errcode'] : null);
+      throw ScanClientException(g?.message ?? '${e.linkException ?? e}', code: code is String ? code : null);
     }
     return result.data ?? const {};
   }
@@ -482,94 +487,78 @@ class ScanClient {
     );
   }
 
-  // ---- 棚ビジターの出庫・移動・棚卸し(ロットを親にした行を作る。受払実績は行ごとに1件) ----
+  // ---- 棚ビジターの出庫・移動・棚卸し(DB の関数。1回の呼び出し = 1トランザクション) ----
+  // 行と受払実績はDBがまとめて作り、今の数量を超える払出・仮止め・未解除の異常はDBが止める(errcode は [ScanClientException.code])。
+  // 担当者 [staffId] を省略すると、DB が認証の担当者を使う。場所は棚の場所。
 
-  Future<String?> _containerLocation(String containerId) async {
-    final rows = await _nodes(scan.documentNodeQueryScanContainerPageRead, 'allTransContainers', {
-      'languageCodeId': languageCodeId,
-      'filter': {
-        'transContainerId': {'equalTo': containerId},
-      },
-    });
-    return rows.isEmpty ? null : rows.first['mstrLocationId'] as String?;
-  }
-
-  /// 払出・出荷・材料投入。ロット [lot] の棚に、親をロットにした-の行と受払実績を作る。
-  /// 製造への投入は [workRecordId](投入先の作業実績)を渡して結び付ける。返すのは作った行の id。
+  /// 払出・出荷・材料投入。ロット [lot] から [quantity] を払い出す。
+  /// 製造への投入は [workRecordId](投入先の作業実績)を渡す。返すのは作った-の行の id。
   Future<String> issueLot({
-    required ScanVisiter lot,
+    required String lot,
     required int quantity,
     String? workRecordId,
     String? staffId,
-  }) async {
-    if (quantity <= 0) throw ScanClientException('出庫の数量は1以上です');
-    final row = await createVisiter(
-      containerId: lot.containerId,
-      quantity: -quantity,
-      parentVisiterId: lot.id,
-    );
-    await createConvey(
-      visiterId: row,
-      locationId: await _containerLocation(lot.containerId),
-      staffId: staffId,
-    );
-    if (workRecordId != null) {
-      await linkWorkRecordVisiter(workRecordId: workRecordId, visiterId: row);
-    }
-    return row;
-  }
+    String? remarks,
+  }) => _call(
+    wr.documentNodeMutationVisiterIssuePageCall,
+    {
+      'pSrc': lot,
+      'pQty': '$quantity',
+      if (workRecordId != null) 'pWorkRecordId': workRecordId,
+      if (staffId != null) 'pStaffId': staffId,
+      if (remarks != null) 'pRemarks': remarks,
+    },
+    'visiterIssue',
+  );
 
-  /// 移動・分割・隔離。元の棚に-、[to] に+の行(どちらも親はロット)と、それぞれの受払実績を作る。
-  /// [hold] が真なら、移動先の+の行を仮止め(`release = false`)にする。返すのは移動先の行の id。
+  /// 移動・分割・隔離。ロット [lot] の [quantity] を棚 [containerId] へ移す。
+  /// [hold] が真なら、移動先を仮止めにする。返すのは移動先のロットの id。
   Future<String> moveLot({
-    required ScanVisiter lot,
+    required String lot,
     required int quantity,
-    required ScanFound to,
+    required String containerId,
     bool hold = false,
     String? staffId,
-  }) async {
-    if (quantity <= 0) throw ScanClientException('移動の数量は1以上です');
-    final out = await createVisiter(
-      containerId: lot.containerId,
-      quantity: -quantity,
-      parentVisiterId: lot.id,
-    );
-    await createConvey(
-      visiterId: out,
-      locationId: await _containerLocation(lot.containerId),
-      staffId: staffId,
-    );
-    final into = await createVisiter(
-      containerId: to.id,
-      quantity: quantity,
-      parentVisiterId: lot.id,
-      release: hold ? false : null,
-    );
-    await createConvey(visiterId: into, locationId: to.locationId, staffId: staffId);
-    return into;
-  }
+    String? remarks,
+  }) => _call(
+    wr.documentNodeMutationVisiterMovePageCall,
+    {
+      'pSrc': lot,
+      'pContainerId': containerId,
+      'pQty': '$quantity',
+      'pHold': hold,
+      if (staffId != null) 'pStaffId': staffId,
+      if (remarks != null) 'pRemarks': remarks,
+    },
+    'visiterMove',
+  );
 
-  /// 棚卸しの調整。帳簿と現品の差 [difference](+または-、0は不可)を、ロットを親にした調整行で足す。
-  Future<String> adjustLot({
-    required ScanVisiter lot,
-    required int difference,
+  /// 棚卸し。数えた数 [counted] に合わせる調整行を作る。差が無ければ何も作らず null を返す。
+  Future<String?> adjustLot({
+    required String lot,
+    required int counted,
     String? staffId,
     String? remarks,
   }) async {
-    if (difference == 0) throw ScanClientException('棚卸しの差は0にできません');
-    final row = await createVisiter(
-      containerId: lot.containerId,
-      quantity: difference,
-      parentVisiterId: lot.id,
-      adjustment: true,
-      remarks: remarks,
+    final data = await _run(
+      wr.documentNodeMutationVisiterAdjustPageCall,
+      {
+        'pLot': lot,
+        'pCounted': '$counted',
+        if (staffId != null) 'pStaffId': staffId,
+        if (remarks != null) 'pRemarks': remarks,
+      },
+      mutation: true,
     );
-    await createConvey(
-      visiterId: row,
-      locationId: await _containerLocation(lot.containerId),
-      staffId: staffId,
-    );
-    return row;
+    return ((data['visiterAdjust'] as Map?)?['transVisiter'] as Map?)?['transVisiterId'] as String?;
+  }
+
+  /// 棚ビジターの関数を呼び、戻り値の行の id を返す。
+  Future<String> _call(DocumentNode document, Map<String, dynamic> variables, String field) async {
+    final data = await _run(document, variables, mutation: true);
+    final id = ((data[field] as Map?)?['transVisiter'] as Map?)?['transVisiterId'];
+    if (id is! String) throw ScanClientException('$field の結果にIDがありません');
+    return id;
   }
 
   // ---- 設備点検 ----
@@ -744,18 +733,12 @@ class ScanClient {
       },
     });
     if (lots.isEmpty) return const [];
-    final symbols = <String, String>{
-      for (final r in await _nodes(scan.documentNodeQueryScanVisiterPageRead, 'allTransVisiters', {
-        'transContainerId': containerId,
-      }))
-        r['transVisiterId'] as String: r['symbol'] as String? ?? '',
-    };
     return [
       for (final r in lots)
         ScanVisiter(
           id: r['transVisiterId'] as String,
           containerId: containerId,
-          symbol: symbols[r['transVisiterId']] ?? '',
+          symbol: r['symbol'] as String? ?? '',
           quantity: _int(r['quantity']),
           release: r['release'] as bool? ?? true,
           openComplaintCount: (r['openComplaintCount'] as num?)?.toInt() ?? 0,

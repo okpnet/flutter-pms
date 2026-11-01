@@ -1,0 +1,32 @@
+# visiter_adjust_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #VisiterAdjustPageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation VisiterAdjustPageCall(
+  $pLot: UUID
+  $pCounted: BigFloat
+  $pStaffId: UUID
+  $pLocationId: UUID
+  $pAt: Datetime
+  $pRemarks: String
+) {
+  visiterAdjust(
+    input: {
+      pLot: $pLot
+      pCounted: $pCounted
+      pStaffId: $pStaffId
+      pLocationId: $pLocationId
+      pAt: $pAt
+      pRemarks: $pRemarks
+    }
+  ) {
+    transVisiter {
+      transVisiterId
+      parentTransVisiterId
+      transContainerId
+      quantity
+      adjustment
+    }
+  }
+}

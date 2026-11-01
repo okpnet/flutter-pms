@@ -1,0 +1,36 @@
+# visiter_move_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #VisiterMovePageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation VisiterMovePageCall(
+  $pSrc: UUID
+  $pContainerId: UUID
+  $pQty: BigFloat
+  $pHold: Boolean
+  $pStaffId: UUID
+  $pLocationId: UUID
+  $pAt: Datetime
+  $pRemarks: String
+) {
+  visiterMove(
+    input: {
+      pSrc: $pSrc
+      pContainerId: $pContainerId
+      pQty: $pQty
+      pHold: $pHold
+      pStaffId: $pStaffId
+      pLocationId: $pLocationId
+      pAt: $pAt
+      pRemarks: $pRemarks
+    }
+  ) {
+    transVisiter {
+      transVisiterId
+      parentTransVisiterId
+      transContainerId
+      quantity
+      release
+    }
+  }
+}

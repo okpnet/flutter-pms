@@ -41,9 +41,12 @@ export 'src/graphql/purchase_certification_page/purchase_certification_page_read
 export 'src/graphql/purchase_certification_page/purchase_certification_page_rfe.graphql.dart';
 export 'src/graphql/schema.graphql.dart';
 export 'src/graphql/shelf_inventory_status_page/shelf_inventory_status_page_read.graphql.dart';
+export 'src/graphql/visiter_adjust_page/visiter_adjust_page_call.graphql.dart';
 export 'src/graphql/visiter_hold_without_complaint_page/visiter_hold_without_complaint_page_read.graphql.dart';
 export 'src/graphql/visiter_issuable_page/visiter_issuable_page_read.graphql.dart';
+export 'src/graphql/visiter_issue_page/visiter_issue_page_call.graphql.dart';
 export 'src/graphql/visiter_ledger_issue_page/visiter_ledger_issue_page_read.graphql.dart';
+export 'src/graphql/visiter_move_page/visiter_move_page_call.graphql.dart';
 export 'src/graphql/visiter_origin_check_page/visiter_origin_check_page_read.graphql.dart';
 export 'src/graphql/visiter_page/visiter_page_create.graphql.dart';
 export 'src/graphql/visiter_page/visiter_page_edit.graphql.dart';

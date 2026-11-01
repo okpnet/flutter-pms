@@ -17,6 +17,7 @@ import 'package:gql_yaml2graphql/src/yaml_loader.dart';
 
 void main() {
   createTests();
+  functionTests();
   test('名前の規則', () {
     expect(camel('update_at'), 'updateAt');
     expect(camel('iso3166_3'), 'iso31663');
@@ -226,6 +227,54 @@ input CreateTransConveyInput { transConvey: TransConveyInput! }
 input TransConveyInput { transConveyId: UUID }
 scalar UUID
 ''',
+    );
+    expect(r.log.errors, isNotEmpty);
+  });
+}
+
+void functionTests() {
+  const schema = '''
+type Query { nodeId: ID }
+type Mutation { visiterIssue(input: VisiterIssueInput!): VisiterIssuePayload }
+type VisiterIssuePayload { transVisiter: TransVisiter }
+type TransVisiter { transVisiterId: UUID! quantity: BigFloat }
+input VisiterIssueInput { clientMutationId: String pSrc: UUID pQty: BigFloat }
+scalar UUID
+scalar BigFloat
+''';
+
+  test('関数の呼び出し(kind: function)は、入力の名前のまま変数にしてミューテーションを作る', () {
+    expect(directoryOf('VisiterIssuePageCall'), 'visiter_issue_page');
+    expect(isGenerationTarget('VisiterIssuePageCall'), isTrue);
+    final r = generateAll(
+      viewYaml: '''
+VisiterIssuePageCall:
+  kind: function
+  mutation: visiterIssue
+  returns: transVisiter
+  columns: [trans_visiter_id, quantity]
+''',
+      schemaText: schema,
+    );
+    expect(r.log.errors, isEmpty);
+    final text = r.files['visiter_issue_page/visiter_issue_page_call.graphql']!;
+    expect(text, contains('mutation VisiterIssuePageCall('));
+    expect(text, contains(r'$pSrc: UUID'));
+    expect(text, contains(r'pQty: $pQty'));
+    expect(text, isNot(contains('clientMutationId')));
+    expect(text, contains('visiterIssue('));
+  });
+
+  test('関数の戻り値の列がスキーマに無いときはエラー', () {
+    final r = generateAll(
+      viewYaml: '''
+VisiterIssuePageCall:
+  kind: function
+  mutation: visiterIssue
+  returns: transVisiter
+  columns: [nothing]
+''',
+      schemaText: schema,
     );
     expect(r.log.errors, isNotEmpty);
   });

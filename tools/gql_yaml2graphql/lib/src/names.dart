@@ -20,14 +20,20 @@ String snake(String pascalName) => pascalName
 /// view.yamlのトップノード名 -> ディレクトリ名(CLAUDE.md 5-3節・要件0050)。
 /// `~Page`と`~PageEdit`は同じディレクトリ(末尾の「Edit」を除く)。
 /// `~PageCreate`(登録)も同じディレクトリ(末尾の「Create」を除く)。
+/// `~PageCall`(DBの関数の呼び出し)も同じ(末尾の「Call」を除く)。
 String directoryOf(String nodeName) => snake(
       nodeName.endsWith('PageEdit')
           ? nodeName.substring(0, nodeName.length - 4)
-          : nodeName.endsWith('PageCreate')
+          : nodeName.endsWith('PageCall')
+              ? nodeName.substring(0, nodeName.length - 4)
+              : nodeName.endsWith('PageCreate')
               ? nodeName.substring(0, nodeName.length - 6)
               : nodeName,
     );
 
-/// 生成対象のトップノードか(~Page / ~PageEdit / ~PageCreate)。
+/// 生成対象のトップノードか(~Page / ~PageEdit / ~PageCreate / ~PageCall)。
 bool isGenerationTarget(String nodeName) =>
-    nodeName.endsWith('Page') || nodeName.endsWith('PageEdit') || nodeName.endsWith('PageCreate');
+    nodeName.endsWith('Page') ||
+    nodeName.endsWith('PageEdit') ||
+    nodeName.endsWith('PageCreate') ||
+    nodeName.endsWith('PageCall');

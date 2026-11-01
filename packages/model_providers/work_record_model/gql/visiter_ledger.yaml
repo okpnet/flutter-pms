@@ -10,6 +10,7 @@ VisiterIssuablePage:
   filter: true
   columns:
     - trans_visiter_id
+    - symbol
     - trans_container_id
     - quantity
     - release
@@ -57,3 +58,42 @@ VisiterOriginCheckPage:
     - visiter_quantity
     - difference
     - visiter_count
+
+# ---- DBの関数(kind: function)。1回の呼び出し = 1トランザクションで、行と受払実績をまとめて作る ----
+# 担当者は p_staff_id、省略時は JWT の staff_id。場所は棚の場所、無ければ p_location_id。
+# エラーは errcode で判定する(VIS00 担当者 / VIS01 在庫 / VIS02 数量 / VIS03 不足 / VIS04 取り出せない / VIS05 場所 / VIS06 棚 / VIS07 作業実績)。
+
+# 払出・出荷・製造への材料投入(visiter_issue)。戻り値は作った-の行
+VisiterIssuePageCall:
+  kind: function
+  mutation: visiterIssue
+  returns: transVisiter
+  columns:
+    - trans_visiter_id
+    - parent_trans_visiter_id
+    - trans_container_id
+    - quantity
+
+# 移動・分割・隔離(visiter_move)。p_hold で移動先を仮止め。戻り値は移動先の在庫
+VisiterMovePageCall:
+  kind: function
+  mutation: visiterMove
+  returns: transVisiter
+  columns:
+    - trans_visiter_id
+    - parent_trans_visiter_id
+    - trans_container_id
+    - quantity
+    - release
+
+# 棚卸し(visiter_adjust)。数えた数に合わせる調整行を作る。差が無ければ戻り値は null
+VisiterAdjustPageCall:
+  kind: function
+  mutation: visiterAdjust
+  returns: transVisiter
+  columns:
+    - trans_visiter_id
+    - parent_trans_visiter_id
+    - trans_container_id
+    - quantity
+    - adjustment

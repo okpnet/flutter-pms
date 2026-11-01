@@ -1,0 +1,33 @@
+# visiter_issue_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #VisiterIssuePageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation VisiterIssuePageCall(
+  $pSrc: UUID
+  $pQty: BigFloat
+  $pWorkRecordId: UUID
+  $pStaffId: UUID
+  $pLocationId: UUID
+  $pAt: Datetime
+  $pRemarks: String
+) {
+  visiterIssue(
+    input: {
+      pSrc: $pSrc
+      pQty: $pQty
+      pWorkRecordId: $pWorkRecordId
+      pStaffId: $pStaffId
+      pLocationId: $pLocationId
+      pAt: $pAt
+      pRemarks: $pRemarks
+    }
+  ) {
+    transVisiter {
+      transVisiterId
+      parentTransVisiterId
+      transContainerId
+      quantity
+    }
+  }
+}

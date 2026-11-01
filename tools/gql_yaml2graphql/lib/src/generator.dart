@@ -2,6 +2,7 @@
 
 import 'names.dart';
 import 'create_generator.dart';
+import 'function_generator.dart';
 import 'edit_generator.dart';
 import 'read_generator.dart';
 import 'schema_index.dart';
@@ -31,6 +32,7 @@ GenerationResult generateAll({
   final read = ReadGenerator(schema, log);
   final edit = EditGenerator(schema, log, read);
   final create = CreateGenerator(schema, log);
+  final function = FunctionGenerator(schema, log);
 
   for (final e in views.entries) {
     final name = e.key;
@@ -52,6 +54,10 @@ GenerationResult generateAll({
     if (kind == 'create' && name.endsWith('PageCreate')) {
       final text = create.generate(name, node);
       if (text != null) files['$dir/${dir}_create.graphql'] = text;
+    }
+    if (kind == 'function' && name.endsWith('PageCall')) {
+      final text = function.generate(name, node);
+      if (text != null) files['$dir/${dir}_call.graphql'] = text;
     }
     if (kind == 'edit' && name.endsWith('PageEdit')) {
       final r = edit.generate(name, node);

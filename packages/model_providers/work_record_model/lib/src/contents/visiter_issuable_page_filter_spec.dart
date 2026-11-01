@@ -8,6 +8,7 @@ import 'package:pms_graphql/pms_graphql.dart';
 abstract class VisiterIssuablePageFilterSpec {
   static const FlatFilterSpec spec = FlatFilterSpec('VVisiterIssuableFilter', {
     'transVisiterId': FlatFilterPath([], 'transVisiterId'),
+    'symbol': FlatFilterPath([], 'symbol'),
     'transContainerId': FlatFilterPath([], 'transContainerId'),
     'quantity': FlatFilterPath([], 'quantity'),
     'release': FlatFilterPath([], 'release'),
