@@ -37,7 +37,7 @@ cd apps\pms_app; flutter run -d windows          # アプリ起動
 - `packages/core/`: `baton_lib`(コマンドバス)、`feature_shared`(機能とアプリの仲介)、`settings_keeper`(ローカル設定の保存と復元)、`page_mediator_extension`(ページ用の拡張。データ取得・設定の保存・セッション確認の窓口)、`selection_result`(選択画面が返す選択の結果`Selection`。対象の種類・一意な id・表示名・追加の値。JSON の`encode`/`decode`でも受け渡せる)。
 - `packages/ui/`: UI基盤。`entity_screens`(実体の定義から台帳・編集の画面を作る)、`app_shell`(タイトルバー・サイドバー・ハンバーガー・ログインユーザーの枠)を含む。
 - `packages/model_providers/`: 機能ごとの GraphQL モデル(`xxx_model`)。下の「GraphQL モデル生成ルール」を参照。
-- `packages/infra/`(pms_graphql, logger_provider, data_test_harness), `packages/foundation/`(画面を持たない汎用部品)。
+- `packages/infra/`(pms_graphql, logger_provider, data_test_harness, pbapi), `packages/foundation/`(画面を持たない汎用部品)。
 
 ### baton_lib(コマンドバス)
 
@@ -54,6 +54,8 @@ cd apps\pms_app; flutter run -d windows          # アプリ起動
 ## 認証
 
 認証は PocketBase に切り替える。Keycloak を使う `packages/features/pms_authenticator` には、これ以上着手しない(アプリへの接続・テストの修正を含む)。導入までのログインは、仮のボタンで標準のユーザーに戻す。PocketBase の導入は、認証の窓口(`page_mediator_extension` の `IPageSessionMediator`)の実装として差し込む想定で、別の Issue で行う。
+
+PocketBase のクライアントは `packages/infra/pbapi`(公式 SDK の `pocketbase` を使う。新規登録・パスワード・ログイン/ログアウト・セッション確認・共有ファイル・個人ファイル)。トークンは秘密情報として扱い、保存先は `ITokenStore` で差し替える(本番は安全な保管庫)。接続先は `https`(ローカルのネットワークのみ `http` 可)。`IPageSessionMediator` への接続・画面は別の Issue。詳細は [packages/infra/pbapi/CLAUDE.md](packages/infra/pbapi/CLAUDE.md) を参照。
 
 ## バージョン管理
 
