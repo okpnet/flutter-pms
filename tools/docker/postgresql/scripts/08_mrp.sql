@@ -10,8 +10,15 @@
 --   D. マスタ点検      : v_mrp_master_issue / mrp_check_items / mrp_check_order_import / 計算列
 --   E. MRP計算         : mrp_run
 --   F. 確定・操作      : mrp_commit / mrp_execute / mrp_discard / mrp_set_decision / mrp_purge
---   G. 参照            : v_item_on_hand / mrp_equipment_load / v_resource_plan_coverage /
+--   G. 参照            : mrp_equipment_load / v_resource_plan_coverage /
 --                        v_mrp_purchase_plan / v_mrp_pending_suggestion
+--                        (v_item_on_hand / v_mrp_visiter_item ほか棚ビジターのビューは 06 側。claude/117_visiter_ledger_views.txt)
+--
+--   2026-11-01 在庫の数え方の変更 (claude/117_*):
+--     ・数量は棚ビジターだけが持つ (+入庫 / -出庫)。受入実績ビジター・作業実績ビジターは数量の無い中間テーブル
+--     ・受払実績は数量・受入区分を持たない (どの棚ビジターの行を作ったかだけ)
+--     ・在庫(ロット) = quantity > 0 かつ棚卸し調整でない行。今の数量 = ロットの数量 + 親として付いた出庫・棚卸しの行
+--     ・現在庫は v_item_on_hand.available_quantity (仮止め・未解除の異常のロットを除く)
 --
 --   06 の前提 (第4版):
 --     ・内製 / 購買: 購入品フラグ(mstr_item.catalog_item)と品目工程運用明細の有無で判定
@@ -844,14 +851,17 @@ END
 $$ LANGUAGE plpgsql VOLATILE;
 
 -- ---- 数量 -------------------------------------------------------------------
--- 資材計画ごとの払出済み数量 (引当予約 → 引当 → 受払実績(払出))
+-- 資材計画ごとの払出済み数量 (引当予約 → 引当 → 受払実績 → 出庫の行(-)の数量)
 CREATE OR REPLACE FUNCTION tests.mrp_issued(p_rp uuid) RETURNS numeric AS $$
-    SELECT COALESCE(SUM(cv.quantity), 0)
+    SELECT COALESCE(SUM(-v.quantity), 0)
     FROM tests.trans_inventory_request AS rq
     INNER JOIN tests.trans_inventory_apply AS ap
         ON ap.trans_inventory_request_id = rq.trans_inventory_request_id AND ap.remove IS FALSE
     INNER JOIN tests.trans_convey AS cv
-        ON cv.trans_convey_id = ap.convey_id AND cv.remove IS FALSE AND cv.receive IS NOT TRUE
+        ON cv.trans_convey_id = ap.convey_id AND cv.remove IS FALSE
+    INNER JOIN tests.trans_visiter AS v
+        ON v.trans_visiter_id = cv.trans_visiter_id AND v.remove IS FALSE
+       AND v.quantity < 0 AND v.adjustment IS NOT TRUE
     WHERE rq.trans_resource_plan_id = p_rp AND rq.remove IS FALSE;
 $$ LANGUAGE sql STABLE;
 
@@ -860,60 +870,6 @@ CREATE OR REPLACE FUNCTION tests.mrp_is_outsource_detail(p_pd uuid) RETURNS bool
     SELECT EXISTS (SELECT 1 FROM tests.trans_work_plan AS wp
                    WHERE wp.trans_purchase_detail_id = p_pd AND wp.remove IS FALSE);
 $$ LANGUAGE sql STABLE;
-
--- ---- 品目別現在庫 (棚ビジター → 受入実績・作業実績から品目を求める) --------------
---   受入(購買の発注明細)            → 在庫
---   作業実績・最終工程(sequence 最大) → 在庫(完成品)
---   作業実績・途中工程               → 仕掛品 (生産残で数えるので在庫に入れない)
---   外注加工の受入                   → 外注工程の作業実績で判定するので、ここでは数えない
---   品目が2種類以上の棚ビジター・紐づきの無い棚ビジターは数えない (マスタ点検で警告)
-CREATE OR REPLACE VIEW tests.v_mrp_visiter_item AS
-WITH origin AS (
-    SELECT prv.trans_visiter_id, pd.item_id, TRUE AS finished
-    FROM tests.trans_purchase_rec_visiter AS prv
-    INNER JOIN tests.trans_purchase_rec AS r
-        ON r.trans_purchase_rec_id = prv.trans_purchase_rec_id AND r.remove IS FALSE
-    INNER JOIN tests.trans_purchase_detail AS pd
-        ON pd.trans_purchase_detail_id = r.trans_purchase_detail_id
-    WHERE prv.remove IS FALSE
-      AND NOT EXISTS (SELECT 1 FROM tests.trans_work_plan AS w
-                      WHERE w.trans_purchase_detail_id = pd.trans_purchase_detail_id AND w.remove IS FALSE)
-    UNION ALL
-    SELECT wrv.trans_visiter_id, rp.item_id,
-           COALESCE(wp.sequence, 1) >= (SELECT MAX(COALESCE(w2.sequence, 1)) FROM tests.trans_work_plan AS w2
-                                        WHERE w2.trans_operations_plan_id = wp.trans_operations_plan_id AND w2.remove IS FALSE)
-    FROM tests.trans_work_record_visiter AS wrv
-    INNER JOIN tests.trans_work_record AS wr
-        ON wr.trans_work_record_id = wrv.trans_work_record_id AND wr.remove IS FALSE
-    INNER JOIN tests.trans_work_plan AS wp ON wp.trans_work_plan_id = wr.trans_work_plan_id
-    INNER JOIN tests.trans_operations_plan AS op ON op.trans_operations_plan_id = wp.trans_operations_plan_id
-    INNER JOIN tests.trans_resource_plan AS rp ON rp.trans_resource_plan_id = op.trans_resource_plan_id
-    WHERE wrv.remove IS FALSE
-)
-SELECT
-    v.trans_visiter_id
-    , MIN(o.item_id::text)::uuid AS item_id
-    , COUNT(DISTINCT o.item_id)::integer AS item_count
-    , COALESCE(BOOL_OR(o.finished), FALSE) AS finished
-    , v.quantity
-FROM tests.trans_visiter AS v
-INNER JOIN tests.trans_container AS c
-    ON c.trans_container_id = v.trans_container_id AND c.remove IS FALSE
-LEFT JOIN origin AS o ON o.trans_visiter_id = v.trans_visiter_id
-WHERE v.remove IS FALSE
-GROUP BY v.trans_visiter_id, v.quantity;
-COMMENT ON VIEW tests.v_mrp_visiter_item IS E'@primaryKey trans_visiter_id\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n棚ビジターの品目(在庫/仕掛)';
-
-CREATE OR REPLACE VIEW tests.v_item_on_hand AS
-SELECT
-    vi.item_id
-    , SUM(vi.quantity) AS on_hand_quantity
-    , COUNT(*)::integer AS visiter_count
-FROM tests.v_mrp_visiter_item AS vi
-WHERE vi.finished AND vi.item_count = 1 AND vi.item_id IS NOT NULL
-GROUP BY vi.item_id;
-COMMENT ON VIEW tests.v_item_on_hand IS E'@primaryKey item_id\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n品目別現在庫';
-
 
 -- ---- 内製・購買の選択に使う累積リードタイム(時間・目安) -----------------------------
 --   購買 = デリバリータイム ＋ 標準検品時間 (第一仕入先。仕入先が無ければ NULL)
@@ -1196,11 +1152,57 @@ FROM issues AS x
 UNION ALL
 -- 棚ビジターの品目が決まらない
 SELECT md5(concat_ws('|', 'VISITER_ORIGIN_INVALID', vi.trans_visiter_id)), vi.item_id, NULL, 'VISITER_ORIGIN_INVALID', 2::smallint,
-       CASE WHEN vi.item_count = 0 THEN '受入実績・作業実績のどちらにも紐づかない棚ビジターです(在庫に数えません)'
+       CASE WHEN vi.item_count = 0 THEN '受入実績・作業実績のどちらにも紐づかない在庫です(分割元にも無い。在庫に数えません)'
             ELSE '紐づく品目が2種類以上の棚ビジターです(在庫に数えません)' END,
        'trans_visiter', vi.trans_visiter_id
 FROM tests.v_mrp_visiter_item AS vi
 WHERE vi.item_count <> 1
+UNION ALL
+-- 仮止めなのに異常が1件も登録されていない (異常の登録を促す)
+SELECT md5(concat_ws('|', 'VISITER_HOLD_NO_COMPLAINT', hw.trans_visiter_id)), vi.item_id, NULL, 'VISITER_HOLD_NO_COMPLAINT', 2::smallint,
+       ('仮止め(入出庫許可なし)の棚ビジターに異常が登録されていません(数量 ' || COALESCE(hw.quantity, 0)::text || ')。異常を登録してください')::varchar,
+       'trans_visiter', hw.trans_visiter_id
+FROM tests.v_visiter_hold_without_complaint AS hw
+LEFT JOIN tests.v_mrp_visiter_item AS vi ON vi.trans_visiter_id = hw.trans_visiter_id
+UNION ALL
+-- 棚ビジターの行の不備 (出しすぎ・親の無い出庫・棚の違い など)
+SELECT md5(concat_ws('|', 'VISITER_LEDGER', li.trans_visiter_id, li.issue_kind)), vi.item_id, NULL,
+       ('VISITER_' || upper(li.issue_kind))::varchar,
+       CASE WHEN li.issue_kind IN ('negative_balance', 'orphan_line', 'invalid_parent') THEN 1 ELSE 2 END::smallint,
+       (CASE li.issue_kind
+            WHEN 'negative_balance' THEN '在庫の今の数量がマイナスです(' || li.balance::text || ')。出庫の行を見直すか、棚卸しで調整してください'
+            WHEN 'orphan_line' THEN '出庫・棚卸しの行(' || li.row_quantity::text || ')の親が在庫の行ではありません'
+            WHEN 'invalid_parent' THEN '分割・移動で作った在庫の親が在庫の行ではありません'
+            WHEN 'container_mismatch' THEN '出庫・棚卸しの行の棚が、親の在庫の棚と違います'
+            ELSE '数量0の行です' END)::varchar,
+       'trans_visiter', li.trans_visiter_id
+FROM tests.v_visiter_ledger_issue AS li
+LEFT JOIN tests.v_mrp_visiter_item AS vi
+    ON vi.trans_visiter_id = COALESCE(CASE WHEN li.issue_kind = 'negative_balance' THEN li.trans_visiter_id END, li.parent_trans_visiter_id)
+UNION ALL
+-- 受入実績・作業実績の数量と、棚ビジターへの紐づき(分割した数量)の合計が一致しない
+SELECT md5(concat_ws('|', 'VISITER_ORIGIN_MISMATCH', oc.origin_kind, oc.origin_id)), NULL::uuid, NULL, 'VISITER_ORIGIN_MISMATCH', 2::smallint,
+       (CASE WHEN oc.origin_kind = 'purchase_rec' THEN '受入実績' ELSE '作業実績' END
+        || 'の数量 ' || oc.record_quantity::text || ' と棚ビジター(入庫の行)の合計 ' || oc.visiter_quantity::text
+        || ' が一致しません(差 ' || oc.difference::text || '、棚ビジター ' || oc.visiter_count::text || ' 件)')::varchar,
+       ('trans_' || oc.origin_kind)::varchar, oc.origin_id
+FROM tests.v_visiter_origin_check AS oc
+UNION ALL
+-- 異常の対象(受入実績・作業実績)から作られた棚ビジターに、その異常が付いていない (登録漏れ)
+--   取り出せる状態のものはエラー、保留中・払出済みは警告 (払出済みは流出先の確認が必要)
+SELECT md5(concat_ws('|', 'VISITER_COMPLAINT_MISSING', tv.complaint_target_visiter_key)), vi.item_id, NULL, 'VISITER_COMPLAINT_MISSING',
+       CASE WHEN tv.visiter_status = 'issuable' THEN 1 ELSE 2 END::smallint,
+       (CASE WHEN tv.target_kind = 'purchase_rec' THEN '受入異常' ELSE '作業異常' END
+        || 'の対象から作られた棚ビジターに異常が付いていません('
+        || CASE tv.visiter_status WHEN 'issuable' THEN '取り出せる状態です。異常を付けて止めてください'
+                                  WHEN 'held' THEN '保留中です。異常を付けてください'
+                                  ELSE '払出済みです。払出先を確認してください' END || ')')::varchar,
+       'trans_visiter', tv.trans_visiter_id
+FROM tests.v_complaint_target_visiter AS tv
+LEFT JOIN tests.v_mrp_visiter_item AS vi ON vi.trans_visiter_id = tv.trans_visiter_id
+WHERE tv.target_kind IN ('purchase_rec', 'work_record')
+  AND tv.trans_visiter_id IS NOT NULL
+  AND NOT tv.linked
 UNION ALL
 SELECT md5('CALENDAR_NOT_SET'), NULL, NULL, 'CALENDAR_NOT_SET', 3::smallint,
        '今後60日の稼働カレンダーが未登録です(月〜金 8h で計算します)', 'mstr_work_calendar', NULL
@@ -1593,8 +1595,9 @@ BEGIN
     ) ON COMMIT DROP;
 
     INSERT INTO _mrp_sup (item_id, kind, qty, avail_at)
-    SELECT oh.item_id, 1, oh.on_hand_quantity, '-infinity'::timestamp
-    FROM tests.v_item_on_hand AS oh WHERE oh.on_hand_quantity > 0;
+    -- 現在庫 = 使える量 (仮止め・未解除の異常のロットは数えない。解除されれば次の再MRPで使われる)
+    SELECT oh.item_id, 1, oh.available_quantity, '-infinity'::timestamp
+    FROM tests.v_item_on_hand AS oh WHERE oh.available_quantity > 0;
 
     -- 発注残 (外注加工の発注明細 = 生産計画明細から参照されるものは品目の供給ではない)
     --   使える日時 = 納期 ＋ その仕入先の標準検品時間
@@ -2609,6 +2612,7 @@ BEGIN
         OR EXISTS (SELECT 1 FROM tests.trans_work_record WHERE update_at > v_run.run_at)
         OR EXISTS (SELECT 1 FROM tests.trans_resource_plan WHERE update_at > v_run.run_at)
         OR EXISTS (SELECT 1 FROM tests.trans_visiter WHERE update_at > v_run.run_at)
+        OR EXISTS (SELECT 1 FROM tests.trans_complaint_visiter WHERE update_at > v_run.run_at)
         OR EXISTS (SELECT 1 FROM tests.mstr_item_lot WHERE update_at > v_run.run_at)
         OR EXISTS (SELECT 1 FROM tests.mstr_item_tree WHERE update_at > v_run.run_at)
         OR EXISTS (SELECT 1 FROM tests.mstr_item_operation_task WHERE update_at > v_run.run_at)

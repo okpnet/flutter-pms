@@ -1,5 +1,5 @@
 -- =====================================================================
--- 09_mrp_dummy.sql
+-- 10_mrp_dummy.sql
 -- MRPを実行する直前までのダミーデータ (マスタ・受注・非計上・在庫・発注残)
 --
 -- ■ 実行順   06_cteate_test.sql → 08_mrp.sql → 本ファイル
@@ -402,7 +402,8 @@ END $$;
 
 -- ---------------------------------------------------------------------
 -- 11. 現在庫 (受入済みの発注) と 発注残
---     在庫は 発注 → 発注明細 → 受入実績 → 受入棚ビジター → 棚ビジター(コンテナ) から求められる
+--     在庫は 発注 → 発注明細 → 受入実績 → 受入実績ビジター(中間テーブル) → 棚ビジター(コンテナ) から求められる
+--     数量は棚ビジターだけが持つ (+入庫)。受入実績ビジターには数量を持たせない (2026-11-01 claude/117_*)
 -- ---------------------------------------------------------------------
 DO $$
 DECLARE r record; po uuid; pd uuid; rc uuid; ct uuid; vs uuid; lb uuid;
@@ -429,10 +430,11 @@ BEGIN
         IF r.rec IS NOT NULL THEN
             INSERT INTO tests.trans_purchase_rec (trans_purchase_detail_id, receive_at, quantity)
             VALUES (pd, current_date + r.due, r.rec) RETURNING trans_purchase_rec_id INTO rc;
+            -- 入庫の行 (+)。親なし = 在庫(ロット)の始まり
             INSERT INTO tests.trans_visiter (trans_container_id, quantity) VALUES (ct, r.rec)
             RETURNING trans_visiter_id INTO vs;
-            INSERT INTO tests.trans_purchase_rec_visiter (trans_purchase_rec_id, trans_visiter_id, quantity)
-            VALUES (rc, vs, r.rec);
+            INSERT INTO tests.trans_purchase_rec_visiter (trans_purchase_rec_id, trans_visiter_id)
+            VALUES (rc, vs);
         END IF;
     END LOOP;
 END $$;

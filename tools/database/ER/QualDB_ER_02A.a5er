@@ -1260,7 +1260,7 @@ Fields2=trans_purchase_detail_id
 Cardinarity1=
 Cardinarity2=
 Position="トラザクション",0,9428,5611,4204,R,R,""
-Position="作業トランザクション",0,2601,7399,2428,R,R,""
+Position="作業トランザクション",0,2601,7399,2268,R,R,""
 Dependence=0
 Caption=
 PName=
@@ -1396,19 +1396,18 @@ Left=5300
 Top=2900
 Field="受払ID","trans_convey_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="棚ビジターID","trans_visiter_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="受入","receive","*@BOOL","NOT NULL",,"\qt\q","",$FFFFFFFF,""
 Field="受払日時","convey_at","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
-Field="受払数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="場所履歴ID","location_history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="場所ID","location_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="作業担当者履歴ID","staff_history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="作業担当者ID","staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="調整","adjustment","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261014110541
+ModifiedDateTime=20261101134240
 Position="作業トランザクション",5300,2900
 ZOrder=133
 
@@ -1615,12 +1614,14 @@ Field="棚ビジターID","trans_visiter_id","*@UUID","NOT NULL",0,"gen_random_u
 Field="コンテナID","trans_container_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="入出庫許可","release","*@BOOL","NOT NULL",,"\qt\q","",$FFFFFFFF,""
 Field="数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
+Field="調整区分","adjustment","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
+Field="出庫分割元","parent_trans_visiter_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261101103543
+ModifiedDateTime=20261101141436
 Position="作業トランザクション",3400,2900
 ZOrder=193
 
@@ -1659,13 +1660,12 @@ Top=3000
 Field="受入実績ビジターID","trans_purchase_rec_visiter_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="受入実績ID","trans_purchase_rec_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="棚ビジターID","trans_visiter_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261017092806
+ModifiedDateTime=20261101134131
 Position="作業トランザクション",1350,3000
 ZOrder=195
 
@@ -1703,13 +1703,12 @@ Top=2100
 Field="作業実績ビジターID","trans_work_record_visiter_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="棚ビジターID","trans_visiter_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="作業実績ID","trans_work_record_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260918222107
+ModifiedDateTime=20261101134138
 Position="作業トランザクション",3200,2100
 ZOrder=199
 
@@ -3163,7 +3162,7 @@ Fields2=trans_purchase_rec_id
 Cardinarity1=
 Cardinarity2=
 Position="トラザクション",0,7096,4449,2467,R,R,""
-Position="作業トランザクション",0,2579,7421,2601,R,R,""
+Position="作業トランザクション",0,4490,7421,2601,R,R,""
 Dependence=0
 Caption=
 PName=
@@ -9681,7 +9680,7 @@ Fields2=update_user_history_id,update_user_id
 Cardinarity1=
 Cardinarity2=
 Position="インフォメーションー人",0,9500,500,4035,R,R,""
-Position="作業トランザクション",0,2601,7399,500,R,R,""
+Position="作業トランザクション",0,2601,7399,809,R,R,""
 Dependence=0
 Caption=auto create.
 PName=
@@ -10768,7 +10767,7 @@ TableInnerOption=
 TableOption=
 Page=作業トランザクション
 Left=3350
-Top=3500
+Top=3650
 Field="コンテナID","trans_container_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="コンテナ名称","names","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
@@ -10779,7 +10778,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20261014093354
-Position="作業トランザクション",3350,3500
+Position="作業トランザクション",3350,3650
 ZOrder=800
 
 [Entity]
@@ -22852,16 +22851,156 @@ Top=200
 [View]
 PName=v_shelf_inventory_status
 LName=棚在庫状況
-Comment=-- 6. 棚在庫状況\n-- フィルタ: 受入実績(trans_purchase_rec_ids ※配列), 受け払い実績(trans_convey_ids ※配列),\n--           作業実績(trans_work_record_ids ※配列), 状態(status), 数量(quantity), コンテナID(trans_container_id)\n-- 粒度: 棚ビジター 1件につき1行\n-- 受入実績・受払実績・作業実績は棚ビジターに対して複数件紐づくため、行の重複を避けて配列で保持する\n-- (connection-filter の anyEqualTo 等で絞り込む。有無は *_count > 0 で判定可能)\n-- Postgraphile additional comment.\nCOMMENT ON VIEW @schema.v_shelf_inventory_status IS E\q@primaryKey trans_visiter_id\\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\\n@foreignKey (mstr_location_id) references mstr_location (mstr_location_id)\\n棚在庫状況\q;\n
-Query=SELECT\n    v.trans_visiter_id\n    , v.trans_container_id\n    , c.mstr_location_id\n    , v.release\n    , v.quantity\n    , COALESCE(pr.trans_purchase_rec_ids, ARRAY[]::UUID[]) AS trans_purchase_rec_ids\n    , COALESCE(pr.purchase_rec_count, 0) AS purchase_rec_count\n    , COALESCE(pr.purchase_rec_quantity, 0) AS purchase_rec_quantity\n    , COALESCE(cv.trans_convey_ids, ARRAY[]::UUID[]) AS trans_convey_ids\n    , COALESCE(cv.convey_count, 0) AS convey_count\n    , COALESCE(cv.receive_quantity, 0) AS convey_receive_quantity\n    , COALESCE(cv.issue_quantity, 0) AS convey_issue_quantity\n    , cv.last_convey_at\n    , COALESCE(wr.trans_work_record_ids, ARRAY[]::UUID[]) AS trans_work_record_ids\n    , COALESCE(wr.work_record_count, 0) AS work_record_count\n    , COALESCE(wr.work_record_quantity, 0) AS work_record_quantity\nFROM\n    @schema.trans_visiter AS v\n    INNER JOIN @schema.trans_container AS c\n        ON c.trans_container_id = v.trans_container_id\n        AND c.remove IS FALSE\n    LEFT JOIN LATERAL (\n        SELECT\n            ARRAY_AGG(prv.trans_purchase_rec_id ORDER BY prv.trans_purchase_rec_id) AS trans_purchase_rec_ids\n            , COUNT(prv.trans_purchase_rec_visiter_id) AS purchase_rec_count\n            , SUM(prv.quantity) AS purchase_rec_quantity\n        FROM\n            @schema.trans_purchase_rec_visiter AS prv\n            INNER JOIN @schema.trans_purchase_rec AS r\n                ON r.trans_purchase_rec_id = prv.trans_purchase_rec_id\n                AND r.remove IS FALSE\n        WHERE\n            prv.trans_visiter_id = v.trans_visiter_id\n            AND prv.remove IS FALSE\n    ) AS pr\n        ON TRUE\n    LEFT JOIN LATERAL (\n        SELECT\n            ARRAY_AGG(cn.trans_convey_id ORDER BY cn.convey_at, cn.trans_convey_id) AS trans_convey_ids\n            , COUNT(cn.trans_convey_id) AS convey_count\n            , SUM(cn.quantity) FILTER (WHERE cn.receive IS TRUE) AS receive_quantity\n            , SUM(cn.quantity) FILTER (WHERE cn.receive IS NOT TRUE) AS issue_quantity\n            , MAX(cn.convey_at) AS last_convey_at\n        FROM\n            @schema.trans_convey AS cn\n        WHERE\n            cn.trans_visiter_id = v.trans_visiter_id\n            AND cn.remove IS FALSE\n    ) AS cv\n        ON TRUE\n    LEFT JOIN LATERAL (\n        SELECT\n            ARRAY_AGG(wrv.trans_work_record_id ORDER BY wrv.trans_work_record_id) AS trans_work_record_ids\n            , COUNT(wrv.trans_work_record_visiter_id) AS work_record_count\n            , SUM(wrv.quantity) AS work_record_quantity\n        FROM\n            @schema.trans_work_record_visiter AS wrv\n            INNER JOIN @schema.trans_work_record AS w\n                ON w.trans_work_record_id = wrv.trans_work_record_id\n                AND w.remove IS FALSE\n        WHERE\n            wrv.trans_visiter_id = v.trans_visiter_id\n            AND wrv.remove IS FALSE\n    ) AS wr\n        ON TRUE\nWHERE\n    v.remove IS FALSE\n\n
+Comment=-- Postgraphile additional comment.\nCOMMENT ON VIEW @schema.v_shelf_inventory_status IS E\q@primaryKey trans_visiter_id\\n@unique symbol\\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@foreignKey (parent_trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\\n@foreignKey (mstr_location_id) references mstr_location (mstr_location_id)\\n棚在庫状況\q;
+Query=-- 6. 棚在庫状況 (2026-11-01 改訂: 数量は棚ビジターだけ。1行 = 在庫(ロット) 1件)\n-- フィルタ: 受入実績(trans_purchase_rec_ids ※配列・分割元を含む), 作業実績(trans_work_record_ids ※配列・分割元を含む),\n--           投入先の作業実績(consumed_work_record_ids ※配列), 受払実績(trans_convey_ids ※配列),\n--           入出庫許可(release), 今の数量(quantity), コンテナID(trans_container_id), 場所ID(mstr_location_id)\nSELECT\n    l.trans_visiter_id\n    , l.symbol\n    , l.parent_trans_visiter_id\n    , l.root_visiter_id\n    , l.trans_container_id\n    , l.mstr_location_id\n    , l.release\n    , l.quantity\n    , l.receipt_quantity\n    , l.issue_quantity\n    , l.adjustment_quantity\n    , l.line_count\n    , l.split_count\n    , l.open_complaint_count\n    , COALESCE(pr.ids, ARRAY[]::uuid[]) AS trans_purchase_rec_ids\n    , COALESCE(pr.n, 0)::integer AS purchase_rec_count\n    , COALESCE(wr.ids, ARRAY[]::uuid[]) AS trans_work_record_ids\n    , COALESCE(wr.n, 0)::integer AS work_record_count\n    , COALESCE(us.ids, ARRAY[]::uuid[]) AS consumed_work_record_ids\n    , COALESCE(us.n, 0)::integer AS consumed_work_record_count\n    , COALESCE(cv.ids, ARRAY[]::uuid[]) AS trans_convey_ids\n    , COALESCE(cv.n, 0)::integer AS convey_count\n    , cv.last_at AS last_convey_at\nFROM @schema.v_visiter_lot AS l\nINNER JOIN @schema.trans_container AS c\n    ON c.trans_container_id = l.trans_container_id AND c.remove IS FALSE\nLEFT JOIN LATERAL (\n    SELECT ARRAY_AGG(DISTINCT prv.trans_purchase_rec_id) AS ids, COUNT(DISTINCT prv.trans_purchase_rec_id) AS n\n    FROM @schema.v_visiter_lineage AS lg\n    INNER JOIN @schema.trans_purchase_rec_visiter AS prv\n        ON prv.trans_visiter_id = lg.ancestor_visiter_id AND prv.remove IS FALSE\n    INNER JOIN @schema.trans_purchase_rec AS r\n        ON r.trans_purchase_rec_id = prv.trans_purchase_rec_id AND r.remove IS FALSE\n    WHERE lg.trans_visiter_id = l.trans_visiter_id\n) AS pr ON TRUE\nLEFT JOIN LATERAL (\n    SELECT ARRAY_AGG(DISTINCT wrv.trans_work_record_id) AS ids, COUNT(DISTINCT wrv.trans_work_record_id) AS n\n    FROM @schema.v_visiter_lineage AS lg\n    INNER JOIN @schema.trans_work_record_visiter AS wrv\n        ON wrv.trans_visiter_id = lg.ancestor_visiter_id AND wrv.remove IS FALSE\n    INNER JOIN @schema.trans_work_record AS w\n        ON w.trans_work_record_id = wrv.trans_work_record_id AND w.remove IS FALSE\n    WHERE lg.trans_visiter_id = l.trans_visiter_id\n) AS wr ON TRUE\nLEFT JOIN LATERAL (\n    -- この在庫から材料として投入した作業実績 (出庫の行につながる作業実績)\n    SELECT ARRAY_AGG(DISTINCT wrv.trans_work_record_id) AS ids, COUNT(DISTINCT wrv.trans_work_record_id) AS n\n    FROM @schema.trans_visiter AS r\n    INNER JOIN @schema.trans_work_record_visiter AS wrv\n        ON wrv.trans_visiter_id = r.trans_visiter_id AND wrv.remove IS FALSE\n    INNER JOIN @schema.trans_work_record AS w\n        ON w.trans_work_record_id = wrv.trans_work_record_id AND w.remove IS FALSE\n    WHERE r.parent_trans_visiter_id = l.trans_visiter_id AND r.remove IS FALSE AND r.quantity < 0\n) AS us ON TRUE\nLEFT JOIN LATERAL (\n    -- この在庫の行と、その出庫・棚卸しの行の受払実績\n    SELECT ARRAY_AGG(cn.trans_convey_id ORDER BY cn.convey_at, cn.trans_convey_id) AS ids, COUNT(*) AS n, MAX(cn.convey_at) AS last_at\n    FROM @schema.trans_convey AS cn\n    INNER JOIN @schema.trans_visiter AS r\n        ON r.trans_visiter_id = cn.trans_visiter_id AND r.remove IS FALSE\n    WHERE cn.remove IS FALSE\n      AND (r.trans_visiter_id = l.trans_visiter_id\n           OR (r.parent_trans_visiter_id = l.trans_visiter_id AND (r.quantity < 0 OR r.adjustment IS TRUE)))\n) AS cv ON TRUE
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="カスタムビュー",350,600
-ZOrder=1438
-Page=カスタムビュー
-Left=350
-Top=600
+Position="ビュー",550,350
+ZOrder=1440
+Page=ビュー
+Left=1900
+Top=1300
+
+[View]
+PName=v_complaint_target
+LName=異常－異常の対象
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_complaint_target is E\q@primaryKey target_link_id\\n@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\\n@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)\\n@foreignKey (trans_work_record_id) references trans_work_record (trans_work_record_id)\\n異常の対象\q;
+Query=SELECT\n    t.target_link_id\n    , t.trans_complaint_id\n    , t.complaint_symbol\n    , t.target_kind\n    , t.trans_purchase_rec_id\n    , t.trans_work_record_id\n    , t.complaint_quantity\n    , COUNT(t.trans_visiter_id)::integer AS visiter_count\n    , COALESCE(SUM(t.visiter_quantity), 0) AS visiter_quantity\n    , COUNT(*) FILTER (WHERE t.linked)::integer AS linked_count\n    , COUNT(*) FILTER (WHERE t.linked AND t.release_at IS NULL)::integer AS open_count\n    , COUNT(*) FILTER (WHERE t.trans_visiter_id IS NOT NULL AND NOT t.linked)::integer AS missing_count\n    , COUNT(*) FILTER (WHERE t.trans_visiter_id IS NOT NULL AND NOT t.linked AND t.visiter_status = \qissuable\q)::integer AS missing_issuable_count\n    , COUNT(*) FILTER (WHERE t.trans_visiter_id IS NOT NULL AND NOT t.linked AND t.visiter_status = \qempty\q)::integer AS missing_empty_count\nFROM @schema.v_complaint_target_visiter AS t\nGROUP BY t.target_link_id, t.trans_complaint_id, t.complaint_symbol, t.target_kind, t.trans_purchase_rec_id, t.trans_work_record_id, t.complaint_quantity
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",550,350
+ZOrder=1441
+Page=ビュー
+Left=1910
+Top=1310
+
+[View]
+PName=v_complaint_target_visiter
+LName=異常－異常の対象と棚ビジター
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_complaint_target_visiter is E\q@primaryKey complaint_target_visiter_key\\n@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\\n@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)\\n@foreignKey (trans_work_record_id) references trans_work_record (trans_work_record_id)\\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@foreignKey (trans_complaint_visiter_id) references trans_complaint_visiter (trans_complaint_visiter_id)\\n異常の対象と棚ビジター\q;
+Query=WITH tgt AS (\n    SELECT t.trans_complaint_id, \qpurchase_rec\q::varchar(16) AS target_kind, t.trans_complaint_purchase_rec_id AS target_link_id,\n           t.trans_purchase_rec_id, NULL::uuid AS trans_work_record_id, NULL::uuid AS target_visiter_id, t.quantity AS complaint_quantity\n    FROM @schema.trans_complaint_purchase_rec AS t\n    WHERE t.remove IS FALSE\n    UNION ALL\n    SELECT t.trans_complaint_id, \qwork_record\q, t.trans_complaint_work_id,\n           NULL::uuid, t.trans_work_record_id, NULL::uuid, t.quantity\n    FROM @schema.trans_complaint_work AS t\n    WHERE t.remove IS FALSE\n    UNION ALL\n    SELECT t.trans_complaint_id, \qvisiter\q, t.trans_complaint_visiter_id,\n           NULL::uuid, NULL::uuid, t.trans_visiter_id, t.quantity\n    FROM @schema.trans_complaint_visiter AS t\n    WHERE t.remove IS FALSE\n), src AS (\n    -- 異常の対象から直接作られた在庫\n    SELECT tg.target_link_id, prv.trans_visiter_id\n    FROM tgt AS tg\n    INNER JOIN @schema.trans_purchase_rec_visiter AS prv\n        ON prv.trans_purchase_rec_id = tg.trans_purchase_rec_id AND prv.remove IS FALSE\n    WHERE tg.target_kind = \qpurchase_rec\q\n    UNION\n    SELECT tg.target_link_id, wrv.trans_visiter_id\n    FROM tgt AS tg\n    INNER JOIN @schema.trans_work_record_visiter AS wrv\n        ON wrv.trans_work_record_id = tg.trans_work_record_id AND wrv.remove IS FALSE\n    INNER JOIN @schema.trans_visiter AS v\n        ON v.trans_visiter_id = wrv.trans_visiter_id AND v.quantity > 0\n    WHERE tg.target_kind = \qwork_record\q\n    UNION\n    SELECT tg.target_link_id, tg.target_visiter_id\n    FROM tgt AS tg\n    WHERE tg.target_kind = \qvisiter\q\n), dv AS (\n    -- その在庫と、そこから分割・移動して作った在庫\n    SELECT DISTINCT s.target_link_id, lg.trans_visiter_id\n    FROM src AS s\n    INNER JOIN @schema.v_visiter_lineage AS lg ON lg.ancestor_visiter_id = s.trans_visiter_id\n)\nSELECT\n    md5(concat_ws(\q|\q, tg.target_kind, tg.target_link_id, iss.trans_visiter_id)) AS complaint_target_visiter_key\n    , tg.trans_complaint_id\n    , cp.symbol AS complaint_symbol\n    , tg.target_kind\n    , tg.target_link_id\n    , tg.trans_purchase_rec_id\n    , tg.trans_work_record_id\n    , tg.complaint_quantity\n    , iss.trans_visiter_id\n    , iss.symbol AS visiter_symbol\n    , iss.quantity AS visiter_quantity\n    , iss.release\n    , lk.trans_complaint_visiter_id\n    , (lk.trans_complaint_visiter_id IS NOT NULL) AS linked\n    , lk.release_at\n    , (CASE\n           WHEN iss.trans_visiter_id IS NULL THEN NULL\n           WHEN iss.quantity <= 0 THEN \qempty\q\n           WHEN NOT iss.issuable THEN \qheld\q\n           ELSE \qissuable\q\n       END)::varchar(16) AS visiter_status\nFROM tgt AS tg\nINNER JOIN @schema.trans_complaint AS cp\n    ON cp.trans_complaint_id = tg.trans_complaint_id AND cp.remove IS FALSE\nLEFT JOIN dv ON dv.target_link_id = tg.target_link_id\nLEFT JOIN @schema.v_visiter_issuable AS iss\n    ON iss.trans_visiter_id = dv.trans_visiter_id\nLEFT JOIN LATERAL (\n    -- 同じ異常が、自分か分割元に付いているか\n    SELECT cv.trans_complaint_visiter_id, cv.release_at\n    FROM @schema.v_visiter_lineage AS lg\n    INNER JOIN @schema.trans_complaint_visiter AS cv\n        ON cv.trans_visiter_id = lg.ancestor_visiter_id\n       AND cv.trans_complaint_id = tg.trans_complaint_id AND cv.remove IS FALSE\n    WHERE lg.trans_visiter_id = iss.trans_visiter_id\n    ORDER BY cv.release_at NULLS FIRST, lg.depth\n    LIMIT 1\n) AS lk ON TRUE\nWHERE dv.trans_visiter_id IS NULL OR iss.trans_visiter_id IS NOT NULL
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",550,350
+ZOrder=1442
+Page=ビュー
+Left=1920
+Top=1320
+
+[View]
+PName=v_visiter_origin_check
+LName=入庫数量不一致(受入実績・作業実績)
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_visiter_origin_check is E\q@primaryKey origin_kind,origin_id\\n@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)\\n@foreignKey (trans_work_record_id) references trans_work_record (trans_work_record_id)\\n入庫数量不一致(受入実績・作業実績)\q;
+Query=SELECT\n    x.origin_kind\n    , x.origin_id\n    , x.origin_symbol\n    , x.trans_purchase_rec_id\n    , x.trans_work_record_id\n    , x.record_quantity\n    , x.visiter_quantity\n    , x.record_quantity - x.visiter_quantity AS difference\n    , x.visiter_count\nFROM (\n    SELECT\n        \qpurchase_rec\q::varchar(16) AS origin_kind\n        , r.trans_purchase_rec_id AS origin_id\n        , r.symbol AS origin_symbol\n        , r.trans_purchase_rec_id\n        , NULL::uuid AS trans_work_record_id\n        , COALESCE(r.quantity, 0) AS record_quantity\n        , COALESCE(lt.q, 0) AS visiter_quantity\n        , COALESCE(lt.n, 0)::integer AS visiter_count\n    FROM @schema.trans_purchase_rec AS r\n    LEFT JOIN LATERAL (\n        SELECT SUM(v.quantity) AS q, COUNT(*) AS n\n        FROM @schema.trans_purchase_rec_visiter AS prv\n        INNER JOIN @schema.trans_visiter AS v\n            ON v.trans_visiter_id = prv.trans_visiter_id AND v.remove IS FALSE\n           AND v.quantity > 0 AND v.adjustment IS NOT TRUE\n        WHERE prv.trans_purchase_rec_id = r.trans_purchase_rec_id AND prv.remove IS FALSE\n    ) AS lt ON TRUE\n    WHERE r.remove IS FALSE\n    UNION ALL\n    SELECT\n        \qwork_record\q\n        , w.trans_work_record_id\n        , w.symbol\n        , NULL::uuid\n        , w.trans_work_record_id\n        , COALESCE(w.qty, 0)\n        , COALESCE(lt.q, 0)\n        , COALESCE(lt.n, 0)::integer\n    FROM @schema.trans_work_record AS w\n    LEFT JOIN LATERAL (\n        SELECT SUM(v.quantity) AS q, COUNT(*) AS n\n        FROM @schema.trans_work_record_visiter AS wrv\n        INNER JOIN @schema.trans_visiter AS v\n            ON v.trans_visiter_id = wrv.trans_visiter_id AND v.remove IS FALSE\n           AND v.quantity > 0 AND v.adjustment IS NOT TRUE\n        WHERE wrv.trans_work_record_id = w.trans_work_record_id AND wrv.remove IS FALSE\n    ) AS lt ON TRUE\n    WHERE w.remove IS FALSE\n) AS x\nWHERE x.record_quantity <> x.visiter_quantity
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",550,350
+ZOrder=1443
+Page=ビュー
+Left=1930
+Top=1330
+
+[View]
+PName=v_visiter_ledger_issue
+LName=棚ビジター－行の不備
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_visiter_ledger_issue is E\q@primaryKey trans_visiter_id,issue_kind\\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@foreignKey (parent_trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\\n棚ビジターの行の不備\q;
+Query=-- negative_balance  : 在庫の今の数量がマイナス(出しすぎ)\n-- orphan_line       : 出庫・棚卸しの行の親が無い、または親が在庫の行ではない\n-- invalid_parent    : 分割・移動で作った在庫の親が在庫の行ではない\n-- container_mismatch: 出庫・棚卸しの行の棚が、親の在庫の棚と違う\n-- zero_line         : 数量0の行\nSELECT\n    l.trans_visiter_id\n    , l.symbol\n    , \qnegative_balance\q::varchar(32) AS issue_kind\n    , l.receipt_quantity AS row_quantity\n    , l.quantity AS balance\n    , l.parent_trans_visiter_id\n    , l.trans_container_id\nFROM @schema.v_visiter_lot AS l\nWHERE l.quantity < 0\nUNION ALL\nSELECT\n    r.trans_visiter_id\n    , r.symbol\n    , (CASE\n           WHEN r.quantity = 0 THEN \qzero_line\q\n           WHEN r.quantity > 0 AND r.adjustment IS NOT TRUE THEN \qinvalid_parent\q\n           WHEN p.trans_visiter_id IS NULL OR p.quantity <= 0 OR p.adjustment IS TRUE THEN \qorphan_line\q\n           ELSE \qcontainer_mismatch\q\n       END)::varchar(32)\n    , r.quantity\n    , NULL::decimal(10,2)\n    , r.parent_trans_visiter_id\n    , r.trans_container_id\nFROM @schema.trans_visiter AS r\nLEFT JOIN @schema.trans_visiter AS p\n    ON p.trans_visiter_id = r.parent_trans_visiter_id AND p.remove IS FALSE\nWHERE r.remove IS FALSE\n  AND (\n        r.quantity = 0\n     OR ((r.quantity < 0 OR r.adjustment IS TRUE)\n         AND (p.trans_visiter_id IS NULL OR p.quantity <= 0 OR p.adjustment IS TRUE\n              OR p.trans_container_id IS DISTINCT FROM r.trans_container_id))\n     OR (r.quantity > 0 AND r.adjustment IS NOT TRUE AND r.parent_trans_visiter_id IS NOT NULL\n         AND (p.trans_visiter_id IS NULL OR p.quantity <= 0 OR p.adjustment IS TRUE))\n  )
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",550,350
+ZOrder=1444
+Page=ビュー
+Left=1940
+Top=1340
+
+[View]
+PName=v_visiter_hold_without_complaint
+LName=棚ビジター－異常の登録が無い仮止め
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_visiter_hold_without_complaint is E\q@primaryKey trans_visiter_id\\n@unique symbol\\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\\n@foreignKey (mstr_location_id) references mstr_location (mstr_location_id)\\n異常の登録が無い仮止め\q;
+Query=SELECT\n    l.trans_visiter_id\n    , l.symbol\n    , l.trans_container_id\n    , l.mstr_location_id\n    , l.quantity\n    , v.update_at AS hold_at\n    , v.update_user_id\nFROM @schema.v_visiter_lot AS l\nINNER JOIN @schema.trans_visiter AS v\n    ON v.trans_visiter_id = l.trans_visiter_id\nWHERE l.release IS NOT TRUE\n  AND NOT EXISTS (\n      SELECT 1\n      FROM @schema.v_visiter_lineage AS lg\n      INNER JOIN @schema.trans_complaint_visiter AS cv\n          ON cv.trans_visiter_id = lg.ancestor_visiter_id AND cv.remove IS FALSE\n      INNER JOIN @schema.trans_complaint AS cp\n          ON cp.trans_complaint_id = cv.trans_complaint_id AND cp.remove IS FALSE\n      WHERE lg.trans_visiter_id = l.trans_visiter_id\n  )
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",550,350
+ZOrder=1445
+Page=ビュー
+Left=1950
+Top=1350
+
+[View]
+PName=v_item_on_hand
+LName=品目別現在庫
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_item_on_hand is E\q@primaryKey item_id\\n@unique item_symbol\\n@foreignKey (item_id) references mstr_item (mstr_item_id)\\n品目別現在庫\q;
+Query=SELECT\n    vi.item_id\n    , i.symbol AS item_symbol\n    , i.code AS item_code\n    , SUM(vi.quantity) AS on_hand_quantity\n    , COALESCE(SUM(vi.quantity) FILTER (WHERE vi.held), 0) AS held_quantity\n    , COALESCE(SUM(vi.quantity) FILTER (WHERE NOT vi.held), 0) AS available_quantity\n    , COUNT(*) FILTER (WHERE vi.quantity > 0)::integer AS visiter_count\n    , COUNT(*) FILTER (WHERE vi.held AND vi.quantity > 0)::integer AS held_visiter_count\nFROM @schema.v_mrp_visiter_item AS vi\nINNER JOIN @schema.mstr_item AS i ON i.mstr_item_id = vi.item_id\nWHERE vi.finished AND vi.item_count = 1 AND vi.item_id IS NOT NULL\nGROUP BY vi.item_id, i.symbol, i.code
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",550,350
+ZOrder=1446
+Page=ビュー
+Left=1960
+Top=1360
+
+[View]
+PName=v_visiter_issuable
+LName=棚ビジター－取り出し可否
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_visiter_issuable is E\q@primaryKey trans_visiter_id\\n@unique symbol\\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\\n棚ビジター取り出し可否\q;
+Query=SELECT\n    l.trans_visiter_id\n    , l.symbol\n    , l.trans_container_id\n    , l.quantity\n    , l.release\n    , l.open_complaint_count\n    , (l.release IS TRUE AND l.open_complaint_count = 0 AND l.quantity > 0) AS issuable\n    , (CASE\n           WHEN l.release IS NOT TRUE THEN \qhold\q\n           WHEN l.open_complaint_count > 0 THEN \qcomplaint\q\n           WHEN l.quantity <= 0 THEN \qempty\q\n       END)::varchar(16) AS block_reason\nFROM @schema.v_visiter_lot AS l
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",550,350
+ZOrder=1447
+Page=ビュー
+Left=1970
+Top=1370
+
+[View]
+PName=v_mrp_visiter_item
+LName=棚ビジター－品目(在庫/仕掛)
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_mrp_visiter_item is E\q@primaryKey trans_visiter_id\\n@unique symbol\\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@foreignKey (item_id) references mstr_item (mstr_item_id)\\n棚ビジターの品目(在庫/仕掛)\q;
+Query=WITH og AS (\n    -- 品目は、自分または一番近い分割元の入庫のつなぎ(受入実績・作業実績)で決める\n    SELECT lg.trans_visiter_id, lg.depth, pd.item_id, TRUE AS finished\n    FROM @schema.v_visiter_lineage AS lg\n    INNER JOIN @schema.trans_purchase_rec_visiter AS prv\n        ON prv.trans_visiter_id = lg.ancestor_visiter_id AND prv.remove IS FALSE\n    INNER JOIN @schema.trans_purchase_rec AS r\n        ON r.trans_purchase_rec_id = prv.trans_purchase_rec_id AND r.remove IS FALSE\n    INNER JOIN @schema.trans_purchase_detail AS pd\n        ON pd.trans_purchase_detail_id = r.trans_purchase_detail_id\n    WHERE NOT EXISTS (SELECT 1 FROM @schema.trans_work_plan AS w\n                      WHERE w.trans_purchase_detail_id = pd.trans_purchase_detail_id AND w.remove IS FALSE)\n    UNION ALL\n    SELECT lg.trans_visiter_id, lg.depth, rp.item_id,\n           COALESCE(wp.sequence, 1) >= (SELECT MAX(COALESCE(w2.sequence, 1)) FROM @schema.trans_work_plan AS w2\n                                        WHERE w2.trans_operations_plan_id = wp.trans_operations_plan_id AND w2.remove IS FALSE)\n    FROM @schema.v_visiter_lineage AS lg\n    INNER JOIN @schema.trans_work_record_visiter AS wrv\n        ON wrv.trans_visiter_id = lg.ancestor_visiter_id AND wrv.remove IS FALSE\n    INNER JOIN @schema.trans_work_record AS wr\n        ON wr.trans_work_record_id = wrv.trans_work_record_id AND wr.remove IS FALSE\n    INNER JOIN @schema.trans_work_plan AS wp ON wp.trans_work_plan_id = wr.trans_work_plan_id\n    INNER JOIN @schema.trans_operations_plan AS op ON op.trans_operations_plan_id = wp.trans_operations_plan_id\n    INNER JOIN @schema.trans_resource_plan AS rp ON rp.trans_resource_plan_id = op.trans_resource_plan_id\n), nearest AS (\n    SELECT og.*, MIN(og.depth) OVER (PARTITION BY og.trans_visiter_id) AS min_depth\n    FROM og\n)\nSELECT\n    l.trans_visiter_id\n    , l.symbol\n    , MIN(n.item_id::text)::uuid AS item_id\n    , COUNT(DISTINCT n.item_id)::integer AS item_count\n    , COALESCE(BOOL_OR(n.finished), FALSE) AS finished\n    , l.quantity\n    , l.release\n    , l.open_complaint_count\n    , (l.release IS NOT TRUE OR l.open_complaint_count > 0) AS held\nFROM @schema.v_visiter_lot AS l\nINNER JOIN @schema.trans_container AS c\n    ON c.trans_container_id = l.trans_container_id AND c.remove IS FALSE\nLEFT JOIN nearest AS n\n    ON n.trans_visiter_id = l.trans_visiter_id AND n.depth = n.min_depth\nGROUP BY l.trans_visiter_id, l.symbol, l.quantity, l.release, l.open_complaint_count
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",550,350
+ZOrder=1448
+Page=ビュー
+Left=1980
+Top=1380
+
+[View]
+PName=v_visiter_lot
+LName=棚ビジター－在庫(ロット)
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_visiter_lot is E\q@primaryKey trans_visiter_id\\n@unique symbol\\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@foreignKey (parent_trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@foreignKey (root_visiter_id) references trans_visiter (trans_visiter_id)\\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\\n@foreignKey (mstr_location_id) references mstr_location (mstr_location_id)\\n棚在庫(ロット)\q;
+Query=SELECT\n    v.trans_visiter_id\n    , v.symbol\n    , v.parent_trans_visiter_id\n    , rt.root_visiter_id\n    , v.trans_container_id\n    , c.mstr_location_id\n    , v.release\n    , v.quantity AS receipt_quantity\n    , COALESCE(ln.q_issue, 0) AS issue_quantity\n    , COALESCE(ln.q_adj, 0) AS adjustment_quantity\n    , v.quantity + COALESCE(ln.q_all, 0) AS quantity\n    , COALESCE(ln.n, 0)::integer AS line_count\n    , COALESCE(sp.n, 0)::integer AS split_count\n    , cp.own_open_complaint_count\n    , cp.open_complaint_count\nFROM @schema.trans_visiter AS v\nLEFT JOIN @schema.trans_container AS c\n    ON c.trans_container_id = v.trans_container_id\nLEFT JOIN LATERAL (\n    -- この在庫の出庫(-)と棚卸し調整(+/-)の行\n    SELECT SUM(r.quantity) AS q_all\n         , -SUM(r.quantity) FILTER (WHERE r.adjustment IS NOT TRUE) AS q_issue\n         , SUM(r.quantity) FILTER (WHERE r.adjustment IS TRUE) AS q_adj\n         , COUNT(*) AS n\n    FROM @schema.trans_visiter AS r\n    WHERE r.parent_trans_visiter_id = v.trans_visiter_id AND r.remove IS FALSE\n      AND (r.quantity < 0 OR r.adjustment IS TRUE)\n) AS ln ON TRUE\nLEFT JOIN LATERAL (\n    -- この在庫から分割・移動して作った在庫\n    SELECT COUNT(*) AS n\n    FROM @schema.trans_visiter AS r\n    WHERE r.parent_trans_visiter_id = v.trans_visiter_id AND r.remove IS FALSE\n      AND r.quantity > 0 AND r.adjustment IS NOT TRUE\n) AS sp ON TRUE\nLEFT JOIN LATERAL (\n    SELECT lg.ancestor_visiter_id AS root_visiter_id\n    FROM @schema.v_visiter_lineage AS lg\n    WHERE lg.trans_visiter_id = v.trans_visiter_id\n    ORDER BY lg.depth DESC\n    LIMIT 1\n) AS rt ON TRUE\nCROSS JOIN LATERAL (\n    -- 未解除の異常 (自分に付いたもの / 分割元に付いたものを含む)\n    SELECT COUNT(*) FILTER (WHERE lg.depth = 0)::integer AS own_open_complaint_count\n         , COUNT(*)::integer AS open_complaint_count\n    FROM @schema.v_visiter_lineage AS lg\n    INNER JOIN @schema.trans_complaint_visiter AS cv\n        ON cv.trans_visiter_id = lg.ancestor_visiter_id AND cv.remove IS FALSE AND cv.release_at IS NULL\n    INNER JOIN @schema.trans_complaint AS cpl\n        ON cpl.trans_complaint_id = cv.trans_complaint_id AND cpl.remove IS FALSE\n    WHERE lg.trans_visiter_id = v.trans_visiter_id\n) AS cp\nWHERE v.remove IS FALSE AND v.quantity > 0 AND v.adjustment IS NOT TRUE
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",550,350
+ZOrder=1449
+Page=ビュー
+Left=1990
+Top=1390
+
+[View]
+PName=v_visiter_lineage
+LName=棚ビジター－分割元
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_visiter_lineage is E\q@primaryKey trans_visiter_id,ancestor_visiter_id\\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@foreignKey (ancestor_visiter_id) references trans_visiter (trans_visiter_id)\\n棚ビジターの分割元(自分を含む)\q;
+Query=WITH RECURSIVE lot AS (\n    SELECT v.trans_visiter_id, v.parent_trans_visiter_id\n    FROM @schema.trans_visiter AS v\n    WHERE v.remove IS FALSE AND v.quantity > 0 AND v.adjustment IS NOT TRUE\n), l (trans_visiter_id, ancestor_visiter_id, parent_id, depth, path) AS (\n    SELECT lot.trans_visiter_id, lot.trans_visiter_id, lot.parent_trans_visiter_id, 0, ARRAY[lot.trans_visiter_id]\n    FROM lot\n    UNION ALL\n    SELECT l.trans_visiter_id, p.trans_visiter_id, p.parent_trans_visiter_id, l.depth + 1, l.path || p.trans_visiter_id\n    FROM l\n    INNER JOIN lot AS p ON p.trans_visiter_id = l.parent_id\n    WHERE NOT (p.trans_visiter_id = ANY (l.path)) AND l.depth < 50\n)\nSELECT\n    l.trans_visiter_id\n    , v.symbol\n    , l.ancestor_visiter_id\n    , a.symbol AS ancestor_symbol\n    , l.depth\nFROM l\nINNER JOIN @schema.trans_visiter AS v ON v.trans_visiter_id = l.trans_visiter_id\nINNER JOIN @schema.trans_visiter AS a ON a.trans_visiter_id = l.ancestor_visiter_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",550,350
+ZOrder=1450
+Page=ビュー
+Left=2000
+Top=1400
 
 [View]
 PName=v_work_plan_delivery_compliance
@@ -23536,14 +23675,14 @@ Left=1350
 Top=1500
 Field="受入異常ID","trans_complaint_purchase_rec_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="異常ID","trans_complaint_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="受入実績ID","trans_purchase_rec_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
+Field="受入実績ID","trans_purchase_rec_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="異常数量","quantity","*@QTY","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@SYMBOL","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261031225938
+ModifiedDateTime=20261101132949
 Position="品質",1350,1500
 ZOrder=1467
 
@@ -23578,13 +23717,13 @@ Fields1=trans_purchase_rec_id
 Fields2=trans_purchase_rec_id
 Cardinarity1=
 Cardinarity2=
-Position="作業トランザクション",0,500,9500,2116,R,R,""
+Position="作業トランザクション",0,5740,9500,2116,R,R,""
 Position="品質",0,799,9201,1481,R,R,""
 Dependence=0
 Caption=
 PName=
 LineMode=0
-Bar1=50
+Bar1=574
 Bar2=950
 Bar3=212
 TermPos1=R
@@ -23773,3 +23912,25 @@ ZOrder=1475
 Page=ビュー
 Left=1050
 Top=650
+
+[Relation]
+Entity1=trans_visiter
+Entity2=trans_visiter
+RelationType1=1
+RelationType2=3
+Fields1=trans_visiter_id
+Fields2=parent_trans_visiter_id
+Cardinarity1=
+Cardinarity2=
+Position="作業トランザクション",0,7500,2500,9500,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20261101141457
+LineMode=0
+Bar1=750
+Bar2=250
+Bar3=950
+TermPos1=R
+TermPos2=R
+ZOrder=1476

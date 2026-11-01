@@ -3,7 +3,8 @@
 -- バーコード実績登録(barcode_entry)の通信テスト・実機確認用のダミーデータ
 --   A. 設備点検  : 設備 LS01 / PB01 に点検項目・点検予定・点検予定の明細(実施済み1件・未実施2件)
 --   B. 作業指示  : 筐体 CS-110 の作業指示(レーザー切断 → 曲げ)。symbol 付き
---   C. 異常      : 保留(release = false)の棚ビジターと、解除されていない異常入出庫ビジター
+--   C. 異常      : 鋼板の在庫を隔離棚に分けて保留(release = false)にし、1件に未解除の異常を付ける
+--                  (数量は棚ビジターだけが持つ: 元の在庫に - の行、隔離棚に + の行。claude/117_*)
 --
 -- ■ 実行順   06_cteate_test.sql → 08_mrp.sql → 10_mrp_dummy.sql → 本ファイル
 --   ・10_mrp_dummy.sql が作った品目・設備・工程・棚(RACK-A01)を使う。無ければ中止する
@@ -143,20 +144,48 @@ END $$;
 
 -- ---------------------------------------------------------------------
 -- C. 異常(保留の棚ビジター + 解除されていない異常)
---    ・棚ビジター 鋼板(SPCC)を1件 release = false にし、異常を登録して中間テーブルに結び付ける
---    ・保留中だが異常が無い棚ビジター(マスタ点検の対象)を1件作る
+--    10_mrp_dummy.sql で受け入れた鋼板(SPCC 30枚, RACK-A01)から、隔離棚 RACK-Q01 へ分けて移す
+--      ・5枚: 錆の発生。保留(release = false) + 未解除の異常を付ける  → 取り出し不可(complaint より先に hold)
+--      ・3枚: 保留にしただけで異常が無い (マスタ点検 VISITER_HOLD_NO_COMPLAINT の対象)
+--    分け方: 元の在庫に - の行(親 = 元の在庫、棚 = RACK-A01)、隔離棚に + の行(親 = 元の在庫)
+--    結果  : 鋼板の現在庫 30 = 使える 22 (RACK-A01) + 保留 8 (RACK-Q01)
 -- ---------------------------------------------------------------------
 DO $$
-DECLARE ct uuid; v1 uuid; v2 uuid; cp uuid; st uuid; sth uuid;
+DECLARE ct uuid; cq uuid; src uuid; v1 uuid; v2 uuid; cp uuid; st uuid; sth uuid; lb uuid;
 BEGIN
     SELECT trans_container_id INTO ct FROM tests.trans_container WHERE code = 'RACK-A01';
     SELECT info_staff_id INTO st FROM tests.info_staff WHERE code = 'ADMIN';
     sth := pg_temp.hist('info_staff', st);
 
-    INSERT INTO tests.trans_visiter (trans_container_id, release, quantity)
-    VALUES (ct, FALSE, 5) RETURNING trans_visiter_id INTO v1;
-    INSERT INTO tests.trans_visiter (trans_container_id, release, quantity)
-    VALUES (ct, FALSE, 3) RETURNING trans_visiter_id INTO v2;      -- 異常の登録が無い保留
+    -- 鋼板の在庫(ロット) = 受入実績につながった + の行
+    SELECT v.trans_visiter_id INTO src
+    FROM tests.trans_visiter AS v
+    INNER JOIN tests.trans_purchase_rec_visiter AS prv ON prv.trans_visiter_id = v.trans_visiter_id AND prv.remove IS FALSE
+    INNER JOIN tests.trans_purchase_rec AS r ON r.trans_purchase_rec_id = prv.trans_purchase_rec_id
+    INNER JOIN tests.trans_purchase_detail AS pd ON pd.trans_purchase_detail_id = r.trans_purchase_detail_id
+    INNER JOIN tests.mstr_item AS i ON i.mstr_item_id = pd.item_id AND i.code = 'MT-SPCC'
+    WHERE v.remove IS FALSE AND v.quantity > 0 AND v.parent_trans_visiter_id IS NULL
+    LIMIT 1;
+    IF src IS NULL THEN
+        RAISE EXCEPTION '鋼板(MT-SPCC)の在庫がありません。10_mrp_dummy.sql を確認してください';
+    END IF;
+
+    -- 隔離棚
+    INSERT INTO tests.trans_label DEFAULT VALUES RETURNING trans_label_id INTO lb;
+    INSERT INTO tests.trans_container (code, names, remarks) VALUES ('RACK-Q01', lb, '隔離棚 Q-01(異常品・保留品)')
+    RETURNING trans_container_id INTO cq;
+
+    -- 5枚: 元の在庫から出庫(-) → 隔離棚に入庫(+, 保留)
+    INSERT INTO tests.trans_visiter (parent_trans_visiter_id, trans_container_id, quantity)
+    VALUES (src, ct, -5);
+    INSERT INTO tests.trans_visiter (parent_trans_visiter_id, trans_container_id, release, quantity)
+    VALUES (src, cq, FALSE, 5) RETURNING trans_visiter_id INTO v1;
+
+    -- 3枚: 同じく隔離棚へ。保留にしただけで異常は登録しない
+    INSERT INTO tests.trans_visiter (parent_trans_visiter_id, trans_container_id, quantity)
+    VALUES (src, ct, -3);
+    INSERT INTO tests.trans_visiter (parent_trans_visiter_id, trans_container_id, release, quantity)
+    VALUES (src, cq, FALSE, 3) RETURNING trans_visiter_id INTO v2;      -- 異常の登録が無い保留
 
     INSERT INTO tests.trans_complaint (occurent_at, titles, details, reporter_staff_history_id, reporter_staff_id)
     VALUES (now(), pg_temp.lb('異常報告'),
@@ -173,4 +202,8 @@ SELECT '点検予定の明細' AS item, COUNT(*)::text AS value FROM tests.trans
 UNION ALL SELECT '点検結果', COUNT(*)::text FROM tests.trans_inspect_record
 UNION ALL SELECT '作業指示', COUNT(*)::text FROM tests.trans_work_plan
 UNION ALL SELECT '異常入出庫ビジター', COUNT(*)::text FROM tests.trans_complaint_visiter
-UNION ALL SELECT '保留の棚ビジター', COUNT(*)::text FROM tests.trans_visiter WHERE release IS FALSE;
+UNION ALL SELECT '取り出せない在庫(' || block_reason || ')', COUNT(*)::text FROM tests.v_visiter_issuable
+          WHERE NOT issuable GROUP BY block_reason
+UNION ALL SELECT '鋼板 現在庫 / 保留 / 使える', on_hand_quantity || ' / ' || held_quantity || ' / ' || available_quantity
+          FROM tests.v_item_on_hand AS oh INNER JOIN tests.mstr_item AS i ON i.mstr_item_id = oh.item_id AND i.code = 'MT-SPCC'
+UNION ALL SELECT '異常の登録が無い保留', COUNT(*)::text FROM tests.v_visiter_hold_without_complaint;

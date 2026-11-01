@@ -108,7 +108,7 @@ create table tests.trans_complaint_visiter (
 create table tests.trans_complaint_purchase_rec (
     trans_complaint_purchase_rec_id uuid default gen_random_uuid(),
     trans_complaint_id uuid not null,
-    trans_purchase_rec_id uuid default gen_random_uuid(),
+    trans_purchase_rec_id uuid not null,
     quantity decimal(10,2) default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2939,7 +2939,6 @@ create table tests.trans_work_record_visiter (
     trans_work_record_visiter_id uuid default gen_random_uuid(),
     trans_visiter_id uuid not null,
     trans_work_record_id uuid not null,
-    quantity decimal(10,2) default 0,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2951,7 +2950,6 @@ create table tests.trans_purchase_rec_visiter (
     trans_purchase_rec_visiter_id uuid default gen_random_uuid(),
     trans_purchase_rec_id uuid not null,
     trans_visiter_id uuid not null,
-    quantity decimal(10,2) default 0,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2964,6 +2962,8 @@ create table tests.trans_visiter (
     trans_container_id uuid not null,
     release boolean default 't',
     quantity decimal(10,2) default 0,
+    adjustment boolean default 'f',
+    parent_trans_visiter_id uuid default null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -3029,13 +3029,12 @@ create table tests.mstr_operation (
 create table tests.trans_convey (
     trans_convey_id uuid default gen_random_uuid(),
     trans_visiter_id uuid not null,
-    receive boolean default 't',
     convey_at timestamp default now(),
-    quantity decimal(10,2) default 0,
     location_history_id uuid not null,
     location_id uuid not null,
     staff_history_id uuid not null,
     staff_id uuid not null,
+    adjustment boolean default 'f',
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -6232,7 +6231,6 @@ comment on table tests.trans_work_record_visiter is '作業実績ビジター';
 comment on column tests.trans_work_record_visiter.trans_work_record_visiter_id is '作業実績ビジターID';
 comment on column tests.trans_work_record_visiter.trans_visiter_id is '棚ビジターID';
 comment on column tests.trans_work_record_visiter.trans_work_record_id is '作業実績ID';
-comment on column tests.trans_work_record_visiter.quantity is '数量';
 comment on column tests.trans_work_record_visiter.symbol is 'リニアシンボル';
 comment on column tests.trans_work_record_visiter.remarks is '備考';
 comment on column tests.trans_work_record_visiter.update_at is '更新日時';
@@ -6243,7 +6241,6 @@ comment on table tests.trans_purchase_rec_visiter is '受入実績ビジター';
 comment on column tests.trans_purchase_rec_visiter.trans_purchase_rec_visiter_id is '受入実績ビジターID';
 comment on column tests.trans_purchase_rec_visiter.trans_purchase_rec_id is '受入実績ID';
 comment on column tests.trans_purchase_rec_visiter.trans_visiter_id is '棚ビジターID';
-comment on column tests.trans_purchase_rec_visiter.quantity is '数量';
 comment on column tests.trans_purchase_rec_visiter.symbol is 'リニアシンボル';
 comment on column tests.trans_purchase_rec_visiter.remarks is '備考';
 comment on column tests.trans_purchase_rec_visiter.update_at is '更新日時';
@@ -6255,6 +6252,8 @@ comment on column tests.trans_visiter.trans_visiter_id is '棚ビジターID';
 comment on column tests.trans_visiter.trans_container_id is 'コンテナID';
 comment on column tests.trans_visiter.release is '入出庫許可';
 comment on column tests.trans_visiter.quantity is '数量';
+comment on column tests.trans_visiter.adjustment is '調整区分';
+comment on column tests.trans_visiter.parent_trans_visiter_id is '出庫分割元';
 comment on column tests.trans_visiter.symbol is 'リニアシンボル';
 comment on column tests.trans_visiter.remarks is '備考';
 comment on column tests.trans_visiter.update_at is '更新日時';
@@ -6315,13 +6314,12 @@ comment on column tests.mstr_operation.remove is '削除';
 comment on table tests.trans_convey is '受払実績';
 comment on column tests.trans_convey.trans_convey_id is '受払ID';
 comment on column tests.trans_convey.trans_visiter_id is '棚ビジターID';
-comment on column tests.trans_convey.receive is '受入';
 comment on column tests.trans_convey.convey_at is '受払日時';
-comment on column tests.trans_convey.quantity is '受払数量';
 comment on column tests.trans_convey.location_history_id is '場所履歴ID';
 comment on column tests.trans_convey.location_id is '場所ID';
 comment on column tests.trans_convey.staff_history_id is '作業担当者履歴ID';
 comment on column tests.trans_convey.staff_id is '作業担当者ID';
+comment on column tests.trans_convey.adjustment is '調整';
 comment on column tests.trans_convey.symbol is 'リニアシンボル';
 comment on column tests.trans_convey.remarks is '備考';
 comment on column tests.trans_convey.update_at is '更新日時';
@@ -8853,8 +8851,9 @@ alter table tests.trans_work_record_visiter add constraint trans_work_record_vis
 alter table tests.trans_purchase_rec_visiter add constraint trans_purchase_rec_visiter_FK1 foreign key (trans_visiter_id) references tests.trans_visiter (trans_visiter_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_purchase_rec_visiter add constraint trans_purchase_rec_visiter_FK2 foreign key (trans_purchase_rec_id) references tests.trans_purchase_rec (trans_purchase_rec_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_purchase_rec_visiter add constraint trans_purchase_rec_visiter_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_visiter add constraint trans_visiter_FK1 foreign key (trans_container_id) references tests.trans_container (trans_container_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_visiter add constraint trans_visiter_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_visiter add constraint trans_visiter_FK1 foreign key (parent_trans_visiter_id) references tests.trans_visiter (trans_visiter_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_visiter add constraint trans_visiter_FK2 foreign key (trans_container_id) references tests.trans_container (trans_container_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_visiter add constraint trans_visiter_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_item_actual_size add constraint mstr_item_actual_size_FK1 foreign key (details) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_item_actual_size add constraint mstr_item_actual_size_FK2 foreign key (mstr_item_size_kind_id) references tests.mstr_item_size_kind (mstr_item_size_kind_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_item_actual_size add constraint mstr_item_actual_size_FK3 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
@@ -22020,7 +22019,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE OR REPLACE TRIGGER trg_03_hierarchy_mstr_location_tree AFTER INSERT OR UPDATE OR DELETE ON tests.mstr_location_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_03_hierarchy_mstr_location_tree();
 
---143.create view
+--153.create view
 
 drop view if exists tests.v_visiter_complaint_visiter_count;
 create view  tests.v_visiter_complaint_visiter_count as
@@ -22055,6 +22054,500 @@ GROUP BY
 
 -- Postgraphile additional comment.
 comment on view tests.v_complaint_complaint_visiter_count is E'@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@unique trans_complaint_id';
+
+drop view if exists tests.v_visiter_lineage;
+create view  tests.v_visiter_lineage as
+WITH RECURSIVE lot AS (
+    SELECT v.trans_visiter_id, v.parent_trans_visiter_id
+    FROM tests.trans_visiter AS v
+    WHERE v.remove IS FALSE AND v.quantity > 0 AND v.adjustment IS NOT TRUE
+), l (trans_visiter_id, ancestor_visiter_id, parent_id, depth, path) AS (
+    SELECT lot.trans_visiter_id, lot.trans_visiter_id, lot.parent_trans_visiter_id, 0, ARRAY[lot.trans_visiter_id]
+    FROM lot
+    UNION ALL
+    SELECT l.trans_visiter_id, p.trans_visiter_id, p.parent_trans_visiter_id, l.depth + 1, l.path || p.trans_visiter_id
+    FROM l
+    INNER JOIN lot AS p ON p.trans_visiter_id = l.parent_id
+    WHERE NOT (p.trans_visiter_id = ANY (l.path)) AND l.depth < 50
+)
+SELECT
+    l.trans_visiter_id
+    , v.symbol
+    , l.ancestor_visiter_id
+    , a.symbol AS ancestor_symbol
+    , l.depth
+FROM l
+INNER JOIN tests.trans_visiter AS v ON v.trans_visiter_id = l.trans_visiter_id
+INNER JOIN tests.trans_visiter AS a ON a.trans_visiter_id = l.ancestor_visiter_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_visiter_lineage is E'@primaryKey trans_visiter_id,ancestor_visiter_id\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (ancestor_visiter_id) references trans_visiter (trans_visiter_id)\n棚ビジターの分割元(自分を含む)';
+
+drop view if exists tests.v_visiter_lot;
+create view  tests.v_visiter_lot as
+SELECT
+    v.trans_visiter_id
+    , v.symbol
+    , v.parent_trans_visiter_id
+    , rt.root_visiter_id
+    , v.trans_container_id
+    , c.mstr_location_id
+    , v.release
+    , v.quantity AS receipt_quantity
+    , COALESCE(ln.q_issue, 0) AS issue_quantity
+    , COALESCE(ln.q_adj, 0) AS adjustment_quantity
+    , v.quantity + COALESCE(ln.q_all, 0) AS quantity
+    , COALESCE(ln.n, 0)::integer AS line_count
+    , COALESCE(sp.n, 0)::integer AS split_count
+    , cp.own_open_complaint_count
+    , cp.open_complaint_count
+FROM tests.trans_visiter AS v
+LEFT JOIN tests.trans_container AS c
+    ON c.trans_container_id = v.trans_container_id
+LEFT JOIN LATERAL (
+    -- この在庫の出庫(-)と棚卸し調整(+/-)の行
+    SELECT SUM(r.quantity) AS q_all
+         , -SUM(r.quantity) FILTER (WHERE r.adjustment IS NOT TRUE) AS q_issue
+         , SUM(r.quantity) FILTER (WHERE r.adjustment IS TRUE) AS q_adj
+         , COUNT(*) AS n
+    FROM tests.trans_visiter AS r
+    WHERE r.parent_trans_visiter_id = v.trans_visiter_id AND r.remove IS FALSE
+      AND (r.quantity < 0 OR r.adjustment IS TRUE)
+) AS ln ON TRUE
+LEFT JOIN LATERAL (
+    -- この在庫から分割・移動して作った在庫
+    SELECT COUNT(*) AS n
+    FROM tests.trans_visiter AS r
+    WHERE r.parent_trans_visiter_id = v.trans_visiter_id AND r.remove IS FALSE
+      AND r.quantity > 0 AND r.adjustment IS NOT TRUE
+) AS sp ON TRUE
+LEFT JOIN LATERAL (
+    SELECT lg.ancestor_visiter_id AS root_visiter_id
+    FROM tests.v_visiter_lineage AS lg
+    WHERE lg.trans_visiter_id = v.trans_visiter_id
+    ORDER BY lg.depth DESC
+    LIMIT 1
+) AS rt ON TRUE
+CROSS JOIN LATERAL (
+    -- 未解除の異常 (自分に付いたもの / 分割元に付いたものを含む)
+    SELECT COUNT(*) FILTER (WHERE lg.depth = 0)::integer AS own_open_complaint_count
+         , COUNT(*)::integer AS open_complaint_count
+    FROM tests.v_visiter_lineage AS lg
+    INNER JOIN tests.trans_complaint_visiter AS cv
+        ON cv.trans_visiter_id = lg.ancestor_visiter_id AND cv.remove IS FALSE AND cv.release_at IS NULL
+    INNER JOIN tests.trans_complaint AS cpl
+        ON cpl.trans_complaint_id = cv.trans_complaint_id AND cpl.remove IS FALSE
+    WHERE lg.trans_visiter_id = v.trans_visiter_id
+) AS cp
+WHERE v.remove IS FALSE AND v.quantity > 0 AND v.adjustment IS NOT TRUE;
+
+-- Postgraphile additional comment.
+comment on view tests.v_visiter_lot is E'@primaryKey trans_visiter_id\n@unique symbol\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (parent_trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (root_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\n@foreignKey (mstr_location_id) references mstr_location (mstr_location_id)\n棚在庫(ロット)';
+
+drop view if exists tests.v_mrp_visiter_item;
+create view  tests.v_mrp_visiter_item as
+WITH og AS (
+    -- 品目は、自分または一番近い分割元の入庫のつなぎ(受入実績・作業実績)で決める
+    SELECT lg.trans_visiter_id, lg.depth, pd.item_id, TRUE AS finished
+    FROM tests.v_visiter_lineage AS lg
+    INNER JOIN tests.trans_purchase_rec_visiter AS prv
+        ON prv.trans_visiter_id = lg.ancestor_visiter_id AND prv.remove IS FALSE
+    INNER JOIN tests.trans_purchase_rec AS r
+        ON r.trans_purchase_rec_id = prv.trans_purchase_rec_id AND r.remove IS FALSE
+    INNER JOIN tests.trans_purchase_detail AS pd
+        ON pd.trans_purchase_detail_id = r.trans_purchase_detail_id
+    WHERE NOT EXISTS (SELECT 1 FROM tests.trans_work_plan AS w
+                      WHERE w.trans_purchase_detail_id = pd.trans_purchase_detail_id AND w.remove IS FALSE)
+    UNION ALL
+    SELECT lg.trans_visiter_id, lg.depth, rp.item_id,
+           COALESCE(wp.sequence, 1) >= (SELECT MAX(COALESCE(w2.sequence, 1)) FROM tests.trans_work_plan AS w2
+                                        WHERE w2.trans_operations_plan_id = wp.trans_operations_plan_id AND w2.remove IS FALSE)
+    FROM tests.v_visiter_lineage AS lg
+    INNER JOIN tests.trans_work_record_visiter AS wrv
+        ON wrv.trans_visiter_id = lg.ancestor_visiter_id AND wrv.remove IS FALSE
+    INNER JOIN tests.trans_work_record AS wr
+        ON wr.trans_work_record_id = wrv.trans_work_record_id AND wr.remove IS FALSE
+    INNER JOIN tests.trans_work_plan AS wp ON wp.trans_work_plan_id = wr.trans_work_plan_id
+    INNER JOIN tests.trans_operations_plan AS op ON op.trans_operations_plan_id = wp.trans_operations_plan_id
+    INNER JOIN tests.trans_resource_plan AS rp ON rp.trans_resource_plan_id = op.trans_resource_plan_id
+), nearest AS (
+    SELECT og.*, MIN(og.depth) OVER (PARTITION BY og.trans_visiter_id) AS min_depth
+    FROM og
+)
+SELECT
+    l.trans_visiter_id
+    , l.symbol
+    , MIN(n.item_id::text)::uuid AS item_id
+    , COUNT(DISTINCT n.item_id)::integer AS item_count
+    , COALESCE(BOOL_OR(n.finished), FALSE) AS finished
+    , l.quantity
+    , l.release
+    , l.open_complaint_count
+    , (l.release IS NOT TRUE OR l.open_complaint_count > 0) AS held
+FROM tests.v_visiter_lot AS l
+INNER JOIN tests.trans_container AS c
+    ON c.trans_container_id = l.trans_container_id AND c.remove IS FALSE
+LEFT JOIN nearest AS n
+    ON n.trans_visiter_id = l.trans_visiter_id AND n.depth = n.min_depth
+GROUP BY l.trans_visiter_id, l.symbol, l.quantity, l.release, l.open_complaint_count;
+
+-- Postgraphile additional comment.
+comment on view tests.v_mrp_visiter_item is E'@primaryKey trans_visiter_id\n@unique symbol\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n棚ビジターの品目(在庫/仕掛)';
+
+drop view if exists tests.v_visiter_issuable;
+create view  tests.v_visiter_issuable as
+SELECT
+    l.trans_visiter_id
+    , l.symbol
+    , l.trans_container_id
+    , l.quantity
+    , l.release
+    , l.open_complaint_count
+    , (l.release IS TRUE AND l.open_complaint_count = 0 AND l.quantity > 0) AS issuable
+    , (CASE
+           WHEN l.release IS NOT TRUE THEN 'hold'
+           WHEN l.open_complaint_count > 0 THEN 'complaint'
+           WHEN l.quantity <= 0 THEN 'empty'
+       END)::varchar(16) AS block_reason
+FROM tests.v_visiter_lot AS l;
+
+-- Postgraphile additional comment.
+comment on view tests.v_visiter_issuable is E'@primaryKey trans_visiter_id\n@unique symbol\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\n棚ビジター取り出し可否';
+
+drop view if exists tests.v_item_on_hand;
+create view  tests.v_item_on_hand as
+SELECT
+    vi.item_id
+    , i.symbol AS item_symbol
+    , i.code AS item_code
+    , SUM(vi.quantity) AS on_hand_quantity
+    , COALESCE(SUM(vi.quantity) FILTER (WHERE vi.held), 0) AS held_quantity
+    , COALESCE(SUM(vi.quantity) FILTER (WHERE NOT vi.held), 0) AS available_quantity
+    , COUNT(*) FILTER (WHERE vi.quantity > 0)::integer AS visiter_count
+    , COUNT(*) FILTER (WHERE vi.held AND vi.quantity > 0)::integer AS held_visiter_count
+FROM tests.v_mrp_visiter_item AS vi
+INNER JOIN tests.mstr_item AS i ON i.mstr_item_id = vi.item_id
+WHERE vi.finished AND vi.item_count = 1 AND vi.item_id IS NOT NULL
+GROUP BY vi.item_id, i.symbol, i.code;
+
+-- Postgraphile additional comment.
+comment on view tests.v_item_on_hand is E'@primaryKey item_id\n@unique item_symbol\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n品目別現在庫';
+
+drop view if exists tests.v_visiter_hold_without_complaint;
+create view  tests.v_visiter_hold_without_complaint as
+SELECT
+    l.trans_visiter_id
+    , l.symbol
+    , l.trans_container_id
+    , l.mstr_location_id
+    , l.quantity
+    , v.update_at AS hold_at
+    , v.update_user_id
+FROM tests.v_visiter_lot AS l
+INNER JOIN tests.trans_visiter AS v
+    ON v.trans_visiter_id = l.trans_visiter_id
+WHERE l.release IS NOT TRUE
+  AND NOT EXISTS (
+      SELECT 1
+      FROM tests.v_visiter_lineage AS lg
+      INNER JOIN tests.trans_complaint_visiter AS cv
+          ON cv.trans_visiter_id = lg.ancestor_visiter_id AND cv.remove IS FALSE
+      INNER JOIN tests.trans_complaint AS cp
+          ON cp.trans_complaint_id = cv.trans_complaint_id AND cp.remove IS FALSE
+      WHERE lg.trans_visiter_id = l.trans_visiter_id
+  );
+
+-- Postgraphile additional comment.
+comment on view tests.v_visiter_hold_without_complaint is E'@primaryKey trans_visiter_id\n@unique symbol\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\n@foreignKey (mstr_location_id) references mstr_location (mstr_location_id)\n異常の登録が無い仮止め';
+
+drop view if exists tests.v_visiter_ledger_issue;
+create view  tests.v_visiter_ledger_issue as
+-- negative_balance  : 在庫の今の数量がマイナス(出しすぎ)
+-- orphan_line       : 出庫・棚卸しの行の親が無い、または親が在庫の行ではない
+-- invalid_parent    : 分割・移動で作った在庫の親が在庫の行ではない
+-- container_mismatch: 出庫・棚卸しの行の棚が、親の在庫の棚と違う
+-- zero_line         : 数量0の行
+SELECT
+    l.trans_visiter_id
+    , l.symbol
+    , 'negative_balance'::varchar(32) AS issue_kind
+    , l.receipt_quantity AS row_quantity
+    , l.quantity AS balance
+    , l.parent_trans_visiter_id
+    , l.trans_container_id
+FROM tests.v_visiter_lot AS l
+WHERE l.quantity < 0
+UNION ALL
+SELECT
+    r.trans_visiter_id
+    , r.symbol
+    , (CASE
+           WHEN r.quantity = 0 THEN 'zero_line'
+           WHEN r.quantity > 0 AND r.adjustment IS NOT TRUE THEN 'invalid_parent'
+           WHEN p.trans_visiter_id IS NULL OR p.quantity <= 0 OR p.adjustment IS TRUE THEN 'orphan_line'
+           ELSE 'container_mismatch'
+       END)::varchar(32)
+    , r.quantity
+    , NULL::decimal(10,2)
+    , r.parent_trans_visiter_id
+    , r.trans_container_id
+FROM tests.trans_visiter AS r
+LEFT JOIN tests.trans_visiter AS p
+    ON p.trans_visiter_id = r.parent_trans_visiter_id AND p.remove IS FALSE
+WHERE r.remove IS FALSE
+  AND (
+        r.quantity = 0
+     OR ((r.quantity < 0 OR r.adjustment IS TRUE)
+         AND (p.trans_visiter_id IS NULL OR p.quantity <= 0 OR p.adjustment IS TRUE
+              OR p.trans_container_id IS DISTINCT FROM r.trans_container_id))
+     OR (r.quantity > 0 AND r.adjustment IS NOT TRUE AND r.parent_trans_visiter_id IS NOT NULL
+         AND (p.trans_visiter_id IS NULL OR p.quantity <= 0 OR p.adjustment IS TRUE))
+  );
+
+-- Postgraphile additional comment.
+comment on view tests.v_visiter_ledger_issue is E'@primaryKey trans_visiter_id,issue_kind\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (parent_trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\n棚ビジターの行の不備';
+
+drop view if exists tests.v_visiter_origin_check;
+create view  tests.v_visiter_origin_check as
+SELECT
+    x.origin_kind
+    , x.origin_id
+    , x.origin_symbol
+    , x.trans_purchase_rec_id
+    , x.trans_work_record_id
+    , x.record_quantity
+    , x.visiter_quantity
+    , x.record_quantity - x.visiter_quantity AS difference
+    , x.visiter_count
+FROM (
+    SELECT
+        'purchase_rec'::varchar(16) AS origin_kind
+        , r.trans_purchase_rec_id AS origin_id
+        , r.symbol AS origin_symbol
+        , r.trans_purchase_rec_id
+        , NULL::uuid AS trans_work_record_id
+        , COALESCE(r.quantity, 0) AS record_quantity
+        , COALESCE(lt.q, 0) AS visiter_quantity
+        , COALESCE(lt.n, 0)::integer AS visiter_count
+    FROM tests.trans_purchase_rec AS r
+    LEFT JOIN LATERAL (
+        SELECT SUM(v.quantity) AS q, COUNT(*) AS n
+        FROM tests.trans_purchase_rec_visiter AS prv
+        INNER JOIN tests.trans_visiter AS v
+            ON v.trans_visiter_id = prv.trans_visiter_id AND v.remove IS FALSE
+           AND v.quantity > 0 AND v.adjustment IS NOT TRUE
+        WHERE prv.trans_purchase_rec_id = r.trans_purchase_rec_id AND prv.remove IS FALSE
+    ) AS lt ON TRUE
+    WHERE r.remove IS FALSE
+    UNION ALL
+    SELECT
+        'work_record'
+        , w.trans_work_record_id
+        , w.symbol
+        , NULL::uuid
+        , w.trans_work_record_id
+        , COALESCE(w.qty, 0)
+        , COALESCE(lt.q, 0)
+        , COALESCE(lt.n, 0)::integer
+    FROM tests.trans_work_record AS w
+    LEFT JOIN LATERAL (
+        SELECT SUM(v.quantity) AS q, COUNT(*) AS n
+        FROM tests.trans_work_record_visiter AS wrv
+        INNER JOIN tests.trans_visiter AS v
+            ON v.trans_visiter_id = wrv.trans_visiter_id AND v.remove IS FALSE
+           AND v.quantity > 0 AND v.adjustment IS NOT TRUE
+        WHERE wrv.trans_work_record_id = w.trans_work_record_id AND wrv.remove IS FALSE
+    ) AS lt ON TRUE
+    WHERE w.remove IS FALSE
+) AS x
+WHERE x.record_quantity <> x.visiter_quantity;
+
+-- Postgraphile additional comment.
+comment on view tests.v_visiter_origin_check is E'@primaryKey origin_kind,origin_id\n@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)\n@foreignKey (trans_work_record_id) references trans_work_record (trans_work_record_id)\n入庫数量不一致(受入実績・作業実績)';
+
+drop view if exists tests.v_complaint_target_visiter;
+create view  tests.v_complaint_target_visiter as
+WITH tgt AS (
+    SELECT t.trans_complaint_id, 'purchase_rec'::varchar(16) AS target_kind, t.trans_complaint_purchase_rec_id AS target_link_id,
+           t.trans_purchase_rec_id, NULL::uuid AS trans_work_record_id, NULL::uuid AS target_visiter_id, t.quantity AS complaint_quantity
+    FROM tests.trans_complaint_purchase_rec AS t
+    WHERE t.remove IS FALSE
+    UNION ALL
+    SELECT t.trans_complaint_id, 'work_record', t.trans_complaint_work_id,
+           NULL::uuid, t.trans_work_record_id, NULL::uuid, t.quantity
+    FROM tests.trans_complaint_work AS t
+    WHERE t.remove IS FALSE
+    UNION ALL
+    SELECT t.trans_complaint_id, 'visiter', t.trans_complaint_visiter_id,
+           NULL::uuid, NULL::uuid, t.trans_visiter_id, t.quantity
+    FROM tests.trans_complaint_visiter AS t
+    WHERE t.remove IS FALSE
+), src AS (
+    -- 異常の対象から直接作られた在庫
+    SELECT tg.target_link_id, prv.trans_visiter_id
+    FROM tgt AS tg
+    INNER JOIN tests.trans_purchase_rec_visiter AS prv
+        ON prv.trans_purchase_rec_id = tg.trans_purchase_rec_id AND prv.remove IS FALSE
+    WHERE tg.target_kind = 'purchase_rec'
+    UNION
+    SELECT tg.target_link_id, wrv.trans_visiter_id
+    FROM tgt AS tg
+    INNER JOIN tests.trans_work_record_visiter AS wrv
+        ON wrv.trans_work_record_id = tg.trans_work_record_id AND wrv.remove IS FALSE
+    INNER JOIN tests.trans_visiter AS v
+        ON v.trans_visiter_id = wrv.trans_visiter_id AND v.quantity > 0
+    WHERE tg.target_kind = 'work_record'
+    UNION
+    SELECT tg.target_link_id, tg.target_visiter_id
+    FROM tgt AS tg
+    WHERE tg.target_kind = 'visiter'
+), dv AS (
+    -- その在庫と、そこから分割・移動して作った在庫
+    SELECT DISTINCT s.target_link_id, lg.trans_visiter_id
+    FROM src AS s
+    INNER JOIN tests.v_visiter_lineage AS lg ON lg.ancestor_visiter_id = s.trans_visiter_id
+)
+SELECT
+    md5(concat_ws('|', tg.target_kind, tg.target_link_id, iss.trans_visiter_id)) AS complaint_target_visiter_key
+    , tg.trans_complaint_id
+    , cp.symbol AS complaint_symbol
+    , tg.target_kind
+    , tg.target_link_id
+    , tg.trans_purchase_rec_id
+    , tg.trans_work_record_id
+    , tg.complaint_quantity
+    , iss.trans_visiter_id
+    , iss.symbol AS visiter_symbol
+    , iss.quantity AS visiter_quantity
+    , iss.release
+    , lk.trans_complaint_visiter_id
+    , (lk.trans_complaint_visiter_id IS NOT NULL) AS linked
+    , lk.release_at
+    , (CASE
+           WHEN iss.trans_visiter_id IS NULL THEN NULL
+           WHEN iss.quantity <= 0 THEN 'empty'
+           WHEN NOT iss.issuable THEN 'held'
+           ELSE 'issuable'
+       END)::varchar(16) AS visiter_status
+FROM tgt AS tg
+INNER JOIN tests.trans_complaint AS cp
+    ON cp.trans_complaint_id = tg.trans_complaint_id AND cp.remove IS FALSE
+LEFT JOIN dv ON dv.target_link_id = tg.target_link_id
+LEFT JOIN tests.v_visiter_issuable AS iss
+    ON iss.trans_visiter_id = dv.trans_visiter_id
+LEFT JOIN LATERAL (
+    -- 同じ異常が、自分か分割元に付いているか
+    SELECT cv.trans_complaint_visiter_id, cv.release_at
+    FROM tests.v_visiter_lineage AS lg
+    INNER JOIN tests.trans_complaint_visiter AS cv
+        ON cv.trans_visiter_id = lg.ancestor_visiter_id
+       AND cv.trans_complaint_id = tg.trans_complaint_id AND cv.remove IS FALSE
+    WHERE lg.trans_visiter_id = iss.trans_visiter_id
+    ORDER BY cv.release_at NULLS FIRST, lg.depth
+    LIMIT 1
+) AS lk ON TRUE
+WHERE dv.trans_visiter_id IS NULL OR iss.trans_visiter_id IS NOT NULL;
+
+-- Postgraphile additional comment.
+comment on view tests.v_complaint_target_visiter is E'@primaryKey complaint_target_visiter_key\n@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)\n@foreignKey (trans_work_record_id) references trans_work_record (trans_work_record_id)\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (trans_complaint_visiter_id) references trans_complaint_visiter (trans_complaint_visiter_id)\n異常の対象と棚ビジター';
+
+drop view if exists tests.v_complaint_target;
+create view  tests.v_complaint_target as
+SELECT
+    t.target_link_id
+    , t.trans_complaint_id
+    , t.complaint_symbol
+    , t.target_kind
+    , t.trans_purchase_rec_id
+    , t.trans_work_record_id
+    , t.complaint_quantity
+    , COUNT(t.trans_visiter_id)::integer AS visiter_count
+    , COALESCE(SUM(t.visiter_quantity), 0) AS visiter_quantity
+    , COUNT(*) FILTER (WHERE t.linked)::integer AS linked_count
+    , COUNT(*) FILTER (WHERE t.linked AND t.release_at IS NULL)::integer AS open_count
+    , COUNT(*) FILTER (WHERE t.trans_visiter_id IS NOT NULL AND NOT t.linked)::integer AS missing_count
+    , COUNT(*) FILTER (WHERE t.trans_visiter_id IS NOT NULL AND NOT t.linked AND t.visiter_status = 'issuable')::integer AS missing_issuable_count
+    , COUNT(*) FILTER (WHERE t.trans_visiter_id IS NOT NULL AND NOT t.linked AND t.visiter_status = 'empty')::integer AS missing_empty_count
+FROM tests.v_complaint_target_visiter AS t
+GROUP BY t.target_link_id, t.trans_complaint_id, t.complaint_symbol, t.target_kind, t.trans_purchase_rec_id, t.trans_work_record_id, t.complaint_quantity;
+
+-- Postgraphile additional comment.
+comment on view tests.v_complaint_target is E'@primaryKey target_link_id\n@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)\n@foreignKey (trans_work_record_id) references trans_work_record (trans_work_record_id)\n異常の対象';
+
+drop view if exists tests.v_shelf_inventory_status;
+create view  tests.v_shelf_inventory_status as
+-- 6. 棚在庫状況 (2026-11-01 改訂: 数量は棚ビジターだけ。1行 = 在庫(ロット) 1件)
+-- フィルタ: 受入実績(trans_purchase_rec_ids ※配列・分割元を含む), 作業実績(trans_work_record_ids ※配列・分割元を含む),
+--           投入先の作業実績(consumed_work_record_ids ※配列), 受払実績(trans_convey_ids ※配列),
+--           入出庫許可(release), 今の数量(quantity), コンテナID(trans_container_id), 場所ID(mstr_location_id)
+SELECT
+    l.trans_visiter_id
+    , l.symbol
+    , l.parent_trans_visiter_id
+    , l.root_visiter_id
+    , l.trans_container_id
+    , l.mstr_location_id
+    , l.release
+    , l.quantity
+    , l.receipt_quantity
+    , l.issue_quantity
+    , l.adjustment_quantity
+    , l.line_count
+    , l.split_count
+    , l.open_complaint_count
+    , COALESCE(pr.ids, ARRAY[]::uuid[]) AS trans_purchase_rec_ids
+    , COALESCE(pr.n, 0)::integer AS purchase_rec_count
+    , COALESCE(wr.ids, ARRAY[]::uuid[]) AS trans_work_record_ids
+    , COALESCE(wr.n, 0)::integer AS work_record_count
+    , COALESCE(us.ids, ARRAY[]::uuid[]) AS consumed_work_record_ids
+    , COALESCE(us.n, 0)::integer AS consumed_work_record_count
+    , COALESCE(cv.ids, ARRAY[]::uuid[]) AS trans_convey_ids
+    , COALESCE(cv.n, 0)::integer AS convey_count
+    , cv.last_at AS last_convey_at
+FROM tests.v_visiter_lot AS l
+INNER JOIN tests.trans_container AS c
+    ON c.trans_container_id = l.trans_container_id AND c.remove IS FALSE
+LEFT JOIN LATERAL (
+    SELECT ARRAY_AGG(DISTINCT prv.trans_purchase_rec_id) AS ids, COUNT(DISTINCT prv.trans_purchase_rec_id) AS n
+    FROM tests.v_visiter_lineage AS lg
+    INNER JOIN tests.trans_purchase_rec_visiter AS prv
+        ON prv.trans_visiter_id = lg.ancestor_visiter_id AND prv.remove IS FALSE
+    INNER JOIN tests.trans_purchase_rec AS r
+        ON r.trans_purchase_rec_id = prv.trans_purchase_rec_id AND r.remove IS FALSE
+    WHERE lg.trans_visiter_id = l.trans_visiter_id
+) AS pr ON TRUE
+LEFT JOIN LATERAL (
+    SELECT ARRAY_AGG(DISTINCT wrv.trans_work_record_id) AS ids, COUNT(DISTINCT wrv.trans_work_record_id) AS n
+    FROM tests.v_visiter_lineage AS lg
+    INNER JOIN tests.trans_work_record_visiter AS wrv
+        ON wrv.trans_visiter_id = lg.ancestor_visiter_id AND wrv.remove IS FALSE
+    INNER JOIN tests.trans_work_record AS w
+        ON w.trans_work_record_id = wrv.trans_work_record_id AND w.remove IS FALSE
+    WHERE lg.trans_visiter_id = l.trans_visiter_id
+) AS wr ON TRUE
+LEFT JOIN LATERAL (
+    -- この在庫から材料として投入した作業実績 (出庫の行につながる作業実績)
+    SELECT ARRAY_AGG(DISTINCT wrv.trans_work_record_id) AS ids, COUNT(DISTINCT wrv.trans_work_record_id) AS n
+    FROM tests.trans_visiter AS r
+    INNER JOIN tests.trans_work_record_visiter AS wrv
+        ON wrv.trans_visiter_id = r.trans_visiter_id AND wrv.remove IS FALSE
+    INNER JOIN tests.trans_work_record AS w
+        ON w.trans_work_record_id = wrv.trans_work_record_id AND w.remove IS FALSE
+    WHERE r.parent_trans_visiter_id = l.trans_visiter_id AND r.remove IS FALSE AND r.quantity < 0
+) AS us ON TRUE
+LEFT JOIN LATERAL (
+    -- この在庫の行と、その出庫・棚卸しの行の受払実績
+    SELECT ARRAY_AGG(cn.trans_convey_id ORDER BY cn.convey_at, cn.trans_convey_id) AS ids, COUNT(*) AS n, MAX(cn.convey_at) AS last_at
+    FROM tests.trans_convey AS cn
+    INNER JOIN tests.trans_visiter AS r
+        ON r.trans_visiter_id = cn.trans_visiter_id AND r.remove IS FALSE
+    WHERE cn.remove IS FALSE
+      AND (r.trans_visiter_id = l.trans_visiter_id
+           OR (r.parent_trans_visiter_id = l.trans_visiter_id AND (r.quantity < 0 OR r.adjustment IS TRUE)))
+) AS cv ON TRUE;
+
+-- Postgraphile additional comment.
+COMMENT ON VIEW tests.v_shelf_inventory_status IS E'@primaryKey trans_visiter_id\n@unique symbol\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (parent_trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\n@foreignKey (mstr_location_id) references mstr_location (mstr_location_id)\n棚在庫状況';
 
 drop view if exists tests.v_work_plan_delivery_compliance;
 create view  tests.v_work_plan_delivery_compliance as
@@ -22144,89 +22637,6 @@ FROM
 
 -- Postgraphile additional comment.
 COMMENT ON VIEW tests.v_work_plan_delivery_compliance IS E'@primaryKey trans_work_plan_id\n@foreignKey (trans_work_plan_id) references trans_work_plan (trans_work_plan_id)\n@foreignKey (trans_operations_plan_id) references trans_operations_plan (trans_operations_plan_id)\n@foreignKey (mstr_task_id) references mstr_task (mstr_task_id)\n生産計画納期遵守状況';
-
-
-drop view if exists tests.v_shelf_inventory_status;
-create view  tests.v_shelf_inventory_status as
-SELECT
-    v.trans_visiter_id
-    , v.trans_container_id
-    , c.mstr_location_id
-    , v.release
-    , v.quantity
-    , COALESCE(pr.trans_purchase_rec_ids, ARRAY[]::UUID[]) AS trans_purchase_rec_ids
-    , COALESCE(pr.purchase_rec_count, 0) AS purchase_rec_count
-    , COALESCE(pr.purchase_rec_quantity, 0) AS purchase_rec_quantity
-    , COALESCE(cv.trans_convey_ids, ARRAY[]::UUID[]) AS trans_convey_ids
-    , COALESCE(cv.convey_count, 0) AS convey_count
-    , COALESCE(cv.receive_quantity, 0) AS convey_receive_quantity
-    , COALESCE(cv.issue_quantity, 0) AS convey_issue_quantity
-    , cv.last_convey_at
-    , COALESCE(wr.trans_work_record_ids, ARRAY[]::UUID[]) AS trans_work_record_ids
-    , COALESCE(wr.work_record_count, 0) AS work_record_count
-    , COALESCE(wr.work_record_quantity, 0) AS work_record_quantity
-FROM
-    tests.trans_visiter AS v
-    INNER JOIN tests.trans_container AS c
-        ON c.trans_container_id = v.trans_container_id
-        AND c.remove IS FALSE
-    LEFT JOIN LATERAL (
-        SELECT
-            ARRAY_AGG(prv.trans_purchase_rec_id ORDER BY prv.trans_purchase_rec_id) AS trans_purchase_rec_ids
-            , COUNT(prv.trans_purchase_rec_visiter_id) AS purchase_rec_count
-            , SUM(prv.quantity) AS purchase_rec_quantity
-        FROM
-            tests.trans_purchase_rec_visiter AS prv
-            INNER JOIN tests.trans_purchase_rec AS r
-                ON r.trans_purchase_rec_id = prv.trans_purchase_rec_id
-                AND r.remove IS FALSE
-        WHERE
-            prv.trans_visiter_id = v.trans_visiter_id
-            AND prv.remove IS FALSE
-    ) AS pr
-        ON TRUE
-    LEFT JOIN LATERAL (
-        SELECT
-            ARRAY_AGG(cn.trans_convey_id ORDER BY cn.convey_at, cn.trans_convey_id) AS trans_convey_ids
-            , COUNT(cn.trans_convey_id) AS convey_count
-            , SUM(cn.quantity) FILTER (WHERE cn.receive IS TRUE) AS receive_quantity
-            , SUM(cn.quantity) FILTER (WHERE cn.receive IS NOT TRUE) AS issue_quantity
-            , MAX(cn.convey_at) AS last_convey_at
-        FROM
-            tests.trans_convey AS cn
-        WHERE
-            cn.trans_visiter_id = v.trans_visiter_id
-            AND cn.remove IS FALSE
-    ) AS cv
-        ON TRUE
-    LEFT JOIN LATERAL (
-        SELECT
-            ARRAY_AGG(wrv.trans_work_record_id ORDER BY wrv.trans_work_record_id) AS trans_work_record_ids
-            , COUNT(wrv.trans_work_record_visiter_id) AS work_record_count
-            , SUM(wrv.quantity) AS work_record_quantity
-        FROM
-            tests.trans_work_record_visiter AS wrv
-            INNER JOIN tests.trans_work_record AS w
-                ON w.trans_work_record_id = wrv.trans_work_record_id
-                AND w.remove IS FALSE
-        WHERE
-            wrv.trans_visiter_id = v.trans_visiter_id
-            AND wrv.remove IS FALSE
-    ) AS wr
-        ON TRUE
-WHERE
-    v.remove IS FALSE
-
-;
-
--- 6. 棚在庫状況
--- フィルタ: 受入実績(trans_purchase_rec_ids ※配列), 受け払い実績(trans_convey_ids ※配列),
---           作業実績(trans_work_record_ids ※配列), 状態(status), 数量(quantity), コンテナID(trans_container_id)
--- 粒度: 棚ビジター 1件につき1行
--- 受入実績・受払実績・作業実績は棚ビジターに対して複数件紐づくため、行の重複を避けて配列で保持する
--- (connection-filter の anyEqualTo 等で絞り込む。有無は *_count > 0 で判定可能)
--- Postgraphile additional comment.
-COMMENT ON VIEW tests.v_shelf_inventory_status IS E'@primaryKey trans_visiter_id\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\n@foreignKey (mstr_location_id) references mstr_location (mstr_location_id)\n棚在庫状況';
 
 
 drop view if exists tests.v_inspection_status;
