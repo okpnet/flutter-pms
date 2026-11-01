@@ -99,4 +99,8 @@ final bytes = await personal.download('settings');
 ## 5. テスト
 - 通信を差し替えるテスト: `PbConnection.open(httpClientFactory: () => MockClient(...))`。`test/support/fake_pocketbase.dart`を参照。
 - 実サーバーのテスト(`server`タグ): `flutter test --exclude-tags server`で除外できる。別のサーバーは`--dart-define=PMS_TEST_POCKETBASE_URL=...`。
+  - `pocketbase_server_test.dart`: データを作らない(疎通・未ログインの拒否)。
+  - `pocketbase_integration_test.dart`: 利用者・招待・ファイルを作って検証し、後始末する。管理者の資格情報を実行時に渡す(コード・Gitには書かない)。Dockerのテスト環境専用で、本番には実行しない。
+    `--dart-define=PMS_TEST_POCKETBASE_ADMIN_EMAIL=... --dart-define=PMS_TEST_POCKETBASE_ADMIN_PASSWORD=...`
+  - サーバーのレート制限(ログインは同一IPで1分10回)があるため、続けて実行するときは1分以上あける。
 - `flutter test`がこの環境で落ちる場合は`--no-test-assets`を付ける。

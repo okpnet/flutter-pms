@@ -69,22 +69,23 @@ void main() {
   );
 
   test(
-    '未ログインで共有ファイルを参照すると、権限エラー(または空)になる',
+    '未ログインで共有ファイルを参照すると、unauthorizedになる',
     onServer(() async {
       final connection = await PbConnection.open(
         url: _url,
         logger: RecordingLogger(),
       );
       final files = SharedFileService(connection);
-      try {
-        final found = await files.latest('pbapi-test-not-exists');
-        expect(found, isNull);
-      } on PbException catch (e) {
-        expect(
-          e.kind,
-          anyOf(PbFailureKind.unauthorized, PbFailureKind.forbidden),
-        );
-      }
+      await expectLater(
+        files.latest('pbapi-test-not-exists'),
+        throwsA(
+          isA<PbException>().having(
+            (e) => e.kind,
+            'kind',
+            PbFailureKind.unauthorized,
+          ),
+        ),
+      );
     }),
   );
 }

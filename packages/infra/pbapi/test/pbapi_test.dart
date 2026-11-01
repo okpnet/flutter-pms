@@ -481,7 +481,40 @@ void main() {
 
     setUp(() async {
       server = FakePocketBase();
-      files = SharedFileService(await server.open());
+      server.on(
+        'POST',
+        '/api/collections/users/auth-with-password',
+        (r) => server.json(authBody()),
+      );
+      final connection = await server.open();
+      await SessionService(connection).login('a', 'b');
+      files = SharedFileService(connection);
+      server.requests.clear();
+    });
+
+    test('未ログインは通信せずunauthorized(空の一覧を「見つからない」と取り違えない)', () async {
+      final anonymous = SharedFileService(await FakePocketBase().open());
+      for (final call in <Future<Object?> Function()>[
+        () => anonymous.latest('doc-1'),
+        () => anonymous.history('doc-1'),
+        () => anonymous.download('doc-1'),
+        () => anonymous.upload(
+          appFileId: 'doc-1',
+          bytes: Uint8List(1),
+          filename: 'a',
+        ),
+      ]) {
+        await expectLater(
+          call(),
+          throwsA(
+            isA<PbException>().having(
+              (e) => e.kind,
+              'kind',
+              PbFailureKind.unauthorized,
+            ),
+          ),
+        );
+      }
     });
 
     test('アップロードはIDと版を返す', () async {
@@ -683,7 +716,15 @@ void main() {
 
     setUp(() async {
       server = FakePocketBase();
-      personal = PersonalFileService(await server.open());
+      server.on(
+        'POST',
+        '/api/collections/users/auth-with-password',
+        (r) => server.json(authBody()),
+      );
+      final connection = await server.open();
+      await SessionService(connection).login('a', 'b');
+      personal = PersonalFileService(connection);
+      server.requests.clear();
     });
 
     test('無ければ作成する', () async {
@@ -704,9 +745,30 @@ void main() {
         ),
         'p1',
       );
+      final created = server
+          .where('POST', '/api/collections/user_files/records')
+          .single
+          .body;
+      // 持ち主はログイン中のユーザー(サーバーのルールが本人だけに限定する)。
+      expect(created, contains('"owner":"u1"'));
+      expect(created, contains('"key":"settings"'));
       expect(
         server.where('PATCH', '/api/collections/user_files/records/p1'),
         isEmpty,
+      );
+    });
+
+    test('未ログインのアップロードはunauthorized(通信しない)', () async {
+      final anonymous = PersonalFileService(await FakePocketBase().open());
+      await expectLater(
+        anonymous.upload(key: 'settings', bytes: Uint8List(1)),
+        throwsA(
+          isA<PbException>().having(
+            (e) => e.kind,
+            'kind',
+            PbFailureKind.unauthorized,
+          ),
+        ),
       );
     });
 

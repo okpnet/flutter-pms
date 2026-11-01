@@ -31,6 +31,8 @@ class PersonalFileService {
     String filename = 'settings.json',
   }) async {
     _checkKey(key);
+    _connection.requireLogin();
+    final ownerId = _connection.pb.authStore.record!.id;
     final existing = await _find(key);
     final file = http.MultipartFile.fromBytes(
       'file',
@@ -42,7 +44,7 @@ class PersonalFileService {
       () => existing == null
           ? _connection.pb
                 .collection(_collection)
-                .create(body: {'key': key}, files: [file])
+                .create(body: {'key': key, 'owner': ownerId}, files: [file])
           : _connection.pb
                 .collection(_collection)
                 .update(existing.id, files: [file]),
@@ -53,6 +55,7 @@ class PersonalFileService {
   /// [key] の内容をダウンロードする。保存されていなければ null。
   Future<Uint8List?> download(String key) async {
     _checkKey(key);
+    _connection.requireLogin();
     final record = await _find(key);
     if (record == null) return null;
     return fetchRecordFile(_connection, record, 'downloadPersonal');
@@ -61,6 +64,7 @@ class PersonalFileService {
   /// [key] のファイルを削除する。無ければ何もしない。
   Future<void> delete(String key) async {
     _checkKey(key);
+    _connection.requireLogin();
     final record = await _find(key);
     if (record == null) return;
     await _connection.guard(

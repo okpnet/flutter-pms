@@ -1,10 +1,15 @@
 # 個人ファイル用のサーバー準備(提案)
 
 `PersonalFileService`(設定のアップロード)は、サーバーの`user_files`コレクションを使います。
-現在のサーバー(`tools/docker/pocketbase`)には無いため、次の2つを追加してください。
+現在のサーバー(`tools/docker/pocketbase`)には無いため、次のマイグレーションを追加してください。
 共有ファイル(`app_files`)は全員に見えるため、設定のような個人のファイルには使えません。
 
-## 1. マイグレーション `pb_migrations/<時刻>_user_files.js`
+フックは不要です。クライアントが`owner`にログイン中のユーザーのIDを送り、サーバーのルール
+(`@request.body.owner = @request.auth.id`)が、他人名義の作成を拒否します。
+このルールは、Dockerのテスト環境で一時コレクションを作って動作を確認済みです
+(`test/pocketbase_integration_test.dart`: 本人だけが参照できる、同じキーは上書き、他人からは見えない)。
+
+## マイグレーション `pb_migrations/<時刻>_user_files.js`
 ```js
 /// <reference path="../pb_data/types.d.ts" />
 migrate((app) => {
@@ -16,8 +21,8 @@ migrate((app) => {
     // 本人のファイルだけ一覧・参照・更新・削除できる(他人からは見えない)
     listRule: mine,
     viewRule: mine,
-    // 作成: owner はサーバーが設定する(他人名義は不可)
-    createRule: "@request.auth.collectionName = 'users' && @request.body.owner:isset = false",
+    // 作成: owner は本人だけ(他人名義は不可)
+    createRule: "@request.auth.collectionName = 'users' && @request.body.owner = @request.auth.id",
     updateRule: mine + " && @request.body.owner:isset = false && @request.body.key:isset = false",
     deleteRule: mine,
     fields: [
@@ -41,16 +46,6 @@ migrate((app) => {
 }, (app) => {
   app.delete(app.findCollectionByNameOrId("user_files"));
 });
-```
-
-## 2. フック `pb_hooks/40_user_files.pb.js`
-```js
-/// <reference path="../pb_data/types.d.ts" />
-// owner をログインユーザーに強制する
-onRecordCreateRequest((e) => {
-  e.record.set("owner", e.auth.id);
-  e.next();
-}, "user_files");
 ```
 
 `PersonalFileService`は、`key`が同じファイルがあれば更新(上書き)し、無ければ作成します。

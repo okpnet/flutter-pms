@@ -42,6 +42,16 @@ class PbConnection {
     return PbConnection._(endpoint, pb, logger, factory);
   }
 
+  /// ログイン中でなければ [PbException]([PbFailureKind.unauthorized])を投げる。
+  ///
+  /// PocketBase は、一覧の権限が無いときに権限エラーではなく空の一覧を返す。未ログインを
+  /// 「見つからない」と取り違えないよう、通信の前に確認する。
+  void requireLogin() {
+    if (!pb.authStore.isValid) {
+      throw const PbException(PbFailureKind.unauthorized);
+    }
+  }
+
   /// ファイルのダウンロードなど、SDK を通さない通信に使う HTTP クライアント。使い終わったら close する。
   http.Client newHttpClient() => _httpClientFactory();
 

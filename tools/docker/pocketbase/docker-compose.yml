@@ -1,0 +1,61 @@
+name: app-login-service
+
+services:
+  pocketbase:
+    build:
+      context: ./pocketbase
+      args:
+        PB_VERSION: ${PB_VERSION:-0.40.6}
+    image: app-login-pocketbase:${PB_VERSION:-0.40.6}
+    container_name: pocketbase
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      # 本番で Caddy を使う場合は "127.0.0.1:${PB_PORT}:8090" にして直接公開しない
+      - "${PB_PORT:-8090}:8090"
+    volumes:
+      # DB (SQLite: data.db / auxiliary.db) とバックアップ
+      - type: bind
+        source: ${PB_DATA_DIR:-./data/pb_data}
+        target: /pb/pb_data
+        bind:
+          create_host_path: true
+      # アップロードファイル実体 (NAS などに分けられる)
+      - type: bind
+        source: ${PB_STORAGE_DIR:-./data/storage}
+        target: /pb/pb_data/storage
+        bind:
+          create_host_path: true
+      # 開発中はホスト側を直接マウント (本番はイメージに焼き込んだものを使うならコメントアウト)
+      - ./pocketbase/pb_migrations:/pb/pb_migrations:ro
+      - ./pocketbase/pb_hooks:/pb/pb_hooks:ro
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8090/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # --- 任意: HTTPS 終端 ---------------------------------------------------
+  #   docker compose --profile proxy up -d
+  caddy:
+    profiles: ["proxy"]
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    depends_on:
+      pocketbase:
+        condition: service_healthy
+    environment:
+      PB_DOMAIN: ${PB_DOMAIN:-localhost}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,11 @@
+{$PB_DOMAIN} {
+	# アップロード上限 (app_files.maxSize より少し大きく)
+	request_body {
+		max_size 110MB
+	}
+
+	reverse_proxy pocketbase:8090 {
+		# realtime (SSE) を OAuth2 フローで使うためバッファリングしない
+		flush_interval -1
+	}
+}

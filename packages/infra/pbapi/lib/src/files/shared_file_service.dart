@@ -33,6 +33,7 @@ class SharedFileService {
     String? comment,
   }) async {
     _checkId(appFileId);
+    _connection.requireLogin();
     Future<RecordModel> once() => _connection.pb
         .collection(_collection)
         .create(
@@ -59,6 +60,7 @@ class SharedFileService {
   /// 最新の版の識別情報。無ければ null。
   Future<StoredFile?> latest(String appFileId) async {
     _checkId(appFileId);
+    _connection.requireLogin();
     final result = await _connection.guard(
       'latest',
       () => _connection.pb
@@ -78,6 +80,7 @@ class SharedFileService {
   /// すべての版(新しい順)。
   Future<List<StoredFile>> history(String appFileId) async {
     _checkId(appFileId);
+    _connection.requireLogin();
     final items = await _connection.guard(
       'history',
       () => _connection.pb
@@ -98,6 +101,7 @@ class SharedFileService {
   /// ダウンロード用の短時間だけ有効なトークンを都度取得する(URLは外へ出さない)。
   Future<DownloadedFile?> download(String appFileId, {int? revision}) async {
     _checkId(appFileId);
+    _connection.requireLogin();
     final RecordModel? record;
     if (revision == null) {
       final result = await _connection.guard(
