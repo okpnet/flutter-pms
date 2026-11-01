@@ -109,6 +109,54 @@ void main() {
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
+    serverTest('VisiterHoldWithoutComplaintPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryVisiterHoldWithoutComplaintPageRead,
+          variables: Variables$Query$VisiterHoldWithoutComplaintPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$VisiterHoldWithoutComplaintPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
+    serverTest('VisiterIssuablePageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryVisiterIssuablePageRead,
+          variables: Variables$Query$VisiterIssuablePageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$VisiterIssuablePageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
+    serverTest('VisiterLedgerIssuePageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryVisiterLedgerIssuePageRead,
+          variables: Variables$Query$VisiterLedgerIssuePageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$VisiterLedgerIssuePageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
+    serverTest('VisiterOriginCheckPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryVisiterOriginCheckPageRead,
+          variables: Variables$Query$VisiterOriginCheckPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$VisiterOriginCheckPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('VisiterPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(

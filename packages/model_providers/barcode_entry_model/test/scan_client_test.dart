@@ -121,16 +121,21 @@ void main() {
       expect(p.inspectionName, isNotEmpty);
     });
 
-    serverTest('棚のビジターは、保留と未解除の異常があれば取り出せない', (server) async {
+    serverTest('隔離棚の保留のロットは取り出せず、元の棚の使えるロットは取り出せる', (server) async {
       final client = await clientOf(server);
-      final sym = await _containerSymbol(server, 'RACK-A01');
-      final shelf = sym == null ? null : await client.findContainer(sym);
-      if (shelf == null) return markTestSkipped('棚 RACK-A01 が無い');
-      final held = (await client.listVisiters(shelf.id)).where((v) => !v.release).toList();
+      final qSym = await _containerSymbol(server, 'RACK-Q01');
+      final aSym = await _containerSymbol(server, 'RACK-A01');
+      final quarantine = qSym == null ? null : await client.findContainer(qSym);
+      final rack = aSym == null ? null : await client.findContainer(aSym);
+      if (quarantine == null || rack == null) return markTestSkipped('棚 RACK-A01 / RACK-Q01 が無い');
+      final held = (await client.listVisiters(quarantine.id)).where((v) => v.quantity > 0).toList();
       if (held.isEmpty) return markTestSkipped('保留のダミーデータ(11_barcode_dummy.sql)が無い');
-      expect(held.any((v) => v.hasOpenComplaint), isTrue); // 異常のある保留
+      expect(held.every((v) => !v.release && !v.issuable), isTrue);
+      expect(held.any((v) => v.hasOpenComplaint && v.blockReason == 'hold'), isTrue); // 異常のある保留
       expect(held.any((v) => !v.hasOpenComplaint), isTrue); // 異常の無い保留(点検の対象)
-      expect(held.every((v) => !v.issuable), isTrue);
+      final usable = (await client.listVisiters(rack.id)).where((v) => v.issuable).toList();
+      expect(usable, isNotEmpty);
+      expect(usable.every((v) => v.release && v.quantity > 0 && v.blockReason == null), isTrue);
     });
 
     serverTest('登録の無い symbol は null', (server) async {
@@ -183,7 +188,10 @@ void main() {
       expect(byName['WorkRecordPageCreate']!['remarks'], '不合格(寸法不良)');
       expect(byName['VisiterPageCreate']!['transContainerId'], 'shelf-1');
       expect(byName['ConveyPageCreate']!['transVisiterId'], 'v-1');
-      expect(byName['ConveyPageCreate']!['receive'], true);
+      expect(byName['VisiterPageCreate']!['quantity'], '20');
+      expect(byName['VisiterPageCreate']!.containsKey('parentTransVisiterId'), isFalse);
+      expect(byName['ConveyPageCreate']!.containsKey('quantity'), isFalse); // 数量は棚ビジターだけが持つ
+      expect(byName['WorkRecordVisiterPageCreate']!.containsKey('quantity'), isFalse);
       expect(byName['ConveyPageCreate']!['locationId'], 'loc-1');
       expect(byName['WorkRecordVisiterPageCreate']!['transWorkRecordId'], 'wr-1');
       expect(byName['WorkRecordVisiterPageCreate']!['transVisiterId'], 'v-1');
@@ -231,8 +239,6 @@ void main() {
       });
       await clientOn(link).createConvey(
         visiterId: 'v-1',
-        receive: true,
-        quantity: 1,
         locationId: 'loc-1',
         staffId: 'staff-1',
       );
@@ -280,6 +286,86 @@ void main() {
       expect(v['result'], true);
       expect(v['resultValue'], {'value': 0.3});
     });
+
+    ScanVisiter lot(int quantity) => ScanVisiter(
+      id: 'lot-1',
+      containerId: 'shelf-1',
+      symbol: '',
+      quantity: quantity,
+      release: true,
+      openComplaintCount: 0,
+      issuable: true,
+    );
+
+    Map<String, Map<String, dynamic>> opResponses() => {
+      'ScanContainerPageRead': {
+        'allTransContainers': {
+          '__typename': 'Connection',
+          'nodes': [
+            {'__typename': 'Node', 'mstrLocationId': 'loc-9'},
+          ],
+        },
+      },
+      'VisiterPageCreate': _created('createTransVisiter', 'transVisiter', 'transVisiterId', 'v-new'),
+      'ConveyPageCreate': _created('createTransConvey', 'transConvey', 'transConveyId', 'c-1'),
+      'WorkRecordVisiterPageCreate': _created(
+        'createTransWorkRecordVisiter',
+        'transWorkRecordVisiter',
+        'transWorkRecordVisiterId',
+        'wrv-1',
+      ),
+    };
+
+    List<Map<String, dynamic>> varsOf(_FakeLink link, String name) => [
+      for (final c in link.calls)
+        if (c.$1 == name) c.$2,
+    ];
+
+    test('払出は、親をロットにした-の行と受払実績を作り、投入先の作業実績に結び付ける', () async {
+      final link = _FakeLink(opResponses());
+      final id = await clientOn(link).issueLot(lot: lot(30), quantity: 8, workRecordId: 'wr-1');
+      expect(id, 'v-new');
+      expect(_creates(link), ['VisiterPageCreate', 'ConveyPageCreate', 'WorkRecordVisiterPageCreate']);
+      final row = varsOf(link, 'VisiterPageCreate').single;
+      expect(row['quantity'], '-8');
+      expect(row['parentTransVisiterId'], 'lot-1');
+      expect(row['transContainerId'], 'shelf-1'); // 棚は親のロットと同じ
+      expect(varsOf(link, 'ConveyPageCreate').single['locationId'], 'loc-9');
+      expect(varsOf(link, 'WorkRecordVisiterPageCreate').single['transWorkRecordId'], 'wr-1');
+    });
+
+    test('払出の数量が1未満なら、何も登録しない', () async {
+      final link = _FakeLink(opResponses());
+      await expectLater(clientOn(link).issueLot(lot: lot(30), quantity: 0), throwsA(isA<ScanClientException>()));
+      expect(link.calls, isEmpty);
+    });
+
+    test('隔離は、元の棚に-、移動先に+(仮止め)の行を作り、行ごとに受払実績を作る', () async {
+      final link = _FakeLink(opResponses());
+      const quarantine = ScanFound(kind: ScanFoundKind.container, id: 'q-1', symbol: 'Q', locationId: 'loc-q');
+      await clientOn(link).moveLot(lot: lot(30), quantity: 5, to: quarantine, hold: true);
+      expect(_creates(link), ['VisiterPageCreate', 'ConveyPageCreate', 'VisiterPageCreate', 'ConveyPageCreate']);
+      final rows = varsOf(link, 'VisiterPageCreate');
+      expect(rows[0]['quantity'], '-5');
+      expect(rows[0]['transContainerId'], 'shelf-1');
+      expect(rows[1]['quantity'], '5');
+      expect(rows[1]['transContainerId'], 'q-1');
+      expect(rows.every((r) => r['parentTransVisiterId'] == 'lot-1'), isTrue);
+      expect(rows[0].containsKey('release'), isFalse);
+      expect(rows[1]['release'], false);
+      expect(varsOf(link, 'ConveyPageCreate').map((v) => v['locationId']), ['loc-9', 'loc-q']);
+    });
+
+    test('棚卸しは、親をロットにした調整行を作る', () async {
+      final link = _FakeLink(opResponses());
+      await clientOn(link).adjustLot(lot: lot(30), difference: -2, remarks: '棚卸し');
+      final row = varsOf(link, 'VisiterPageCreate').single;
+      expect(row['quantity'], '-2');
+      expect(row['adjustment'], true);
+      expect(row['parentTransVisiterId'], 'lot-1');
+      await expectLater(clientOn(link).adjustLot(lot: lot(30), difference: 0), throwsA(isA<ScanClientException>()));
+    });
+
 
     test('作業の開始は作業実績だけを登録する', () async {
       final link = _FakeLink({

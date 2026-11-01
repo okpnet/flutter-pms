@@ -169,6 +169,30 @@ void main() {
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
+    serverTest('ComplaintTargetPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryComplaintTargetPageRead,
+          variables: Variables$Query$ComplaintTargetPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ComplaintTargetPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
+    serverTest('ComplaintTargetVisiterPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryComplaintTargetVisiterPageRead,
+          variables: Variables$Query$ComplaintTargetVisiterPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ComplaintTargetVisiterPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('ComplaintVisiterPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(

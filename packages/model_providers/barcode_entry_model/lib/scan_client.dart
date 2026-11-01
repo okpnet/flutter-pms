@@ -323,24 +323,33 @@ class ScanClient {
     'transWorkRecordId',
   );
 
-  /// 棚ビジター(`trans_visiter`)。
+  /// 棚ビジター(`trans_visiter`)。数量は棚ビジターだけが持つ(+が入庫、-が出庫)。
+  /// 出庫・棚卸しの行は [parentVisiterId](取り出したロット)が必須。
   Future<String> createVisiter({
     required String containerId,
     required int quantity,
+    String? parentVisiterId,
+    bool adjustment = false,
+    bool? release,
     String? remarks,
   }) => _create(
     wr.documentNodeMutationVisiterPageCreate,
-    {'transContainerId': containerId, 'quantity': '$quantity', if (remarks != null) 'remarks': remarks},
+    {
+      'transContainerId': containerId,
+      'quantity': '$quantity',
+      if (parentVisiterId != null) 'parentTransVisiterId': parentVisiterId,
+      if (adjustment) 'adjustment': true,
+      if (release != null) 'release': release,
+      if (remarks != null) 'remarks': remarks,
+    },
     'createTransVisiter',
     'transVisiter',
     'transVisiterId',
   );
 
-  /// 棚への入庫/払出(`trans_convey`)。[receive] が入庫。
+  /// 受払実績(`trans_convey`)。いつ・どこで・誰がだけを残す(数量は棚ビジターが持つ)。棚ビジターの1行につき1件。
   Future<String> createConvey({
     required String visiterId,
-    required bool receive,
-    required int quantity,
     String? locationId,
     String? staffId,
     String? remarks,
@@ -348,9 +357,7 @@ class ScanClient {
     wr.documentNodeMutationConveyPageCreate,
     {
       'transVisiterId': visiterId,
-      'receive': receive,
       'conveyAt': _stamp(),
-      'quantity': '$quantity',
       if (locationId != null) ...await _location(locationId),
       if (staffId != null) ...await _staff(staffId),
       if (remarks != null) 'remarks': remarks,
@@ -360,14 +367,13 @@ class ScanClient {
     'transConveyId',
   );
 
-  /// 作業実績と棚ビジターの結び付き(`trans_work_record_visiter`)。
+  /// 作業実績と棚ビジターの結び付き(`trans_work_record_visiter`。数量は持たない)。
   Future<String> linkWorkRecordVisiter({
     required String workRecordId,
     required String visiterId,
-    required int quantity,
   }) => _create(
     wr.documentNodeMutationWorkRecordVisiterPageCreate,
-    {'transWorkRecordId': workRecordId, 'transVisiterId': visiterId, 'quantity': '$quantity'},
+    {'transWorkRecordId': workRecordId, 'transVisiterId': visiterId},
     'createTransWorkRecordVisiter',
     'transWorkRecordVisiter',
     'transWorkRecordVisiterId',
@@ -391,14 +397,13 @@ class ScanClient {
     'transPurchaseRecId',
   );
 
-  /// 受入と棚ビジターの結び付き(`trans_purchase_rec_visiter`)。
+  /// 受入と棚ビジターの結び付き(`trans_purchase_rec_visiter`。数量は持たない)。
   Future<String> linkPurchaseRecVisiter({
     required String purchaseRecId,
     required String visiterId,
-    required int quantity,
   }) => _create(
     pu.documentNodeMutationPurchaseRecVisiterPageCreate,
-    {'transPurchaseRecId': purchaseRecId, 'transVisiterId': visiterId, 'quantity': '$quantity'},
+    {'transPurchaseRecId': purchaseRecId, 'transVisiterId': visiterId},
     'createTransPurchaseRecVisiter',
     'transPurchaseRecVisiter',
     'transPurchaseRecVisiterId',
@@ -429,12 +434,10 @@ class ScanClient {
     final visiter = await createVisiter(containerId: shelf.id, quantity: quantity, remarks: rejectNote);
     await createConvey(
       visiterId: visiter,
-      receive: true,
-      quantity: quantity,
       locationId: shelf.locationId,
       staffId: staffId,
     );
-    await linkWorkRecordVisiter(workRecordId: record, visiterId: visiter, quantity: quantity);
+    await linkWorkRecordVisiter(workRecordId: record, visiterId: visiter);
   }
 
   /// 購入品の受入数量を棚へ入庫する(受入 + ビジター + 入庫 + 結び付け)。
@@ -453,12 +456,10 @@ class ScanClient {
     final visiter = await createVisiter(containerId: shelf.id, quantity: quantity, remarks: rejectNote);
     await createConvey(
       visiterId: visiter,
-      receive: true,
-      quantity: quantity,
       locationId: shelf.locationId,
       staffId: staffId,
     );
-    await linkPurchaseRecVisiter(purchaseRecId: rec, visiterId: visiter, quantity: quantity);
+    await linkPurchaseRecVisiter(purchaseRecId: rec, visiterId: visiter);
   }
 
   /// 棚移動(製品/購入品を棚へ入れる)。ビジターに品目の列が無いため、品目の symbol を備考に残す。
@@ -475,12 +476,100 @@ class ScanClient {
     );
     await createConvey(
       visiterId: visiter,
-      receive: true,
-      quantity: quantity,
       locationId: shelf.locationId,
       staffId: staffId,
       remarks: item.symbol,
     );
+  }
+
+  // ---- 棚ビジターの出庫・移動・棚卸し(ロットを親にした行を作る。受払実績は行ごとに1件) ----
+
+  Future<String?> _containerLocation(String containerId) async {
+    final rows = await _nodes(scan.documentNodeQueryScanContainerPageRead, 'allTransContainers', {
+      'languageCodeId': languageCodeId,
+      'filter': {
+        'transContainerId': {'equalTo': containerId},
+      },
+    });
+    return rows.isEmpty ? null : rows.first['mstrLocationId'] as String?;
+  }
+
+  /// 払出・出荷・材料投入。ロット [lot] の棚に、親をロットにした-の行と受払実績を作る。
+  /// 製造への投入は [workRecordId](投入先の作業実績)を渡して結び付ける。返すのは作った行の id。
+  Future<String> issueLot({
+    required ScanVisiter lot,
+    required int quantity,
+    String? workRecordId,
+    String? staffId,
+  }) async {
+    if (quantity <= 0) throw ScanClientException('出庫の数量は1以上です');
+    final row = await createVisiter(
+      containerId: lot.containerId,
+      quantity: -quantity,
+      parentVisiterId: lot.id,
+    );
+    await createConvey(
+      visiterId: row,
+      locationId: await _containerLocation(lot.containerId),
+      staffId: staffId,
+    );
+    if (workRecordId != null) {
+      await linkWorkRecordVisiter(workRecordId: workRecordId, visiterId: row);
+    }
+    return row;
+  }
+
+  /// 移動・分割・隔離。元の棚に-、[to] に+の行(どちらも親はロット)と、それぞれの受払実績を作る。
+  /// [hold] が真なら、移動先の+の行を仮止め(`release = false`)にする。返すのは移動先の行の id。
+  Future<String> moveLot({
+    required ScanVisiter lot,
+    required int quantity,
+    required ScanFound to,
+    bool hold = false,
+    String? staffId,
+  }) async {
+    if (quantity <= 0) throw ScanClientException('移動の数量は1以上です');
+    final out = await createVisiter(
+      containerId: lot.containerId,
+      quantity: -quantity,
+      parentVisiterId: lot.id,
+    );
+    await createConvey(
+      visiterId: out,
+      locationId: await _containerLocation(lot.containerId),
+      staffId: staffId,
+    );
+    final into = await createVisiter(
+      containerId: to.id,
+      quantity: quantity,
+      parentVisiterId: lot.id,
+      release: hold ? false : null,
+    );
+    await createConvey(visiterId: into, locationId: to.locationId, staffId: staffId);
+    return into;
+  }
+
+  /// 棚卸しの調整。帳簿と現品の差 [difference](+または-、0は不可)を、ロットを親にした調整行で足す。
+  Future<String> adjustLot({
+    required ScanVisiter lot,
+    required int difference,
+    String? staffId,
+    String? remarks,
+  }) async {
+    if (difference == 0) throw ScanClientException('棚卸しの差は0にできません');
+    final row = await createVisiter(
+      containerId: lot.containerId,
+      quantity: difference,
+      parentVisiterId: lot.id,
+      adjustment: true,
+      remarks: remarks,
+    );
+    await createConvey(
+      visiterId: row,
+      locationId: await _containerLocation(lot.containerId),
+      staffId: staffId,
+    );
+    return row;
   }
 
   // ---- 設備点検 ----
@@ -646,32 +735,32 @@ class ScanClient {
 
   // ---- 取り出し可否 ----
 
-  /// 棚のビジターと、取り出せるか。取り出せる = `release` が真、かつ解除されていない異常(`release_at` が空)が無い。
+  /// 棚のロットと、取り出せるか(DB の `v_visiter_issuable`)。
+  /// 取り出せる = 入出庫許可が真、かつ解除されていない異常(分割元のものを含む)が無く、数量が正。
   Future<List<ScanVisiter>> listVisiters(String containerId) async {
-    final rows = await _nodes(scan.documentNodeQueryScanVisiterPageRead, 'allTransVisiters', {
-      'transContainerId': containerId,
+    final lots = await _nodes(wr.documentNodeQueryVisiterIssuablePageRead, 'allVVisiterIssuables', {
+      'filter': {
+        'transContainerId': {'equalTo': containerId},
+      },
     });
-    if (rows.isEmpty) return const [];
-    final held = <String>{
-      for (final c in await _nodes(qu.documentNodeQueryComplaintVisiterPageRead, 'allTransComplaintVisiters', {
-        'languageCodeId': languageCodeId,
-        'filter': {
-          'releaseAt': {'isNull': true},
-          'transVisiterId': {
-            'in': [for (final r in rows) r['transVisiterId']],
-          },
-        },
+    if (lots.isEmpty) return const [];
+    final symbols = <String, String>{
+      for (final r in await _nodes(scan.documentNodeQueryScanVisiterPageRead, 'allTransVisiters', {
+        'transContainerId': containerId,
       }))
-        c['transVisiterId'] as String,
+        r['transVisiterId'] as String: r['symbol'] as String? ?? '',
     };
     return [
-      for (final r in rows)
+      for (final r in lots)
         ScanVisiter(
           id: r['transVisiterId'] as String,
-          symbol: r['symbol'] as String? ?? '',
+          containerId: containerId,
+          symbol: symbols[r['transVisiterId']] ?? '',
           quantity: _int(r['quantity']),
           release: r['release'] as bool? ?? true,
-          hasOpenComplaint: held.contains(r['transVisiterId']),
+          openComplaintCount: (r['openComplaintCount'] as num?)?.toInt() ?? 0,
+          issuable: r['issuable'] as bool? ?? false,
+          blockReason: r['blockReason'] as String?,
         ),
     ];
   }
@@ -698,26 +787,36 @@ class ScanInspection {
   final String? format;
 }
 
-/// 棚のビジター(平らな型)。
+/// 棚のロット(平らな型)。数量は今の数量(入庫 + 出庫 + 棚卸し)。
 class ScanVisiter {
   const ScanVisiter({
     required this.id,
+    required this.containerId,
     required this.symbol,
     required this.quantity,
     required this.release,
-    required this.hasOpenComplaint,
+    required this.openComplaintCount,
+    required this.issuable,
+    this.blockReason,
   });
 
   final String id;
+  final String containerId;
   final String symbol;
   final int quantity;
 
   /// 入出庫許可(手動の仮止めが偽)。
   final bool release;
 
-  /// 解除されていない異常がある。
-  final bool hasOpenComplaint;
+  /// 解除されていない異常の数(分割元のものを含む)。
+  final int openComplaintCount;
 
-  /// 取り出せる。
-  bool get issuable => release && !hasOpenComplaint;
+  /// 取り出せる(DB の判定)。
+  final bool issuable;
+
+  /// 取り出せない理由(`hold` / `complaint` / `empty`)。取り出せるときは null。
+  final String? blockReason;
+
+  /// 解除されていない異常がある。
+  bool get hasOpenComplaint => openComplaintCount > 0;
 }

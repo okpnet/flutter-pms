@@ -12,5 +12,8 @@ abstract class MrpVisiterItemPageFilterSpec {
     'itemCount': FlatFilterPath([], 'itemCount'),
     'finished': FlatFilterPath([], 'finished'),
     'quantity': FlatFilterPath([], 'quantity'),
+    'release': FlatFilterPath([], 'release'),
+    'openComplaintCount': FlatFilterPath([], 'openComplaintCount'),
+    'held': FlatFilterPath([], 'held'),
   });
 }

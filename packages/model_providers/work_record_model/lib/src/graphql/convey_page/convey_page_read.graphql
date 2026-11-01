@@ -26,9 +26,7 @@ query ConveyPageRead(
     nodes {
       transConveyId
       transVisiterId
-      receive
       conveyAt
-      quantity
       locationHistoryId
       locationId
       staffHistoryId

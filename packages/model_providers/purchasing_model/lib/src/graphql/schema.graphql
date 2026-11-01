@@ -511,7 +511,7 @@ type SharedDictionaryValuesConnection {
 type TransComplaintPurchaseRec {
   transComplaintPurchaseRecId: UUID!
   transComplaintId: UUID!
-  transPurchaseRecId: UUID
+  transPurchaseRecId: UUID!
   quantity: BigFloat
   remarks: String
 }
@@ -589,7 +589,6 @@ type TransPurchaseRecVisiter {
   transPurchaseRecVisiterId: UUID!
   transPurchaseRecId: UUID!
   transVisiterId: UUID!
-  quantity: BigFloat
   remarks: String
 }
 
@@ -1697,10 +1696,13 @@ input TransPurchaseRecFilter {
   transComplaintPurchaseRecsByTransPurchaseRecIdExist: Boolean
   transPurchaseRecVisitersByTransPurchaseRecIdExist: Boolean
   transPurchaseCertificationsByTransPurchaseRecIdExist: Boolean
+  vComplaintTargetsByTransPurchaseRecIdExist: Boolean
+  vComplaintTargetVisitersByTransPurchaseRecIdExist: Boolean
   vPurchaseRecPurchaseCertificationCountByTransPurchaseRecId: VPurchaseRecPurchaseCertificationCountFilter
   vPurchaseRecPurchaseCertificationCountByTransPurchaseRecIdExists: Boolean
   vPurchaseRecPurchaseRecVisiterCountByTransPurchaseRecId: VPurchaseRecPurchaseRecVisiterCountFilter
   vPurchaseRecPurchaseRecVisiterCountByTransPurchaseRecIdExists: Boolean
+  vVisiterOriginChecksByTransPurchaseRecIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransPurchaseRecFilter!]
@@ -1725,7 +1727,6 @@ input TransPurchaseRecPatch {
 input TransPurchaseRecVisiterInput {
   transPurchaseRecId: UUID
   transVisiterId: UUID
-  quantity: BigFloat
   remarks: String
 }
 

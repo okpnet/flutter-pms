@@ -436,7 +436,6 @@ WorkRecordVisiterPageCreate:
   columns:
     - trans_visiter_id
     - trans_work_record_id
-    - quantity
     - remarks
 
 # trans_visiterの登録(棚ビジター)
@@ -447,17 +446,17 @@ VisiterPageCreate:
     - trans_container_id
     - release
     - quantity
+    - adjustment
+    - parent_trans_visiter_id
     - remarks
 
-# trans_conveyの登録(棚への入庫/払出。receive が入庫)
+# trans_conveyの登録(出来事だけ。数量は棚ビジターが持つ)
 ConveyPageCreate:
   kind: create
   from: trans_convey
   columns:
     - trans_visiter_id
-    - receive
     - convey_at
-    - quantity
     - location_history_id
     - location_id
     - staff_history_id

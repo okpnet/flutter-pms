@@ -9,6 +9,9 @@ abstract class ItemOnHandPageFilterSpec {
   static const FlatFilterSpec spec = FlatFilterSpec('VItemOnHandFilter', {
     'itemId': FlatFilterPath([], 'itemId'),
     'onHandQuantity': FlatFilterPath([], 'onHandQuantity'),
+    'heldQuantity': FlatFilterPath([], 'heldQuantity'),
+    'availableQuantity': FlatFilterPath([], 'availableQuantity'),
     'visiterCount': FlatFilterPath([], 'visiterCount'),
+    'heldVisiterCount': FlatFilterPath([], 'heldVisiterCount'),
   });
 }

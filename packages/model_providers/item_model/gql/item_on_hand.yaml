@@ -8,4 +8,7 @@ ItemOnHandPage:
   columns:
     - item_id
     - on_hand_quantity
+    - held_quantity
+    - available_quantity
     - visiter_count
+    - held_visiter_count

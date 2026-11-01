@@ -6,7 +6,6 @@
 mutation WorkRecordVisiterPageCreate(
   $transVisiterId: UUID
   $transWorkRecordId: UUID
-  $quantity: BigFloat
   $remarks: String
 ) {
   createTransWorkRecordVisiter(
@@ -14,7 +13,6 @@ mutation WorkRecordVisiterPageCreate(
       transWorkRecordVisiter: {
         transVisiterId: $transVisiterId
         transWorkRecordId: $transWorkRecordId
-        quantity: $quantity
         remarks: $remarks
       }
     }
@@ -23,7 +21,6 @@ mutation WorkRecordVisiterPageCreate(
       transWorkRecordVisiterId
       transVisiterId
       transWorkRecordId
-      quantity
       remarks
     }
   }

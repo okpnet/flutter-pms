@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 異常の登録漏れ(受入異常・作業異常の対象から作られたロットに、異常入出庫ビジターが無い)。
+# 結合を持たない列だけを読む。
+
+# 異常の対象 × ロット(v_complaint_target_visiter)。linked: false が登録漏れ
+ComplaintTargetVisiterPage:
+  kind: read
+  from: v_complaint_target_visiter
+  filter: true
+  columns:
+    - complaint_target_visiter_key
+    - trans_complaint_id
+    - target_kind
+    - target_link_id
+    - trans_purchase_rec_id
+    - trans_work_record_id
+    - complaint_quantity
+    - trans_visiter_id
+    - visiter_quantity
+    - release
+    - trans_complaint_visiter_id
+    - linked
+    - release_at
+    - visiter_status
+
+# 異常の対象ごとの漏れの件数(v_complaint_target)
+ComplaintTargetPage:
+  kind: read
+  from: v_complaint_target
+  filter: true
+  columns:
+    - target_link_id
+    - trans_complaint_id
+    - target_kind
+    - trans_purchase_rec_id
+    - trans_work_record_id
+    - complaint_quantity
+    - visiter_count
+    - visiter_quantity
+    - linked_count
+    - open_count
+    - missing_count
+    - missing_issuable_count
+    - missing_empty_count

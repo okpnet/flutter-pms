@@ -1,0 +1,32 @@
+# visiter_ledger_issue_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #VisiterLedgerIssuePage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query VisiterLedgerIssuePageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VVisiterLedgerIssueFilter = {and: []}
+  $orderBy: [VVisiterLedgerIssuesOrderBy!]
+) {
+  allVVisiterLedgerIssues(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transVisiterId
+      issueKind
+      rowQuantity
+      balance
+      parentTransVisiterId
+      transContainerId
+    }
+  }
+}

@@ -5,9 +5,7 @@
 
 mutation ConveyPageCreate(
   $transVisiterId: UUID
-  $receive: Boolean
   $conveyAt: Datetime
-  $quantity: BigFloat
   $locationHistoryId: UUID
   $locationId: UUID
   $staffHistoryId: UUID
@@ -18,9 +16,7 @@ mutation ConveyPageCreate(
     input: {
       transConvey: {
         transVisiterId: $transVisiterId
-        receive: $receive
         conveyAt: $conveyAt
-        quantity: $quantity
         locationHistoryId: $locationHistoryId
         locationId: $locationId
         staffHistoryId: $staffHistoryId
@@ -32,9 +28,7 @@ mutation ConveyPageCreate(
     transConvey {
       transConveyId
       transVisiterId
-      receive
       conveyAt
-      quantity
       locationHistoryId
       locationId
       staffHistoryId

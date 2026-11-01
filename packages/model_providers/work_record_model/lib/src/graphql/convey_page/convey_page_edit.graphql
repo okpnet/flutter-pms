@@ -6,9 +6,7 @@
 mutation ConveyPageEdit(
   $transConveyId: UUID!
   $transVisiterId: UUID
-  $receive: Boolean
   $conveyAt: Datetime
-  $quantity: BigFloat
   $locationHistoryId: UUID
   $locationId: UUID
   $staffHistoryId: UUID
@@ -20,9 +18,7 @@ mutation ConveyPageEdit(
       transConveyId: $transConveyId
       transConveyPatch: {
         transVisiterId: $transVisiterId
-        receive: $receive
         conveyAt: $conveyAt
-        quantity: $quantity
         locationHistoryId: $locationHistoryId
         locationId: $locationId
         staffHistoryId: $staffHistoryId
@@ -34,9 +30,7 @@ mutation ConveyPageEdit(
     transConvey {
       transConveyId
       transVisiterId
-      receive
       conveyAt
-      quantity
       locationHistoryId
       locationId
       staffHistoryId

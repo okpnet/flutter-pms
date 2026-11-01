@@ -8,6 +8,8 @@ mutation VisiterPageEdit(
   $transContainerId: UUID
   $release: Boolean
   $quantity: BigFloat
+  $adjustment: Boolean
+  $parentTransVisiterId: UUID
   $remarks: String
 ) {
   updateTransVisiterByTransVisiterId(
@@ -17,6 +19,8 @@ mutation VisiterPageEdit(
         transContainerId: $transContainerId
         release: $release
         quantity: $quantity
+        adjustment: $adjustment
+        parentTransVisiterId: $parentTransVisiterId
         remarks: $remarks
       }
     }
@@ -26,6 +30,8 @@ mutation VisiterPageEdit(
       transContainerId
       release
       quantity
+      adjustment
+      parentTransVisiterId
       remarks
     }
   }

@@ -7,6 +7,8 @@ mutation VisiterPageCreate(
   $transContainerId: UUID
   $release: Boolean
   $quantity: BigFloat
+  $adjustment: Boolean
+  $parentTransVisiterId: UUID
   $remarks: String
 ) {
   createTransVisiter(
@@ -15,6 +17,8 @@ mutation VisiterPageCreate(
         transContainerId: $transContainerId
         release: $release
         quantity: $quantity
+        adjustment: $adjustment
+        parentTransVisiterId: $parentTransVisiterId
         remarks: $remarks
       }
     }
@@ -24,6 +28,8 @@ mutation VisiterPageCreate(
       transContainerId
       release
       quantity
+      adjustment
+      parentTransVisiterId
       remarks
     }
   }

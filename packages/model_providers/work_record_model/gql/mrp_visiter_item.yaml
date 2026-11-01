@@ -11,3 +11,6 @@ MrpVisiterItemPage:
     - item_count
     - finished
     - quantity
+    - release
+    - open_complaint_count
+    - held

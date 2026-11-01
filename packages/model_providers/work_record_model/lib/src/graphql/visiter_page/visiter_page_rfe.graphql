@@ -11,6 +11,8 @@ query VisiterPageRfe(
     transContainerId
     release
     quantity
+    adjustment
+    parentTransVisiterId
     remarks
     updateUserId
     updateUserHistoryId

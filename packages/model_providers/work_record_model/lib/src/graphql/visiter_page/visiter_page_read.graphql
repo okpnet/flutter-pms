@@ -27,6 +27,8 @@ query VisiterPageRead(
       transContainerId
       release
       quantity
+      adjustment
+      parentTransVisiterId
       symbol
       remarks
 

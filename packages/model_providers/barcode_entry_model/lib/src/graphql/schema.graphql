@@ -463,6 +463,10 @@ enum TransVisitersOrderBy {
   RELEASE_DESC
   QUANTITY_ASC
   QUANTITY_DESC
+  ADJUSTMENT_ASC
+  ADJUSTMENT_DESC
+  PARENT_TRANS_VISITER_ID_ASC
+  PARENT_TRANS_VISITER_ID_DESC
   SYMBOL_ASC
   SYMBOL_DESC
   REMARKS_ASC
@@ -1625,6 +1629,10 @@ input TransContainerFilter {
   vContainerDescendantByAncestorTransContainerIdExists: Boolean
   vContainerVisiterCountByTransContainerIdExists: Boolean
   vShelfInventoryStatusesByTransContainerIdExist: Boolean
+  vVisiterHoldWithoutComplaintsByTransContainerIdExist: Boolean
+  vVisiterIssuablesByTransContainerIdExist: Boolean
+  vVisiterLedgerIssuesByTransContainerIdExist: Boolean
+  vVisiterLotsByTransContainerIdExist: Boolean
   transLabelByNames: TransLabelFilter
   mstrLocationByMstrLocationIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -1862,8 +1870,11 @@ input TransPurchaseRecFilter {
   transComplaintPurchaseRecsByTransPurchaseRecIdExist: Boolean
   transPurchaseRecVisitersByTransPurchaseRecIdExist: Boolean
   transPurchaseCertificationsByTransPurchaseRecIdExist: Boolean
+  vComplaintTargetsByTransPurchaseRecIdExist: Boolean
+  vComplaintTargetVisitersByTransPurchaseRecIdExist: Boolean
   vPurchaseRecPurchaseCertificationCountByTransPurchaseRecIdExists: Boolean
   vPurchaseRecPurchaseRecVisiterCountByTransPurchaseRecIdExists: Boolean
+  vVisiterOriginChecksByTransPurchaseRecIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransPurchaseRecFilter!]
   or: [TransPurchaseRecFilter!]
@@ -1907,6 +1918,8 @@ input TransVisiterFilter {
   transContainerId: UUIDFilter
   release: BooleanFilter
   quantity: BigFloatFilter
+  adjustment: BooleanFilter
+  parentTransVisiterId: UUIDFilter
   symbol: StringFilter
   remarks: StringFilter
   updateAt: DatetimeFilter
@@ -1916,13 +1929,26 @@ input TransVisiterFilter {
   transComplaintVisitersByTransVisiterIdExist: Boolean
   transWorkRecordVisitersByTransVisiterIdExist: Boolean
   transPurchaseRecVisitersByTransVisiterIdExist: Boolean
+  transVisitersByParentTransVisiterIdExist: Boolean
   transConveysByTransVisiterIdExist: Boolean
+  vComplaintTargetVisitersByTransVisiterIdExist: Boolean
   vMrpVisiterItemByTransVisiterIdExists: Boolean
   vShelfInventoryStatusByTransVisiterIdExists: Boolean
+  vShelfInventoryStatusesByParentTransVisiterIdExist: Boolean
   vVisiterComplaintVisiterCountByTransVisiterIdExists: Boolean
   vVisiterConveyCountByTransVisiterIdExists: Boolean
+  vVisiterHoldWithoutComplaintByTransVisiterIdExists: Boolean
+  vVisiterIssuableByTransVisiterIdExists: Boolean
+  vVisiterLedgerIssuesByTransVisiterIdExist: Boolean
+  vVisiterLedgerIssuesByParentTransVisiterIdExist: Boolean
+  vVisiterLineagesByTransVisiterIdExist: Boolean
+  vVisiterLineagesByAncestorVisiterIdExist: Boolean
+  vVisiterLotByTransVisiterIdExists: Boolean
+  vVisiterLotsByParentTransVisiterIdExist: Boolean
+  vVisiterLotsByRootVisiterIdExist: Boolean
   vVisiterPurchaseRecVisiterCountByTransVisiterIdExists: Boolean
   vVisiterWorkRecordVisiterCountByTransVisiterIdExists: Boolean
+  transVisiterByParentTransVisiterIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransVisiterFilter!]
   or: [TransVisiterFilter!]
@@ -1984,6 +2010,9 @@ input TransWorkRecordFilter {
   transComplaintWorksByTransWorkRecordIdExist: Boolean
   transWorkRecordVisitersByTransWorkRecordIdExist: Boolean
   transWorkRecordCertificatesByTransWorkRecordIdExist: Boolean
+  vComplaintTargetsByTransWorkRecordIdExist: Boolean
+  vComplaintTargetVisitersByTransWorkRecordIdExist: Boolean
+  vVisiterOriginChecksByTransWorkRecordIdExist: Boolean
   vWorkRecordWorkRecordCertificateCountByTransWorkRecordIdExists: Boolean
   vWorkRecordWorkRecordVisiterCountByTransWorkRecordIdExists: Boolean
   historyInfoStaffByStaffHistoryIdAndStaffIdExists: Boolean

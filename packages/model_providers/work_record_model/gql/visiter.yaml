@@ -16,6 +16,8 @@ VisiterPage: &VisiterPage
     - trans_container_id
     - release
     - quantity
+    - adjustment
+    - parent_trans_visiter_id
     - symbol
     - remarks
     - name: convey_count
@@ -73,6 +75,8 @@ VisiterPageEdit:
     - trans_container_id
     - release
     - quantity
+    - adjustment
+    - parent_trans_visiter_id
     - remarks
     - update_user_id
     - update_user_history_id
@@ -93,9 +97,7 @@ ConveyPage: &ConveyPage
   columns:
     - trans_convey_id
     - trans_visiter_id
-    - receive
     - convey_at
-    - quantity
     - location_history_id
     - location_id
     - staff_history_id
@@ -119,9 +121,7 @@ ConveyPageEdit:
   columns:
     - trans_convey_id
     - trans_visiter_id
-    - receive
     - convey_at
-    - quantity
     - location_history_id
     - location_id
     - staff_history_id

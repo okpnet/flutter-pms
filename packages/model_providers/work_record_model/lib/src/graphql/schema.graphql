@@ -76,12 +76,8 @@ enum TransConveysOrderBy {
   TRANS_CONVEY_ID_DESC
   TRANS_VISITER_ID_ASC
   TRANS_VISITER_ID_DESC
-  RECEIVE_ASC
-  RECEIVE_DESC
   CONVEY_AT_ASC
   CONVEY_AT_DESC
-  QUANTITY_ASC
-  QUANTITY_DESC
   LOCATION_HISTORY_ID_ASC
   LOCATION_HISTORY_ID_DESC
   LOCATION_ID_ASC
@@ -90,6 +86,8 @@ enum TransConveysOrderBy {
   STAFF_HISTORY_ID_DESC
   STAFF_ID_ASC
   STAFF_ID_DESC
+  ADJUSTMENT_ASC
+  ADJUSTMENT_DESC
   SYMBOL_ASC
   SYMBOL_DESC
   REMARKS_ASC
@@ -206,6 +204,10 @@ enum TransVisitersOrderBy {
   RELEASE_DESC
   QUANTITY_ASC
   QUANTITY_DESC
+  ADJUSTMENT_ASC
+  ADJUSTMENT_DESC
+  PARENT_TRANS_VISITER_ID_ASC
+  PARENT_TRANS_VISITER_ID_DESC
   SYMBOL_ASC
   SYMBOL_DESC
   REMARKS_ASC
@@ -296,6 +298,12 @@ enum VMrpVisiterItemsOrderBy {
   FINISHED_DESC
   QUANTITY_ASC
   QUANTITY_DESC
+  RELEASE_ASC
+  RELEASE_DESC
+  OPEN_COMPLAINT_COUNT_ASC
+  OPEN_COMPLAINT_COUNT_DESC
+  HELD_ASC
+  HELD_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -304,6 +312,10 @@ enum VShelfInventoryStatusesOrderBy {
   NATURAL
   TRANS_VISITER_ID_ASC
   TRANS_VISITER_ID_DESC
+  PARENT_TRANS_VISITER_ID_ASC
+  PARENT_TRANS_VISITER_ID_DESC
+  ROOT_VISITER_ID_ASC
+  ROOT_VISITER_ID_DESC
   TRANS_CONTAINER_ID_ASC
   TRANS_CONTAINER_ID_DESC
   MSTR_LOCATION_ID_ASC
@@ -312,28 +324,114 @@ enum VShelfInventoryStatusesOrderBy {
   RELEASE_DESC
   QUANTITY_ASC
   QUANTITY_DESC
+  RECEIPT_QUANTITY_ASC
+  RECEIPT_QUANTITY_DESC
+  ISSUE_QUANTITY_ASC
+  ISSUE_QUANTITY_DESC
+  ADJUSTMENT_QUANTITY_ASC
+  ADJUSTMENT_QUANTITY_DESC
+  LINE_COUNT_ASC
+  LINE_COUNT_DESC
+  SPLIT_COUNT_ASC
+  SPLIT_COUNT_DESC
+  OPEN_COMPLAINT_COUNT_ASC
+  OPEN_COMPLAINT_COUNT_DESC
   TRANS_PURCHASE_REC_IDS_ASC
   TRANS_PURCHASE_REC_IDS_DESC
   PURCHASE_REC_COUNT_ASC
   PURCHASE_REC_COUNT_DESC
-  PURCHASE_REC_QUANTITY_ASC
-  PURCHASE_REC_QUANTITY_DESC
-  TRANS_CONVEY_IDS_ASC
-  TRANS_CONVEY_IDS_DESC
-  CONVEY_COUNT_ASC
-  CONVEY_COUNT_DESC
-  CONVEY_RECEIVE_QUANTITY_ASC
-  CONVEY_RECEIVE_QUANTITY_DESC
-  CONVEY_ISSUE_QUANTITY_ASC
-  CONVEY_ISSUE_QUANTITY_DESC
-  LAST_CONVEY_AT_ASC
-  LAST_CONVEY_AT_DESC
   TRANS_WORK_RECORD_IDS_ASC
   TRANS_WORK_RECORD_IDS_DESC
   WORK_RECORD_COUNT_ASC
   WORK_RECORD_COUNT_DESC
-  WORK_RECORD_QUANTITY_ASC
-  WORK_RECORD_QUANTITY_DESC
+  CONSUMED_WORK_RECORD_IDS_ASC
+  CONSUMED_WORK_RECORD_IDS_DESC
+  CONSUMED_WORK_RECORD_COUNT_ASC
+  CONSUMED_WORK_RECORD_COUNT_DESC
+  TRANS_CONVEY_IDS_ASC
+  TRANS_CONVEY_IDS_DESC
+  CONVEY_COUNT_ASC
+  CONVEY_COUNT_DESC
+  LAST_CONVEY_AT_ASC
+  LAST_CONVEY_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum VVisiterHoldWithoutComplaintsOrderBy {
+  NATURAL
+  TRANS_VISITER_ID_ASC
+  TRANS_VISITER_ID_DESC
+  TRANS_CONTAINER_ID_ASC
+  TRANS_CONTAINER_ID_DESC
+  MSTR_LOCATION_ID_ASC
+  MSTR_LOCATION_ID_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
+  HOLD_AT_ASC
+  HOLD_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum VVisiterIssuablesOrderBy {
+  NATURAL
+  TRANS_VISITER_ID_ASC
+  TRANS_VISITER_ID_DESC
+  TRANS_CONTAINER_ID_ASC
+  TRANS_CONTAINER_ID_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
+  RELEASE_ASC
+  RELEASE_DESC
+  OPEN_COMPLAINT_COUNT_ASC
+  OPEN_COMPLAINT_COUNT_DESC
+  ISSUABLE_ASC
+  ISSUABLE_DESC
+  BLOCK_REASON_ASC
+  BLOCK_REASON_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum VVisiterLedgerIssuesOrderBy {
+  NATURAL
+  TRANS_VISITER_ID_ASC
+  TRANS_VISITER_ID_DESC
+  ISSUE_KIND_ASC
+  ISSUE_KIND_DESC
+  ROW_QUANTITY_ASC
+  ROW_QUANTITY_DESC
+  BALANCE_ASC
+  BALANCE_DESC
+  PARENT_TRANS_VISITER_ID_ASC
+  PARENT_TRANS_VISITER_ID_DESC
+  TRANS_CONTAINER_ID_ASC
+  TRANS_CONTAINER_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum VVisiterOriginChecksOrderBy {
+  NATURAL
+  ORIGIN_KIND_ASC
+  ORIGIN_KIND_DESC
+  ORIGIN_ID_ASC
+  ORIGIN_ID_DESC
+  TRANS_PURCHASE_REC_ID_ASC
+  TRANS_PURCHASE_REC_ID_DESC
+  TRANS_WORK_RECORD_ID_ASC
+  TRANS_WORK_RECORD_ID_DESC
+  RECORD_QUANTITY_ASC
+  RECORD_QUANTITY_DESC
+  VISITER_QUANTITY_ASC
+  VISITER_QUANTITY_DESC
+  DIFFERENCE_ASC
+  DIFFERENCE_DESC
+  VISITER_COUNT_ASC
+  VISITER_COUNT_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -446,6 +544,10 @@ type Query {
   allTransWorkRecordCertificates(first: Int, offset: Int, orderBy: [TransWorkRecordCertificatesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransWorkRecordCertificateFilter): TransWorkRecordCertificatesConnection
   allVMrpVisiterItems(first: Int, offset: Int, orderBy: [VMrpVisiterItemsOrderBy!] = [PRIMARY_KEY_ASC], filter: VMrpVisiterItemFilter): VMrpVisiterItemsConnection
   allVShelfInventoryStatuses(first: Int, offset: Int, orderBy: [VShelfInventoryStatusesOrderBy!] = [PRIMARY_KEY_ASC], filter: VShelfInventoryStatusFilter): VShelfInventoryStatusesConnection
+  allVVisiterHoldWithoutComplaints(first: Int, offset: Int, orderBy: [VVisiterHoldWithoutComplaintsOrderBy!] = [PRIMARY_KEY_ASC], filter: VVisiterHoldWithoutComplaintFilter): VVisiterHoldWithoutComplaintsConnection
+  allVVisiterIssuables(first: Int, offset: Int, orderBy: [VVisiterIssuablesOrderBy!] = [PRIMARY_KEY_ASC], filter: VVisiterIssuableFilter): VVisiterIssuablesConnection
+  allVVisiterLedgerIssues(first: Int, offset: Int, orderBy: [VVisiterLedgerIssuesOrderBy!] = [PRIMARY_KEY_ASC], filter: VVisiterLedgerIssueFilter): VVisiterLedgerIssuesConnection
+  allVVisiterOriginChecks(first: Int, offset: Int, orderBy: [VVisiterOriginChecksOrderBy!] = [PRIMARY_KEY_ASC], filter: VVisiterOriginCheckFilter): VVisiterOriginChecksConnection
   transCertificateByTransCertificateId(transCertificateId: UUID!): TransCertificate
   transContainerByTransContainerId(transContainerId: UUID!): TransContainer
   transContainerTreeByTransContainerTreeId(transContainerTreeId: UUID!): TransContainerTree
@@ -544,9 +646,7 @@ type TransContainersConnection {
 type TransConvey {
   transConveyId: UUID!
   transVisiterId: UUID!
-  receive: Boolean
   conveyAt: Datetime
-  quantity: BigFloat
   locationHistoryId: UUID!
   locationId: UUID!
   staffHistoryId: UUID!
@@ -651,6 +751,8 @@ type TransVisiter {
   transContainerId: UUID!
   release: Boolean
   quantity: BigFloat
+  adjustment: Boolean
+  parentTransVisiterId: UUID
   symbol: String
   remarks: String
   updateAt: Datetime
@@ -715,7 +817,6 @@ type TransWorkRecordVisiter {
   transWorkRecordVisiterId: UUID!
   transVisiterId: UUID!
   transWorkRecordId: UUID!
-  quantity: BigFloat
   remarks: String
 }
 
@@ -783,6 +884,9 @@ type VMrpVisiterItem {
   itemCount: Int
   finished: Boolean
   quantity: BigFloat
+  release: Boolean
+  openComplaintCount: Int
+  held: Boolean
 }
 
 type VMrpVisiterItemsConnection {
@@ -793,21 +897,27 @@ type VMrpVisiterItemsConnection {
 
 type VShelfInventoryStatus {
   transVisiterId: UUID!
+  parentTransVisiterId: UUID
+  rootVisiterId: UUID
   transContainerId: UUID
   mstrLocationId: UUID
   release: Boolean
   quantity: BigFloat
+  receiptQuantity: BigFloat
+  issueQuantity: BigFloat
+  adjustmentQuantity: BigFloat
+  lineCount: Int
+  splitCount: Int
+  openComplaintCount: Int
   transPurchaseRecIds: [UUID]
-  purchaseRecCount: BigInt
-  purchaseRecQuantity: BigFloat
-  transConveyIds: [UUID]
-  conveyCount: BigInt
-  conveyReceiveQuantity: BigFloat
-  conveyIssueQuantity: BigFloat
-  lastConveyAt: Datetime
+  purchaseRecCount: Int
   transWorkRecordIds: [UUID]
-  workRecordCount: BigInt
-  workRecordQuantity: BigFloat
+  workRecordCount: Int
+  consumedWorkRecordIds: [UUID]
+  consumedWorkRecordCount: Int
+  transConveyIds: [UUID]
+  conveyCount: Int
+  lastConveyAt: Datetime
 }
 
 type VShelfInventoryStatusesConnection {
@@ -822,6 +932,69 @@ type VVisiterComplaintVisiterCount {
 
 type VVisiterConveyCount {
   transVisiterId: UUID
+}
+
+type VVisiterHoldWithoutComplaint {
+  transVisiterId: UUID!
+  transContainerId: UUID
+  mstrLocationId: UUID
+  quantity: BigFloat
+  holdAt: Datetime
+  updateUserId: UUID
+}
+
+type VVisiterHoldWithoutComplaintsConnection {
+  nodes: [VVisiterHoldWithoutComplaint]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type VVisiterIssuable {
+  transVisiterId: UUID!
+  transContainerId: UUID
+  quantity: BigFloat
+  release: Boolean
+  openComplaintCount: Int
+  issuable: Boolean
+  blockReason: String
+}
+
+type VVisiterIssuablesConnection {
+  nodes: [VVisiterIssuable]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type VVisiterLedgerIssue {
+  transVisiterId: UUID!
+  issueKind: String!
+  rowQuantity: BigFloat
+  balance: BigFloat
+  parentTransVisiterId: UUID
+  transContainerId: UUID
+}
+
+type VVisiterLedgerIssuesConnection {
+  nodes: [VVisiterLedgerIssue]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type VVisiterOriginCheck {
+  originKind: String!
+  originId: UUID!
+  transPurchaseRecId: UUID
+  transWorkRecordId: UUID
+  recordQuantity: BigFloat
+  visiterQuantity: BigFloat
+  difference: BigFloat
+  visiterCount: Int
+}
+
+type VVisiterOriginChecksConnection {
+  nodes: [VVisiterOriginCheck]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type VVisiterPurchaseRecVisiterCount {
@@ -1313,6 +1486,8 @@ input MstrLocationFilter {
   mstrEquipmentsByMstrLocationIdExist: Boolean
   vLocationDescendantByAncestorMstrLocationIdExists: Boolean
   vShelfInventoryStatusesByMstrLocationIdExist: Boolean
+  vVisiterHoldWithoutComplaintsByMstrLocationIdExist: Boolean
+  vVisiterLotsByMstrLocationIdExist: Boolean
   infoDepartmentByInfoDepartmentId: InfoDepartmentFilter
   infoDepartmentByInfoDepartmentIdExists: Boolean
   sharedAppellationByNames: SharedAppellationFilter
@@ -1552,6 +1727,10 @@ input TransContainerFilter {
   vContainerVisiterCountByTransContainerId: VContainerVisiterCountFilter
   vContainerVisiterCountByTransContainerIdExists: Boolean
   vShelfInventoryStatusesByTransContainerIdExist: Boolean
+  vVisiterHoldWithoutComplaintsByTransContainerIdExist: Boolean
+  vVisiterIssuablesByTransContainerIdExist: Boolean
+  vVisiterLedgerIssuesByTransContainerIdExist: Boolean
+  vVisiterLotsByTransContainerIdExist: Boolean
   transLabelByNames: TransLabelFilter
   mstrLocationByMstrLocationId: MstrLocationFilter
   mstrLocationByMstrLocationIdExists: Boolean
@@ -1581,13 +1760,12 @@ input TransContainerTreePatch {
 input TransConveyFilter {
   transConveyId: UUIDFilter
   transVisiterId: UUIDFilter
-  receive: BooleanFilter
   conveyAt: DatetimeFilter
-  quantity: BigFloatFilter
   locationHistoryId: UUIDFilter
   locationId: UUIDFilter
   staffHistoryId: UUIDFilter
   staffId: UUIDFilter
+  adjustment: BooleanFilter
   symbol: StringFilter
   remarks: StringFilter
   updateAt: DatetimeFilter
@@ -1604,9 +1782,7 @@ input TransConveyFilter {
 
 input TransConveyInput {
   transVisiterId: UUID
-  receive: Boolean
   conveyAt: Datetime
-  quantity: BigFloat
   locationHistoryId: UUID
   locationId: UUID
   staffHistoryId: UUID
@@ -1616,9 +1792,7 @@ input TransConveyInput {
 
 input TransConveyPatch {
   transVisiterId: UUID
-  receive: Boolean
   conveyAt: Datetime
-  quantity: BigFloat
   locationHistoryId: UUID
   locationId: UUID
   staffHistoryId: UUID
@@ -1805,6 +1979,8 @@ input TransVisiterFilter {
   transContainerId: UUIDFilter
   release: BooleanFilter
   quantity: BigFloatFilter
+  adjustment: BooleanFilter
+  parentTransVisiterId: UUIDFilter
   symbol: StringFilter
   remarks: StringFilter
   updateAt: DatetimeFilter
@@ -1814,17 +1990,30 @@ input TransVisiterFilter {
   transComplaintVisitersByTransVisiterIdExist: Boolean
   transWorkRecordVisitersByTransVisiterIdExist: Boolean
   transPurchaseRecVisitersByTransVisiterIdExist: Boolean
+  transVisitersByParentTransVisiterIdExist: Boolean
   transConveysByTransVisiterIdExist: Boolean
+  vComplaintTargetVisitersByTransVisiterIdExist: Boolean
   vMrpVisiterItemByTransVisiterIdExists: Boolean
   vShelfInventoryStatusByTransVisiterIdExists: Boolean
+  vShelfInventoryStatusesByParentTransVisiterIdExist: Boolean
   vVisiterComplaintVisiterCountByTransVisiterId: VVisiterComplaintVisiterCountFilter
   vVisiterComplaintVisiterCountByTransVisiterIdExists: Boolean
   vVisiterConveyCountByTransVisiterId: VVisiterConveyCountFilter
   vVisiterConveyCountByTransVisiterIdExists: Boolean
+  vVisiterHoldWithoutComplaintByTransVisiterIdExists: Boolean
+  vVisiterIssuableByTransVisiterIdExists: Boolean
+  vVisiterLedgerIssuesByTransVisiterIdExist: Boolean
+  vVisiterLedgerIssuesByParentTransVisiterIdExist: Boolean
+  vVisiterLineagesByTransVisiterIdExist: Boolean
+  vVisiterLineagesByAncestorVisiterIdExist: Boolean
+  vVisiterLotByTransVisiterIdExists: Boolean
+  vVisiterLotsByParentTransVisiterIdExist: Boolean
+  vVisiterLotsByRootVisiterIdExist: Boolean
   vVisiterPurchaseRecVisiterCountByTransVisiterId: VVisiterPurchaseRecVisiterCountFilter
   vVisiterPurchaseRecVisiterCountByTransVisiterIdExists: Boolean
   vVisiterWorkRecordVisiterCountByTransVisiterId: VVisiterWorkRecordVisiterCountFilter
   vVisiterWorkRecordVisiterCountByTransVisiterIdExists: Boolean
+  transVisiterByParentTransVisiterIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransVisiterFilter!]
@@ -1836,6 +2025,8 @@ input TransVisiterInput {
   transContainerId: UUID
   release: Boolean
   quantity: BigFloat
+  adjustment: Boolean
+  parentTransVisiterId: UUID
   remarks: String
 }
 
@@ -1843,6 +2034,8 @@ input TransVisiterPatch {
   transContainerId: UUID
   release: Boolean
   quantity: BigFloat
+  adjustment: Boolean
+  parentTransVisiterId: UUID
   remarks: String
 }
 
@@ -1889,6 +2082,9 @@ input TransWorkRecordFilter {
   transComplaintWorksByTransWorkRecordIdExist: Boolean
   transWorkRecordVisitersByTransWorkRecordIdExist: Boolean
   transWorkRecordCertificatesByTransWorkRecordIdExist: Boolean
+  vComplaintTargetsByTransWorkRecordIdExist: Boolean
+  vComplaintTargetVisitersByTransWorkRecordIdExist: Boolean
+  vVisiterOriginChecksByTransWorkRecordIdExist: Boolean
   vWorkRecordWorkRecordCertificateCountByTransWorkRecordId: VWorkRecordWorkRecordCertificateCountFilter
   vWorkRecordWorkRecordCertificateCountByTransWorkRecordIdExists: Boolean
   vWorkRecordWorkRecordVisiterCountByTransWorkRecordId: VWorkRecordWorkRecordVisiterCountFilter
@@ -1931,7 +2127,6 @@ input TransWorkRecordPatch {
 input TransWorkRecordVisiterInput {
   transVisiterId: UUID
   transWorkRecordId: UUID
-  quantity: BigFloat
   remarks: String
 }
 
@@ -2059,6 +2254,9 @@ input VMrpVisiterItemFilter {
   itemCount: IntFilter
   finished: BooleanFilter
   quantity: BigFloatFilter
+  release: BooleanFilter
+  openComplaintCount: IntFilter
+  held: BooleanFilter
   transVisiterByTransVisiterIdExists: Boolean
   mstrItemByItemIdExists: Boolean
   and: [VMrpVisiterItemFilter!]
@@ -2068,22 +2266,29 @@ input VMrpVisiterItemFilter {
 
 input VShelfInventoryStatusFilter {
   transVisiterId: UUIDFilter
+  parentTransVisiterId: UUIDFilter
+  rootVisiterId: UUIDFilter
   transContainerId: UUIDFilter
   mstrLocationId: UUIDFilter
   release: BooleanFilter
   quantity: BigFloatFilter
+  receiptQuantity: BigFloatFilter
+  issueQuantity: BigFloatFilter
+  adjustmentQuantity: BigFloatFilter
+  lineCount: IntFilter
+  splitCount: IntFilter
+  openComplaintCount: IntFilter
   transPurchaseRecIds: UUIDListFilter
-  purchaseRecCount: BigIntFilter
-  purchaseRecQuantity: BigFloatFilter
-  transConveyIds: UUIDListFilter
-  conveyCount: BigIntFilter
-  conveyReceiveQuantity: BigFloatFilter
-  conveyIssueQuantity: BigFloatFilter
-  lastConveyAt: DatetimeFilter
+  purchaseRecCount: IntFilter
   transWorkRecordIds: UUIDListFilter
-  workRecordCount: BigIntFilter
-  workRecordQuantity: BigFloatFilter
+  workRecordCount: IntFilter
+  consumedWorkRecordIds: UUIDListFilter
+  consumedWorkRecordCount: IntFilter
+  transConveyIds: UUIDListFilter
+  conveyCount: IntFilter
+  lastConveyAt: DatetimeFilter
   transVisiterByTransVisiterIdExists: Boolean
+  transVisiterByParentTransVisiterIdExists: Boolean
   transContainerByTransContainerIdExists: Boolean
   mstrLocationByMstrLocationIdExists: Boolean
   and: [VShelfInventoryStatusFilter!]
@@ -2111,6 +2316,67 @@ input VVisiterConveyCountFilter {
   and: [VVisiterConveyCountFilter!]
   or: [VVisiterConveyCountFilter!]
   not: VVisiterConveyCountFilter
+}
+
+input VVisiterHoldWithoutComplaintFilter {
+  transVisiterId: UUIDFilter
+  transContainerId: UUIDFilter
+  mstrLocationId: UUIDFilter
+  quantity: BigFloatFilter
+  holdAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  transVisiterByTransVisiterIdExists: Boolean
+  transContainerByTransContainerIdExists: Boolean
+  mstrLocationByMstrLocationIdExists: Boolean
+  and: [VVisiterHoldWithoutComplaintFilter!]
+  or: [VVisiterHoldWithoutComplaintFilter!]
+  not: VVisiterHoldWithoutComplaintFilter
+}
+
+input VVisiterIssuableFilter {
+  transVisiterId: UUIDFilter
+  transContainerId: UUIDFilter
+  quantity: BigFloatFilter
+  release: BooleanFilter
+  openComplaintCount: IntFilter
+  issuable: BooleanFilter
+  blockReason: StringFilter
+  transVisiterByTransVisiterIdExists: Boolean
+  transContainerByTransContainerIdExists: Boolean
+  and: [VVisiterIssuableFilter!]
+  or: [VVisiterIssuableFilter!]
+  not: VVisiterIssuableFilter
+}
+
+input VVisiterLedgerIssueFilter {
+  transVisiterId: UUIDFilter
+  issueKind: StringFilter
+  rowQuantity: BigFloatFilter
+  balance: BigFloatFilter
+  parentTransVisiterId: UUIDFilter
+  transContainerId: UUIDFilter
+  transVisiterByTransVisiterIdExists: Boolean
+  transVisiterByParentTransVisiterIdExists: Boolean
+  transContainerByTransContainerIdExists: Boolean
+  and: [VVisiterLedgerIssueFilter!]
+  or: [VVisiterLedgerIssueFilter!]
+  not: VVisiterLedgerIssueFilter
+}
+
+input VVisiterOriginCheckFilter {
+  originKind: StringFilter
+  originId: UUIDFilter
+  transPurchaseRecId: UUIDFilter
+  transWorkRecordId: UUIDFilter
+  recordQuantity: BigFloatFilter
+  visiterQuantity: BigFloatFilter
+  difference: BigFloatFilter
+  visiterCount: IntFilter
+  transPurchaseRecByTransPurchaseRecIdExists: Boolean
+  transWorkRecordByTransWorkRecordIdExists: Boolean
+  and: [VVisiterOriginCheckFilter!]
+  or: [VVisiterOriginCheckFilter!]
+  not: VVisiterOriginCheckFilter
 }
 
 input VVisiterPurchaseRecVisiterCountFilter {

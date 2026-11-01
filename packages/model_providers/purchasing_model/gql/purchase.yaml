@@ -228,7 +228,6 @@ PurchaseRecVisiterPageCreate:
   columns:
     - trans_purchase_rec_id
     - trans_visiter_id
-    - quantity
     - remarks
 
 # trans_complaint_purchase_recの登録(受入異常)

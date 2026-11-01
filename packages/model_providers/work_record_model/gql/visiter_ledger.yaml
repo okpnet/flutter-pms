@@ -1,0 +1,59 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 棚ビジター(ロット)の台帳ビュー。数量は棚ビジターだけが持つ(+が入庫、-が出庫)。
+# 結合を持たない列だけを読む。
+
+# 払出候補(v_visiter_issuable。1行はロット)。issuable: true で絞る
+VisiterIssuablePage:
+  kind: read
+  from: v_visiter_issuable
+  filter: true
+  columns:
+    - trans_visiter_id
+    - trans_container_id
+    - quantity
+    - release
+    - open_complaint_count
+    - issuable
+    - block_reason
+
+# 仮止めなのに異常が無いロット(v_visiter_hold_without_complaint)。異常の登録を促す
+VisiterHoldWithoutComplaintPage:
+  kind: read
+  from: v_visiter_hold_without_complaint
+  filter: true
+  columns:
+    - trans_visiter_id
+    - trans_container_id
+    - mstr_location_id
+    - quantity
+    - hold_at
+    - update_user_id
+
+# 帳簿の不備(v_visiter_ledger_issue。1行は行の不備)
+VisiterLedgerIssuePage:
+  kind: read
+  from: v_visiter_ledger_issue
+  filter: true
+  columns:
+    - trans_visiter_id
+    - issue_kind
+    - row_quantity
+    - balance
+    - parent_trans_visiter_id
+    - trans_container_id
+
+# 伝票数量と入庫の行の合計の不一致(v_visiter_origin_check。1行は受入実績・作業実績)
+VisiterOriginCheckPage:
+  kind: read
+  from: v_visiter_origin_check
+  filter: true
+  columns:
+    - origin_kind
+    - origin_id
+    - trans_purchase_rec_id
+    - trans_work_record_id
+    - record_quantity
+    - visiter_quantity
+    - difference
+    - visiter_count

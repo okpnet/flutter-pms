@@ -9,9 +9,7 @@ abstract class ConveyPageFilterSpec {
   static const FlatFilterSpec spec = FlatFilterSpec('TransConveyFilter', {
     'transConveyId': FlatFilterPath([], 'transConveyId'),
     'transVisiterId': FlatFilterPath([], 'transVisiterId'),
-    'receive': FlatFilterPath([], 'receive'),
     'conveyAt': FlatFilterPath([], 'conveyAt'),
-    'quantity': FlatFilterPath([], 'quantity'),
     'locationHistoryId': FlatFilterPath([], 'locationHistoryId'),
     'locationId': FlatFilterPath([], 'locationId'),
     'staffHistoryId': FlatFilterPath([], 'staffHistoryId'),

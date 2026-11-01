@@ -478,8 +478,14 @@ enum VItemOnHandsOrderBy {
   ITEM_ID_DESC
   ON_HAND_QUANTITY_ASC
   ON_HAND_QUANTITY_DESC
+  HELD_QUANTITY_ASC
+  HELD_QUANTITY_DESC
+  AVAILABLE_QUANTITY_ASC
+  AVAILABLE_QUANTITY_DESC
   VISITER_COUNT_ASC
   VISITER_COUNT_DESC
+  HELD_VISITER_COUNT_ASC
+  HELD_VISITER_COUNT_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -1112,7 +1118,10 @@ type VItemKindItemCount {
 type VItemOnHand {
   itemId: UUID!
   onHandQuantity: BigFloat
+  heldQuantity: BigFloat
+  availableQuantity: BigFloat
   visiterCount: Int
+  heldVisiterCount: Int
 }
 
 type VItemOnHandsConnection {
@@ -3269,7 +3278,10 @@ input VItemKindItemCountFilter {
 input VItemOnHandFilter {
   itemId: UUIDFilter
   onHandQuantity: BigFloatFilter
+  heldQuantity: BigFloatFilter
+  availableQuantity: BigFloatFilter
   visiterCount: IntFilter
+  heldVisiterCount: IntFilter
   mstrItemByItemIdExists: Boolean
   and: [VItemOnHandFilter!]
   or: [VItemOnHandFilter!]

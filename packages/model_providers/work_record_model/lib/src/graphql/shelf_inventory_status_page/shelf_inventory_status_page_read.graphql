@@ -22,21 +22,27 @@ query ShelfInventoryStatusPageRead(
     }
     nodes {
       transVisiterId
+      parentTransVisiterId
+      rootVisiterId
       transContainerId
       mstrLocationId
       release
       quantity
+      receiptQuantity
+      issueQuantity
+      adjustmentQuantity
+      lineCount
+      splitCount
+      openComplaintCount
       transPurchaseRecIds
       purchaseRecCount
-      purchaseRecQuantity
-      transConveyIds
-      conveyCount
-      conveyReceiveQuantity
-      conveyIssueQuantity
-      lastConveyAt
       transWorkRecordIds
       workRecordCount
-      workRecordQuantity
+      consumedWorkRecordIds
+      consumedWorkRecordCount
+      transConveyIds
+      conveyCount
+      lastConveyAt
     }
   }
 }

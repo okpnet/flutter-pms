@@ -9,9 +9,7 @@ query ConveyPageRfe(
   transConveyByTransConveyId(transConveyId: $transConveyId) {
     transConveyId
     transVisiterId
-    receive
     conveyAt
-    quantity
     locationHistoryId
     locationId
     staffHistoryId

@@ -1,0 +1,39 @@
+# complaint_target_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ComplaintTargetPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ComplaintTargetPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VComplaintTargetFilter = {and: []}
+  $orderBy: [VComplaintTargetsOrderBy!]
+) {
+  allVComplaintTargets(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      targetLinkId
+      transComplaintId
+      targetKind
+      transPurchaseRecId
+      transWorkRecordId
+      complaintQuantity
+      visiterCount
+      visiterQuantity
+      linkedCount
+      openCount
+      missingCount
+      missingIssuableCount
+      missingEmptyCount
+    }
+  }
+}

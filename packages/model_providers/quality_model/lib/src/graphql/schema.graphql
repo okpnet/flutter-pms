@@ -758,6 +758,72 @@ enum TransTaskRisksOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum VComplaintTargetVisitersOrderBy {
+  NATURAL
+  COMPLAINT_TARGET_VISITER_KEY_ASC
+  COMPLAINT_TARGET_VISITER_KEY_DESC
+  TRANS_COMPLAINT_ID_ASC
+  TRANS_COMPLAINT_ID_DESC
+  TARGET_KIND_ASC
+  TARGET_KIND_DESC
+  TARGET_LINK_ID_ASC
+  TARGET_LINK_ID_DESC
+  TRANS_PURCHASE_REC_ID_ASC
+  TRANS_PURCHASE_REC_ID_DESC
+  TRANS_WORK_RECORD_ID_ASC
+  TRANS_WORK_RECORD_ID_DESC
+  COMPLAINT_QUANTITY_ASC
+  COMPLAINT_QUANTITY_DESC
+  TRANS_VISITER_ID_ASC
+  TRANS_VISITER_ID_DESC
+  VISITER_QUANTITY_ASC
+  VISITER_QUANTITY_DESC
+  RELEASE_ASC
+  RELEASE_DESC
+  TRANS_COMPLAINT_VISITER_ID_ASC
+  TRANS_COMPLAINT_VISITER_ID_DESC
+  LINKED_ASC
+  LINKED_DESC
+  RELEASE_AT_ASC
+  RELEASE_AT_DESC
+  VISITER_STATUS_ASC
+  VISITER_STATUS_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum VComplaintTargetsOrderBy {
+  NATURAL
+  TARGET_LINK_ID_ASC
+  TARGET_LINK_ID_DESC
+  TRANS_COMPLAINT_ID_ASC
+  TRANS_COMPLAINT_ID_DESC
+  TARGET_KIND_ASC
+  TARGET_KIND_DESC
+  TRANS_PURCHASE_REC_ID_ASC
+  TRANS_PURCHASE_REC_ID_DESC
+  TRANS_WORK_RECORD_ID_ASC
+  TRANS_WORK_RECORD_ID_DESC
+  COMPLAINT_QUANTITY_ASC
+  COMPLAINT_QUANTITY_DESC
+  VISITER_COUNT_ASC
+  VISITER_COUNT_DESC
+  VISITER_QUANTITY_ASC
+  VISITER_QUANTITY_DESC
+  LINKED_COUNT_ASC
+  LINKED_COUNT_DESC
+  OPEN_COUNT_ASC
+  OPEN_COUNT_DESC
+  MISSING_COUNT_ASC
+  MISSING_COUNT_DESC
+  MISSING_ISSUABLE_COUNT_ASC
+  MISSING_ISSUABLE_COUNT_DESC
+  MISSING_EMPTY_COUNT_ASC
+  MISSING_EMPTY_COUNT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 type CreateTransComplaintPayload {
   transComplaint: TransComplaint
 }
@@ -1032,6 +1098,8 @@ type Query {
   allTransRecurrencePreventions(first: Int, offset: Int, orderBy: [TransRecurrencePreventionsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransRecurrencePreventionFilter): TransRecurrencePreventionsConnection
   allTransRisks(first: Int, offset: Int, orderBy: [TransRisksOrderBy!] = [PRIMARY_KEY_ASC], filter: TransRiskFilter): TransRisksConnection
   allTransTaskRisks(first: Int, offset: Int, orderBy: [TransTaskRisksOrderBy!] = [PRIMARY_KEY_ASC], filter: TransTaskRiskFilter): TransTaskRisksConnection
+  allVComplaintTargets(first: Int, offset: Int, orderBy: [VComplaintTargetsOrderBy!] = [PRIMARY_KEY_ASC], filter: VComplaintTargetFilter): VComplaintTargetsConnection
+  allVComplaintTargetVisiters(first: Int, offset: Int, orderBy: [VComplaintTargetVisitersOrderBy!] = [PRIMARY_KEY_ASC], filter: VComplaintTargetVisiterFilter): VComplaintTargetVisitersConnection
   mstrAuditStdByMstrAuditStdId(mstrAuditStdId: UUID!): MstrAuditStd
   mstrAuditStdCheckitemByMstrAuditStdCheckitemId(mstrAuditStdCheckitemId: UUID!): MstrAuditStdCheckitem
   mstrReportByMstrReportId(mstrReportId: UUID!): MstrReport
@@ -1789,6 +1857,51 @@ type VComplaintComplaintVisiterCount {
 
 type VComplaintDisposalCount {
   transComplaintId: UUID
+}
+
+type VComplaintTarget {
+  targetLinkId: UUID!
+  transComplaintId: UUID
+  targetKind: String
+  transPurchaseRecId: UUID
+  transWorkRecordId: UUID
+  complaintQuantity: BigFloat
+  visiterCount: Int
+  visiterQuantity: BigFloat
+  linkedCount: Int
+  openCount: Int
+  missingCount: Int
+  missingIssuableCount: Int
+  missingEmptyCount: Int
+}
+
+type VComplaintTargetVisiter {
+  complaintTargetVisiterKey: String!
+  transComplaintId: UUID
+  targetKind: String
+  targetLinkId: UUID
+  transPurchaseRecId: UUID
+  transWorkRecordId: UUID
+  complaintQuantity: BigFloat
+  transVisiterId: UUID
+  visiterQuantity: BigFloat
+  release: Boolean
+  transComplaintVisiterId: UUID
+  linked: Boolean
+  releaseAt: Datetime
+  visiterStatus: String
+}
+
+type VComplaintTargetVisitersConnection {
+  nodes: [VComplaintTargetVisiter]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type VComplaintTargetsConnection {
+  nodes: [VComplaintTarget]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type VDisposalRecurrencePreventionCount {
@@ -3197,6 +3310,8 @@ input TransComplaintFilter {
   vComplaintComplaintVisiterCountByTransComplaintIdExists: Boolean
   vComplaintDisposalCountByTransComplaintId: VComplaintDisposalCountFilter
   vComplaintDisposalCountByTransComplaintIdExists: Boolean
+  vComplaintTargetsByTransComplaintIdExist: Boolean
+  vComplaintTargetVisitersByTransComplaintIdExist: Boolean
   transLabelByTitles: TransLabelFilter
   transTextByDetails: TransTextFilter
   transApprovalPatternByApprovals: TransApprovalPatternFilter
@@ -3356,6 +3471,7 @@ input TransComplaintVisiterFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  vComplaintTargetVisitersByTransComplaintVisiterIdExist: Boolean
   historyInfoStaffByReleaseStaffHistoryIdAndReleaseStaffIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -4274,6 +4390,53 @@ input VComplaintDisposalCountFilter {
   and: [VComplaintDisposalCountFilter!]
   or: [VComplaintDisposalCountFilter!]
   not: VComplaintDisposalCountFilter
+}
+
+input VComplaintTargetFilter {
+  targetLinkId: UUIDFilter
+  transComplaintId: UUIDFilter
+  targetKind: StringFilter
+  transPurchaseRecId: UUIDFilter
+  transWorkRecordId: UUIDFilter
+  complaintQuantity: BigFloatFilter
+  visiterCount: IntFilter
+  visiterQuantity: BigFloatFilter
+  linkedCount: IntFilter
+  openCount: IntFilter
+  missingCount: IntFilter
+  missingIssuableCount: IntFilter
+  missingEmptyCount: IntFilter
+  transComplaintByTransComplaintIdExists: Boolean
+  transPurchaseRecByTransPurchaseRecIdExists: Boolean
+  transWorkRecordByTransWorkRecordIdExists: Boolean
+  and: [VComplaintTargetFilter!]
+  or: [VComplaintTargetFilter!]
+  not: VComplaintTargetFilter
+}
+
+input VComplaintTargetVisiterFilter {
+  complaintTargetVisiterKey: StringFilter
+  transComplaintId: UUIDFilter
+  targetKind: StringFilter
+  targetLinkId: UUIDFilter
+  transPurchaseRecId: UUIDFilter
+  transWorkRecordId: UUIDFilter
+  complaintQuantity: BigFloatFilter
+  transVisiterId: UUIDFilter
+  visiterQuantity: BigFloatFilter
+  release: BooleanFilter
+  transComplaintVisiterId: UUIDFilter
+  linked: BooleanFilter
+  releaseAt: DatetimeFilter
+  visiterStatus: StringFilter
+  transComplaintByTransComplaintIdExists: Boolean
+  transPurchaseRecByTransPurchaseRecIdExists: Boolean
+  transWorkRecordByTransWorkRecordIdExists: Boolean
+  transVisiterByTransVisiterIdExists: Boolean
+  transComplaintVisiterByTransComplaintVisiterIdExists: Boolean
+  and: [VComplaintTargetVisiterFilter!]
+  or: [VComplaintTargetVisiterFilter!]
+  not: VComplaintTargetVisiterFilter
 }
 
 input VDisposalRecurrencePreventionCountFilter {

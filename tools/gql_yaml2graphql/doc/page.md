@@ -424,6 +424,13 @@
     +   生産計画納期遵守状況台帳[WorkPlanDeliveryCompliancePage]
     +   品目別現在庫台帳[ItemOnHandPage]
     +   棚ビジター品目台帳[MrpVisiterItemPage]
+2.  棚ビジターの台帳(ロット。数量は棚ビジターだけが持つ)
+    +   払出候補台帳[VisiterIssuablePage]
+    +   仮止め異常未登録台帳[VisiterHoldWithoutComplaintPage]
+    +   帳簿不備台帳[VisiterLedgerIssuePage]
+    +   伝票数量不一致台帳[VisiterOriginCheckPage]
+    +   異常登録漏れ台帳[ComplaintTargetVisiterPage]
+    +   異常対象台帳[ComplaintTargetPage]
 ##  バーコード実績登録
 ### 照会(symbol で対象を引く。読み込み専用)
 1.  照会

@@ -1,0 +1,32 @@
+# visiter_hold_without_complaint_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #VisiterHoldWithoutComplaintPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query VisiterHoldWithoutComplaintPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VVisiterHoldWithoutComplaintFilter = {and: []}
+  $orderBy: [VVisiterHoldWithoutComplaintsOrderBy!]
+) {
+  allVVisiterHoldWithoutComplaints(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transVisiterId
+      transContainerId
+      mstrLocationId
+      quantity
+      holdAt
+      updateUserId
+    }
+  }
+}

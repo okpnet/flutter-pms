@@ -11,6 +11,8 @@ abstract class VisiterPageFilterSpec {
     'transContainerId': FlatFilterPath([], 'transContainerId'),
     'release': FlatFilterPath([], 'release'),
     'quantity': FlatFilterPath([], 'quantity'),
+    'adjustment': FlatFilterPath([], 'adjustment'),
+    'parentTransVisiterId': FlatFilterPath([], 'parentTransVisiterId'),
     'symbol': FlatFilterPath([], 'symbol'),
     'remarks': FlatFilterPath([], 'remarks'),
     'convey_count||transVisiterId': FlatFilterPath([FilterStep('vVisiterConveyCountByTransVisiterId')], 'transVisiterId'),

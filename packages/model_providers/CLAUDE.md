@@ -41,11 +41,19 @@
 | `v_shipping_order_status` | customer × item × 納期 × 出荷予定日 × 出荷実績日 | `sales_model/gql/shipping_order_status.yaml` | `ShippingOrderStatusPage` |
 | `v_shipping_delivery_compliance` | 同上 | `sales_model/gql/shipping_delivery_compliance.yaml` | `ShippingDeliveryCompliancePage` |
 | `v_inspection_status` | equipment × supplier × 実施済み × 結果 | `resource_model/gql/inspection_status.yaml` | `InspectionStatusPage` |
-| `v_shelf_inventory_status` | 棚ビジター | `work_record_model/gql/shelf_inventory_status.yaml` | `ShelfInventoryStatusPage` |
+| `v_shelf_inventory_status` | 棚ビジター(ロット。quantity は今の数量) | `work_record_model/gql/shelf_inventory_status.yaml` | `ShelfInventoryStatusPage` |
 | `v_work_plan_delivery_compliance` | 生産計画明細 | `production_plan_model/gql/work_plan_delivery_compliance.yaml` | `WorkPlanDeliveryCompliancePage` |
 
 - ビューの YAML は、結合を持たない列だけを読む(ID・日付・件数・数量・金額)。名称が必要な画面は、ID で既存の読み込みを引く。
 - 絞り込みは `$filter`(`filter: true`)で行う。
+
+## 棚ビジター(在庫)の決まり
+
+- 数量は棚ビジター(`trans_visiter.quantity`)だけが持つ。+が入庫、-が出庫。受入実績ビジター・作業実績ビジターは数量を持たない中間テーブル。受払実績(`trans_convey`)は出来事(いつ・どこで・誰が)だけを残し、棚ビジターの1行につき1件作る。
+- 出庫・分割・棚卸しの行は、取り出したロットを親(`parent_trans_visiter_id`)にする。数量0の行は作れない。棚卸しの調整行は `adjustment = true`。
+- ロット = `quantity > 0` かつ調整でない行。保留・異常・取り出し可否はロットに付く(分割元の異常は分割先へ効く)。取り出せる = `release` が真、未解除の異常が無く、今の数量が正。判定は DB の `v_visiter_issuable`。
+- 異常は `trans_complaint_visiter` でロットにつなぐ。受入異常・作業異常は自動では止めない(`v_complaint_target_visiter` の `linked: false` が登録漏れ)。
+- ビュー(結合なし): `work_record_model/gql/visiter_ledger.yaml`(`VisiterIssuablePage`・`VisiterHoldWithoutComplaintPage`・`VisiterLedgerIssuePage`・`VisiterOriginCheckPage`)、`quality_model/gql/complaint_target.yaml`(`ComplaintTargetVisiterPage`・`ComplaintTargetPage`)。`v_mrp_visiter_item`・`v_item_on_hand`(`available_quantity` = 使える量)も同じ決まりで数える。
 
 ## 規則
 

@@ -26,6 +26,9 @@ query MrpVisiterItemPageRead(
       itemCount
       finished
       quantity
+      release
+      openComplaintCount
+      held
     }
   }
 }
