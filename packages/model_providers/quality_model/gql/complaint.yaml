@@ -424,8 +424,6 @@ ComplaintVisiterPage: &ComplaintVisiterPage
   kind: read
   from: trans_complaint_visiter
   filter: true
-  requiredWhere:
-    - languageCode
   defaultWhere:
     - column: remove
       operator: =

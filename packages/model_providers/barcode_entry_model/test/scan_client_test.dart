@@ -34,12 +34,37 @@ class _FakeLink extends Link {
   }
 }
 
+/// 登録(Create)の呼び出しだけ(履歴IDの読み込みを除く)。
+List<String> _creates(_FakeLink link) => [
+  for (final c in link.calls)
+    if (c.$1.endsWith('Create')) c.$1,
+];
+
+Map<String, dynamic> _nodesOf(String field, String historyId) => {
+  field: {
+    '__typename': 'Connection',
+    'nodes': [
+      {'__typename': 'Node', 'historyId': historyId},
+    ],
+  },
+};
+
 Map<String, dynamic> _created(String field, String row, String idField, String id) => {
   field: {
     '__typename': 'Payload',
     row: {'__typename': 'Row', idField: id},
   },
 };
+
+Future<String?> _containerSymbol(TestServer server, String code) async {
+  final r = await _clientTo(server.url).query(
+    QueryOptions(
+      document: parseString('query { allTransContainers(first: 1, filter: {code: {equalTo: "$code"}}) { nodes { symbol } } }'),
+    ),
+  );
+  final nodes = (r.data?['allTransContainers']['nodes'] as List?) ?? const [];
+  return nodes.isEmpty ? null : nodes.first['symbol'] as String?;
+}
 
 void main() {
   group('検証用サーバー: symbol の照会(読み取り専用)', () {
@@ -84,6 +109,30 @@ void main() {
       }
     });
 
+    // 11_barcode_dummy.sql のデータ(設備 LS01 の点検予定、棚 RACK-A01 の保留ビジター)
+    serverTest('設備の未実施の点検は、実施済みを除く最も古い予定の明細', (server) async {
+      final client = await clientOf(server);
+      final eq = await client.findEquipment('LS01');
+      if (eq == null) return markTestSkipped('設備 LS01 が無い');
+      final p = await client.findPendingInspection(eq.id);
+      if (p == null) return markTestSkipped('点検のダミーデータ(11_barcode_dummy.sql)が無い');
+      final days = DateTime.now().difference(p.scheduledStart!).inDays;
+      expect(days, inInclusiveRange(6, 8)); // 14日前は実施済み、7日前が対象、7日後は対象外
+      expect(p.inspectionName, isNotEmpty);
+    });
+
+    serverTest('棚のビジターは、保留と未解除の異常があれば取り出せない', (server) async {
+      final client = await clientOf(server);
+      final sym = await _containerSymbol(server, 'RACK-A01');
+      final shelf = sym == null ? null : await client.findContainer(sym);
+      if (shelf == null) return markTestSkipped('棚 RACK-A01 が無い');
+      final held = (await client.listVisiters(shelf.id)).where((v) => !v.release).toList();
+      if (held.isEmpty) return markTestSkipped('保留のダミーデータ(11_barcode_dummy.sql)が無い');
+      expect(held.any((v) => v.hasOpenComplaint), isTrue); // 異常のある保留
+      expect(held.any((v) => !v.hasOpenComplaint), isTrue); // 異常の無い保留(点検の対象)
+      expect(held.every((v) => !v.issuable), isTrue);
+    });
+
     serverTest('登録の無い symbol は null', (server) async {
       expect(await (await clientOf(server)).find('NO-SUCH-SYMBOL-0000'), isNull);
     });
@@ -122,7 +171,7 @@ void main() {
         staffId: 'staff-1',
         rejectNote: '不合格(寸法不良)',
       );
-      expect(link.calls.map((c) => c.$1), [
+      expect(_creates(link), [
         'WorkRecordPageCreate',
         'VisiterPageCreate',
         'ConveyPageCreate',
@@ -153,7 +202,7 @@ void main() {
         ),
       });
       await clientOn(link).putPurchase(purchaseDetailId: 'pd-1', quantity: 5, shelf: shelf);
-      expect(link.calls.map((c) => c.$1), [
+      expect(_creates(link), [
         'PurchaseRecPageCreate',
         'VisiterPageCreate',
         'ConveyPageCreate',
@@ -171,7 +220,65 @@ void main() {
         clientOn(link).putWork(workPlanId: 'plan-1', quantity: 1, shelf: shelf),
         throwsA(isA<ScanClientException>()),
       );
-      expect(link.calls.map((c) => c.$1), ['WorkRecordPageCreate', 'VisiterPageCreate']);
+      expect(_creates(link), ['WorkRecordPageCreate', 'VisiterPageCreate']);
+    });
+
+    test('入庫の登録は、担当者・場所の最新の履歴IDを読んで送る', () async {
+      final link = _FakeLink({
+        'ScanStaffHistoryPageRead': _nodesOf('allHistoryInfoStaffs', 'sh-9'),
+        'ScanLocationHistoryPageRead': _nodesOf('allHistoryMstrLocations', 'lh-3'),
+        'ConveyPageCreate': _created('createTransConvey', 'transConvey', 'transConveyId', 'c-1'),
+      });
+      await clientOn(link).createConvey(
+        visiterId: 'v-1',
+        receive: true,
+        quantity: 1,
+        locationId: 'loc-1',
+        staffId: 'staff-1',
+      );
+      final v = link.calls.firstWhere((c) => c.$1 == 'ConveyPageCreate').$2;
+      expect(v['staffHistoryId'], 'sh-9');
+      expect(v['locationHistoryId'], 'lh-3');
+      final q = link.calls.firstWhere((c) => c.$1 == 'ScanStaffHistoryPageRead').$2;
+      expect(q['orderBy'], ['REVISION_DESC']);
+    });
+
+    test('異常の登録は、表題・詳細 → 異常 → 異常入出庫ビジター の順に登録する', () async {
+      final link = _FakeLink({
+        'ComplaintLabelPageCreate': _created('createTransLabel', 'transLabel', 'transLabelId', 'lb-1'),
+        'ComplaintLabelValuePageCreate': _created('createTransLabelValue', 'transLabelValue', 'transLabelValueId', 'lv-1'),
+        'ComplaintTextPageCreate': _created('createTransText', 'transText', 'transTextId', 'tx-1'),
+        'ComplaintTextValuePageCreate': _created('createTransTextValue', 'transTextValue', 'transTextValueId', 'tv-1'),
+        'ComplaintPageCreate': _created('createTransComplaint', 'transComplaint', 'transComplaintId', 'cp-1'),
+        'ComplaintVisiterPageCreate': _created('createTransComplaintVisiter', 'transComplaintVisiter', 'transComplaintVisiterId', 'cv-1'),
+      });
+      final id = await clientOn(link).registerComplaint(visiterId: 'v-1', quantity: 3, reporterStaffId: 'staff-1');
+      expect(id, 'cp-1');
+      expect(_creates(link), [
+        'ComplaintLabelPageCreate',
+        'ComplaintLabelValuePageCreate',
+        'ComplaintTextPageCreate',
+        'ComplaintTextValuePageCreate',
+        'ComplaintPageCreate',
+        'ComplaintVisiterPageCreate',
+      ]);
+      final by = {for (final c in link.calls) c.$1: c.$2};
+      expect(by['ComplaintLabelValuePageCreate']!['labelValue'], '異常報告');
+      expect(by['ComplaintPageCreate']!['titles'], 'lb-1');
+      expect(by['ComplaintPageCreate']!['details'], 'tx-1');
+      expect(by['ComplaintPageCreate']!['reporterStaffId'], 'staff-1');
+      expect(by['ComplaintVisiterPageCreate']!['transVisiterId'], 'v-1');
+    });
+
+    test('点検結果は、予定の明細・結果・結果の値を送る', () async {
+      final link = _FakeLink({
+        'InspectRecordPageCreate': _created('createTransInspectRecord', 'transInspectRecord', 'transInspectRecordId', 'ir-1'),
+      });
+      await clientOn(link).createInspectRecord(detailId: 'd-1', result: true, resultState: 'ok', resultValue: {'value': 0.3});
+      final v = link.calls.single.$2;
+      expect(v['transInspectSchDetailId'], 'd-1');
+      expect(v['result'], true);
+      expect(v['resultValue'], {'value': 0.3});
     });
 
     test('作業の開始は作業実績だけを登録する', () async {

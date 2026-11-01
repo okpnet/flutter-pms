@@ -1,0 +1,29 @@
+# scan_location_history_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ScanLocationHistoryPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ScanLocationHistoryPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: HistoryMstrLocationFilter = {and: []}
+  $orderBy: [HistoryMstrLocationsOrderBy!]
+) {
+  allHistoryMstrLocations(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      historyId
+      mstrLocationId
+      revision
+    }
+  }
+}

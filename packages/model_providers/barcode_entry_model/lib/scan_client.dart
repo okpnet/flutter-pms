@@ -11,6 +11,8 @@ import 'package:barcode_entry_model/barcode_entry_model.dart' as scan;
 import 'package:gql/ast.dart' show DocumentNode;
 import 'package:graphql/client.dart';
 import 'package:purchasing_model/purchasing_model.dart' as pu;
+import 'package:quality_model/quality_model.dart' as qu;
+import 'package:resource_model/resource_model.dart' as rs;
 import 'package:work_record_model/work_record_model.dart' as wr;
 
 /// 通信・サーバーの異常。
@@ -253,6 +255,32 @@ class ScanClient {
     return rows.isEmpty ? '' : _label(rows.first['labels']);
   }
 
+  // ---- 履歴ID(登録前に最新を読んで送る。DB のトリガーに頼らない) ----
+
+  /// 担当者の最新の履歴ID(revision 最大)を `{staffHistoryId, staffId}` で返す。履歴が無ければ staffId だけ。
+  Future<Map<String, dynamic>> _staff(String staffId, {String idKey = 'staffId', String historyKey = 'staffHistoryId'}) async {
+    final rows = await _nodes(scan.documentNodeQueryScanStaffHistoryPageRead, 'allHistoryInfoStaffs', {
+      'first': 1,
+      'orderBy': ['REVISION_DESC'],
+      'filter': {
+        'infoStaffId': {'equalTo': staffId},
+      },
+    });
+    return {idKey: staffId, if (rows.isNotEmpty) historyKey: rows.first['historyId']};
+  }
+
+  /// 場所の最新の履歴ID(revision 最大)を `{locationHistoryId, locationId}` で返す。履歴が無ければ locationId だけ。
+  Future<Map<String, dynamic>> _location(String locationId) async {
+    final rows = await _nodes(scan.documentNodeQueryScanLocationHistoryPageRead, 'allHistoryMstrLocations', {
+      'first': 1,
+      'orderBy': ['REVISION_DESC'],
+      'filter': {
+        'mstrLocationId': {'equalTo': locationId},
+      },
+    });
+    return {'locationId': locationId, if (rows.isNotEmpty) 'locationHistoryId': rows.first['historyId']};
+  }
+
   // ---- 登録(1テーブルずつ) ----
 
   String _stamp() => _now().toUtc().toIso8601String();
@@ -279,14 +307,14 @@ class ScanClient {
     String? staffId,
     String? equipmentId,
     String? remarks,
-  }) => _create(
+  }) async => _create(
     wr.documentNodeMutationWorkRecordPageCreate,
     {
       'transWorkPlanId': workPlanId,
       if (started) 'startAt': _stamp(),
       if (stopped) 'stopAt': _stamp(),
       if (quantity != null) 'qty': '$quantity',
-      if (staffId != null) 'staffId': staffId,
+      if (staffId != null) ...await _staff(staffId),
       if (equipmentId != null) 'equipmentId': equipmentId,
       if (remarks != null) 'remarks': remarks,
     },
@@ -316,15 +344,15 @@ class ScanClient {
     String? locationId,
     String? staffId,
     String? remarks,
-  }) => _create(
+  }) async => _create(
     wr.documentNodeMutationConveyPageCreate,
     {
       'transVisiterId': visiterId,
       'receive': receive,
       'conveyAt': _stamp(),
       'quantity': '$quantity',
-      if (locationId != null) 'locationId': locationId,
-      if (staffId != null) 'staffId': staffId,
+      if (locationId != null) ...await _location(locationId),
+      if (staffId != null) ...await _staff(staffId),
       if (remarks != null) 'remarks': remarks,
     },
     'createTransConvey',
@@ -454,4 +482,242 @@ class ScanClient {
       remarks: item.symbol,
     );
   }
+
+  // ---- 設備点検 ----
+
+  /// 設備の未実施の点検(今日以前で結果が無い点検予定の明細のうち、予定日が最も古い1件)。無ければ null。
+  Future<ScanInspection?> findPendingInspection(String equipmentId, {DateTime? today}) async {
+    final limit = (today ?? _now()).toUtc().toIso8601String();
+    final schs = await _nodes(scan.documentNodeQueryScanInspectSchPageRead, 'allTransInspectSches', {
+      'filter': {
+        'equipmentId': {'equalTo': equipmentId},
+      },
+    });
+    final details = <Map<String, dynamic>>[];
+    for (final s in schs) {
+      details.addAll(
+        await _nodes(scan.documentNodeQueryScanInspectSchDetailPageRead, 'allTransInspectSchDetails', {
+          'transInspectSchId': s['transInspectSchId'],
+          'filter': {
+            'scheduledStartDate': {'lessThanOrEqualTo': limit},
+          },
+        }),
+      );
+    }
+    details.sort((a, b) => '${a['scheduledStartDate']}'.compareTo('${b['scheduledStartDate']}'));
+    for (final d in details) {
+      final id = d['transInspectSchDetailId'] as String;
+      final records = await _nodes(scan.documentNodeQueryScanInspectRecordPageRead, 'allTransInspectRecords', {
+        'transInspectSchDetailId': id,
+      });
+      if (records.isNotEmpty) continue;
+      final items = await _nodes(scan.documentNodeQueryScanInspectionPageRead, 'allMstrInspections', {
+        'languageCodeId': languageCodeId,
+        'filter': {
+          'mstrInspectionId': {'equalTo': d['inspectionId']},
+        },
+      });
+      final formulas = await _nodes(
+        scan.documentNodeQueryScanInspectionFormulaPageRead,
+        'allMstrInspectionFormulas',
+        {
+          'filter': {
+            'mstrInspectionFormulaId': {'equalTo': d['inspectionFormulaId']},
+          },
+        },
+      );
+      final f = formulas.isEmpty ? const <String, dynamic>{} : formulas.first;
+      return ScanInspection(
+        detailId: id,
+        scheduledStart: DateTime.tryParse('${d['scheduledStartDate']}'),
+        inspectionName: items.isEmpty ? '' : _label(items.first['labels']),
+        formulaClass: _int(f['formulaClass']),
+        formulaArgs: f['argClass'],
+        typeClass: _int(f['typeClass']),
+        format: f['formatClass'] as String?,
+      );
+    }
+    return null;
+  }
+
+  /// 点検結果(`trans_inspect_record`)の登録。[resultValue] は式ごとの入力値(JSON)。
+  Future<String> createInspectRecord({
+    required String detailId,
+    required bool result,
+    String resultState = '',
+    Object? resultValue,
+    String? staffId,
+    String? remarks,
+  }) {
+    final now = _stamp();
+    return _create(
+      rs.documentNodeMutationInspectRecordPageCreate,
+      {
+        'transInspectSchDetailId': detailId,
+        'implementStartDate': now,
+        'implementStopDate': now,
+        'result': result,
+        if (resultState.isNotEmpty) 'resultState': resultState,
+        if (resultValue != null) 'resultValue': resultValue,
+        if (remarks != null) 'remarks': remarks,
+      },
+      'createTransInspectRecord',
+      'transInspectRecord',
+      'transInspectRecordId',
+    );
+  }
+
+  // ---- 異常(不合格) ----
+
+  Future<String> _createLabel(String text) async {
+    final label = await _create(
+      qu.documentNodeMutationComplaintLabelPageCreate,
+      const {},
+      'createTransLabel',
+      'transLabel',
+      'transLabelId',
+    );
+    await _create(
+      qu.documentNodeMutationComplaintLabelValuePageCreate,
+      {'transLabelId': label, 'sharedLanguageCodeId': languageCodeId, 'labelValue': text},
+      'createTransLabelValue',
+      'transLabelValue',
+      'transLabelValueId',
+    );
+    return label;
+  }
+
+  Future<String> _createText(String text) async {
+    final id = await _create(
+      qu.documentNodeMutationComplaintTextPageCreate,
+      const {},
+      'createTransText',
+      'transText',
+      'transTextId',
+    );
+    await _create(
+      qu.documentNodeMutationComplaintTextValuePageCreate,
+      {
+        'transTextId': id,
+        'sharedLanguageCodeId': languageCodeId,
+        'charCount': text.length,
+        'leadText': text.length > 80 ? text.substring(0, 80) : text,
+        'textValue': text,
+      },
+      'createTransTextValue',
+      'transTextValue',
+      'transTextValueId',
+    );
+    return id;
+  }
+
+  /// 棚ビジターの異常を登録する(表題・詳細 → 異常 → 異常入出庫ビジター)。承認は後で付ける。
+  /// 登録した異常の id を返す。[visiterId] の `release` を偽にする(仮止め)のは呼び出し側。
+  Future<String> registerComplaint({
+    required String visiterId,
+    required int quantity,
+    required String reporterStaffId,
+    String title = '異常報告',
+    String detail = '',
+  }) async {
+    final titles = await _createLabel(title);
+    final details = await _createText(detail.isEmpty ? title : detail);
+    final complaint = await _create(
+      qu.documentNodeMutationComplaintPageCreate,
+      {
+        'occurentAt': _stamp(),
+        'titles': titles,
+        'details': details,
+        ...await _staff(reporterStaffId, idKey: 'reporterStaffId', historyKey: 'reporterStaffHistoryId'),
+      },
+      'createTransComplaint',
+      'transComplaint',
+      'transComplaintId',
+    );
+    await _create(
+      qu.documentNodeMutationComplaintVisiterPageCreate,
+      {'transComplaintId': complaint, 'transVisiterId': visiterId, 'quantity': '$quantity'},
+      'createTransComplaintVisiter',
+      'transComplaintVisiter',
+      'transComplaintVisiterId',
+    );
+    return complaint;
+  }
+
+  // ---- 取り出し可否 ----
+
+  /// 棚のビジターと、取り出せるか。取り出せる = `release` が真、かつ解除されていない異常(`release_at` が空)が無い。
+  Future<List<ScanVisiter>> listVisiters(String containerId) async {
+    final rows = await _nodes(scan.documentNodeQueryScanVisiterPageRead, 'allTransVisiters', {
+      'transContainerId': containerId,
+    });
+    if (rows.isEmpty) return const [];
+    final held = <String>{
+      for (final c in await _nodes(qu.documentNodeQueryComplaintVisiterPageRead, 'allTransComplaintVisiters', {
+        'languageCodeId': languageCodeId,
+        'filter': {
+          'releaseAt': {'isNull': true},
+          'transVisiterId': {
+            'in': [for (final r in rows) r['transVisiterId']],
+          },
+        },
+      }))
+        c['transVisiterId'] as String,
+    };
+    return [
+      for (final r in rows)
+        ScanVisiter(
+          id: r['transVisiterId'] as String,
+          symbol: r['symbol'] as String? ?? '',
+          quantity: _int(r['quantity']),
+          release: r['release'] as bool? ?? true,
+          hasOpenComplaint: held.contains(r['transVisiterId']),
+        ),
+    ];
+  }
+}
+
+/// 点検予定の明細(平らな型)。式の引数は JSON のまま持つ。
+class ScanInspection {
+  const ScanInspection({
+    required this.detailId,
+    this.scheduledStart,
+    this.inspectionName = '',
+    this.formulaClass = 0,
+    this.formulaArgs,
+    this.typeClass = 0,
+    this.format,
+  });
+
+  final String detailId;
+  final DateTime? scheduledStart;
+  final String inspectionName;
+  final int formulaClass;
+  final Object? formulaArgs;
+  final int typeClass;
+  final String? format;
+}
+
+/// 棚のビジター(平らな型)。
+class ScanVisiter {
+  const ScanVisiter({
+    required this.id,
+    required this.symbol,
+    required this.quantity,
+    required this.release,
+    required this.hasOpenComplaint,
+  });
+
+  final String id;
+  final String symbol;
+  final int quantity;
+
+  /// 入出庫許可(手動の仮止めが偽)。
+  final bool release;
+
+  /// 解除されていない異常がある。
+  final bool hasOpenComplaint;
+
+  /// 取り出せる。
+  bool get issuable => release && !hasOpenComplaint;
 }

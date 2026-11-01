@@ -1,0 +1,30 @@
+# scan_staff_history_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ScanStaffHistoryPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ScanStaffHistoryPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: HistoryInfoStaffFilter = {and: []}
+  $orderBy: [HistoryInfoStaffsOrderBy!]
+) {
+  allHistoryInfoStaffs(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      historyId
+      infoStaffId
+      code
+      revision
+    }
+  }
+}

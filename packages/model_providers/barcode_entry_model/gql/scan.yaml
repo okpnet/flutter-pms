@@ -313,3 +313,28 @@ ScanInspectionFormulaPage:
     - arg_class
     - type_class
     - format_class
+
+# 担当者の最新の履歴ID(登録前に読んで送る。revision の最大を選ぶ)
+ScanStaffHistoryPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: history_info_staff
+  filter: true
+  columns:
+    - history_id
+    - info_staff_id
+    - code
+    - revision
+
+# 場所の最新の履歴ID(登録前に読んで送る。revision の最大を選ぶ)
+ScanLocationHistoryPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: history_mstr_location
+  filter: true
+  columns:
+    - history_id
+    - mstr_location_id
+    - revision

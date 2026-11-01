@@ -109,6 +109,18 @@ void main() {
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
+    serverTest('ScanLocationHistoryPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryScanLocationHistoryPageRead,
+          variables: Variables$Query$ScanLocationHistoryPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ScanLocationHistoryPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('ScanPurchaseDetailPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(
@@ -130,6 +142,18 @@ void main() {
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
       Query$ScanPurchaseRecPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
+    serverTest('ScanStaffHistoryPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryScanStaffHistoryPageRead,
+          variables: Variables$Query$ScanStaffHistoryPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ScanStaffHistoryPageRead.fromJson(
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });

@@ -441,6 +441,8 @@
     +   点検結果照会台帳[ScanInspectRecordPage]
     +   点検項目照会台帳[ScanInspectionPage]
     +   点検式照会台帳[ScanInspectionFormulaPage]
+    +   担当者履歴照会台帳[ScanStaffHistoryPage]<!--登録前に最新の履歴IDを読む-->
+    +   場所履歴照会台帳[ScanLocationHistoryPage]<!--登録前に最新の履歴IDを読む-->
 ### 登録(追加のみ)
 1.  作業実績・入出庫
     +   作業実績登録[WorkRecordPageCreate]
