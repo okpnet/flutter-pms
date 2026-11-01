@@ -120,7 +120,7 @@ ScanVisiterPage:
   columns:
     - trans_visiter_id
     - trans_container_id
-    - status
+    - release
     - quantity
     - symbol
 
@@ -185,6 +185,10 @@ ScanItemPage:
       pick:
         - name
       <<: *AppellationLabelsReadFields
+    - name: unit # 単位(略称があれば略称、無ければ正式名で表示する)
+      arrayType: toFirstOne
+      using: shared_unit_id
+      <<: *UnitReadFields
 
 # 設備を symbol で引く(名称は品目の名称)
 ScanEquipmentPage:
@@ -202,3 +206,110 @@ ScanEquipmentPage:
     - code
     - symbol
     - mstr_item_id
+
+# 設備に結び付く点検予定(trans_inspect_sch)。設備の id で引く
+ScanInspectSchPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: trans_inspect_sch
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_inspect_sch_id
+    - code
+    - equipment_history_id
+    - equipment_id
+    - symbol
+
+# 点検予定の明細(trans_inspect_sch_detail)。点検・式・種別の ID を持つ
+ScanInspectSchDetailPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: trans_inspect_sch_detail
+  filter: true
+  requiredWhere:
+    - trans_inspect_sch_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_inspect_sch_detail_id
+    - trans_inspect_sch_id
+    - scheduled_start_date
+    - scheduled_end_date
+    - inspection_history_id
+    - inspection_id
+    - inspection_formula_history_id
+    - inspection_formula_id
+    - inspection_kind_history_id
+    - inspection_kind_id
+    - inspection_operation_task_history_id
+    - inspection_operation_task_id
+    - symbol
+
+# 点検結果(trans_inspect_record)が既にあるかの確認用。点検予定の明細の id で引く
+ScanInspectRecordPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: trans_inspect_record
+  filter: true
+  requiredWhere:
+    - trans_inspect_sch_detail_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_inspect_record_id
+    - trans_inspect_sch_detail_id
+    - result
+    - symbol
+
+# 点検項目(mstr_inspection)。点検予定の明細の inspection_id で引く(名称つき)
+ScanInspectionPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: mstr_inspection
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_inspection_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields
+
+# 点検の式(mstr_inspection_formula)。点検予定の明細の inspection_formula_id で引く
+ScanInspectionFormulaPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: mstr_inspection_formula
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_inspection_formula_id
+    - formula_class
+    - arg_class
+    - type_class
+    - format_class

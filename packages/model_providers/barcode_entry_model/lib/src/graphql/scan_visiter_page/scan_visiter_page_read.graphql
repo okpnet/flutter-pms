@@ -25,7 +25,7 @@ query ScanVisiterPageRead(
     nodes {
       transVisiterId
       transContainerId
-      status
+      release
       quantity
       symbol
     }

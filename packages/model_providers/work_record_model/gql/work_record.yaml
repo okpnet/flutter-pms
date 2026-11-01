@@ -445,7 +445,7 @@ VisiterPageCreate:
   from: trans_visiter
   columns:
     - trans_container_id
-    - status
+    - release
     - quantity
     - remarks
 

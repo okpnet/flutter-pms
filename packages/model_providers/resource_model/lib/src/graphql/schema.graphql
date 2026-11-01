@@ -670,6 +670,10 @@ enum VInspectionStatusesOrderBy {
   LAST_IMPLEMENT_DATE_DESC
 }
 
+type CreateTransInspectRecordPayload {
+  transInspectRecord: TransInspectRecord
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -1170,6 +1174,7 @@ type MstrWorkCalendarsConnection {
 }
 
 type Mutation {
+  createTransInspectRecord(input: CreateTransInspectRecordInput!): CreateTransInspectRecordPayload
   updateMstrCapabilityByMstrCapabilityId(input: UpdateMstrCapabilityByMstrCapabilityIdInput!): UpdateMstrCapabilityPayload
   updateMstrEquipmentByMstrEquipmentId(input: UpdateMstrEquipmentByMstrEquipmentIdInput!): UpdateMstrEquipmentPayload
   updateMstrEquipmentKindByMstrEquipmentKindId(input: UpdateMstrEquipmentKindByMstrEquipmentKindIdInput!): UpdateMstrEquipmentKindPayload
@@ -1676,6 +1681,10 @@ input BooleanFilter {
   greaterThanOrEqualTo: Boolean
 }
 
+input CreateTransInspectRecordInput {
+  transInspectRecord: TransInspectRecordInput!
+}
+
 input DateFilter {
   isNull: Boolean
   equalTo: Date
@@ -1720,6 +1729,8 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transComplaintVisitersByReleaseStaffHistoryIdAndReleaseStaffIdExist: Boolean
+  transComplaintVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintPurchaseRecsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintWorksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -3499,6 +3510,18 @@ input TransInspectRecordFilter {
 
 input TransInspectRecordFk2Input {
   updateByTransTextId: TransTextOnTransInspectRecordForTransInspectRecordFk2UsingTransTextPkcUpdate
+}
+
+input TransInspectRecordInput {
+  transInspectSchDetailId: UUID
+  implementStartDate: Datetime
+  implementStopDate: Datetime
+  resultValue: JSON
+  result: Boolean
+  resultState: String
+  stakeholderId: UUID
+  stakeholderHistoryId: UUID
+  remarks: String
 }
 
 input TransInspectRecordPatch {

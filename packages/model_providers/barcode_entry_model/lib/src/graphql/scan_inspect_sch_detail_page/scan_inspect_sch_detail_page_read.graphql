@@ -1,0 +1,41 @@
+# scan_inspect_sch_detail_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ScanInspectSchDetailPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ScanInspectSchDetailPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransInspectSchDetailFilter = {and: []}
+  $orderBy: [TransInspectSchDetailsOrderBy!]
+  $transInspectSchId: UUID!
+  $removed: Boolean = false
+) {
+  allTransInspectSchDetails(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, { transInspectSchId: { equalTo: $transInspectSchId } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transInspectSchDetailId
+      transInspectSchId
+      scheduledStartDate
+      scheduledEndDate
+      inspectionHistoryId
+      inspectionId
+      inspectionFormulaHistoryId
+      inspectionFormulaId
+      inspectionKindHistoryId
+      inspectionKindId
+      inspectionOperationTaskHistoryId
+      inspectionOperationTaskId
+      symbol
+    }
+  }
+}

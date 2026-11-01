@@ -237,6 +237,10 @@ query ComplaintPageRead(
         transComplaintId
       }
 
+      complaint_visiter_count: vComplaintComplaintVisiterCountByTransComplaintId {
+        transComplaintId
+      }
+
       updateAt
       remove
 

@@ -33,7 +33,7 @@ ComplaintPage: &ComplaintPage
       <<: *TransApprovalPatternReadFields
     - symbol
     - remarks
-    # 子のレコード数(要件0056。DBのビュー 7本)
+    # 子のレコード数(要件0056。DBのビュー 8本)
     - name: disposal_count
       arrayType: toFirstOne
       as: disposal_count
@@ -93,6 +93,15 @@ ComplaintPage: &ComplaintPage
       as: complaint_equipment_count
       using: trans_complaint_id
       from: v_complaint_complaint_equipment_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: complaint_visiter_count
+      arrayType: toFirstOne
+      as: complaint_visiter_count
+      using: trans_complaint_id
+      from: v_complaint_complaint_visiter_count
       pick:
         - all_count
         - enable_count
@@ -409,3 +418,111 @@ ComplaintFilePageEdit:
     - update_user_history_id
     - remove
 
+
+# trans_complaint_visiterの読み込み(異常入出庫ビジター。棚ビジターに付いた異常。release_at が空の行は解除されていない異常)
+ComplaintVisiterPage: &ComplaintVisiterPage
+  kind: read
+  from: trans_complaint_visiter
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_complaint_visiter_id
+    - trans_complaint_id
+    - trans_visiter_id
+    - quantity
+    - release_at
+    - release_staff_history_id
+    - release_staff_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# trans_complaint_visiterの書き込み(払出許可=解除は release_at と許可担当者を更新する)
+ComplaintVisiterPageEdit:
+  kind: edit
+  from: trans_complaint_visiter
+  requiredWhere:
+    - trans_complaint_visiter_id
+  generateRfe: true
+  columns:
+    - trans_complaint_visiter_id
+    - trans_complaint_id
+    - trans_visiter_id
+    - quantity
+    - release_at
+    - release_staff_history_id
+    - release_staff_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# ---- 登録(kind: create)。バーコード実績登録(barcode_entry)の異常報告で使う ----
+# 異常は 表題(trans_label + trans_label_value)・詳細(trans_text + trans_text_value)を先に登録し、その ID で trans_complaint を登録する。
+
+# trans_labelの登録(異常の表題)
+ComplaintLabelPageCreate:
+  kind: create
+  from: trans_label
+  columns:
+    - remarks
+
+# trans_label_valueの登録(言語ごとの表題)
+ComplaintLabelValuePageCreate:
+  kind: create
+  from: trans_label_value
+  columns:
+    - trans_label_id
+    - shared_language_code_id
+    - label_value
+
+# trans_textの登録(異常の詳細)
+ComplaintTextPageCreate:
+  kind: create
+  from: trans_text
+  columns:
+    - remarks
+
+# trans_text_valueの登録(言語ごとの詳細)
+ComplaintTextValuePageCreate:
+  kind: create
+  from: trans_text_value
+  columns:
+    - trans_text_id
+    - shared_language_code_id
+    - char_count
+    - lead_text
+    - text_value
+
+# trans_complaintの登録(異常)
+ComplaintPageCreate:
+  kind: create
+  from: trans_complaint
+  columns:
+    - occurent_at
+    - titles
+    - details
+    - reporter_staff_history_id
+    - reporter_staff_id
+    - approvals
+    - remarks
+
+# trans_complaint_visiterの登録(異常と棚ビジターの結び付き)
+ComplaintVisiterPageCreate:
+  kind: create
+  from: trans_complaint_visiter
+  columns:
+    - trans_complaint_id
+    - trans_visiter_id
+    - quantity
+    - remarks

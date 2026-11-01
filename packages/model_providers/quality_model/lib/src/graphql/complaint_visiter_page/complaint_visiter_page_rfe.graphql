@@ -1,0 +1,23 @@
+# complaint_visiter_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: gql/*.yaml #ComplaintVisiterPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ComplaintVisiterPageRfe(
+  $transComplaintVisiterId: UUID!
+) {
+  transComplaintVisiterByTransComplaintVisiterId(transComplaintVisiterId: $transComplaintVisiterId) {
+    transComplaintVisiterId
+    transComplaintId
+    transVisiterId
+    quantity
+    releaseAt
+    releaseStaffHistoryId
+    releaseStaffId
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

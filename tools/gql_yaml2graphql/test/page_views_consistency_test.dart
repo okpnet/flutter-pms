@@ -94,7 +94,7 @@ void main() {
       for (final r in it.refs) {
         final kind = nodes[r]?['kind'];
         if (isRead && kind != 'read') bad.add('${it.line}行 ${it.name}(read) -> $r は kind:$kind');
-        if (isEdit && kind != 'edit') bad.add('${it.line}行 ${it.name}(edit) -> $r は kind:$kind');
+        if (isEdit && kind != 'edit' && kind != 'create') bad.add('${it.line}行 ${it.name}(edit) -> $r は kind:$kind');
       }
     }
     expect(bad, isEmpty, reason: bad.join('\n'));

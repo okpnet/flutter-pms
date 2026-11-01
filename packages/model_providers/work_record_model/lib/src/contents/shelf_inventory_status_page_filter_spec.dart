@@ -10,7 +10,7 @@ abstract class ShelfInventoryStatusPageFilterSpec {
     'transVisiterId': FlatFilterPath([], 'transVisiterId'),
     'transContainerId': FlatFilterPath([], 'transContainerId'),
     'mstrLocationId': FlatFilterPath([], 'mstrLocationId'),
-    'status': FlatFilterPath([], 'status'),
+    'release': FlatFilterPath([], 'release'),
     'quantity': FlatFilterPath([], 'quantity'),
     'transPurchaseRecIds': FlatFilterPath([], 'transPurchaseRecIds'),
     'purchaseRecCount': FlatFilterPath([], 'purchaseRecCount'),

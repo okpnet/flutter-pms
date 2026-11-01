@@ -14,7 +14,7 @@ VisiterPage: &VisiterPage
   columns:
     - trans_visiter_id
     - trans_container_id
-    - status
+    - release
     - quantity
     - symbol
     - remarks
@@ -45,6 +45,15 @@ VisiterPage: &VisiterPage
         - all_count
         - enable_count
         - disable_count
+    - name: complaint_visiter_count
+      arrayType: toFirstOne
+      as: complaint_visiter_count
+      using: trans_visiter_id
+      from: v_visiter_complaint_visiter_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
     - update_at
     - name: update_user
       as: update_user
@@ -62,7 +71,7 @@ VisiterPageEdit:
   columns:
     - trans_visiter_id
     - trans_container_id
-    - status
+    - release
     - quantity
     - remarks
     - update_user_id

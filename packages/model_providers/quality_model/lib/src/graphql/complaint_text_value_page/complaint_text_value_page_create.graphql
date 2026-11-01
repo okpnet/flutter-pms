@@ -1,0 +1,33 @@
+# complaint_text_value_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintTextValuePageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintTextValuePageCreate(
+  $transTextId: UUID
+  $sharedLanguageCodeId: UUID
+  $charCount: Int
+  $leadText: String
+  $textValue: String
+) {
+  createTransTextValue(
+    input: {
+      transTextValue: {
+        transTextId: $transTextId
+        sharedLanguageCodeId: $sharedLanguageCodeId
+        charCount: $charCount
+        leadText: $leadText
+        textValue: $textValue
+      }
+    }
+  ) {
+    transTextValue {
+      transTextValueId
+      transTextId
+      sharedLanguageCodeId
+      charCount
+      leadText
+      textValue
+    }
+  }
+}

@@ -25,7 +25,7 @@ query VisiterPageRead(
     nodes {
       transVisiterId
       transContainerId
-      status
+      release
       quantity
       symbol
       remarks
@@ -39,6 +39,10 @@ query VisiterPageRead(
       }
 
       work_record_visiter_count: vVisiterWorkRecordVisiterCountByTransVisiterId {
+        transVisiterId
+      }
+
+      complaint_visiter_count: vVisiterComplaintVisiterCountByTransVisiterId {
         transVisiterId
       }
 

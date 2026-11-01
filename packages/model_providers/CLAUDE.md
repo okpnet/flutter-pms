@@ -20,8 +20,8 @@
 | `production_plan_model` | 生産計画・遅延、生産計画納期遵守状況 |
 | `purchasing_model` | 発注・仕入先・未承認、発注金額合計、発注納期遵守状況 |
 | `quality_document_model` | 品質文書 |
-| `quality_model` | 監査・苦情・是正・報告・リスク |
-| `resource_model` | 設備・能力・資格・場所・保守・取引ファイル、点検整備実施状況 |
+| `quality_model` | 監査・苦情(異常入出庫ビジターを含む)・是正・報告・リスク |
+| `resource_model` | 設備・能力・資格・場所・保守(点検結果の登録を含む)・取引ファイル、点検整備実施状況 |
 | `sales_model` | 顧客・受注・出荷オーダー・ダッシュボード、売り上げ実績、出荷予定受注実績状況、出荷納期遵守状況 |
 | `shared_master_model` | 出荷区分・利害関係者 |
 | `system_model` | 単位 |
@@ -84,7 +84,7 @@
 
 ## テストデータ
 検証用サーバー(DB)にはテストデータ(`tools/docker/postgresql/scripts/10_mrp_dummy.sql`)が入っている。
-1.  言語は `JA`(`shared_language_code` の `code`。DB の値は小文字 `ja` なので、大文字小文字を区別せずに探す)で進める。担当者は `ADMIN`(`info_staff.code`)。
+1.  言語は `ja`(`shared_language_code` の `code`)で進める。担当者は `ADMIN`(`info_staff.code`)。
 1.  注文の追加、MRP、再MRP の実行テストに使ってよい(データが変わる)。読み取りだけのテストと分け、変更するテストの名前に明記する。
 1.  `mrpExecute` は重い(受注MRPで2分ほど)。`GraphQLClient` の既定の制限時間(5秒)と、`TestServer.provider` の制限時間(20秒)を超えるため、変更するテストは制限の無い接続(`HttpLink(server.url)`)を使い、テストの制限時間も長くする。
 1.  外部キーがある参照は、品目などの名前・各コード・symbol を読み込みに含める。外部キーが無い場合は、DB の Issue(`tools/docker/postgresql/issue/`)に外部キーが必要なことを追加する。

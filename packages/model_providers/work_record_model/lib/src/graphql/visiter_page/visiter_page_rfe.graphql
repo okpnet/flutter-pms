@@ -9,7 +9,7 @@ query VisiterPageRfe(
   transVisiterByTransVisiterId(transVisiterId: $transVisiterId) {
     transVisiterId
     transContainerId
-    status
+    release
     quantity
     remarks
     updateUserId

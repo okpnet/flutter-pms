@@ -5,7 +5,7 @@
 
 mutation VisiterPageCreate(
   $transContainerId: UUID
-  $status: Int
+  $release: Boolean
   $quantity: BigFloat
   $remarks: String
 ) {
@@ -13,7 +13,7 @@ mutation VisiterPageCreate(
     input: {
       transVisiter: {
         transContainerId: $transContainerId
-        status: $status
+        release: $release
         quantity: $quantity
         remarks: $remarks
       }
@@ -22,7 +22,7 @@ mutation VisiterPageCreate(
     transVisiter {
       transVisiterId
       transContainerId
-      status
+      release
       quantity
       remarks
     }

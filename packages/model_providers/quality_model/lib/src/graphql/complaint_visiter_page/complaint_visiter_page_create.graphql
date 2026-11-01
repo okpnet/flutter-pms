@@ -1,0 +1,30 @@
+# complaint_visiter_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintVisiterPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintVisiterPageCreate(
+  $transComplaintId: UUID
+  $transVisiterId: UUID
+  $quantity: BigFloat!
+  $remarks: String
+) {
+  createTransComplaintVisiter(
+    input: {
+      transComplaintVisiter: {
+        transComplaintId: $transComplaintId
+        transVisiterId: $transVisiterId
+        quantity: $quantity
+        remarks: $remarks
+      }
+    }
+  ) {
+    transComplaintVisiter {
+      transComplaintVisiterId
+      transComplaintId
+      transVisiterId
+      quantity
+      remarks
+    }
+  }
+}

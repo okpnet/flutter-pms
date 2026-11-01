@@ -1,0 +1,27 @@
+# complaint_label_value_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintLabelValuePageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintLabelValuePageCreate(
+  $transLabelId: UUID
+  $sharedLanguageCodeId: UUID
+  $labelValue: String!
+) {
+  createTransLabelValue(
+    input: {
+      transLabelValue: {
+        transLabelId: $transLabelId
+        sharedLanguageCodeId: $sharedLanguageCodeId
+        labelValue: $labelValue
+      }
+    }
+  ) {
+    transLabelValue {
+      transLabelValueId
+      transLabelId
+      sharedLanguageCodeId
+      labelValue
+    }
+  }
+}

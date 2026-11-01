@@ -42,6 +42,7 @@ export 'src/graphql/file_page/file_page_rfe.graphql.dart';
 export 'src/graphql/inspect_imp_file_page/inspect_imp_file_page_edit.graphql.dart';
 export 'src/graphql/inspect_imp_file_page/inspect_imp_file_page_read.graphql.dart';
 export 'src/graphql/inspect_imp_file_page/inspect_imp_file_page_rfe.graphql.dart';
+export 'src/graphql/inspect_record_page/inspect_record_page_create.graphql.dart';
 export 'src/graphql/inspect_record_page/inspect_record_page_edit.graphql.dart';
 export 'src/graphql/inspect_record_page/inspect_record_page_read.graphql.dart';
 export 'src/graphql/inspect_record_page/inspect_record_page_rfe.graphql.dart';

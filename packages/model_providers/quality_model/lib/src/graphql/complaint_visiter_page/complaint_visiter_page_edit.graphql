@@ -1,0 +1,41 @@
+# complaint_visiter_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintVisiterPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintVisiterPageEdit(
+  $transComplaintVisiterId: UUID!
+  $transComplaintId: UUID
+  $transVisiterId: UUID
+  $quantity: BigFloat
+  $releaseAt: Datetime
+  $releaseStaffHistoryId: UUID
+  $releaseStaffId: UUID
+  $remarks: String
+) {
+  updateTransComplaintVisiterByTransComplaintVisiterId(
+    input: {
+      transComplaintVisiterId: $transComplaintVisiterId
+      transComplaintVisiterPatch: {
+        transComplaintId: $transComplaintId
+        transVisiterId: $transVisiterId
+        quantity: $quantity
+        releaseAt: $releaseAt
+        releaseStaffHistoryId: $releaseStaffHistoryId
+        releaseStaffId: $releaseStaffId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transComplaintVisiter {
+      transComplaintVisiterId
+      transComplaintId
+      transVisiterId
+      quantity
+      releaseAt
+      releaseStaffHistoryId
+      releaseStaffId
+      remarks
+    }
+  }
+}

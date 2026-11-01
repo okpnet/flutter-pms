@@ -9,7 +9,7 @@ abstract class ScanVisiterPageFilterSpec {
   static const FlatFilterSpec spec = FlatFilterSpec('TransVisiterFilter', {
     'transVisiterId': FlatFilterPath([], 'transVisiterId'),
     'transContainerId': FlatFilterPath([], 'transContainerId'),
-    'status': FlatFilterPath([], 'status'),
+    'release': FlatFilterPath([], 'release'),
     'quantity': FlatFilterPath([], 'quantity'),
     'symbol': FlatFilterPath([], 'symbol'),
   });

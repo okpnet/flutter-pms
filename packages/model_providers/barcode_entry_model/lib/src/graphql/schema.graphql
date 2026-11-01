@@ -11,6 +11,8 @@ scalar Cursor
 
 scalar Datetime
 
+scalar JSON
+
 scalar UUID
 
 enum MstrEquipmentsOrderBy {
@@ -29,6 +31,74 @@ enum MstrEquipmentsOrderBy {
   LABEL_CODE_DESC
   MSTR_LOCATION_ID_ASC
   MSTR_LOCATION_ID_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum MstrInspectionFormulasOrderBy {
+  NATURAL
+  MSTR_INSPECTION_FORMULA_ID_ASC
+  MSTR_INSPECTION_FORMULA_ID_DESC
+  FORMULA_CLASS_ASC
+  FORMULA_CLASS_DESC
+  ARG_CLASS_ASC
+  ARG_CLASS_DESC
+  TYPE_CLASS_ASC
+  TYPE_CLASS_DESC
+  FORMAT_CLASS_ASC
+  FORMAT_CLASS_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum MstrInspectionsOrderBy {
+  NATURAL
+  MSTR_INSPECTION_ID_ASC
+  MSTR_INSPECTION_ID_DESC
+  CODE_ASC
+  CODE_DESC
+  NAMES_ASC
+  NAMES_DESC
+  INSPECTION_KIND_ASC
+  INSPECTION_KIND_DESC
+  BASE_DATE_ASC
+  BASE_DATE_DESC
+  TIME_INTERVAL_ASC
+  TIME_INTERVAL_DESC
+  EXTERNAL_INSPECTION_ASC
+  EXTERNAL_INSPECTION_DESC
+  INSPECTION_FORMULA_ID_ASC
+  INSPECTION_FORMULA_ID_DESC
+  MSTR_ITEM_ID_ASC
+  MSTR_ITEM_ID_DESC
   REVISION_ASC
   REVISION_DESC
   SYMBOL_ASC
@@ -103,6 +173,130 @@ enum TransContainersOrderBy {
   MSTR_LOCATION_ID_DESC
   SYMBOL_ASC
   SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum TransInspectRecordsOrderBy {
+  NATURAL
+  TRANS_INSPECT_RECORD_ID_ASC
+  TRANS_INSPECT_RECORD_ID_DESC
+  TRANS_INSPECT_SCH_DETAIL_ID_ASC
+  TRANS_INSPECT_SCH_DETAIL_ID_DESC
+  IMPLEMENT_START_DATE_ASC
+  IMPLEMENT_START_DATE_DESC
+  IMPLEMENT_STOP_DATE_ASC
+  IMPLEMENT_STOP_DATE_DESC
+  RESULT_VALUE_ASC
+  RESULT_VALUE_DESC
+  RESULT_ASC
+  RESULT_DESC
+  RESULT_STATE_ASC
+  RESULT_STATE_DESC
+  NOTES_ASC
+  NOTES_DESC
+  STAKEHOLDER_ID_ASC
+  STAKEHOLDER_ID_DESC
+  STAKEHOLDER_HISTORY_ID_ASC
+  STAKEHOLDER_HISTORY_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum TransInspectSchDetailsOrderBy {
+  NATURAL
+  TRANS_INSPECT_SCH_DETAIL_ID_ASC
+  TRANS_INSPECT_SCH_DETAIL_ID_DESC
+  TRANS_INSPECT_SCH_ID_ASC
+  TRANS_INSPECT_SCH_ID_DESC
+  TRANS_PURCHASE_DETAIL_ID_ASC
+  TRANS_PURCHASE_DETAIL_ID_DESC
+  SCHEDULED_START_DATE_ASC
+  SCHEDULED_START_DATE_DESC
+  SCHEDULED_END_DATE_ASC
+  SCHEDULED_END_DATE_DESC
+  STAKEHOLDER_HISTORY_ID_ASC
+  STAKEHOLDER_HISTORY_ID_DESC
+  STAKEHOLDER_ID_ASC
+  STAKEHOLDER_ID_DESC
+  INSPECTION_HISTORY_ID_ASC
+  INSPECTION_HISTORY_ID_DESC
+  INSPECTION_ID_ASC
+  INSPECTION_ID_DESC
+  INSPECTION_FORMULA_HISTORY_ID_ASC
+  INSPECTION_FORMULA_HISTORY_ID_DESC
+  INSPECTION_FORMULA_ID_ASC
+  INSPECTION_FORMULA_ID_DESC
+  INSPECTION_KIND_HISTORY_ID_ASC
+  INSPECTION_KIND_HISTORY_ID_DESC
+  INSPECTION_KIND_ID_ASC
+  INSPECTION_KIND_ID_DESC
+  INSPECTION_OPERATION_TASK_HISTORY_ID_ASC
+  INSPECTION_OPERATION_TASK_HISTORY_ID_DESC
+  INSPECTION_OPERATION_TASK_ID_ASC
+  INSPECTION_OPERATION_TASK_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum TransInspectSchesOrderBy {
+  NATURAL
+  TRANS_INSPECT_SCH_ID_ASC
+  TRANS_INSPECT_SCH_ID_DESC
+  CODE_ASC
+  CODE_DESC
+  TITLES_ASC
+  TITLES_DESC
+  EQUIPMENT_HISTORY_ID_ASC
+  EQUIPMENT_HISTORY_ID_DESC
+  EQUIPMENT_ID_ASC
+  EQUIPMENT_ID_DESC
+  REQUIREMENTS_ASC
+  REQUIREMENTS_DESC
+  ATTENTIONS_ASC
+  ATTENTIONS_DESC
+  RECOMMENDATIONS_ASC
+  RECOMMENDATIONS_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  INSPECTION_OPERATION_HISTORY_ID_ASC
+  INSPECTION_OPERATION_HISTORY_ID_DESC
+  INSPECTION_OPERATION_ID_ASC
+  INSPECTION_OPERATION_ID_DESC
   REMARKS_ASC
   REMARKS_DESC
   UPDATE_AT_ASC
@@ -193,8 +387,8 @@ enum TransVisitersOrderBy {
   TRANS_VISITER_ID_DESC
   TRANS_CONTAINER_ID_ASC
   TRANS_CONTAINER_ID_DESC
-  STATUS_ASC
-  STATUS_DESC
+  RELEASE_ASC
+  RELEASE_DESC
   QUANTITY_ASC
   QUANTITY_DESC
   SYMBOL_ASC
@@ -306,11 +500,38 @@ type MstrEquipmentsConnection {
   totalCount: Int!
 }
 
+type MstrInspection {
+  mstrInspectionId: UUID!
+  code: String!
+  sharedAppellationByNames: SharedAppellation
+}
+
+type MstrInspectionFormula {
+  mstrInspectionFormulaId: UUID!
+  formulaClass: Int
+  argClass: JSON
+  typeClass: Int
+  formatClass: String
+}
+
+type MstrInspectionFormulasConnection {
+  nodes: [MstrInspectionFormula]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type MstrInspectionsConnection {
+  nodes: [MstrInspection]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type MstrItem {
   mstrItemId: UUID!
   code: String!
   symbol: String
   sharedAppellationByNames: SharedAppellation
+  sharedUnitBySharedUnitId: SharedUnit
 }
 
 type MstrItemsConnection {
@@ -331,8 +552,13 @@ type PageInfo {
 
 type Query {
   allMstrEquipments(first: Int, offset: Int, orderBy: [MstrEquipmentsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrEquipmentFilter): MstrEquipmentsConnection
+  allMstrInspections(first: Int, offset: Int, orderBy: [MstrInspectionsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrInspectionFilter): MstrInspectionsConnection
+  allMstrInspectionFormulas(first: Int, offset: Int, orderBy: [MstrInspectionFormulasOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrInspectionFormulaFilter): MstrInspectionFormulasConnection
   allMstrItems(first: Int, offset: Int, orderBy: [MstrItemsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrItemFilter): MstrItemsConnection
   allTransContainers(first: Int, offset: Int, orderBy: [TransContainersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransContainerFilter): TransContainersConnection
+  allTransInspectRecords(first: Int, offset: Int, orderBy: [TransInspectRecordsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransInspectRecordFilter): TransInspectRecordsConnection
+  allTransInspectSches(first: Int, offset: Int, orderBy: [TransInspectSchesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransInspectSchFilter): TransInspectSchesConnection
+  allTransInspectSchDetails(first: Int, offset: Int, orderBy: [TransInspectSchDetailsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransInspectSchDetailFilter): TransInspectSchDetailsConnection
   allTransPurchaseDetails(first: Int, offset: Int, orderBy: [TransPurchaseDetailsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransPurchaseDetailFilter): TransPurchaseDetailsConnection
   allTransPurchaseRecs(first: Int, offset: Int, orderBy: [TransPurchaseRecsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransPurchaseRecFilter): TransPurchaseRecsConnection
   allTransVisiters(first: Int, offset: Int, orderBy: [TransVisitersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransVisiterFilter): TransVisitersConnection
@@ -343,6 +569,8 @@ type Query {
 type SharedAppellation {
   sharedAppellationsId: UUID!
   sharedDictionaryBySharedDictionaryNameId: SharedDictionary
+  sharedDictionaryBySharedDictionaryPronunciationId: SharedDictionary
+  sharedDictionaryBySharedDictionaryNicknameId: SharedDictionary
 }
 
 type SharedDictionary {
@@ -358,6 +586,11 @@ type SharedDictionaryValuesConnection {
   nodes: [SharedDictionaryValue]!
 }
 
+type SharedUnit {
+  sharedUnitId: UUID!
+  sharedAppellationByNames: SharedAppellation
+}
+
 type TransContainer {
   transContainerId: UUID!
   code: String!
@@ -368,6 +601,55 @@ type TransContainer {
 
 type TransContainersConnection {
   nodes: [TransContainer]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TransInspectRecord {
+  transInspectRecordId: UUID!
+  transInspectSchDetailId: UUID!
+  result: Boolean
+  symbol: String
+}
+
+type TransInspectRecordsConnection {
+  nodes: [TransInspectRecord]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TransInspectSch {
+  transInspectSchId: UUID!
+  code: String
+  equipmentHistoryId: UUID!
+  equipmentId: UUID!
+  symbol: String
+}
+
+type TransInspectSchDetail {
+  transInspectSchDetailId: UUID!
+  transInspectSchId: UUID!
+  scheduledStartDate: Datetime!
+  scheduledEndDate: Datetime!
+  inspectionHistoryId: UUID!
+  inspectionId: UUID!
+  inspectionFormulaHistoryId: UUID!
+  inspectionFormulaId: UUID!
+  inspectionKindHistoryId: UUID!
+  inspectionKindId: UUID!
+  inspectionOperationTaskHistoryId: UUID!
+  inspectionOperationTaskId: UUID!
+  symbol: String
+}
+
+type TransInspectSchDetailsConnection {
+  nodes: [TransInspectSchDetail]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TransInspectSchesConnection {
+  nodes: [TransInspectSch]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
@@ -428,7 +710,7 @@ type TransResourcePlan {
 type TransVisiter {
   transVisiterId: UUID!
   transContainerId: UUID!
-  status: Int
+  release: Boolean
   quantity: BigFloat
   symbol: String
 }
@@ -526,6 +808,25 @@ input IntFilter {
   greaterThanOrEqualTo: Int
 }
 
+input JSONFilter {
+  isNull: Boolean
+  equalTo: JSON
+  notEqualTo: JSON
+  distinctFrom: JSON
+  notDistinctFrom: JSON
+  in: [JSON!]
+  notIn: [JSON!]
+  lessThan: JSON
+  lessThanOrEqualTo: JSON
+  greaterThan: JSON
+  greaterThanOrEqualTo: JSON
+  contains: JSON
+  containsKey: String
+  containsAllKeys: [String!]
+  containsAnyKeys: [String!]
+  containedBy: JSON
+}
+
 input MstrEquipmentFilter {
   mstrEquipmentId: UUIDFilter
   mstrItemId: UUIDFilter
@@ -560,6 +861,55 @@ input MstrEquipmentFilter {
   and: [MstrEquipmentFilter!]
   or: [MstrEquipmentFilter!]
   not: MstrEquipmentFilter
+}
+
+input MstrInspectionFilter {
+  mstrInspectionId: UUIDFilter
+  code: StringFilter
+  names: UUIDFilter
+  inspectionKind: UUIDFilter
+  baseDate: DatetimeFilter
+  externalInspection: UUIDFilter
+  inspectionFormulaId: UUIDFilter
+  mstrItemId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  mstrInspectionOperationTasksByMstrInspectionIdExist: Boolean
+  historyMstrInspectionsByMstrInspectionIdExist: Boolean
+  vInspectionInspectionOperationTaskCountByMstrInspectionIdExists: Boolean
+  sharedAppellationByNames: SharedAppellationFilter
+  mstrStakeholderByExternalInspectionExists: Boolean
+  mstrInspectionFormulaByInspectionFormulaIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrInspectionFilter!]
+  or: [MstrInspectionFilter!]
+  not: MstrInspectionFilter
+}
+
+input MstrInspectionFormulaFilter {
+  mstrInspectionFormulaId: UUIDFilter
+  formulaClass: IntFilter
+  argClass: JSONFilter
+  typeClass: IntFilter
+  formatClass: StringFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyMstrInspectionFormulasByMstrInspectionFormulaIdExist: Boolean
+  mstrInspectionsByInspectionFormulaIdExist: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrInspectionFormulaFilter!]
+  or: [MstrInspectionFormulaFilter!]
+  not: MstrInspectionFormulaFilter
 }
 
 input MstrItemFilter {
@@ -615,6 +965,7 @@ input MstrItemFilter {
   mstrManufacturerByMstrManufacturerIdExists: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   sharedTextByDetailsExists: Boolean
+  sharedUnitBySharedUnitId: SharedUnitFilter
   sharedUnitBySharedUnitIdExists: Boolean
   mstrItemLotByMstrItemLotIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -723,7 +1074,9 @@ input SharedAppellationFilter {
   infoDepartmentsByNamesExist: Boolean
   infoOfficesByNamesExist: Boolean
   sharedDictionaryBySharedDictionaryNameId: SharedDictionaryFilter
+  sharedDictionaryBySharedDictionaryPronunciationId: SharedDictionaryFilter
   sharedDictionaryBySharedDictionaryPronunciationIdExists: Boolean
+  sharedDictionaryBySharedDictionaryNicknameId: SharedDictionaryFilter
   sharedDictionaryBySharedDictionaryNicknameIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [SharedAppellationFilter!]
@@ -780,6 +1133,35 @@ input SharedDictionaryValueFilter {
   and: [SharedDictionaryValueFilter!]
   or: [SharedDictionaryValueFilter!]
   not: SharedDictionaryValueFilter
+}
+
+input SharedUnitFilter {
+  sharedUnitId: UUIDFilter
+  names: UUIDFilter
+  details: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  mstrItemLotsBySharedUnitIdExist: Boolean
+  mstrSpecMeasurementsBySharedUnitIdExist: Boolean
+  mstrEnvelopeMeasurementsBySharedUnitIdExist: Boolean
+  mstrItemSizeKindsBySharedUnitIdExist: Boolean
+  historySharedUnitsBySharedUnitIdExist: Boolean
+  mstrItemsBySharedUnitIdExist: Boolean
+  vUnitEnvelopeMeasurementCountBySharedUnitIdExists: Boolean
+  vUnitItemLotCountBySharedUnitIdExists: Boolean
+  vUnitItemSizeKindCountBySharedUnitIdExists: Boolean
+  vUnitSpecMeasurementCountBySharedUnitIdExists: Boolean
+  sharedAppellationByNames: SharedAppellationFilter
+  sharedTextByDetailsExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [SharedUnitFilter!]
+  or: [SharedUnitFilter!]
+  not: SharedUnitFilter
 }
 
 input StringFilter {
@@ -845,6 +1227,97 @@ input TransContainerFilter {
   and: [TransContainerFilter!]
   or: [TransContainerFilter!]
   not: TransContainerFilter
+}
+
+input TransInspectRecordFilter {
+  transInspectRecordId: UUIDFilter
+  transInspectSchDetailId: UUIDFilter
+  implementStartDate: DatetimeFilter
+  implementStopDate: DatetimeFilter
+  resultValue: JSONFilter
+  result: BooleanFilter
+  resultState: StringFilter
+  notes: UUIDFilter
+  stakeholderId: UUIDFilter
+  stakeholderHistoryId: UUIDFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transInspectionReportsByTransInspectRecordIdExist: Boolean
+  transInspectImpFilesByTransInspectRecordIdExist: Boolean
+  vInspectRecordInspectImpFileCountByTransInspectRecordIdExists: Boolean
+  vInspectRecordInspectionReportCountByTransInspectRecordIdExists: Boolean
+  transTextByNotesExists: Boolean
+  historyMstrStakeholderByStakeholderHistoryIdAndStakeholderIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransInspectRecordFilter!]
+  or: [TransInspectRecordFilter!]
+  not: TransInspectRecordFilter
+}
+
+input TransInspectSchDetailFilter {
+  transInspectSchDetailId: UUIDFilter
+  transInspectSchId: UUIDFilter
+  transPurchaseDetailId: UUIDFilter
+  scheduledStartDate: DatetimeFilter
+  scheduledEndDate: DatetimeFilter
+  stakeholderHistoryId: UUIDFilter
+  stakeholderId: UUIDFilter
+  inspectionHistoryId: UUIDFilter
+  inspectionId: UUIDFilter
+  inspectionFormulaHistoryId: UUIDFilter
+  inspectionFormulaId: UUIDFilter
+  inspectionKindHistoryId: UUIDFilter
+  inspectionKindId: UUIDFilter
+  inspectionOperationTaskHistoryId: UUIDFilter
+  inspectionOperationTaskId: UUIDFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transInspectionReportsByTransInspectSchDetailIdExist: Boolean
+  transInspectRecordsByTransInspectSchDetailIdExist: Boolean
+  vInspectSchDetailInspectRecordCountByTransInspectSchDetailIdExists: Boolean
+  vInspectSchDetailInspectionReportCountByTransInspectSchDetailIdExists: Boolean
+  transPurchaseDetailByTransPurchaseDetailIdExists: Boolean
+  historyMstrStakeholderByStakeholderHistoryIdAndStakeholderIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransInspectSchDetailFilter!]
+  or: [TransInspectSchDetailFilter!]
+  not: TransInspectSchDetailFilter
+}
+
+input TransInspectSchFilter {
+  transInspectSchId: UUIDFilter
+  code: StringFilter
+  titles: UUIDFilter
+  equipmentHistoryId: UUIDFilter
+  equipmentId: UUIDFilter
+  requirements: UUIDFilter
+  attentions: UUIDFilter
+  recommendations: UUIDFilter
+  symbol: StringFilter
+  inspectionOperationHistoryId: UUIDFilter
+  inspectionOperationId: UUIDFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transInspectSchDetailsByTransInspectSchIdExist: Boolean
+  vInspectSchInspectSchDetailCountByTransInspectSchIdExists: Boolean
+  transTextByRequirementsExists: Boolean
+  transTextByAttentionsExists: Boolean
+  transTextByRecommendationsExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransInspectSchFilter!]
+  or: [TransInspectSchFilter!]
+  not: TransInspectSchFilter
 }
 
 input TransLabelFilter {
@@ -1028,7 +1501,7 @@ input TransResourcePlanFilter {
 input TransVisiterFilter {
   transVisiterId: UUIDFilter
   transContainerId: UUIDFilter
-  status: IntFilter
+  release: BooleanFilter
   quantity: BigFloatFilter
   symbol: StringFilter
   remarks: StringFilter
@@ -1036,11 +1509,13 @@ input TransVisiterFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transComplaintVisitersByTransVisiterIdExist: Boolean
   transWorkRecordVisitersByTransVisiterIdExist: Boolean
   transPurchaseRecVisitersByTransVisiterIdExist: Boolean
   transConveysByTransVisiterIdExist: Boolean
   vMrpVisiterItemByTransVisiterIdExists: Boolean
   vShelfInventoryStatusByTransVisiterIdExists: Boolean
+  vVisiterComplaintVisiterCountByTransVisiterIdExists: Boolean
   vVisiterConveyCountByTransVisiterIdExists: Boolean
   vVisiterPurchaseRecVisiterCountByTransVisiterIdExists: Boolean
   vVisiterWorkRecordVisiterCountByTransVisiterIdExists: Boolean

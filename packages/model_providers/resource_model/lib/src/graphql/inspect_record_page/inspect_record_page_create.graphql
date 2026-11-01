@@ -1,0 +1,45 @@
+# inspect_record_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #InspectRecordPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation InspectRecordPageCreate(
+  $transInspectSchDetailId: UUID
+  $implementStartDate: Datetime
+  $implementStopDate: Datetime
+  $resultValue: JSON
+  $result: Boolean
+  $resultState: String
+  $stakeholderHistoryId: UUID
+  $stakeholderId: UUID
+  $remarks: String
+) {
+  createTransInspectRecord(
+    input: {
+      transInspectRecord: {
+        transInspectSchDetailId: $transInspectSchDetailId
+        implementStartDate: $implementStartDate
+        implementStopDate: $implementStopDate
+        resultValue: $resultValue
+        result: $result
+        resultState: $resultState
+        stakeholderHistoryId: $stakeholderHistoryId
+        stakeholderId: $stakeholderId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transInspectRecord {
+      transInspectRecordId
+      transInspectSchDetailId
+      implementStartDate
+      implementStopDate
+      resultValue
+      result
+      resultState
+      stakeholderHistoryId
+      stakeholderId
+      remarks
+    }
+  }
+}

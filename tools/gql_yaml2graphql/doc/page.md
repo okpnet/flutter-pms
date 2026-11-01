@@ -374,3 +374,92 @@
             +   監査チーム明細[AuditTeamPage]
             +   監査参加者明細[AuditMemberPage]
                 +   監査参加者情報[AuditMemberPageEdit]
+##  MRP
+1.  MRP実行
+    +   MRP実行台帳[MrpRunPage]
+        +   提案台帳[MrpSuggestionPage]
+            +   提案工程明細[MrpSuggestionTaskPage]
+        +   ペギング台帳[MrpPeggingPage]
+        +   負荷台帳[MrpLoadPage]
+        +   確認中提案台帳[MrpPendingSuggestionPage]
+        +   購買計画台帳[MrpPurchasePlanPage]
+        +   マスタ不備台帳[MrpMasterIssuePage]
+        +   資材計画充足台帳[ResourcePlanCoveragePage]
+1.  MRPの参照部品<!--MRP の読み込みが結合に使う共通定義。画面は持たない-->
+    +   MRP品目項目[MrpItemFields]
+    +   MRP品目履歴項目[MrpItemHistoryFields]
+    +   MRP利害関係者項目[MrpStakeholderFields]
+    +   MRP利害関係者履歴項目[MrpStakeholderHistoryFields]
+    +   MRP設備項目[MrpEquipmentFields]
+    +   MRP外注利用可能履歴項目[MrpOutsourceAvailableHistoryFields]
+    +   MRP受注明細項目[MrpOrderDetailFields]
+    +   MRP非計上明細項目[MrpUnrecognizedDetailFields]
+    +   MRP資材計画項目[MrpResourcePlanFields]
+    +   MRP生産計画項目[MrpOperationsPlanFields]
+    +   MRP発注明細項目[MrpPurchaseDetailFields]
+##  補助マスタ
+1.  品目の補助
+    +   品目仕入先台帳[ItemSupplierPage]
+        +   品目仕入先情報[ItemSupplierPageEdit]
+    +   品目工程外注単価台帳[ItemTaskCostPage]
+        +   品目工程外注単価情報[ItemTaskCostPageEdit]
+1.  工程の利用可能設備・外注
+    +   工程設備利用可能台帳[TaskEquipmentAvailablePage]
+        +   工程設備利用可能情報[TaskEquipmentAvailablePageEdit]
+    +   工程外注利用可能台帳[TaskOutsourceAvailablePage]
+        +   工程外注利用可能情報[TaskOutsourceAvailablePageEdit]
+1.  稼働カレンダー
+    +   稼働カレンダー台帳[WorkCalendarPage]
+        +   稼働カレンダー情報[WorkCalendarPageEdit]
+##  ダッシュボード
+1.  集計(DBのビュー v_*。結合を持たない列だけを読む)
+    +   従業員数台帳[StaffCountPage]
+    +   売り上げ実績台帳[SalesRecordPage]
+    +   出荷予定受注実績状況台帳[ShippingOrderStatusPage]
+    +   出荷納期遵守状況台帳[ShippingDeliveryCompliancePage]
+    +   発注金額合計台帳[PurchaseAmountPage]
+    +   発注納期遵守状況台帳[PurchaseDeliveryCompliancePage]
+    +   点検整備実施状況台帳[InspectionStatusPage]
+    +   棚在庫状況台帳[ShelfInventoryStatusPage]
+    +   生産計画納期遵守状況台帳[WorkPlanDeliveryCompliancePage]
+    +   品目別現在庫台帳[ItemOnHandPage]
+    +   棚ビジター品目台帳[MrpVisiterItemPage]
+##  バーコード実績登録
+### 照会(symbol で対象を引く。読み込み専用)
+1.  照会
+    +   作業指示照会台帳[ScanWorkPlanPage]
+    +   作業実績照会台帳[ScanWorkRecordPage]
+    +   コンテナ照会台帳[ScanContainerPage]
+    +   棚ビジター照会台帳[ScanVisiterPage]
+    +   発注明細照会台帳[ScanPurchaseDetailPage]
+    +   受入照会台帳[ScanPurchaseRecPage]
+    +   品目照会台帳[ScanItemPage]
+    +   設備照会台帳[ScanEquipmentPage]
+1.  設備点検の照会
+    +   点検予定照会台帳[ScanInspectSchPage]
+    +   点検予定明細照会台帳[ScanInspectSchDetailPage]
+    +   点検結果照会台帳[ScanInspectRecordPage]
+    +   点検項目照会台帳[ScanInspectionPage]
+    +   点検式照会台帳[ScanInspectionFormulaPage]
+### 登録(追加のみ)
+1.  作業実績・入出庫
+    +   作業実績登録[WorkRecordPageCreate]
+    +   作業実績棚ビジター登録[WorkRecordVisiterPageCreate]<!--入庫はプラス、出庫(払出)はマイナスの数量-->
+    +   棚ビジター登録[VisiterPageCreate]
+    +   搬送登録[ConveyPageCreate]
+1.  受入
+    +   受入登録[PurchaseRecPageCreate]
+    +   受入棚ビジター登録[PurchaseRecVisiterPageCreate]
+1.  異常(不合格)
+    +   異常入出庫ビジター台帳[ComplaintVisiterPage]<!--release_at が空の行は解除されていない異常。棚ビジターの払出可否の判定に使う-->
+        +   異常入出庫ビジター情報[ComplaintVisiterPageEdit]<!--払出許可(release_at・許可担当者)の更新-->
+    +   異常表題登録[ComplaintLabelPageCreate]
+    +   異常表題値登録[ComplaintLabelValuePageCreate]
+    +   異常詳細登録[ComplaintTextPageCreate]
+    +   異常詳細値登録[ComplaintTextValuePageCreate]
+    +   異常報告登録[ComplaintPageCreate]
+    +   異常入出庫ビジター登録[ComplaintVisiterPageCreate]
+    +   作業異常登録[ComplaintWorkPageCreate]
+    +   受入異常登録[ComplaintPurchaseRecPageCreate]
+1.  設備点検
+    +   点検結果登録[InspectRecordPageCreate]

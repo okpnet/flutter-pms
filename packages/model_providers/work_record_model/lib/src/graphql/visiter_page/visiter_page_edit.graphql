@@ -6,7 +6,7 @@
 mutation VisiterPageEdit(
   $transVisiterId: UUID!
   $transContainerId: UUID
-  $status: Int
+  $release: Boolean
   $quantity: BigFloat
   $remarks: String
 ) {
@@ -15,7 +15,7 @@ mutation VisiterPageEdit(
       transVisiterId: $transVisiterId
       transVisiterPatch: {
         transContainerId: $transContainerId
-        status: $status
+        release: $release
         quantity: $quantity
         remarks: $remarks
       }
@@ -24,7 +24,7 @@ mutation VisiterPageEdit(
     transVisiter {
       transVisiterId
       transContainerId
-      status
+      release
       quantity
       remarks
     }

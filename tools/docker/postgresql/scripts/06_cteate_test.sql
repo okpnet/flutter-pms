@@ -89,7 +89,22 @@ $BODY$
 LANGUAGE plpgsql;
 COMMENT ON FUNCTION tests.trg_gen_text_summary() IS 'text_valueからlead_text(導入文)とchar_count(文字数)を算出する';
 
---241.create tables
+--242.create tables
+create table tests.trans_complaint_visiter (
+    trans_complaint_visiter_id uuid default gen_random_uuid(),
+    trans_complaint_id uuid not null,
+    trans_visiter_id uuid not null,
+    quantity decimal(10,2) not null,
+    release_at timestamp default null,
+    release_staff_history_id uuid default null,
+    release_staff_id uuid default null,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
 create table tests.trans_complaint_purchase_rec (
     trans_complaint_purchase_rec_id uuid default gen_random_uuid(),
     trans_complaint_id uuid not null,
@@ -2947,7 +2962,7 @@ create table tests.trans_purchase_rec_visiter (
 create table tests.trans_visiter (
     trans_visiter_id uuid default gen_random_uuid(),
     trans_container_id uuid not null,
-    status smallint default null,
+    release boolean default 't',
     quantity decimal(10,2) default 0,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -3567,7 +3582,21 @@ create table tests.info_office (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
---241.add table comments
+--242.add table comments
+comment on table tests.trans_complaint_visiter is '異常入出庫ビジター';
+comment on column tests.trans_complaint_visiter.trans_complaint_visiter_id is '異常入出庫ビジターID';
+comment on column tests.trans_complaint_visiter.trans_complaint_id is '異常ID';
+comment on column tests.trans_complaint_visiter.trans_visiter_id is '棚ビジターID';
+comment on column tests.trans_complaint_visiter.quantity is '異常数量';
+comment on column tests.trans_complaint_visiter.release_at is '払出許可日';
+comment on column tests.trans_complaint_visiter.release_staff_history_id is '許可担当者履歴ID';
+comment on column tests.trans_complaint_visiter.release_staff_id is '許可担当者ID';
+comment on column tests.trans_complaint_visiter.symbol is 'リニアシンボル';
+comment on column tests.trans_complaint_visiter.remarks is '備考';
+comment on column tests.trans_complaint_visiter.update_at is '更新日時';
+comment on column tests.trans_complaint_visiter.update_user_id is '更新者ID';
+comment on column tests.trans_complaint_visiter.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_complaint_visiter.remove is '削除';
 comment on table tests.trans_complaint_purchase_rec is '受入異常';
 comment on column tests.trans_complaint_purchase_rec.trans_complaint_purchase_rec_id is '受入異常ID';
 comment on column tests.trans_complaint_purchase_rec.trans_complaint_id is '異常ID';
@@ -6224,7 +6253,7 @@ comment on column tests.trans_purchase_rec_visiter.remove is '削除';
 comment on table tests.trans_visiter is '棚ビジター';
 comment on column tests.trans_visiter.trans_visiter_id is '棚ビジターID';
 comment on column tests.trans_visiter.trans_container_id is 'コンテナID';
-comment on column tests.trans_visiter.status is '状態';
+comment on column tests.trans_visiter.release is '入出庫許可';
 comment on column tests.trans_visiter.quantity is '数量';
 comment on column tests.trans_visiter.symbol is 'リニアシンボル';
 comment on column tests.trans_visiter.remarks is '備考';
@@ -6804,7 +6833,15 @@ comment on column tests.info_office.update_at is '更新日時';
 comment on column tests.info_office.update_user_id is '更新者ID';
 comment on column tests.info_office.update_user_history_id is '更新者履歴ID';
 comment on column tests.info_office.remove is '削除';
---241.add table primary key and index
+--242.add table primary key and index
+create unique index trans_complaint_visiter_PKI
+    on tests.trans_complaint_visiter(trans_complaint_visiter_id);
+alter table tests.trans_complaint_visiter
+    add constraint trans_complaint_visiter_PKC primary key (trans_complaint_visiter_id);
+alter table tests.trans_complaint_visiter
+     add constraint trans_complaint_visiter_IX1 unique  (symbol);
+alter table tests.trans_complaint_visiter
+     add constraint trans_complaint_visiter_IX2 unique  (trans_complaint_id,trans_visiter_id,remove);
 create unique index trans_complaint_purchase_rec_PKI
     on tests.trans_complaint_purchase_rec(trans_complaint_purchase_rec_id);
 alter table tests.trans_complaint_purchase_rec
@@ -8280,7 +8317,11 @@ alter table tests.info_office
     add constraint info_office_PKC primary key (info_office_id);
 alter table tests.info_office
      add constraint info_office_IX1 unique  (symbol);
---241.add table foreign key
+--242.add table foreign key
+alter table tests.trans_complaint_visiter add constraint trans_complaint_visiter_FK1 foreign key (release_staff_history_id,release_staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_visiter add constraint trans_complaint_visiter_FK2 foreign key (trans_visiter_id) references tests.trans_visiter (trans_visiter_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_visiter add constraint trans_complaint_visiter_FK3 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_visiter add constraint trans_complaint_visiter_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_complaint_purchase_rec add constraint trans_complaint_purchase_rec_FK1 foreign key (trans_purchase_rec_id) references tests.trans_purchase_rec (trans_purchase_rec_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_complaint_purchase_rec add constraint trans_complaint_purchase_rec_FK2 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_complaint_purchase_rec add constraint trans_complaint_purchase_rec_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8956,7 +8997,31 @@ alter table tests.info_office add constraint info_office_FK1 foreign key (names)
 alter table tests.info_office add constraint info_office_FK2 foreign key (info_company_id) references tests.info_company (info_company_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK3 foreign key (info_address_id) references tests.info_address (info_address_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
---241.add table trigger
+--242.add table trigger
+-- trans_complaint_visiter update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_visiter() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_complaint_visiter_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_complaint_visiter BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_visiter FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_complaint_visiter();
+
+
+CREATE TRIGGER trg_04_symbol_trans_complaint_visiter BEFORE INSERT ON tests.trans_complaint_visiter FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_complaint_purchase_rec update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_purchase_rec() RETURNS trigger AS
 $BODY$
@@ -21955,7 +22020,41 @@ LANGUAGE plpgsql VOLATILE;
 CREATE OR REPLACE TRIGGER trg_03_hierarchy_mstr_location_tree AFTER INSERT OR UPDATE OR DELETE ON tests.mstr_location_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_03_hierarchy_mstr_location_tree();
 
---141.create view
+--143.create view
+
+drop view if exists tests.v_visiter_complaint_visiter_count;
+create view  tests.v_visiter_complaint_visiter_count as
+SELECT
+    p.trans_visiter_id
+    , COUNT(c.trans_visiter_id) AS all_count
+    , COUNT(c.trans_visiter_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_visiter_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_visiter AS p
+    LEFT JOIN tests.trans_complaint_visiter AS c
+        ON c.trans_visiter_id = p.trans_visiter_id
+GROUP BY
+    p.trans_visiter_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_visiter_complaint_visiter_count is E'@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@unique trans_visiter_id';
+
+drop view if exists tests.v_complaint_complaint_visiter_count;
+create view  tests.v_complaint_complaint_visiter_count as
+SELECT
+    p.trans_complaint_id
+    , COUNT(c.trans_complaint_id) AS all_count
+    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count
+    , COUNT(c.trans_complaint_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
+FROM
+    tests.trans_complaint AS p
+    LEFT JOIN tests.trans_complaint_visiter AS c
+        ON c.trans_complaint_id = p.trans_complaint_id
+GROUP BY
+    p.trans_complaint_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_complaint_complaint_visiter_count is E'@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@unique trans_complaint_id';
 
 drop view if exists tests.v_work_plan_delivery_compliance;
 create view  tests.v_work_plan_delivery_compliance as
@@ -22053,7 +22152,7 @@ SELECT
     v.trans_visiter_id
     , v.trans_container_id
     , c.mstr_location_id
-    , v.status
+    , v.release
     , v.quantity
     , COALESCE(pr.trans_purchase_rec_ids, ARRAY[]::UUID[]) AS trans_purchase_rec_ids
     , COALESCE(pr.purchase_rec_count, 0) AS purchase_rec_count

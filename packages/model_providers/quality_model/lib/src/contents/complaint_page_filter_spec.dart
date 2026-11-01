@@ -74,6 +74,7 @@ abstract class ComplaintPageFilterSpec {
     'complaint_order_count||transComplaintId': FlatFilterPath([FilterStep('vComplaintComplaintOrderCountByTransComplaintId')], 'transComplaintId'),
     'complaint_file_count||transComplaintId': FlatFilterPath([FilterStep('vComplaintComplaintFileCountByTransComplaintId')], 'transComplaintId'),
     'complaint_equipment_count||transComplaintId': FlatFilterPath([FilterStep('vComplaintComplaintEquipmentCountByTransComplaintId')], 'transComplaintId'),
+    'complaint_visiter_count||transComplaintId': FlatFilterPath([FilterStep('vComplaintComplaintVisiterCountByTransComplaintId')], 'transComplaintId'),
     'updateAt': FlatFilterPath([], 'updateAt'),
     'remove': FlatFilterPath([], 'remove'),
     'update_user||historyId': FlatFilterPath([FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId')], 'historyId'),

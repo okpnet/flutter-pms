@@ -9,7 +9,7 @@ ShelfInventoryStatusPage:
     - trans_visiter_id
     - trans_container_id
     - mstr_location_id
-    - status
+    - release
     - quantity
     - trans_purchase_rec_ids
     - purchase_rec_count

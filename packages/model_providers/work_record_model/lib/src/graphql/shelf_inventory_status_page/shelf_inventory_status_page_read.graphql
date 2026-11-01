@@ -24,7 +24,7 @@ query ShelfInventoryStatusPageRead(
       transVisiterId
       transContainerId
       mstrLocationId
-      status
+      release
       quantity
       transPurchaseRecIds
       purchaseRecCount

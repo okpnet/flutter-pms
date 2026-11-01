@@ -631,3 +631,20 @@ InspectImpFilePageEdit:
     - update_user_history_id
     - remove
 
+
+# ---- 登録(kind: create)。バーコード実績登録(barcode_entry)の設備点検で使う ----
+
+# trans_inspect_recordの登録(点検結果。result_value は式ごとの入力値の JSON)
+InspectRecordPageCreate:
+  kind: create
+  from: trans_inspect_record
+  columns:
+    - trans_inspect_sch_detail_id
+    - implement_start_date
+    - implement_stop_date
+    - result_value
+    - result
+    - result_state
+    - stakeholder_history_id
+    - stakeholder_id
+    - remarks

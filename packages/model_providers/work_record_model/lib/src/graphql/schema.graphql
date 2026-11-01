@@ -202,8 +202,8 @@ enum TransVisitersOrderBy {
   TRANS_VISITER_ID_DESC
   TRANS_CONTAINER_ID_ASC
   TRANS_CONTAINER_ID_DESC
-  STATUS_ASC
-  STATUS_DESC
+  RELEASE_ASC
+  RELEASE_DESC
   QUANTITY_ASC
   QUANTITY_DESC
   SYMBOL_ASC
@@ -308,8 +308,8 @@ enum VShelfInventoryStatusesOrderBy {
   TRANS_CONTAINER_ID_DESC
   MSTR_LOCATION_ID_ASC
   MSTR_LOCATION_ID_DESC
-  STATUS_ASC
-  STATUS_DESC
+  RELEASE_ASC
+  RELEASE_DESC
   QUANTITY_ASC
   QUANTITY_DESC
   TRANS_PURCHASE_REC_IDS_ASC
@@ -649,7 +649,7 @@ type TransPurchaseCertificationsConnection {
 type TransVisiter {
   transVisiterId: UUID!
   transContainerId: UUID!
-  status: Int
+  release: Boolean
   quantity: BigFloat
   symbol: String
   remarks: String
@@ -658,6 +658,7 @@ type TransVisiter {
   updateUserHistoryId: UUID
   remove: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
+  vVisiterComplaintVisiterCountByTransVisiterId: VVisiterComplaintVisiterCount
   vVisiterConveyCountByTransVisiterId: VVisiterConveyCount
   vVisiterPurchaseRecVisiterCountByTransVisiterId: VVisiterPurchaseRecVisiterCount
   vVisiterWorkRecordVisiterCountByTransVisiterId: VVisiterWorkRecordVisiterCount
@@ -794,7 +795,7 @@ type VShelfInventoryStatus {
   transVisiterId: UUID!
   transContainerId: UUID
   mstrLocationId: UUID
-  status: Int
+  release: Boolean
   quantity: BigFloat
   transPurchaseRecIds: [UUID]
   purchaseRecCount: BigInt
@@ -813,6 +814,10 @@ type VShelfInventoryStatusesConnection {
   nodes: [VShelfInventoryStatus]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type VVisiterComplaintVisiterCount {
+  transVisiterId: UUID
 }
 
 type VVisiterConveyCount {
@@ -927,6 +932,8 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transComplaintVisitersByReleaseStaffHistoryIdAndReleaseStaffIdExist: Boolean
+  transComplaintVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintPurchaseRecsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintWorksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1796,7 +1803,7 @@ input TransPurchaseCertificationPatch {
 input TransVisiterFilter {
   transVisiterId: UUIDFilter
   transContainerId: UUIDFilter
-  status: IntFilter
+  release: BooleanFilter
   quantity: BigFloatFilter
   symbol: StringFilter
   remarks: StringFilter
@@ -1804,11 +1811,14 @@ input TransVisiterFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transComplaintVisitersByTransVisiterIdExist: Boolean
   transWorkRecordVisitersByTransVisiterIdExist: Boolean
   transPurchaseRecVisitersByTransVisiterIdExist: Boolean
   transConveysByTransVisiterIdExist: Boolean
   vMrpVisiterItemByTransVisiterIdExists: Boolean
   vShelfInventoryStatusByTransVisiterIdExists: Boolean
+  vVisiterComplaintVisiterCountByTransVisiterId: VVisiterComplaintVisiterCountFilter
+  vVisiterComplaintVisiterCountByTransVisiterIdExists: Boolean
   vVisiterConveyCountByTransVisiterId: VVisiterConveyCountFilter
   vVisiterConveyCountByTransVisiterIdExists: Boolean
   vVisiterPurchaseRecVisiterCountByTransVisiterId: VVisiterPurchaseRecVisiterCountFilter
@@ -1824,14 +1834,14 @@ input TransVisiterFilter {
 
 input TransVisiterInput {
   transContainerId: UUID
-  status: Int
+  release: Boolean
   quantity: BigFloat
   remarks: String
 }
 
 input TransVisiterPatch {
   transContainerId: UUID
-  status: Int
+  release: Boolean
   quantity: BigFloat
   remarks: String
 }
@@ -2060,7 +2070,7 @@ input VShelfInventoryStatusFilter {
   transVisiterId: UUIDFilter
   transContainerId: UUIDFilter
   mstrLocationId: UUIDFilter
-  status: IntFilter
+  release: BooleanFilter
   quantity: BigFloatFilter
   transPurchaseRecIds: UUIDListFilter
   purchaseRecCount: BigIntFilter
@@ -2079,6 +2089,17 @@ input VShelfInventoryStatusFilter {
   and: [VShelfInventoryStatusFilter!]
   or: [VShelfInventoryStatusFilter!]
   not: VShelfInventoryStatusFilter
+}
+
+input VVisiterComplaintVisiterCountFilter {
+  transVisiterId: UUIDFilter
+  allCount: BigIntFilter
+  enableCount: BigIntFilter
+  disableCount: BigIntFilter
+  transVisiterByTransVisiterIdExists: Boolean
+  and: [VVisiterComplaintVisiterCountFilter!]
+  or: [VVisiterComplaintVisiterCountFilter!]
+  not: VVisiterComplaintVisiterCountFilter
 }
 
 input VVisiterConveyCountFilter {

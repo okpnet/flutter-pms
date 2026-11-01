@@ -1,0 +1,21 @@
+# complaint_text_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintTextPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintTextPageCreate(
+  $remarks: String
+) {
+  createTransText(
+    input: {
+      transText: {
+        remarks: $remarks
+      }
+    }
+  ) {
+    transText {
+      transTextId
+      remarks
+    }
+  }
+}
