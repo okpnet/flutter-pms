@@ -1,84 +1,239 @@
 #!/usr/bin/env bash
-# PocketBase 疎通・権限テスト (招待制・ユーザーIDログイン / 共有 / 上書き不可)
-#   使い方: ./scripts/smoke_test.sh [http://localhost:8090]
-#   .env の PB_SUPERUSER_EMAIL / PB_SUPERUSER_PASSWORD を使用
-set -u
+# 権限・フローのスモークテスト（空の PB_DATA_DIR で起動した直後に実行すること）
+#   ./scripts/smoke_test.sh            # .env の PB_PORT / PB_SUPERUSER_* を使用
+#   PB_URL=http://host:8090 ./scripts/smoke_test.sh
+# 必要: curl, jq（Raspberry Pi OS: sudo apt install -y jq）
+# 注意: テスト用のユーザー・ファイルを作成します。本番データの入った環境では実行しないでください。
+set -uo pipefail
+
 cd "$(dirname "$0")/.."
-set -a; [ -f .env ] && . ./.env; set +a
-B="${1:-http://localhost:${PB_PORT:-8090}}/api"
+if [ -f .env ]; then set -a; . ./.env; set +a; fi
+URL="${PB_URL:-http://127.0.0.1:${PB_PORT:-8090}}"
+SU_EMAIL="${PB_SUPERUSER_EMAIL:?PB_SUPERUSER_EMAIL}"
+SU_PASS="${PB_SUPERUSER_PASSWORD:?PB_SUPERUSER_PASSWORD}"
+RUN="$(date +%s | tail -c 6)"
+TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
+
 PASS=0; FAIL=0
-j(){ python3 -c "import sys,json;d=json.load(sys.stdin);print(d$1)" 2>/dev/null; }
-check(){ if [ "$2" = "$3" ]; then echo "  OK  $1 ($3)"; PASS=$((PASS+1)); else echo "  NG  $1 (expected $2, got $3)"; FAIL=$((FAIL+1)); fi; }
-code(){ curl -s -o /dev/null -w "%{http_code}" "$@"; }
-SUF=$RANDOM$RANDOM
+ok()   { PASS=$((PASS+1)); printf '  \033[32mOK\033[0m   %s\n' "$1"; }
+ng()   { FAIL=$((FAIL+1)); printf '  \033[31mNG\033[0m   %s  (%s)\n' "$1" "$2"; }
 
-ST=$(curl -s -X POST $B/collections/_superusers/auth-with-password -H 'Content-Type: application/json' \
-  -d "{\"identity\":\"$PB_SUPERUSER_EMAIL\",\"password\":\"$PB_SUPERUSER_PASSWORD\"}" | j '["token"]')
-[ -n "$ST" ] || { echo "superuser login failed"; exit 1; }
+# req METHOD PATH [TOKEN] [JSON]  → $CODE / $BODY
+req() {
+  local m="$1" p="$2" t="${3:-}" d="${4:-}"
+  local args=(-s -o "$TMP/body" -w '%{http_code}' -X "$m" "$URL$p")
+  [ -n "$t" ] && args+=(-H "Authorization: $t")
+  [ -n "$d" ] && args+=(-H 'Content-Type: application/json' -d "$d")
+  CODE="$(curl "${args[@]}")"; BODY="$(cat "$TMP/body")"
+}
+expect() { # expect "名前" 期待コード
+  if [ "$CODE" = "$2" ]; then ok "$1"; else ng "$1" "expected $2, got $CODE: $(echo "$BODY" | head -c 200)"; fi
+}
+expect_jq() { # expect_jq "名前" 'jq式' 期待値
+  local v; v="$(echo "$BODY" | jq -r "$2" 2>/dev/null)"
+  if [ "$v" = "$3" ]; then ok "$1"; else ng "$1" "expected '$3', got '$v'"; fi
+}
+login() { # login identity password → TOKEN（失敗時は空）
+  req POST /api/collections/users/auth-with-password "" "{\"identity\":\"$1\",\"password\":\"$2\"}"
+  TOKEN="$(echo "$BODY" | jq -r '.token // empty')"
+}
+enc() { jq -rn --arg v "$1" '$v|@uri'; }
+accept() { # accept username code password
+  req POST /api/app/codes/accept "" "{\"username\":\"$1\",\"code\":\"$2\",\"password\":\"$3\",\"passwordConfirm\":\"$3\"}"
+}
 
-invite(){ curl -s -X POST $B/collections/invites/records -H "Authorization: $ST" -H 'Content-Type: application/json' -d "$1"; }
-accept(){ curl -s -o /dev/null -w "%{http_code}" -X POST $B/app/invites/accept -H 'Content-Type: application/json' \
-  -d "{\"username\":\"$1\",\"code\":\"$2\",\"password\":\"Passw0rd123\",\"passwordConfirm\":\"Passw0rd123\"}"; }
-tok(){ curl -s -X POST $B/collections/users/auth-with-password -H 'Content-Type: application/json' \
-  -d "{\"identity\":\"$1\",\"password\":\"Passw0rd123\"}" | j '["token"]'; }
+echo "== target: $URL"
+req POST /api/collections/_superusers/auth-with-password "" "{\"identity\":\"$SU_EMAIL\",\"password\":\"$SU_PASS\"}"
+SU="$(echo "$BODY" | jq -r '.token // empty')"
+[ -n "$SU" ] || { echo "superuser でログインできません: $BODY"; exit 1; }
 
-echo "[招待制 / ユーザーIDログイン]"
-UA="userA_$SUF"; UB="userB_$SUF"
-check "自己登録は拒否" 403 $(code -X POST $B/collections/users/records -H 'Content-Type: application/json' \
-  -d "{\"username\":\"x$SUF\",\"password\":\"Passw0rd123\",\"passwordConfirm\":\"Passw0rd123\"}")
-check "一般ユーザーは invites を見られない" 403 $(code $B/collections/invites/records)
-IA=$(invite "{\"username\":\"$UA\",\"app_user_id\":\"U$SUF\"}"); CA=$(echo "$IA" | j '["code"]')
-IB=$(invite "{\"username\":\"$UB\",\"email\":\"b$SUF@example.com\"}"); CB=$(echo "$IB" | j '["code"]')
-check "招待コード自動生成(12桁)"   12 ${#CA}
-check "不正なユーザーID形式は拒否" 400 $(code -X POST $B/collections/invites/records -H "Authorization: $ST" -H 'Content-Type: application/json' -d '{"username":"bad id!"}')
-check "コード違いは拒否"           400 $(accept "$UA" "WRONGCODE123")
-check "ユーザーID違いは拒否"       400 $(accept "other$SUF" "$CA")
-check "招待受諾 A (email なし)"    200 $(accept "$UA" "$CA")
-check "同じコード再利用は拒否"     400 $(accept "$UA" "$CA")
-check "使用済みユーザーIDの招待は拒否(大小無視)" 400 $(code -X POST $B/collections/invites/records -H "Authorization: $ST" -H 'Content-Type: application/json' -d "{\"username\":\"USERA_$SUF\"}")
-check "招待受諾 B (email あり)"    200 $(accept "$UB" "$CB")
-IX=$(invite "{\"username\":\"x$SUF\",\"expires_at\":\"2020-01-01 00:00:00.000Z\"}"); CX=$(echo "$IX" | j '["code"]')
-check "期限切れは拒否"             400 $(accept "x$SUF" "$CX")
-TA=$(tok "$UA"); TB=$(tok "$UB")
-check "A ユーザーIDでログイン"     1 $([ -n "$TA" ] && echo 1 || echo 0)
-check "B ユーザーIDでログイン"     1 $([ -n "$TB" ] && echo 1 || echo 0)
-check "B Eメールでログイン"        1 $([ -n "$(tok "b$SUF@example.com")" ] && echo 1 || echo 0)
-check "Eメール大文字でもログイン"  1 $([ -n "$(tok "B$SUF@EXAMPLE.COM")" ] && echo 1 || echo 0)
-check "Eメール未登録の A はEメール不可(当然)" 400 $(code -X POST $B/collections/users/auth-with-password -H 'Content-Type: application/json' -d "{\"identity\":\"a$SUF@example.com\",\"password\":\"Passw0rd123\"}")
-check "大文字小文字違いでもログイン" 1 $([ -n "$(tok "USERA_$SUF")" ] && echo 1 || echo 0)
-check "誤パスワードは拒否"         400 $(code -X POST $B/collections/users/auth-with-password -H 'Content-Type: application/json' -d "{\"identity\":\"$UA\",\"password\":\"wrongpass1\"}")
-AID=$(curl -s -X POST $B/collections/users/auth-refresh -H "Authorization: $TA" | j '["record"]["id"]')
-check "app_user_id 招待時に設定"   "U$SUF" "$(curl -s $B/collections/users/records/$AID -H "Authorization: $TA" | j '["app_user_id"]')"
-check "app_user_id 本人変更不可"   404 $(code -X PATCH $B/collections/users/records/$AID -H "Authorization: $TA" -H 'Content-Type: application/json' -d '{"app_user_id":"HACK"}')
-check "username 本人変更不可"      404 $(code -X PATCH $B/collections/users/records/$AID -H "Authorization: $TA" -H 'Content-Type: application/json' -d '{"username":"hacked"}')
-check "auth-refresh 不正トークン" 401 $(code -X POST $B/collections/users/auth-refresh -H "Authorization: invalid")
+ADMIN_U="adm$RUN"; USER_U="taro$RUN"; OTHER_U="hana$RUN"; ADMIN2_U="adm2$RUN"
+PW1="Passw0rd-one"; PW2="Passw0rd-two"; PW3="Passw0rd-three"
 
-echo "[共有ファイル / 上書き不可]"
-TMP=$(mktemp -d); echo "rev1" > "$TMP/図面.txt"; echo "rev2" > "$TMP/図面_v2.txt"
-R1=$(curl -s -X POST $B/collections/app_files/records -H "Authorization: $TA" -F "app_file_id=F$SUF" -F "file=@$TMP/図面.txt")
-R2=$(curl -s -X POST $B/collections/app_files/records -H "Authorization: $TB" -F "app_file_id=F$SUF" -F "file=@$TMP/図面_v2.txt")
-ID1=$(echo "$R1" | j '["id"]'); FN1=$(echo "$R1" | j '["file"]')
-check "A アップロード revision=1"   1 "$(echo "$R1" | j '["revision"]')"
-check "B 同一IDで追加 revision=2"   2 "$(echo "$R2" | j '["revision"]')"
-check "original_name 記録"  "図面.txt" "$(echo "$R1" | j '["original_name"]')"
-check "revision 指定は拒否"        400 $(code -X POST $B/collections/app_files/records -H "Authorization: $TA" -F "app_file_id=F$SUF" -F "revision=1" -F "file=@$TMP/図面.txt")
-check "他人名義は拒否"             400 $(code -X POST $B/collections/app_files/records -H "Authorization: $TB" -F "app_file_id=G$SUF" -F "uploaded_by=$AID" -F "file=@$TMP/図面.txt")
-check "未認証アップロード拒否"     400 $(code -X POST $B/collections/app_files/records -F "app_file_id=H$SUF" -F "file=@$TMP/図面.txt")
-check "B が A のファイルを参照(共有)" 200 $(code $B/collections/app_files/records/$ID1 -H "Authorization: $TB")
-check "未認証は一覧不可(0件)"      0 "$(curl -s -G $B/collections/app_files/records | j '["totalItems"]')"
-check "最新revision取得"           2 "$(curl -s -G $B/collections/app_files/records -H "Authorization: $TB" --data-urlencode "filter=app_file_id='F$SUF'" --data-urlencode "sort=-revision" --data-urlencode "perPage=1" | j '["items"][0]["revision"]')"
-check "更新(上書き)は拒否"         403 $(code -X PATCH $B/collections/app_files/records/$ID1 -H "Authorization: $TA" -F "file=@$TMP/図面_v2.txt")
-check "削除は拒否"                 403 $(code -X DELETE $B/collections/app_files/records/$ID1 -H "Authorization: $TA")
+echo "== 1. 登録申請"
+req POST /api/app/signup "" "{\"full_name\":\"山田 太郎\",\"requested_username\":\"$USER_U\",\"contact_email\":\"Taro$RUN@Example.com\",\"profile\":{\"dept_wish\":\"製造部\",\"tel\":\"0000\"}}"
+expect "申請 → 202" 202
+req POST /api/app/signup "" "{\"full_name\":\"山田 次郎\",\"requested_username\":\"$USER_U\"}"
+expect "同じ希望IDでも 202（重複は応答に出さない）" 202
+req POST /api/app/signup "" '{"full_name":""}'
+expect "氏名なし → 400" 400
+req POST /api/app/signup "" '{"full_name":"x","requested_username":"Bad ID!"}'
+expect "不正な希望ID → 400" 400
+req POST /api/collections/users/records "" '{"username":"selfreg","password":"Passw0rd-xx","passwordConfirm":"Passw0rd-xx"}'
+[ "$CODE" -ge 400 ] && ok "users の自己登録 API は閉じている ($CODE)" || ng "users の自己登録 API は閉じている" "$CODE"
+req GET "/api/collections/signup_profiles/records" ""
+expect_jq "未ログインでは申請一覧が見えない" '.items | length' 0
+req GET "/api/collections/signup_profiles/records?filter=$(enc "requested_username='$USER_U'")&sort=created&expand=user" "$SU"
+expect_jq "superuser には申請が2件見える" '.items | length' 2
+PENDING_ID="$(echo "$BODY" | jq -r '.items[0].user')"
+PENDING2_ID="$(echo "$BODY" | jq -r '.items[1].user')"
+expect_jq "申請中ユーザーは仮ID (pending-)" '.items[0].expand.user.username | startswith("pending-")' true
+expect_jq "申請中ユーザーの app_user_id は空" '.items[0].expand.user.app_user_id' ""
 
-echo "[ダウンロード]"
-FTB=$(curl -s -X POST $B/files/token -H "Authorization: $TB" | j '["token"]')
-check "token なしは拒否"           404 $(code "$B/files/app_files/$ID1/$FN1")
-check "B の token で A のファイル取得" 200 $(code "$B/files/app_files/$ID1/$FN1?token=$FTB&download=1")
-check "rev1 の内容は保持"        "rev1" "$(curl -s "$B/files/app_files/$ID1/$FN1?token=$FTB")"
+echo "== 2. 管理者の作成（superuser）と有効化"
+req POST /api/app/admin/users "$SU" "{\"username\":\"$ADMIN_U\",\"app_user_id\":\"A$RUN\",\"name\":\"管理者\",\"role\":\"admin\"}"
+expect "superuser が管理者を登録 → 201" 201
+ADMIN_CODE="$(echo "$BODY" | jq -r .code)"; ADMIN_ID="$(echo "$BODY" | jq -r .user.id)"
+expect_jq "状態 = approved（未有効化）" '.user.status' approved
+login "$ADMIN_U" "$PW1"; [ -z "$TOKEN" ] && ok "有効化前はログイン不可" || ng "有効化前はログイン不可" "token issued"
+accept "$ADMIN_U" "AAAA-BBBB-CCCC" "$PW1"
+expect "誤ったコード → 400" 400
+accept "$ADMIN_U" "$ADMIN_CODE" "short"
+expect "短いパスワード → 400" 400
+accept "$(echo "$ADMIN_U" | tr a-z A-Z)" "$(echo "$ADMIN_CODE" | tr -d - | tr A-Z a-z)" "$PW1"
+expect "正しいコード（ID大文字・コード小文字/ハイフンなしでも可）→ 204" 204
+accept "$ADMIN_U" "$ADMIN_CODE" "$PW1"
+expect "使用済みコード → 400" 400
+login "$ADMIN_U" "$PW1"; ADMIN="$TOKEN"
+[ -n "$ADMIN" ] && ok "管理者ログイン" || ng "管理者ログイン" "$BODY"
 
-echo "[レート制限]"
-LAST=""; for i in $(seq 1 12); do LAST=$(accept "z$SUF" "BRUTEFORCE$i"); [ "$LAST" = "429" ] && break; done
-check "招待受諾の総当たりは 429" 429 "$LAST"
+echo "== 3. 管理者による申請の承認"
+req GET "/api/collections/signup_profiles/records?expand=user" "$ADMIN"
+[ "$(echo "$BODY" | jq '.items | length')" -ge 2 ] && ok "管理者は申請一覧を取得できる" || ng "管理者は申請一覧を取得できる" "$BODY"
+req POST /api/app/admin/users "$ADMIN" "{\"username\":\"x$RUN\",\"app_user_id\":\"X$RUN\",\"role\":\"admin\"}"
+expect "管理者は admin を作成できない → 403" 403
+req POST "/api/app/admin/users/$PENDING_ID/activate" "$ADMIN" "{\"app_user_id\":\"U$RUN\"}"
+expect "承認（希望IDとメールを採用）→ 200" 200
+expect_jq "希望ユーザーIDが正式IDになる" '.user.username' "$USER_U"
+expect_jq "メールは小文字で保存" '.user.email' "taro$RUN@example.com"
+CODE1="$(echo "$BODY" | jq -r .code)"
+req GET "/api/collections/signup_profiles/records?filter=$(enc "user='$PENDING_ID'")" "$ADMIN"
+expect_jq "承認後は申請情報（一時置き場）が削除される" '.items | length' 0
+req POST "/api/app/admin/users/$PENDING_ID/activate" "$ADMIN" "{\"app_user_id\":\"U$RUN\"}"
+expect "同じ app_user_id で再実行 → 200（コード再発行）" 200
+CODE2="$(echo "$BODY" | jq -r .code)"
+req POST "/api/app/admin/users/$PENDING2_ID/activate" "$ADMIN" "{\"app_user_id\":\"U$RUN\",\"username\":\"$OTHER_U\"}"
+expect "別ユーザーに同じ app_user_id → 409" 409
+req POST "/api/app/admin/users/$PENDING2_ID/activate" "$ADMIN" "{\"app_user_id\":\"V$RUN\"}"
+expect "希望IDが既に使用済み → 400" 400
+accept "$USER_U" "$CODE1" "$PW1"
+expect "再発行前の古いコード → 400" 400
+accept "$USER_U" "$CODE2" "$PW1"
+expect "新しいコードで有効化 → 204" 204
+req POST "/api/app/admin/users/$PENDING_ID/activate" "$ADMIN" "{\"app_user_id\":\"U$RUN\"}"
+expect "有効化済みに activate → 409" 409
+login "$(echo "$USER_U" | tr a-z A-Z)" "$PW1"; USER="$TOKEN"
+[ -n "$USER" ] && ok "ユーザーID（大文字）でログイン" || ng "ユーザーID（大文字）でログイン" "$BODY"
+login "TARO$RUN@EXAMPLE.COM" "$PW1"
+[ -n "$TOKEN" ] && ok "Eメール（大文字）でログイン" || ng "Eメール（大文字）でログイン" "$BODY"
 
-rm -rf "$TMP"
-echo "PASS=$PASS FAIL=$FAIL"; [ $FAIL -eq 0 ]
+echo "== 4. 一般ユーザーの権限"
+req GET "/api/collections/signup_profiles/records" "$USER"
+expect_jq "一般ユーザーには申請一覧が見えない" '.items | length' 0
+req GET "/api/collections/users/records?perPage=200" "$USER"
+expect_jq "一般ユーザーには申請中ユーザーが見えない" "[.items[] | select(.id == \"$PENDING2_ID\")] | length" 0
+req POST "/api/app/admin/users/$PENDING2_ID/activate" "$USER" '{"app_user_id":"Z1"}'
+expect "一般ユーザーは承認できない → 403" 403
+USER_ID="$(curl -s -H "Authorization: $USER" "$URL/api/collections/users/auth-refresh" -X POST | jq -r .record.id)"
+req GET "/api/collections/users/records/$USER_ID" "$ADMIN"
+expect_jq "他ユーザーの email は見えない（管理者からも）" '.email // "hidden"' hidden
+req PATCH "/api/collections/users/records/$USER_ID" "$USER" '{"role":"admin"}'
+[ "$CODE" -ge 400 ] && ok "本人は role を変更できない ($CODE)" || ng "本人は role を変更できない" "$CODE"
+req PATCH "/api/collections/users/records/$USER_ID" "$USER" '{"app_user_id":"HACK"}'
+[ "$CODE" -ge 400 ] && ok "本人は app_user_id を変更できない ($CODE)" || ng "本人は app_user_id を変更できない" "$CODE"
+req PATCH "/api/collections/users/records/$USER_ID" "$USER" '{"name":"山田 太郎2"}'
+expect "本人は name を変更できる" 200
+req GET /api/collections/auth_codes/records "$USER"
+expect_jq "auth_codes は見えない" '.items | length // 0' 0
+
+echo "== 5. パスワード再設定（メールなし → 管理者対応）"
+req POST /api/app/password-reset/request "" '{"identity":"no-such-user"}'
+expect "存在しないID → 202（同じ応答）" 202
+req POST /api/app/password-reset/request "" "{\"identity\":\"$USER_U\"}"
+expect "依頼 → 202" 202
+req POST /api/app/password-reset/request "" "{\"identity\":\"$USER_U\"}"
+req GET "/api/collections/reset_requests/records?filter=$(enc "status='open' && user='$USER_ID'")" "$ADMIN"
+expect_jq "SMTP 無効のため管理者向け依頼が1件（重複なし）" '.items | length' 1
+req POST "/api/app/admin/users/$USER_ID/reset-code" "$ADMIN" '{}'
+expect "管理者が再設定コード発行 → 200" 200
+RCODE="$(echo "$BODY" | jq -r .code)"
+req GET "/api/collections/reset_requests/records?filter=$(enc "status='open' && user='$USER_ID'")" "$ADMIN"
+expect_jq "依頼はクローズされる" '.items | length' 0
+accept "$USER_U" "$RCODE" "$PW2"
+expect "再設定コードで変更 → 204" 204
+req POST /api/collections/users/auth-refresh "$USER"
+expect "変更前のトークンは失効 → 401" 401
+login "$USER_U" "$PW1"; [ -z "$TOKEN" ] && ok "旧パスワードではログイン不可" || ng "旧パスワードではログイン不可" "token"
+login "$USER_U" "$PW2"; USER="$TOKEN"
+[ -n "$USER" ] && ok "新パスワードでログイン" || ng "新パスワードでログイン" "$BODY"
+
+echo "== 6. コード総当たり対策"
+req POST "/api/app/admin/users/$USER_ID/reset-code" "$ADMIN" '{}'
+RCODE="$(echo "$BODY" | jq -r .code)"
+for i in 1 2 3 4 5; do accept "$USER_U" "ZZZZ-ZZZZ-ZZZ$i" "$PW3"; done
+accept "$USER_U" "$RCODE" "$PW3"
+expect "5回失敗後は正しいコードも無効 → 400" 400
+
+echo "== 7. 管理者アカウントの保護"
+req POST /api/app/admin/users "$SU" "{\"username\":\"$ADMIN2_U\",\"app_user_id\":\"B$RUN\",\"role\":\"admin\"}"
+ADMIN2_ID="$(echo "$BODY" | jq -r .user.id)"
+req POST "/api/app/admin/users/$ADMIN2_ID/reset-code" "$ADMIN" '{}'
+expect "管理者は他の管理者の再設定コードを発行できない → 403" 403
+req POST "/api/app/admin/users/$ADMIN_ID/disable" "$ADMIN" '{"disabled":true}'
+expect "管理者は他の管理者を無効化できない → 403" 403
+
+echo "== 8. 無効化"
+req POST "/api/app/admin/users/$USER_ID/disable" "$ADMIN" '{"disabled":true}'
+expect "無効化 → 200" 200
+req POST /api/collections/users/auth-refresh "$USER"
+expect "無効化後はトークン延長不可 → 401" 401
+login "$USER_U" "$PW2"; [ -z "$TOKEN" ] && ok "無効化後はログイン不可" || ng "無効化後はログイン不可" "token"
+req POST /api/app/password-reset/request "" "{\"identity\":\"$USER_U\"}"
+expect "無効化ユーザーの再設定依頼も 202（同じ応答）" 202
+req POST "/api/app/admin/users/$USER_ID/disable" "$ADMIN" '{"disabled":false}'
+expect "再有効化 → 200" 200
+login "$USER_U" "$PW2"; USER="$TOKEN"
+[ -n "$USER" ] && ok "再有効化後はログイン可" || ng "再有効化後はログイン可" "$BODY"
+
+echo "== 9. 却下"
+req POST "/api/app/admin/users/$USER_ID/reject" "$ADMIN"
+expect "有効なユーザーは却下できない → 409" 409
+req POST "/api/app/admin/users/$PENDING2_ID/reject" "$ADMIN"
+expect "申請中ユーザーを却下 → 204" 204
+req GET "/api/collections/users/records/$PENDING2_ID" "$SU"
+expect "却下したユーザーは削除される → 404" 404
+
+echo "== 10. 共有ファイル"
+echo "hello v1" > "$TMP/a.txt"; echo "hello v2" > "$TMP/b.txt"
+up() { local t="$1" f="$2"; shift 2; CODE="$(curl -s -o "$TMP/body" -w '%{http_code}' -X POST "$URL/api/collections/app_files/records" -H "Authorization: $t" -F "app_file_id=F$RUN" "$@" -F "file=@$f")"; BODY="$(cat "$TMP/body")"; }
+up "$USER" "$TMP/a.txt" -F "revision=99"; expect "revision を指定したアップロードは拒否 → 400" 400
+up "$USER" "$TMP/a.txt" -F "uploaded_by=$ADMIN_ID"; expect "他人名義のアップロードは拒否 → 400" 400
+up "$USER" "$TMP/a.txt" -F "comment=初版" -F "mime_type=text/plain"; expect "アップロード v1 → 200" 200
+expect_jq "revision はサーバー採番 (=1)" '.revision' 1
+expect_jq "uploaded_by は本人" '.uploaded_by' "$USER_ID"
+expect_jq "original_name 自動設定" '.original_name' a.txt
+expect_jq "size_bytes 自動設定" '.size_bytes' 9
+FILE_ID="$(echo "$BODY" | jq -r .id)"; FNAME="$(echo "$BODY" | jq -r .file)"
+up "$ADMIN" "$TMP/b.txt"; expect "同じ app_file_id で再アップロード → 200" 200
+expect_jq "revision = 2（上書きしない）" '.revision' 2
+CODE="$(curl -s -o /dev/null -w '%{http_code}' -X POST "$URL/api/collections/app_files/records" -F "app_file_id=F$RUN" -F "file=@$TMP/a.txt")"
+expect "未ログインはアップロード不可" 400
+req PATCH "/api/collections/app_files/records/$FILE_ID" "$USER" '{"comment":"x"}'
+[ "$CODE" -ge 400 ] && ok "更新不可 ($CODE)" || ng "更新不可" "$CODE"
+req DELETE "/api/collections/app_files/records/$FILE_ID" "$USER"
+[ "$CODE" -ge 400 ] && ok "削除不可 ($CODE)" || ng "削除不可" "$CODE"
+CODE="$(curl -s -o /dev/null -w '%{http_code}' "$URL/api/files/app_files/$FILE_ID/$FNAME")"
+[ "$CODE" -ge 400 ] && ok "file token なしではダウンロード不可 ($CODE)" || ng "file token なしではダウンロード不可" "$CODE"
+FT="$(curl -s -X POST -H "Authorization: $USER" "$URL/api/files/token" | jq -r .token)"
+CODE="$(curl -s -o "$TMP/dl" -w '%{http_code}' "$URL/api/files/app_files/$FILE_ID/$FNAME?token=$FT")"
+expect "file token でダウンロード → 200" 200
+[ "$(cat "$TMP/dl")" = "hello v1" ] && ok "ダウンロード内容が一致" || ng "ダウンロード内容が一致" "$(cat "$TMP/dl")"
+
+echo "== 11. GraphQL 用トークン"
+req GET /api/app/graphql-token "$USER"
+if [ "$CODE" = "404" ]; then
+  ok "PB_GRAPHQL_JWT_SECRET 未設定 → 404（スキップ）"
+else
+  expect "GraphQL トークン発行 → 200" 200
+  PAYLOAD="$(echo "$BODY" | jq -r .token | cut -d. -f2 | tr '_-' '/+')"
+  while [ $(( ${#PAYLOAD} % 4 )) -ne 0 ]; do PAYLOAD="$PAYLOAD="; done
+  BODY="$(echo "$PAYLOAD" | base64 -d 2>/dev/null)"
+  expect_jq "sub = app_user_id" '.sub' "U$RUN"
+  expect_jq "app_role = user" '.app_role' user
+  req GET /api/app/graphql-token ""
+  expect "未ログイン → 401" 401
+fi
+
+echo
+echo "== 結果: OK $PASS / NG $FAIL"
+[ "$FAIL" -eq 0 ]

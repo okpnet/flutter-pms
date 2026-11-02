@@ -11,8 +11,8 @@ services:
     restart: unless-stopped
     env_file: .env
     ports:
-      # 本番で Caddy を使う場合は "127.0.0.1:${PB_PORT}:8090" にして直接公開しない
-      - "${PB_PORT:-8090}:8090"
+      # Caddy を使う本番では PB_BIND=127.0.0.1 にして直接公開しない
+      - "${PB_BIND:-0.0.0.0}:${PB_PORT:-8090}:8090"
     volumes:
       # DB (SQLite: data.db / auxiliary.db) とバックアップ
       - type: bind
@@ -48,6 +48,7 @@ services:
         condition: service_healthy
     environment:
       PB_DOMAIN: ${PB_DOMAIN:-localhost}
+      PB_PROXY_MAX_BODY: ${PB_PROXY_MAX_BODY:-110MB}
     ports:
       - "80:80"
       - "443:443"

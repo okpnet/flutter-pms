@@ -1,11 +1,14 @@
 {$PB_DOMAIN} {
-	# アップロード上限 (app_files.maxSize より少し大きく)
+	# アップロード上限 (.env の PB_FILE_MAX_MB より少し大きく → PB_PROXY_MAX_BODY)
 	request_body {
-		max_size 110MB
+		max_size {$PB_PROXY_MAX_BODY}
 	}
 
 	reverse_proxy pocketbase:8090 {
-		# realtime (SSE) を OAuth2 フローで使うためバッファリングしない
+		# realtime (SSE) をバッファリングしない
 		flush_interval -1
+		# クライアントIPを PocketBase に渡す（.env の PB_TRUSTED_PROXY=true と対で使う）。
+		# 受け取った X-Forwarded-For は上書きし、なりすましを防ぐ
+		header_up X-Forwarded-For {remote_host}
 	}
 }

@@ -6,7 +6,13 @@
 // 使い方:
 //   final service = await PbService.init('http://raspberrypi.local:8090');
 //   Navigator.push(context, MaterialPageRoute(
-//     builder: (_) => LoginPage(service: service, onLoggedIn: () { ... }),
+//     builder: (_) => LoginPage(
+//       service: service,
+//       onLoggedIn: () { ... },
+//       onSignup: () { ... },          // 申請ページ → service.requestSignup(...)
+//       onForgotPassword: () { ... },  // 再設定ページ → service.requestPasswordReset(identity)
+//       onEnterCode: () { ... },       // コード入力ページ → service.acceptCode(...)
+//     ),
 //   ));
 
 import 'package:flutter/material.dart';
@@ -19,14 +25,22 @@ class LoginPage extends StatefulWidget {
     super.key,
     required this.service,
     required this.onLoggedIn,
-    this.onInvite,
+    this.onSignup,
+    this.onForgotPassword,
+    this.onEnterCode,
   });
 
   final PbService service;
   final VoidCallback onLoggedIn;
 
-  /// 「招待コードで登録」画面へ (任意)
-  final VoidCallback? onInvite;
+  /// 「新規登録（申請）」画面へ (任意)
+  final VoidCallback? onSignup;
+
+  /// 「パスワードを忘れた」画面へ (任意)
+  final VoidCallback? onForgotPassword;
+
+  /// 「コードを入力」画面へ (任意)。有効化コード・再設定コードの両方を同じ画面で受け付ける
+  final VoidCallback? onEnterCode;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -74,8 +88,8 @@ class _LoginPageState extends State<LoginPage> {
     } on ClientException catch (e) {
       setState(() {
         _error = switch (e.statusCode) {
-          // どちらが違うかは明かさない (アカウント探索対策)
-          400 => 'ユーザーID/Eメールまたはパスワードが正しくありません',
+          // どちらが違うか・承認待ちかどうかは明かさない (アカウント探索対策)
+          400 => 'ユーザーID/Eメールまたはパスワードが正しくないか、アカウントが利用できません',
           429 => '試行回数が多すぎます。しばらく待ってから再度お試しください',
           0 => 'サーバーに接続できません',
           _ => 'ログインに失敗しました (${e.statusCode})',
@@ -151,13 +165,27 @@ class _LoginPageState extends State<LoginPage> {
                             )
                           : const Text('ログイン'),
                     ),
-                    if (widget.onInvite != null) ...[
-                      const SizedBox(height: 8),
-                      TextButton(
-                        onPressed: _busy ? null : widget.onInvite,
-                        child: const Text('招待コードで登録'),
-                      ),
-                    ],
+                    const SizedBox(height: 8),
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      children: [
+                        if (widget.onForgotPassword != null)
+                          TextButton(
+                            onPressed: _busy ? null : widget.onForgotPassword,
+                            child: const Text('パスワードを忘れた'),
+                          ),
+                        if (widget.onEnterCode != null)
+                          TextButton(
+                            onPressed: _busy ? null : widget.onEnterCode,
+                            child: const Text('コードを入力'),
+                          ),
+                        if (widget.onSignup != null)
+                          TextButton(
+                            onPressed: _busy ? null : widget.onSignup,
+                            child: const Text('新規登録（申請）'),
+                          ),
+                      ],
+                    ),
                   ],
                 ),
               ),
