@@ -283,3 +283,9 @@ window.OD_DATA.mrpRows = [
   { kind: "PRODUCTION_NEW",        code: "S-3004", name: "金型ベース Z-12",     qty: 3,    unit: "式", alloc: 0,    need: "2026-11-25", release: "2026-11-09", due: "2026-11-24", late: false, decision: 1, message: "" },
   { kind: "PURCHASE_CANCEL",       code: "P-2003", name: "ゴムパッキン G-50",   qty: 800,  unit: "個", alloc: 0,    need: "",           release: "",           due: "",           late: false, decision: 0, message: "使われない発注残です。取消を提案します。" },
 ];
+
+/* ---- 新規登録・パスワードを忘れた（モックの認証設定） ----
+   code      : 届いた想定の6桁コード。画面に「プロトタイプ用」として表示する。
+   takenIds  : すでに使われているユーザーID（小文字）。新規登録で入力すると重複エラーになる。
+   maxTries  : コードを続けて間違えられる回数。超えると入力を止める。 */
+window.OD_DATA.auth = { code: "123456", takenIds: ["suzuki.ichiro", "yamada.taro"], maxTries: 5 };

@@ -832,3 +832,9 @@ body[data-device="mobile"] .bc-choices { grid-template-columns: minmax(0, 1fr); 
 body[data-device="mobile"] .bc-row { flex-direction: column; flex-wrap: nowrap; }
 body[data-device="mobile"] .bc-row > * { width: 100%; flex: none; }
 body[data-device="mobile"] .bc-row input { flex: none; }
+
+/* ---------- login: links to register / forgot password ---------- */
+.login-links { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-1) var(--sp-5); padding: var(--sp-2) var(--sp-4) var(--sp-4); }
+.login-links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--accent); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.kc-form .btn { width: 100%; }
+.kc-form > p:not([class]) { margin: 0; font-size: var(--fs-sm); text-align: left; }

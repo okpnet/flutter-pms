@@ -555,3 +555,39 @@ features:
     code: B
     label: ダッシュボードのコンテナ
     screens:
+  - feature: auth_files
+    code: U
+    label: 認証・ファイル共有
+    screens:
+      - screen: login
+        code: L
+        page: UL
+        label: ログイン
+      - screen: register
+        code: S
+        page: US
+        label: 新規登録
+      - screen: forgot
+        code: R
+        page: UR
+        label: パスワードを忘れた
+      - screen: code
+        code: C
+        page: UC
+        label: 認証コードの入力
+      - screen: newpassword
+        code: P
+        page: UP
+        label: 新しいパスワード
+      - screen: files
+        code: F
+        page: UF
+        label: 共有ファイル
+      - screen: adminsignups
+        code: A
+        page: UA
+        label: 新規登録の管理
+      - screen: adminresets
+        code: Q
+        page: UQ
+        label: 再設定依頼の管理

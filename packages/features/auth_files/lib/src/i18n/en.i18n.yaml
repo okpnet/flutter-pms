@@ -1,0 +1,109 @@
+# Strings for authentication and file sharing (English). Mirrors the prototype in tools/open-design.
+common:
+  back: Back
+  loading: Working...
+  cancel: Cancel
+  required: Required
+  backToLogin: Back to sign in
+errors:
+  validation: Please check your input.
+  invalidCredentials: The user ID or password is incorrect.
+  codeInvalid: The user ID or code is incorrect, or the code has expired.
+  unauthorized: Sign-in is required. Please sign in again.
+  forbidden: You do not have permission for this operation.
+  notFound: The target was not found.
+  rateLimited: Too many attempts. Please try again later.
+  unavailable: Not accepting requests right now. Please try again later.
+  server: A server error occurred.
+  network: Cannot connect. Please check your connection.
+  unknown: An unexpected error occurred.
+  fileUnsupported: Files cannot be picked or saved in this environment.
+rules:
+  required: This field is required.
+  userId: The user ID must be 4 to 32 characters of letters, digits, . _ or -.
+  email: The email address format is not valid. (e.g. name@example.com)
+  kana: Enter the reading in hiragana or katakana. For a name in English, enter how it is read.
+  code: Enter the 12-character code. (No hyphens or spaces needed.)
+  password: The password must be at least {n} characters.
+  passwordConfirm: Enter the same value as the new password.
+login:
+  heading: Sign in to Production Management
+  identity: User ID or email
+  password: Password
+  submit: Sign in
+  forgot: Forgot your password
+  register: Register
+  haveCode: I have a code
+  sending: Signing in...
+register:
+  heading: Register
+  userId: User ID
+  email: Email address
+  name: Name
+  ruby: Reading (for an English name, how it is read)
+  submit: Send
+  note: Your request is sent to an administrator. If approved, you will receive a code.
+  acceptedHeading: Request received
+  accepted: Please wait for approval. If approved, a code is sent by email or handed over by an administrator.
+  toCode: Enter the code
+forgot:
+  heading: Forgot your password
+  description: Enter your user ID or email address. If an email is registered, a code is sent by email. Otherwise, ask an administrator for a code.
+  who: User ID or email address
+  submit: Send
+code:
+  heading: Enter code
+  description: Enter the code you received by email or from an administrator.
+  accepted: Received. Please get the code by email or from an administrator.
+  username: User ID
+  code: Code (12 characters)
+  submit: Confirm
+  back: Back to previous
+newPassword:
+  heading: New password
+  password: New password
+  passwordConfirm: New password (confirm)
+  note: Enter at least 8 characters. Both entries must be the same.
+  submit: Reset password
+  done: Your password was reset. Please sign in with the new password.
+files:
+  title: Shared files
+  description: Uploading with the same ID creates a new revision; older revisions are kept.
+  fileId: File ID
+  fileIdHint: Letters, digits, _ and -, up to 64 characters
+  comment: Comment (optional)
+  search: Show history
+  upload: Upload
+  uploaded: Uploaded (revision {revision}).
+  download: Download
+  downloaded: Saved.
+  empty: There is no file with this ID.
+  revision: Revision
+  name: File name
+  size: Size
+  invalidId: The file ID may contain only letters, digits, _ and -, up to 64 characters.
+admin:
+  signups:
+    title: Sign-up requests
+    empty: There are no pending requests.
+    userId: Preferred ID
+    email: Email
+    created: Requested at
+    approve: Approve
+    reject: Reject
+    appUserId: Staff ID (already registered in the App DB)
+    approved: Approved. Hand the code to the person.
+    rejected: Rejected.
+    confirmReject: Reject this request?
+  resets:
+    title: Reset requests
+    empty: There are no pending requests.
+    issue: Issue code
+    issued: Code issued. Verify the person and hand it over.
+    created: Requested at
+  issuedCode:
+    title: Issued code
+    code: Code
+    expires: Expires
+    mailed: Sent by email
+    handOver: Hand this to the person. It cannot be shown again after closing.

@@ -37,6 +37,7 @@ const FEATURES = {
   maintenance: { code: 'M', label: 'メンテナンス' },
   barcode_entry: { code: 'E', label: 'バーコード実績登録' },
   dashboard_container: { code: 'B', label: 'ダッシュボードのコンテナ' },
+  auth_files: { code: 'U', label: '認証・ファイル共有' },
 };
 
 /** 実体の台帳・編集ではない画面(手書き)。 */
@@ -48,6 +49,16 @@ const EXTRA_SCREENS = {
     ['logout', 'ログアウト', 'O'],
     ['error', 'エラー', 'E'],
     ['login', 'ログイン', 'L'],
+  ],
+  auth_files: [
+    ['login', 'ログイン', 'L'],
+    ['register', '新規登録', 'S'],
+    ['forgot', 'パスワードを忘れた', 'R'],
+    ['code', '認証コードの入力', 'C'],
+    ['newpassword', '新しいパスワード', 'P'],
+    ['files', '共有ファイル', 'F'],
+    ['adminsignups', '新規登録の管理', 'A'],
+    ['adminresets', '再設定依頼の管理', 'Q'],
   ],
   maintenance: [['maintenance', 'メンテナンス中', 'M']],
   barcode_entry: [['top', 'リーディングトップ', 'T']],

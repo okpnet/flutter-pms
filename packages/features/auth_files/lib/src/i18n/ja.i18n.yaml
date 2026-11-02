@@ -1,0 +1,109 @@
+# 認証とファイル共有の文字列(日本語。基準言語)。画面案(tools/open-design)の文言に合わせる。
+common:
+  back: 戻る
+  loading: 処理中...
+  cancel: キャンセル
+  required: 必須
+  backToLogin: ログインに戻る
+errors:
+  validation: 入力内容を確認してください。
+  invalidCredentials: ユーザーIDまたはパスワードが正しくありません。
+  codeInvalid: ユーザーIDまたはコードが正しくないか、有効期限が切れています。
+  unauthorized: ログインが必要です。もう一度ログインしてください。
+  forbidden: この操作を行う権限がありません。
+  notFound: 対象が見つかりません。
+  rateLimited: 試行が多すぎます。しばらくしてからもう一度お試しください。
+  unavailable: 現在受け付けていません。しばらくしてからもう一度お試しください。
+  server: サーバーでエラーが発生しました。
+  network: 通信できません。接続を確認してください。
+  unknown: 予期しないエラーが発生しました。
+  fileUnsupported: この環境ではファイルを選択・保存できません。
+rules:
+  required: 入力してください。
+  userId: ユーザーIDは、半角の英数字と . _ - で、4〜32文字にしてください。
+  email: メールアドレスの形式が正しくありません。(例:name@example.com)
+  kana: ふりがなは、ひらがな・カタカナで入力してください。英語の名前は、読みを入力します。
+  code: コードは12文字の英数字で入力してください。(ハイフン・空白は不要です)
+  password: パスワードは{n}文字以上にしてください。
+  passwordConfirm: 新しいパスワードと同じ値を入力してください。
+login:
+  heading: 生産管理にサインイン
+  identity: ユーザーIDまたはEメール
+  password: パスワード
+  submit: ログイン
+  forgot: パスワードを忘れた
+  register: 新規登録
+  haveCode: 認証コードをお持ちの方
+  sending: ログインしています...
+register:
+  heading: 新規登録
+  userId: ユーザーID
+  email: メールアドレス
+  name: 名前
+  ruby: ふりがな(英語の名前は読み)
+  submit: 送信
+  note: 送信すると管理者に申請されます。承認されると、認証コードが渡されます。
+  acceptedHeading: 申請を受け付けました
+  accepted: 管理者の承認をお待ちください。承認されると、メールまたは管理者から認証コードが渡されます。
+  toCode: 認証コードを入力する
+forgot:
+  heading: パスワードを忘れた
+  description: ユーザーIDまたはメールアドレスを入力してください。メールが登録されている場合は、認証コードをメールでお送りします。メールが無い場合は、管理者に確認して認証コードを受け取ってください。
+  who: ユーザーIDまたはメールアドレス
+  submit: 送信
+code:
+  heading: 認証コードの入力
+  description: 認証コードを入力してください。認証コードはメールまたは管理者から受け取ります。
+  accepted: 受け付けました。メールまたは管理者から認証コードを受け取ってください。
+  username: ユーザーID
+  code: 認証コード(12文字)
+  submit: 確認
+  back: 前の画面に戻る
+newPassword:
+  heading: 新しいパスワード
+  password: 新しいパスワード
+  passwordConfirm: 新しいパスワード(確認)
+  note: 8文字以上で入力してください。2つの入力が同じでないと、再設定できません。
+  submit: パスワードを再設定
+  done: パスワードを再設定しました。新しいパスワードでログインしてください。
+files:
+  title: 共有ファイル
+  description: 同じIDで再アップロードすると新しい版になり、古い版も残ります。
+  fileId: ファイルID
+  fileIdHint: 英数字と _ - 、64文字まで
+  comment: コメント(任意)
+  search: 履歴を表示
+  upload: アップロード
+  uploaded: アップロードしました(版 {revision})。
+  download: ダウンロード
+  downloaded: 保存しました。
+  empty: このIDのファイルはありません。
+  revision: 版
+  name: ファイル名
+  size: サイズ
+  invalidId: ファイルIDは英数字と _ - の64文字までです。
+admin:
+  signups:
+    title: 登録申請
+    empty: 未処理の申請はありません。
+    userId: 希望ID
+    email: Eメール
+    created: 申請日時
+    approve: 承認
+    reject: 却下
+    appUserId: 担当者のID(App DBで登録済みのもの)
+    approved: 承認しました。コードを本人へ渡してください。
+    rejected: 却下しました。
+    confirmReject: この申請を却下しますか?
+  resets:
+    title: 再設定の依頼
+    empty: 未処理の依頼はありません。
+    issue: コードを発行
+    issued: コードを発行しました。本人確認のうえ、手渡してください。
+    created: 依頼日時
+  issuedCode:
+    title: 発行したコード
+    code: コード
+    expires: 有効期限
+    mailed: メールで送信済み
+    handOver: 本人へ手渡ししてください。閉じると再表示できません。

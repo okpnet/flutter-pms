@@ -148,6 +148,11 @@
     settings: "設定",
     boot: "起動中",
     login: "ログイン",
+    register: "新規登録",
+    "register/code": "認証コードの入力",
+    forgot: "パスワードを忘れた",
+    "forgot/code": "認証コードの入力",
+    "forgot/reset": "新しいパスワード",
     error: "エラー",
   };
   /* #/company/provision/<id|new>, #/company/position/<id|new>, #/company/position/<pid>/assign/<id|new> */
@@ -505,15 +510,15 @@
     ["remarks", "備考", "textarea", 1024, false],
   ];
   /* ---------- edit structure helpers ---------- */
-  const fieldRow = ({ id, label, kind = "input", max = 60, req = true, options = [], value = "", taken = null, blank = "選択してください", after = null, min = null, toggle = false, disabled = false, ge = null, gt = null, keepMsg = null, needUnless = null, disables = null }) => {
+  const fieldRow = ({ id, label, kind = "input", max = 60, req = true, options = [], value = "", taken = null, blank = "選択してください", after = null, min = null, toggle = false, disabled = false, ge = null, gt = null, keepMsg = null, needUnless = null, disables = null, rule = null, attrs = "" }) => {
     if (kind === "check") {
       return `<div class="field-row field-check ${toggle ? "is-switch" : ""}"><input type="checkbox" id="f-${id}" name="${id}" value="1" ${value ? "checked" : ""} ${toggle ? 'role="switch"' : ""} ${keepMsg ? `data-keep-msg="${esc(keepMsg)}"` : ""} ${disables ? `data-disables="${disables}"` : ""} aria-describedby="e-${id}"><label for="f-${id}">${label}</label><p class="field-err" id="e-${id}"></p></div>`;
     }
-    const common = `id="f-${id}" name="${id}" ${req ? "required" : ""} aria-describedby="e-${id}" ${taken ? `data-taken="${esc(JSON.stringify(taken))}"` : ""} ${after ? `data-after="${after}"` : ""} ${min ? `data-min="${min}"` : ""} ${ge != null ? `data-ge="${ge}"` : ""} ${gt != null ? `data-gt="${gt}"` : ""} ${needUnless ? `data-need-unless="${needUnless}"` : ""} ${disabled ? "disabled" : ""}`;
+    const common = `id="f-${id}" name="${id}" ${req ? "required" : ""} aria-describedby="e-${id}" ${taken ? `data-taken="${esc(JSON.stringify(taken))}"` : ""} ${after ? `data-after="${after}"` : ""} ${min ? `data-min="${min}"` : ""} ${ge != null ? `data-ge="${ge}"` : ""} ${gt != null ? `data-gt="${gt}"` : ""} ${needUnless ? `data-need-unless="${needUnless}"` : ""} ${disabled ? "disabled" : ""} ${rule ? `data-rule="${rule}"` : ""} ${attrs}`;
     let ctl;
     if (kind === "textarea") ctl = `<textarea ${common} rows="3" maxlength="${max}">${esc(value)}</textarea>`;
     else if (kind === "select") ctl = `<select ${common}><option value="">${blank}</option>${options.map(([v, l]) => `<option value="${esc(v)}" ${v === value ? "selected" : ""}>${esc(l)}</option>`).join("")}</select>`;
-    else ctl = `<input ${common} type="${{ date: "date", month: "month", number: "number" }[kind] ?? "text"}" ${kind === "number" ? 'step="any" inputmode="decimal"' : ""} maxlength="${max}" value="${esc(value)}">`;
+    else ctl = `<input ${common} type="${{ date: "date", month: "month", number: "number", email: "email", password: "password" }[kind] ?? "text"}" ${kind === "number" ? 'step="any" inputmode="decimal"' : ""} maxlength="${max}" value="${esc(value)}">`;
     return `<div class="field-row"><label for="f-${id}">${label}${req ? '<span class="req">必須</span>' : ""}</label>${ctl}<p class="field-err" id="e-${id}"></p></div>`;
   };
   /* updatedBy / updatedAt are immutable: shown, never editable */
@@ -2903,14 +2908,16 @@
   const loginScreen = () => `<div class="logout-wrap"><section class="card logout-card login-card" aria-labelledby="login-h">
       <div class="logout-icon">${icon("emblem")}</div>
       <h1 id="login-h">生産管理にサインイン</h1>
+      ${flashHtml()}
       <div class="kc-frame" role="group" aria-label="認証サーバーの画面（内部ブラウザ）">
         <div class="kc-bar"><span class="kc-lock" aria-hidden="true">${icon("check")}</span><span class="kc-url od-truncate">https://auth.example.test/realms/pms</span></div>
         <form class="kc-form" id="login-form" novalidate>
           ${loginMsg ? `<p class="login-err" role="alert" id="login-err">${icon("alert")}<span>${esc(loginMsg)}</span></p>` : ""}
           <div class="field-row"><label for="lg-user">ユーザー名<span class="req">必須</span></label><input id="lg-user" name="user" autocomplete="username" value="suzuki.ichiro" required></div>
-          <div class="field-row"><label for="lg-pass">パスワード<span class="req">必須</span></label><input id="lg-pass" name="pass" type="password" autocomplete="current-password" value="demo-password" required></div>
+          <div class="field-row"><label for="lg-pass">パスワード<span class="req">必須</span></label><input id="lg-pass" name="pass" type="password" autocomplete="current-password" value="${AUTH.changed ? "" : esc(AUTH.password)}" required></div>
           <button class="btn btn-primary" type="submit" id="login-btn">ログイン</button>
         </form>
+        <div class="login-links"><a href="#/forgot">パスワードを忘れた</a><a href="#/register">新規登録</a></div>
       </div>
       <p class="note">プロトタイプでは、初期値のまま「ログイン」で進めます。パスワードを変えると、ログイン失敗の表示を確認できます。</p>
       <a class="btn" href="#/error" data-err="conn">認証サーバーに接続できないときの画面</a>
@@ -2919,6 +2926,131 @@
       <div class="logout-icon err">${icon("alert")}</div><h1>${esc(gErr.title)}</h1><p>${esc(gErr.msg)}</p>
       <p class="note">エラーコード：<span class="od-nowrap">${esc(gErr.code)}</span></p>
       <div class="logout-actions"><a class="btn btn-primary" href="#/login">ログイン画面へ</a></div></section></div>`;
+  /* ---------- account: register / forgot password (bare screens in the same frame as the login) ----------
+     新規登録: 入力(必須4項目) → 6桁コード → ログイン。 パスワードを忘れた: ID/メール → 6桁コード → 新しいパスワード → ログイン。
+     コードは実際には送らない。プロトタイプでは data.js の auth.code (123456) が届いた想定。 */
+  D.auth ??= { code: "123456", takenIds: ["suzuki.ichiro", "yamada.taro"], maxTries: 5 };
+  const AUTH = { password: "demo-password", changed: false };
+  const acct = { flow: null, who: "", tries: 0, verified: false, values: null, note: "" };
+  const acctReset = () => Object.assign(acct, { flow: null, who: "", tries: 0, verified: false, values: null, note: "" });
+  const RULES = {
+    uid: (v) => (!/^[A-Za-z0-9._-]{4,32}$/.test(v) ? "ユーザーIDは、半角の英数字と . _ - で、4〜32文字にしてください。"
+      : D.auth.takenIds.includes(v.toLowerCase()) ? `「${v}」は既に使われています。別のユーザーIDにしてください。` : ""),
+    email: (v) => (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? "" : "メールアドレスの形式が正しくありません。（例：name@example.com）"),
+    kana: (v) => (/^[ぁ-ゖァ-ヺー・\s]+$/.test(v) ? "" : "ふりがなは、ひらがな・カタカナで入力してください。英語の名前は、読みを入力します。"),
+    code: (v) => (/^\d{6}$/.test(v) ? "" : "6桁の数字を入力してください。"),
+    pw: (v) => (v.length >= 8 ? "" : "パスワードは8文字以上にしてください。"),
+    pw2: (v, f) => (v === f.elements.pw.value ? "" : "新しいパスワードと同じ値を入力してください。"),
+  };
+  const maskEmail = (m) => { const [l, d] = m.split("@"); return `${l.slice(0, 1)}***@${d}`; };
+  const acctShell = (id, title, url, inner, foot) => `<div class="logout-wrap"><section class="card logout-card login-card" aria-labelledby="${id}-h">
+      <div class="logout-icon">${icon("emblem")}</div>
+      <h1 id="${id}-h">${title}</h1>
+      <div class="kc-frame" role="group" aria-label="認証サーバーの画面（内部ブラウザ）">
+        <div class="kc-bar"><span class="kc-lock" aria-hidden="true">${icon("check")}</span><span class="kc-url od-truncate">https://auth.example.test/realms/pms/${url}</span></div>
+        ${inner}
+      </div>${foot}</section></div>`;
+  const registerScreen = () => {
+    const v = acct.values ?? {};
+    return acctShell("reg", "新規登録", "registrations", `<form class="kc-form" id="acct-form" data-step="register" novalidate>
+        ${fieldRow({ id: "uid", label: "ユーザーID", max: 32, rule: "uid", value: v.uid ?? "", attrs: 'autocomplete="username" autocapitalize="none"' })}
+        ${fieldRow({ id: "email", label: "メールアドレス", kind: "email", max: 80, rule: "email", value: v.email ?? "", attrs: 'autocomplete="email"' })}
+        ${fieldRow({ id: "name", label: "名前", max: 40, value: v.name ?? "", attrs: 'autocomplete="name"' })}
+        ${fieldRow({ id: "ruby", label: "ふりがな（英語の名前は読み）", max: 60, rule: "kana", value: v.ruby ?? "" })}
+        <button class="btn btn-primary" type="submit">送信</button>
+      </form>`, `<p class="note">送信すると、ご入力のメールアドレスに6桁のコードを送ります。</p><a class="btn" href="#/login">ログインに戻る</a>`);
+  };
+  const forgotScreen = () => acctShell("fgt", "パスワードを忘れた", "reset-credentials", `<form class="kc-form" id="acct-form" data-step="forgot" novalidate>
+      <p>ユーザーIDまたはメールアドレスを入力してください。登録されている場合は、6桁のコードをメールでお送りします。</p>
+      ${fieldRow({ id: "who", label: "ユーザーIDまたはメールアドレス", max: 80, value: acct.who ?? "", attrs: 'autocomplete="username" autocapitalize="none"' })}
+      <button class="btn btn-primary" type="submit">送信</button>
+    </form>`, `<a class="btn" href="#/login">ログインに戻る</a>`);
+  const codeScreen = (flow) => {
+    const locked = acct.tries >= D.auth.maxTries;
+    const to = acct.who.includes("@") ? `${maskEmail(acct.who)} に` : "登録されている場合は、ご登録のメールアドレスに";
+    return acctShell("code", "認証コードの入力", `${flow === "register" ? "registrations" : "reset-credentials"}/code`, `<form class="kc-form" id="acct-form" data-step="code" novalidate>
+        <p>${esc(to)}6桁のコードを送りました。コードを入力してください。（有効時間：10分）</p>
+        ${acct.note ? `<p class="flash" role="status">${icon("check")}<span>${esc(acct.note)}</span></p>` : ""}
+        ${locked ? `<p class="login-err" role="alert">${icon("alert")}<span>続けて間違えたため、入力を止めました。しばらく時間をおいてから、最初からやり直してください。</span></p>` : ""}
+        ${fieldRow({ id: "code", label: "認証コード（6桁）", max: 6, rule: "code", disabled: locked, attrs: 'inputmode="numeric" autocomplete="one-time-code"' })}
+        <button class="btn btn-primary" type="submit" ${locked ? "disabled" : ""}>確認</button>
+        <button class="btn" type="button" data-resend ${locked ? "disabled" : ""}>コードを再送する</button>
+      </form>`, `<p class="note">プロトタイプ用の表示：実際のメールは送られません。届いたコードは ${esc(D.auth.code)} の想定です。</p><a class="btn" href="#/${flow === "register" ? "register" : "forgot"}">前の画面に戻る</a>`);
+  };
+  const resetScreen = () => acctShell("rst", "新しいパスワード", "reset-credentials/password", `<form class="kc-form" id="acct-form" data-step="reset" novalidate>
+      ${fieldRow({ id: "pw", label: "新しいパスワード", kind: "password", max: 64, rule: "pw", attrs: 'autocomplete="new-password"' })}
+      ${fieldRow({ id: "pw2", label: "新しいパスワード（確認）", kind: "password", max: 64, rule: "pw2", attrs: 'autocomplete="new-password"' })}
+      <p class="note">8文字以上で入力してください。2つの入力が同じでないと、再設定できません。</p>
+      <button class="btn btn-primary" type="submit">パスワードを再設定</button>
+    </form>`, `<a class="btn" href="#/login">ログインに戻る</a>`);
+
+  const acctCheck = (el, form) => {
+    let msg = validateField(el);
+    if (!msg && el.dataset.rule && !el.disabled) {
+      msg = RULES[el.dataset.rule](el.type === "password" ? el.value : el.value.trim(), form);
+      el.setAttribute("aria-invalid", msg ? "true" : "false");
+      document.getElementById("e-" + el.name).textContent = msg;
+    }
+    return msg;
+  };
+  function acctSubmit(form) {
+    const val = (n) => form.elements[n].value.trim();
+    const step = form.dataset.step;
+    if (step === "register") {
+      acct.flow = "register";
+      acct.values = { uid: val("uid"), email: val("email"), name: val("name"), ruby: val("ruby") };
+      acct.who = acct.values.email;
+      acct.tries = 0;
+      acct.note = "";
+      location.hash = "#/register/code";
+    } else if (step === "forgot") {
+      Object.assign(acct, { flow: "forgot", who: val("who"), tries: 0, verified: false, note: "" });
+      location.hash = "#/forgot/code";
+    } else if (step === "code") {
+      if (acct.tries >= D.auth.maxTries) return;
+      if (val("code") !== D.auth.code) {
+        acct.tries += 1;
+        const left = D.auth.maxTries - acct.tries;
+        if (left <= 0) { render(); return; }
+        const el = form.elements.code;
+        el.setAttribute("aria-invalid", "true");
+        document.getElementById("e-code").textContent = `コードが一致しません。もう一度確認してください。（あと${left}回）`;
+        el.focus();
+        return;
+      }
+      if (acct.flow === "register") {
+        D.auth.takenIds.push(acct.values.uid.toLowerCase());
+        flash = `登録が完了しました。ユーザーID「${acct.values.uid}」でログインできます。`;
+        acctReset();
+        location.hash = "#/login";
+      } else {
+        acct.verified = true;
+        location.hash = "#/forgot/reset";
+      }
+    } else if (step === "reset") {
+      AUTH.password = form.elements.pw.value;
+      AUTH.changed = true;
+      flash = "パスワードを再設定しました。新しいパスワードでログインしてください。";
+      acctReset();
+      location.hash = "#/login";
+    }
+  }
+  function bindAcct(form) {
+    const fields = () => [...form.querySelectorAll("input")];
+    fields().forEach((el) => el.addEventListener("blur", () => acctCheck(el, form)));
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const bad = fields().filter((el) => acctCheck(el, form));
+      if (bad.length) { bad[0].focus(); return; }
+      acctSubmit(form);
+    });
+    form.querySelector("[data-resend]")?.addEventListener("click", () => {
+      acct.note = "コードを再送しました。";
+      render();
+      document.getElementById("f-code")?.focus();
+    });
+  }
+
   const SETTINGS = { theme: "system", lang: "ja-JP", pageSize: 50 };
   const DEFAULT_PHOTO = D.user.photo;
   const PAGE_SIZE = { min: 10, max: 500, step: 10, std: 50 };
@@ -3110,13 +3242,15 @@
       document.getElementById("page-msg").textContent = "";
     });
     document.querySelector("[data-err=conn]")?.addEventListener("click", () => { gErr = { title: "認証サーバーに接続できません", msg: "ネットワークの状態を確認して、もう一度お試しください。", code: "KC-503" }; });
+    const af = document.getElementById("acct-form");
+    if (af) { bindAcct(af); document.querySelector("input:not([disabled])")?.focus(); }
     const lf = document.getElementById("login-form");
     if (lf) lf.addEventListener("submit", (e) => {
       e.preventDefault();
       const u = lf.elements.user.value.trim();
       const p = lf.elements.pass.value;
       if (!u || !p) { loginMsg = "ユーザー名とパスワードを入力してください。"; render(); document.getElementById(u ? "lg-pass" : "lg-user").focus(); return; }
-      if (p !== "demo-password") { loginMsg = "ユーザー名またはパスワードが正しくありません。"; render(); document.getElementById("lg-pass").focus(); return; }
+      if (p !== AUTH.password) { loginMsg = "ユーザー名またはパスワードが正しくありません。"; render(); document.getElementById("lg-pass").focus(); return; }
       const btn = document.getElementById("login-btn");
       btn.disabled = true;
       btn.textContent = "サインインしています…";
@@ -3234,7 +3368,9 @@
       : route === "g" ? GS[P.sid]?.label ?? "業務画面"
       : route === "g/entity" ? `${G[P.ent]?.label ?? "業務"}の編集`
       : ROUTES[route];
-    const bare = ["boot", "login", "error"].includes(route) || mntLive;
+    const need = { "register/code": acct.flow === "register", "forgot/code": acct.flow === "forgot", "forgot/reset": acct.flow === "forgot" && acct.verified };
+    if (route in need && !need[route]) { location.hash = route.startsWith("register") ? "#/register" : "#/forgot"; return; }
+    const bare = ["boot", "login", "error", "register", "register/code", "forgot", "forgot/code", "forgot/reset"].includes(route) || mntLive;
     navPop = null;
     NAV.forEach((n) => { if (n.group && (n.children.some((c) => c.id && isCurNav(c.id, route)) || route === "resources")) navOpen.add(n.group); });
     if (route === "company") draft = null;
@@ -3252,7 +3388,7 @@
     if (isLogout) {
       screen.innerHTML = (!mobile ? pageHead(title) : "") + logoutScreen(logoutState);
     } else if (bare) {
-      screen.innerHTML = mntLive ? downtimeScreen(true) : { boot: bootScreen, login: loginScreen, error: errorScreen }[route]();
+      screen.innerHTML = mntLive ? downtimeScreen(true) : { boot: bootScreen, login: loginScreen, error: errorScreen, register: registerScreen, "register/code": () => codeScreen("register"), forgot: forgotScreen, "forgot/code": () => codeScreen("forgot"), "forgot/reset": resetScreen }[route]();
     } else {
       const body = {
         home: homeScreen,
