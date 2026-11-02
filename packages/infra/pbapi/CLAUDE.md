@@ -5,17 +5,38 @@
 
 通信は公式のDart SDK [`pocketbase`](https://pub.dev/packages/pocketbase)(サーバーと同じ作者)を使います。独自のHTTP実装・他のOAuthライブラリは使いません(理由は`doc/log/20261101_0001.md`)。
 
+### アカウントの状態
+サーバー(`users`)の状態は`pending`(申請中)→`approved`(承認済み・未有効化)→`active`(有効)、および`disabled`(無効)。**ログインできるのは`active`だけで、可否はサーバーが判定する**(クライアントは状態を判定しない)。ログインできない理由(未承認・未有効化・無効・パスワード違い)は区別して返さず、すべて`invalidCredentials`になる。
+
 ### 機能
 | 機能 | 入口 | 内容 |
 |---|---|---|
-| 新規登録 | `AccountService.register` | 招待制。管理者が決めたユーザーID+招待コード+利用者が決めたパスワード。登録後そのままログイン |
+| 登録申請 | `AccountService.requestSignup` | `POST /api/app/signup`。氏名・希望ID・任意のメール・本人情報`profile`(自由なJSON、16KBまで)。応答はいつも同じ(202)で、希望IDの使用状況はわからない。未処理の申請が上限に達すると受付停止(503) |
+| コード入力(有効化・再設定) | `AccountService.acceptCode` | `POST /api/app/codes/accept`。ユーザーID+コード+新しいパスワード。有効化とパスワード再設定で共通。成功は204。失敗は理由によらず同じ400 |
+| パスワードを忘れた | `AccountService.requestPasswordReset` | `POST /api/app/password-reset/request`。ユーザーIDまたはEメール。応答はいつも同じ(202)。メールで送るか管理者が手渡すかはサーバーが判断し、クライアントは分岐しない。続けて`acceptCode`でコードを入力する |
 | パスワード変更 | `AccountService.changePassword` | 古いパスワードが一致したら新しいパスワードを適用。トークンが失効するため新しいパスワードで入り直す |
-| パスワードを忘れた(メールあり) | `requestPasswordReset` → `confirmPasswordReset` | メールのコード(トークン)と新しいパスワードをまとめて渡す |
-| パスワードを忘れた(メールなし) | `requestAdminPasswordReset` | 連絡手段`IAdminContact`をアプリが差し込む |
-| ログイン/ログアウト | `SessionService.login` / `logout` | ログインはトークン(JWT)を含む`AuthSession`を返す。ログアウトは端末のトークンを破棄 |
-| セッション管理 | `ensureSession` / `watch` | サーバーへ問い合わせて有効かを返す。アクションの度、または`watch`で定期的に |
+| プロフィール変更 | `AccountService.updateProfile` | 本人が変えられるのは`name`と`avatar`だけ。`username`・`app_user_id`・`role`・`email`・`disabled`は変えられない |
+| ログイン/ログアウト | `SessionService.login` / `logout` | ログイン欄は「ユーザーIDまたはEメール」の1つ。大文字小文字は区別しない。トークン(JWT)を含む`AuthSession`を返す。ログアウトは端末のトークンを破棄 |
+| セッション管理 | `ensureSession` / `watch` | サーバーへ問い合わせて有効かを返す(auth-refresh)。画面の切り替え・保存・呼び出しの度、または`watch`で定期的に。401/403/404ならトークンを破棄してログイン画面へ戻す |
+| GraphQL用トークン | `SessionService.graphqlToken` | `GET /api/app/graphql-token`。短期(既定15分)のJWTと期限。期限の少し前まで使い回し、切れたら`ensureSession`の後に取り直す。サーバーが無設定のときは404 |
+| 管理者(申請・コード・無効化) | `AdminService` | 下の表 |
 | 共有ファイル | `SharedFileService` | アップロードはIDと版を返す。ファイルIDからダウンロード(最新または指定の版)。上書きしない |
 | 個人ファイル | `PersonalFileService` | 設定のアップロード・ダウンロード・削除。本人だけが参照できる(サーバーの準備が必要。`doc/contents/server_user_files.md`) |
+
+**管理者**(`role=admin`かつ有効なユーザー、またはsuperuser)だけが使える`AdminService`。権限はサーバーが判定し、一般ユーザーが呼ぶと`forbidden`になる。管理者アカウントを対象にした操作(再設定コード・無効化など)はsuperuserだけ。
+
+| メソッド | API | 内容 |
+|---|---|---|
+| `listSignupRequests` | `GET /api/collections/signup_profiles/records?expand=user` | 申請の一覧 |
+| `activate` | `POST /api/app/admin/users/{id}/activate` | 承認。`app_user_id`(必須)・`username`・`email`・`name`を指定し、有効化コードを返す |
+| `reject` | `POST /api/app/admin/users/{id}/reject` | 却下。申請中のユーザーと本人情報をまとめて削除 |
+| `createUser` | `POST /api/app/admin/users` | 管理者が先に登録(「承認済み」で作成し、有効化コードを返す)。`role=admin`を付けられるのはsuperuserだけ |
+| `listResetRequests` | `GET /api/collections/reset_requests/records?filter=status='open'&expand=user` | メールなしの再設定依頼の一覧 |
+| `issueResetCode` | `POST /api/app/admin/users/{id}/reset-code` | 再設定コードの発行。依頼は自動でクローズ |
+| `setDisabled` | `POST /api/app/admin/users/{id}/disable` | 無効化(全端末のトークンを即時失効)・再有効化 |
+
+- 新規ユーザーの流れは「申請(`requestSignup`)→ 管理者が`listSignupRequests`で確認し、App DBに担当者を登録して`pb_user_id`を保存 → `activate`でコード発行(メールあり・SMTP有効ならサーバーが送信、`mailed=false`なら手渡し)→ 本人が`acceptCode`」。**順番は「App DBに登録 → `activate`」で固定**。`activate`は同じ`app_user_id`で何度でも呼べ、呼ぶたびにコードを発行し直して前のコードを無効にする(コードを紛失したときも同じ)。
+- コードは12文字(`0 O 1 I`なし)。ハイフン・空白・大文字小文字は区別しない。1回限り。有効期限は有効化72時間・再設定24時間。規定回数失敗すると無効になる。
 
 ### 使い方の流れ
 ```dart
@@ -27,22 +48,25 @@ final connection = await PbConnection.open(
 ProviderScope(overrides: [pbConnectionProvider.overrideWithValue(connection)], child: ...);
 
 final session = ref.read(sessionServiceProvider);
-await session.login('tanaka.t', password);
+await session.login('tanaka.t', password);     // ユーザーIDまたはEメール
 if (!await session.ensureSession()) { /* ログイン画面へ */ }
 ```
 詳細は`doc/contents/usage.md`。
 
 ## セキュリティ
-1.  トークンは秘密情報。`AuthSession.toJson`・例外・ログに含めない。保存先`ITokenStore`は本番では`flutter_secure_storage`などの安全な保管庫で実装する(`shared_preferences`の平文は避ける)。
+1.  トークンは秘密情報。`AuthSession.toJson`・例外・ログに含めない。保存先`ITokenStore`は本番では`flutter_secure_storage`などの安全な保管庫で実装する(`shared_preferences`の平文は避ける)。GraphQL用のJWTも同じ扱い。
 1.  ローカルのネットワーク以外では`https`を必須とする(`PbEndpoint`)。`http`は`localhost`・`10.x`・`172.16-31.x`・`192.168.x.x`・`*.local`だけ。
 1.  SDKの例外(URLに短時間用のトークンが入りうる)は外へ出さず、`PbException`(種類・ステータス・サーバーのメッセージ)に変換する。
-1.  パスワードは検証の失敗でも例外・ログに出さない。長さの確認(8文字以上)は通信の前に行う。
-1.  ログインの失敗は`invalidCredentials`だけを返し、ユーザーIDの有無はわからない。メールでの再設定の依頼も、登録の有無がわからない。
+1.  パスワードとコードは検証の失敗でも例外・ログに出さない。パスワードの長さの確認(8文字以上)は通信の前に行う。管理者APIが返す有効化コード・再設定コードも秘密情報で、`toJson`・ログに含めない。
+1.  ログインの失敗は`invalidCredentials`だけを返し、ユーザーIDの有無・状態はわからない。コード入力の失敗(誤り・期限切れ・回数超過・ID違い)も区別しない。申請とパスワードの再設定の依頼も、登録の有無がわからない(いつも成功として扱う)。
 1.  ダウンロードは短時間だけ有効なトークンを都度取得し、URLを保存・表示しない。
 
 ## 規則(このライブラリ固有)
 1.  接続先・トークンの保存先・ロガーは`PbConnection`が持ち、各サービスはそれを受け取る(サービスが接続先を持たない)。
-1.  サーバーの失敗は`PbException`で投げる。入力の誤りや認証の失敗(400/401/403/404/429)はエラーログに残さず、通信・サーバー(network/server/unknown)の失敗だけを`[pbapi]`接頭辞付きの`error`で残す。
+1.  サーバーの失敗は`PbException`で投げる。入力の誤りや認証の失敗(400/401/403/404/429)と申請の受付停止(503)は`debug`、通信・サーバー(network/server/unknown)の失敗だけを`error`で、どちらも`PbException.logMessage`(`[pbapi] 操作名: 種類 (status=N) fields={項目:コード} server="…"`)の1行で残す。
+1.  エラーメッセージはログ・エラー追跡のためのもので、ユーザーに見せる文言ではない。このライブラリは利用者向けの文言を持たず、機能の切り分けに必要な情報(操作名・種類`kind`・ステータス・項目ごとのエラーコード`fieldErrors`・サーバーのメッセージ)だけを持つ。`fieldErrors`は文言ではなくコード(`validation_required`など)。利用者向けの文言への置き換えはページ(画面)側の責務。メッセージにパスワード・コード・トークン・URL・入力値を含めない。プログラムの誤り(`ArgumentError`)のメッセージも、開発者向けの英語で条件だけを書く。
+1.  サーバーの状態(申請中・承認済み・有効・無効)や管理者の権限を、クライアントで判定しない。サーバーの応答(`invalidCredentials`・`forbidden`など)に従う。
+1.  429(レート制限)は同じIPからの回数で制限される。対象は申請・再設定の依頼・コード入力・ログイン。`rateLimited`として返す。
 1.  アプリのDBには、`AuthSession.appUserId`と、ファイルの`StoredFile.recordId`(または`appFileId`+`revision`)だけを保存する。ファイルの実体は持たない。
 1.  `IPageSessionMediator`(`page_mediator_extension`)との接続は、別のIssueで行う。
 

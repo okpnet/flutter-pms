@@ -15,13 +15,13 @@ class PbEndpoint {
     if (uri == null ||
         uri.host.isEmpty ||
         (uri.scheme != 'http' && uri.scheme != 'https')) {
-      throw ArgumentError.value(url, 'url', 'http(s)://ホスト[:ポート] の形で指定してください');
+      throw ArgumentError.value(url, 'url', 'must be http(s)://host[:port]');
     }
     if (uri.scheme == 'http' && !_isLocalHost(uri.host)) {
       throw ArgumentError.value(
         url,
         'url',
-        'ローカルのネットワーク以外では https を使ってください(パスワードとトークンが平文で流れます)',
+        'plain http is allowed only for local networks (password and token would be sent unencrypted); use https',
       );
     }
     var path = uri.path;

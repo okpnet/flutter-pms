@@ -89,7 +89,7 @@ class PersonalFileService {
 
   void _checkKey(String key) {
     if (!_keyPattern.hasMatch(key)) {
-      throw ArgumentError.value(key, 'key', '英小文字・数字・_ - . の64文字までにしてください');
+      throw ArgumentError.value(key, 'key', 'must match [a-z0-9][a-z0-9_.-]{0,63}');
     }
   }
 }

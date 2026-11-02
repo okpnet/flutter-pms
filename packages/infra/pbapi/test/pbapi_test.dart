@@ -141,6 +141,25 @@ void main() {
       expect(logger.errors, isEmpty);
     });
 
+    test('無効・未承認のユーザーの403も、パスワード違いと同じinvalidCredentials', () async {
+      server.on(
+        'POST',
+        '/api/collections/users/auth-with-password',
+        (r) => server.json({'status': 403, 'message': 'x'}, status: 403),
+      );
+      final session = SessionService(await server.open(logger: logger));
+      await expectLater(
+        session.login('x', 'y'),
+        throwsA(
+          isA<PbException>().having(
+            (e) => e.kind,
+            'kind',
+            PbFailureKind.invalidCredentials,
+          ),
+        ),
+      );
+    });
+
     test('試行が多すぎればrateLimited', () async {
       server.on(
         'POST',
@@ -266,69 +285,142 @@ void main() {
     });
   });
 
-  group('新規登録・パスワード', () {
+  group('登録申請・コード入力・パスワード', () {
     late FakePocketBase server;
     late AccountService account;
     late SessionService session;
+    late RecordingLogger logger;
 
     setUp(() async {
       server = FakePocketBase();
+      logger = RecordingLogger();
       server.on(
         'POST',
         '/api/collections/users/auth-with-password',
         (r) => server.json(authBody()),
       );
-      final connection = await server.open();
+      final connection = await server.open(logger: logger);
       session = SessionService(connection);
       account = AccountService(connection, session);
     });
 
-    test('招待コードで登録し、そのままログインする', () async {
+    test('登録申請は空の項目を送らず、ログインはしない', () async {
       server.on(
         'POST',
-        '/api/app/invites/accept',
-        (r) => server.json({'ok': true}),
+        '/api/app/signup',
+        (r) => server.json({'status': 'accepted'}, status: 202),
       );
-      final result = await account.register(
-        username: ' tanaka.t ',
-        inviteCode: ' abcd2345efgh ',
-        password: 'pass1234',
+      await account.requestSignup(
+        fullName: ' 山田 太郎 ',
+        requestedUsername: ' yamada.t ',
+        contactEmail: '  ',
+        profile: {'dept_wish': '製造部'},
       );
-      expect(result.username, 'tanaka.t');
       final sent = jsonDecode(
-        server.where('POST', '/api/app/invites/accept').single.body,
+        server.where('POST', '/api/app/signup').single.body,
       );
-      expect(sent['username'], 'tanaka.t');
-      expect(sent['code'], 'abcd2345efgh');
-      expect(sent['passwordConfirm'], 'pass1234');
+      expect(sent['full_name'], '山田 太郎');
+      expect(sent['requested_username'], 'yamada.t');
+      expect(sent.containsKey('contact_email'), isFalse);
+      expect(sent['profile'], {'dept_wish': '製造部'});
+      expect(session.current, isNull);
     });
 
-    test('招待が無効ならvalidationで、サーバーの説明を持つ', () async {
+    test('受付停止(503)はunavailableで、一時的な失敗として扱うがエラーログには残さない', () async {
       server.on(
         'POST',
-        '/api/app/invites/accept',
+        '/api/app/signup',
+        (r) => server.json({'status': 503, 'message': 'closed'}, status: 503),
+      );
+      await expectLater(
+        account.requestSignup(fullName: 'a'),
+        throwsA(
+          isA<PbException>()
+              .having((e) => e.kind, 'kind', PbFailureKind.unavailable)
+              .having((e) => e.isTransient, 'isTransient', isTrue),
+        ),
+      );
+      expect(logger.errors, isEmpty);
+    });
+
+    test('コード入力はコードを加工せず送り(照合はサーバー)、ログインはしない', () async {
+      server.on('POST', '/api/app/codes/accept', (r) => http204());
+      await account.acceptCode(
+        username: ' tanaka.t ',
+        code: ' abcd-efgh-jklm ',
+        password: 'pass1234',
+      );
+      final sent = jsonDecode(
+        server.where('POST', '/api/app/codes/accept').single.body,
+      );
+      expect(sent['username'], 'tanaka.t');
+      expect(sent['code'], 'abcd-efgh-jklm');
+      expect(sent['password'], 'pass1234');
+      expect(sent['passwordConfirm'], 'pass1234');
+      expect(session.current, isNull);
+    });
+
+    test('コードが無効なら理由によらずvalidation。例外とログにコード・パスワードを含めない', () async {
+      server.on(
+        'POST',
+        '/api/app/codes/accept',
         (r) => server.json({
           'status': 400,
-          'message': 'Invalid invite.',
+          'message': 'invalid or expired',
+          'data': {},
+        }, status: 400),
+      );
+      Object? caught;
+      try {
+        await account.acceptCode(
+          username: 'a',
+          code: 'SECRET-CODE-1234',
+          password: 'pass-secret-1',
+        );
+      } on PbException catch (e) {
+        caught = e;
+      }
+      final e = caught! as PbException;
+      expect(e.kind, PbFailureKind.validation);
+      expect(e.operation, 'acceptCode');
+      for (final text in [
+        e.toString(),
+        jsonEncode(e.toJson()),
+        ...logger.errors,
+      ]) {
+        expect(text, isNot(contains('SECRET-CODE')));
+        expect(text, isNot(contains('pass-secret')));
+      }
+    });
+
+    test('項目のエラーは文言ではなくコードで持つ', () async {
+      server.on(
+        'POST',
+        '/api/app/codes/accept',
+        (r) => server.json({
+          'status': 400,
+          'message': 'Failed.',
           'data': {
-            'code': {'code': 'invalid', 'message': '招待コードが違います'},
+            'username': {
+              'code': 'validation_required',
+              'message': 'ユーザーIDを入力してください。',
+            },
           },
         }, status: 400),
       );
       await expectLater(
-        account.register(username: 'a', inviteCode: 'x', password: 'pass1234'),
+        account.acceptCode(username: '', code: 'x', password: 'pass1234'),
         throwsA(
-          isA<PbException>()
-              .having((e) => e.kind, 'kind', PbFailureKind.validation)
-              .having((e) => e.fieldErrors['code'], 'code', '招待コードが違います'),
+          isA<PbException>().having((e) => e.fieldErrors, 'fieldErrors', {
+            'username': 'validation_required',
+          }),
         ),
       );
-      expect(session.current, isNull);
     });
 
     test('短いパスワードは通信せずArgumentError(値は例外に出さない)', () async {
       await expectLater(
-        account.register(username: 'a', inviteCode: 'x', password: 'short'),
+        account.acceptCode(username: 'a', code: 'x', password: 'short'),
         throwsA(
           isA<ArgumentError>().having(
             (e) => e.toString(),
@@ -338,6 +430,21 @@ void main() {
         ),
       );
       expect(server.requests, isEmpty);
+    });
+
+    test('パスワードを忘れた依頼は、ユーザーIDまたはEメールをそのまま送る', () async {
+      server.on(
+        'POST',
+        '/api/app/password-reset/request',
+        (r) => server.json({'status': 'accepted'}, status: 202),
+      );
+      await account.requestPasswordReset(' tanaka.t ');
+      expect(
+        jsonDecode(
+          server.where('POST', '/api/app/password-reset/request').single.body,
+        ),
+        {'identity': 'tanaka.t'},
+      );
     });
 
     test('パスワード変更は古いパスワードを送り、新しいパスワードで入り直す', () async {
@@ -397,68 +504,331 @@ void main() {
         ),
         throwsA(
           isA<PbException>().having(
-            (e) => e.fieldErrors.containsKey('oldPassword'),
+            (e) => e.fieldErrors['oldPassword'],
             'oldPassword',
-            isTrue,
+            'validation_invalid_old_password',
           ),
         ),
       );
     });
 
-    test('再設定メールの依頼とコードでの再設定', () async {
-      server.on(
-        'POST',
-        '/api/collections/users/request-password-reset',
-        (r) => http204(),
-      );
-      server.on(
-        'POST',
-        '/api/collections/users/confirm-password-reset',
-        (r) => http204(),
-      );
-      await account.requestPasswordReset(' a@example.com ');
-      await account.confirmPasswordReset(
-        token: ' tok ',
-        newPassword: 'new-pass-2',
-      );
-      expect(
-        jsonDecode(
-          server
-              .where('POST', '/api/collections/users/request-password-reset')
-              .single
-              .body,
-        )['email'],
-        'a@example.com',
-      );
-      final confirm = jsonDecode(
-        server
-            .where('POST', '/api/collections/users/confirm-password-reset')
-            .single
-            .body,
-      );
-      expect(confirm['token'], 'tok');
-      expect(confirm['passwordConfirm'], 'new-pass-2');
-    });
-
-    test('管理者への依頼は、連絡手段が無ければnotConfigured。あれば呼ぶ', () async {
+    test('プロフィール変更は名前とアバターだけを送る。未ログインはunauthorized', () async {
       await expectLater(
-        account.requestAdminPasswordReset('tanaka.t'),
+        account.updateProfile(name: 'x'),
         throwsA(
           isA<PbException>().having(
             (e) => e.kind,
             'kind',
-            PbFailureKind.notConfigured,
+            PbFailureKind.unauthorized,
           ),
         ),
       );
-      final contact = _FakeAdminContact();
-      final withContact = AccountService(
-        await server.open(),
-        session,
-        adminContact: contact,
+      await session.login('tanaka.t', 'x');
+      server.on(
+        'PATCH',
+        '/api/collections/users/records/u1',
+        (r) => server.json(authBody()['record']),
       );
-      await withContact.requestAdminPasswordReset(' tanaka.t ');
-      expect(contact.requested, ['tanaka.t']);
+      await account.updateProfile(name: 'tanaka', avatarBytes: [1, 2, 3]);
+      final body = server
+          .where('PATCH', '/api/collections/users/records/u1')
+          .single
+          .body;
+      expect(body, contains('name="avatar"'));
+      expect(body, contains('{"name":"tanaka"}')); // SDK ã¯æ¬æã @jsonPayload ã«ã¾ã¨ãã
+      expect(body, isNot(contains('username')));
+      expect(body, isNot(contains('role')));
+    });
+  });
+
+  group('GraphQL用トークン', () {
+    late FakePocketBase server;
+    late SessionService session;
+
+    setUp(() async {
+      server = FakePocketBase();
+      server.on(
+        'POST',
+        '/api/collections/users/auth-with-password',
+        (r) => server.json(authBody()),
+      );
+      server.on(
+        'GET',
+        '/api/app/graphql-token',
+        (r) => server.json({'token': 'gql.jwt', 'expires_in': 900}),
+      );
+      session = SessionService(await server.open());
+    });
+
+    test('未ログインはunauthorized(通信しない)', () async {
+      await expectLater(
+        session.graphqlToken(),
+        throwsA(
+          isA<PbException>().having(
+            (e) => e.kind,
+            'kind',
+            PbFailureKind.unauthorized,
+          ),
+        ),
+      );
+      expect(server.requests, isEmpty);
+    });
+
+    test('期限まで使い回し、期限の前なら取り直す。toStringにトークンは含まれない', () async {
+      await session.login('tanaka.t', 'x');
+      final first = await session.graphqlToken();
+      final second = await session.graphqlToken();
+      expect(first.token, 'gql.jwt');
+      expect(identical(first, second), isTrue);
+      expect(server.where('GET', '/api/app/graphql-token'), hasLength(1));
+      expect(first.toString(), isNot(contains('gql.jwt')));
+
+      await session.graphqlToken(margin: const Duration(minutes: 20));
+      expect(server.where('GET', '/api/app/graphql-token'), hasLength(2));
+    });
+
+    test('ログアウトで破棄する。サーバーが無設定(404)ならnotFound', () async {
+      await session.login('tanaka.t', 'x');
+      await session.graphqlToken();
+      await session.logout();
+      await session.login('tanaka.t', 'x');
+      await session.graphqlToken();
+      expect(server.where('GET', '/api/app/graphql-token'), hasLength(2));
+
+      server.on(
+        'GET',
+        '/api/app/graphql-token',
+        (r) => server.json({'status': 404, 'message': 'x'}, status: 404),
+      );
+      await expectLater(
+        session.graphqlToken(margin: const Duration(hours: 1)),
+        throwsA(
+          isA<PbException>().having(
+            (e) => e.kind,
+            'kind',
+            PbFailureKind.notFound,
+          ),
+        ),
+      );
+    });
+  });
+
+  group('管理者', () {
+    late FakePocketBase server;
+    late AdminService admin;
+
+    Map<String, Object?> codeBody({String kind = 'activate'}) => {
+      'user': {
+        'id': 'p1',
+        'username': 'yamada.t',
+        'app_user_id': 'U0001',
+        'status': 'approved',
+      },
+      'kind': kind,
+      'code': 'ABCD-EFGH-JKLM',
+      'expires_at': '2026-11-05 10:00:00.000Z',
+      'mailed': false,
+    };
+
+    Map<String, Object?> page(List<Map<String, Object?>> items) => {
+      'page': 1,
+      'perPage': 500,
+      'totalItems': items.length,
+      'totalPages': 1,
+      'items': items,
+    };
+
+    setUp(() async {
+      server = FakePocketBase();
+      server.on(
+        'POST',
+        '/api/collections/users/auth-with-password',
+        (r) => server.json(authBody()),
+      );
+      final connection = await server.open();
+      await SessionService(connection).login('admin1', 'x');
+      admin = AdminService(connection);
+    });
+
+    test('未ログインは通信せずunauthorized', () async {
+      final anonymous = AdminService(await FakePocketBase().open());
+      await expectLater(
+        anonymous.listSignupRequests(),
+        throwsA(
+          isA<PbException>().having(
+            (e) => e.kind,
+            'kind',
+            PbFailureKind.unauthorized,
+          ),
+        ),
+      );
+    });
+
+    test('申請の一覧を古い順に取り、本人情報を読む', () async {
+      server.on('GET', '/api/collections/signup_profiles/records', (r) {
+        expect(r.url.queryParameters['sort'], 'created');
+        expect(r.url.queryParameters['expand'], 'user');
+        return server.json(
+          page([
+            {
+              'id': 's1',
+              'collectionId': 'c_sp',
+              'collectionName': 'signup_profiles',
+              'user': 'p1',
+              'full_name': '山田 太郎',
+              'requested_username': 'yamada.t',
+              'contact_email': '',
+              'profile': {'dept_wish': '製造部'},
+              'note': '',
+              'created': '2026-11-02 09:00:00.000Z',
+            },
+          ]),
+        );
+      });
+      final list = await admin.listSignupRequests();
+      expect(list.single.userId, 'p1');
+      expect(list.single.fullName, '山田 太郎');
+      expect(list.single.profile, {'dept_wish': '製造部'});
+      expect(list.single.created, isNotNull);
+    });
+
+    test('承認はapp_user_idを送り、コードを返す。toJson・toStringにコードを含めない', () async {
+      server.on(
+        'POST',
+        '/api/app/admin/users/p1/activate',
+        (r) => server.json(codeBody()),
+      );
+      final issued = await admin.activate(
+        userId: 'p1',
+        appUserId: ' U0001 ',
+        email: '',
+      );
+      expect(issued.code, 'ABCD-EFGH-JKLM');
+      expect(issued.kind, CodeKind.activate);
+      expect(issued.mailed, isFalse);
+      expect(issued.appUserId, 'U0001');
+      expect(issued.expiresAt, isNotNull);
+      expect(jsonEncode(issued.toJson()), isNot(contains('ABCD')));
+      expect(issued.toString(), isNot(contains('ABCD')));
+      final sent = jsonDecode(
+        server.where('POST', '/api/app/admin/users/p1/activate').single.body,
+      );
+      expect(sent, {'app_user_id': 'U0001', 'email': ''});
+    });
+
+    test('一般ユーザーの呼び出しはサーバーのforbiddenに従う', () async {
+      server.on(
+        'POST',
+        '/api/app/admin/users/p1/activate',
+        (r) => server.json({'status': 403, 'message': 'x'}, status: 403),
+      );
+      await expectLater(
+        admin.activate(userId: 'p1', appUserId: 'U1'),
+        throwsA(
+          isA<PbException>()
+              .having((e) => e.kind, 'kind', PbFailureKind.forbidden)
+              .having((e) => e.operation, 'operation', 'activate'),
+        ),
+      );
+    });
+
+    test('却下・無効化・再有効化・先に登録・再設定コード', () async {
+      server.on('POST', '/api/app/admin/users/p1/reject', (r) => http204());
+      server.on(
+        'POST',
+        '/api/app/admin/users/p1/disable',
+        (r) => server.json({'user': {}}),
+      );
+      server.on(
+        'POST',
+        '/api/app/admin/users',
+        (r) => server.json(codeBody(), status: 201),
+      );
+      server.on(
+        'POST',
+        '/api/app/admin/users/p1/reset-code',
+        (r) => server.json(codeBody(kind: 'reset')),
+      );
+      await admin.reject('p1');
+      await admin.setDisabled('p1');
+      await admin.setDisabled('p1', disabled: false);
+      final created = await admin.createUser(
+        username: 'yamada.t',
+        appUserId: 'U0001',
+        role: 'admin',
+        mail: false,
+      );
+      expect(created.userId, 'p1');
+      final reset = await admin.issueResetCode('p1');
+      expect(reset.kind, CodeKind.reset);
+
+      final disables = server.where('POST', '/api/app/admin/users/p1/disable');
+      expect(jsonDecode(disables[0].body), {'disabled': true});
+      expect(jsonDecode(disables[1].body), {'disabled': false});
+      expect(
+        jsonDecode(server.where('POST', '/api/app/admin/users').single.body),
+        {
+          'username': 'yamada.t',
+          'app_user_id': 'U0001',
+          'role': 'admin',
+          'mail': false,
+        },
+      );
+    });
+
+    test('再設定依頼の一覧は未対応だけを、依頼したユーザーの名前つきで返す', () async {
+      server.on('GET', '/api/collections/reset_requests/records', (r) {
+        expect(r.url.queryParameters['filter'], "status = 'open'");
+        return server.json(
+          page([
+            {
+              'id': 'r1',
+              'collectionId': 'c_rr',
+              'collectionName': 'reset_requests',
+              'user': 'p1',
+              'status': 'open',
+              'created': '2026-11-02 09:00:00.000Z',
+              'expand': {
+                'user': {
+                  'id': 'p1',
+                  'collectionId': 'c_users',
+                  'collectionName': 'users',
+                  'username': 'yamada.t',
+                  'name': '山田 太郎',
+                },
+              },
+            },
+          ]),
+        );
+      });
+      final list = await admin.listResetRequests();
+      expect(list.single.userId, 'p1');
+      expect(list.single.username, 'yamada.t');
+      expect(list.single.name, '山田 太郎');
+    });
+
+    test('空のユーザーIDはArgumentError(通信しない)', () async {
+      final before = server.requests.length;
+      await expectLater(admin.reject(' '), throwsArgumentError);
+      expect(server.requests.length, before);
+    });
+  });
+
+  group('PbException', () {
+    test('ログ用の1行に、操作・種類・ステータス・項目のコードを含み、入力値は含めない', () {
+      const e = PbException(
+        PbFailureKind.validation,
+        statusCode: 400,
+        operation: 'acceptCode',
+        message: 'Failed.',
+        fieldErrors: {'password': 'validation_length_out_of_range'},
+      );
+      expect(
+        e.logMessage,
+        '[pbapi] acceptCode: validation (status=400) '
+        'fields={password:validation_length_out_of_range} server="Failed."',
+      );
+      expect(e.toString(), e.logMessage);
     });
   });
 
@@ -851,11 +1221,3 @@ void main() {
 }
 
 http.Response http204() => http.Response('', 204);
-
-class _FakeAdminContact implements IAdminContact {
-  final requested = <String>[];
-
-  @override
-  Future<void> requestPasswordReset(String username) async =>
-      requested.add(username);
-}

@@ -3,6 +3,7 @@ import 'package:pocketbase/pocketbase.dart';
 import '../core/pb_connection.dart';
 import '../core/pb_exception.dart';
 import 'auth_session.dart';
+import 'graphql_token.dart';
 
 /// ログイン・ログアウトとセッションの確認。
 class SessionService {
@@ -10,6 +11,7 @@ class SessionService {
 
   final PbConnection _connection;
   DateTime? _lastVerified;
+  GraphqlToken? _graphqlToken;
 
   PocketBase get _pb => _connection.pb;
 
@@ -22,11 +24,24 @@ class SessionService {
   /// [PbException]: ID/パスワードの不一致は [PbFailureKind.invalidCredentials]、
   /// 試行が多すぎれば [PbFailureKind.rateLimited]。
   Future<AuthSession> login(String identity, String password) async {
-    await _connection.guard(
-      'login',
-      () => _pb.collection('users').authWithPassword(identity.trim(), password),
-      badRequestAs: PbFailureKind.invalidCredentials,
-    );
+    try {
+      await _connection.guard(
+        'login',
+        () =>
+            _pb.collection('users').authWithPassword(identity.trim(), password),
+        badRequestAs: PbFailureKind.invalidCredentials,
+      );
+    } on PbException catch (e) {
+      // 未承認・未有効化・無効のユーザーが正しいパスワードで入ると、サーバーは400ではなく403を返す。
+      // 区別するとパスワードが合っていることがわかるため、他の不一致と同じ invalidCredentials にそろえる。
+      if (e.kind != PbFailureKind.forbidden) rethrow;
+      throw PbException(
+        PbFailureKind.invalidCredentials,
+        statusCode: e.statusCode,
+        operation: e.operation,
+        message: e.message,
+      );
+    }
     _lastVerified = DateTime.now();
     return current!;
   }
@@ -36,6 +51,7 @@ class SessionService {
   Future<void> logout() async {
     _pb.authStore.clear();
     _lastVerified = null;
+    _graphqlToken = null;
   }
 
   /// セッションが有効かをサーバーに問い合わせ(トークンの検証と延長)、有効なら true。
@@ -66,10 +82,44 @@ class SessionService {
           e.kind == PbFailureKind.notFound) {
         _pb.authStore.clear();
         _lastVerified = null;
+        _graphqlToken = null;
         return false;
       }
       rethrow;
     }
+  }
+
+  /// GraphQL サーバー用の短期の JWT を返す。期限の [margin] 前までは取得済みのものを使い回し、
+  /// 過ぎていれば取り直す。失敗が続くときは、先に [ensureSession] で確認する。
+  ///
+  /// [PbException]: 未ログインは [PbFailureKind.unauthorized]。サーバーが GraphQL 用に
+  /// 設定されていないときは [PbFailureKind.notFound]。
+  Future<GraphqlToken> graphqlToken({
+    Duration margin = const Duration(seconds: 60),
+  }) async {
+    _connection.requireLogin();
+    final cached = _graphqlToken;
+    if (cached != null &&
+        DateTime.now().add(margin).isBefore(cached.expiresAt)) {
+      return cached;
+    }
+    final response = await _connection.guard(
+      'graphqlToken',
+      () => _pb.send('/api/app/graphql-token', method: 'GET'),
+    );
+    final token = response is Map ? response['token'] : null;
+    final seconds = response is Map ? response['expires_in'] : null;
+    if (token is! String || token.isEmpty || seconds is! num) {
+      throw const PbException(
+        PbFailureKind.unknown,
+        operation: 'graphqlToken',
+        message: 'unexpected response (token or expires_in is missing)',
+      );
+    }
+    return _graphqlToken = GraphqlToken(
+      token: token,
+      expiresAt: DateTime.now().add(Duration(seconds: seconds.toInt())),
+    );
   }
 
   /// 一定間隔でセッションを確認し、結果を流す。通信できなかった回は何も流さない

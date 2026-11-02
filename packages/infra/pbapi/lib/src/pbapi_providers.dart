@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'account/account_service.dart';
-import 'account/admin_contact.dart';
+import 'admin/admin_service.dart';
 import 'core/pb_connection.dart';
 import 'files/personal_file_service.dart';
 import 'files/shared_file_service.dart';
@@ -15,9 +15,6 @@ final pbConnectionProvider = Provider<PbConnection>(
   ),
 );
 
-/// 管理者への連絡手段。使うアプリだけが上書きする(既定は未設定)。
-final adminContactProvider = Provider<IAdminContact?>((ref) => null);
-
 final sessionServiceProvider = Provider<SessionService>(
   (ref) => SessionService(ref.watch(pbConnectionProvider)),
 );
@@ -26,8 +23,11 @@ final accountServiceProvider = Provider<AccountService>(
   (ref) => AccountService(
     ref.watch(pbConnectionProvider),
     ref.watch(sessionServiceProvider),
-    adminContact: ref.watch(adminContactProvider),
   ),
+);
+
+final adminServiceProvider = Provider<AdminService>(
+  (ref) => AdminService(ref.watch(pbConnectionProvider)),
 );
 
 final sharedFileServiceProvider = Provider<SharedFileService>(

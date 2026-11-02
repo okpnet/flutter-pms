@@ -144,7 +144,7 @@ class SharedFileService {
       throw ArgumentError.value(
         appFileId,
         'appFileId',
-        '英数字と _ - の64文字までにしてください',
+        'must match [A-Za-z0-9_-]{1,64}',
       );
     }
   }
@@ -182,20 +182,24 @@ Future<Uint8List> fetchRecordFile(
     if (response.statusCode != 200) {
       final ex = PbException.fromClient(
         ClientException(statusCode: response.statusCode),
+        operation: operation,
       );
       if (!(ex.kind == PbFailureKind.unauthorized ||
           ex.kind == PbFailureKind.notFound ||
           ex.kind == PbFailureKind.forbidden)) {
-        connection.logger.error(
-          '[pbapi] $operation のファイル取得に失敗しました (${ex.kind.name}, status=${ex.statusCode})',
-        );
+        connection.logger.error(ex.logMessage);
       }
       throw ex;
     }
     return response.bodyBytes;
   } on http.ClientException {
-    connection.logger.error('[pbapi] $operation のファイル取得で通信できませんでした');
-    throw const PbException(PbFailureKind.network);
+    final ex = PbException(
+      PbFailureKind.network,
+      operation: operation,
+      message: 'file transfer failed (no response)',
+    );
+    connection.logger.error(ex.logMessage);
+    throw ex;
   } finally {
     client.close();
   }

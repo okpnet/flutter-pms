@@ -48,15 +48,19 @@ class PbConnection {
   /// 「見つからない」と取り違えないよう、通信の前に確認する。
   void requireLogin() {
     if (!pb.authStore.isValid) {
-      throw const PbException(PbFailureKind.unauthorized);
+      throw const PbException(
+        PbFailureKind.unauthorized,
+        message: 'not logged in (checked before sending)',
+      );
     }
   }
 
   /// ファイルのダウンロードなど、SDK を通さない通信に使う HTTP クライアント。使い終わったら close する。
   http.Client newHttpClient() => _httpClientFactory();
 
-  /// SDK の例外を [PbException] にして投げ直す。通信・サーバーの失敗だけをエラーログに残す
-  /// (入力の誤りや認証の失敗は想定内のため残さない。パスワード・トークン・URLは残さない)。
+  /// SDK の例外を [PbException] にして投げ直す。通信・サーバーの失敗だけをエラーログに残し、
+  /// 入力の誤りや認証の失敗(想定内)は debug にとどめる。ログはどちらも [PbException.logMessage]
+  /// (パスワード・コード・トークン・URLは含まない)。
   Future<T> guard<T>(
     String operation,
     Future<T> Function() body, {
@@ -65,13 +69,17 @@ class PbConnection {
     try {
       return await body();
     } on ClientException catch (e) {
-      final ex = PbException.fromClient(e, badRequestAs: badRequestAs);
+      final ex = PbException.fromClient(
+        e,
+        operation: operation,
+        badRequestAs: badRequestAs,
+      );
       if (ex.kind == PbFailureKind.network ||
           ex.kind == PbFailureKind.server ||
           ex.kind == PbFailureKind.unknown) {
-        logger.error(
-          '[pbapi] $operation に失敗しました (${ex.kind.name}, status=${ex.statusCode})',
-        );
+        logger.error(ex.logMessage);
+      } else {
+        logger.debug(ex.logMessage);
       }
       throw ex;
     }

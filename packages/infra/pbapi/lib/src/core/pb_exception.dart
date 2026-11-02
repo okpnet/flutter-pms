@@ -1,8 +1,11 @@
 import 'package:pocketbase/pocketbase.dart';
 
-/// 失敗の種類。画面は [PbException.kind] で表示を分ける。
+/// 失敗の種類。呼び出し側は [PbException.kind] で処理を分ける。
+///
+/// このライブラリはユーザーに見せる文言を持たない。メッセージはログ・エラー追跡のためのもので、
+/// 利用者向けの文言への置き換えはページ(画面)側の責務。
 enum PbFailureKind {
-  /// 入力が受け付けられなかった(400。招待コードの誤り、パスワードの不備など)。
+  /// 入力が受け付けられなかった(400。コードの誤り・期限切れ、パスワードの不備など)。
   validation,
 
   /// ユーザーIDまたはパスワードが違う(ログインの400)。
@@ -20,14 +23,14 @@ enum PbFailureKind {
   /// 試行が多すぎる(429)。
   rateLimited,
 
-  /// サーバーの内部エラー(5xx)。
+  /// 受け付けていない(503。登録申請の受付停止、またはサーバーの一時的な停止)。
+  unavailable,
+
+  /// サーバーの内部エラー(5xx。503を除く)。
   server,
 
   /// 通信できない(接続断・タイムアウト)。
   network,
-
-  /// 設定されていない機能を呼んだ。
-  notConfigured,
 
   unknown,
 }
@@ -37,6 +40,7 @@ class PbException implements Exception {
   const PbException(
     this.kind, {
     this.statusCode = 0,
+    this.operation = '',
     this.message = '',
     this.fieldErrors = const {},
   });
@@ -44,19 +48,41 @@ class PbException implements Exception {
   final PbFailureKind kind;
   final int statusCode;
 
-  /// サーバーが返したメッセージ(あれば)。
+  /// 失敗した操作の名前(例: `login`、`acceptCode`)。どの機能の失敗かを切り分けるため。
+  final String operation;
+
+  /// サーバーが返したメッセージ(あれば)。ログ用で、利用者に見せる前提ではない。
   final String message;
 
-  /// 項目ごとのエラー(例: `{'password': 'Must be at least 8 character(s).'}`)。
+  /// 項目ごとのエラーコード(例: `{'password': 'validation_length_out_of_range'}`)。
+  /// 文言ではなくコードを持つ。入力値は含まない。
   final Map<String, String> fieldErrors;
 
   /// 通信・サーバーの問題で、少し待てばやり直せる可能性がある。
   bool get isTransient =>
-      kind == PbFailureKind.network || kind == PbFailureKind.server;
+      kind == PbFailureKind.network ||
+      kind == PbFailureKind.server ||
+      kind == PbFailureKind.unavailable;
+
+  /// ログに残す1行。操作・種類・ステータス・項目のコード・サーバーのメッセージだけで、
+  /// パスワード・コード・トークン・URLは含まない。
+  String get logMessage {
+    final b = StringBuffer('[pbapi] ');
+    if (operation.isNotEmpty) b.write('$operation: ');
+    b.write('${kind.name} (status=$statusCode)');
+    if (fieldErrors.isNotEmpty) {
+      b.write(
+        ' fields={${fieldErrors.entries.map((e) => '${e.key}:${e.value}').join(', ')}}',
+      );
+    }
+    if (message.isNotEmpty) b.write(' server="$message"');
+    return b.toString();
+  }
 
   /// SDK の例外を変換する。[badRequestAs] は 400 の読み替え(ログインでは invalidCredentials)。
   factory PbException.fromClient(
     ClientException e, {
+    String operation = '',
     PbFailureKind badRequestAs = PbFailureKind.validation,
   }) {
     final status = e.statusCode;
@@ -67,6 +93,7 @@ class PbException implements Exception {
       403 => PbFailureKind.forbidden,
       404 => PbFailureKind.notFound,
       429 => PbFailureKind.rateLimited,
+      503 => PbFailureKind.unavailable,
       >= 500 => PbFailureKind.server,
       _ => PbFailureKind.unknown,
     };
@@ -74,12 +101,13 @@ class PbException implements Exception {
     return PbException(
       kind,
       statusCode: status,
+      operation: operation,
       message: '${e.response['message'] ?? ''}',
       fieldErrors: {
         if (data is Map)
           for (final entry in data.entries)
             if (entry.value is Map)
-              '${entry.key}': '${(entry.value as Map)['message'] ?? ''}',
+              '${entry.key}': '${(entry.value as Map)['code'] ?? ''}',
       },
     );
   }
@@ -87,11 +115,11 @@ class PbException implements Exception {
   Map<String, Object?> toJson() => {
     'kind': kind.name,
     'statusCode': statusCode,
+    'operation': operation,
     'message': message,
     'fieldErrors': fieldErrors,
   };
 
   @override
-  String toString() =>
-      'PbException(${kind.name}, status: $statusCode, $message)';
+  String toString() => logMessage;
 }
