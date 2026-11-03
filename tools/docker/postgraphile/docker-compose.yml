@@ -7,10 +7,15 @@ services:
     restart: always
     ports:
       - "5000:5000"
-    volumes: 
+    volumes:
       - ./.postgraphilerc.js:/.postgraphilerc.js
     command:
+      # --- 接続 -------------------------------------------------------------
+      # リクエスト用: authenticator（LOGIN NOINHERIT）。JWT の role へ SET LOCAL role で切り替える
       - "--connection"
+      - "postgres://${DB_AUTH_UID:-authenticator}:${DB_AUTH_PWD:?DB_AUTH_PWD を .env に設定してください}@${DB_IP}:${DB_PORT}/${DB_APP_NAME}"
+      # --watch 用（従来の接続ユーザー）。postgraphile_watch のイベントトリガー導入などに使う
+      - "--owner-connection"
       - "postgres://${DB_APP_UID}:${DB_APP_PWD}@${DB_IP}:${DB_PORT}/${DB_APP_NAME}"
       - "--schema"
       - "${DB_SCHEMA}"
@@ -19,3 +24,15 @@ services:
       - "/schema.graphql"
       - "--append-plugins"
       - "postgraphile-plugin-nested-mutations,postgraphile-plugin-connection-filter"
+      # --- JWT（PocketBase の PB_GRAPHQL_JWT_* と一致させる） --------------------
+      - "--jwt-secret"
+      - "${PB_GRAPHQL_JWT_SECRET:?PB_GRAPHQL_JWT_SECRET を .env に設定してください（PocketBase と同じ値）}"
+      - "--jwt-verify-audience"
+      - "${PB_GRAPHQL_JWT_AUDIENCE:-postgraphile}"
+      - "--jwt-verify-algorithms"
+      - "HS256"
+      - "--jwt-verify-clock-tolerance"
+      - "${PGL_JWT_CLOCK_TOLERANCE:-30}"
+      # JWT なしのリクエストに使うロール
+      - "--default-role"
+      - "${PGL_DEFAULT_ROLE:-app_anonymous}"

@@ -10,6 +10,15 @@ services:
     container_name: pocketbase
     restart: unless-stopped
     env_file: .env
+    environment:
+      # --- GraphQL (PostGraphile) 連携 -------------------------------------
+      # GET /api/app/graphql-token が発行する HS256 JWT の設定。
+      # PB_GRAPHQL_JWT_SECRET は PostGraphile の jwtSecret と同じ値にする（空なら 404 = 連携無効）。
+      PB_GRAPHQL_JWT_SECRET: ${PB_GRAPHQL_JWT_SECRET:-}
+      PB_GRAPHQL_JWT_TTL_SECONDS: ${PB_GRAPHQL_JWT_TTL_SECONDS:-900}
+      PB_GRAPHQL_JWT_AUDIENCE: ${PB_GRAPHQL_JWT_AUDIENCE:-postgraphile}
+      PB_GRAPHQL_JWT_DB_ROLE: ${PB_GRAPHQL_JWT_DB_ROLE:-app_user}
+      PB_GRAPHQL_JWT_ADMIN_DB_ROLE: ${PB_GRAPHQL_JWT_ADMIN_DB_ROLE:-app_admin}
     ports:
       # Caddy を使う本番では PB_BIND=127.0.0.1 にして直接公開しない
       - "${PB_BIND:-0.0.0.0}:${PB_PORT:-8090}:8090"

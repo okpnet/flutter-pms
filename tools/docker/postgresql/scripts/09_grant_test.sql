@@ -1,9 +1,9 @@
 \c test_avocado
-GRANT ALL ON ALL SEQUENCES IN SCHEMA tests TO tester_admin;
-GRANT ALL ON ALL FUNCTIONS IN SCHEMA tests TO tester_admin;
-GRANT ALL ON ALL TABLES IN SCHEMA tests TO tester_admin;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA tests TO pms_admin,tester_admin;
+GRANT ALL ON ALL FUNCTIONS IN SCHEMA tests TO pms_admin,tester_admin;
+GRANT ALL ON ALL TABLES IN SCHEMA tests TO pms_admin,tester_admin;
 
-GRANT CREATE ON DATABASE test_avocado TO tester_admin;
-GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA tests TO tester_admin;
-GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA tests TO tester;
-GRANT SELECT,UPDATE,DELETE ON ALL TABLES IN SCHEMA  tests TO tester;
+GRANT CREATE ON DATABASE test_avocado TO pms_admin,tester_admin;
+GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA tests TO pms_admin,tester_admin;
+GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA tests TO pms_user;
+GRANT SELECT,UPDATE,DELETE ON ALL TABLES IN SCHEMA  tests TO pms_user;
