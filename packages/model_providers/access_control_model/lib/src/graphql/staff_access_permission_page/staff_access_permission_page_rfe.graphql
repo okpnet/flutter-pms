@@ -1,0 +1,20 @@
+# staff_access_permission_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: gql/*.yaml #StaffAccessPermissionPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query StaffAccessPermissionPageRfe(
+  $infoStaffAccessPermissionId: UUID!
+) {
+  infoStaffAccessPermissionByInfoStaffAccessPermissionId(infoStaffAccessPermissionId: $infoStaffAccessPermissionId) {
+    infoStaffAccessPermissionId
+    infoStaffId
+    infoAccessPathId
+    write
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

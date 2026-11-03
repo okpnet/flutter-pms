@@ -1,0 +1,32 @@
+# department_access_path_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #DepartmentAccessPathPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation DepartmentAccessPathPageEdit(
+  $infoDepartmentAccessPathId: UUID!
+  $infoDepartmentId: UUID
+  $infoAccessPathId: UUID
+  $write: Boolean
+  $remarks: String
+) {
+  updateInfoDepartmentAccessPathByInfoDepartmentAccessPathId(
+    input: {
+      infoDepartmentAccessPathId: $infoDepartmentAccessPathId
+      infoDepartmentAccessPathPatch: {
+        infoDepartmentId: $infoDepartmentId
+        infoAccessPathId: $infoAccessPathId
+        write: $write
+        remarks: $remarks
+      }
+    }
+  ) {
+    infoDepartmentAccessPath {
+      infoDepartmentAccessPathId
+      infoDepartmentId
+      infoAccessPathId
+      write
+      remarks
+    }
+  }
+}

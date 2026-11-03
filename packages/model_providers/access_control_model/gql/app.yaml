@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=../../schema.json
+
+# アプリ読み込み
+# このアプリ(Product Manufacturing System)の info_app は固定の1件。名前(name)で引く。
+# 名前はダミーデータ以外でも変わらない。アクセスパスの info_app_id は、画面で選ばせず、この読み込みで得た id を埋め込む
+AppPage:
+  kind: read
+  from: info_app
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - info_app_id
+    - name
+    - symbol

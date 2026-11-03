@@ -591,3 +591,23 @@ features:
         code: Q
         page: UQ
         label: 再設定依頼の管理
+  - feature: access_control
+    code: X
+    label: アクセス管理
+    screens:
+      - screen: accesspath
+        code: A
+        page: XA
+        label: アクセスパス
+      - screen: deptaccesspath
+        code: D
+        page: XD
+        label: 部署のアクセスパス
+      - screen: staffaccesspermission
+        code: S
+        page: XS
+        label: 担当者のアクセスパス許可
+      - screen: effectiveaccesspath
+        code: E
+        page: XE
+        label: 担当者の実効アクセスパス

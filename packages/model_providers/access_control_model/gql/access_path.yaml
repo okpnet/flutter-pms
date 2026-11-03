@@ -1,0 +1,84 @@
+# yaml-language-server: $schema=../../schema.json
+
+# アクセスパス(ページ)読み込み
+# 権限を付ける単位。アプリの画面・ユースケース。usecase_path がページ遷移の可否を決める
+AccessPathPage: &AccessPathPage
+  kind: read
+  from: info_access_path
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - info_access_path_id
+    - info_app_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - usecase_path
+    - symbol
+    - remarks
+    # 子のレコード数(要件0056。DBのビュー 2本)
+    - name: department_access_path_count
+      arrayType: toFirstOne
+      as: department_access_path_count
+      using: info_access_path_id
+      from: v_access_path_department_access_path_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - name: staff_access_permission_count
+      arrayType: toFirstOne
+      as: staff_access_permission_count
+      using: info_access_path_id
+      from: v_access_path_staff_access_permission_count
+      pick:
+        - all_count
+        - enable_count
+        - disable_count
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# アクセスパス(ページ)書き込み
+AccessPathPageEdit:
+  kind: edit
+  from: info_access_path
+  requiredWhere:
+    - info_access_path_id
+  generateRfe: true
+  columns:
+    - info_access_path_id
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - usecase_path
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# アクセスパス(ページ)登録
+AccessPathPageCreate:
+  kind: create
+  from: info_access_path
+  columns:
+    - info_app_id
+    - names
+    - usecase_path
+    - symbol
+    - remarks

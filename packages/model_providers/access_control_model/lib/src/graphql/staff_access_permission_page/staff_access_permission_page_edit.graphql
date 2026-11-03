@@ -1,0 +1,32 @@
+# staff_access_permission_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #StaffAccessPermissionPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation StaffAccessPermissionPageEdit(
+  $infoStaffAccessPermissionId: UUID!
+  $infoStaffId: UUID
+  $infoAccessPathId: UUID
+  $write: Boolean
+  $remarks: String
+) {
+  updateInfoStaffAccessPermissionByInfoStaffAccessPermissionId(
+    input: {
+      infoStaffAccessPermissionId: $infoStaffAccessPermissionId
+      infoStaffAccessPermissionPatch: {
+        infoStaffId: $infoStaffId
+        infoAccessPathId: $infoAccessPathId
+        write: $write
+        remarks: $remarks
+      }
+    }
+  ) {
+    infoStaffAccessPermission {
+      infoStaffAccessPermissionId
+      infoStaffId
+      infoAccessPathId
+      write
+      remarks
+    }
+  }
+}

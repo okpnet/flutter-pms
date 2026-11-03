@@ -26,6 +26,7 @@
 | `shared_master_model` | 出荷区分・利害関係者 |
 | `system_model` | 単位 |
 | `work_record_model` | ビジター・作業実績、棚在庫状況 |
+| `access_control_model` | ページアクセス管理(アクセスパス・部署のアクセスパス・担当者の許可・担当者の実効アクセスパス) |
 | `barcode_entry_model` | バーコード実績登録(symbol による照会。登録は `work_record_model`・`purchasing_model` を使う) |
 
 ## ダッシュボード用のビュー
@@ -43,6 +44,7 @@
 | `v_inspection_status` | equipment × supplier × 実施済み × 結果 | `resource_model/gql/inspection_status.yaml` | `InspectionStatusPage` |
 | `v_shelf_inventory_status` | 棚ビジター(ロット。quantity は今の数量) | `work_record_model/gql/shelf_inventory_status.yaml` | `ShelfInventoryStatusPage` |
 | `v_work_plan_delivery_compliance` | 生産計画明細 | `production_plan_model/gql/work_plan_delivery_compliance.yaml` | `WorkPlanDeliveryCompliancePage` |
+| `v_staff_effective_access_path` | 担当者 × アクセスパス | `access_control_model/gql/staff_effective_access_path.yaml` | `StaffEffectiveAccessPathPage` |
 
 - ビューの YAML は、結合を持たない列だけを読む(ID・日付・件数・数量・金額)。名称が必要な画面は、ID で既存の読み込みを引く。
 - 絞り込みは `$filter`(`filter: true`)で行う。
@@ -84,7 +86,7 @@
 
 ## テスト
 `xxx_model`のテストは次の3種類。サーバーを使うテストの道具(接続先・代役サーバー)は`packages/infra/data_test_harness`が持ち、各パッケージは`dev_dependencies`にだけ書く。接続先のURLをテストに書かない。
-1.  **通信テスト(検証用サーバー)** `test/server_read_test.dart`: 全readクエリを`first: 1`で実行し、成功(`Ok`)と生成モデルでの読み取りを確認する。`serverTest`で書き、接続先は`http://192.168.1.100:5000/graphql`、接続できなければ`http://192.168.9.245:5000/graphql`(`TestServer.candidateUrls`)。どちらにも接続できないときは中止(skip)にし、失敗にはしない(`flutter test --exclude-tags server`で除外できる)。読み取り専用で、サーバーのデータを変更しない。サーバーのスキーマが本家スキーマ(`.schema/schema.graphql`)とずれていると、このテストが失敗する(スキーマのずれの検出)。
+1.  **通信テスト(検証用サーバー)** `test/server_read_test.dart`: 全readクエリを`first: 1`で実行し、成功(`Ok`)と生成モデルでの読み取りを確認する。`serverTest`で書き、接続先は`http://192.168.1.100:5000/graphql`、接続できなければ`http://192.168.9.245:5000/graphql`、`192.168.9.245`に接続できないときは`http://192.168.1.103:5000/graphql`(`TestServer.candidateUrls`)。いずれにも接続できないときは中止(skip)にし、失敗にはしない(`flutter test --exclude-tags server`で除外できる)。読み取り専用で、サーバーのデータを変更しない。サーバーのスキーマが本家スキーマ(`.schema/schema.graphql`)とずれていると、このテストが失敗する(スキーマのずれの検出)。
 2.  **通信の異常のテスト(代役サーバー)** 同じファイル: `FaultyGraphqlServer`(ローカル)で、遅延(制限時間超過=タイムアウト)、応答の途中・前の切断(`Err(NetworkError)`)、認証エラー(401/403は`Err(ServerError)`でステータスを持つ)、認証ヘッダー(`Authorization`)の送信、切断からの復帰を確認する。実サーバーを使わないため、常に実行できる。認証基盤(Keycloak)が入ったあとも、トークンの付与はこのテストで確認する。
 3.  **モデルのテスト**: 往復変換(`*_flatten_roundtrip_test.dart`)、RFE⇔Edit(`rfe_edit_interconversion_test.dart`)、検索条件の対応表(`filter_spec_roundtrip_test.dart`)。サーバーを使わない。
 - `test/server_read_test.dart`は生成物(`dart run tools/gql_yaml2graphql/bin/gen_server_test.dart --root packages/model_providers`、`melos run gql:test`)。直接編集しない。画面(readクエリ)を追加したら再生成する。

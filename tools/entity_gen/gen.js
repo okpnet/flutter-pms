@@ -34,6 +34,7 @@ const PROJECTS = {
   quality_common: { cls: 'QualityCommon', title: '品質共通', group: 'qcommon' },
   quality_document: { cls: 'QualityDocument', title: '品質管理文書', group: 'qdoc' },
   quality: { cls: 'Quality', title: '品質管理', group: 'quality' },
+  access_control: { cls: 'AccessControl', title: 'アクセス管理', group: 'access' },
   resource: { cls: 'Resource', title: '資源' },
   organization: { cls: 'Organization', title: '会社情報' },
 };

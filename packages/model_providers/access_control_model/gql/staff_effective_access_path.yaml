@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 担当者の実効アクセスパス(担当者 × アクセスパス)
+# 所属部署から受け継いだ権限と担当者ごとの許可を合わせた結果。画面の表示・編集の切り替えに使う
+StaffEffectiveAccessPathPage:
+  kind: read
+  from: v_staff_effective_access_path
+  filter: true
+  columns:
+    - info_staff_id
+    - staff_code
+    - staff_symbol
+    - info_access_path_id
+    - access_path_symbol
+    - usecase_path
+    - info_app_id
+    - can_write
+    - from_department
+    - from_staff

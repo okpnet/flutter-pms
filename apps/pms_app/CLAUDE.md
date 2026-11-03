@@ -51,3 +51,9 @@ PMS のシェルアプリ。GoRouter を構築済みのモックアップ(旧 `l
 4.  枠と設定
     1.  タイトルバー・サイドバー・ユーザー表示は`app_shell`の`MultiMainFrame`(`AppMainFrame`)を使い、アプリ独自の枠を作らない。文字列は`app_core`の文字列を使う。
     1.  ユーザー設定(言語・サイドバー・ユーザー)は`settings_keeper`で`shared_preferences`に保存する(`main()`で`settingsStorageProvider`を差し込む)。保存する形のJSONモデルは`app_core`に定義する。
+5.  ページのアクセスパス(CSV)
+    1.  アプリのページ(`TypedGoRoute`・`GoRoute`、機能のページ)を追加・変更・削除するたびに、アクセスパスの一覧 `doc/contents/access_paths.csv` を更新する。これがアクセス管理(`access_control`)で登録するアクセスパスの元で、アプリが正規に発行する権限の単位になる。
+    1.  列は `symbol`(画面コード。`packages/features/doc/page_code_list.yml`)、`usecase_path`(ページのパス)、`name_ja`・`name_en`(名前)、`feature`、`public`(ログイン前から使えるページは `true`。アクセス権の対象にせず、登録しない)。
+    1.  生成は `node tools/entity_gen/access_paths.js`(リポジトリのルートで実行)。台帳(実体)は自動で増える。手書きのページは `tools/entity_gen/access_paths.js` の `CUSTOM` に、台帳の英語名は `EN` に足す(英語名が無いと失敗する)。生成後は差分をレビューする。
+    1.  `usecase_path` は全体で一意にする。名前(ja・en)を変えるときは、登録済みのアクセスパスを編集画面で直す(CSV の登録は、`usecase_path` が未登録のものだけを追加する)。
+    1.  登録は `access_control_model` の `AccessControlClient.registerMissingAccessPaths`(`AccessPathSeed.parseCsv` で CSV を読む)か、アクセス管理の登録画面で行う。

@@ -1,0 +1,27 @@
+# dictionary_value_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #DictionaryValuePageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation DictionaryValuePageCreate(
+  $sharedLanguageCodeId: UUID
+  $sharedDictionaryId: UUID
+  $dictionaryValue: String!
+) {
+  createSharedDictionaryValue(
+    input: {
+      sharedDictionaryValue: {
+        sharedLanguageCodeId: $sharedLanguageCodeId
+        sharedDictionaryId: $sharedDictionaryId
+        dictionaryValue: $dictionaryValue
+      }
+    }
+  ) {
+    sharedDictionaryValue {
+      sharedDictionaryValueId
+      sharedLanguageCodeId
+      sharedDictionaryId
+      dictionaryValue
+    }
+  }
+}

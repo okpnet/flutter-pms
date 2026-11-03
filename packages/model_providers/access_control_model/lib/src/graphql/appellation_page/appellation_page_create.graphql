@@ -1,0 +1,27 @@
+# appellation_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #AppellationPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AppellationPageCreate(
+  $sharedDictionaryNameId: UUID
+  $sharedDictionaryPronunciationId: UUID
+  $sharedDictionaryNicknameId: UUID
+) {
+  createSharedAppellation(
+    input: {
+      sharedAppellation: {
+        sharedDictionaryNameId: $sharedDictionaryNameId
+        sharedDictionaryPronunciationId: $sharedDictionaryPronunciationId
+        sharedDictionaryNicknameId: $sharedDictionaryNicknameId
+      }
+    }
+  ) {
+    sharedAppellation {
+      sharedAppellationsId
+      sharedDictionaryNameId
+      sharedDictionaryPronunciationId
+      sharedDictionaryNicknameId
+    }
+  }
+}

@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=../../schema.json
+
+# アクセスパスの呼称(名前)を登録するための部品。呼称(shared_appellation)は、名前・読み・略称の辞書(shared_dictionary)を
+# 指し、辞書は言語ごとの値(shared_dictionary_value)を持つ。1テーブルずつの登録で、順に呼ぶのは窓口(AccessControlClient)。
+
+# 言語コード読み込み(ja・en の id を引く)
+LanguageCodePage:
+  kind: read
+  from: shared_language_code
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - shared_language_code_id
+    - code
+    - label
+    - priority
+    - is_default
+
+# 辞書の登録
+DictionaryPageCreate:
+  kind: create
+  from: shared_dictionary
+  columns:
+    - remarks
+
+# 辞書の言語別の値の登録
+DictionaryValuePageCreate:
+  kind: create
+  from: shared_dictionary_value
+  columns:
+    - shared_language_code_id
+    - shared_dictionary_id
+    - dictionary_value
+
+# 呼称の登録(名前・読み・略称の辞書を指す)
+AppellationPageCreate:
+  kind: create
+  from: shared_appellation
+  columns:
+    - shared_dictionary_name_id
+    - shared_dictionary_pronunciation_id
+    - shared_dictionary_nickname_id

@@ -235,11 +235,11 @@ DepartmentPage: &DepartmentPage
         - all_count
         - enable_count
         - disable_count
-    - name: department_access_permission_count
+    - name: department_access_path_count
       arrayType: toFirstOne
-      as: department_access_permission_count
+      as: department_access_path_count
       using: info_department_id
-      from: v_department_department_access_permission_count
+      from: v_department_department_access_path_count
       pick:
         - all_count
         - enable_count

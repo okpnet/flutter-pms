@@ -14,6 +14,7 @@ class TestServer {
     String.fromEnvironment('PMS_TEST_GRAPHQL_URL'),
     'http://192.168.1.100:5000/graphql',
     'http://192.168.9.245:5000/graphql',
+    'http://192.168.1.103:5000/graphql',
   ];
 
   /// 接続できたエンドポイント。

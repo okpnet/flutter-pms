@@ -163,7 +163,7 @@ abstract class LocationPageFilterSpec {
     'department||assign_count||infoDepartmentId': FlatFilterPath([FilterStep('infoDepartmentByInfoDepartmentId'), FilterStep('vDepartmentAssignCountByInfoDepartmentId')], 'infoDepartmentId'),
     'department||prevention_detail_count||infoDepartmentId': FlatFilterPath([FilterStep('infoDepartmentByInfoDepartmentId'), FilterStep('vDepartmentPreventionDetailCountByInfoDepartmentId')], 'infoDepartmentId'),
     'department||department_kind_count||infoDepartmentId': FlatFilterPath([FilterStep('infoDepartmentByInfoDepartmentId'), FilterStep('vDepartmentDepartmentKindCountByInfoDepartmentId')], 'infoDepartmentId'),
-    'department||department_access_permission_count||infoDepartmentId': FlatFilterPath([FilterStep('infoDepartmentByInfoDepartmentId'), FilterStep('vDepartmentDepartmentAccessPermissionCountByInfoDepartmentId')], 'infoDepartmentId'),
+    'department||department_access_path_count||infoDepartmentId': FlatFilterPath([FilterStep('infoDepartmentByInfoDepartmentId'), FilterStep('vDepartmentDepartmentAccessPathCountByInfoDepartmentId')], 'infoDepartmentId'),
     'department||updateAt': FlatFilterPath([FilterStep('infoDepartmentByInfoDepartmentId')], 'updateAt'),
     'department||remove': FlatFilterPath([FilterStep('infoDepartmentByInfoDepartmentId')], 'remove'),
     'department||update_user||historyId': FlatFilterPath([FilterStep('infoDepartmentByInfoDepartmentId'), FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId')], 'historyId'),

@@ -1,0 +1,36 @@
+# staff_effective_access_path_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #StaffEffectiveAccessPathPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query StaffEffectiveAccessPathPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VStaffEffectiveAccessPathFilter = {and: []}
+  $orderBy: [VStaffEffectiveAccessPathsOrderBy!]
+) {
+  allVStaffEffectiveAccessPaths(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      infoStaffId
+      staffCode
+      staffSymbol
+      infoAccessPathId
+      accessPathSymbol
+      usecasePath
+      infoAppId
+      canWrite
+      fromDepartment
+      fromStaff
+    }
+  }
+}

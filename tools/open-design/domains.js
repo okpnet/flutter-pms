@@ -156,3 +156,69 @@
     rows: [["taskres1", "supplier1", "72", "1", "", ""], ["taskres2", "supplier2", "96", "", "1", ""]],
   });
 })();
+
+/* 手書きの追加（20261102_0001: ページアクセス管理）。
+   - アクセスパス(info_access_path): ページのパス。ページ遷移の有効・無効を決める。
+   - 部署のアクセスパス(info_department_access_path): 部署が使えるページと書き込みの可否。所属する担当者が受け継ぐ。
+   - 担当者のアクセスパス許可(info_staff_access_permission): 所属部署の権限に足す個別の許可(足すだけで、減らせない)。
+   - 担当者の実効アクセスパス(v_staff_effective_access_path): 読み取り専用。権限の出所(部署/個人)を示す。 */
+(function () {
+  const D = window.OD_DOMAINS;
+  const EMP = "@employees:no:name";
+  const DEP = "@departments:id:name";
+  D.entities.push({
+    key: "accesspath", label: "アクセスパス",
+    fields: [
+      ["name_ja", "ページ名（日本語）"],
+      ["name_en", "ページ名（英語）"],
+      ["usecase_path", "ページのパス"],
+      ["symbol", "シンボル", "t", { req: false }],
+      ["remarks", "備考", "x", { req: false }],
+    ],
+    rows: [
+      ["単位台帳", "Unit ledger", "/e/unit", "YU", ""],
+      ["品目台帳", "Item ledger", "/e/item", "II", ""],
+      ["アクセスパス", "Access path", "/e/accesspath", "XA", ""],
+    ],
+  });
+  D.entities.push({
+    key: "deptaccesspath", label: "部署のアクセスパス",
+    fields: [
+      ["department", "部署", "r", { ref: DEP }],
+      ["access_path", "アクセスパス", "r", { ref: "accesspath" }],
+      ["write", "書き込み", "b", { req: false }],
+      ["remarks", "備考", "x", { req: false }],
+    ],
+    rows: [["d1", "accesspath1", "1", ""], ["d1", "accesspath2", "", ""], ["d2", "accesspath2", "1", ""]],
+  });
+  D.entities.push({
+    key: "staffaccesspermission", label: "担当者のアクセスパス許可",
+    fields: [
+      ["staff", "担当者", "r", { ref: EMP }],
+      ["access_path", "アクセスパス", "r", { ref: "accesspath" }],
+      ["write", "書き込み", "b", { req: false }],
+      ["remarks", "備考", "x", { req: false }],
+    ],
+    rows: [["E-0012", "accesspath3", "1", "管理者に限る"], ["E-0034", "accesspath1", "", ""]],
+  });
+  D.entities.push({
+    key: "effectiveaccesspath", label: "担当者の実効アクセスパス", viewOnly: true,
+    fields: [
+      ["staff", "担当者", "r", { ref: EMP }],
+      ["access_path", "アクセスパス", "r", { ref: "accesspath" }],
+      ["can_write", "書き込み可", "b", { req: false }],
+      ["from_department", "部署から受け継ぐ", "b", { req: false }],
+      ["from_staff", "個人の許可", "b", { req: false }],
+    ],
+    rows: [["E-0012", "accesspath1", "1", "1", ""], ["E-0012", "accesspath3", "1", "", "1"], ["E-0034", "accesspath1", "", "", "1"]],
+  });
+  const screen = (id, label, icon) => {
+    D.screens.push({ id, label, icon, tabs: [["main", label, id]] });
+    D.groups.find((g) => g.id === "access").screens.push(id);
+  };
+  D.groups.push({ id: "access", label: "アクセス管理", icon: "briefcase", screens: [] });
+  screen("accesspath", "ページアクセス", "list");
+  screen("deptaccesspath", "部署のアクセス権", "org");
+  screen("staffaccesspermission", "担当者のアクセス権", "users");
+  screen("effectiveaccesspath", "実効アクセス権", "check");
+})();

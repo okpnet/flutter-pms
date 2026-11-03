@@ -104,7 +104,7 @@ melos:
     # ── GraphQL モデル生成(機能単位。CLAUDE.md「GraphQL モデル生成ルール」) ──
     gql:schema:
       description: 本家スキーマを .schema/ に取得(DB変更時のみ)
-      run: dart run tools/gql_schema_pruner/bin/fetch_schema.dart --endpoint http://192.168.1.100:5000/graphql --endpoint http://192.168.9.245:5000/graphql --out .schema/schema.graphql
+      run: dart run tools/gql_schema_pruner/bin/fetch_schema.dart --endpoint http://192.168.1.100:5000/graphql --endpoint http://192.168.9.245:5000/graphql --endpoint http://192.168.1.103:5000/graphql --out .schema/schema.graphql
 
     gql:yaml:
       description: ① 全モデルパッケージの gql/*.yaml → lib/src/graphql/*.graphql

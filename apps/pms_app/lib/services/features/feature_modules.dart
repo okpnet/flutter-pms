@@ -1,3 +1,4 @@
+import 'package:access_control/access_control.dart';
 import 'package:app_core/app_core.dart';
 import 'package:barcode_entry/barcode_entry.dart';
 import 'package:item/item.dart';
@@ -39,4 +40,5 @@ const List<FeatureModule> featureModules = [
   QualityDocumentModule(),
   SharedMasterModule(),
   SystemModule(),
+  AccessControlModule(),
 ];

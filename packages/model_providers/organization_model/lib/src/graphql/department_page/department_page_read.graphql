@@ -589,7 +589,7 @@ query DepartmentPageRead(
         infoDepartmentId
       }
 
-      department_access_permission_count: vDepartmentDepartmentAccessPermissionCountByInfoDepartmentId {
+      department_access_path_count: vDepartmentDepartmentAccessPathCountByInfoDepartmentId {
         infoDepartmentId
       }
 

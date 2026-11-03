@@ -913,6 +913,7 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  historyInfoDepartmentAccessPathsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintVisitersByReleaseStaffHistoryIdAndReleaseStaffIdExist: Boolean
   transComplaintVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintPurchaseRecsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -995,8 +996,7 @@ input HistoryInfoStaffFilter {
   mstrInspectionOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrInspectionOperationTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrInspectionOperationTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
-  historyInfoDepartmentAccessPermissionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
-  infoDepartmentAccessPermissionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoDepartmentAccessPathsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyInfoAssignsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrItemProvisionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemProvisionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1458,12 +1458,14 @@ input SharedAppellationFilter {
   infoAddressesByBuildingExist: Boolean
   mstrReportsByNamesExist: Boolean
   mstrEquipmentTagsByNamesExist: Boolean
+  infoAccessPathApprovalsByNamesExist: Boolean
   mstrApprovalsByNamesExist: Boolean
   infoPositionsByNamesExist: Boolean
   mstrApprovalPatternsByNamesExist: Boolean
   mstrAuditStdCheckitemsByNamesExist: Boolean
   mstrAuditStdsByNamesExist: Boolean
   mstrInspectionsByNamesExist: Boolean
+  infoAccessPathsByNamesExist: Boolean
   mstrOperationTasksByNamesExist: Boolean
   mstrOperationsByNamesExist: Boolean
   mstrItemTreesByNamesExist: Boolean

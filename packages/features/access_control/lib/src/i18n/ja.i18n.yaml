@@ -1,0 +1,36 @@
+# --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
+# アクセス管理の実体と項目の表示名(日本語。基準言語)。
+# 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
+menu:
+  group: "アクセス管理"
+entity:
+  accesspath:
+    title: "アクセスパス"
+    fields:
+      f_name_ja: "ページ名（日本語）"
+      f_name_en: "ページ名（英語）"
+      f_usecase_path: "ページのパス"
+      f_symbol: "シンボル"
+      f_remarks: "備考"
+  deptaccesspath:
+    title: "部署のアクセスパス"
+    fields:
+      f_department: "部署"
+      f_access_path: "アクセスパス"
+      f_write: "書き込み"
+      f_remarks: "備考"
+  staffaccesspermission:
+    title: "担当者のアクセスパス許可"
+    fields:
+      f_staff: "担当者"
+      f_access_path: "アクセスパス"
+      f_write: "書き込み"
+      f_remarks: "備考"
+  effectiveaccesspath:
+    title: "担当者の実効アクセスパス"
+    fields:
+      f_staff: "担当者"
+      f_access_path: "アクセスパス"
+      f_can_write: "書き込み可"
+      f_from_department: "部署から受け継ぐ"
+      f_from_staff: "個人の許可"

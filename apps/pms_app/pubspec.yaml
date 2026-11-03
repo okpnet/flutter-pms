@@ -66,6 +66,8 @@ dependencies:
     path: ../../packages/features/quality_document
   system:
     path: ../../packages/features/system
+  access_control:
+    path: ../../packages/features/access_control
   barcode_entry:
     path: ../../packages/features/barcode_entry
   work_record:

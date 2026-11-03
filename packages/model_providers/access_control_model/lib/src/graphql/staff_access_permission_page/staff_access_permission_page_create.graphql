@@ -1,0 +1,33 @@
+# staff_access_permission_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #StaffAccessPermissionPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation StaffAccessPermissionPageCreate(
+  $infoStaffId: UUID
+  $infoAccessPathId: UUID
+  $write: Boolean
+  $symbol: String
+  $remarks: String
+) {
+  createInfoStaffAccessPermission(
+    input: {
+      infoStaffAccessPermission: {
+        infoStaffId: $infoStaffId
+        infoAccessPathId: $infoAccessPathId
+        write: $write
+        symbol: $symbol
+        remarks: $remarks
+      }
+    }
+  ) {
+    infoStaffAccessPermission {
+      infoStaffAccessPermissionId
+      infoStaffId
+      infoAccessPathId
+      write
+      symbol
+      remarks
+    }
+  }
+}

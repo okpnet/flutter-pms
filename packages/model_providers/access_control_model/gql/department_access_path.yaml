@@ -1,0 +1,60 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 部署のアクセスパス読み込み
+# 部署が使えるアクセスパスと書き込みの可否。所属する担当者がこの権限を受け継ぐ
+DepartmentAccessPathPage:
+  kind: read
+  from: info_department_access_path
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - info_department_access_path_id
+    - info_department_id
+    - info_access_path_id
+    - name: access_path
+      as: access_path
+      arrayType: toFirstOne
+      using: info_access_path_id
+      <<: *AccessPathPage
+    - write
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 部署のアクセスパス書き込み
+DepartmentAccessPathPageEdit:
+  kind: edit
+  from: info_department_access_path
+  requiredWhere:
+    - info_department_access_path_id
+  generateRfe: true
+  columns:
+    - info_department_access_path_id
+    - info_department_id
+    - info_access_path_id
+    - write
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 部署のアクセスパス登録(部署×アクセスパスは一意)
+DepartmentAccessPathPageCreate:
+  kind: create
+  from: info_department_access_path
+  columns:
+    - info_department_id
+    - info_access_path_id
+    - write
+    - symbol
+    - remarks

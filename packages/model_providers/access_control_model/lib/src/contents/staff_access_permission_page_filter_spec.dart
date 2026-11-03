@@ -1,0 +1,264 @@
+// staff_access_permission_page_filter_spec.dart
+//
+// このファイルは gen_filter_spec が生成した検索条件の対応表です。直接編集しないでください。
+// graphql/staff_access_permission_page/staff_access_permission_page_read.graphql の選択経路から、平坦化キー -> Filterの経路を作る。
+// 使い方: FlatFilterConverter(StaffAccessPermissionPageFilterSpec.spec).convert(平坦なMap, variables: {...})
+import 'package:pms_graphql/pms_graphql.dart';
+
+abstract class StaffAccessPermissionPageFilterSpec {
+  static const FlatFilterSpec
+  spec = FlatFilterSpec('InfoStaffAccessPermissionFilter', {
+    'infoStaffAccessPermissionId': FlatFilterPath(
+      [],
+      'infoStaffAccessPermissionId',
+    ),
+    'infoStaffId': FlatFilterPath([], 'infoStaffId'),
+    'infoAccessPathId': FlatFilterPath([], 'infoAccessPathId'),
+    'access_path||infoAccessPathId': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+    ], 'infoAccessPathId'),
+    'access_path||infoAppId': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+    ], 'infoAppId'),
+    'access_path||labels||sharedAppellationsId': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+      FilterStep('sharedAppellationByNames'),
+    ], 'sharedAppellationsId'),
+    'access_path||labels||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('infoAccessPathByInfoAccessPathId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+        ], 'sharedDictionaryId'),
+    'access_path||labels||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('infoAccessPathByInfoAccessPathId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'access_path||labels||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('infoAccessPathByInfoAccessPathId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+        ], 'sharedDictionaryId'),
+    'access_path||labels||sharedDictionaryBySharedDictionaryPronunciationId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('infoAccessPathByInfoAccessPathId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'access_path||labels||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('infoAccessPathByInfoAccessPathId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+        ], 'sharedDictionaryId'),
+    'access_path||labels||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('infoAccessPathByInfoAccessPathId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'access_path||usecasePath': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+    ], 'usecasePath'),
+    'access_path||symbol': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+    ], 'symbol'),
+    'access_path||remarks': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+    ], 'remarks'),
+    'access_path||department_access_path_count||infoAccessPathId':
+        FlatFilterPath([
+          FilterStep('infoAccessPathByInfoAccessPathId'),
+          FilterStep('vAccessPathDepartmentAccessPathCountByInfoAccessPathId'),
+        ], 'infoAccessPathId'),
+    'access_path||staff_access_permission_count||infoAccessPathId':
+        FlatFilterPath([
+          FilterStep('infoAccessPathByInfoAccessPathId'),
+          FilterStep('vAccessPathStaffAccessPermissionCountByInfoAccessPathId'),
+        ], 'infoAccessPathId'),
+    'access_path||updateAt': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+    ], 'updateAt'),
+    'access_path||remove': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+    ], 'remove'),
+    'access_path||update_user||historyId': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'historyId'),
+    'access_path||update_user||infoStaffId': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'infoStaffId'),
+    'access_path||update_user||infoCompanyId': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'infoCompanyId'),
+    'access_path||update_user||code': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'code'),
+    'access_path||update_user||name||sharedAppellationsId': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+      FilterStep('sharedAppellationByNames'),
+    ], 'sharedAppellationsId'),
+    'access_path||update_user||name||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('infoAccessPathByInfoAccessPathId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+        ], 'sharedDictionaryId'),
+    'access_path||update_user||name||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('infoAccessPathByInfoAccessPathId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'access_path||update_user||name||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('infoAccessPathByInfoAccessPathId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+        ], 'sharedDictionaryId'),
+    'access_path||update_user||name||sharedDictionaryBySharedDictionaryPronunciationId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('infoAccessPathByInfoAccessPathId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'access_path||update_user||name||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('infoAccessPathByInfoAccessPathId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+        ], 'sharedDictionaryId'),
+    'access_path||update_user||name||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('infoAccessPathByInfoAccessPathId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'access_path||update_user||sex': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'sex'),
+    'access_path||update_user||phone': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'phone'),
+    'access_path||update_user||symbol': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'symbol'),
+    'access_path||update_user||privatePhone': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'privatePhone'),
+    'write': FlatFilterPath([], 'write'),
+    'symbol': FlatFilterPath([], 'symbol'),
+    'remarks': FlatFilterPath([], 'remarks'),
+    'updateAt': FlatFilterPath([], 'updateAt'),
+    'remove': FlatFilterPath([], 'remove'),
+    'update_user||historyId': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'historyId'),
+    'update_user||infoStaffId': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'infoStaffId'),
+    'update_user||infoCompanyId': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'infoCompanyId'),
+    'update_user||code': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'code'),
+    'update_user||name||sharedAppellationsId': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+      FilterStep('sharedAppellationByNames'),
+    ], 'sharedAppellationsId'),
+    'update_user||name||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+        ], 'sharedDictionaryId'),
+    'update_user||name||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'update_user||name||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+        ], 'sharedDictionaryId'),
+    'update_user||name||sharedDictionaryBySharedDictionaryPronunciationId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'update_user||name||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+        ], 'sharedDictionaryId'),
+    'update_user||name||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'update_user||sex': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'sex'),
+    'update_user||phone': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'phone'),
+    'update_user||symbol': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'symbol'),
+    'update_user||privatePhone': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'privatePhone'),
+  });
+}

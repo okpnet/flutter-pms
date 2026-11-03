@@ -714,7 +714,7 @@ type InfoDepartment {
   infoDepartmentKindsByInfoDepartmentId(orderBy: [InfoDepartmentKindsOrderBy!] = [PRIMARY_KEY_ASC], filter: InfoDepartmentKindFilter): InfoDepartmentKindsConnection!
   infoDepartmentTreesByInfoDepartmentId(first: Int): InfoDepartmentTreesConnection!
   vDepartmentAssignCountByInfoDepartmentId: VDepartmentAssignCount
-  vDepartmentDepartmentAccessPermissionCountByInfoDepartmentId: VDepartmentDepartmentAccessPermissionCount
+  vDepartmentDepartmentAccessPathCountByInfoDepartmentId: VDepartmentDepartmentAccessPathCount
   vDepartmentDepartmentKindCountByInfoDepartmentId: VDepartmentDepartmentKindCount
   vDepartmentDescendantByAncestorInfoDepartmentId: VDepartmentDescendant
   vDepartmentPreventionDetailCountByInfoDepartmentId: VDepartmentPreventionDetailCount
@@ -1526,7 +1526,7 @@ type VDepartmentAssignCount {
   infoDepartmentId: UUID
 }
 
-type VDepartmentDepartmentAccessPermissionCount {
+type VDepartmentDepartmentAccessPathCount {
   infoDepartmentId: UUID
 }
 
@@ -1729,6 +1729,7 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  historyInfoDepartmentAccessPathsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintVisitersByReleaseStaffHistoryIdAndReleaseStaffIdExist: Boolean
   transComplaintVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintPurchaseRecsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1811,8 +1812,7 @@ input HistoryInfoStaffFilter {
   mstrInspectionOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrInspectionOperationTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrInspectionOperationTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
-  historyInfoDepartmentAccessPermissionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
-  infoDepartmentAccessPermissionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoDepartmentAccessPathsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyInfoAssignsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrItemProvisionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemProvisionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -2067,7 +2067,7 @@ input InfoDepartmentFilter {
   infoDepartmentTreesByInfoDepartmentId: InfoDepartmentToManyInfoDepartmentTreeFilter
   infoDepartmentTreesByInfoDepartmentIdExist: Boolean
   infoDepartmentTreesByParentInfoDepartmentIdExist: Boolean
-  infoDepartmentAccessPermissionsByInfoDepartmentIdExist: Boolean
+  infoDepartmentAccessPathsByInfoDepartmentIdExist: Boolean
   mstrTaskLocationsByInfoDepartmentIdExist: Boolean
   historyInfoDepartmentsByInfoDepartmentIdExist: Boolean
   mstrApprovalsByInfoDepartmentIdExist: Boolean
@@ -2077,8 +2077,8 @@ input InfoDepartmentFilter {
   mstrLocationsByInfoDepartmentIdExist: Boolean
   vDepartmentAssignCountByInfoDepartmentId: VDepartmentAssignCountFilter
   vDepartmentAssignCountByInfoDepartmentIdExists: Boolean
-  vDepartmentDepartmentAccessPermissionCountByInfoDepartmentId: VDepartmentDepartmentAccessPermissionCountFilter
-  vDepartmentDepartmentAccessPermissionCountByInfoDepartmentIdExists: Boolean
+  vDepartmentDepartmentAccessPathCountByInfoDepartmentId: VDepartmentDepartmentAccessPathCountFilter
+  vDepartmentDepartmentAccessPathCountByInfoDepartmentIdExists: Boolean
   vDepartmentDepartmentKindCountByInfoDepartmentId: VDepartmentDepartmentKindCountFilter
   vDepartmentDepartmentKindCountByInfoDepartmentIdExists: Boolean
   vDepartmentDescendantByAncestorInfoDepartmentId: VDepartmentDescendantFilter
@@ -2221,6 +2221,7 @@ input InfoStaffFilter {
   mstrSignsByInfoStaffIdExist: Boolean
   vStaffAssignCountByInfoStaffId: VStaffAssignCountFilter
   vStaffAssignCountByInfoStaffIdExists: Boolean
+  vStaffEffectiveAccessPathsByInfoStaffIdExist: Boolean
   vStaffSignCountByInfoStaffId: VStaffSignCountFilter
   vStaffSignCountByInfoStaffIdExists: Boolean
   vStaffStaffAccessPermissionCountByInfoStaffId: VStaffStaffAccessPermissionCountFilter
@@ -3046,12 +3047,14 @@ input SharedAppellationFilter {
   infoAddressesByBuildingExist: Boolean
   mstrReportsByNamesExist: Boolean
   mstrEquipmentTagsByNamesExist: Boolean
+  infoAccessPathApprovalsByNamesExist: Boolean
   mstrApprovalsByNamesExist: Boolean
   infoPositionsByNamesExist: Boolean
   mstrApprovalPatternsByNamesExist: Boolean
   mstrAuditStdCheckitemsByNamesExist: Boolean
   mstrAuditStdsByNamesExist: Boolean
   mstrInspectionsByNamesExist: Boolean
+  infoAccessPathsByNamesExist: Boolean
   mstrOperationTasksByNamesExist: Boolean
   mstrOperationsByNamesExist: Boolean
   mstrItemTreesByNamesExist: Boolean
@@ -3960,15 +3963,15 @@ input VDepartmentAssignCountFilter {
   not: VDepartmentAssignCountFilter
 }
 
-input VDepartmentDepartmentAccessPermissionCountFilter {
+input VDepartmentDepartmentAccessPathCountFilter {
   infoDepartmentId: UUIDFilter
   allCount: BigIntFilter
   enableCount: BigIntFilter
   disableCount: BigIntFilter
   infoDepartmentByInfoDepartmentIdExists: Boolean
-  and: [VDepartmentDepartmentAccessPermissionCountFilter!]
-  or: [VDepartmentDepartmentAccessPermissionCountFilter!]
-  not: VDepartmentDepartmentAccessPermissionCountFilter
+  and: [VDepartmentDepartmentAccessPathCountFilter!]
+  or: [VDepartmentDepartmentAccessPathCountFilter!]
+  not: VDepartmentDepartmentAccessPathCountFilter
 }
 
 input VDepartmentDepartmentKindCountFilter {

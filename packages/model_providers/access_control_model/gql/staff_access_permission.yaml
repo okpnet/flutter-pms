@@ -1,0 +1,60 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 担当者のアクセスパス許可読み込み
+# 所属部署の権限に足す個別の許可(足すだけで、減らせない)
+StaffAccessPermissionPage:
+  kind: read
+  from: info_staff_access_permission
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - info_staff_access_permission_id
+    - info_staff_id
+    - info_access_path_id
+    - name: access_path
+      as: access_path
+      arrayType: toFirstOne
+      using: info_access_path_id
+      <<: *AccessPathPage
+    - write
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 担当者のアクセスパス許可書き込み
+StaffAccessPermissionPageEdit:
+  kind: edit
+  from: info_staff_access_permission
+  requiredWhere:
+    - info_staff_access_permission_id
+  generateRfe: true
+  columns:
+    - info_staff_access_permission_id
+    - info_staff_id
+    - info_access_path_id
+    - write
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 担当者のアクセスパス許可登録(担当者×アクセスパスは一意)
+StaffAccessPermissionPageCreate:
+  kind: create
+  from: info_staff_access_permission
+  columns:
+    - info_staff_id
+    - info_access_path_id
+    - write
+    - symbol
+    - remarks

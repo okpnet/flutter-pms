@@ -38,6 +38,7 @@ const FEATURES = {
   barcode_entry: { code: 'E', label: 'バーコード実績登録' },
   dashboard_container: { code: 'B', label: 'ダッシュボードのコンテナ' },
   auth_files: { code: 'U', label: '認証・ファイル共有' },
+  access_control: { code: 'X', label: 'アクセス管理' },
 };
 
 /** 実体の台帳・編集ではない画面(手書き)。 */

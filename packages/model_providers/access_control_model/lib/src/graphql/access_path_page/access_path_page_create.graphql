@@ -1,0 +1,33 @@
+# access_path_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #AccessPathPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AccessPathPageCreate(
+  $infoAppId: UUID
+  $names: UUID
+  $usecasePath: String
+  $symbol: String
+  $remarks: String
+) {
+  createInfoAccessPath(
+    input: {
+      infoAccessPath: {
+        infoAppId: $infoAppId
+        names: $names
+        usecasePath: $usecasePath
+        symbol: $symbol
+        remarks: $remarks
+      }
+    }
+  ) {
+    infoAccessPath {
+      infoAccessPathId
+      infoAppId
+      names
+      usecasePath
+      symbol
+      remarks
+    }
+  }
+}

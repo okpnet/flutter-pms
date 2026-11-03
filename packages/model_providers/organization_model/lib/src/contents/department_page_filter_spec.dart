@@ -157,7 +157,7 @@ abstract class DepartmentPageFilterSpec {
     'assign_count||infoDepartmentId': FlatFilterPath([FilterStep('vDepartmentAssignCountByInfoDepartmentId')], 'infoDepartmentId'),
     'prevention_detail_count||infoDepartmentId': FlatFilterPath([FilterStep('vDepartmentPreventionDetailCountByInfoDepartmentId')], 'infoDepartmentId'),
     'department_kind_count||infoDepartmentId': FlatFilterPath([FilterStep('vDepartmentDepartmentKindCountByInfoDepartmentId')], 'infoDepartmentId'),
-    'department_access_permission_count||infoDepartmentId': FlatFilterPath([FilterStep('vDepartmentDepartmentAccessPermissionCountByInfoDepartmentId')], 'infoDepartmentId'),
+    'department_access_path_count||infoDepartmentId': FlatFilterPath([FilterStep('vDepartmentDepartmentAccessPathCountByInfoDepartmentId')], 'infoDepartmentId'),
     'updateAt': FlatFilterPath([], 'updateAt'),
     'remove': FlatFilterPath([], 'remove'),
     'update_user||historyId': FlatFilterPath([FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId')], 'historyId'),
