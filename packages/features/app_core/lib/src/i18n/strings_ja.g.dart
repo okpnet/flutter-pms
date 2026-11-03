@@ -126,6 +126,9 @@ class AppCoreStrings$logout$ja {
 
 	/// ja: 'ログインする(仮)'
 	String get signIn => 'ログインする(仮)';
+
+	/// ja: 'ログイン画面へ'
+	String get toLogin => 'ログイン画面へ';
 }
 
 // Path: error
@@ -265,6 +268,7 @@ extension on AppCoreStrings {
 			'logout.title' => 'ログアウト',
 			'logout.message' => 'ログアウトしました。',
 			'logout.signIn' => 'ログインする(仮)',
+			'logout.toLogin' => 'ログイン画面へ',
 			'error.title' => 'エラー',
 			'error.message' => 'アプリケーションでエラーが発生しました',
 			'error.back' => '戻る',

@@ -5,6 +5,7 @@ import 'package:pbapi/pbapi.dart';
 
 import '../failure_message.dart';
 import '../i18n/strings_provider.dart';
+import '../platform_file_gateway.dart';
 
 /// ログイン前の画面の枠(画面案の `logout-wrap` + `login-card`)。
 /// サイドバー・タイトルバーを持たず、中央に幅を絞ったカード(エンブレム・見出し・本文)を置く。
@@ -227,12 +228,12 @@ mixin BusyAction<T extends ConsumerStatefulWidget> on ConsumerState<T> {
       final t = ref.read(authFilesStringsProvider);
       if (e is PbException) {
         ref.read(loggerProvider).warn('[auth_files] $operation', ex: e);
-      } else if (e is! ArgumentError && e is! UnsupportedError) {
-        ref.read(loggerProvider).error(
-          '[auth_files] $operation',
-          ex: e,
-          trace: st,
-        );
+      } else if (e is! ArgumentError &&
+          e is! UnsupportedError &&
+          e is! FileTooLargeException) {
+        ref
+            .read(loggerProvider)
+            .error('[auth_files] $operation', ex: e, trace: st);
       }
       if (mounted) {
         setState(() {

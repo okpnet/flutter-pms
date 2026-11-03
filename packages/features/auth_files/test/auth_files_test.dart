@@ -155,6 +155,8 @@ Future<void> _pump(
       modules: [const AuthFilesModule(), _StubDashboardModule()],
       entries: [FeatureHostEntry('開く', start)],
       overrides: overrides,
+      // 波紋(InkSparkle)のシェーダーを使わないテーマ。テストでシェーダーの読み込みを避ける。
+      themeOf: (ref) => ThemeData(splashFactory: NoSplash.splashFactory),
     ),
   );
   await tester.pumpAndSettle();
@@ -327,7 +329,11 @@ void main() {
 
       // ハイフン・空白を除いて送る(大文字小文字はサーバーが区別しない)
       expect(account.accepted, [
-        {'username': 'yamada', 'code': 'abcdefghjklm', 'password': 'password-1'},
+        {
+          'username': 'yamada',
+          'code': 'abcdefghjklm',
+          'password': 'password-1',
+        },
       ]);
       expect(find.textContaining('パスワードを再設定しました'), findsOneWidget);
       expect(find.text('生産管理にサインイン'), findsOneWidget);
@@ -384,10 +390,7 @@ void main() {
       await tester.enterText(find.byType(TextField).at(1), 'password-1');
       await tester.tap(find.text('パスワードを再設定'));
       await tester.pumpAndSettle();
-      expect(
-        find.text('ユーザーIDまたはコードが正しくないか、有効期限が切れています。'),
-        findsOneWidget,
-      );
+      expect(find.text('ユーザーIDまたはコードが正しくないか、有効期限が切れています。'), findsOneWidget);
       expect(find.text('生産管理にサインイン'), findsNothing);
     });
 
@@ -438,6 +441,9 @@ void main() {
       final files = _FakeFiles();
       await _pump(tester, const SharedFilesDestination(), [
         sharedFileServiceProvider.overrideWithValue(files),
+        filePickerGatewayProvider.overrideWithValue(
+          const UnsupportedFileGateway(),
+        ),
       ]);
       await tester.enterText(find.byType(TextField).first, 'doc-1');
       await tester.tap(find.text('アップロード'));

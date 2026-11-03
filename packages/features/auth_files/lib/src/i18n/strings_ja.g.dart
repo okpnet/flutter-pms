@@ -114,6 +114,9 @@ class AuthFilesStrings$errors$ja {
 
 	/// ja: 'この環境ではファイルを選択・保存できません。'
 	String get fileUnsupported => 'この環境ではファイルを選択・保存できません。';
+
+	/// ja: 'ファイルが大きすぎます。100MB以下のファイルを選んでください。'
+	String get fileTooLarge => 'ファイルが大きすぎます。100MB以下のファイルを選んでください。';
 }
 
 // Path: rules
@@ -477,6 +480,7 @@ extension on AuthFilesStrings {
 			'errors.network' => '通信できません。接続を確認してください。',
 			'errors.unknown' => '予期しないエラーが発生しました。',
 			'errors.fileUnsupported' => 'この環境ではファイルを選択・保存できません。',
+			'errors.fileTooLarge' => 'ファイルが大きすぎます。100MB以下のファイルを選んでください。',
 			'rules.required' => '入力してください。',
 			'rules.userId' => 'ユーザーIDは、半角の英数字と . _ - で、4〜32文字にしてください。',
 			'rules.email' => 'メールアドレスの形式が正しくありません。(例:name@example.com)',

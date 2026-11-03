@@ -53,6 +53,8 @@ Future<GraphqlProviderException> _errorOf(Link link) async {
 }
 
 void main() {
+  mutationTests();
+
   group('HTTP 401/403', () {
     test(
       '401 は期限切れ(SessionExpiredError.expired)。ServerError でもあり、ステータスを持つ',
@@ -206,5 +208,41 @@ void main() {
       'transient': false,
       'message': 'm',
     });
+  });
+}
+
+void mutationTests() {
+  final mutation = gql('mutation M { doIt { ok } }');
+
+  group('ミューテーション(mutate)も同じ分類', () {
+    test(
+      '401 は SessionExpiredError、権限なしは PermissionDeniedError、成功は Ok',
+      () async {
+        Future<GraphqlProverResult<Map<String, dynamic>>> run(Link link) =>
+            _provider(link).mutate(MutationOptions(document: mutation));
+
+        final expired = await run(_Link((_) => _http(401, 'jwt expired')));
+        expect((expired as Err).error, isA<SessionExpiredError>());
+
+        final denied = await run(
+          _Link((_) => _http(500, 'permission denied for table t')),
+        );
+        expect((denied as Err).error, isA<PermissionDeniedError>());
+
+        final ok = await run(
+          _Link(
+            (_) => Stream.value(
+              const Response(
+                data: {
+                  'doIt': {'ok': true},
+                },
+                response: {},
+              ),
+            ),
+          ),
+        );
+        expect(ok, isA<Ok<Map<String, dynamic>>>());
+      },
+    );
   });
 }

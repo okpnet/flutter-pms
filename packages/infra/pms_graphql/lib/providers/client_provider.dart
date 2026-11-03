@@ -191,6 +191,21 @@ final class GraphQLClientProvider {
     return await Future.wait(asyncFunc);
   }
 
+  /// [options] のミューテーションを1つ実行する。生成されたモデルのミューテーション(登録・更新・
+  /// 論理削除など)を、`query` と同じ分類の結果([SessionExpiredError]・[PermissionDeniedError] など)
+  /// で受けたいときに呼び出す。[IEditModel] のコンバーターを使う保存は [save]。
+  /// 実行時間が [timeLimit] を超えた場合は [GraphqlTimeoutException] をスローする。
+  Future<GraphqlProverResult<Map<String, dynamic>>> mutate(
+    MutationOptions options,
+  ) async {
+    try {
+      return await _mutation('mutate', options);
+    } catch (ex, stackTrace) {
+      logger?.error('Error executing mutation: $ex', ex: ex, trace: stackTrace);
+      rethrow;
+    }
+  }
+
   /// [options] を指定してGraphQLクエリを実行する。読み取り処理を行いたい場合に
   /// 呼び出す。実行時間が [timeLimit] を超えた場合は [GraphqlTimeoutException] をスローする。
   Future<GraphqlProverResult<Map<dynamic, dynamic>>> query(

@@ -10,6 +10,11 @@
   GRANT pms_user, pms_admin TO authenticator;
   GRANT USAGE ON SCHEMA tests TO pms_user;
   ```
+- 書き込みのテスト(`mutation_session_test`)のうち「一般(pms_user)が登録できる」と「pms_user が論理削除できる」には、`pms_user` の `INSERT` 権限が要る(更新時に `history_*` テーブルへ書くため、履歴テーブルも含む):
+  ```sql
+  GRANT INSERT ON ALL TABLES IN SCHEMA tests TO pms_user;
+  GRANT USAGE ON ALL SEQUENCES IN SCHEMA tests TO pms_user;
+  ```
 
 ## 実行
 ```bash
@@ -23,7 +28,7 @@ flutter test --no-test-assets \
 - 渡さなかったものは、それを要するテストだけが中止(skip)になる。
   - `PMS_TEST_JWT_SECRET` が無い: 期限切れなどの JWT を作るテストが中止。
   - 管理者の資格情報が無い: 利用者を作るテストが中止。
-- ファイルごとに実行できる(`test/pocketbase_jwt_test.dart`、`test/postgraphile_jwt_test.dart`、`test/model_session_test.dart`)。
+- ファイルごとに実行できる(`test/pocketbase_jwt_test.dart`、`test/postgraphile_jwt_test.dart`、`test/model_session_test.dart`、`test/mutation_session_test.dart`)。
 - 別の接続先は `--dart-define=PMS_TEST_POCKETBASE_URL=http://host:8090/api`(PostGraphile は `data_test_harness` の `PMS_TEST_GRAPHQL_URL`)。
 - ログインは 1 分 10 回までの制限がある。続けて実行するときは 1 分以上あける(超えると `rateLimited`)。
 - `flutter test` がこの環境で落ちるときは `--no-test-assets` を付ける。

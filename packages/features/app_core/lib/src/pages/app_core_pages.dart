@@ -3,8 +3,10 @@ import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger_provider/logger_provider.dart';
 
 import '../i18n/strings_provider.dart';
+import '../sign_out.dart';
 export 'dashboard_page.dart';
 
 /// アプリケーションのバージョン。ビルド時に `--dart-define=APP_VERSION=1.2.3` で渡す。
@@ -68,13 +70,39 @@ class ErrorPage extends ConsumerWidget {
 
 /// ログアウト画面。ログアウトしたこと(セッション切れを含む)を表示する。
 ///
-/// 認証(Keycloak)を導入するまでは、仮のログイン(標準のユーザーに戻す)ボタンを置く。
-class LogoutPage extends ConsumerWidget {
+/// 開いたときに1回、[signOutProvider] のログアウトを実行する(認証を持つアプリが、セッションと保管庫の
+/// ログイン情報の破棄を差し込む)。ボタンは、[signInDestinationProvider] があればログイン画面へ、
+/// 無ければ認証の導入前の仮のログイン(標準のユーザーに戻す)。
+class LogoutPage extends ConsumerStatefulWidget {
   const LogoutPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<LogoutPage> createState() => _LogoutPageState();
+}
+
+class _LogoutPageState extends ConsumerState<LogoutPage> {
+  @override
+  void initState() {
+    super.initState();
+    // 描画の途中で状態を変えないよう、構築の後に実行する。
+    Future.microtask(_signOut);
+  }
+
+  Future<void> _signOut() async {
+    try {
+      await ref.read(signOutProvider)();
+    } catch (e, s) {
+      // 失敗してもログアウト画面は表示する。原因は、ここで [app_core] の失敗としてログに残す。
+      ref
+          .read(loggerProvider)
+          .error('[app_core] ログアウトの実行に失敗しました', ex: e, trace: s);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final t = ref.watch(appCoreStringsProvider).logout;
+    final signIn = ref.watch(signInDestinationProvider);
     return ScreenScaffold(
       title: t.title,
       body: Center(
@@ -86,10 +114,14 @@ class LogoutPage extends ConsumerWidget {
             Text(t.message),
             FilledButton(
               onPressed: () {
+                if (signIn != null) {
+                  ref.read(commandBusProvider).execute(signIn);
+                  return;
+                }
                 ref.read(userSummaryProvider.notifier).reset();
                 context.go('/');
               },
-              child: Text(t.signIn),
+              child: Text(signIn != null ? t.toLogin : t.signIn),
             ),
           ],
         ),

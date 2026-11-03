@@ -16,17 +16,21 @@ abstract final class FormRules {
       value.trim().isEmpty ? t.rules.required : null;
 
   static String? userId(AuthFilesStrings t, String value) =>
-      required(t, value) ?? (_userId.hasMatch(value.trim()) ? null : t.rules.userId);
+      required(t, value) ??
+      (_userId.hasMatch(value.trim()) ? null : t.rules.userId);
 
   static String? email(AuthFilesStrings t, String value) =>
-      required(t, value) ?? (_email.hasMatch(value.trim()) ? null : t.rules.email);
+      required(t, value) ??
+      (_email.hasMatch(value.trim()) ? null : t.rules.email);
 
   static String? kana(AuthFilesStrings t, String value) =>
-      required(t, value) ?? (_kana.hasMatch(value.trim()) ? null : t.rules.kana);
+      required(t, value) ??
+      (_kana.hasMatch(value.trim()) ? null : t.rules.kana);
 
   /// 認証コード。ハイフン・空白・大文字小文字は区別しない([normalizeCode] の形で12文字)。
   static String? code(AuthFilesStrings t, String value) =>
-      required(t, value) ?? (_code.hasMatch(normalizeCode(value)) ? null : t.rules.code);
+      required(t, value) ??
+      (_code.hasMatch(normalizeCode(value)) ? null : t.rules.code);
 
   static String? password(AuthFilesStrings t, String value) =>
       value.length >= minPasswordLength

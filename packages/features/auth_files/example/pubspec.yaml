@@ -1,0 +1,33 @@
+name: auth_files_example
+description: "認証と共有ファイル(auth_files)のビジュアルテスト(Windows 向けの単体確認アプリ)。"
+publish_to: none
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.4.3
+  go_router: ^18.1.0
+  feature_shared:
+    path: ../../../core/feature_shared
+  logger_provider:
+    path: ../../../infra/logger_provider
+  pbapi:
+    path: ../../../infra/pbapi
+  theme_lib:
+    path: ../../../ui/theme_lib
+  app_core:
+    path: ../../app_core
+  auth_files:
+    path: ..
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

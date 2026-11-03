@@ -16,6 +16,7 @@ logout:
   title: Signed out
   message: You have been signed out.
   signIn: Sign in (temporary)
+  toLogin: Go to sign in
 error:
   title: Error
   message: An error occurred in the application

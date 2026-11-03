@@ -18,6 +18,7 @@ errors:
   network: Cannot connect. Please check your connection.
   unknown: An unexpected error occurred.
   fileUnsupported: Files cannot be picked or saved in this environment.
+  fileTooLarge: The file is too large. Choose a file of 100 MB or less.
 rules:
   required: This field is required.
   userId: The user ID must be 4 to 32 characters of letters, digits, . _ or -.

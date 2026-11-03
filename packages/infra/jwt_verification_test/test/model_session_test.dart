@@ -17,28 +17,11 @@ import 'package:graphql/client.dart';
 import 'package:pbapi/pbapi.dart';
 import 'package:pms_graphql/pms_graphql.dart';
 
+import 'support/app_authorization.dart';
 import 'support/environment.dart';
 import 'support/fixtures.dart';
 import 'support/jwt_tools.dart';
 import 'support/model_probes.dart';
-
-const _bearerPrefix = 'Bearer ';
-
-/// アプリの `graphqlAuthorizationProvider`(apps/pms_app)と同じ振る舞い:
-/// PocketBase のセッションから JWT を得る。得られなければ [SessionUnavailableException]。
-Future<String?> Function() appAuthorization(
-  SessionService session, {
-  Duration margin = const Duration(seconds: 60),
-}) => () async {
-  try {
-    return '$_bearerPrefix${(await session.graphqlToken(margin: margin)).token}';
-  } on PbException catch (e) {
-    throw SessionUnavailableException(
-      transient: e.isTransient,
-      message: e.logMessage,
-    );
-  }
-};
 
 void main() {
   String? skipReason;

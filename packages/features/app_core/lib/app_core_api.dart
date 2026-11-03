@@ -3,3 +3,4 @@
 library;
 
 export 'src/app_core_destinations.dart';
+export 'src/sign_out.dart';

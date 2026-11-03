@@ -27,6 +27,8 @@ dependencies:
   slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   logger_provider:
     path: ../../infra/logger_provider
+  file_picker: ^13.3.2
+  flutter_secure_storage: ^10.3.4
 
 dev_dependencies:
   theme_lib:

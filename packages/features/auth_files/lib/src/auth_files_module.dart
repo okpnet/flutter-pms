@@ -19,57 +19,70 @@ import 'pages/register_page.dart';
 /// PocketBase への接続(`pbConnectionProvider`)とファイルの選択・保存
 /// (`filePickerGatewayProvider`・`fileSaverGatewayProvider`)はアプリが差し込む。
 class AuthFilesModule implements FeatureModule {
-  const AuthFilesModule();
+  /// [includeEntry] はログイン前の画面(ログイン・登録申請・再設定・コード入力)、
+  /// [includeFramed] は枠の中の画面(共有ファイル・管理者)。既定は両方。
+  /// アプリは、ログイン前の画面を枠の外のモジュール(`includeFramed: false`)、
+  /// 枠の中の画面を枠の中のモジュール(`includeEntry: false`)として2つ組み込む。
+  const AuthFilesModule({this.includeEntry = true, this.includeFramed = true});
+
+  final bool includeEntry;
+  final bool includeFramed;
 
   @override
   List<RouteBase> get routes => [
-    GoRoute(
-      path: AuthFilesPaths.login,
-      builder: (context, state) => const LoginPage(),
-    ),
-    GoRoute(
-      path: AuthFilesPaths.register,
-      builder: (context, state) => const RegisterPage(),
-    ),
-    GoRoute(
-      path: AuthFilesPaths.forgot,
-      builder: (context, state) => const ForgotPage(),
-    ),
-    GoRoute(
-      path: AuthFilesPaths.forgotCode,
-      builder: (context, state) => const CodePage(),
-    ),
-    GoRoute(
-      path: AuthFilesPaths.forgotReset,
-      builder: (context, state) => const NewPasswordPage(),
-    ),
-    GoRoute(
-      path: AuthFilesPaths.files,
-      builder: (context, state) => const SharedFilesPage(),
-    ),
-    GoRoute(
-      path: AuthFilesPaths.adminSignups,
-      builder: (context, state) => const AdminSignupsPage(),
-    ),
-    GoRoute(
-      path: AuthFilesPaths.adminResets,
-      builder: (context, state) => const AdminResetsPage(),
-    ),
+    if (includeEntry) ...[
+      GoRoute(
+        path: AuthFilesPaths.login,
+        builder: (context, state) => const LoginPage(),
+      ),
+      GoRoute(
+        path: AuthFilesPaths.register,
+        builder: (context, state) => const RegisterPage(),
+      ),
+      GoRoute(
+        path: AuthFilesPaths.forgot,
+        builder: (context, state) => const ForgotPage(),
+      ),
+      GoRoute(
+        path: AuthFilesPaths.forgotCode,
+        builder: (context, state) => const CodePage(),
+      ),
+      GoRoute(
+        path: AuthFilesPaths.forgotReset,
+        builder: (context, state) => const NewPasswordPage(),
+      ),
+    ],
+    if (includeFramed) ...[
+      GoRoute(
+        path: AuthFilesPaths.files,
+        builder: (context, state) => const SharedFilesPage(),
+      ),
+      GoRoute(
+        path: AuthFilesPaths.adminSignups,
+        builder: (context, state) => const AdminSignupsPage(),
+      ),
+      GoRoute(
+        path: AuthFilesPaths.adminResets,
+        builder: (context, state) => const AdminResetsPage(),
+      ),
+    ],
   ];
 
   @override
-  String? locationOf(PageDestination<Object?> destination) =>
-      switch (destination) {
-        LoginDestination() => AuthFilesPaths.login,
-        SignupDestination() => AuthFilesPaths.register,
-        PasswordResetRequestDestination() => AuthFilesPaths.forgot,
-        AcceptCodeDestination() => AuthFilesPaths.forgotCode,
-        NewPasswordDestination() => AuthFilesPaths.forgotReset,
-        SharedFilesDestination() => AuthFilesPaths.files,
-        AdminSignupsDestination() => AuthFilesPaths.adminSignups,
-        AdminResetsDestination() => AuthFilesPaths.adminResets,
-        _ => null,
-      };
+  String? locationOf(
+    PageDestination<Object?> destination,
+  ) => switch (destination) {
+    LoginDestination() when includeEntry => AuthFilesPaths.login,
+    SignupDestination() when includeEntry => AuthFilesPaths.register,
+    PasswordResetRequestDestination() when includeEntry =>
+      AuthFilesPaths.forgot,
+    AcceptCodeDestination() when includeEntry => AuthFilesPaths.forgotCode,
+    NewPasswordDestination() when includeEntry => AuthFilesPaths.forgotReset,
+    SharedFilesDestination() when includeFramed => AuthFilesPaths.files,
+    AdminSignupsDestination() when includeFramed => AuthFilesPaths.adminSignups,
+    AdminResetsDestination() when includeFramed => AuthFilesPaths.adminResets,
+    _ => null,
+  };
 
   @override
   void registerHandlers(CommandHandlerRegistry registry, Ref ref) {}

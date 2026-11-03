@@ -17,6 +17,7 @@ logout:
   title: ログアウト
   message: ログアウトしました。
   signIn: ログインする(仮)
+  toLogin: ログイン画面へ
 error:
   title: エラー
   message: アプリケーションでエラーが発生しました

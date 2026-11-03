@@ -2,6 +2,8 @@ import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'platform_file_gateway.dart';
+
 /// 利用者が選んだファイル。
 class PickedFile {
   const PickedFile({required this.name, required this.bytes, this.mimeType});
@@ -23,7 +25,8 @@ abstract interface class IFileSaverGateway {
   Future<bool> save(String filename, Uint8List bytes);
 }
 
-/// 実体が差し込まれていないとき。使うと [UnsupportedError] を投げ、画面が文言にする。
+/// 使えないことを表す実体。使うと [UnsupportedError] を投げ、画面が文言にする。
+/// 既定は OS のダイアログ([PlatformFilePicker]・[PlatformFileSaver])。ファイル選択を持たない環境・テストで差し込む。
 class UnsupportedFileGateway implements IFilePickerGateway, IFileSaverGateway {
   const UnsupportedFileGateway();
 
@@ -36,10 +39,12 @@ class UnsupportedFileGateway implements IFilePickerGateway, IFileSaverGateway {
       Future.error(UnsupportedError('IFileSaverGateway is not provided'));
 }
 
+/// ファイルの選択。既定は OS のダイアログ。アプリ・テストは上書きできる。
 final filePickerGatewayProvider = Provider<IFilePickerGateway>(
-  (ref) => const UnsupportedFileGateway(),
+  (ref) => PlatformFilePicker(),
 );
 
+/// ファイルの保存。既定は OS の「名前を付けて保存」ダイアログ。アプリ・テストは上書きできる。
 final fileSaverGatewayProvider = Provider<IFileSaverGateway>(
-  (ref) => const UnsupportedFileGateway(),
+  (ref) => PlatformFileSaver(),
 );

@@ -1,5 +1,6 @@
 import 'package:access_control/access_control.dart';
 import 'package:app_core/app_core.dart';
+import 'package:auth_files/auth_files.dart';
 import 'package:barcode_entry/barcode_entry.dart';
 import 'package:item/item.dart';
 import 'package:maintenance/maintenance.dart';
@@ -21,7 +22,11 @@ import '../../imports.dart';
 ///アプリに組み込む機能(ライブラリ)の一覧。並び順がサイドバーのグループの並び順になる。
 ///アプリの枠(ShellRoute)の外に置く機能。サイドバーに項目を出さず、ルーターの枠の外へ追加する。
 ///メンテナンス中のページは、枠(サイドバー・タイトルバー)を持たず、ほかのページへリンクしない。
-const List<FeatureModule> standaloneFeatureModules = [MaintenanceModule()];
+const List<FeatureModule> standaloneFeatureModules = [
+  MaintenanceModule(),
+  // ログイン前の画面(ログイン・登録申請・再設定・コード入力)
+  AuthFilesModule(includeFramed: false),
+];
 
 ///アプリに組み込む機能(ライブラリ)の一覧。並び順がサイドバーのグループの並び順になる。
 const List<FeatureModule> featureModules = [
@@ -41,4 +46,6 @@ const List<FeatureModule> featureModules = [
   SharedMasterModule(),
   SystemModule(),
   AccessControlModule(),
+  // 共有ファイル・管理者の画面(ログイン前の画面は standaloneFeatureModules)
+  AuthFilesModule(includeEntry: false),
 ];

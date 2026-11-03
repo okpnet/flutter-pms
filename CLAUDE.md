@@ -53,9 +53,9 @@ cd apps\pms_app; flutter run -d windows          # アプリ起動
 
 ## 認証
 
-認証は PocketBase に切り替える。Keycloak を使う `packages/features/pms_authenticator` には、これ以上着手しない(アプリへの接続・テストの修正を含む)。導入までのログインは、仮のボタンで標準のユーザーに戻す。PocketBase の導入は、認証の窓口(`page_mediator_extension` の `IPageSessionMediator`)の実装として差し込む想定で、別の Issue で行う。
+認証は PocketBase に切り替える。Keycloak を使う `packages/features/pms_authenticator` には、これ以上着手しない(アプリへの接続・テストの修正を含む)。導入までのログインは、仮のボタンで標準のユーザーに戻す。PocketBase のセッション確認は、認証の窓口(`page_mediator_extension` の `IPageSessionMediator`)の実装として `pms_app` の `PocketBasePageSession` が行う(`POCKETBASE_URL` を指定したときだけ。指定しないときはこれまでのまま)。ログイン前の画面は `auth_files`、ログインしていなければログインへ向けるのは `pms_app` の `authRedirect`。
 
-PocketBase のクライアントは `packages/infra/pbapi`(公式 SDK の `pocketbase` を使う。新規登録・パスワード・ログイン/ログアウト・セッション確認・共有ファイル・個人ファイル)。トークンは秘密情報として扱い、保存先は `ITokenStore` で差し替える(本番は安全な保管庫)。接続先は `https`(ローカルのネットワークのみ `http` 可)。`IPageSessionMediator` への接続・画面は別の Issue。詳細は [packages/infra/pbapi/CLAUDE.md](packages/infra/pbapi/CLAUDE.md) を参照。
+PocketBase のクライアントは `packages/infra/pbapi`(公式 SDK の `pocketbase` を使う。新規登録・パスワード・ログイン/ログアウト・セッション確認・共有ファイル・個人ファイル)。トークンは秘密情報として扱い、保存先は `ITokenStore` で差し替える。アプリの既定は OS の安全な保管庫(`auth_files` の `SecureTokenStore`、`flutter_secure_storage`)で、ログインは次の起動でも続く。ログアウトは `auth_files` の `authFilesSignOut`(`app_core` の `signOutProvider` に差し込む)がセッションと保管庫を破棄する。共有ファイルの選択・保存は `file_picker`(`auth_files`)。接続先は `https`(ローカルのネットワークのみ `http` 可)。ログイン・登録・再設定の画面は `packages/features/auth_files`。詳細は [packages/infra/pbapi/CLAUDE.md](packages/infra/pbapi/CLAUDE.md) を参照。
 
 GraphQL(PostGraphile)には PocketBase が発行した短期の JWT(`SessionService.graphqlToken`、`GET /api/app/graphql-token`、既定15分)を `Authorization: Bearer` で送る。JWT はメモリ上(Riverpod のサービス)にだけ置き、暗号化・永続化はしない。JWT を用意できないとき(未ログイン・破棄)は通信せず、`pms_graphql` の `SessionUnavailableException` を投げる。結果の型は `SessionExpiredError`(期限切れ=401・不正=403・セッション無し=`missing`)、`PermissionDeniedError`(DB の権限なし。JWT なしの匿名を含む)、`NetworkError`(認証サーバーに接続できないだけ)。PocketBase → PostGraphile → 全モデルの検証は `packages/infra/jwt_verification_test`(テスト専用。実行方法と実施ログは同プロジェクトの `CLAUDE.md`・`doc/`)。JWT の鍵(`PB_GRAPHQL_JWT_SECRET`)を Git に入れない(`tools/docker/postgraphile/.env` は追跡されているため注意)。
 

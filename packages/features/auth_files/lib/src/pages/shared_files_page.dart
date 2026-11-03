@@ -74,9 +74,7 @@ class _SharedFilesPageState extends ConsumerState<SharedFilesPage>
             comment: _comment.text.trim().isEmpty ? null : _comment.text.trim(),
           );
       if (mounted) {
-        setState(
-          () => _notice = t.files.uploaded(revision: stored.revision),
-        );
+        setState(() => _notice = t.files.uploaded(revision: stored.revision));
       }
     }, operation: 'upload');
     if (ok && !cancelled) await _load();

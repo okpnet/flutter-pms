@@ -88,6 +88,10 @@
   使用します（`preferLast: true` のため、後から出てきた重複の方が優先されます）。また、
   どのエントリが除外されたかをログに残すためにも使われます。
 
+### `mutate()`
+
+生成されたモデルのミューテーション(登録・更新・論理削除など)を1つ実行する(`mutate(MutationOptions)`)。結果は `query` と同じ分類(`Ok` または `Err`。JWT の期限切れ・不正は `SessionExpiredError`、DB の権限なしは `PermissionDeniedError`)。`IEditModel` のコンバーターで保存するときは `save()`。
+
 ### `save()` のデータフロー
 
 `List<IEditModel>` → すべてのモデルの型に対応するコンバーターが存在するか検証 →

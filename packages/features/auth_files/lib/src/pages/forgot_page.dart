@@ -61,9 +61,8 @@ class _ForgotPageState extends ConsumerState<ForgotPage> with BusyAction {
           enabled: !busy,
           autofocus: true,
           maxLength: 80,
-          onBlur: () => setState(
-            () => _whoError = FormRules.required(t, _who.text),
-          ),
+          onBlur: () =>
+              setState(() => _whoError = FormRules.required(t, _who.text)),
           onSubmitted: (_) => _submit(),
         ),
         FilledButton(
@@ -73,8 +72,9 @@ class _ForgotPageState extends ConsumerState<ForgotPage> with BusyAction {
         OutlinedButton(
           onPressed: busy
               ? null
-              : () =>
-                    ref.read(commandBusProvider).execute(const LoginDestination()),
+              : () => ref
+                    .read(commandBusProvider)
+                    .execute(const LoginDestination()),
           child: Text(t.common.backToLogin),
         ),
       ],

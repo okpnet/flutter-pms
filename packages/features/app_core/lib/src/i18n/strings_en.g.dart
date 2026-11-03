@@ -103,6 +103,7 @@ class _AppCoreStrings$logout$en extends AppCoreStrings$logout$ja {
 	@override String get title => 'Signed out';
 	@override String get message => 'You have been signed out.';
 	@override String get signIn => 'Sign in (temporary)';
+	@override String get toLogin => 'Go to sign in';
 }
 
 // Path: error
@@ -203,6 +204,7 @@ extension on AppCoreStringsEn {
 			'logout.title' => 'Signed out',
 			'logout.message' => 'You have been signed out.',
 			'logout.signIn' => 'Sign in (temporary)',
+			'logout.toLogin' => 'Go to sign in',
 			'error.title' => 'Error',
 			'error.message' => 'An error occurred in the application',
 			'error.back' => 'Back',

@@ -1,6 +1,7 @@
 import 'package:pbapi/pbapi.dart';
 
 import 'i18n/strings_provider.dart';
+import 'platform_file_gateway.dart';
 
 /// 失敗を利用者向けの文言にする。ログの文言は多言語の対象にしない(ログは [PbException.logMessage])。
 ///
@@ -13,6 +14,7 @@ String failureMessage(
 }) {
   if (error is ArgumentError) return t.errors.validation;
   if (error is UnsupportedError) return t.errors.fileUnsupported;
+  if (error is FileTooLargeException) return t.errors.fileTooLarge;
   if (error is! PbException) return t.errors.unknown;
   return switch (error.kind) {
     PbFailureKind.validation =>

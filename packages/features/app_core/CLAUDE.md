@@ -8,7 +8,7 @@
 2.  ダッシュボード(マルチメインフレーム): `DashboardDestination` → `/dashboard`。件数のコンテナ(`dashboard_container`)の領域を置き、「配置を編集」で編集に切り替える(コンテナ・項目の追加・削除・並び替え・大きさ。変更は設定として保存し、表示するときに設定から読み込む)。件数の元(`countSourcesProvider`)はアプリが差し込む
 3.  エラー画面(シングルメインフレーム): アプリケーションエラーの表示。`ErrorDestination({message})` → `/error`
 4.  設定(マルチメインフレーム): 使用言語(実行環境に従う/日本語/English)、サイドバーをアイコンだけにする設定、ログインユーザー(ユーザー名・役割を設定値として与える。標準値へ戻せる)、バージョン情報(`--dart-define=APP_VERSION=x.y.z`)。`SettingsDestination` → `/settings`。使用者全体ではなく、使用ユーザーにだけ影響する設定
-5.  ログアウト画面(シングルメインフレーム): `LogoutDestination` → `/logout`。ユーザーメニューの「ログアウト」で開く。認証の導入までは、仮のボタンで標準のユーザーに戻す
+5.  ログアウト画面(シングルメインフレーム): `LogoutDestination` → `/logout`。ユーザーメニューの「ログアウト」で開く。開いたとき1回、ログアウトの実体(`signOutProvider`。認証を持つアプリが上書きする。既定は何もしない)を実行し、失敗しても表示する。ボタンは、`signInDestinationProvider`(ログイン画面の遷移先)があればそこへ、無ければ認証の導入前の仮のログイン(標準のユーザーに戻す)
 6.  ログイン画面: 認証(Keycloak)の導入後に追加する(未実装)。ログイン状態は `userSummaryProvider`(`feature_shared`)で提供する
 
 ## 構成

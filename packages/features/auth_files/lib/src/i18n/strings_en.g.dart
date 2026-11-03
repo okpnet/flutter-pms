@@ -83,6 +83,7 @@ class _AuthFilesStrings$errors$en extends AuthFilesStrings$errors$ja {
 	@override String get network => 'Cannot connect. Please check your connection.';
 	@override String get unknown => 'An unexpected error occurred.';
 	@override String get fileUnsupported => 'Files cannot be picked or saved in this environment.';
+	@override String get fileTooLarge => 'The file is too large. Choose a file of 100 MB or less.';
 }
 
 // Path: rules
@@ -290,6 +291,7 @@ extension on AuthFilesStringsEn {
 			'errors.network' => 'Cannot connect. Please check your connection.',
 			'errors.unknown' => 'An unexpected error occurred.',
 			'errors.fileUnsupported' => 'Files cannot be picked or saved in this environment.',
+			'errors.fileTooLarge' => 'The file is too large. Choose a file of 100 MB or less.',
 			'rules.required' => 'This field is required.',
 			'rules.userId' => 'The user ID must be 4 to 32 characters of letters, digits, . _ or -.',
 			'rules.email' => 'The email address format is not valid. (e.g. name@example.com)',

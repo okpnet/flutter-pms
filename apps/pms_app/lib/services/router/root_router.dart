@@ -1,4 +1,5 @@
 // Project imports:
+import 'package:auth_files/auth_files.dart' show AuthFilesPaths;
 import 'package:maintenance/maintenance.dart';
 import 'package:page_mediator_extension/page_mediator_extension.dart';
 import 'package:pms_app/contents/_models/error/app_error.dart';
@@ -8,6 +9,7 @@ import '../../contents/contents.dart';
 import '../../imports.dart';
 import '../features/feature_error.dart';
 import '../features/feature_modules.dart';
+import '../graphql/graphql_overrides.dart' show pocketbaseEnabledProvider;
 import 'router.dart';
 
 part 'root_router.g.dart';
@@ -19,7 +21,10 @@ part 'root_router.g.dart';
 GoRouter rootRouter(Ref ref) {
   return GoRouter(
     debugLogDiagnostics: true,
-    initialLocation: LoginConstant.path,
+    // PocketBase を使うときは auth_files のログイン、使わないときはこれまでのログイン(仮)
+    initialLocation: ref.read(pocketbaseEnabledProvider)
+        ? AuthFilesPaths.login
+        : LoginConstant.path,
     routes: [
       ...controller.$appRoutes,
 
@@ -38,13 +43,28 @@ GoRouter rootRouter(Ref ref) {
     ///メンテナンス中は、どのページもメンテナンスページへ向ける(メンテナンスページでは通信しない。
     ///「再確認」で更新し、終わっていれば状態の変更でここが評価し直されてダッシュボードへ戻る)
     redirect: (context, state) async {
+      var session = PageSessionStatus.unknown;
       if (state.uri.path != MaintenancePaths.maintenance) {
-        await ref.read(pageSessionMediatorProvider).refresh();
+        session = await ref.read(pageSessionMediatorProvider).refresh();
       }
-      return maintenanceRedirect(
+      final maintenance = maintenanceRedirect(
         status: ref.read(maintenanceStatusProvider),
         location: state.uri.toString(),
         home: DashboardConstant.path,
+      );
+      if (maintenance != null) return maintenance;
+      // PocketBase を使うとき、ログインしていなければ(ログイン前の画面を除いて)ログインへ向ける
+      if (!ref.read(pocketbaseEnabledProvider)) return null;
+      return authRedirect(
+        status: session,
+        location: state.uri.toString(),
+        loginPath: AuthFilesPaths.login,
+        openPaths: const [
+          AuthFilesPaths.login,
+          AuthFilesPaths.register,
+          AuthFilesPaths.forgot,
+          MaintenancePaths.maintenance,
+        ],
       );
     },
     //存在しないパス・ルートの構築失敗は app_core のエラー画面へ

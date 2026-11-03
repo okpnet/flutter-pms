@@ -17,6 +17,7 @@ PocketBase ──(1)JWT を発行──▶ pbapi(SessionService)──(2)Authori
 | PostGraphile が JWT を検証する(期限切れ=401、署名・aud・アルゴリズムの不正=403、改ざん・ロールの昇格・`postgres` へのロール切り替えは不可) | `test/postgraphile_jwt_test.dart` |
 | セッションが切れた状態で、**12 のモデルすべて**がデータを返さず、正しい型のエラーを返す | `test/model_session_test.dart` |
 | セッションを更新しながらデータを取得できる(期限切れ → 取り直して再試行も含む) | 同上 |
+| **書き込み(ミューテーション)**を JWT で行える。セッション切れ・改ざん・匿名では書き込めず、データも変わらない(登録・論理削除・復元) | `test/mutation_session_test.dart` |
 
 エラーの型(`pms_graphql`): 期限切れ=`SessionExpiredError(expired, 401)`、不正=`SessionExpiredError(invalid, 403)`、セッションを破棄=`SessionExpiredError(missing)`(通信しない)、JWT なし(匿名)=`PermissionDeniedError`、認証サーバーに接続できないだけ=`NetworkError`。
 
@@ -26,7 +27,7 @@ PocketBase ──(1)JWT を発行──▶ pbapi(SessionService)──(2)Authori
 ## 規則(このプロジェクト固有)
 1.  サーバーは検証用で、書き込み・変更は自由。ただし、テストは自分が作ったもの(`jwt.test.…` の利用者)だけを作り、最後に削除する。
 1.  Docker(`tools/docker`)のファイルは、指示があるまで変更しない。必要な変更は実施ログに提案として残す。
-1.  ログインは同一 IP で 1 分 10 回までの制限がある(PocketBase)。続けて実行するときは 1 分以上あける。1 回の実行で使うログインは、`pocketbase_jwt_test` が 5 回、`model_session_test` が 4 回。
+1.  ログインは同一 IP で 1 分 10 回までの制限がある(PocketBase)。続けて実行するときは 1 分以上あける。1 回の実行で使うログインは、`pocketbase_jwt_test` が 5 回、`model_session_test` が 4 回、`mutation_session_test` が 4 回。
 1.  報告・ログには、サーバーを主語にする(「PostGraphile」「PocketBase」のどちらかを明記する)。
 1.  モデルを追加したら `test/support/model_probes.dart` に読み込みの問い合わせを 1 つ足す。
 
