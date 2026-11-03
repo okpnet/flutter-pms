@@ -33,7 +33,7 @@
 
 | 実体 | キー | 構造 | 項目数 | 参照先 |
 |---|---|---|---|---|
-| アクセスパス | `accesspath` | テーブル構造 | 5 |  |
+| アクセスパス | `accesspath` | テーブル構造 | 4 |  |
 | 部署のアクセスパス | `deptaccesspath` | テーブル構造 | 4 | `department`, `accesspath` |
 | 担当者のアクセスパス許可 | `staffaccesspermission` | テーブル構造 | 4 | `staff`, `accesspath` |
 | 担当者の実効アクセスパス | `effectiveaccesspath` | テーブル構造 | 5 | `staff`, `accesspath` |

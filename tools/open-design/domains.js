@@ -172,13 +172,12 @@
       ["name_ja", "ページ名（日本語）"],
       ["name_en", "ページ名（英語）"],
       ["usecase_path", "ページのパス"],
-      ["symbol", "シンボル", "t", { req: false }],
       ["remarks", "備考", "x", { req: false }],
     ],
     rows: [
-      ["単位台帳", "Unit ledger", "/e/unit", "YU", ""],
-      ["品目台帳", "Item ledger", "/e/item", "II", ""],
-      ["アクセスパス", "Access path", "/e/accesspath", "XA", ""],
+      ["単位台帳", "Unit ledger", "/e/unit", ""],
+      ["品目台帳", "Item ledger", "/e/item", ""],
+      ["アクセスパス", "Access path", "/e/accesspath", ""],
     ],
   });
   D.entities.push({

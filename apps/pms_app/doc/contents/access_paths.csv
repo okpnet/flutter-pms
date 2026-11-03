@@ -1,90 +1,90 @@
-﻿symbol,usecase_path,name_ja,name_en,feature,public
-AB,/boot,ブート,Boot,app_core,true
-AD,/dashboard,ダッシュボード,Dashboard,app_core,false
-AS,/settings,設定,Settings,app_core,false
-AO,/logout,ログアウト,Log out,app_core,true
-AE,/error,エラー,Error,app_core,true
-MM,/maintenance,メンテナンス中,Under maintenance,maintenance,true
-ET,/barcode,リーディングトップ,Barcode entry top,barcode_entry,false
-LM,/mrp,資材所要計算(MRP),Material requirements planning (MRP),production_plan,false
-HK,/shipping-kinds,配送区分,Shipping kind,shared_master,false
-UL,/auth/login,ログイン,Log in,auth_files,true
-US,/auth/register,新規登録,Sign up,auth_files,true
-UR,/auth/forgot,パスワードを忘れた,Forgot password,auth_files,true
-UC,/auth/forgot/code,認証コードの入力,Enter verification code,auth_files,true
-UP,/auth/forgot/reset,新しいパスワード,New password,auth_files,true
-UF,/auth/files,共有ファイル,Shared files,auth_files,false
-UA,/auth/admin/signups,新規登録の管理,Manage sign-ups,auth_files,false
-UQ,/auth/admin/resets,再設定依頼の管理,Manage reset requests,auth_files,false
-,/login,ログイン,Log in,pms_app,true
-LG-MT,/actual/material_transfer/register,資材移動の登録,Register material transfer,pms_app,false
-LG-SH,/actual/shipping,出荷の登録,Register shipping,pms_app,false
-LG-ST,/actual/stock_state,在庫状況,Stock status,pms_app,false
-LG-SO,/shipping/order,出荷オーダー一覧,Shipping orders,pms_app,false
-XA,/e/accesspath,アクセスパス,Access path,access_control,false
-XD,/e/deptaccesspath,部署のアクセスパス,Department access path,access_control,false
-XS,/e/staffaccesspermission,担当者のアクセスパス許可,Staff access permission,access_control,false
-XE,/e/effectiveaccesspath,担当者の実効アクセスパス,Staff effective access path,access_control,false
-IK,/e/itemkind,品目区分,Item kind,item,false
-IH,/e/hscode,HSコード,HS code,item,false
-II,/e/item,品目,Item,item,false
-IZ,/e/itemsizekind,品目大きさ区分,Item size kind,item,false
-IN,/e/itemonhand,品目の在庫,Item on hand,item,false
-OC,/e/company,会社情報,Company,organization,false
-OS,/e/site,事業所,Site,organization,false
-OD,/e/deptkind,部署区分,Department kind,organization,false
-OE,/e/department,部署,Department,organization,false
-OT,/e/staff,作業者,Staff,organization,false
-OV,/e/approvalpattern,承認パターン,Approval pattern,organization,false
-LR,/e/resplan,資材計画,Resource plan,production_plan,false
-LP,/e/prodrez,生産引き当て予約,Production reservation,production_plan,false
-LU,/e/purrez,購買引き当て予約,Purchase reservation,production_plan,false
-LE,/e/mrppending,要判断の提案,Suggestions to decide,production_plan,false
-LC,/e/mrppurchase,発注予定,Planned purchases,production_plan,false
-LI,/e/mrpissue,マスタ不備,Master data issues,production_plan,false
-LV,/e/mrpcoverage,資材計画の充足状況,Resource plan coverage,production_plan,false
-TT,/e/taskgroup,工程グループ,Task group,production_process,false
-TA,/e/task,工程,Task,production_process,false
-TO,/e/operation,工程運用,Operation,production_process,false
-PU,/e/unrec,非計上,Unrecorded,purchasing,false
-PP,/e/purchase,発注,Purchase order,purchasing,false
-PC,/e/purchaserec,受入実績,Receiving record,purchasing,false
-QC,/e/complaint,異常,Complaint,quality,false
-QR,/e/corder,注文苦情,Order complaint,quality,false
-QA,/e/cproc,工程苦情,Process complaint,quality,false
-QE,/e/cequip,設備苦情,Equipment complaint,quality,false
-QS,/e/orderrisk,注文リスク,Order risk,quality,false
-QT,/e/orderdetailrisk,受注明細リスク,Order line risk,quality,false
-QK,/e/taskrisk,工程リスク,Task risk,quality,false
-QU,/e/auditstd,監査標準,Audit standard,quality,false
-QH,/e/auditteam,監査チーム,Audit team,quality,false
-QL,/e/audit,監査,Audit,quality,false
-CD,/e/disposal,異常処置,Disposal action,quality_common,false
-CR,/e/recur,再発防止処置,Recurrence prevention action,quality_common,false
-CO,/e/obsdisp,処置監視,Disposal monitoring,quality_common,false
-CB,/e/obsprev,再発防止監視,Prevention monitoring,quality_common,false
-CI,/e/risk,リスク,Risk,quality_common,false
-CA,/e/auditstdcheck,監査標準項目,Audit standard check item,quality_common,false
-GD,/e/doctier,文書階層,Document tier,quality_document,false
-GO,/e/doc,文書,Document,quality_document,false
-GC,/e/doccontent,文書コンテンツ,Document content,quality_document,false
-GR,/e/report,レポート,Report,quality_document,false
-RC,/e/capability,力量,Capability,resource,false
-RL,/e/license,資格,License,resource,false
-RO,/e/location,場所,Location,resource,false
-RE,/e/equipmentcategory,設備分類,Equipment category,resource,false
-RQ,/e/equipment,設備,Equipment,resource,false
-RI,/e/inspectionkind,点検整備区分,Inspection kind,resource,false
-RN,/e/inspectionitem,点検整備項目,Inspection item,resource,false
-RP,/e/inspectionoperation,設備点検整備運用,Equipment inspection operation,resource,false
-RT,/e/inspectionschedule,点検予定,Inspection schedule,resource,false
-RW,/e/workcalendar,稼働カレンダー,Work calendar,resource,false
-SO,/e/order,受注,Sales order,sales,false
-HS,/e/stakeholder,利害関係者,Stakeholder,shared_master,false
-YU,/e/unit,単位,Unit,system,false
-WC,/e/container,コンテナ,Container,work_record,false
-WI,/e/invapply,引き当て,Inventory allocation,work_record,false
-WN,/e/invreq,引き当て予約,Inventory allocation request,work_record,false
-WE,/e/certificate,成績書,Certificate,work_record,false
-WW,/e/workrec,作業実績,Work record,work_record,false
-WM,/e/mrpvisiter,ビジター品目,Visiter item,work_record,false
+﻿usecase_path,name_ja,name_en,feature,public
+/boot,ブート,Boot,app_core,true
+/dashboard,ダッシュボード,Dashboard,app_core,false
+/settings,設定,Settings,app_core,false
+/logout,ログアウト,Log out,app_core,true
+/error,エラー,Error,app_core,true
+/maintenance,メンテナンス中,Under maintenance,maintenance,true
+/barcode,リーディングトップ,Barcode entry top,barcode_entry,false
+/mrp,資材所要計算(MRP),Material requirements planning (MRP),production_plan,false
+/shipping-kinds,配送区分,Shipping kind,shared_master,false
+/auth/login,ログイン,Log in,auth_files,true
+/auth/register,新規登録,Sign up,auth_files,true
+/auth/forgot,パスワードを忘れた,Forgot password,auth_files,true
+/auth/forgot/code,認証コードの入力,Enter verification code,auth_files,true
+/auth/forgot/reset,新しいパスワード,New password,auth_files,true
+/auth/files,共有ファイル,Shared files,auth_files,false
+/auth/admin/signups,新規登録の管理,Manage sign-ups,auth_files,false
+/auth/admin/resets,再設定依頼の管理,Manage reset requests,auth_files,false
+/login,ログイン,Log in,pms_app,true
+/actual/material_transfer/register,資材移動の登録,Register material transfer,pms_app,false
+/actual/shipping,出荷の登録,Register shipping,pms_app,false
+/actual/stock_state,在庫状況,Stock status,pms_app,false
+/shipping/order,出荷オーダー一覧,Shipping orders,pms_app,false
+/e/accesspath,アクセスパス,Access path,access_control,false
+/e/deptaccesspath,部署のアクセスパス,Department access path,access_control,false
+/e/staffaccesspermission,担当者のアクセスパス許可,Staff access permission,access_control,false
+/e/effectiveaccesspath,担当者の実効アクセスパス,Staff effective access path,access_control,false
+/e/itemkind,品目区分,Item kind,item,false
+/e/hscode,HSコード,HS code,item,false
+/e/item,品目,Item,item,false
+/e/itemsizekind,品目大きさ区分,Item size kind,item,false
+/e/itemonhand,品目の在庫,Item on hand,item,false
+/e/company,会社情報,Company,organization,false
+/e/site,事業所,Site,organization,false
+/e/deptkind,部署区分,Department kind,organization,false
+/e/department,部署,Department,organization,false
+/e/staff,作業者,Staff,organization,false
+/e/approvalpattern,承認パターン,Approval pattern,organization,false
+/e/resplan,資材計画,Resource plan,production_plan,false
+/e/prodrez,生産引き当て予約,Production reservation,production_plan,false
+/e/purrez,購買引き当て予約,Purchase reservation,production_plan,false
+/e/mrppending,要判断の提案,Suggestions to decide,production_plan,false
+/e/mrppurchase,発注予定,Planned purchases,production_plan,false
+/e/mrpissue,マスタ不備,Master data issues,production_plan,false
+/e/mrpcoverage,資材計画の充足状況,Resource plan coverage,production_plan,false
+/e/taskgroup,工程グループ,Task group,production_process,false
+/e/task,工程,Task,production_process,false
+/e/operation,工程運用,Operation,production_process,false
+/e/unrec,非計上,Unrecorded,purchasing,false
+/e/purchase,発注,Purchase order,purchasing,false
+/e/purchaserec,受入実績,Receiving record,purchasing,false
+/e/complaint,異常,Complaint,quality,false
+/e/corder,注文苦情,Order complaint,quality,false
+/e/cproc,工程苦情,Process complaint,quality,false
+/e/cequip,設備苦情,Equipment complaint,quality,false
+/e/orderrisk,注文リスク,Order risk,quality,false
+/e/orderdetailrisk,受注明細リスク,Order line risk,quality,false
+/e/taskrisk,工程リスク,Task risk,quality,false
+/e/auditstd,監査標準,Audit standard,quality,false
+/e/auditteam,監査チーム,Audit team,quality,false
+/e/audit,監査,Audit,quality,false
+/e/disposal,異常処置,Disposal action,quality_common,false
+/e/recur,再発防止処置,Recurrence prevention action,quality_common,false
+/e/obsdisp,処置監視,Disposal monitoring,quality_common,false
+/e/obsprev,再発防止監視,Prevention monitoring,quality_common,false
+/e/risk,リスク,Risk,quality_common,false
+/e/auditstdcheck,監査標準項目,Audit standard check item,quality_common,false
+/e/doctier,文書階層,Document tier,quality_document,false
+/e/doc,文書,Document,quality_document,false
+/e/doccontent,文書コンテンツ,Document content,quality_document,false
+/e/report,レポート,Report,quality_document,false
+/e/capability,力量,Capability,resource,false
+/e/license,資格,License,resource,false
+/e/location,場所,Location,resource,false
+/e/equipmentcategory,設備分類,Equipment category,resource,false
+/e/equipment,設備,Equipment,resource,false
+/e/inspectionkind,点検整備区分,Inspection kind,resource,false
+/e/inspectionitem,点検整備項目,Inspection item,resource,false
+/e/inspectionoperation,設備点検整備運用,Equipment inspection operation,resource,false
+/e/inspectionschedule,点検予定,Inspection schedule,resource,false
+/e/workcalendar,稼働カレンダー,Work calendar,resource,false
+/e/order,受注,Sales order,sales,false
+/e/stakeholder,利害関係者,Stakeholder,shared_master,false
+/e/unit,単位,Unit,system,false
+/e/container,コンテナ,Container,work_record,false
+/e/invapply,引き当て,Inventory allocation,work_record,false
+/e/invreq,引き当て予約,Inventory allocation request,work_record,false
+/e/certificate,成績書,Certificate,work_record,false
+/e/workrec,作業実績,Work record,work_record,false
+/e/mrpvisiter,ビジター品目,Visiter item,work_record,false

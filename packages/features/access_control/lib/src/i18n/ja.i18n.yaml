@@ -10,7 +10,6 @@ entity:
       f_name_ja: "ページ名（日本語）"
       f_name_en: "ページ名（英語）"
       f_usecase_path: "ページのパス"
-      f_symbol: "シンボル"
       f_remarks: "備考"
   deptaccesspath:
     title: "部署のアクセスパス"

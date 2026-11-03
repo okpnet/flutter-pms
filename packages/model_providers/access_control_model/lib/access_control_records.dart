@@ -22,7 +22,7 @@ class AccessPathRecord {
   /// ページのパス。
   final String usecasePath;
 
-  /// 画面コード。登録のときだけ書ける(更新では変えない)。
+  /// DB のトリガーが自動で付ける(読み取りだけ。登録・更新では送らない)。
   final String symbol;
   final String remarks;
 

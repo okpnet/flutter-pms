@@ -796,7 +796,6 @@ input InfoAccessPathInput {
   infoAppId: UUID
   names: UUID
   usecasePath: String
-  symbol: String
   remarks: String
 }
 
@@ -856,7 +855,6 @@ input InfoDepartmentAccessPathInput {
   infoDepartmentId: UUID
   infoAccessPathId: UUID
   write: Boolean
-  symbol: String
   remarks: String
 }
 
@@ -893,7 +891,6 @@ input InfoStaffAccessPermissionInput {
   infoStaffId: UUID
   infoAccessPathId: UUID
   write: Boolean
-  symbol: String
   remarks: String
 }
 

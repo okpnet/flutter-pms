@@ -41,7 +41,7 @@ PMS のシェルアプリ。GoRouter を構築済みのモックアップ(旧 `l
     3.  ダッシュボードは `app_core` のページ(`/dashboard`)を使う。件数の元は `services/dashboard` のモック(`mockCountSources`)で、GraphQL の `totalCount` を返す取得元ができたら `RepositoryCountSource` へ置き換える。保存された配置が無いときは `defaultDashboardLayout` にする(`main.dart`)。
 1.  機能(ライブラリ)の組み込み
     1.  `packages/features`の機能は`lib/services/features/feature_modules.dart`の`featureModules`に並べる。ルートは`root_router.dart`の`ShellRoute`(`UnControlContentsFrame`)に追加し、命令の窓口は`main()`で`commandBusProvider`へ`createFeatureCommandBus`を差し込む。サイドバーの項目は機能の`MenuContributor`から`DrawerMenu`が集める。
-    2.  アプリのページ(`TypedGoRoute`)と機能のページが同じ役割のときは、対応を`doc/log`に残してから置き換える。設定・ログアウト・エラーは`app_core`のページを使う(エラーへの遷移は`errorLocationOf`)。ルートの`name`は全体で一意にする(重複すると起動時に例外になる)。
+    1.  アプリのページの一覧(パスと名前 ja・en)を `doc/contents/access_paths.csv` に置く。アクセス管理(`access_control`)のアクセスパスを**初回に一括で登録する元**であり、ページの**参考の一覧**でもある。頻繁に使うものではない。ページを追加・変更したときは、必要に応じて更新する。初回の登録のあとの追加は、アクセス管理の登録画面で1件ずつ行う。
 2.  多言語(slang)
     1.  文字列は`lib/i18n`の言語ファイル(`ja.i18n.yaml`が基準、`en.i18n.yaml`など)に置き、`dart run slang`で生成する(生成物もコミット)。`feature_shared`の`localeProvider`を`ref.watch`する`appStringsProvider`で取得する。slangのグローバル変数は使わない。
     2.  表示する文字列とメッセージは全て言語ファイルに置く。エラーは文字列ではなく種類(enum・例外の型)で持ち、画面が表示時に文字列へ変換する。ログの文言は多言語の対象にしない。
@@ -53,7 +53,7 @@ PMS のシェルアプリ。GoRouter を構築済みのモックアップ(旧 `l
     1.  ユーザー設定(言語・サイドバー・ユーザー)は`settings_keeper`で`shared_preferences`に保存する(`main()`で`settingsStorageProvider`を差し込む)。保存する形のJSONモデルは`app_core`に定義する。
 5.  ページのアクセスパス(CSV)
     1.  アプリのページ(`TypedGoRoute`・`GoRoute`、機能のページ)を追加・変更・削除するたびに、アクセスパスの一覧 `doc/contents/access_paths.csv` を更新する。これがアクセス管理(`access_control`)で登録するアクセスパスの元で、アプリが正規に発行する権限の単位になる。
-    1.  列は `symbol`(画面コード。`packages/features/doc/page_code_list.yml`)、`usecase_path`(ページのパス)、`name_ja`・`name_en`(名前)、`feature`、`public`(ログイン前から使えるページは `true`。アクセス権の対象にせず、登録しない)。
+    1.  列は `usecase_path`(ページのパス)、`name_ja`・`name_en`(名前)、`feature`、`public`(ログイン前から使えるページは `true`。アクセス権の対象にせず、登録しない)。`symbol` は DB のトリガーが自動で付けるので、CSV には持たない。
     1.  生成は `node tools/entity_gen/access_paths.js`(リポジトリのルートで実行)。台帳(実体)は自動で増える。手書きのページは `tools/entity_gen/access_paths.js` の `CUSTOM` に、台帳の英語名は `EN` に足す(英語名が無いと失敗する)。生成後は差分をレビューする。
-    1.  `usecase_path` は全体で一意にする。公開でないページの `symbol` は、空にせず、全体で一意にする(DB の `info_access_path.symbol` が一意のため。旧来のページは `LG-` で始める)。名前(ja・en)を変えるときは、登録済みのアクセスパスを編集画面で直す(CSV の登録は、`usecase_path` が未登録のものだけを追加する)。
+    1.  `usecase_path` は全体で一意にする。名前(ja・en)を変えるときは、登録済みのアクセスパスを編集画面で直す(CSV の登録は、`usecase_path` が未登録のものだけを追加する)。
     1.  登録は `access_control_model` の `AccessControlClient.registerMissingAccessPaths`(`AccessPathSeed.parseCsv` で CSV を読む)か、アクセス管理の登録画面で行う。

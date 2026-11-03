@@ -62,7 +62,6 @@ class _AccessPathRepository extends _GraphqlRepository {
       'name_ja': r.nameJa,
       'name_en': r.nameEn,
       'usecase_path': r.usecasePath,
-      'symbol': r.symbol,
       'remarks': r.remarks,
     },
   );
@@ -93,7 +92,6 @@ class _AccessPathRepository extends _GraphqlRepository {
         nameJa: record.valueOf('name_ja').trim(),
         nameEn: record.valueOf('name_en').trim(),
         usecasePath: record.valueOf('usecase_path').trim(),
-        symbol: record.valueOf('symbol').trim(),
         remarks: record.valueOf('remarks').trim(),
       ),
     );

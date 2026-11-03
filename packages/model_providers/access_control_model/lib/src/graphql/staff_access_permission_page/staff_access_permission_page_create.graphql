@@ -7,7 +7,6 @@ mutation StaffAccessPermissionPageCreate(
   $infoStaffId: UUID
   $infoAccessPathId: UUID
   $write: Boolean
-  $symbol: String
   $remarks: String
 ) {
   createInfoStaffAccessPermission(
@@ -16,7 +15,6 @@ mutation StaffAccessPermissionPageCreate(
         infoStaffId: $infoStaffId
         infoAccessPathId: $infoAccessPathId
         write: $write
-        symbol: $symbol
         remarks: $remarks
       }
     }
@@ -26,7 +24,6 @@ mutation StaffAccessPermissionPageCreate(
       infoStaffId
       infoAccessPathId
       write
-      symbol
       remarks
     }
   }

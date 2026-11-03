@@ -7,7 +7,6 @@ mutation AccessPathPageCreate(
   $infoAppId: UUID
   $names: UUID
   $usecasePath: String
-  $symbol: String
   $remarks: String
 ) {
   createInfoAccessPath(
@@ -16,7 +15,6 @@ mutation AccessPathPageCreate(
         infoAppId: $infoAppId
         names: $names
         usecasePath: $usecasePath
-        symbol: $symbol
         remarks: $remarks
       }
     }
@@ -26,7 +24,6 @@ mutation AccessPathPageCreate(
       infoAppId
       names
       usecasePath
-      symbol
       remarks
     }
   }

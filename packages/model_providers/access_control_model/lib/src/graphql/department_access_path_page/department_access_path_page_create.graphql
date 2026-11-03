@@ -7,7 +7,6 @@ mutation DepartmentAccessPathPageCreate(
   $infoDepartmentId: UUID
   $infoAccessPathId: UUID
   $write: Boolean
-  $symbol: String
   $remarks: String
 ) {
   createInfoDepartmentAccessPath(
@@ -16,7 +15,6 @@ mutation DepartmentAccessPathPageCreate(
         infoDepartmentId: $infoDepartmentId
         infoAccessPathId: $infoAccessPathId
         write: $write
-        symbol: $symbol
         remarks: $remarks
       }
     }
@@ -26,7 +24,6 @@ mutation DepartmentAccessPathPageCreate(
       infoDepartmentId
       infoAccessPathId
       write
-      symbol
       remarks
     }
   }

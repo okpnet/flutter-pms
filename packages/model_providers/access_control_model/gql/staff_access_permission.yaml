@@ -56,5 +56,4 @@ StaffAccessPermissionPageCreate:
     - info_staff_id
     - info_access_path_id
     - write
-    - symbol
     - remarks

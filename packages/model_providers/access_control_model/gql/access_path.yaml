@@ -81,7 +81,7 @@ AccessPathPageEdit:
     - update_user_history_id
     - remove
 
-# アクセスパス(ページ)登録
+# アクセスパス(ページ)登録(symbol は DB のトリガーが自動で付ける)
 AccessPathPageCreate:
   kind: create
   from: info_access_path
@@ -89,5 +89,4 @@ AccessPathPageCreate:
     - info_app_id
     - names
     - usecase_path
-    - symbol
     - remarks

@@ -137,9 +137,6 @@ class AccessControlStrings$entity$accesspath$fields$ja {
 	/// ja: 'ページのパス'
 	String get f_usecase_path => 'ページのパス';
 
-	/// ja: 'シンボル'
-	String get f_symbol => 'シンボル';
-
 	/// ja: '備考'
 	String get f_remarks => '備考';
 }
@@ -223,7 +220,6 @@ extension on AccessControlStrings {
 			'entity.accesspath.fields.f_name_ja' => 'ページ名（日本語）',
 			'entity.accesspath.fields.f_name_en' => 'ページ名（英語）',
 			'entity.accesspath.fields.f_usecase_path' => 'ページのパス',
-			'entity.accesspath.fields.f_symbol' => 'シンボル',
 			'entity.accesspath.fields.f_remarks' => '備考',
 			'entity.deptaccesspath.title' => '部署のアクセスパス',
 			'entity.deptaccesspath.fields.f_department' => '部署',

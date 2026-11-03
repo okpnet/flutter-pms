@@ -51,7 +51,6 @@ class AccessPathSeed {
     required this.usecasePath,
     required this.nameJa,
     required this.nameEn,
-    this.symbol = '',
     this.isPublic = false,
   });
 
@@ -60,13 +59,10 @@ class AccessPathSeed {
   final String nameJa;
   final String nameEn;
 
-  /// 画面コード(`info_access_path.symbol`。16文字まで)。
-  final String symbol;
-
   /// ログイン前から使えるページ。アクセス権の対象にしないので、登録しない。
   final bool isPublic;
 
-  /// `access_paths.csv`(列: symbol,usecase_path,name_ja,name_en,feature,public。先頭は見出し)を読む。
+  /// `access_paths.csv`(列: usecase_path,name_ja,name_en,feature,public。先頭は見出し)を読む。
   static List<AccessPathSeed> parseCsv(String csv) {
     final rows = _parse(csv.startsWith('﻿') ? csv.substring(1) : csv);
     if (rows.isEmpty) return const [];
@@ -77,7 +73,6 @@ class AccessPathSeed {
       return i;
     }
 
-    final symbol = col('symbol');
     final path = col('usecase_path');
     final ja = col('name_ja');
     final en = col('name_en');
@@ -86,7 +81,6 @@ class AccessPathSeed {
       for (final r in rows.skip(1))
         if (r.length > en)
           AccessPathSeed(
-            symbol: r[symbol],
             usecasePath: r[path],
             nameJa: r[ja],
             nameEn: r[en],
@@ -275,7 +269,6 @@ class AccessControlClient {
     required String usecasePath,
     required String nameJa,
     required String nameEn,
-    String symbol = '',
     String? remarks,
   }) async {
     final app = await appId();
@@ -300,7 +293,6 @@ class AccessControlClient {
         'infoAppId': app,
         'names': names,
         'usecasePath': usecasePath,
-        'symbol': symbol,
         'remarks': remarks,
       },
       'createInfoAccessPath',
@@ -362,7 +354,7 @@ class AccessControlClient {
     if (n == null) return null;
     final name =
         (n['labels'] as Map?)?['sharedDictionaryBySharedDictionaryNameId'];
-    // 画面コード(symbol)は更新の対象外なので、一覧の読み込みで引く
+    // symbol は DB のトリガーが付ける(読み取りだけ)。一覧の読み込みで引く
     final symbolData = await _run(documentNodeQueryAccessPathPageRead, {
       'first': 1,
       'languageCodeId': _jaId,
@@ -382,14 +374,13 @@ class AccessControlClient {
   }
 
   /// アクセスパスを保存し、その id を返す。id が空なら登録([createAccessPath])、あれば更新。
-  /// 更新では画面コード(symbol)は変えない。読みと略称は、いまの値を保ったまま名前だけ直す。
+  /// symbol は DB のトリガーが自動で付けるので、登録でも更新でも送らない。読みと略称は、いまの値を保ったまま名前だけ直す。
   Future<String> saveAccessPath(AccessPathRecord r) async {
     if (r.id.isEmpty) {
       return createAccessPath(
         usecasePath: r.usecasePath,
         nameJa: r.nameJa,
         nameEn: r.nameEn,
-        symbol: r.symbol,
         remarks: r.remarks.isEmpty ? null : r.remarks,
       );
     }
@@ -635,7 +626,6 @@ class AccessControlClient {
         usecasePath: s.usecasePath,
         nameJa: s.nameJa,
         nameEn: s.nameEn,
-        symbol: s.symbol,
       );
       created.add(s.usecasePath);
     }

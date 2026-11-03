@@ -99,12 +99,9 @@ AccessControlClient _clientOn(Link link) => AccessControlClient(
 void main() {
   test('アクセスパスの登録は、辞書 → 言語別の値 → 呼称 → アクセスパスの順に登録する', () async {
     final link = _link();
-    final id = await _clientOn(link).createAccessPath(
-      usecasePath: '/e/unit',
-      nameJa: '単位',
-      nameEn: 'Unit',
-      symbol: 'YU',
-    );
+    final id = await _clientOn(
+      link,
+    ).createAccessPath(usecasePath: '/e/unit', nameJa: '単位', nameEn: 'Unit');
     expect(id, startsWith('path-'));
 
     final names = link.calls.map((c) => c.$1).toList();
@@ -145,7 +142,7 @@ void main() {
     expect(path['infoAppId'], 'app-1'); // 固定のアプリを埋め込む
     expect(path['names'], 'appellation-1');
     expect(path['usecasePath'], '/e/unit');
-    expect(path['symbol'], 'YU');
+    expect(path.containsKey('symbol'), isFalse); // symbol は DB のトリガーが付ける(送らない)
   });
 
   test('registerMissingAccessPaths は、公開ページと登録済みを飛ばし、重複させない', () async {
@@ -207,15 +204,15 @@ void main() {
   group('access_paths.csv', () {
     test('引用符と改行・BOM を読める', () {
       final seeds = AccessPathSeed.parseCsv(
-        '﻿symbol,usecase_path,name_ja,name_en,feature,public\r\n'
-        'XA,/e/a,"あ,い","He said ""hi""",f,false\r\n'
-        ',/login,ログイン,Log in,f,true\r\n',
+        '﻿usecase_path,name_ja,name_en,feature,public\r\n'
+        '/e/a,"あ,い","He said ""hi""",f,false\r\n'
+        '/login,ログイン,Log in,f,true\r\n',
       );
       expect(seeds, hasLength(2));
       expect(seeds[0].nameJa, 'あ,い');
       expect(seeds[0].nameEn, 'He said "hi"');
       expect(seeds[0].isPublic, isFalse);
-      expect(seeds[1].symbol, '');
+
       expect(seeds[1].isPublic, isTrue);
     });
 
@@ -225,22 +222,15 @@ void main() {
       final seeds = AccessPathSeed.parseCsv(file.readAsStringSync());
       expect(seeds, isNotEmpty);
       final paths = <String>{};
-      final symbols = <String>{};
       for (final s in seeds) {
         expect(s.usecasePath, startsWith('/'), reason: s.usecasePath);
         expect(s.nameJa, isNotEmpty, reason: s.usecasePath);
         expect(s.nameEn, isNotEmpty, reason: s.usecasePath);
-        expect(s.symbol.length, lessThanOrEqualTo(16), reason: s.usecasePath);
         expect(
           paths.add(s.usecasePath),
           isTrue,
           reason: '重複: ${s.usecasePath}',
         );
-        if (!s.isPublic) {
-          // info_access_path.symbol は一意。登録するページは symbol が空にならない
-          expect(s.symbol, isNotEmpty, reason: s.usecasePath);
-          expect(symbols.add(s.symbol), isTrue, reason: '重複: ${s.symbol}');
-        }
       }
     });
   });
