@@ -90,6 +90,20 @@ LANGUAGE plpgsql;
 COMMENT ON FUNCTION tests.trg_gen_text_summary() IS 'text_valueからlead_text(導入文)とchar_count(文字数)を算出する';
 
 --242.create tables
+create table tests.history_info_department_access_path (
+    history_id uuid default gen_random_uuid(),
+    info_department_access_path_id uuid not null,
+    info_department_id uuid not null,
+    info_access_path_id uuid not null,
+    write boolean default 't',
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
 create table tests.trans_complaint_visiter (
     trans_complaint_visiter_id uuid default gen_random_uuid(),
     trans_complaint_id uuid not null,
@@ -1212,23 +1226,11 @@ create table tests.mstr_inspection_operation_task (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
-create table tests.history_info_department_access_permission (
-    history_id uuid default gen_random_uuid(),
-    info_department_access_permission_id uuid not null,
-    info_access_path_id uuid not null,
+create table tests.info_department_access_path (
+    info_department_access_path_id uuid default gen_random_uuid(),
     info_department_id uuid not null,
-    revision integer default 1,
-    symbol varchar(16) default '',
-    remarks varchar(1024) default null,
-    update_at timestamp default now(),
-    update_user_id uuid default null,
-    update_user_history_id uuid default null,
-    remove boolean default 'f'
-);
-create table tests.info_department_access_permission (
-    info_department_access_permission_id uuid default gen_random_uuid(),
     info_access_path_id uuid not null,
-    info_department_id uuid not null,
+    write boolean default 't',
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -1819,9 +1821,9 @@ create table tests.history_mstr_license (
 create table tests.history_info_staff_access_permission (
     history_id uuid default gen_random_uuid(),
     info_staff_access_permission_id uuid not null,
-    info_access_path_id uuid not null,
     info_staff_id uuid not null,
-    permit smallint default null,
+    info_access_path_id uuid not null,
+    write boolean not null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2043,9 +2045,7 @@ create table tests.history_info_access_path_approval (
     history_id uuid default gen_random_uuid(),
     info_access_path_approval_id uuid not null,
     info_access_path_id uuid default null,
-    name varchar(255) default null,
-    kana varchar(255) default null,
-    tag varchar(255) default null,
+    names uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2058,12 +2058,8 @@ create table tests.history_info_access_path (
     history_id uuid default gen_random_uuid(),
     info_access_path_id uuid not null,
     info_app_id uuid not null,
-    name varchar(255) not null,
-    usecase_path1 varchar(255) default null,
-    usecase_path2 varchar(255) default null,
-    usecase_path3 varchar(255) default null,
-    classes smallint default 0,
-    sequence smallint default 1,
+    names uuid not null,
+    usecase_path varchar(255) default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2356,9 +2352,7 @@ create table tests.mstr_equipment_tag (
 create table tests.info_access_path_approval (
     info_access_path_approval_id uuid default gen_random_uuid(),
     info_access_path_id uuid default null,
-    name varchar(255) default null,
-    kana varchar(255) default null,
-    tag varchar(255) default null,
+    names uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2867,9 +2861,9 @@ create table tests.info_assign (
 );
 create table tests.info_staff_access_permission (
     info_staff_access_permission_id uuid default gen_random_uuid(),
-    info_access_path_id uuid not null,
     info_staff_id uuid not null,
-    permit smallint default null,
+    info_access_path_id uuid not null,
+    write boolean default 'f',
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2893,12 +2887,8 @@ create table tests.info_app (
 create table tests.info_access_path (
     info_access_path_id uuid default gen_random_uuid(),
     info_app_id uuid not null,
-    name varchar(255) not null,
-    usecase_path1 varchar(255) default null,
-    usecase_path2 varchar(255) default null,
-    usecase_path3 varchar(255) default null,
-    classes smallint default 0,
-    sequence smallint default 1,
+    names uuid not null,
+    usecase_path varchar(255) default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -3582,6 +3572,19 @@ create table tests.info_office (
     remove boolean default 'f'
 );
 --242.add table comments
+comment on table tests.history_info_department_access_path is '部署アクセスパス履歴';
+comment on column tests.history_info_department_access_path.history_id is '履歴ID';
+comment on column tests.history_info_department_access_path.info_department_access_path_id is '部署アクセスパスID';
+comment on column tests.history_info_department_access_path.info_department_id is '組織情報ID';
+comment on column tests.history_info_department_access_path.info_access_path_id is 'アクセスパスID';
+comment on column tests.history_info_department_access_path.write is '書き込み';
+comment on column tests.history_info_department_access_path.revision is 'レビジョン';
+comment on column tests.history_info_department_access_path.symbol is 'リニアシンボル';
+comment on column tests.history_info_department_access_path.remarks is '備考';
+comment on column tests.history_info_department_access_path.update_at is '更新日時';
+comment on column tests.history_info_department_access_path.update_user_id is '更新者ID';
+comment on column tests.history_info_department_access_path.update_user_history_id is '更新者履歴ID';
+comment on column tests.history_info_department_access_path.remove is '削除';
 comment on table tests.trans_complaint_visiter is '異常入出庫ビジター';
 comment on column tests.trans_complaint_visiter.trans_complaint_visiter_id is '異常入出庫ビジターID';
 comment on column tests.trans_complaint_visiter.trans_complaint_id is '異常ID';
@@ -4621,29 +4624,18 @@ comment on column tests.mstr_inspection_operation_task.update_at is '更新日�
 comment on column tests.mstr_inspection_operation_task.update_user_id is '更新者ID';
 comment on column tests.mstr_inspection_operation_task.update_user_history_id is '更新者履歴ID';
 comment on column tests.mstr_inspection_operation_task.remove is '削除';
-comment on table tests.history_info_department_access_permission is '部署アクセスパス履歴';
-comment on column tests.history_info_department_access_permission.history_id is '履歴ID';
-comment on column tests.history_info_department_access_permission.info_department_access_permission_id is '部署アクセスパスID';
-comment on column tests.history_info_department_access_permission.info_access_path_id is 'アクセスパスID';
-comment on column tests.history_info_department_access_permission.info_department_id is '組織情報ID';
-comment on column tests.history_info_department_access_permission.revision is 'レビジョン';
-comment on column tests.history_info_department_access_permission.symbol is 'リニアシンボル';
-comment on column tests.history_info_department_access_permission.remarks is '備考';
-comment on column tests.history_info_department_access_permission.update_at is '更新日時';
-comment on column tests.history_info_department_access_permission.update_user_id is '更新者ID';
-comment on column tests.history_info_department_access_permission.update_user_history_id is '更新者履歴ID';
-comment on column tests.history_info_department_access_permission.remove is '削除';
-comment on table tests.info_department_access_permission is '部署アクセスパス';
-comment on column tests.info_department_access_permission.info_department_access_permission_id is '部署アクセスパスID';
-comment on column tests.info_department_access_permission.info_access_path_id is 'アクセスパスID';
-comment on column tests.info_department_access_permission.info_department_id is '組織情報ID';
-comment on column tests.info_department_access_permission.revision is 'レビジョン';
-comment on column tests.info_department_access_permission.symbol is 'リニアシンボル';
-comment on column tests.info_department_access_permission.remarks is '備考';
-comment on column tests.info_department_access_permission.update_at is '更新日時';
-comment on column tests.info_department_access_permission.update_user_id is '更新者ID';
-comment on column tests.info_department_access_permission.update_user_history_id is '更新者履歴ID';
-comment on column tests.info_department_access_permission.remove is '削除';
+comment on table tests.info_department_access_path is '部署アクセスパス';
+comment on column tests.info_department_access_path.info_department_access_path_id is '部署アクセスパス詳細ID';
+comment on column tests.info_department_access_path.info_department_id is '組織情報ID';
+comment on column tests.info_department_access_path.info_access_path_id is 'アクセスパスID';
+comment on column tests.info_department_access_path.write is '書き込み';
+comment on column tests.info_department_access_path.revision is 'レビジョン';
+comment on column tests.info_department_access_path.symbol is 'リニアシンボル';
+comment on column tests.info_department_access_path.remarks is '備考';
+comment on column tests.info_department_access_path.update_at is '更新日時';
+comment on column tests.info_department_access_path.update_user_id is '更新者ID';
+comment on column tests.info_department_access_path.update_user_history_id is '更新者履歴ID';
+comment on column tests.info_department_access_path.remove is '削除';
 comment on table tests.history_info_assign is '割当情報履歴';
 comment on column tests.history_info_assign.history_id is '履歴ID';
 comment on column tests.history_info_assign.info_assign_id is 'アサインID';
@@ -5189,9 +5181,9 @@ comment on column tests.history_mstr_license.remove is '削除';
 comment on table tests.history_info_staff_access_permission is '担当者アクセスパス許可情報履歴';
 comment on column tests.history_info_staff_access_permission.history_id is '履歴ID';
 comment on column tests.history_info_staff_access_permission.info_staff_access_permission_id is '担当者アクセスパス許可情報ID';
-comment on column tests.history_info_staff_access_permission.info_access_path_id is 'アクセスパスID';
 comment on column tests.history_info_staff_access_permission.info_staff_id is '担当者ID';
-comment on column tests.history_info_staff_access_permission.permit is 'パーミット';
+comment on column tests.history_info_staff_access_permission.info_access_path_id is 'アクセスパスID';
+comment on column tests.history_info_staff_access_permission.write is '書き込み';
 comment on column tests.history_info_staff_access_permission.revision is 'レビジョン';
 comment on column tests.history_info_staff_access_permission.symbol is 'リニアシンボル';
 comment on column tests.history_info_staff_access_permission.remarks is '備考';
@@ -5398,9 +5390,7 @@ comment on table tests.history_info_access_path_approval is 'アクセスパス�
 comment on column tests.history_info_access_path_approval.history_id is '履歴ID';
 comment on column tests.history_info_access_path_approval.info_access_path_approval_id is 'アクセスパス承認情報ID';
 comment on column tests.history_info_access_path_approval.info_access_path_id is 'アクセスパスID';
-comment on column tests.history_info_access_path_approval.name is '名前';
-comment on column tests.history_info_access_path_approval.kana is 'カナ';
-comment on column tests.history_info_access_path_approval.tag is 'タグ';
+comment on column tests.history_info_access_path_approval.names is '名前';
 comment on column tests.history_info_access_path_approval.revision is 'レビジョン';
 comment on column tests.history_info_access_path_approval.symbol is 'リニアシンボル';
 comment on column tests.history_info_access_path_approval.remarks is '備考';
@@ -5412,12 +5402,8 @@ comment on table tests.history_info_access_path is 'アクセスパス履歴';
 comment on column tests.history_info_access_path.history_id is '履歴ID';
 comment on column tests.history_info_access_path.info_access_path_id is 'アクセスパスID';
 comment on column tests.history_info_access_path.info_app_id is 'アプリケーションID';
-comment on column tests.history_info_access_path.name is 'アクセスパス名';
-comment on column tests.history_info_access_path.usecase_path1 is 'ユースケースパス1';
-comment on column tests.history_info_access_path.usecase_path2 is 'ユースケースパス2';
-comment on column tests.history_info_access_path.usecase_path3 is 'ユースケースパス3';
-comment on column tests.history_info_access_path.classes is 'ページクラス';
-comment on column tests.history_info_access_path.sequence is '順';
+comment on column tests.history_info_access_path.names is 'アクセスパス名';
+comment on column tests.history_info_access_path.usecase_path is 'ユースケースパス';
 comment on column tests.history_info_access_path.revision is 'レビジョン';
 comment on column tests.history_info_access_path.symbol is 'リニアシンボル';
 comment on column tests.history_info_access_path.remarks is '備考';
@@ -5689,9 +5675,7 @@ comment on column tests.mstr_equipment_tag.remove is '削除';
 comment on table tests.info_access_path_approval is 'アクセスパス承認情報';
 comment on column tests.info_access_path_approval.info_access_path_approval_id is 'アクセスパス承認情報ID';
 comment on column tests.info_access_path_approval.info_access_path_id is 'アクセスパスID';
-comment on column tests.info_access_path_approval.name is '名前';
-comment on column tests.info_access_path_approval.kana is 'カナ';
-comment on column tests.info_access_path_approval.tag is 'タグ';
+comment on column tests.info_access_path_approval.names is '名前';
 comment on column tests.info_access_path_approval.revision is 'レビジョン';
 comment on column tests.info_access_path_approval.symbol is 'リニアシンボル';
 comment on column tests.info_access_path_approval.remarks is '備考';
@@ -6164,9 +6148,9 @@ comment on column tests.info_assign.update_user_history_id is '更新者履歴ID
 comment on column tests.info_assign.remove is '削除';
 comment on table tests.info_staff_access_permission is '担当者アクセスパス許可情報';
 comment on column tests.info_staff_access_permission.info_staff_access_permission_id is '担当者アクセスパス許可情報ID';
-comment on column tests.info_staff_access_permission.info_access_path_id is 'アクセスパスID';
 comment on column tests.info_staff_access_permission.info_staff_id is '担当者ID';
-comment on column tests.info_staff_access_permission.permit is 'パーミット';
+comment on column tests.info_staff_access_permission.info_access_path_id is 'アクセスパスID';
+comment on column tests.info_staff_access_permission.write is '書き込み';
 comment on column tests.info_staff_access_permission.revision is 'レビジョン';
 comment on column tests.info_staff_access_permission.symbol is 'リニアシンボル';
 comment on column tests.info_staff_access_permission.remarks is '備考';
@@ -6188,12 +6172,8 @@ comment on column tests.info_app.remove is '削除';
 comment on table tests.info_access_path is 'アクセスパス';
 comment on column tests.info_access_path.info_access_path_id is 'アクセスパスID';
 comment on column tests.info_access_path.info_app_id is 'アプリケーションID';
-comment on column tests.info_access_path.name is 'アクセスパス名';
-comment on column tests.info_access_path.usecase_path1 is 'ユースケースパス1';
-comment on column tests.info_access_path.usecase_path2 is 'ユースケースパス2';
-comment on column tests.info_access_path.usecase_path3 is 'ユースケースパス3';
-comment on column tests.info_access_path.classes is 'ページクラス';
-comment on column tests.info_access_path.sequence is '順';
+comment on column tests.info_access_path.names is 'アクセスパス名';
+comment on column tests.info_access_path.usecase_path is 'ユースケースパス';
 comment on column tests.info_access_path.revision is 'レビジョン';
 comment on column tests.info_access_path.symbol is 'リニアシンボル';
 comment on column tests.info_access_path.remarks is '備考';
@@ -6832,6 +6812,12 @@ comment on column tests.info_office.update_user_id is '更新者ID';
 comment on column tests.info_office.update_user_history_id is '更新者履歴ID';
 comment on column tests.info_office.remove is '削除';
 --242.add table primary key and index
+create unique index history_info_department_access_path_PKI
+    on tests.history_info_department_access_path(history_id,info_department_access_path_id);
+alter table tests.history_info_department_access_path
+    add constraint history_info_department_access_path_PKC primary key (history_id,info_department_access_path_id);
+alter table tests.history_info_department_access_path
+     add constraint history_info_department_access_path_IX1 unique  (info_department_access_path_id,revision);
 create unique index trans_complaint_visiter_PKI
     on tests.trans_complaint_visiter(trans_complaint_visiter_id);
 alter table tests.trans_complaint_visiter
@@ -7339,18 +7325,14 @@ alter table tests.mstr_inspection_operation_task
     add constraint mstr_inspection_operation_task_PKC primary key (mstr_inspection_operation_task_id);
 alter table tests.mstr_inspection_operation_task
      add constraint mstr_inspection_operation_task_IX1 unique  (symbol);
-create unique index history_info_department_access_permission_PKI
-    on tests.history_info_department_access_permission(history_id,info_department_access_permission_id);
-alter table tests.history_info_department_access_permission
-    add constraint history_info_department_access_permission_PKC primary key (history_id,info_department_access_permission_id);
-alter table tests.history_info_department_access_permission
-     add constraint history_info_department_access_permission_IX1 unique  (info_department_access_permission_id,revision);
-create unique index info_department_access_permission_PKI
-    on tests.info_department_access_permission(info_department_access_permission_id);
-alter table tests.info_department_access_permission
-    add constraint info_department_access_permission_PKC primary key (info_department_access_permission_id);
-alter table tests.info_department_access_permission
-     add constraint info_department_access_permission_IX1 unique  (symbol);
+create unique index info_department_access_path_PKI
+    on tests.info_department_access_path(info_department_access_path_id);
+alter table tests.info_department_access_path
+    add constraint info_department_access_path_PKC primary key (info_department_access_path_id);
+alter table tests.info_department_access_path
+     add constraint info_department_access_path_IX1 unique  (symbol);
+alter table tests.info_department_access_path
+     add constraint info_department_access_path_IX2 unique  (info_department_id,info_access_path_id);
 create unique index history_info_assign_PKI
     on tests.history_info_assign(history_id,info_assign_id);
 alter table tests.history_info_assign
@@ -8019,6 +8001,8 @@ alter table tests.info_staff_access_permission
     add constraint info_staff_access_permission_PKC primary key (info_staff_access_permission_id);
 alter table tests.info_staff_access_permission
      add constraint info_staff_access_permission_IX1 unique  (symbol);
+alter table tests.info_staff_access_permission
+     add constraint info_staff_access_permission_IX2 unique  (info_staff_id,info_access_path_id);
 create unique index info_app_PKI
     on tests.info_app(info_app_id);
 alter table tests.info_app
@@ -8316,6 +8300,8 @@ alter table tests.info_office
 alter table tests.info_office
      add constraint info_office_IX1 unique  (symbol);
 --242.add table foreign key
+alter table tests.history_info_department_access_path add constraint history_info_department_access_path_FK1 foreign key (info_department_access_path_id) references tests.info_department_access_path (info_department_access_path_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_info_department_access_path add constraint history_info_department_access_path_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_complaint_visiter add constraint trans_complaint_visiter_FK1 foreign key (release_staff_history_id,release_staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_complaint_visiter add constraint trans_complaint_visiter_FK2 foreign key (trans_visiter_id) references tests.trans_visiter (trans_visiter_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_complaint_visiter add constraint trans_complaint_visiter_FK3 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8514,11 +8500,9 @@ alter table tests.history_mstr_inspection_operation_task add constraint history_
 alter table tests.mstr_inspection_operation_task add constraint mstr_inspection_operation_task_FK1 foreign key (mstr_inspection_id) references tests.mstr_inspection (mstr_inspection_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_inspection_operation_task add constraint mstr_inspection_operation_task_FK2 foreign key (mstr_inspection_operation_id) references tests.mstr_inspection_operation (mstr_inspection_operation_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_inspection_operation_task add constraint mstr_inspection_operation_task_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.history_info_department_access_permission add constraint history_info_department_access_permission_FK1 foreign key (info_department_access_permission_id) references tests.info_department_access_permission (info_department_access_permission_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.history_info_department_access_permission add constraint history_info_department_access_permission_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_department_access_permission add constraint info_department_access_permission_FK1 foreign key (info_access_path_id) references tests.info_access_path (info_access_path_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_department_access_permission add constraint info_department_access_permission_FK2 foreign key (info_department_id) references tests.info_department (info_department_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_department_access_permission add constraint info_department_access_permission_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_department_access_path add constraint info_department_access_path_FK1 foreign key (info_department_id) references tests.info_department (info_department_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_department_access_path add constraint info_department_access_path_FK2 foreign key (info_access_path_id) references tests.info_access_path (info_access_path_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_department_access_path add constraint info_department_access_path_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_assign add constraint history_info_assign_FK1 foreign key (info_assign_id) references tests.info_assign (info_assign_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_assign add constraint history_info_assign_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_item_provision add constraint mstr_item_provision_FK1 foreign key (info_provision_id) references tests.info_provision (info_provision_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8691,8 +8675,9 @@ alter table tests.mstr_report add constraint mstr_report_FK4 foreign key (update
 alter table tests.mstr_equipment_tag add constraint mstr_equipment_tag_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_equipment_tag add constraint mstr_equipment_tag_FK2 foreign key (trans_file_id) references tests.trans_file (trans_file_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_equipment_tag add constraint mstr_equipment_tag_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_access_path_approval add constraint info_access_path_approval_FK1 foreign key (info_access_path_id) references tests.info_access_path (info_access_path_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_access_path_approval add constraint info_access_path_approval_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_access_path_approval add constraint info_access_path_approval_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_access_path_approval add constraint info_access_path_approval_FK2 foreign key (info_access_path_id) references tests.info_access_path (info_access_path_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_access_path_approval add constraint info_access_path_approval_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_approved add constraint trans_approved_FK1 foreign key (approved_staff_history_id,approved_staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_approved add constraint trans_approved_FK2 foreign key (trans_preapproval_id) references tests.trans_preapproval (trans_preapproval_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_approved add constraint trans_approved_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8831,13 +8816,14 @@ alter table tests.info_assign add constraint info_assign_FK2 foreign key (info_d
 alter table tests.info_assign add constraint info_assign_FK3 foreign key (info_staff_id) references tests.info_staff (info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_assign add constraint info_assign_FK4 foreign key (info_position_id) references tests.info_position (info_position_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_assign add constraint info_assign_FK5 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_staff_access_permission add constraint info_staff_access_permission_FK1 foreign key (info_staff_id) references tests.info_staff (info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_staff_access_permission add constraint info_staff_access_permission_FK2 foreign key (info_access_path_id) references tests.info_access_path (info_access_path_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_staff_access_permission add constraint info_staff_access_permission_FK1 foreign key (info_access_path_id) references tests.info_access_path (info_access_path_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_staff_access_permission add constraint info_staff_access_permission_FK2 foreign key (info_staff_id) references tests.info_staff (info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_staff_access_permission add constraint info_staff_access_permission_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_app add constraint info_app_FK1 foreign key (info_company_id) references tests.info_company (info_company_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_app add constraint info_app_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_access_path add constraint info_access_path_FK1 foreign key (info_app_id) references tests.info_app (info_app_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_access_path add constraint info_access_path_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_access_path add constraint info_access_path_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_access_path add constraint info_access_path_FK2 foreign key (info_app_id) references tests.info_app (info_app_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_access_path add constraint info_access_path_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inventory_request add constraint trans_inventory_request_FK1 foreign key (trans_resource_plan_id) references tests.trans_resource_plan (trans_resource_plan_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inventory_request add constraint trans_inventory_request_FK2 foreign key (staff_history_id,staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inventory_request add constraint trans_inventory_request_FK3 foreign key (trans_product_rez_id) references tests.trans_product_rez (trans_product_rez_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8997,6 +8983,30 @@ alter table tests.info_office add constraint info_office_FK2 foreign key (info_c
 alter table tests.info_office add constraint info_office_FK3 foreign key (info_address_id) references tests.info_address (info_address_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 --242.add table trigger
+-- history_info_department_access_path update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_department_access_path() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.history_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_history_info_department_access_path BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_department_access_path FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_history_info_department_access_path();
+
+
+CREATE TRIGGER trg_04_symbol_history_info_department_access_path BEFORE INSERT ON tests.history_info_department_access_path FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- trans_complaint_visiter update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_visiter() RETURNS trigger AS
 $BODY$
@@ -13390,8 +13400,8 @@ CREATE TRIGGER trg_02_history_mstr_inspection_operation_task BEFORE INSERT OR UP
 PROCEDURE tests.trg_02_history_mstr_inspection_operation_task();
 
 
--- history_info_department_access_permission update trigger
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_department_access_permission() RETURNS trigger AS
+-- info_department_access_path update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_department_access_path() RETURNS trigger AS
 $BODY$
 DECLARE
     latest_row record;
@@ -13400,7 +13410,7 @@ BEGIN
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP='INSERT') THEN
-        NEW.history_id := gen_random_uuid();
+        NEW.info_department_access_path_id := gen_random_uuid();
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP = 'DELETE') THEN
@@ -13409,55 +13419,33 @@ BEGIN
 END
 $BODY$
 LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_01_updatetimes_history_info_department_access_permission BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_department_access_permission FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_01_updatetimes_history_info_department_access_permission();
+CREATE TRIGGER trg_01_updatetimes_info_department_access_path BEFORE INSERT OR UPDATE OR DELETE ON tests.info_department_access_path FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_info_department_access_path();
 
 
-CREATE TRIGGER trg_04_symbol_history_info_department_access_permission BEFORE INSERT ON tests.history_info_department_access_permission FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
--- info_department_access_permission update trigger
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_department_access_permission() RETURNS trigger AS
-$BODY$
-DECLARE
-    latest_row record;
-BEGIN
-    IF (TG_OP = 'UPDATE') THEN
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP='INSERT') THEN
-        NEW.info_department_access_permission_id := gen_random_uuid();
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        RETURN OLD;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_01_updatetimes_info_department_access_permission BEFORE INSERT OR UPDATE OR DELETE ON tests.info_department_access_permission FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_01_updatetimes_info_department_access_permission();
-
-
-CREATE TRIGGER trg_04_symbol_info_department_access_permission BEFORE INSERT ON tests.info_department_access_permission FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
--- info_department_access_permission history trigger
-CREATE OR REPLACE FUNCTION tests.trg_02_history_info_department_access_permission() RETURNS trigger AS
+CREATE TRIGGER trg_04_symbol_info_department_access_path BEFORE INSERT ON tests.info_department_access_path FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_department_access_path history trigger
+CREATE OR REPLACE FUNCTION tests.trg_02_history_info_department_access_path() RETURNS trigger AS
 $BODY$
 DECLARE
     revisions int;
 BEGIN
     IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
-        SELECT Max(revision) INTO revisions FROM tests.history_info_department_access_permission WHERE info_department_access_permission_id=NEW.info_department_access_permission_id;
+        SELECT Max(revision) INTO revisions FROM tests.history_info_department_access_path WHERE info_department_access_path_id=NEW.info_department_access_path_id;
         IF (revisions >= 0) THEN
             IF (
-                NEW.info_department_access_permission_id,
-                NEW.info_access_path_id,
+                NEW.info_department_access_path_id,
                 NEW.info_department_id,
+                NEW.info_access_path_id,
+                NEW.write,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
-                OLD.info_department_access_permission_id,
-                OLD.info_access_path_id,
+                OLD.info_department_access_path_id,
                 OLD.info_department_id,
+                OLD.info_access_path_id,
+                OLD.write,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -13469,10 +13457,11 @@ BEGIN
         ELSE
             NEW.revision := 1;
         END IF;
-        INSERT INTO tests.history_info_department_access_permission (
-            info_department_access_permission_id,
-            info_access_path_id,
+        INSERT INTO tests.history_info_department_access_path (
+            info_department_access_path_id,
             info_department_id,
+            info_access_path_id,
+            write,
             revision,
             symbol,
             remarks,
@@ -13483,9 +13472,10 @@ BEGIN
         )
         VALUES
         (
-            NEW.info_department_access_permission_id,
-            NEW.info_access_path_id,
+            NEW.info_department_access_path_id,
             NEW.info_department_id,
+            NEW.info_access_path_id,
+            NEW.write,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -13501,8 +13491,8 @@ BEGIN
 END
 $BODY$
 LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_02_history_info_department_access_permission BEFORE INSERT OR UPDATE OR DELETE ON tests.info_department_access_permission FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_02_history_info_department_access_permission();
+CREATE TRIGGER trg_02_history_info_department_access_path BEFORE INSERT OR UPDATE OR DELETE ON tests.info_department_access_path FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_02_history_info_department_access_path();
 
 
 -- history_info_assign update trigger
@@ -16562,18 +16552,14 @@ BEGIN
             IF (
                 NEW.info_access_path_approval_id,
                 NEW.info_access_path_id,
-                NEW.name,
-                NEW.kana,
-                NEW.tag,
+                NEW.names,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.info_access_path_approval_id,
                 OLD.info_access_path_id,
-                OLD.name,
-                OLD.kana,
-                OLD.tag,
+                OLD.names,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -16588,9 +16574,7 @@ BEGIN
         INSERT INTO tests.history_info_access_path_approval (
             info_access_path_approval_id,
             info_access_path_id,
-            name,
-            kana,
-            tag,
+            names,
             revision,
             symbol,
             remarks,
@@ -16603,9 +16587,7 @@ BEGIN
         (
             NEW.info_access_path_approval_id,
             NEW.info_access_path_id,
-            NEW.name,
-            NEW.kana,
-            NEW.tag,
+            NEW.names,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -18048,17 +18030,17 @@ BEGIN
         IF (revisions >= 0) THEN
             IF (
                 NEW.info_staff_access_permission_id,
-                NEW.info_access_path_id,
                 NEW.info_staff_id,
-                NEW.permit,
+                NEW.info_access_path_id,
+                NEW.write,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.info_staff_access_permission_id,
-                OLD.info_access_path_id,
                 OLD.info_staff_id,
-                OLD.permit,
+                OLD.info_access_path_id,
+                OLD.write,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -18072,9 +18054,9 @@ BEGIN
         END IF;
         INSERT INTO tests.history_info_staff_access_permission (
             info_staff_access_permission_id,
-            info_access_path_id,
             info_staff_id,
-            permit,
+            info_access_path_id,
+            write,
             revision,
             symbol,
             remarks,
@@ -18086,9 +18068,9 @@ BEGIN
         VALUES
         (
             NEW.info_staff_access_permission_id,
-            NEW.info_access_path_id,
             NEW.info_staff_id,
-            NEW.permit,
+            NEW.info_access_path_id,
+            NEW.write,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -18235,24 +18217,16 @@ BEGIN
             IF (
                 NEW.info_access_path_id,
                 NEW.info_app_id,
-                NEW.name,
-                NEW.usecase_path1,
-                NEW.usecase_path2,
-                NEW.usecase_path3,
-                NEW.classes,
-                NEW.sequence,
+                NEW.names,
+                NEW.usecase_path,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.info_access_path_id,
                 OLD.info_app_id,
-                OLD.name,
-                OLD.usecase_path1,
-                OLD.usecase_path2,
-                OLD.usecase_path3,
-                OLD.classes,
-                OLD.sequence,
+                OLD.names,
+                OLD.usecase_path,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -18267,12 +18241,8 @@ BEGIN
         INSERT INTO tests.history_info_access_path (
             info_access_path_id,
             info_app_id,
-            name,
-            usecase_path1,
-            usecase_path2,
-            usecase_path3,
-            classes,
-            sequence,
+            names,
+            usecase_path,
             revision,
             symbol,
             remarks,
@@ -18285,12 +18255,8 @@ BEGIN
         (
             NEW.info_access_path_id,
             NEW.info_app_id,
-            NEW.name,
-            NEW.usecase_path1,
-            NEW.usecase_path2,
-            NEW.usecase_path3,
-            NEW.classes,
-            NEW.sequence,
+            NEW.names,
+            NEW.usecase_path,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -22019,7 +21985,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE OR REPLACE TRIGGER trg_03_hierarchy_mstr_location_tree AFTER INSERT OR UPDATE OR DELETE ON tests.mstr_location_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_03_hierarchy_mstr_location_tree();
 
---153.create view
+--154.create view
 
 drop view if exists tests.v_visiter_complaint_visiter_count;
 create view  tests.v_visiter_complaint_visiter_count as
@@ -22985,6 +22951,42 @@ GROUP BY
 COMMENT ON VIEW tests.v_purchase_delivery_compliance IS E'@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (mstr_item_kind_id) references mstr_item_kind (mstr_item_kind_id)\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n発注納期遵守状況';
 
 
+drop view if exists tests.v_staff_effective_access_path;
+create view  tests.v_staff_effective_access_path as
+WITH src AS (
+    -- 所属部署から継承 (有効な所属のみ。上位部署からは継承しない) : 読み取り + 書き込みフラグ
+    SELECT a.info_staff_id, d.info_access_path_id, COALESCE(d.write, FALSE) AS can_write, TRUE AS from_department, FALSE AS from_staff
+    FROM tests.info_assign AS a
+    INNER JOIN tests.info_department AS dp
+        ON dp.info_department_id = a.info_department_id AND dp.remove IS FALSE
+    INNER JOIN tests.info_department_access_path AS d
+        ON d.info_department_id = a.info_department_id AND d.remove IS FALSE
+    WHERE a.enable IS TRUE AND a.remove IS FALSE
+    UNION ALL
+    -- 担当者ごとの許可 : 読み取り + 書き込みフラグ
+    SELECT p.info_staff_id, p.info_access_path_id, COALESCE(p.write, FALSE), FALSE, TRUE
+    FROM tests.info_staff_access_permission AS p
+    WHERE p.remove IS FALSE
+)
+SELECT
+    s.info_staff_id
+    , st.symbol AS staff_symbol
+    , st.code AS staff_code
+    , s.info_access_path_id
+    , ap.symbol AS access_path_symbol
+    , ap.usecase_path
+    , ap.info_app_id
+    , BOOL_OR(s.can_write) AS can_write
+    , BOOL_OR(s.from_department) AS from_department
+    , BOOL_OR(s.from_staff) AS from_staff
+FROM src AS s
+INNER JOIN tests.info_staff AS st ON st.info_staff_id = s.info_staff_id AND st.remove IS FALSE
+INNER JOIN tests.info_access_path AS ap ON ap.info_access_path_id = s.info_access_path_id AND ap.remove IS FALSE
+GROUP BY s.info_staff_id, st.symbol, st.code, s.info_access_path_id, ap.symbol, ap.usecase_path, ap.info_app_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_staff_effective_access_path is E'@primaryKey info_staff_id,info_access_path_id\n@foreignKey (info_staff_id) references info_staff (info_staff_id)\n@foreignKey (info_access_path_id) references info_access_path (info_access_path_id)\n@foreignKey (info_app_id) references info_app (info_app_id)\n担当者の実効アクセスパス(所属部署から継承した権限＋担当者ごとの許可)';
+
 drop view if exists tests.v_purchase_amount;
 create view  tests.v_purchase_amount as
 SELECT
@@ -23361,8 +23363,8 @@ GROUP BY
 -- Postgraphile additional comment.
 comment on view tests.v_access_path_staff_access_permission_count is E'@foreignKey (info_access_path_id) references info_access_path (info_access_path_id)\n@unique info_access_path_id';
 
-drop view if exists tests.v_access_path_department_access_permission_count;
-create view  tests.v_access_path_department_access_permission_count as
+drop view if exists tests.v_access_path_department_access_path_count;
+create view  tests.v_access_path_department_access_path_count as
 SELECT
     p.info_access_path_id
     , COUNT(c.info_access_path_id) AS all_count
@@ -23370,13 +23372,13 @@ SELECT
     , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
 FROM
     tests.info_access_path AS p
-    LEFT JOIN tests.info_department_access_permission AS c
+    LEFT JOIN tests.info_department_access_path AS c
         ON c.info_access_path_id = p.info_access_path_id
 GROUP BY
     p.info_access_path_id;
 
 -- Postgraphile additional comment.
-comment on view tests.v_access_path_department_access_permission_count is E'@foreignKey (info_access_path_id) references info_access_path (info_access_path_id)\n@unique info_access_path_id';
+comment on view tests.v_access_path_department_access_path_count is E'@foreignKey (info_access_path_id) references info_access_path (info_access_path_id)\n@unique info_access_path_id';
 
 drop view if exists tests.v_work_record_work_record_visiter_count;
 create view  tests.v_work_record_work_record_visiter_count as
@@ -25180,8 +25182,8 @@ GROUP BY
 -- Postgraphile additional comment.
 comment on view tests.v_department_department_kind_count is E'@foreignKey (info_department_id) references info_department (info_department_id)\n@unique info_department_id';
 
-drop view if exists tests.v_department_department_access_permission_count;
-create view  tests.v_department_department_access_permission_count as
+drop view if exists tests.v_department_department_access_path_count;
+create view  tests.v_department_department_access_path_count as
 SELECT
     p.info_department_id
     , COUNT(c.info_department_id) AS all_count
@@ -25189,13 +25191,13 @@ SELECT
     , COUNT(c.info_department_id) FILTER (WHERE c.remove IS TRUE) AS disable_count
 FROM
     tests.info_department AS p
-    LEFT JOIN tests.info_department_access_permission AS c
+    LEFT JOIN tests.info_department_access_path AS c
         ON c.info_department_id = p.info_department_id
 GROUP BY
     p.info_department_id;
 
 -- Postgraphile additional comment.
-comment on view tests.v_department_department_access_permission_count is E'@foreignKey (info_department_id) references info_department (info_department_id)\n@unique info_department_id';
+comment on view tests.v_department_department_access_path_count is E'@foreignKey (info_department_id) references info_department (info_department_id)\n@unique info_department_id';
 
 drop view if exists tests.v_company_provision_count;
 create view  tests.v_company_provision_count as

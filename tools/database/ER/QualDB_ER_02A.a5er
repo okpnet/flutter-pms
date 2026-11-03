@@ -1882,12 +1882,8 @@ Left=3900
 Top=1100
 Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="アプリケーションID","info_app_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="アクセスパス名","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
-Field="ユースケースパス1","usecase_path1","*@VARCHAR255",,,"","",$FFFFFFFF,""
-Field="ユースケースパス2","usecase_path2","*@VARCHAR255",,,"","",$FFFFFFFF,""
-Field="ユースケースパス3","usecase_path3","*@VARCHAR255",,,"","",$FFFFFFFF,""
-Field="ページクラス","classes","*@SMALLINT","NOT NULL",,"0","0:0b000 system access\n1:0x001 primary page\n3:0b011 secoundry page",$FFFFFFFF,""
-Field="順","sequence","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="アクセスパス名","names","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="ユースケースパス","usecase_path","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
@@ -1895,7 +1891,7 @@ EffectMode=None
 Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260905224148
+ModifiedDateTime=20261102204111
 Position="インフォメーション",3900,1100
 ZOrder=212
 
@@ -1955,17 +1951,18 @@ Page=インフォメーションー人
 Left=4850
 Top=2550
 Field="担当者アクセスパス許可情報ID","info_staff_access_permission_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="担当者ID","info_staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="パーミット","permit","*@SMALLINT",,,"","",$FFFFFFFF,""
+Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="書き込み","write","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
+Index==2,info_staff_id,info_access_path_id
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261017092116
+ModifiedDateTime=20261102232218
 Position="インフォメーションー人",4850,2550
 ZOrder=217
 
@@ -3391,9 +3388,7 @@ Left=4500
 Top=350
 Field="アクセスパス承認情報ID","info_access_path_approval_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="アクセスパスID","info_access_path_id","*@UUID",,,"","",$FFFFFFFF,""
-Field="名前","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
-Field="カナ","kana","*@VARCHAR255",,,"","",$FFFFFFFF,""
-Field="タグ","tag","*@VARCHAR255",,,"","",$FFFFFFFF,""
+Field="名前","names","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
@@ -3401,7 +3396,7 @@ EffectMode=None
 Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260906095112
+ModifiedDateTime=20261102204338
 Position="インフォメーション",4500,350
 ZOrder=385
 
@@ -3658,29 +3653,6 @@ Bar3=268
 TermPos1=R
 TermPos2=R
 ZOrder=504
-
-[Relation]
-Entity1=info_access_path
-Entity2=info_staff_access_permission
-RelationType1=1
-RelationType2=3
-Fields1=info_access_path_id
-Fields2=info_access_path_id
-Cardinarity1=
-Cardinarity2=
-Position="インフォメーション",0,4513,5864,3592,R,R,""
-Position="インフォメーションー人",0,5718,4282,8396,R,L,""
-Dependence=0
-Caption=
-PName=
-ModifiedDateTime=20260906095239
-LineMode=0
-Bar1=451
-Bar2=586
-Bar3=359
-TermPos1=R
-TermPos2=R
-ZOrder=507
 
 [Entity]
 PName=mstr_approval_pattern_detail
@@ -4814,12 +4786,8 @@ Top=150
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="アプリケーションID","info_app_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="アクセスパス名","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
-Field="ユースケースパス1","usecase_path1","*@VARCHAR255",,,"","",$FFFFFFFF,""
-Field="ユースケースパス2","usecase_path2","*@VARCHAR255",,,"","",$FFFFFFFF,""
-Field="ユースケースパス3","usecase_path3","*@VARCHAR255",,,"","",$FFFFFFFF,""
-Field="ページクラス","classes","*@SMALLINT","NOT NULL",,"0","",$FFFFFFFF,""
-Field="順","sequence","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="アクセスパス名","names","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="ユースケースパス","usecase_path","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,info_access_path_id,revision
@@ -4827,7 +4795,7 @@ EffectMode=None
 Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260917135001
+ModifiedDateTime=20261102204100
 Position="インフォメーション",3350,150
 ZOrder=612
 
@@ -4867,9 +4835,7 @@ Top=400
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="アクセスパス承認情報ID","info_access_path_approval_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="アクセスパスID","info_access_path_id","*@UUID",,,"","",$FFFFFFFF,""
-Field="名前","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
-Field="カナ","kana","*@VARCHAR255",,,"","",$FFFFFFFF,""
-Field="タグ","tag","*@VARCHAR255",,,"","",$FFFFFFFF,""
+Field="名前","names","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,info_access_path_approval_id,revision
@@ -4877,7 +4843,7 @@ EffectMode=None
 Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260917134956
+ModifiedDateTime=20261102204421
 Position="インフォメーション",6400,400
 ZOrder=614
 
@@ -4890,7 +4856,7 @@ Fields1=info_access_path_approval_id
 Fields2=info_access_path_approval_id
 Cardinarity1=
 Cardinarity2=
-Position="インフォメーション",0,1975,8025,688,R,R,""
+Position="インフォメーション",0,1975,8025,722,R,R,""
 Dependence=1
 Caption=
 PName=
@@ -4900,7 +4866,7 @@ ModifiedDateTime=20230926132940
 LineMode=0
 Bar1=198
 Bar2=802
-Bar3=69
+Bar3=72
 TermPos1=R
 TermPos2=R
 ZOrder=615
@@ -4913,7 +4879,7 @@ TableInnerOption=
 TableOption=
 Page=インフォメーション
 Left=7000
-Top=3950
+Top=4200
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="組織情報ID","info_department_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="会社ID","info_company_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
@@ -4929,7 +4895,7 @@ Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20260928190809
-Position="インフォメーション",7000,3950
+Position="インフォメーション",7000,4200
 ZOrder=616
 
 [Relation]
@@ -5670,9 +5636,9 @@ Left=6450
 Top=1950
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="担当者アクセスパス許可情報ID","info_staff_access_permission_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
-Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="担当者ID","info_staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="パーミット","permit","*@SMALLINT",,,"","",$FFFFFFFF,""
+Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="書き込み","write","*@BOOL","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,info_staff_access_permission_id,revision
@@ -5680,7 +5646,7 @@ EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261017092120
+ModifiedDateTime=20261102232146
 Position="インフォメーションー人",6450,1950
 ZOrder=657
 
@@ -10382,13 +10348,13 @@ Fields1=info_staff_id
 Fields2=info_staff_id
 Cardinarity1=
 Cardinarity2=
-Position="インフォメーションー人",0,500,9500,5321,R,R,""
+Position="インフォメーションー人",0,500,5614,5321,R,R,""
 Dependence=0
 Caption=
 PName=
 LineMode=0
 Bar1=50
-Bar2=950
+Bar2=561
 Bar3=532
 TermPos1=R
 TermPos2=R
@@ -10746,8 +10712,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=インフォメーション
-Left=7150
-Top=3450
+Left=7100
+Top=3750
 Field="階層ID","hrchy_info_department_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="祖先組織ID","ancestor_info_department_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="子孫組織ID","descendant_info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
@@ -10756,7 +10722,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20260917132948
-Position="インフォメーション",7150,3450
+Position="インフォメーション",7100,3750
 ZOrder=796
 
 [Entity]
@@ -11168,93 +11134,28 @@ TermPos2=R
 ZOrder=823
 
 [Entity]
-PName=info_department_access_permission
+PName=info_department_access_path
 LName=部署アクセスパス
 Comment=
 TableInnerOption=
 TableOption=
 Page=インフォメーション
-Left=5150
-Top=1750
-Field="部署アクセスパスID","info_department_access_permission_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Left=5200
+Top=1500
+Field="部署アクセスパス詳細ID","info_department_access_path_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="組織情報ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="書き込み","write","*@BOOL","NOT NULL",,"\qt\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
+Index==2,info_department_id,info_access_path_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261017091554
-Position="インフォメーション",5150,1750
+ModifiedDateTime=20261102232609
+Position="インフォメーション",5200,1500
 ZOrder=824
-
-[Relation]
-Entity1=info_department
-Entity2=info_department_access_permission
-RelationType1=1
-RelationType2=3
-Fields1=info_department_id
-Fields2=info_department_id
-Cardinarity1=
-Cardinarity2=
-Position="インフォメーション",0,8163,3527,5551,R,R,""
-Dependence=0
-Caption=
-PName=
-ModifiedDateTime=20240720132658
-LineMode=0
-Bar1=816
-Bar2=353
-Bar3=555
-TermPos1=R
-TermPos2=R
-ZOrder=826
-
-[Entity]
-PName=history_info_department_access_permission
-LName=部署アクセスパス履歴
-Comment=
-TableInnerOption=
-TableOption=
-Page=インフォメーション
-Left=6700
-Top=1200
-Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="部署アクセスパスID","info_department_access_permission_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
-Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="組織情報ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
-Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
-Index==2,info_department_access_permission_id,revision
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-ModifiedDateTime=20261017091603
-Position="インフォメーション",6700,1200
-ZOrder=827
-
-[Relation]
-Entity1=info_department_access_permission
-Entity2=history_info_department_access_permission
-RelationType1=2
-RelationType2=3
-Fields1=info_department_access_permission_id
-Fields2=info_department_access_permission_id
-Cardinarity1=
-Cardinarity2=
-Position="インフォメーション",0,3355,6683,3372,R,R,""
-Dependence=1
-Caption=
-PName=
-ModifiedDateTime=20260905224446
-LineMode=0
-Bar1=336
-Bar2=668
-Bar3=337
-TermPos1=R
-TermPos2=R
-ZOrder=828
 
 [Relation]
 Entity1=info_department
@@ -11281,14 +11182,14 @@ ZOrder=829
 
 [Relation]
 Entity1=info_access_path
-Entity2=info_department_access_permission
+Entity2=info_department_access_path
 RelationType1=1
 RelationType2=3
 Fields1=info_access_path_id
 Fields2=info_access_path_id
 Cardinarity1=
 Cardinarity2=
-Position="インフォメーション",0,7199,6758,2224,R,R,""
+Position="インフォメーション",0,7199,6758,9003,R,R,""
 Dependence=0
 Caption=
 PName=
@@ -11296,7 +11197,7 @@ ModifiedDateTime=20260905224347
 LineMode=0
 Bar1=720
 Bar2=676
-Bar3=222
+Bar3=900
 TermPos1=R
 TermPos2=R
 ZOrder=830
@@ -11757,8 +11658,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=インフォメーション
-Left=6950
-Top=2800
+Left=7050
+Top=3100
 Field="組織体系ID","info_department_tree_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="自組織ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="親組織ID","parent_info_department_id","*@UUID",,,"","",$FFFFFFFF,""
@@ -11770,7 +11671,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20260825143150
-Position="インフォメーション",6950,2800
+Position="インフォメーション",7050,3100
 ZOrder=862
 
 [Relation]
@@ -11804,14 +11705,14 @@ Fields1=info_department_id
 Fields2=parent_info_department_id
 Cardinarity1=
 Cardinarity2=
-Position="インフォメーション",0,7239,3538,7789,R,R,""
+Position="インフォメーション",0,7239,5445,7789,R,R,""
 Dependence=0
 Caption=
 PName=
 ModifiedDateTime=20241219111552
 LineMode=0
 Bar1=724
-Bar2=354
+Bar2=544
 Bar3=779
 TermPos1=R
 TermPos2=R
@@ -11869,8 +11770,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=インフォメーション
-Left=6900
-Top=2200
+Left=7050
+Top=2500
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="組織体系ID","info_department_tree_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="自組織ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
@@ -11882,7 +11783,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20260917134947
-Position="インフォメーション",6900,2200
+Position="インフォメーション",7050,2500
 ZOrder=867
 
 [Relation]
@@ -12283,30 +12184,7 @@ ZOrder=-408
 
 [Relation]
 Entity1=history_info_staff
-Entity2=history_info_department_access_permission
-RelationType1=1
-RelationType2=3
-Fields1=history_id,info_staff_id
-Fields2=update_user_history_id,update_user_id
-Cardinarity1=
-Cardinarity2=
-Position="インフォメーション",0,1263,8737,500,R,R,""
-Position="インフォメーションー人",0,2172,7828,500,R,R,""
-Dependence=0
-Caption=auto create.
-PName=
-ModifiedDateTime=20250829132318
-LineMode=0
-Bar1=126
-Bar2=874
-Bar3=50
-TermPos1=R
-TermPos2=R
-ZOrder=-410
-
-[Relation]
-Entity1=history_info_staff
-Entity2=info_department_access_permission
+Entity2=info_department_access_path
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -21085,10 +20963,10 @@ Left=4350
 Top=4850
 
 [View]
-PName=v_department_department_access_permission_count
+PName=v_department_department_access_path_count
 LName=組織情報－部署アクセスパスレコード数
-Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_department_department_access_permission_count is E\q@foreignKey (info_department_id) references info_department (info_department_id)\\n@unique info_department_id\q;
-Query=SELECT\n    p.info_department_id\n    , COUNT(c.info_department_id) AS all_count\n    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_department AS p\n    LEFT JOIN @schema.info_department_access_permission AS c\n        ON c.info_department_id = p.info_department_id\nGROUP BY\n    p.info_department_id
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_department_department_access_path_count is E\q@foreignKey (info_department_id) references info_department (info_department_id)\\n@unique info_department_id\q;
+Query=SELECT\n    p.info_department_id\n    , COUNT(c.info_department_id) AS all_count\n    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_department_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_department AS p\n    LEFT JOIN @schema.info_department_access_path AS c\n        ON c.info_department_id = p.info_department_id\nGROUP BY\n    p.info_department_id
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
@@ -21125,6 +21003,20 @@ ZOrder=1314
 Page=ビュー
 Left=5850
 Top=3000
+
+[View]
+PName=v_staff_effective_access_path
+LName=担当者実効アクセスパス
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_staff_effective_access_path is E\q@primaryKey info_staff_id,info_access_path_id\\n@foreignKey (info_staff_id) references info_staff (info_staff_id)\\n@foreignKey (info_access_path_id) references info_access_path (info_access_path_id)\\n@foreignKey (info_app_id) references info_app (info_app_id)\\n担当者の実効アクセスパス(所属部署から継承した権限＋担当者ごとの許可)\q;
+Query=WITH src AS (\n    -- 所属部署から継承 (有効な所属のみ。上位部署からは継承しない) : 読み取り + 書き込みフラグ\n    SELECT a.info_staff_id, d.info_access_path_id, COALESCE(d.write, FALSE) AS can_write, TRUE AS from_department, FALSE AS from_staff\n    FROM @schema.info_assign AS a\n    INNER JOIN @schema.info_department AS dp\n        ON dp.info_department_id = a.info_department_id AND dp.remove IS FALSE\n    INNER JOIN @schema.info_department_access_path AS d\n        ON d.info_department_id = a.info_department_id AND d.remove IS FALSE\n    WHERE a.enable IS TRUE AND a.remove IS FALSE\n    UNION ALL\n    -- 担当者ごとの許可 : 読み取り + 書き込みフラグ\n    SELECT p.info_staff_id, p.info_access_path_id, COALESCE(p.write, FALSE), FALSE, TRUE\n    FROM @schema.info_staff_access_permission AS p\n    WHERE p.remove IS FALSE\n)\nSELECT\n    s.info_staff_id\n    , st.symbol AS staff_symbol\n    , st.code AS staff_code\n    , s.info_access_path_id\n    , ap.symbol AS access_path_symbol\n    , ap.usecase_path\n    , ap.info_app_id\n    , BOOL_OR(s.can_write) AS can_write\n    , BOOL_OR(s.from_department) AS from_department\n    , BOOL_OR(s.from_staff) AS from_staff\nFROM src AS s\nINNER JOIN @schema.info_staff AS st ON st.info_staff_id = s.info_staff_id AND st.remove IS FALSE\nINNER JOIN @schema.info_access_path AS ap ON ap.info_access_path_id = s.info_access_path_id AND ap.remove IS FALSE\nGROUP BY s.info_staff_id, st.symbol, st.code, s.info_access_path_id, ap.symbol, ap.usecase_path, ap.info_app_id
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="カスタムビュー",2300,2400
+ZOrder=1433
+Page=カスタムビュー
+Left=2300
+Top=2400
 
 [View]
 PName=v_department_kind_value_department_kind_count
@@ -22583,10 +22475,10 @@ Left=2300
 Top=1200
 
 [View]
-PName=v_access_path_department_access_permission_count
+PName=v_access_path_department_access_path_count
 LName=アクセスパス－部署アクセスパスレコード数
-Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_access_path_department_access_permission_count is E\q@foreignKey (info_access_path_id) references info_access_path (info_access_path_id)\\n@unique info_access_path_id\q;
-Query=SELECT\n    p.info_access_path_id\n    , COUNT(c.info_access_path_id) AS all_count\n    , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_access_path AS p\n    LEFT JOIN @schema.info_department_access_permission AS c\n        ON c.info_access_path_id = p.info_access_path_id\nGROUP BY\n    p.info_access_path_id
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_access_path_department_access_path_count is E\q@foreignKey (info_access_path_id) references info_access_path (info_access_path_id)\\n@unique info_access_path_id\q;
+Query=SELECT\n    p.info_access_path_id\n    , COUNT(c.info_access_path_id) AS all_count\n    , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS NOT TRUE) AS enable_count\n    , COUNT(c.info_access_path_id) FILTER (WHERE c.remove IS TRUE) AS disable_count\nFROM\n    @schema.info_access_path AS p\n    LEFT JOIN @schema.info_department_access_path AS c\n        ON c.info_access_path_id = p.info_access_path_id\nGROUP BY\n    p.info_access_path_id
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
@@ -22856,11 +22748,11 @@ Query=-- 6. 棚在庫状況 (2026-11-01 改訂: 数量は棚ビジターだけ�
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,350
+Position="カスタムビュー",1050,2450
 ZOrder=1440
-Page=ビュー
-Left=1900
-Top=1300
+Page=カスタムビュー
+Left=1050
+Top=2450
 
 [View]
 PName=v_complaint_target
@@ -22870,11 +22762,11 @@ Query=SELECT\n    t.target_link_id\n    , t.trans_complaint_id\n    , t.complain
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,350
+Position="カスタムビュー",100,2200
 ZOrder=1441
-Page=ビュー
-Left=1910
-Top=1310
+Page=カスタムビュー
+Left=100
+Top=2200
 
 [View]
 PName=v_complaint_target_visiter
@@ -22884,11 +22776,11 @@ Query=WITH tgt AS (\n    SELECT t.trans_complaint_id, \qpurchase_rec\q::varchar(
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,350
+Position="カスタムビュー",5000,600
 ZOrder=1442
-Page=ビュー
-Left=1920
-Top=1320
+Page=カスタムビュー
+Left=5000
+Top=600
 
 [View]
 PName=v_visiter_origin_check
@@ -22898,11 +22790,11 @@ Query=SELECT\n    x.origin_kind\n    , x.origin_id\n    , x.origin_symbol\n    ,
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,350
+Position="カスタムビュー",4900,1700
 ZOrder=1443
-Page=ビュー
-Left=1930
-Top=1330
+Page=カスタムビュー
+Left=4900
+Top=1700
 
 [View]
 PName=v_visiter_ledger_issue
@@ -22912,11 +22804,11 @@ Query=-- negative_balance  : 在庫の今の数量がマイナス(出しすぎ)\
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,350
+Position="カスタムビュー",350,950
 ZOrder=1444
-Page=ビュー
-Left=1940
-Top=1340
+Page=カスタムビュー
+Left=350
+Top=950
 
 [View]
 PName=v_visiter_hold_without_complaint
@@ -22926,11 +22818,11 @@ Query=SELECT\n    l.trans_visiter_id\n    , l.symbol\n    , l.trans_container_id
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,350
+Position="カスタムビュー",3900,1500
 ZOrder=1445
-Page=ビュー
-Left=1950
-Top=1350
+Page=カスタムビュー
+Left=3900
+Top=1500
 
 [View]
 PName=v_item_on_hand
@@ -22940,11 +22832,11 @@ Query=SELECT\n    vi.item_id\n    , i.symbol AS item_symbol\n    , i.code AS ite
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,350
+Position="カスタムビュー",2750,1050
 ZOrder=1446
-Page=ビュー
-Left=1960
-Top=1360
+Page=カスタムビュー
+Left=2750
+Top=1050
 
 [View]
 PName=v_visiter_issuable
@@ -22954,11 +22846,11 @@ Query=SELECT\n    l.trans_visiter_id\n    , l.symbol\n    , l.trans_container_id
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,350
+Position="カスタムビュー",5000,1050
 ZOrder=1447
-Page=ビュー
-Left=1970
-Top=1370
+Page=カスタムビュー
+Left=5000
+Top=1050
 
 [View]
 PName=v_mrp_visiter_item
@@ -22968,11 +22860,11 @@ Query=WITH og AS (\n    -- 品目は、自分または一番近い分割元の�
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,350
+Position="カスタムビュー",3300,2450
 ZOrder=1448
-Page=ビュー
-Left=1980
-Top=1380
+Page=カスタムビュー
+Left=3300
+Top=2450
 
 [View]
 PName=v_visiter_lot
@@ -22982,11 +22874,11 @@ Query=SELECT\n    v.trans_visiter_id\n    , v.symbol\n    , v.parent_trans_visit
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,350
+Position="カスタムビュー",3850,750
 ZOrder=1449
-Page=ビュー
-Left=1990
-Top=1390
+Page=カスタムビュー
+Left=3850
+Top=750
 
 [View]
 PName=v_visiter_lineage
@@ -22996,11 +22888,11 @@ Query=WITH RECURSIVE lot AS (\n    SELECT v.trans_visiter_id, v.parent_trans_vis
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",550,350
+Position="カスタムビュー",4850,300
 ZOrder=1450
-Page=ビュー
-Left=2000
-Top=1400
+Page=カスタムビュー
+Left=4850
+Top=300
 
 [View]
 PName=v_work_plan_delivery_compliance
@@ -23852,14 +23744,15 @@ Fields1=history_id,info_staff_id
 Fields2=release_staff_history_id,release_staff_id
 Cardinarity1=
 Cardinarity2=
+Position="インフォメーションー人",0,500,9500,2357,R,R,""
 Position="品質",0,595,9405,1650,R,R,""
 Dependence=0
 Caption=
 PName=
 LineMode=0
-Bar1=60
-Bar2=940
-Bar3=165
+Bar1=50
+Bar2=950
+Bar3=236
 TermPos1=R
 TermPos2=R
 ZOrder=1473
@@ -23873,14 +23766,15 @@ Fields1=history_id,info_staff_id
 Fields2=update_user_history_id,update_user_id
 Cardinarity1=
 Cardinarity2=
+Position="インフォメーションー人",0,500,9500,500,R,R,""
 Position="品質",0,532,9468,1650,R,R,""
 Dependence=0
 Caption=auto create.
 PName=
 LineMode=0
-Bar1=53
-Bar2=947
-Bar3=165
+Bar1=50
+Bar2=950
+Bar3=50
 TermPos1=R
 TermPos2=R
 ZOrder=-544
@@ -23907,11 +23801,11 @@ Query=SELECT\n    p.trans_visiter_id\n    , COUNT(c.trans_visiter_id) AS all_cou
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
-Position="ビュー",1050,650
+Position="カスタムビュー",150,600
 ZOrder=1475
-Page=ビュー
-Left=1050
-Top=650
+Page=カスタムビュー
+Left=150
+Top=600
 
 [Relation]
 Entity1=trans_visiter
@@ -23934,3 +23828,160 @@ Bar3=950
 TermPos1=R
 TermPos2=R
 ZOrder=1476
+
+[Relation]
+Entity1=shared_appellations
+Entity2=info_access_path
+RelationType1=2
+RelationType2=2
+Fields1=shared_appellations_id
+Fields2=names
+Cardinarity1=
+Cardinarity2=
+Position="共有",0,2385,7615,4085,R,R,""
+Position="インフォメーション",0,2385,7615,2969,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20261102204221
+LineMode=0
+Bar1=238
+Bar2=762
+Bar3=408
+TermPos1=R
+TermPos2=R
+ZOrder=1478
+
+[Relation]
+Entity1=shared_appellations
+Entity2=info_access_path_approval
+RelationType1=2
+RelationType2=2
+Fields1=shared_appellations_id
+Fields2=names
+Cardinarity1=
+Cardinarity2=
+Position="共有",0,1005,8995,4085,R,R,""
+Position="インフォメーション",0,1005,8995,4085,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20261102204329
+LineMode=0
+Bar1=100
+Bar2=900
+Bar3=408
+TermPos1=R
+TermPos2=R
+ZOrder=1479
+
+[Entity]
+PName=history_info_department_access_path
+LName=部署アクセスパス履歴
+Comment=
+TableInnerOption=
+TableOption=
+Page=インフォメーション
+Left=6650
+Top=1700
+Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="部署アクセスパスID","info_department_access_path_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
+Field="組織情報ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="書き込み","write","*@BOOL","NOT NULL",,"\qt\q","",$FFFFFFFF,""
+Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,info_department_access_path_id,revision
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20261102232635
+Position="インフォメーション",6650,1700
+ZOrder=1484
+
+[Relation]
+Entity1=info_department_access_path
+Entity2=history_info_department_access_path
+RelationType1=2
+RelationType2=3
+Fields1=info_department_access_path_id
+Fields2=info_department_access_path_id
+Cardinarity1=
+Cardinarity2=
+Position="インフォメーション",0,2653,7347,2257,R,R,""
+Dependence=1
+Caption=
+PName=
+LineMode=0
+Bar1=265
+Bar2=735
+Bar3=226
+TermPos1=R
+TermPos2=R
+ZOrder=1485
+
+[Relation]
+Entity1=history_info_staff
+Entity2=history_info_department_access_path
+RelationType1=1
+RelationType2=3
+Fields1=history_id,info_staff_id
+Fields2=update_user_history_id,update_user_id
+Cardinarity1=
+Cardinarity2=
+Position="インフォメーション",0,2122,7878,1886,R,R,""
+Position="インフォメーションー人",0,2122,7878,1886,R,R,""
+Dependence=0
+Caption=auto create.
+PName=
+LineMode=0
+Bar1=212
+Bar2=788
+Bar3=189
+TermPos1=R
+TermPos2=R
+ZOrder=-546
+
+[Relation]
+Entity1=info_department
+Entity2=info_department_access_path
+RelationType1=2
+RelationType2=3
+Fields1=info_department_id
+Fields2=info_department_id
+Cardinarity1=
+Cardinarity2=
+Position="インフォメーション",0,5811,4189,5466,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20261102221256
+LineMode=0
+Bar1=581
+Bar2=419
+Bar3=547
+TermPos1=R
+TermPos2=R
+ZOrder=1491
+
+[Relation]
+Entity1=info_access_path
+Entity2=info_staff_access_permission
+RelationType1=1
+RelationType2=3
+Fields1=info_access_path_id
+Fields2=info_access_path_id
+Cardinarity1=
+Cardinarity2=
+Position="インフォメーション",0,5409,4591,4317,R,R,""
+Position="インフォメーションー人",0,5409,4591,4317,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=541
+Bar2=459
+Bar3=432
+TermPos1=R
+TermPos2=R
+ZOrder=1493

@@ -262,6 +262,28 @@
         "first": "件名1"
       }
     ],
+    "access_control": [
+      {
+        "key": "accesspath",
+        "label": "アクセスパス",
+        "first": "単位台帳"
+      },
+      {
+        "key": "deptaccesspath",
+        "label": "部署のアクセスパス",
+        "first": ""
+      },
+      {
+        "key": "staffaccesspermission",
+        "label": "担当者のアクセスパス許可",
+        "first": ""
+      },
+      {
+        "key": "effectiveaccesspath",
+        "label": "担当者の実効アクセスパス",
+        "first": ""
+      }
+    ],
     "resource": [
       {
         "key": "capability",
@@ -390,6 +412,9 @@
       "quality_common",
       "sales",
       "shared_master"
+    ],
+    "access_control": [
+      "organization"
     ],
     "resource": [
       "item",

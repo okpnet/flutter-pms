@@ -14,7 +14,8 @@
  *   aud          PB_GRAPHQL_JWT_AUDIENCE
  *   sub          app_user_id
  *   pb_user_id   PocketBase の users.id
- *   app_user_id  App DB のユーザーID
+ *   app_user_id  App DB のユーザーID（= info_staff_id）
+ *   staff_id     app_user_id と同じ値。DB の関数が current_setting('jwt.claims.staff_id') で担当者を読むため
  *   app_role     user | admin
  */
 routerAdd("GET", "/api/app/graphql-token", (e) => {
@@ -33,6 +34,7 @@ routerAdd("GET", "/api/app/graphql-token", (e) => {
     sub: u.get("app_user_id"),
     pb_user_id: u.id,
     app_user_id: u.get("app_user_id"),
+    staff_id: u.get("app_user_id"),
     app_role: isAdmin ? "admin" : "user",
   }, secret, ttl)
 

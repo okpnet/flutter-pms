@@ -4,6 +4,7 @@
 --
 -- ■ 実行順   06_cteate_test.sql → 08_mrp.sql → 本ファイル
 --   ・言語 ja / en・会社・担当者 (info_staff.code = 'ADMIN') は、既にあればそれを使い、無ければ作る
+--   ・アプリ (info_app.name = 'Product Manufacturing System') も、既にあればそれを使い、無ければ作る
 --   ・日付はすべて実行日 (current_date) からの相対値。いつ流しても同じ関係になる
 --   ・IDは trg_01 が採番するので、すべて RETURNING で受け取る
 --   ・空のDBに1回だけ流す想定 (2回流すとコード重複のデータができる)
@@ -104,6 +105,15 @@ BEGIN
         RAISE NOTICE '担当者 ADMIN を作りました (サインは作っていません)';
     END IF;
 END $$;
+
+-- アプリ (システムのアプリID)。会社は ADMIN の会社に紐付ける
+INSERT INTO tests.info_app (info_company_id, name)
+SELECT s.info_company_id, 'Product Manufacturing System'
+FROM tests.info_staff AS s
+WHERE s.code = 'ADMIN' AND s.remove IS FALSE
+  AND NOT EXISTS (SELECT 1 FROM tests.info_app AS a WHERE a.name = 'Product Manufacturing System')
+ORDER BY s.update_at
+LIMIT 1;
 
 -- ---------------------------------------------------------------------
 -- 1. 単位・品目種別・ロット
@@ -444,7 +454,8 @@ COMMIT;
 -- ---------------------------------------------------------------------
 -- 登録結果
 -- ---------------------------------------------------------------------
-SELECT 'MRP実行担当者 (info_staff_id)' AS item, info_staff_id::text AS value FROM tests.info_staff WHERE code = 'ADMIN'
+SELECT 'アプリID (info_app_id)' AS item, info_app_id::text AS value FROM tests.info_app WHERE name = 'Product Manufacturing System'
+UNION ALL SELECT 'MRP実行担当者 (info_staff_id)', info_staff_id::text FROM tests.info_staff WHERE code = 'ADMIN'
 UNION ALL SELECT '品目',           COUNT(*)::text FROM tests.mstr_item
 UNION ALL SELECT '受注明細',       COUNT(*)::text FROM tests.trans_order_detail
 UNION ALL SELECT '非計上明細',     COUNT(*)::text FROM tests.trans_unrecognized_detail
