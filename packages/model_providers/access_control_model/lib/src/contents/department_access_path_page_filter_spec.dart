@@ -83,6 +83,10 @@ abstract class DepartmentAccessPathPageFilterSpec {
           FilterStep('infoAccessPathByInfoAccessPathId'),
           FilterStep('vAccessPathDepartmentAccessPathCountByInfoAccessPathId'),
         ], 'infoAccessPathId'),
+    'access_path||report_count||infoAccessPathId': FlatFilterPath([
+      FilterStep('infoAccessPathByInfoAccessPathId'),
+      FilterStep('vAccessPathReportCountByInfoAccessPathId'),
+    ], 'infoAccessPathId'),
     'access_path||staff_access_permission_count||infoAccessPathId':
         FlatFilterPath([
           FilterStep('infoAccessPathByInfoAccessPathId'),

@@ -1,0 +1,21 @@
+# access_path_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #AccessPathPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AccessPathPageRemove(
+  $infoAccessPathId: UUID!
+  $remove: Boolean!
+) {
+  updateInfoAccessPathByInfoAccessPathId(
+    input: {
+      infoAccessPathId: $infoAccessPathId
+      infoAccessPathPatch: { remove: $remove }
+    }
+  ) {
+    infoAccessPath {
+      infoAccessPathId
+      remove
+    }
+  }
+}

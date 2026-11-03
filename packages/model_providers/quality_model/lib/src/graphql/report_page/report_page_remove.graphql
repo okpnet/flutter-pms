@@ -1,0 +1,21 @@
+# report_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ReportPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ReportPageRemove(
+  $mstrReportId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrReportByMstrReportId(
+    input: {
+      mstrReportId: $mstrReportId
+      mstrReportPatch: { remove: $remove }
+    }
+  ) {
+    mstrReport {
+      mstrReportId
+      remove
+    }
+  }
+}

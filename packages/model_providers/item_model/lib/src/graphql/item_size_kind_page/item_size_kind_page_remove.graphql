@@ -1,0 +1,21 @@
+# item_size_kind_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ItemSizeKindPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ItemSizeKindPageRemove(
+  $mstrItemSizeKindId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrItemSizeKindByMstrItemSizeKindId(
+    input: {
+      mstrItemSizeKindId: $mstrItemSizeKindId
+      mstrItemSizeKindPatch: { remove: $remove }
+    }
+  ) {
+    mstrItemSizeKind {
+      mstrItemSizeKindId
+      remove
+    }
+  }
+}

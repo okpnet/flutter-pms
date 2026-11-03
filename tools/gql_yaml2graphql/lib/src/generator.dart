@@ -63,6 +63,8 @@ GenerationResult generateAll({
       final r = edit.generate(name, node);
       if (r.edit != null) files['$dir/${dir}_edit.graphql'] = r.edit!;
       if (r.rfe != null) files['$dir/${dir}_rfe.graphql'] = r.rfe!;
+      final remove = edit.generateRemove(name, node);
+      if (remove != null) files['$dir/${dir}_remove.graphql'] = remove;
     }
   }
   return GenerationResult(files, log);

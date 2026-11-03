@@ -1,0 +1,21 @@
+# inspect_sch_detail_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #InspectSchDetailPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation InspectSchDetailPageRemove(
+  $transInspectSchDetailId: UUID!
+  $remove: Boolean!
+) {
+  updateTransInspectSchDetailByTransInspectSchDetailId(
+    input: {
+      transInspectSchDetailId: $transInspectSchDetailId
+      transInspectSchDetailPatch: { remove: $remove }
+    }
+  ) {
+    transInspectSchDetail {
+      transInspectSchDetailId
+      remove
+    }
+  }
+}

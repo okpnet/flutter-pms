@@ -1,0 +1,21 @@
+# inspect_imp_file_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #InspectImpFilePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation InspectImpFilePageRemove(
+  $transInspectImpFileId: UUID!
+  $remove: Boolean!
+) {
+  updateTransInspectImpFileByTransInspectImpFileId(
+    input: {
+      transInspectImpFileId: $transInspectImpFileId
+      transInspectImpFilePatch: { remove: $remove }
+    }
+  ) {
+    transInspectImpFile {
+      transInspectImpFileId
+      remove
+    }
+  }
+}

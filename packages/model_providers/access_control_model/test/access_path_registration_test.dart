@@ -225,6 +225,7 @@ void main() {
       final seeds = AccessPathSeed.parseCsv(file.readAsStringSync());
       expect(seeds, isNotEmpty);
       final paths = <String>{};
+      final symbols = <String>{};
       for (final s in seeds) {
         expect(s.usecasePath, startsWith('/'), reason: s.usecasePath);
         expect(s.nameJa, isNotEmpty, reason: s.usecasePath);
@@ -235,6 +236,11 @@ void main() {
           isTrue,
           reason: '重複: ${s.usecasePath}',
         );
+        if (!s.isPublic) {
+          // info_access_path.symbol は一意。登録するページは symbol が空にならない
+          expect(s.symbol, isNotEmpty, reason: s.usecasePath);
+          expect(symbols.add(s.symbol), isTrue, reason: '重複: ${s.symbol}');
+        }
       }
     });
   });

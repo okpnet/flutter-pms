@@ -1,0 +1,21 @@
+# work_calendar_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #WorkCalendarPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation WorkCalendarPageRemove(
+  $mstrWorkCalendarId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrWorkCalendarByMstrWorkCalendarId(
+    input: {
+      mstrWorkCalendarId: $mstrWorkCalendarId
+      mstrWorkCalendarPatch: { remove: $remove }
+    }
+  ) {
+    mstrWorkCalendar {
+      mstrWorkCalendarId
+      remove
+    }
+  }
+}

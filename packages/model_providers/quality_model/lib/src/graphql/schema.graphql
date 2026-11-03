@@ -2518,6 +2518,7 @@ input MstrAuditStdCheckitemPatch {
   formulaClass: Int
   argClass: JSON
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrAuditStdCheckitemFk2Input
   sharedTextToDetails: MstrAuditStdCheckitemFk1Input
 }
@@ -2563,6 +2564,7 @@ input MstrAuditStdPatch {
   controlCode: String
   category: Int
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrAuditStdFk2Input
   sharedTextToDetails: MstrAuditStdFk1Input
 }
@@ -2602,6 +2604,7 @@ input MstrReportPatch {
   isDefault: Boolean
   infoAccessPathId: UUID
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrReportFk1Input
 }
 
@@ -3150,6 +3153,7 @@ input TransAuditMemberFk2Input {
 input TransAuditMemberPatch {
   class: Int
   remarks: String
+  remove: Boolean
   transLabelToParticipantNames: TransAuditMemberFk2Input
   transLabelToDepartmentNames: TransAuditMemberFk1Input
 }
@@ -3164,6 +3168,7 @@ input TransAuditPatch {
   infoDepartmentId: UUID
   mstrStakeholderId: UUID
   remarks: String
+  remove: Boolean
   transLabelToTitles: TransAuditFk3Input
   transTextToDetails: TransAuditFk2Input
 }
@@ -3196,6 +3201,7 @@ input TransAuditTeamFk1Input {
 input TransAuditTeamPatch {
   transAuditId: UUID
   remarks: String
+  remove: Boolean
   transLabelToNames: TransAuditTeamFk1Input
 }
 
@@ -3228,6 +3234,7 @@ input TransAuditorPatch {
   staffHistoryId: UUID
   staffId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransComplaintEquipmentFilter {
@@ -3253,6 +3260,7 @@ input TransComplaintEquipmentPatch {
   equipmentHistoryId: UUID
   equipmentId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransComplaintFileFilter {
@@ -3276,6 +3284,7 @@ input TransComplaintFilePatch {
   transComplaintId: UUID
   transFileId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransComplaintFilter {
@@ -3370,6 +3379,7 @@ input TransComplaintOrderPatch {
   transComplaintId: UUID
   transOrderId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransComplaintPatch {
@@ -3378,6 +3388,7 @@ input TransComplaintPatch {
   reporterStaffId: UUID
   approvals: UUID
   remarks: String
+  remove: Boolean
   transLabelToTitles: TransComplaintFk3Input
   transTextToDetails: TransComplaintFk2Input
 }
@@ -3404,6 +3415,7 @@ input TransComplaintProcessPatch {
   transComplaintId: UUID
   mstrTaskId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransComplaintReceiveFilter {
@@ -3437,6 +3449,7 @@ input TransComplaintReceivePatch {
   receiveStaffHistoryId: UUID
   receiveStaffId: UUID
   remarks: String
+  remove: Boolean
   transTextToDetails: TransComplaintReceiveFk1Input
 }
 
@@ -3463,6 +3476,7 @@ input TransComplaintStakeholderPatch {
   stakeholderHistoryId: UUID
   stakeholderId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransComplaintVisiterFilter {
@@ -3503,6 +3517,7 @@ input TransComplaintVisiterPatch {
   releaseStaffHistoryId: UUID
   releaseStaffId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransDisposalFilter {
@@ -3555,6 +3570,7 @@ input TransDisposalPatch {
   operationStaffHistoryId: UUID
   operationStaffId: UUID
   remarks: String
+  remove: Boolean
   transLabelToTitles: TransDisposalFk5Input
   transTextToDetails: TransDisposalFk4Input
 }
@@ -3721,6 +3737,7 @@ input TransObserverDisposalPatch {
   observerStaffHistoryId: UUID
   observerStaffId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransObserverPreventiveFilter {
@@ -3744,6 +3761,7 @@ input TransObserverPreventivePatch {
   transObserverDisposalId: UUID
   transRecurrencePreventionId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransOrderDetailRiskFilter {
@@ -3767,6 +3785,7 @@ input TransOrderDetailRiskPatch {
   transOrderDetailId: UUID
   riskId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransOrderRiskFilter {
@@ -3790,6 +3809,7 @@ input TransOrderRiskPatch {
   transOrderId: UUID
   transRiskId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransPreventionDetailFilter {
@@ -3834,6 +3854,7 @@ input TransPreventionDetailPatch {
   stopAt: Datetime
   number: String
   remarks: String
+  remove: Boolean
   transLabelToTitles: TransPreventionDetailFk2Input
   transTextToDetails: TransPreventionDetailFk1Input
 }
@@ -3875,6 +3896,7 @@ input TransPreventionPatch {
   transRiskId: UUID
   number: String
   remarks: String
+  remove: Boolean
   transLabelToTitles: TransPreventionFk2Input
   transTextToDetails: TransPreventionFk1Input
 }
@@ -3923,6 +3945,7 @@ input TransRecurrencePreventionPatch {
   operationStaffHistoryId: UUID
   operationStaffId: UUID
   remarks: String
+  remove: Boolean
   transLabelToTitles: TransRecurrencePreventionFk4Input
   transTextToDetails: TransRecurrencePreventionFk3Input
 }
@@ -3979,6 +4002,7 @@ input TransRiskPatch {
   action: Int
   residualRiskId: UUID
   remarks: String
+  remove: Boolean
   transLabelToTitles: TransRiskFk3Input
   transTextToDetails: TransRiskFk2Input
 }
@@ -4004,6 +4028,7 @@ input TransTaskRiskPatch {
   mstrTaskId: UUID
   riskId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransTextFilter {

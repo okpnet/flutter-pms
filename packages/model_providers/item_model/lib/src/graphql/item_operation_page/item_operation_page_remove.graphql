@@ -1,0 +1,21 @@
+# item_operation_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ItemOperationPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ItemOperationPageRemove(
+  $mstrItemOperationId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrItemOperationByMstrItemOperationId(
+    input: {
+      mstrItemOperationId: $mstrItemOperationId
+      mstrItemOperationPatch: { remove: $remove }
+    }
+  ) {
+    mstrItemOperation {
+      mstrItemOperationId
+      remove
+    }
+  }
+}

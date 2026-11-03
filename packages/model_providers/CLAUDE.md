@@ -49,6 +49,23 @@
 - ビューの YAML は、結合を持たない列だけを読む(ID・日付・件数・数量・金額)。名称が必要な画面は、ID で既存の読み込みを引く。
 - 絞り込みは `$filter`(`filter: true`)で行う。
 
+
+## 論理削除(`~PageRemove`)
+1.  `kind: edit` の定義(`~PageEdit`)ごとに、論理削除のミューテーションを自動で生成する。出力は `<dir>/<dir>_remove.graphql`、操作名は `~PageRemove`。引数は更新対象の主キーと `$remove: Boolean!`(true で削除、false で元に戻す)。結果は主キーと `remove`。ビューには生成しない。生成は `tools/gql_yaml2graphql`(`EditGenerator.generateRemove`)。
+1.  監査列は Edit の引数に含めない方針のため、`remove` を書くのは `~PageRemove` だけ。
+1.  物理削除ではないが、他のテーブルから参照されているデータを削除する(`remove = true` にする)と、参照元の画面から見えなくなる。どの項目を削除してよいかは、影響度を調べながら決める(画面側のゴミ箱ボタンなどは、決まってから有効にする)。
+1.  **影響が大きい項目(直接参照するテーブルが4つを超える。Issue)** — 削除してよいか、判断が決まるまで画面から削除できないようにする。全104テーブルの参照数は `doc/log/20261103_0005.md`。
+    1.  `mstr_item`(ItemPageEdit) 参照元 10 テーブル: mstr_equipment, mstr_inspection, mstr_item_actual_size, mstr_item_hcdcs, mstr_item_operation, mstr_item_operation_task, mstr_item_provision, mstr_item_supplier, mstr_item_task_cost, mstr_item_tree
+    1.  `trans_complaint`(ComplaintPageEdit) 参照元 10 テーブル: trans_complaint_equipment, trans_complaint_file, trans_complaint_order, trans_complaint_process, trans_complaint_purchase_rec, trans_complaint_receive, trans_complaint_stakeholder, trans_complaint_visiter, trans_complaint_work, trans_disposal
+    1.  `info_department`(DepartmentPageEdit) 参照元 9 テーブル: info_assign, info_department_access_path, info_department_kind, info_department_tree, mstr_approval, mstr_location, mstr_task_location, trans_audit, trans_prevention_detail
+    1.  `trans_file`(FilePageEdit) 参照元 9 テーブル: info_staff_icon, mstr_document, mstr_document_content, mstr_document_tier, mstr_equipment_tag, mstr_report, trans_certificate, trans_complaint_file, trans_inspect_imp_file
+    1.  `mstr_task`(TaskPageEdit) 参照元 6 テーブル: mstr_operation_task, mstr_task_location, mstr_task_tree, trans_complaint_process, trans_task_risk, trans_work_plan
+    1.  `info_company`(CompanyPageEdit) 参照元 5 テーブル: info_app, info_department, info_office, info_provision, info_staff
+    1.  `info_staff`(StaffPageEdit) 参照元 5 テーブル: info_assign, info_staff_access_permission, mstr_sign, mstr_staff_capability, mstr_staff_license
+    1.  `mstr_equipment`(EquipmentPageEdit) 参照元 5 テーブル: mstr_equipment_available, mstr_equipment_envelope, mstr_equipment_provision, mstr_inspection_operation, mstr_work_calendar
+    1.  `shared_unit`(UnitPageEdit) 参照元 5 テーブル: mstr_envelope_measurement, mstr_item, mstr_item_lot, mstr_item_size_kind, mstr_spec_measurement
+    1.  `trans_risk`(RiskPageEdit) 参照元 5 テーブル: trans_order_detail_risk, trans_order_risk, trans_prevention, trans_prevention_detail, trans_task_risk
+
 ## 棚ビジター(在庫)の決まり
 
 - 数量は棚ビジター(`trans_visiter.quantity`)だけが持つ。+が入庫、-が出庫。受入実績ビジター・作業実績ビジターは数量を持たない中間テーブル。受払実績(`trans_convey`)は出来事(いつ・どこで・誰が)だけを残し、棚ビジターの1行につき1件作る。

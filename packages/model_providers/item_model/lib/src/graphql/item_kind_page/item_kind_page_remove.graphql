@@ -1,0 +1,21 @@
+# item_kind_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ItemKindPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ItemKindPageRemove(
+  $mstrItemKindId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrItemKindByMstrItemKindId(
+    input: {
+      mstrItemKindId: $mstrItemKindId
+      mstrItemKindPatch: { remove: $remove }
+    }
+  ) {
+    mstrItemKind {
+      mstrItemKindId
+      remove
+    }
+  }
+}

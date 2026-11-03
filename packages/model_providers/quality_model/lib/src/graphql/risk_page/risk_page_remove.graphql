@@ -1,0 +1,21 @@
+# risk_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #RiskPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation RiskPageRemove(
+  $transRiskId: UUID!
+  $remove: Boolean!
+) {
+  updateTransRiskByTransRiskId(
+    input: {
+      transRiskId: $transRiskId
+      transRiskPatch: { remove: $remove }
+    }
+  ) {
+    transRisk {
+      transRiskId
+      remove
+    }
+  }
+}

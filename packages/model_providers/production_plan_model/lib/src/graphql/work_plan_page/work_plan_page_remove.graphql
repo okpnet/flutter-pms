@@ -1,0 +1,21 @@
+# work_plan_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #WorkPlanPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation WorkPlanPageRemove(
+  $transWorkPlanId: UUID!
+  $remove: Boolean!
+) {
+  updateTransWorkPlanByTransWorkPlanId(
+    input: {
+      transWorkPlanId: $transWorkPlanId
+      transWorkPlanPatch: { remove: $remove }
+    }
+  ) {
+    transWorkPlan {
+      transWorkPlanId
+      remove
+    }
+  }
+}

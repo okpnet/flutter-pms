@@ -1252,6 +1252,7 @@ input MstrItemSupplierPatch {
   cost: BigFloat
   askingPrice: Boolean
   remarks: String
+  remove: Boolean
 }
 
 input MstrShippingKindFilter {
@@ -1353,6 +1354,7 @@ input MstrStakeholderPatch {
   mail: String
   mstrShippingKindId: UUID
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrStakeholderFk2Input
   infoAddressToInfoAddressId: MstrStakeholderFk3Input
   mstrShippingKindToMstrShippingKindId: MstrStakeholderFk1Input
@@ -1639,6 +1641,7 @@ input TransPurchaseDetailPatch {
   materialSupply: Boolean
   paidSupply: Boolean
   remarks: String
+  remove: Boolean
 }
 
 input TransPurchaseFilter {
@@ -1682,6 +1685,7 @@ input TransPurchasePatch {
   purchaseOrderDate: Datetime
   deadline: Datetime
   remarks: String
+  remove: Boolean
 }
 
 input TransPurchaseRecFilter {
@@ -1724,6 +1728,7 @@ input TransPurchaseRecPatch {
   receiveAt: Datetime
   quantity: BigFloat
   remarks: String
+  remove: Boolean
 }
 
 input TransPurchaseRecVisiterInput {
@@ -1772,6 +1777,7 @@ input TransUnrecognizedDetailPatch {
   materialSupply: Boolean
   paidSupply: Boolean
   remarks: String
+  remove: Boolean
 }
 
 input TransUnrecognizedFilter {
@@ -1808,6 +1814,7 @@ input TransUnrecognizedPatch {
   expectedCompletionDate: Datetime
   plannedShippingDate: Datetime
   remarks: String
+  remove: Boolean
 }
 
 input UUIDFilter {

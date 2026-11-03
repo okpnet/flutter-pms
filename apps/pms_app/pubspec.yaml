@@ -42,6 +42,9 @@ dependencies:
   pms_authenticator:
     path: ../../packages/features/pms_authenticator
   shared_preferences: ^2.5.3
+  graphql: ^5.2.3
+  entity_screens:
+    path: ../../packages/ui/entity_screens
   feature_shared:
     path: ../../packages/core/feature_shared
   organization:

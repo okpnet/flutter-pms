@@ -775,6 +775,7 @@ input MstrDocumentContentPatch {
   imageContent: Boolean
   transFileId: UUID
   remarks: String
+  remove: Boolean
   sharedAppellationToTitles: MstrDocumentContentFk2Input
   sharedTextToContents: MstrDocumentContentFk1Input
 }
@@ -782,6 +783,7 @@ input MstrDocumentContentPatch {
 input MstrDocumentContentTreePatch {
   parentMstrDocumentContentId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input MstrDocumentFilter {
@@ -832,6 +834,7 @@ input MstrDocumentPatch {
   versionCode: String
   transApprovalPatternId: UUID
   remarks: String
+  remove: Boolean
   sharedAppellationToTitles: MstrDocumentFk2Input
 }
 
@@ -874,6 +877,7 @@ input MstrDocumentTierPatch {
   identifier: String
   tierNumber: Int
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrDocumentTierFk1Input
 }
 
@@ -905,6 +909,7 @@ input MstrDocumentTreeFilter {
 input MstrDocumentTreePatch {
   parentMstrDocumentId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input SharedAppellationFilter {

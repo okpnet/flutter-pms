@@ -1,0 +1,21 @@
+# container_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ContainerPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ContainerPageRemove(
+  $transContainerId: UUID!
+  $remove: Boolean!
+) {
+  updateTransContainerByTransContainerId(
+    input: {
+      transContainerId: $transContainerId
+      transContainerPatch: { remove: $remove }
+    }
+  ) {
+    transContainer {
+      transContainerId
+      remove
+    }
+  }
+}

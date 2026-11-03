@@ -1,0 +1,21 @@
+# complaint_stakeholder_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintStakeholderPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintStakeholderPageRemove(
+  $transComplaintStakeholderId: UUID!
+  $remove: Boolean!
+) {
+  updateTransComplaintStakeholderByTransComplaintStakeholderId(
+    input: {
+      transComplaintStakeholderId: $transComplaintStakeholderId
+      transComplaintStakeholderPatch: { remove: $remove }
+    }
+  ) {
+    transComplaintStakeholder {
+      transComplaintStakeholderId
+      remove
+    }
+  }
+}

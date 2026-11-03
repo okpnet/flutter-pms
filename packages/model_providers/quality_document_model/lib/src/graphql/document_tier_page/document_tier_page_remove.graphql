@@ -1,0 +1,21 @@
+# document_tier_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #DocumentTierPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation DocumentTierPageRemove(
+  $mstrDocumentTierId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrDocumentTierByMstrDocumentTierId(
+    input: {
+      mstrDocumentTierId: $mstrDocumentTierId
+      mstrDocumentTierPatch: { remove: $remove }
+    }
+  ) {
+    mstrDocumentTier {
+      mstrDocumentTierId
+      remove
+    }
+  }
+}

@@ -1,0 +1,21 @@
+# audit_std_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #AuditStdPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditStdPageRemove(
+  $mstrAuditStdId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrAuditStdByMstrAuditStdId(
+    input: {
+      mstrAuditStdId: $mstrAuditStdId
+      mstrAuditStdPatch: { remove: $remove }
+    }
+  ) {
+    mstrAuditStd {
+      mstrAuditStdId
+      remove
+    }
+  }
+}

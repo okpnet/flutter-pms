@@ -148,3 +148,10 @@ class EntityCatalog {
 
 /// 実体の登録簿。実体は各機能のモジュールが登録する。
 final entityCatalogProvider = Provider<EntityCatalog>((ref) => EntityCatalog());
+
+/// 取得元の差し替え(GraphQL 版)。アプリが組み立てた [IEntityRepository] を渡すと、
+/// 同じキーの実体を持つ機能のモジュールが、サンプル(メモリ上)の代わりにこれを登録簿へ登録する。
+/// 既定は空(サンプルのまま)。
+final entityRepositoryOverridesProvider = Provider<List<IEntityRepository>>(
+  (ref) => const [],
+);

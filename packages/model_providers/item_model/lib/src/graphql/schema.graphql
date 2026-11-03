@@ -1655,6 +1655,7 @@ input MstrEquipmentAvailablePatch {
   mstrEquipmentId: UUID
   deliveryInterval: IntervalInput
   remarks: String
+  remove: Boolean
 }
 
 input MstrItemActualSizeFilter {
@@ -1689,6 +1690,7 @@ input MstrItemActualSizePatch {
   mstrItemId: UUID
   mstrItemSizeKindId: UUID
   remarks: String
+  remove: Boolean
   sharedTextToDetails: MstrItemActualSizeFk1Input
 }
 
@@ -1815,6 +1817,7 @@ input MstrItemKindFk1Input {
 input MstrItemKindPatch {
   code: String
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrItemKindFk1Input
 }
 
@@ -1881,6 +1884,7 @@ input MstrItemOperationPatch {
   mstrItemId: UUID
   controlCode: String
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrItemOperationFk2Input
   sharedTextToDetails: MstrItemOperationFk1Input
 }
@@ -1912,6 +1916,7 @@ input MstrItemOperationTaskPatch {
   sequence: Int
   defaultInterval: IntervalInput
   remarks: String
+  remove: Boolean
 }
 
 input MstrItemPatch {
@@ -1924,6 +1929,7 @@ input MstrItemPatch {
   sharedUnitId: UUID
   mstrItemLotId: UUID
   remarks: String
+  remove: Boolean
   mstrManufacturerToMstrManufacturerId: MstrItemFk6Input
   sharedAppellationToNames: MstrItemFk5Input
   sharedTextToDetails: MstrItemFk1Input
@@ -1962,6 +1968,7 @@ input MstrItemSizeKindPatch {
   code: String
   sharedUnitId: UUID
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrItemSizeKindFk2Input
 }
 
@@ -2011,6 +2018,7 @@ input MstrItemTreePatch {
   controlCode: String
   quantity: BigFloat
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrItemTreeFk2Input
   sharedTextToDetails: MstrItemTreeFk1Input
 }
@@ -2048,6 +2056,7 @@ input MstrManufacturerOnMstrItemForMstrItemFk6UsingMstrManufacturerPkcUpdate {
 input MstrManufacturerPatch {
   code: String
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrManufacturerFk1Input
 }
 
@@ -2091,6 +2100,7 @@ input MstrOperationFk2Input {
 input MstrOperationPatch {
   controlCode: String
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrOperationFk2Input
   sharedTextToDetails: MstrOperationFk1Input
   mstrOperationTasksUsingMstrOperationId: MstrOperationTaskFk3InverseInput
@@ -2191,6 +2201,7 @@ input MstrOutsourceAvailablePatch {
   materialSupply: Boolean
   paidSupply: Boolean
   remarks: String
+  remove: Boolean
 }
 
 input MstrSpecMeasurementFilter {
@@ -2221,6 +2232,7 @@ input MstrSpecMeasurementPatch {
   measurementValue: BigFloat
   sharedUnitId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input MstrTaskFilter {
@@ -2312,6 +2324,7 @@ input MstrTaskGroupPatch {
   code: String
   details: UUID
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrTaskGroupFk2Input
 }
 
@@ -2351,6 +2364,7 @@ input MstrTaskLocationPatch {
   infoDepartmentId: UUID
   priority: Int
   remarks: String
+  remove: Boolean
 }
 
 input MstrTaskPatch {
@@ -2359,6 +2373,7 @@ input MstrTaskPatch {
   class: Int
   defaultTime: IntervalInput
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrTaskFk2Input
   sharedTextToDetails: MstrTaskFk1Input
 }
@@ -2396,6 +2411,7 @@ input MstrTaskTreeFilter {
 input MstrTaskTreePatch {
   parentMstrTaskId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input SharedAppellationFilter {

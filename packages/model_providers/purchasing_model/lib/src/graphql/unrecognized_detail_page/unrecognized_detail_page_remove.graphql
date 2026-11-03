@@ -1,0 +1,21 @@
+# unrecognized_detail_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #UnrecognizedDetailPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation UnrecognizedDetailPageRemove(
+  $transUnrecognizedDetailId: UUID!
+  $remove: Boolean!
+) {
+  updateTransUnrecognizedDetailByTransUnrecognizedDetailId(
+    input: {
+      transUnrecognizedDetailId: $transUnrecognizedDetailId
+      transUnrecognizedDetailPatch: { remove: $remove }
+    }
+  ) {
+    transUnrecognizedDetail {
+      transUnrecognizedDetailId
+      remove
+    }
+  }
+}

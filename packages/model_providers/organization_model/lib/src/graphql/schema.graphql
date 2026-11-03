@@ -1537,6 +1537,7 @@ input InfoAssignPatch {
   enable: Boolean
   priority: Int
   remarks: String
+  remove: Boolean
 }
 
 input InfoCompanyFilter {
@@ -1596,6 +1597,7 @@ input InfoCompanyFk3Input {
 input InfoCompanyPatch {
   webPage: String
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: InfoCompanyFk2Input
   infoAddressToInfoAddressId: InfoCompanyFk3Input
   sharedAppellationToCeoNames: InfoCompanyFk1Input
@@ -1752,6 +1754,7 @@ input InfoDepartmentKindValueFk2Input {
 
 input InfoDepartmentKindValuePatch {
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: InfoDepartmentKindValueFk2Input
 }
 
@@ -1759,6 +1762,7 @@ input InfoDepartmentPatch {
   infoCompanyId: UUID
   code: String
   remarks: String
+  remove: Boolean
   infoOfficeToInfoOfficeId: InfoDepartmentFk4Input
   sharedAppellationToNames: InfoDepartmentFk1Input
   infoAddressToInfoAddressId: InfoDepartmentFk3Input
@@ -1799,6 +1803,7 @@ input InfoDepartmentTreeFilter {
 input InfoDepartmentTreePatch {
   parentInfoDepartmentId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input InfoOfficeFilter {
@@ -1844,6 +1849,7 @@ input InfoOfficePatch {
   infoCompanyId: UUID
   code: String
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: InfoOfficeFk1Input
   infoAddressToInfoAddressId: InfoOfficeFk3Input
 }
@@ -1882,6 +1888,7 @@ input InfoPositionFk1Input {
 input InfoPositionPatch {
   priority: Int
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: InfoPositionFk1Input
 }
 
@@ -1991,6 +1998,7 @@ input InfoProvisionPatch {
   infoCompanyId: UUID
   code: String
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: InfoProvisionFk2Input
   sharedTextToDetails: InfoProvisionFk1Input
 }
@@ -2048,6 +2056,7 @@ input InfoStaffPatch {
   phone: String
   privatePhone: String
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: InfoStaffFk1Input
 }
 
@@ -2209,6 +2218,7 @@ input MstrApprovalPatternFk1Input {
 
 input MstrApprovalPatternPatch {
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrApprovalPatternFk1Input
   mstrApprovalPatternDetailsUsingMstrApprovalPatternId: MstrApprovalPatternDetailFk1InverseInput
 }
@@ -2244,6 +2254,7 @@ input MstrApprovalScopePatternPatch {
   mstrApprovalPatternId: UUID
   infoAccessPathApprovalId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input MstrCapabilityFilter {
@@ -2333,6 +2344,7 @@ input MstrStaffCapabilityPatch {
   value: BigFloat
   stop: Boolean
   remarks: String
+  remove: Boolean
 }
 
 input MstrStaffLicenseFilter {
@@ -2370,6 +2382,7 @@ input MstrStaffLicensePatch {
   revocation: Boolean
   revocationAt: Datetime
   remarks: String
+  remove: Boolean
 }
 
 input SharedAppellationFilter {

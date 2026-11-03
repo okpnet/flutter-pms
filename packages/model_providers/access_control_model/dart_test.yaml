@@ -2,8 +2,3 @@ tags:
   server:
     description: >-
       Requires the test GraphQL server (see data_test_harness TestServer.candidateUrls).
-  server_write:
-    description: >-
-      サーバーのデータを変更するテスト。既定では実行しない。
-      実行: flutter test --run-skipped --tags server_write
-    skip: データを変更するため既定では実行しない(--run-skipped --tags server_write で実行)

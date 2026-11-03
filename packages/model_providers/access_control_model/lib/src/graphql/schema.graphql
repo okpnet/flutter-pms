@@ -230,6 +230,7 @@ type InfoAccessPath {
   sharedAppellationByNames: SharedAppellation
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
   vAccessPathDepartmentAccessPathCountByInfoAccessPathId: VAccessPathDepartmentAccessPathCount
+  vAccessPathReportCountByInfoAccessPathId: VAccessPathReportCount
   vAccessPathStaffAccessPermissionCountByInfoAccessPathId: VAccessPathStaffAccessPermissionCount
 }
 
@@ -376,6 +377,10 @@ type UpdateInfoStaffAccessPermissionPayload {
 }
 
 type VAccessPathDepartmentAccessPathCount {
+  infoAccessPathId: UUID
+}
+
+type VAccessPathReportCount {
   infoAccessPathId: UUID
 }
 
@@ -770,6 +775,7 @@ input InfoAccessPathFilter {
   infoStaffAccessPermissionsByInfoAccessPathIdExist: Boolean
   vAccessPathDepartmentAccessPathCountByInfoAccessPathId: VAccessPathDepartmentAccessPathCountFilter
   vAccessPathDepartmentAccessPathCountByInfoAccessPathIdExists: Boolean
+  vAccessPathReportCountByInfoAccessPathId: VAccessPathReportCountFilter
   vAccessPathReportCountByInfoAccessPathIdExists: Boolean
   vAccessPathStaffAccessPermissionCountByInfoAccessPathId: VAccessPathStaffAccessPermissionCountFilter
   vAccessPathStaffAccessPermissionCountByInfoAccessPathIdExists: Boolean
@@ -797,6 +803,7 @@ input InfoAccessPathInput {
 input InfoAccessPathPatch {
   usecasePath: String
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: InfoAccessPathFk1Input
 }
 
@@ -858,6 +865,7 @@ input InfoDepartmentAccessPathPatch {
   infoAccessPathId: UUID
   write: Boolean
   remarks: String
+  remove: Boolean
 }
 
 input InfoStaffAccessPermissionFilter {
@@ -894,6 +902,7 @@ input InfoStaffAccessPermissionPatch {
   infoAccessPathId: UUID
   write: Boolean
   remarks: String
+  remove: Boolean
 }
 
 input IntFilter {
@@ -1198,6 +1207,17 @@ input VAccessPathDepartmentAccessPathCountFilter {
   and: [VAccessPathDepartmentAccessPathCountFilter!]
   or: [VAccessPathDepartmentAccessPathCountFilter!]
   not: VAccessPathDepartmentAccessPathCountFilter
+}
+
+input VAccessPathReportCountFilter {
+  infoAccessPathId: UUIDFilter
+  allCount: BigIntFilter
+  enableCount: BigIntFilter
+  disableCount: BigIntFilter
+  infoAccessPathByInfoAccessPathIdExists: Boolean
+  and: [VAccessPathReportCountFilter!]
+  or: [VAccessPathReportCountFilter!]
+  not: VAccessPathReportCountFilter
 }
 
 input VAccessPathStaffAccessPermissionCountFilter {

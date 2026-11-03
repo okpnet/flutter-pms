@@ -1,0 +1,21 @@
+# inventory_request_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #InventoryRequestPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation InventoryRequestPageRemove(
+  $transInventoryRequestId: UUID!
+  $remove: Boolean!
+) {
+  updateTransInventoryRequestByTransInventoryRequestId(
+    input: {
+      transInventoryRequestId: $transInventoryRequestId
+      transInventoryRequestPatch: { remove: $remove }
+    }
+  ) {
+    transInventoryRequest {
+      transInventoryRequestId
+      remove
+    }
+  }
+}

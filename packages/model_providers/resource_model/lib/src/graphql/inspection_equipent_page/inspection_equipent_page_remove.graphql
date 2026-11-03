@@ -1,0 +1,21 @@
+# inspection_equipent_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #InspectionEquipentPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation InspectionEquipentPageRemove(
+  $mstrInspectionOperationTaskId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId(
+    input: {
+      mstrInspectionOperationTaskId: $mstrInspectionOperationTaskId
+      mstrInspectionOperationTaskPatch: { remove: $remove }
+    }
+  ) {
+    mstrInspectionOperationTask {
+      mstrInspectionOperationTaskId
+      remove
+    }
+  }
+}

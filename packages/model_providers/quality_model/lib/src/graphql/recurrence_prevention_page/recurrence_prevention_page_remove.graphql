@@ -1,0 +1,21 @@
+# recurrence_prevention_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #RecurrencePreventionPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation RecurrencePreventionPageRemove(
+  $transRecurrencePreventionId: UUID!
+  $remove: Boolean!
+) {
+  updateTransRecurrencePreventionByTransRecurrencePreventionId(
+    input: {
+      transRecurrencePreventionId: $transRecurrencePreventionId
+      transRecurrencePreventionPatch: { remove: $remove }
+    }
+  ) {
+    transRecurrencePrevention {
+      transRecurrencePreventionId
+      remove
+    }
+  }
+}

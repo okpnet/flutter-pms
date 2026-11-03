@@ -2340,6 +2340,7 @@ input MstrCapabilityPatch {
   min: BigFloat
   step: BigFloat
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrCapabilityFk2Input
   sharedTextToDetails: MstrCapabilityFk1Input
 }
@@ -2429,6 +2430,7 @@ input MstrEquipmentKindPatch {
   startAt: Datetime
   stopAt: Datetime
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrEquipmentKindFk1Input
 }
 
@@ -2440,6 +2442,7 @@ input MstrEquipmentPatch {
   labelCode: String
   mstrLocationId: UUID
   remarks: String
+  remove: Boolean
   mstrItemToMstrItemId: MstrEquipmentFk2Input
 }
 
@@ -2544,6 +2547,7 @@ input MstrInspectionKindFk1Input {
 input MstrInspectionKindPatch {
   code: String
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrInspectionKindFk1Input
 }
 
@@ -2580,6 +2584,7 @@ input MstrInspectionOperationPatch {
   code: String
   mstrEquipmentId: UUID
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrInspectionOperationFk1Input
 }
 
@@ -2613,6 +2618,7 @@ input MstrInspectionOperationTaskPatch {
   commencementDate: Datetime
   timeInterval: IntervalInput
   remarks: String
+  remove: Boolean
 }
 
 input MstrInspectionPatch {
@@ -2622,6 +2628,7 @@ input MstrInspectionPatch {
   timeInterval: IntervalInput
   externalInspection: UUID
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrInspectionFk2Input
   mstrInspectionFormulaToInspectionFormulaId: MstrInspectionFk5Input
   mstrItemToMstrItemId: MstrInspectionFk3Input
@@ -2765,6 +2772,7 @@ input MstrItemTaskCostPatch {
   mstrTaskLocationId: UUID
   cost: BigFloat
   remarks: String
+  remove: Boolean
 }
 
 input MstrLicenseFilter {
@@ -2812,6 +2820,7 @@ input MstrLicensePatch {
   organizationLicense: Boolean
   updateInterval: IntervalInput
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrLicenseFk2Input
   sharedTextToDetails: MstrLicenseFk1Input
 }
@@ -2870,6 +2879,7 @@ input MstrLocationPatch {
   infoAddressId: UUID
   available: Boolean
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrLocationFk1Input
   infoAddressToInfoAddressId: MstrLocationFk3Input
 }
@@ -2902,6 +2912,7 @@ input MstrLocationTreeFilter {
 input MstrLocationTreePatch {
   parentMstrLocationId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input MstrManufacturerFilter {
@@ -2961,6 +2972,7 @@ input MstrStaffCapabilityPatch {
   value: BigFloat
   stop: Boolean
   remarks: String
+  remove: Boolean
 }
 
 input MstrStaffLicenseFilter {
@@ -2977,6 +2989,7 @@ input MstrStaffLicensePatch {
   revocation: Boolean
   revocationAt: Datetime
   remarks: String
+  remove: Boolean
 }
 
 input MstrWorkCalendarFilter {
@@ -3008,6 +3021,7 @@ input MstrWorkCalendarPatch {
   workInterval: IntervalInput
   holiday: Boolean
   remarks: String
+  remove: Boolean
 }
 
 input SharedAppellationFilter {
@@ -3442,6 +3456,7 @@ input TransFilePatch {
   name: String
   mediaType: String
   remarks: String
+  remove: Boolean
 }
 
 input TransInspectImpFileFilter {
@@ -3477,6 +3492,7 @@ input TransInspectImpFilePatch {
   class: String
   transFileReminderId: UUID
   remarks: String
+  remove: Boolean
   transLabelToTitles: TransInspectImpFileFk1Input
 }
 
@@ -3539,6 +3555,7 @@ input TransInspectRecordPatch {
   stakeholderId: UUID
   stakeholderHistoryId: UUID
   remarks: String
+  remove: Boolean
   transTextToNotes: TransInspectRecordFk2Input
 }
 
@@ -3595,6 +3612,7 @@ input TransInspectSchDetailPatch {
   inspectionOperationTaskHistoryId: UUID
   inspectionOperationTaskId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransInspectSchFilter {
@@ -3654,6 +3672,7 @@ input TransInspectSchPatch {
   inspectionOperationHistoryId: UUID
   inspectionOperationId: UUID
   remarks: String
+  remove: Boolean
   transLabelToTitles: TransInspectSchFk4Input
   transTextToRequirements: TransInspectSchFk3Input
   transTextToAttentions: TransInspectSchFk2Input

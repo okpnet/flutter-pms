@@ -6,4 +6,5 @@ export 'src/contents/unit_page_keyname.dart';
 export 'src/graphql/schema.graphql.dart';
 export 'src/graphql/unit_page/unit_page_edit.graphql.dart';
 export 'src/graphql/unit_page/unit_page_read.graphql.dart';
+export 'src/graphql/unit_page/unit_page_remove.graphql.dart';
 export 'src/graphql/unit_page/unit_page_rfe.graphql.dart';

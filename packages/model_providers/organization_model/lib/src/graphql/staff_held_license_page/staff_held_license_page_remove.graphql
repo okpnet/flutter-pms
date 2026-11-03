@@ -1,0 +1,21 @@
+# staff_held_license_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #StaffHeldLicensePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation StaffHeldLicensePageRemove(
+  $mstrStaffLicenseId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrStaffLicenseByMstrStaffLicenseId(
+    input: {
+      mstrStaffLicenseId: $mstrStaffLicenseId
+      mstrStaffLicensePatch: { remove: $remove }
+    }
+  ) {
+    mstrStaffLicense {
+      mstrStaffLicenseId
+      remove
+    }
+  }
+}

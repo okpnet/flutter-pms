@@ -1,0 +1,21 @@
+# operations_plan_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #OperationsPlanPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OperationsPlanPageRemove(
+  $transOperationsPlanId: UUID!
+  $remove: Boolean!
+) {
+  updateTransOperationsPlanByTransOperationsPlanId(
+    input: {
+      transOperationsPlanId: $transOperationsPlanId
+      transOperationsPlanPatch: { remove: $remove }
+    }
+  ) {
+    transOperationsPlan {
+      transOperationsPlanId
+      remove
+    }
+  }
+}

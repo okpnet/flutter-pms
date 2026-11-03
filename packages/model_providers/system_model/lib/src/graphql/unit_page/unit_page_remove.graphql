@@ -1,0 +1,21 @@
+# unit_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #UnitPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation UnitPageRemove(
+  $sharedUnitId: UUID!
+  $remove: Boolean!
+) {
+  updateSharedUnitBySharedUnitId(
+    input: {
+      sharedUnitId: $sharedUnitId
+      sharedUnitPatch: { remove: $remove }
+    }
+  ) {
+    sharedUnit {
+      sharedUnitId
+      remove
+    }
+  }
+}

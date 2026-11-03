@@ -1,0 +1,21 @@
+# equipment_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #EquipmentPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation EquipmentPageRemove(
+  $mstrEquipmentId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrEquipmentByMstrEquipmentId(
+    input: {
+      mstrEquipmentId: $mstrEquipmentId
+      mstrEquipmentPatch: { remove: $remove }
+    }
+  ) {
+    mstrEquipment {
+      mstrEquipmentId
+      remove
+    }
+  }
+}

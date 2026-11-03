@@ -1,0 +1,21 @@
+# capability_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #CapabilityPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation CapabilityPageRemove(
+  $mstrCapabilityId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrCapabilityByMstrCapabilityId(
+    input: {
+      mstrCapabilityId: $mstrCapabilityId
+      mstrCapabilityPatch: { remove: $remove }
+    }
+  ) {
+    mstrCapability {
+      mstrCapabilityId
+      remove
+    }
+  }
+}

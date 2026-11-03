@@ -1,0 +1,21 @@
+# purchase_rez_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #PurchaseRezPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation PurchaseRezPageRemove(
+  $transPurchaseRezId: UUID!
+  $remove: Boolean!
+) {
+  updateTransPurchaseRezByTransPurchaseRezId(
+    input: {
+      transPurchaseRezId: $transPurchaseRezId
+      transPurchaseRezPatch: { remove: $remove }
+    }
+  ) {
+    transPurchaseRez {
+      transPurchaseRezId
+      remove
+    }
+  }
+}

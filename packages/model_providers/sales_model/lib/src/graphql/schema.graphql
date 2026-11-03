@@ -1268,6 +1268,7 @@ input MstrStakeholderPatch {
   mail: String
   mstrShippingKindId: UUID
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: MstrStakeholderFk2Input
   infoAddressToInfoAddressId: MstrStakeholderFk3Input
   mstrShippingKindToMstrShippingKindId: MstrStakeholderFk1Input
@@ -1540,6 +1541,7 @@ input TransOrderDetailPatch {
   deliveryDate: Datetime
   deadline: Datetime
   remarks: String
+  remove: Boolean
 }
 
 input TransOrderFilter {
@@ -1597,6 +1599,7 @@ input TransOrderPatch {
   deliveryDate: Datetime
   deadline: Datetime
   remarks: String
+  remove: Boolean
 }
 
 input TransShippingOrderDetailFilter {
@@ -1629,6 +1632,7 @@ input TransShippingOrderDetailPatch {
   estimatedArrivalDate: Date
   shippingQuantity: BigFloat
   remarks: String
+  remove: Boolean
 }
 
 input TransShippingOrderDetailRecordFilter {
@@ -1654,6 +1658,7 @@ input TransShippingOrderDetailRecordPatch {
   shippingDate: Datetime
   shippingQuantity: BigFloat
   remarks: String
+  remove: Boolean
 }
 
 input TransShippingOrderFilter {
@@ -1690,6 +1695,7 @@ input TransShippingOrderPatch {
   stakeholderHistoryId: UUID
   stakeholderId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input UUIDFilter {

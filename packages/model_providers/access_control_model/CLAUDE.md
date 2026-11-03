@@ -32,9 +32,9 @@
 ## Issue(未解決・検討中)
 
 1.  **アクセスパス登録の途中失敗**: 登録(`AccessControlClient.createAccessPath`)は1テーブルずつ順に呼ぶため、途中で失敗すると呼称(辞書・言語別の値・呼称)だけが残る。現在はこのまま継続する。残骸の掃除が必要になったら、DB の関数にして1回の呼び出し(1トランザクション)に移すことを検討する(`DB の関数の呼び出し`は `../CLAUDE.md` を参照)。
-1.  **画面の取得元**: `packages/features/access_control` の画面はサンプル(メモリ上)で動く。GraphQL 版は、窓口 `AccessControlClient` に一覧・取得・保存・削除(論理削除)を足し、`IEntityRepository` の実装から呼ぶ。論理削除(`remove = true`)のミューテーションは、監査列を Edit に含めない方針のため未生成。YAML の定義を決めてから足す。アプリ側の GraphQL の接続(`GraphQLClient`)と、ログインユーザーの JWT の受け渡しも未着手。
+1.  **画面の取得元(GraphQL 版)**: `packages/features/access_control` の `accessControlRepositories(GraphQLClient)` が、窓口 `AccessControlClient` の一覧・取得・保存・削除(論理削除。`~PageRemove`)を使う。アプリは `entityRepositoryOverridesProvider` で差し替える(`--dart-define=GRAPHQL_URL` を指定したときだけ。未指定はサンプル)。残り: ① ログイン後に PocketBase の `/api/app/graphql-token` を取得して `graphqlTokenProvider` に保存し、期限(15分)の前に取り直す、② 部署・担当者の参照先の選択肢を、各機能(`organization`)の GraphQL 版に合わせる。
 1.  **ラベル**: 日本語・英語のラベル(`apps/pms_app/doc/contents/access_paths.csv` の名前を含む)は仮。全実装のテスト(画面どうしの兼ね合い)のあとに、修正の指示をもらう。
-1.  **サーバーを変更するテスト**: `test/server_register_access_paths_test.dart`(`server_write` タグ。既定では実行しない)。接続先はすべてテストサーバーで実行してよい。`flutter test --run-skipped --tags server_write test/server_register_access_paths_test.dart`。登録は `usecase_path` で重複を避けるため、何度実行してもよい。クリーンな環境に戻す必要があれば、登録したアクセスパスと呼称を削除する。
+1.  **サーバーへの登録**: 接続先はすべてテストサーバーなので、`registerMissingAccessPaths` を実行してよい。結合テストのリスクになるため、一時的なテストは置かない。実行は、実行環境の権限(自動判定)を許可したうえで行う。クリーンな環境に戻す必要があれば、登録したアクセスパスと呼称を削除する。
 
 ## 規則
 

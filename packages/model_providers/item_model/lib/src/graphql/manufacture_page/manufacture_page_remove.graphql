@@ -1,0 +1,21 @@
+# manufacture_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ManufacturePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ManufacturePageRemove(
+  $mstrManufacturerId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrManufacturerByMstrManufacturerId(
+    input: {
+      mstrManufacturerId: $mstrManufacturerId
+      mstrManufacturerPatch: { remove: $remove }
+    }
+  ) {
+    mstrManufacturer {
+      mstrManufacturerId
+      remove
+    }
+  }
+}

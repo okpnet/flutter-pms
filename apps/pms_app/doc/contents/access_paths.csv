@@ -17,10 +17,10 @@ UF,/auth/files,共有ファイル,Shared files,auth_files,false
 UA,/auth/admin/signups,新規登録の管理,Manage sign-ups,auth_files,false
 UQ,/auth/admin/resets,再設定依頼の管理,Manage reset requests,auth_files,false
 ,/login,ログイン,Log in,pms_app,true
-,/actual/material_transfer/register,資材移動の登録,Register material transfer,pms_app,false
-,/actual/shipping,出荷の登録,Register shipping,pms_app,false
-,/actual/stock_state,在庫状況,Stock status,pms_app,false
-,/shipping/order,出荷オーダー一覧,Shipping orders,pms_app,false
+LG-MT,/actual/material_transfer/register,資材移動の登録,Register material transfer,pms_app,false
+LG-SH,/actual/shipping,出荷の登録,Register shipping,pms_app,false
+LG-ST,/actual/stock_state,在庫状況,Stock status,pms_app,false
+LG-SO,/shipping/order,出荷オーダー一覧,Shipping orders,pms_app,false
 XA,/e/accesspath,アクセスパス,Access path,access_control,false
 XD,/e/deptaccesspath,部署のアクセスパス,Department access path,access_control,false
 XS,/e/staffaccesspermission,担当者のアクセスパス許可,Staff access permission,access_control,false

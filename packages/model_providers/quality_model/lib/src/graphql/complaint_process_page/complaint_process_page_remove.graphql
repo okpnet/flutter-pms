@@ -1,0 +1,21 @@
+# complaint_process_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintProcessPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintProcessPageRemove(
+  $transComplaintProcessId: UUID!
+  $remove: Boolean!
+) {
+  updateTransComplaintProcessByTransComplaintProcessId(
+    input: {
+      transComplaintProcessId: $transComplaintProcessId
+      transComplaintProcessPatch: { remove: $remove }
+    }
+  ) {
+    transComplaintProcess {
+      transComplaintProcessId
+      remove
+    }
+  }
+}

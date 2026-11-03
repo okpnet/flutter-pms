@@ -475,3 +475,24 @@
     +   受入異常登録[ComplaintPurchaseRecPageCreate]
 1.  設備点検
     +   点検結果登録[InspectRecordPageCreate]
+##  アクセス管理
+1.  アクセスパス(ページ。パスがページ遷移の有効・無効を決める)
+    +   アクセスパス台帳[AccessPathPage]
+        +   アクセスパス情報[AccessPathPageEdit]
+    +   アクセスパス登録[AccessPathPageCreate]<!--名前(呼称)を先に登録する-->
+    +   アプリ台帳[AppPage]<!--このアプリの info_app は固定の1件(名前で引く)-->
+1.  呼称の登録(部品)
+    +   言語コード台帳[LanguageCodePage]
+    +   辞書登録[DictionaryPageCreate]
+    +   辞書値登録[DictionaryValuePageCreate]
+    +   呼称登録[AppellationPageCreate]
+1.  部署のアクセスパス
+    +   部署アクセスパス台帳[DepartmentAccessPathPage]
+        +   部署アクセスパス情報[DepartmentAccessPathPageEdit]
+    +   部署アクセスパス登録[DepartmentAccessPathPageCreate]
+1.  担当者のアクセスパス許可
+    +   担当者アクセスパス許可台帳[StaffAccessPermissionPage]
+        +   担当者アクセスパス許可情報[StaffAccessPermissionPageEdit]
+    +   担当者アクセスパス許可登録[StaffAccessPermissionPageCreate]
+1.  担当者の実効アクセスパス(DBのビュー v_staff_effective_access_path)
+    +   担当者実効アクセスパス台帳[StaffEffectiveAccessPathPage]

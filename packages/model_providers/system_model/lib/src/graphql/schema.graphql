@@ -776,6 +776,7 @@ input SharedUnitFk2Input {
 
 input SharedUnitPatch {
   remarks: String
+  remove: Boolean
   sharedAppellationToNames: SharedUnitFk2Input
   sharedTextToDetails: SharedUnitFk1Input
 }

@@ -1,0 +1,21 @@
+# audit_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #AuditPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditPageRemove(
+  $transAuditId: UUID!
+  $remove: Boolean!
+) {
+  updateTransAuditByTransAuditId(
+    input: {
+      transAuditId: $transAuditId
+      transAuditPatch: { remove: $remove }
+    }
+  ) {
+    transAudit {
+      transAuditId
+      remove
+    }
+  }
+}

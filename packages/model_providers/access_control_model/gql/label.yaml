@@ -5,6 +5,7 @@
 
 # 言語コード読み込み(ja・en の id を引く)
 LanguageCodePage:
+  lightRead: true # ja・en の id を引くだけの軽い読み込み
   kind: read
   from: shared_language_code
   filter: true

@@ -1,0 +1,21 @@
+# location_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #LocationPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation LocationPageRemove(
+  $mstrLocationId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrLocationByMstrLocationId(
+    input: {
+      mstrLocationId: $mstrLocationId
+      mstrLocationPatch: { remove: $remove }
+    }
+  ) {
+    mstrLocation {
+      mstrLocationId
+      remove
+    }
+  }
+}

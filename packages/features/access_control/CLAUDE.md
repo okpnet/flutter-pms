@@ -21,7 +21,7 @@
 
 ## 実装の指針
 1.  `AccessControlModule implements FeatureModule` を `lib/src/access_control_module.dart` に置き、公開は `lib/access_control.dart` のバレルから `AccessControlModule` だけにする。アプリは `lib/app.dart` の `featureModules` に1行足して組み込む。
-2.  現在の取得元はサンプル(メモリ上)。GraphQL 版は `access_control_model` を使い、`IDataRepository`(`data_strategist`)をとおして Provider で差し替える。
+2.  取得元の既定はサンプル(メモリ上)。GraphQL 版は `lib/src/graphql/access_control_repositories.dart` の `accessControlRepositories(GraphQLClient)`(`access_control_model` の窓口を使う)。アプリが `entityRepositoryOverridesProvider` に渡すと差し替わる(`pms_app` の `--dart-define=GRAPHQL_URL`)。削除は論理削除(`~PageRemove`)。影響が大きい項目(`packages/model_providers/CLAUDE.md` の「論理削除」)は、画面から削除できるようにする前に確認する。
 3.  ログは `logger_provider` の `loggerProvider` を `ref` から直接取得し、この機能が発生元のエラーだけを出す。
 4.  ラベルは slang で多言語化し、列名は `schema.graphql` のコメントを使う。推論・仮置きしたラベルは `doc/log` に残す。
 

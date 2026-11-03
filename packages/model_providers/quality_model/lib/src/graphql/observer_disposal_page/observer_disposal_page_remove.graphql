@@ -1,0 +1,21 @@
+# observer_disposal_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ObserverDisposalPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ObserverDisposalPageRemove(
+  $transObserverDisposalId: UUID!
+  $remove: Boolean!
+) {
+  updateTransObserverDisposalByTransObserverDisposalId(
+    input: {
+      transObserverDisposalId: $transObserverDisposalId
+      transObserverDisposalPatch: { remove: $remove }
+    }
+  ) {
+    transObserverDisposal {
+      transObserverDisposalId
+      remove
+    }
+  }
+}

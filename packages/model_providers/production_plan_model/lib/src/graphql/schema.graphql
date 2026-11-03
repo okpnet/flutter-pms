@@ -2555,6 +2555,7 @@ input TransOperationsPlanPatch {
   deadline: Datetime
   quantity: BigFloat
   remarks: String
+  remove: Boolean
 }
 
 input TransOrderDetailFilter {
@@ -2611,6 +2612,7 @@ input TransProductRezPatch {
   transWorkPlanId: UUID
   quantity: BigFloat
   remarks: String
+  remove: Boolean
 }
 
 input TransPurchaseDetailFilter {
@@ -2671,6 +2673,7 @@ input TransPurchaseRezPatch {
   transPurchaseDetailId: UUID
   quantity: BigFloat
   remarks: String
+  remove: Boolean
 }
 
 input TransResourcePlanFilter {
@@ -2717,6 +2720,7 @@ input TransResourcePlanPatch {
   itemHistoryId: UUID
   itemId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransUnrecognizedDetailFilter {
@@ -2798,6 +2802,7 @@ input TransWorkPlanPatch {
   mstrOutsourceAvailableId: UUID
   transPurchaseDetailId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input UUIDFilter {

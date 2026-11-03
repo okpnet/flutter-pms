@@ -22,6 +22,8 @@ Future<void> main() async {
         //ページ用の拡張(メンテナンス・認証のセッション確認)とダッシュボードの件数の元
         ...sessionOverrides(),
         ...dashboardOverrides(),
+        //画面の取得元(GRAPHQL_URL を指定したときだけ GraphQL 版)
+        ...graphqlOverrides(),
         //使用言語は実行環境(OS)に従う。設定画面で変更できる
         localeProvider.overrideWith(SystemLocaleNotifier.new),
         themeLoggerProvider.overrideWithValue(logger),

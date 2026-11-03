@@ -1,0 +1,24 @@
+# staff_capability_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #StaffCapabilityPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation StaffCapabilityPageRemove(
+  $mstrStaffCapabilityId: UUID!
+  $infoStaffId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId(
+    input: {
+      mstrStaffCapabilityId: $mstrStaffCapabilityId
+      infoStaffId: $infoStaffId
+      mstrStaffCapabilityPatch: { remove: $remove }
+    }
+  ) {
+    mstrStaffCapability {
+      mstrStaffCapabilityId
+      infoStaffId
+      remove
+    }
+  }
+}

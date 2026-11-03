@@ -1,0 +1,21 @@
+# customer_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #CustomerPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation CustomerPageRemove(
+  $mstrStakeholderId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrStakeholderByMstrStakeholderId(
+    input: {
+      mstrStakeholderId: $mstrStakeholderId
+      mstrStakeholderPatch: { remove: $remove }
+    }
+  ) {
+    mstrStakeholder {
+      mstrStakeholderId
+      remove
+    }
+  }
+}

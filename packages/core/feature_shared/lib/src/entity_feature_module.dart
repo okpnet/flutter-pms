@@ -326,6 +326,11 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
     for (final repository in repositories()) {
       catalog.register(repository);
     }
+    // アプリが差し替えた取得元(GraphQL 版)。この機能の実体だけを、サンプルの代わりに登録する
+    final keys = {for (final d in definitions) d.key};
+    for (final override in ref.read(entityRepositoryOverridesProvider)) {
+      if (keys.contains(override.definition.key)) catalog.register(override);
+    }
     registerLookups(catalog, ref);
   }
 

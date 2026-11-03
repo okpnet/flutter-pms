@@ -1,0 +1,21 @@
+# complaint_order_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintOrderPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintOrderPageRemove(
+  $transComplaintOrderId: UUID!
+  $remove: Boolean!
+) {
+  updateTransComplaintOrderByTransComplaintOrderId(
+    input: {
+      transComplaintOrderId: $transComplaintOrderId
+      transComplaintOrderPatch: { remove: $remove }
+    }
+  ) {
+    transComplaintOrder {
+      transComplaintOrderId
+      remove
+    }
+  }
+}

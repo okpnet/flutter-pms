@@ -75,6 +75,10 @@ query StaffAccessPermissionPageRead(
           infoAccessPathId
         }
 
+        report_count: vAccessPathReportCountByInfoAccessPathId {
+          infoAccessPathId
+        }
+
         staff_access_permission_count: vAccessPathStaffAccessPermissionCountByInfoAccessPathId {
           infoAccessPathId
         }

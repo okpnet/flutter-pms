@@ -6,4 +6,5 @@ export 'repositories/repositories.dart';
 export 'features/features.dart';
 export 'session/session.dart';
 export 'dashboard/dashboard_overrides.dart';
+export 'graphql/graphql_overrides.dart';
 export 'settings/shared_preferences_settings_storage.dart';

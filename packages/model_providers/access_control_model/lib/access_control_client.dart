@@ -7,9 +7,25 @@
 /// 生成された型はここで隠し、平らな型(文字列)で返す。
 library;
 
+export 'access_control_records.dart';
+
 import 'package:access_control_model/access_control_model.dart'
     show
         documentNodeMutationAccessPathPageCreate,
+        documentNodeMutationAccessPathPageEdit,
+        documentNodeMutationAccessPathPageRemove,
+        documentNodeMutationDepartmentAccessPathPageCreate,
+        documentNodeMutationDepartmentAccessPathPageEdit,
+        documentNodeMutationDepartmentAccessPathPageRemove,
+        documentNodeMutationStaffAccessPermissionPageCreate,
+        documentNodeMutationStaffAccessPermissionPageEdit,
+        documentNodeMutationStaffAccessPermissionPageRemove,
+        documentNodeQueryAccessPathPageRfe,
+        documentNodeQueryDepartmentAccessPathPageRead,
+        documentNodeQueryDepartmentAccessPathPageRfe,
+        documentNodeQueryStaffAccessPermissionPageRead,
+        documentNodeQueryStaffAccessPermissionPageRfe,
+        documentNodeQueryStaffEffectiveAccessPathPageRead,
         documentNodeMutationAppellationPageCreate,
         documentNodeMutationDictionaryPageCreate,
         documentNodeMutationDictionaryValuePageCreate,
@@ -18,6 +34,8 @@ import 'package:access_control_model/access_control_model.dart'
         documentNodeQueryLanguageCodePageRead;
 import 'package:gql/ast.dart' show DocumentNode;
 import 'package:graphql/client.dart';
+
+import 'access_control_records.dart';
 
 /// 通信・サーバーの異常、または固定のアプリ・言語が見つからないこと。
 class AccessControlClientException implements Exception {
@@ -289,6 +307,319 @@ class AccessControlClient {
       'infoAccessPath',
       'infoAccessPathId',
     );
+  }
+
+  // ---- 一覧・取得・保存・削除(画面の取得元 IEntityRepository が使う) ----
+
+  static String _s(Object? v) => v is String ? v : '';
+  static bool _b(Object? v) => v == true;
+
+  /// 辞書(`ja`・`en` の別名で言語別の値を持つ)から、指定の言語の値を取り出す。
+  static String _dictValue(Object? dict, String lang) {
+    final nodes =
+        ((dict as Map?)?[lang] as Map?)?['nodes'] as List? ?? const [];
+    return nodes.isEmpty ? '' : _s((nodes.first as Map)['dictionaryValue']);
+  }
+
+  /// 読み込み(1言語だけ引く)の名前。`labels.sharedDictionaryBySharedDictionaryNameId.value.nodes[0]`。
+  static String _readName(Object? labels) {
+    final dict = (labels as Map?)?['sharedDictionaryBySharedDictionaryNameId'];
+    return _dictValue(dict, 'value');
+  }
+
+  /// アクセスパスの一覧(名前は ja)。削除済みは除く。
+  Future<List<AccessPathRecord>> listAccessPaths({
+    int first = 100,
+    int offset = 0,
+  }) async {
+    await _loadLanguages();
+    final data = await _run(documentNodeQueryAccessPathPageRead, {
+      'first': first,
+      'offset': offset,
+      'languageCodeId': _jaId,
+    });
+    return [
+      for (final n in _nodes(data, 'allInfoAccessPaths'))
+        AccessPathRecord(
+          id: _s(n['infoAccessPathId']),
+          nameJa: _readName(n['labels']),
+          usecasePath: _s(n['usecasePath']),
+          symbol: _s(n['symbol']),
+          remarks: _s(n['remarks']),
+        ),
+    ];
+  }
+
+  /// アクセスパス1件(名前は ja・en)。無ければ null。
+  Future<AccessPathRecord?> getAccessPath(String id) async {
+    await _loadLanguages();
+    final data = await _run(documentNodeQueryAccessPathPageRfe, {
+      'infoAccessPathId': id,
+      'jaLanguageCodeId': _jaId,
+      'enLanguageCodeId': _enId,
+    });
+    final n = data['infoAccessPathByInfoAccessPathId'] as Map?;
+    if (n == null) return null;
+    final name =
+        (n['labels'] as Map?)?['sharedDictionaryBySharedDictionaryNameId'];
+    // 画面コード(symbol)は更新の対象外なので、一覧の読み込みで引く
+    final symbolData = await _run(documentNodeQueryAccessPathPageRead, {
+      'first': 1,
+      'languageCodeId': _jaId,
+      'filter': {
+        'infoAccessPathId': {'equalTo': id},
+      },
+    });
+    final symbolNodes = _nodes(symbolData, 'allInfoAccessPaths');
+    return AccessPathRecord(
+      id: id,
+      nameJa: _dictValue(name, 'ja'),
+      nameEn: _dictValue(name, 'en'),
+      usecasePath: _s(n['usecasePath']),
+      symbol: symbolNodes.isEmpty ? '' : _s(symbolNodes.first['symbol']),
+      remarks: _s(n['remarks']),
+    );
+  }
+
+  /// アクセスパスを保存し、その id を返す。id が空なら登録([createAccessPath])、あれば更新。
+  /// 更新では画面コード(symbol)は変えない。読みと略称は、いまの値を保ったまま名前だけ直す。
+  Future<String> saveAccessPath(AccessPathRecord r) async {
+    if (r.id.isEmpty) {
+      return createAccessPath(
+        usecasePath: r.usecasePath,
+        nameJa: r.nameJa,
+        nameEn: r.nameEn,
+        symbol: r.symbol,
+        remarks: r.remarks.isEmpty ? null : r.remarks,
+      );
+    }
+    await _loadLanguages();
+    final data = await _run(documentNodeQueryAccessPathPageRfe, {
+      'infoAccessPathId': r.id,
+      'jaLanguageCodeId': _jaId,
+      'enLanguageCodeId': _enId,
+    });
+    final n = data['infoAccessPathByInfoAccessPathId'] as Map?;
+    if (n == null) throw AccessControlClientException('アクセスパスがありません: ${r.id}');
+    final labels = n['labels'] as Map?;
+    final name = labels?['sharedDictionaryBySharedDictionaryNameId'] as Map?;
+    final pron =
+        labels?['sharedDictionaryBySharedDictionaryPronunciationId'] as Map?;
+    final nick =
+        labels?['sharedDictionaryBySharedDictionaryNicknameId'] as Map?;
+    await _run(documentNodeMutationAccessPathPageEdit, {
+      'infoAccessPathId': r.id,
+      'sharedAppellationsId': labels?['sharedAppellationsId'],
+      'nameSharedDictionaryId': name?['sharedDictionaryId'],
+      'jaLanguageCodeId': _jaId,
+      'enLanguageCodeId': _enId,
+      'nameJa': r.nameJa,
+      'nameEn': r.nameEn,
+      'pronunciationSharedDictionaryId': pron?['sharedDictionaryId'],
+      'pronunciationJa': _dictValue(pron, 'ja'),
+      'pronunciationEn': _dictValue(pron, 'en'),
+      'nicknameSharedDictionaryId': nick?['sharedDictionaryId'],
+      'nicknameJa': _dictValue(nick, 'ja'),
+      'nicknameEn': _dictValue(nick, 'en'),
+      'usecasePath': r.usecasePath,
+      'remarks': r.remarks.isEmpty ? null : r.remarks,
+    }, mutation: true);
+    return r.id;
+  }
+
+  /// アクセスパスの論理削除(`remove = true`)。[restore] で元に戻す。
+  Future<void> removeAccessPath(String id, {bool restore = false}) => _run(
+    documentNodeMutationAccessPathPageRemove,
+    {'infoAccessPathId': id, 'remove': !restore},
+    mutation: true,
+  );
+
+  // ---- 部署のアクセスパス ----
+
+  Future<List<DepartmentAccessPathRecord>> listDepartmentAccessPaths({
+    String? departmentId,
+    int first = 100,
+    int offset = 0,
+  }) async {
+    await _loadLanguages();
+    final data = await _run(documentNodeQueryDepartmentAccessPathPageRead, {
+      'first': first,
+      'offset': offset,
+      'languageCodeId': _jaId,
+      if (departmentId != null)
+        'filter': {
+          'infoDepartmentId': {'equalTo': departmentId},
+        },
+    });
+    return [
+      for (final n in _nodes(data, 'allInfoDepartmentAccessPaths'))
+        DepartmentAccessPathRecord(
+          id: _s(n['infoDepartmentAccessPathId']),
+          departmentId: _s(n['infoDepartmentId']),
+          accessPathId: _s(n['infoAccessPathId']),
+          write: _b(n['write']),
+          remarks: _s(n['remarks']),
+        ),
+    ];
+  }
+
+  Future<DepartmentAccessPathRecord?> getDepartmentAccessPath(String id) async {
+    final data = await _run(documentNodeQueryDepartmentAccessPathPageRfe, {
+      'infoDepartmentAccessPathId': id,
+    });
+    final n =
+        data['infoDepartmentAccessPathByInfoDepartmentAccessPathId'] as Map?;
+    if (n == null) return null;
+    return DepartmentAccessPathRecord(
+      id: id,
+      departmentId: _s(n['infoDepartmentId']),
+      accessPathId: _s(n['infoAccessPathId']),
+      write: _b(n['write']),
+      remarks: _s(n['remarks']),
+    );
+  }
+
+  /// 保存して id を返す。id が空なら登録、あれば更新。
+  Future<String> saveDepartmentAccessPath(DepartmentAccessPathRecord r) async {
+    final remarks = r.remarks.isEmpty ? null : r.remarks;
+    if (r.id.isEmpty) {
+      return _create(
+        documentNodeMutationDepartmentAccessPathPageCreate,
+        {
+          'infoDepartmentId': r.departmentId,
+          'infoAccessPathId': r.accessPathId,
+          'write': r.write,
+          'remarks': remarks,
+        },
+        'createInfoDepartmentAccessPath',
+        'infoDepartmentAccessPath',
+        'infoDepartmentAccessPathId',
+      );
+    }
+    await _run(documentNodeMutationDepartmentAccessPathPageEdit, {
+      'infoDepartmentAccessPathId': r.id,
+      'infoDepartmentId': r.departmentId,
+      'infoAccessPathId': r.accessPathId,
+      'write': r.write,
+      'remarks': remarks,
+    }, mutation: true);
+    return r.id;
+  }
+
+  Future<void> removeDepartmentAccessPath(String id, {bool restore = false}) =>
+      _run(documentNodeMutationDepartmentAccessPathPageRemove, {
+        'infoDepartmentAccessPathId': id,
+        'remove': !restore,
+      }, mutation: true);
+
+  // ---- 担当者のアクセスパス許可 ----
+
+  Future<List<StaffAccessPermissionRecord>> listStaffAccessPermissions({
+    String? staffId,
+    int first = 100,
+    int offset = 0,
+  }) async {
+    await _loadLanguages();
+    final data = await _run(documentNodeQueryStaffAccessPermissionPageRead, {
+      'first': first,
+      'offset': offset,
+      'languageCodeId': _jaId,
+      if (staffId != null)
+        'filter': {
+          'infoStaffId': {'equalTo': staffId},
+        },
+    });
+    return [
+      for (final n in _nodes(data, 'allInfoStaffAccessPermissions'))
+        StaffAccessPermissionRecord(
+          id: _s(n['infoStaffAccessPermissionId']),
+          staffId: _s(n['infoStaffId']),
+          accessPathId: _s(n['infoAccessPathId']),
+          write: _b(n['write']),
+          remarks: _s(n['remarks']),
+        ),
+    ];
+  }
+
+  Future<StaffAccessPermissionRecord?> getStaffAccessPermission(
+    String id,
+  ) async {
+    final data = await _run(documentNodeQueryStaffAccessPermissionPageRfe, {
+      'infoStaffAccessPermissionId': id,
+    });
+    final n =
+        data['infoStaffAccessPermissionByInfoStaffAccessPermissionId'] as Map?;
+    if (n == null) return null;
+    return StaffAccessPermissionRecord(
+      id: id,
+      staffId: _s(n['infoStaffId']),
+      accessPathId: _s(n['infoAccessPathId']),
+      write: _b(n['write']),
+      remarks: _s(n['remarks']),
+    );
+  }
+
+  Future<String> saveStaffAccessPermission(
+    StaffAccessPermissionRecord r,
+  ) async {
+    final remarks = r.remarks.isEmpty ? null : r.remarks;
+    if (r.id.isEmpty) {
+      return _create(
+        documentNodeMutationStaffAccessPermissionPageCreate,
+        {
+          'infoStaffId': r.staffId,
+          'infoAccessPathId': r.accessPathId,
+          'write': r.write,
+          'remarks': remarks,
+        },
+        'createInfoStaffAccessPermission',
+        'infoStaffAccessPermission',
+        'infoStaffAccessPermissionId',
+      );
+    }
+    await _run(documentNodeMutationStaffAccessPermissionPageEdit, {
+      'infoStaffAccessPermissionId': r.id,
+      'infoStaffId': r.staffId,
+      'infoAccessPathId': r.accessPathId,
+      'write': r.write,
+      'remarks': remarks,
+    }, mutation: true);
+    return r.id;
+  }
+
+  Future<void> removeStaffAccessPermission(String id, {bool restore = false}) =>
+      _run(documentNodeMutationStaffAccessPermissionPageRemove, {
+        'infoStaffAccessPermissionId': id,
+        'remove': !restore,
+      }, mutation: true);
+
+  // ---- 担当者の実効アクセスパス(読み取り専用) ----
+
+  /// 担当者の実効アクセスパス。[staffId] を指定するとその担当者だけ。ログイン後の権限確認に使う。
+  Future<List<EffectiveAccessPathRecord>> listEffectiveAccessPaths({
+    String? staffId,
+    int first = 1000,
+    int offset = 0,
+  }) async {
+    final data = await _run(documentNodeQueryStaffEffectiveAccessPathPageRead, {
+      'first': first,
+      'offset': offset,
+      if (staffId != null)
+        'filter': {
+          'infoStaffId': {'equalTo': staffId},
+        },
+    });
+    return [
+      for (final n in _nodes(data, 'allVStaffEffectiveAccessPaths'))
+        EffectiveAccessPathRecord(
+          staffId: _s(n['infoStaffId']),
+          accessPathId: _s(n['infoAccessPathId']),
+          usecasePath: _s(n['usecasePath']),
+          canWrite: _b(n['canWrite']),
+          fromDepartment: _b(n['fromDepartment']),
+          fromStaff: _b(n['fromStaff']),
+        ),
+    ];
   }
 
   /// 登録済みでない(公開でない)ページのアクセスパスを登録し、登録した `usecase_path` の一覧を返す。

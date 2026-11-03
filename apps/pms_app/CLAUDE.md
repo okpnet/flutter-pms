@@ -55,5 +55,5 @@ PMS のシェルアプリ。GoRouter を構築済みのモックアップ(旧 `l
     1.  アプリのページ(`TypedGoRoute`・`GoRoute`、機能のページ)を追加・変更・削除するたびに、アクセスパスの一覧 `doc/contents/access_paths.csv` を更新する。これがアクセス管理(`access_control`)で登録するアクセスパスの元で、アプリが正規に発行する権限の単位になる。
     1.  列は `symbol`(画面コード。`packages/features/doc/page_code_list.yml`)、`usecase_path`(ページのパス)、`name_ja`・`name_en`(名前)、`feature`、`public`(ログイン前から使えるページは `true`。アクセス権の対象にせず、登録しない)。
     1.  生成は `node tools/entity_gen/access_paths.js`(リポジトリのルートで実行)。台帳(実体)は自動で増える。手書きのページは `tools/entity_gen/access_paths.js` の `CUSTOM` に、台帳の英語名は `EN` に足す(英語名が無いと失敗する)。生成後は差分をレビューする。
-    1.  `usecase_path` は全体で一意にする。名前(ja・en)を変えるときは、登録済みのアクセスパスを編集画面で直す(CSV の登録は、`usecase_path` が未登録のものだけを追加する)。
+    1.  `usecase_path` は全体で一意にする。公開でないページの `symbol` は、空にせず、全体で一意にする(DB の `info_access_path.symbol` が一意のため。旧来のページは `LG-` で始める)。名前(ja・en)を変えるときは、登録済みのアクセスパスを編集画面で直す(CSV の登録は、`usecase_path` が未登録のものだけを追加する)。
     1.  登録は `access_control_model` の `AccessControlClient.registerMissingAccessPaths`(`AccessPathSeed.parseCsv` で CSV を読む)か、アクセス管理の登録画面で行う。

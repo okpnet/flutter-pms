@@ -142,6 +142,74 @@ class EditGenerator {
     return EditResult(b.toString(), rfe);
   }
 
+
+  /// 論理削除(`remove`)だけを書くミューテーション。`~PageEdit`の定義(from・requiredWhere)から作る。
+  ///   - 出力は `<ディレクトリ>/<ディレクトリ名>_remove.graphql`、操作名は `~Remove`。
+  ///   - 引数は更新対象の主キーと `$remove: Boolean!`(true で削除、false で元に戻す)。
+  ///   - 主キーのミューテーションが無い、またはPatchに `remove` が無いテーブルは作らない(エラーにしない)。
+  ///   - 結果は主キーと `remove`。
+  String? generateRemove(String name, Map<String, dynamic> node) {
+    final dir = directoryOf(name);
+    final from = node['from'] as String?;
+    if (from == null) return null;
+    final type = schema.typeOfTable(from);
+    final keyCols = [
+      for (final w in whereEntries(node['requiredWhere'])) w.column,
+    ];
+    if (keyCols.isEmpty) return null;
+    final mutName = 'update${type}By${keyCols.map(pascal).join('And')}';
+    final mut = schema.mutation[mutName];
+    if (mut == null) return null;
+    final inputFields = schema.inputs[mut.args['input']!.replaceAll('!', '')];
+    final patchField = '${lowerFirst(type)}Patch';
+    final patchType = inputFields?[patchField]?.typeName;
+    final patch = patchType == null ? null : schema.inputs[patchType];
+    if (inputFields == null || patch == null || !patch.containsKey('remove')) return null;
+    final resultField = lowerFirst(type);
+    if (!(schema.objects[mut.typeName]?.containsKey(resultField) ?? false)) return null;
+
+    final vars = OperationVars();
+    final keyLines = <String>[];
+    for (final k in keyCols) {
+      final f = inputFields[camel(k)];
+      if (f == null) return null;
+      vars.declare(camel(k), f.typeSource.endsWith('!') ? f.typeSource : '${f.typeSource}!');
+      keyLines.add('${camel(k)}: \$${camel(k)}');
+    }
+    vars.declare('remove', 'Boolean!');
+    final b = StringBuffer()
+      ..writeln('# $dir画面 - Remove(論理削除のミューテーション)')
+      ..writeln('#')
+      ..writeln('# 画面仕様: gql/*.yaml #$name')
+      ..writeln('# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。')
+      ..writeln()
+      ..writeln('mutation ${pascal(dir)}Remove(');
+    for (final v in vars.lines()) {
+      b.writeln('  $v');
+    }
+    b
+      ..writeln(') {')
+      ..writeln('  $mutName(')
+      ..writeln('    input: {');
+    for (final k in keyLines) {
+      b.writeln('      $k');
+    }
+    b
+      ..writeln('      $patchField: { remove: \$remove }')
+      ..writeln('    }')
+      ..writeln('  ) {')
+      ..writeln('    $resultField {');
+    for (final k in keyCols) {
+      b.writeln('      ${camel(k)}');
+    }
+    b
+      ..writeln('      remove')
+      ..writeln('    }')
+      ..writeln('  }')
+      ..writeln('}');
+    return b.toString();
+  }
+
   // ---- RFE ------------------------------------------------------------------
 
   String? _rfe(String name, String dir, Map<String, dynamic> node, String type, List<String> keyCols, String joined) {

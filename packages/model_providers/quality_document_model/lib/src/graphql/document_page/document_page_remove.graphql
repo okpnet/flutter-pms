@@ -1,0 +1,21 @@
+# document_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #DocumentPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation DocumentPageRemove(
+  $mstrDocumentId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrDocumentByMstrDocumentId(
+    input: {
+      mstrDocumentId: $mstrDocumentId
+      mstrDocumentPatch: { remove: $remove }
+    }
+  ) {
+    mstrDocument {
+      mstrDocumentId
+      remove
+    }
+  }
+}

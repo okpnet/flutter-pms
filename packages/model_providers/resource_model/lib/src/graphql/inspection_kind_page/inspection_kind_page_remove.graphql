@@ -1,0 +1,21 @@
+# inspection_kind_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #InspectionKindPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation InspectionKindPageRemove(
+  $mstrInspectionKindId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrInspectionKindByMstrInspectionKindId(
+    input: {
+      mstrInspectionKindId: $mstrInspectionKindId
+      mstrInspectionKindPatch: { remove: $remove }
+    }
+  ) {
+    mstrInspectionKind {
+      mstrInspectionKindId
+      remove
+    }
+  }
+}

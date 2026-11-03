@@ -1,0 +1,21 @@
+# inventory_apply_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #InventoryApplyPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation InventoryApplyPageRemove(
+  $transInventoryApplyId: UUID!
+  $remove: Boolean!
+) {
+  updateTransInventoryApplyByTransInventoryApplyId(
+    input: {
+      transInventoryApplyId: $transInventoryApplyId
+      transInventoryApplyPatch: { remove: $remove }
+    }
+  ) {
+    transInventoryApply {
+      transInventoryApplyId
+      remove
+    }
+  }
+}

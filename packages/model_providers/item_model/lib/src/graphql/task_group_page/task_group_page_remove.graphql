@@ -1,0 +1,21 @@
+# task_group_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #TaskGroupPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation TaskGroupPageRemove(
+  $mstrTaskGroupId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrTaskGroupByMstrTaskGroupId(
+    input: {
+      mstrTaskGroupId: $mstrTaskGroupId
+      mstrTaskGroupPatch: { remove: $remove }
+    }
+  ) {
+    mstrTaskGroup {
+      mstrTaskGroupId
+      remove
+    }
+  }
+}

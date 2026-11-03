@@ -1729,6 +1729,7 @@ input TransCertificatePatch {
   class: String
   transFileId: UUID
   remarks: String
+  remove: Boolean
   transLabelToTitles: TransCertificateFk1Input
 }
 
@@ -1779,12 +1780,14 @@ input TransContainerPatch {
   code: String
   mstrLocationId: UUID
   remarks: String
+  remove: Boolean
   transLabelToNames: TransContainerFk1Input
 }
 
 input TransContainerTreePatch {
   parentTransContainerId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransConveyFilter {
@@ -1828,6 +1831,7 @@ input TransConveyPatch {
   staffHistoryId: UUID
   staffId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransInventoryApplyFilter {
@@ -1859,6 +1863,7 @@ input TransInventoryApplyPatch {
   staffHistoryId: UUID
   staffId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransInventoryRequestFilter {
@@ -1898,6 +1903,7 @@ input TransInventoryRequestPatch {
   staffId: UUID
   transResourcePlanId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransLabelFilter {
@@ -2002,6 +2008,7 @@ input TransPurchaseCertificationPatch {
   transPurchaseRecId: UUID
   transCertificateId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransVisiterFilter {
@@ -2067,6 +2074,7 @@ input TransVisiterPatch {
   adjustment: Boolean
   parentTransVisiterId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransWorkRecordCertificateFilter {
@@ -2090,6 +2098,7 @@ input TransWorkRecordCertificatePatch {
   transCertificateId: UUID
   transWorkRecordId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransWorkRecordFilter {
@@ -2152,6 +2161,7 @@ input TransWorkRecordPatch {
   equipmentHistoryId: UUID
   equipmentId: UUID
   remarks: String
+  remove: Boolean
 }
 
 input TransWorkRecordVisiterInput {

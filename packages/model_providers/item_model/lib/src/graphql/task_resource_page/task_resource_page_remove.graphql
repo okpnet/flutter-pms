@@ -1,0 +1,21 @@
+# task_resource_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #TaskResourcePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation TaskResourcePageRemove(
+  $mstrTaskLocationId: UUID!
+  $remove: Boolean!
+) {
+  updateMstrTaskLocationByMstrTaskLocationId(
+    input: {
+      mstrTaskLocationId: $mstrTaskLocationId
+      mstrTaskLocationPatch: { remove: $remove }
+    }
+  ) {
+    mstrTaskLocation {
+      mstrTaskLocationId
+      remove
+    }
+  }
+}
