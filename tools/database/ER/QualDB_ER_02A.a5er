@@ -1883,7 +1883,7 @@ Top=1100
 Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="アプリケーションID","info_app_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="アクセスパス名","names","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="ユースケースパス","usecase_path","*@VARCHAR255",,,"","",$FFFFFFFF,""
+Field="ユースケースパス","usecase_path","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
@@ -1891,7 +1891,7 @@ EffectMode=None
 Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261102204111
+ModifiedDateTime=20261103114907
 Position="インフォメーション",3900,1100
 ZOrder=212
 
