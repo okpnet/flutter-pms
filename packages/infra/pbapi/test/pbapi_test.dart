@@ -535,7 +535,10 @@ void main() {
           .single
           .body;
       expect(body, contains('name="avatar"'));
-      expect(body, contains('{"name":"tanaka"}')); // SDK ã¯æ¬æã @jsonPayload ã«ã¾ã¨ãã
+      expect(
+        body,
+        contains('{"name":"tanaka"}'),
+      ); // SDK ã¯æ¬æã @jsonPayload ã«ã¾ã¨ãã
       expect(body, isNot(contains('username')));
       expect(body, isNot(contains('role')));
     });
@@ -585,6 +588,18 @@ void main() {
 
       await session.graphqlToken(margin: const Duration(minutes: 20));
       expect(server.where('GET', '/api/app/graphql-token'), hasLength(2));
+    });
+
+    test('ログアウトせずに別のユーザーでログインし直しても、前のユーザーのJWTを使い回さない', () async {
+      var issued = 0;
+      server.on('GET', '/api/app/graphql-token', (r) {
+        issued++;
+        return server.json({'token': 'gql.jwt.$issued', 'expires_in': 900});
+      });
+      await session.login('user.a', 'x');
+      expect((await session.graphqlToken()).token, 'gql.jwt.1');
+      await session.login('user.b', 'x');
+      expect((await session.graphqlToken()).token, 'gql.jwt.2');
     });
 
     test('ログアウトで破棄する。サーバーが無設定(404)ならnotFound', () async {

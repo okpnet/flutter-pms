@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:pbapi/pbapi.dart';
+import 'package:pms_graphql/pms_graphql.dart' show SessionUnavailableException;
 import 'package:pms_app/services/services.dart';
 
 void main() {
@@ -34,20 +35,32 @@ void main() {
 }
 
 void pocketbaseTests() {
-  test('PocketBase を使うとき、ログインしていなければ認証ヘッダーを付けない(通信しない)', () async {
-    final connection = await PbConnection.open(
-      url: 'http://192.168.1.103:8090',
-      logger: const NoopLoggerProvider(),
-    );
-    final container = ProviderContainer(
-      overrides: [
-        pocketbaseEnabledProvider.overrideWithValue(true),
-        pbConnectionProvider.overrideWithValue(connection),
-      ],
-    );
-    addTearDown(container.dispose);
-    expect(await container.read(graphqlAuthorizationProvider)(), isNull);
-  });
+  test(
+    'PocketBase を使うとき、ログインしていなければ SessionUnavailableException(通信しない)',
+    () async {
+      final connection = await PbConnection.open(
+        url: 'http://192.168.1.103:8090',
+        logger: const NoopLoggerProvider(),
+      );
+      final container = ProviderContainer(
+        overrides: [
+          pocketbaseEnabledProvider.overrideWithValue(true),
+          pbConnectionProvider.overrideWithValue(connection),
+        ],
+      );
+      addTearDown(container.dispose);
+      await expectLater(
+        container.read(graphqlAuthorizationProvider)(),
+        throwsA(
+          isA<SessionUnavailableException>().having(
+            (e) => e.transient,
+            'transient',
+            isFalse,
+          ),
+        ),
+      );
+    },
+  );
 
   test('PocketBase を使わないときは、graphqlTokenProvider の値を Bearer にする', () async {
     final container = ProviderContainer();

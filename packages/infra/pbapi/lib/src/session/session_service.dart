@@ -42,6 +42,8 @@ class SessionService {
         message: e.message,
       );
     }
+    // 別のユーザーでログインし直したとき、前のユーザーの JWT(担当者のID)を使い回さない。
+    _graphqlToken = null;
     _lastVerified = DateTime.now();
     return current!;
   }

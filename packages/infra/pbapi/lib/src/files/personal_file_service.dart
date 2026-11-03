@@ -89,7 +89,11 @@ class PersonalFileService {
 
   void _checkKey(String key) {
     if (!_keyPattern.hasMatch(key)) {
-      throw ArgumentError.value(key, 'key', 'must match [a-z0-9][a-z0-9_.-]{0,63}');
+      throw ArgumentError.value(
+        key,
+        'key',
+        'must match [a-z0-9][a-z0-9_.-]{0,63}',
+      );
     }
   }
 }

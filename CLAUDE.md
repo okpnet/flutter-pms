@@ -57,6 +57,8 @@ cd apps\pms_app; flutter run -d windows          # アプリ起動
 
 PocketBase のクライアントは `packages/infra/pbapi`(公式 SDK の `pocketbase` を使う。新規登録・パスワード・ログイン/ログアウト・セッション確認・共有ファイル・個人ファイル)。トークンは秘密情報として扱い、保存先は `ITokenStore` で差し替える(本番は安全な保管庫)。接続先は `https`(ローカルのネットワークのみ `http` 可)。`IPageSessionMediator` への接続・画面は別の Issue。詳細は [packages/infra/pbapi/CLAUDE.md](packages/infra/pbapi/CLAUDE.md) を参照。
 
+GraphQL(PostGraphile)には PocketBase が発行した短期の JWT(`SessionService.graphqlToken`、`GET /api/app/graphql-token`、既定15分)を `Authorization: Bearer` で送る。JWT はメモリ上(Riverpod のサービス)にだけ置き、暗号化・永続化はしない。JWT を用意できないとき(未ログイン・破棄)は通信せず、`pms_graphql` の `SessionUnavailableException` を投げる。結果の型は `SessionExpiredError`(期限切れ=401・不正=403・セッション無し=`missing`)、`PermissionDeniedError`(DB の権限なし。JWT なしの匿名を含む)、`NetworkError`(認証サーバーに接続できないだけ)。PocketBase → PostGraphile → 全モデルの検証は `packages/infra/jwt_verification_test`(テスト専用。実行方法と実施ログは同プロジェクトの `CLAUDE.md`・`doc/`)。JWT の鍵(`PB_GRAPHQL_JWT_SECRET`)を Git に入れない(`tools/docker/postgraphile/.env` は追跡されているため注意)。
+
 ## バージョン管理
 
 依存・SDK バージョンはルート [pubspec.yaml](pubspec.yaml) の `melos > command > bootstrap` で集中管理する。上げるときはここだけ直して `melos bootstrap`(各パッケージの該当行は "Managed by Melos" コメント付きで上書きされる)。

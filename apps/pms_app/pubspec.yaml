@@ -45,6 +45,8 @@ dependencies:
   graphql: ^5.2.3
   pbapi:
     path: ../../packages/infra/pbapi
+  pms_graphql:
+    path: ../../packages/infra/pms_graphql
   entity_screens:
     path: ../../packages/ui/entity_screens
   feature_shared:

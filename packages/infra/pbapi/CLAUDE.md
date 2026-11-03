@@ -18,7 +18,7 @@
 | プロフィール変更 | `AccountService.updateProfile` | 本人が変えられるのは`name`と`avatar`だけ。`username`・`app_user_id`・`role`・`email`・`disabled`は変えられない |
 | ログイン/ログアウト | `SessionService.login` / `logout` | ログイン欄は「ユーザーIDまたはEメール」の1つ。大文字小文字は区別しない。トークン(JWT)を含む`AuthSession`を返す。ログアウトは端末のトークンを破棄 |
 | セッション管理 | `ensureSession` / `watch` | サーバーへ問い合わせて有効かを返す(auth-refresh)。画面の切り替え・保存・呼び出しの度、または`watch`で定期的に。401/403/404ならトークンを破棄してログイン画面へ戻す |
-| GraphQL用トークン | `SessionService.graphqlToken` | `GET /api/app/graphql-token`。短期(既定15分)のJWTと期限。期限の少し前まで使い回し、切れたら`ensureSession`の後に取り直す。サーバーが無設定のときは404 |
+| GraphQL用トークン | `SessionService.graphqlToken` | `GET /api/app/graphql-token`。短期(既定15分)のJWTと期限。期限の少し前まで使い回し、切れたら`ensureSession`の後に取り直す。サーバーが無設定のときは404。取得済みの JWT は別のユーザーでログインし直したとき・ログアウト・無効なセッションで破棄する(前のユーザーの担当者のIDを使い回さない) |
 | 管理者(申請・コード・無効化) | `AdminService` | 下の表 |
 | 共有ファイル | `SharedFileService` | アップロードはIDと版を返す。ファイルIDからダウンロード(最新または指定の版)。上書きしない |
 | 個人ファイル | `PersonalFileService` | 設定のアップロード・ダウンロード・削除。本人だけが参照できる(サーバーの準備が必要。`doc/contents/server_user_files.md`) |

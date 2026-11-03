@@ -44,17 +44,13 @@ class AdminService {
     String? email,
     String? name,
     bool mail = true,
-  }) => _issue(
-    'activate',
-    '/api/app/admin/users/${_id(userId)}/activate',
-    {
-      'app_user_id': appUserId.trim(),
-      'username': ?username?.trim(),
-      'email': ?email?.trim(),
-      'name': ?name?.trim(),
-      if (!mail) 'mail': false,
-    },
-  );
+  }) => _issue('activate', '/api/app/admin/users/${_id(userId)}/activate', {
+    'app_user_id': appUserId.trim(),
+    'username': ?username?.trim(),
+    'email': ?email?.trim(),
+    'name': ?name?.trim(),
+    if (!mail) 'mail': false,
+  });
 
   /// 申請を却下する。申請中のユーザーと本人情報をまとめて削除する。
   Future<void> reject(String userId) async {
@@ -102,9 +98,11 @@ class AdminService {
 
   /// 再設定コードを発行する。本人確認をしたうえで手渡す。未対応の依頼は自動でクローズされる。
   Future<IssuedCode> issueResetCode(String userId, {bool mail = true}) =>
-      _issue('issueResetCode', '/api/app/admin/users/${_id(userId)}/reset-code', {
-        if (!mail) 'mail': false,
-      });
+      _issue(
+        'issueResetCode',
+        '/api/app/admin/users/${_id(userId)}/reset-code',
+        {if (!mail) 'mail': false},
+      );
 
   /// 無効化する(すべての端末のトークンが即座に失効し、ログインできなくなる)。
   /// [disabled] を false にすると元に戻す。退職などは削除ではなく無効化にする。

@@ -58,3 +58,43 @@ class DeveloperError extends GraphqlProviderException {
     return 'DeveloperError:\nexception:${internalExeption.toString()}\nmesage:$message';
   }
 }
+
+/// 認証のセッションが使えない理由。
+enum SessionExpiredReason {
+  /// JWT の期限が切れた(HTTP 401 `jwt expired`)。トークンを取り直せば続けられる。
+  expired,
+
+  /// JWT が不正(署名・audience・アルゴリズムの不一致など。HTTP 403)。取り直すか、ログインし直す。
+  invalid,
+
+  /// セッションが無く、JWT を用意できなかった(ログインしていない・破棄した)。通信は行っていない。
+  missing,
+}
+
+/// 認証のセッションが無効なことを表す。データは取得されていない。
+///
+/// 画面は、トークンを取り直して再試行するか、ログイン画面へ戻す。
+/// 認証の失敗(401/403)を表す [ServerError] の一種で、[status] はそのHTTPステータス
+/// ([SessionExpiredReason.missing] は通信していないため -1)。
+class SessionExpiredError extends ServerError {
+  /// セッションが使えない理由。
+  final SessionExpiredReason reason;
+  SessionExpiredError(super.message, super.status, this.reason);
+  @override
+  String toString() {
+    return 'SessionExpiredError:\nreason:${reason.name}\nstatus:$status\nmessage:$message';
+  }
+}
+
+/// DB の権限が無く、データを取得・更新できなかったことを表す。
+///
+/// JWT なし(匿名)のリクエストや、ロールに権限が無い操作で起こる(HTTP 200 の GraphQL エラー、
+/// または HTTP 500 `permission denied to set role`)。PostGraphile は匿名と権限不足を区別しないため、
+/// セッションの有無はアプリが [SessionExpiredReason.missing] で判断する。
+class PermissionDeniedError extends GraphqlProviderException {
+  PermissionDeniedError(super.message);
+  @override
+  String toString() {
+    return 'PermissionDeniedError:$message';
+  }
+}

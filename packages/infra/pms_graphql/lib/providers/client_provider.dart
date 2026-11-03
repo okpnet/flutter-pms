@@ -213,6 +213,9 @@ final class GraphQLClientProvider {
     }
   }
 
+  static bool _isPermissionDenied(String message) =>
+      message.toLowerCase().startsWith('permission denied');
+
   /// [resultValue] を [GraphqlProverResult] へ正規化する。内部で発生した例外の型
   /// (`ServerException`・`SocketException`・`TimeoutException`・`FormatException` など)を
   /// パターンマッチし、対応する [GraphqlProviderException] のサブタイプへ変換する。
@@ -227,15 +230,52 @@ final class GraphQLClientProvider {
     final linkException = resultValue.exception?.linkException;
     final exception = linkException?.originalException;
 
+    // 認証のトークンを用意できなかった(ログインしていない・破棄した)場合。通信は行っていない。
+    if (exception is SessionUnavailableException) {
+      return Err<Map<String, dynamic>>(
+        exception.transient
+            ? NetworkError(exception.toString())
+            : SessionExpiredError(
+                exception.toString(),
+                -1,
+                SessionExpiredReason.missing,
+              ),
+      );
+    }
+
     // 認証・認可の失敗(HTTP 401/403)は、本文にGraphQLのエラーがあっても、
     // 開発者側の誤りではなくサーバー側のエラーとして区別する。
+    // JWT の期限切れ・不正と分かるものは [SessionExpiredError] にする。
     if (linkException is ServerException &&
         (linkException.statusCode == 401 || linkException.statusCode == 403)) {
+      final status = linkException.statusCode!;
+      final reason = sessionExpiredReasonOf(
+        status,
+        linkException.parsedResponse?.errors?.map((e) => e.message) ??
+            const <String>[],
+      );
       return Err<Map<String, dynamic>>(
-        ServerError(linkException.toString(), linkException.statusCode!),
+        reason == null
+            ? ServerError(linkException.toString(), status)
+            : SessionExpiredError(linkException.toString(), status, reason),
         graphqlErrors: linkException.parsedResponse?.errors
             ?.map((e) => e.message)
             .join('\r'),
+      );
+    }
+
+    // DB の権限が無い(匿名のリクエスト、またはロールに権限が無い)。HTTP 200 の GraphQL エラー、
+    // または HTTP 500 `permission denied to set role` で返る。
+    final deniedMessages = [
+      ...?resultValue.exception?.graphqlErrors.map((e) => e.message),
+      if (linkException is ServerException)
+        ...?linkException.parsedResponse?.errors?.map((e) => e.message),
+    ];
+    if (deniedMessages.any(_isPermissionDenied)) {
+      return Err<Map<String, dynamic>>(
+        PermissionDeniedError(deniedMessages.join('\r')),
+        graphqlErrors: deniedMessages.join('\r'),
+        data: resultValue.data,
       );
     }
 

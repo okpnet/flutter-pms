@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:graphql/client.dart';
 import 'package:pbapi/pbapi.dart';
+import 'package:pms_graphql/pms_graphql.dart' show SessionUnavailableException;
 
 import '../pocketbase/pocketbase_overrides.dart';
 
@@ -29,7 +30,10 @@ class GraphqlTokenNotifier extends Notifier<String?> {
 ///
 /// [pocketbaseUrl] が指定されているときは、PocketBase のセッション(`pbapi` の `SessionService.graphqlToken`)から
 /// GraphQL 用の JWT を得る。期限の手前までは取得済みを使い回し、切れたら取り直す。ログインしていない(または取得できない)
-/// ときは null(ヘッダーを付けない)。未指定のときは [graphqlTokenProvider] の値を使う(テスト・手動の指定用)。
+/// ときは [SessionUnavailableException] を投げる(通信しない。結果は `SessionExpiredError`(missing)になる。
+/// 認証サーバーに接続できないだけのときは `transient: true` で、`NetworkError`になる)。
+/// ヘッダーを付けずに送ると、匿名のロールで `permission denied` になり、セッション切れと区別できないため。
+/// 未指定のときは [graphqlTokenProvider] の値を使う(テスト・手動の指定用。トークンが無ければヘッダーを付けない)。
 /// PocketBase を使うか([pocketbaseUrl] の指定の有無)。テストで上書きできる。
 final pocketbaseEnabledProvider = Provider<bool>(
   (ref) => pocketbaseUrl.isNotEmpty,
@@ -43,8 +47,11 @@ final graphqlAuthorizationProvider = Provider<Future<String?> Function()>((
       try {
         final token = await ref.read(sessionServiceProvider).graphqlToken();
         return bearerOf(token.token);
-      } on PbException {
-        return null;
+      } on PbException catch (e) {
+        throw SessionUnavailableException(
+          transient: e.isTransient,
+          message: e.logMessage,
+        );
       }
     }
     return bearerOf(ref.read(graphqlTokenProvider));

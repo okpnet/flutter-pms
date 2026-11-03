@@ -60,7 +60,11 @@
   catch するのではなく、パターンマッチすることが想定されています。
 
 - `exceptions/` — `Err` の中で使われる `GraphqlProviderException` の sealed 階層
-  (`ProviderError`, `NetworkError`, `TimeoutError`, `ServerError`, `DeveloperError`)、および
+  (`ProviderError`, `NetworkError`, `TimeoutError`, `ServerError`, `DeveloperError`,
+  `SessionExpiredError`(JWT の期限切れ=401・不正=403・セッション無し=通信せず。`ServerError` の一種で、`reason` を持つ),
+  `PermissionDeniedError`(DB の権限なし。JWT なしの匿名でも起こる))、`SessionUnavailableException`
+  (`AuthLink` のトークン取得関数がセッション無しのときに投げる。通信せず `SessionExpiredError(missing)` になる。
+  認証サーバーに接続できないだけなら `transient: true` で `NetworkError`)、および
   `GraphqlTimeoutException`（実際の `Exception` で、`.timeout(...)` 呼び出しの周辺で
   throw/catch され、適宜 `TimeoutError` へ変換されたり再スローされたりします）。
 

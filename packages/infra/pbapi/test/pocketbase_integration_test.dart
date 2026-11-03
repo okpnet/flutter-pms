@@ -227,11 +227,7 @@ void main() {
 
       final other = AccountService(await open(), SessionService(await open()));
       await expectLater(
-        other.acceptCode(
-          username: userA,
-          code: codeA,
-          password: passwordA1,
-        ),
+        other.acceptCode(username: userA, code: codeA, password: passwordA1),
         throwsA(
           isA<PbException>().having(
             (e) => e.kind,
@@ -502,10 +498,7 @@ void main() {
     onServer(() async {
       // 申請(ログイン不要。応答はいつも同じ)。
       final anon = await open();
-      await AccountService(
-        anon,
-        SessionService(anon),
-      ).requestSignup(
+      await AccountService(anon, SessionService(anon)).requestSignup(
         fullName: signupName,
         requestedUsername: userC,
         profile: {'dept_wish': 'pbapi-test'},

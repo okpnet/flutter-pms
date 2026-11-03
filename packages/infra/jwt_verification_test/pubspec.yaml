@@ -1,0 +1,59 @@
+name: jwt_verification_test
+description: "テスト専用。PocketBase が発行した JWT を PostGraphile とモデルで検証する結合テスト。"
+version: 0.0.1
+homepage:
+publish_to: "none"
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  crypto: ^3.0.0
+  gql: ^1.0.1
+  graphql: ^5.2.3
+  http: ^1.2.0
+  pocketbase: ^0.25.3
+  logger_provider:
+    path: ../logger_provider
+  data_test_harness:
+    path: ../data_test_harness
+  pbapi:
+    path: ../pbapi
+  pms_graphql:
+    path: ../pms_graphql
+  # 検証するモデル(shared_master_model は読み込みのクエリが無い)
+  access_control_model:
+    path: ../../model_providers/access_control_model
+  barcode_entry_model:
+    path: ../../model_providers/barcode_entry_model
+  item_model:
+    path: ../../model_providers/item_model
+  organization_model:
+    path: ../../model_providers/organization_model
+  production_plan_model:
+    path: ../../model_providers/production_plan_model
+  purchasing_model:
+    path: ../../model_providers/purchasing_model
+  quality_document_model:
+    path: ../../model_providers/quality_document_model
+  quality_model:
+    path: ../../model_providers/quality_model
+  resource_model:
+    path: ../../model_providers/resource_model
+  sales_model:
+    path: ../../model_providers/sales_model
+  system_model:
+    path: ../../model_providers/system_model
+  work_record_model:
+    path: ../../model_providers/work_record_model

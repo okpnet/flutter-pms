@@ -1,0 +1,4 @@
+tags:
+  server:
+    description: >-
+      Requires the test PocketBase (192.168.1.103:8090) and the test PostGraphile (192.168.1.100:5000).
