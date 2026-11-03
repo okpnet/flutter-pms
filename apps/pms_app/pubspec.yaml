@@ -43,6 +43,8 @@ dependencies:
     path: ../../packages/features/pms_authenticator
   shared_preferences: ^2.5.3
   graphql: ^5.2.3
+  pbapi:
+    path: ../../packages/infra/pbapi
   entity_screens:
     path: ../../packages/ui/entity_screens
   feature_shared:

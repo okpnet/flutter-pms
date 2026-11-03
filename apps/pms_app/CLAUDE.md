@@ -57,3 +57,7 @@ PMS のシェルアプリ。GoRouter を構築済みのモックアップ(旧 `l
     1.  生成は `node tools/entity_gen/access_paths.js`(リポジトリのルートで実行)。台帳(実体)は自動で増える。手書きのページは `tools/entity_gen/access_paths.js` の `CUSTOM` に、台帳の英語名は `EN` に足す(英語名が無いと失敗する)。生成後は差分をレビューする。
     1.  `usecase_path` は全体で一意にする。名前(ja・en)を変えるときは、登録済みのアクセスパスを編集画面で直す(CSV の登録は、`usecase_path` が未登録のものだけを追加する)。
     1.  登録は `access_control_model` の `AccessControlClient.registerMissingAccessPaths`(`AccessPathSeed.parseCsv` で CSV を読む)か、アクセス管理の登録画面で行う。
+6.  GraphQL・PocketBase の接続
+    1.  `--dart-define=GRAPHQL_URL=...`(PostGraphile)を指定したときだけ、画面の取得元を GraphQL 版にする(`lib/services/graphql`)。未指定はサンプル。
+    1.  `--dart-define=POCKETBASE_URL=...`(PocketBase)を指定したときだけ、`pbapi` の接続を開く(`lib/services/pocketbase`)。GraphQL の認証ヘッダーは `pbapi` の `SessionService.graphqlToken` の JWT を使う(取得・更新は `pbapi`)。トークンの保存先は、いまはメモリ。
+    1.  PostGraphile が JWT を検証する設定になるまで、JWT は効かない(`tools/docker/postgresql/issue/20261103_0003.md`)。

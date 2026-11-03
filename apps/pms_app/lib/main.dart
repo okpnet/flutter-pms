@@ -14,6 +14,7 @@ Future<void> main() async {
   final logger = await DefaultLoggerProvider.fromAsset(
     'assets/logger_config.json',
   );
+  final pocketbase = await pocketbaseOverrides(logger);
   runApp(
     ProviderScope(
       overrides: [
@@ -24,6 +25,8 @@ Future<void> main() async {
         ...dashboardOverrides(),
         //画面の取得元(GRAPHQL_URL を指定したときだけ GraphQL 版)
         ...graphqlOverrides(),
+        //PocketBase への接続(POCKETBASE_URL を指定したときだけ)
+        ...pocketbase,
         //使用言語は実行環境(OS)に従う。設定画面で変更できる
         localeProvider.overrideWith(SystemLocaleNotifier.new),
         themeLoggerProvider.overrideWithValue(logger),

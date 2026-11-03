@@ -3,6 +3,9 @@ import 'package:entity_screens/entity_screens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:graphql/client.dart';
+import 'package:pbapi/pbapi.dart';
+
+import '../pocketbase/pocketbase_overrides.dart';
 
 /// GraphQL(PostGraphile)のエンドポイント。`--dart-define=GRAPHQL_URL=http://.../graphql` で指定する。
 /// 未指定のときは、サンプル(メモリ上)の取得元のまま動く。
@@ -22,6 +25,32 @@ class GraphqlTokenNotifier extends Notifier<String?> {
   void set(String? token) => state = token;
 }
 
+/// GraphQL の通信ごとに付ける認証ヘッダー(`Authorization`)の値を返す。
+///
+/// [pocketbaseUrl] が指定されているときは、PocketBase のセッション(`pbapi` の `SessionService.graphqlToken`)から
+/// GraphQL 用の JWT を得る。期限の手前までは取得済みを使い回し、切れたら取り直す。ログインしていない(または取得できない)
+/// ときは null(ヘッダーを付けない)。未指定のときは [graphqlTokenProvider] の値を使う(テスト・手動の指定用)。
+/// PocketBase を使うか([pocketbaseUrl] の指定の有無)。テストで上書きできる。
+final pocketbaseEnabledProvider = Provider<bool>(
+  (ref) => pocketbaseUrl.isNotEmpty,
+);
+
+final graphqlAuthorizationProvider = Provider<Future<String?> Function()>((
+  ref,
+) {
+  return () async {
+    if (ref.read(pocketbaseEnabledProvider)) {
+      try {
+        final token = await ref.read(sessionServiceProvider).graphqlToken();
+        return bearerOf(token.token);
+      } on PbException {
+        return null;
+      }
+    }
+    return bearerOf(ref.read(graphqlTokenProvider));
+  };
+});
+
 /// 認証ヘッダー(`Authorization: Bearer <JWT>`)。トークンが無いときは付けない。
 String? bearerOf(String? token) =>
     token == null || token.isEmpty ? null : 'Bearer $token';
@@ -30,7 +59,7 @@ String? bearerOf(String? token) =>
 final graphqlClientProvider = Provider<GraphQLClient?>((ref) {
   if (graphqlUrl.isEmpty) return null;
   final link = AuthLink(
-    getToken: () => bearerOf(ref.read(graphqlTokenProvider)),
+    getToken: ref.read(graphqlAuthorizationProvider),
   ).concat(HttpLink(graphqlUrl));
   return GraphQLClient(link: link, cache: GraphQLCache());
 });
