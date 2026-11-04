@@ -1,4 +1,15 @@
-\c ${DB_TEST_SVR}
+-- 環境変数 → psql 変数
+\getenv db_test_svr    DB_TEST_SVR
+\getenv db_test_schema DB_TEST_SCHEMA
+\getenv app_owner_id   APP_OWNER_ID
+\getenv app_user_id    APP_USER_ID
+\getenv app_admin_id   APP_ADMIN_ID
+
+\connect :"db_test_svr"
+
+-- DO ブロック（$$ 内）では psql 変数が展開されないため、セッション設定経由で渡す
+SELECT set_config('init.schema', :'db_test_schema', false),
+       set_config('init.owner',  :'app_owner_id',   false) \gset
 
 -- ============================================================
 -- 06〜08 で（初期化実行ユーザーにより）作成されたオブジェクトのオーナーを
@@ -7,8 +18,8 @@
 -- ============================================================
 DO $$
 DECLARE
-    v_schema text := '${DB_TEST_SCHEMA}';
-    v_owner  text := '${APP_OWNER_ID}';
+    v_schema text := current_setting('init.schema');
+    v_owner  text := current_setting('init.owner');
     r record;
 BEGIN
     -- テーブル・ビュー・マテビュー・外部テーブル・複合型
@@ -74,14 +85,14 @@ $$;
 -- （以降に作成されるものは 05 の DEFAULT PRIVILEGES で自動付与）
 -- ============================================================
 -- 管理者
-GRANT ALL ON ALL TABLES    IN SCHEMA ${DB_TEST_SCHEMA} TO ${APP_ADMIN_ID};
-GRANT ALL ON ALL SEQUENCES IN SCHEMA ${DB_TEST_SCHEMA} TO ${APP_ADMIN_ID};
+GRANT ALL ON ALL TABLES    IN SCHEMA :"db_test_schema" TO :"app_admin_id";
+GRANT ALL ON ALL SEQUENCES IN SCHEMA :"db_test_schema" TO :"app_admin_id";
 
 -- 管理者・一般ユーザー共通（関数の権限は EXECUTE のみ）
-GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA ${DB_TEST_SCHEMA} TO ${APP_USER_ID}, ${APP_ADMIN_ID};
+GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA :"db_test_schema" TO :"app_user_id", :"app_admin_id";
 
 -- 一般ユーザー
-GRANT SELECT, UPDATE, DELETE ON ALL TABLES IN SCHEMA ${DB_TEST_SCHEMA} TO ${APP_USER_ID};
+GRANT SELECT, UPDATE, DELETE ON ALL TABLES IN SCHEMA :"db_test_schema" TO :"app_user_id";
 
 -- デバッガー用の権限付与は不要
 -- （05 でオーナーロールのメンバーにしているため。本番での削除対象は 05 のみ）

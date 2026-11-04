@@ -1,6 +1,6 @@
 services:
   db:
-    image: ${REGISTRY_HOST}:${REGISTRY_PORT}/postgres:15
+    image: postgres:15
     container_name: postgres
     command: -c 'config_file=/etc/postgresql/postgresql.conf' #postgres conf
     ports:
@@ -10,6 +10,8 @@ services:
       - ./script:/docker-entrypoint-initdb.d #initilize
       - ./config/postgresql.conf:/etc/postgresql/postgresql.conf #postgresql conf source file
       - ./config/pg_hba.conf:/etc/postgresql/pg_hba.conf #postgresql conf source file
+    env_file:
+      - .env # 初期化 SQL が \getenv で読む変数（DB_SVR, DB_TEST_SCHEMA, APP_* など）をコンテナへ渡す
     environment:
       TZ: Asia/Tokyo
       POSTGRES_USER: ${DB_UID}
