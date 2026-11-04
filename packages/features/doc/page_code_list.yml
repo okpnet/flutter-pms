@@ -619,3 +619,11 @@ features:
         code: I
         page: FI
         label: 自分のイメージ
+  - feature: backstage
+    code: Z
+    label: 裏設定
+    screens:
+      - screen: backstage
+        code: B
+        page: ZB
+        label: 裏設定

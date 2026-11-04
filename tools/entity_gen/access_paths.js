@@ -27,6 +27,7 @@ const CUSTOM = [
   ['app_core', 'logout', '/logout', 'ログアウト', 'Log out', true],
   ['app_core', 'error', '/error', 'エラー', 'Error', true],
   ['maintenance', 'maintenance', '/maintenance', 'メンテナンス中', 'Under maintenance', true],
+  ['backstage', 'backstage', '/backstage', '裏設定', 'Backstage settings', true],
   ['barcode_entry', 'top', '/barcode', 'リーディングトップ', 'Barcode entry top', false],
   ['production_plan', 'mrp', '/mrp', '資材所要計算(MRP)', 'Material requirements planning (MRP)', false],
   ['shared_master', 'shipkind', '/shipping-kinds', '配送区分', 'Shipping kind', false],

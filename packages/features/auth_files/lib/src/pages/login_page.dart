@@ -1,4 +1,5 @@
 import 'package:app_core/app_core_api.dart';
+import 'package:backstage/backstage_api.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,7 +44,16 @@ class _LoginPageState extends ConsumerState<LoginPage> with BusyAction {
     });
     if (_identityError != null || _passwordError != null) return;
     ref.read(authFlashProvider.notifier).clear();
+    var entered = false;
     final ok = await run(() async {
+      // 裏設定の入口(特定のユーザーIDとパスワード)。一致しなければ、通常のログインとして続ける
+      // (一致しない理由・入口の存在は示さない)。
+      if (await ref
+          .read(backstageEntryGateProvider)
+          .matches(_identity.text, _password.text)) {
+        entered = true;
+        return;
+      }
       final session = await ref
           .read(sessionServiceProvider)
           .login(_identity.text.trim(), _password.text);
@@ -53,7 +63,11 @@ class _LoginPageState extends ConsumerState<LoginPage> with BusyAction {
     }, operation: 'login');
     if (ok && mounted) {
       _password.clear();
-      await ref.read(commandBusProvider).execute(const DashboardDestination());
+      await ref
+          .read(commandBusProvider)
+          .execute(
+            entered ? const BackstageDestination() : const DashboardDestination(),
+          );
     }
   }
 

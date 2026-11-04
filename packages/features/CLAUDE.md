@@ -241,6 +241,7 @@ GraphQLから取得したデータのうち、イミュータブルな更新者�
 | 会社情報 | `organization` |
 | 認証(PocketBase のログイン・登録申請・コード入力・管理者操作)と共有ファイルのアップロード/ダウンロード | `auth_files`(認証は `packages/infra/pbapi` を使う。遷移の仕様は `tools/docker/pocketbase/README.md`) |
 | ユーザー情報の表示(顔写真・自分のイメージ) | `user_profile`(画像は PocketBase の `user_avatars`。標準はユーザーが変更できない。`isChangeUserImage` で変更可)|
+| アプリケーションの裏設定(システム制作者だけ。接続先・ログのレベル・画像の変更可否など) | `backstage`(入口はログインページの特定のユーザーIDとパスワード。値は `feature_shared` の `backstageValuesProvider`。優先順位は 起動時の `--dart-define` > 保管庫 > アセットの既定値)|
 
 ### 契約(xxx_api)の置き方
 別パッケージ `xxx_api` は作らない。1機能=1パッケージとし、`lib/xxx.dart`(実装の入口。アプリだけが読み込み、公開は `XxxModule` のみ)と `lib/xxx_api.dart`(遷移先・命令の型だけ。他の機能・アプリが読み込む)の2つのバレルに分ける。他の機能は `lib/src` や `xxx.dart` を読み込まない。

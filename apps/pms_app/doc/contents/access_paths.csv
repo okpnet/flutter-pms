@@ -5,6 +5,7 @@
 /logout,ログアウト,Log out,app_core,true
 /error,エラー,Error,app_core,true
 /maintenance,メンテナンス中,Under maintenance,maintenance,true
+/backstage,裏設定,Backstage settings,backstage,true
 /barcode,リーディングトップ,Barcode entry top,barcode_entry,false
 /mrp,資材所要計算(MRP),Material requirements planning (MRP),production_plan,false
 /shipping-kinds,配送区分,Shipping kind,shared_master,false

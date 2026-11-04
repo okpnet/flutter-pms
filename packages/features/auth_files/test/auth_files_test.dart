@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:auth_files/auth_files.dart';
 import 'package:auth_files/auth_files_api.dart';
 import 'package:app_core/app_core_api.dart';
+import 'package:backstage/backstage_api.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,6 +28,35 @@ class _StubDashboardModule implements FeatureModule {
 
   @override
   void registerHandlers(CommandHandlerRegistry registry, Ref ref) {}
+}
+
+/// 裏設定の遷移先の代役。backstage の実装には依存しない(ページを持たない)。
+class _StubBackstageModule implements FeatureModule {
+  @override
+  List<RouteBase> get routes => [
+    GoRoute(
+      path: '/backstage',
+      builder: (_, _) => const Scaffold(body: Text('裏設定ページ')),
+    ),
+  ];
+
+  @override
+  String? locationOf(PageDestination<Object?> destination) =>
+      destination is BackstageDestination ? '/backstage' : null;
+
+  @override
+  void registerHandlers(CommandHandlerRegistry registry, Ref ref) {}
+}
+
+/// 特定のユーザーIDとパスワードに一致する入口の代役。
+class _Gate implements IBackstageEntryGate {
+  final calls = <String>[];
+
+  @override
+  Future<bool> matches(String identity, String password) async {
+    calls.add('$identity/$password');
+    return identity == 'maker' && password == 'open-sesame';
+  }
 }
 
 class _FakeSession implements SessionService {
@@ -152,7 +182,11 @@ Future<void> _pump(
   await tester.pumpWidget(
     FeatureHost(
       title: 'AuthFiles',
-      modules: [const AuthFilesModule(), _StubDashboardModule()],
+      modules: [
+        const AuthFilesModule(),
+        _StubDashboardModule(),
+        _StubBackstageModule(),
+      ],
       entries: [FeatureHostEntry('開く', start)],
       overrides: overrides,
       // 波紋(InkSparkle)のシェーダーを使わないテーマ。テストでシェーダーの読み込みを避ける。
@@ -205,6 +239,42 @@ void main() {
         tester.element(find.byType(Scaffold).first),
       );
       expect(container.read(userSummaryProvider)?.name, 'yamada');
+    });
+
+    testWidgets('裏設定の入口: 特定のIDとパスワードなら、ログインせず裏設定へ進む', (tester) async {
+      final session = _FakeSession();
+      final gate = _Gate();
+      await _pump(tester, const LoginDestination(), [
+        sessionServiceProvider.overrideWithValue(session),
+        backstageEntryGateProvider.overrideWithValue(gate),
+      ]);
+      await tester.enterText(find.byType(TextField).at(0), 'maker');
+      await tester.enterText(find.byType(TextField).at(1), 'open-sesame');
+      await tester.tap(find.text('ログイン'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('裏設定ページ'), findsOneWidget);
+      expect(session.logins, isEmpty, reason: '入口に一致したときは、サーバーへログインしない');
+    });
+
+    testWidgets('裏設定の入口に一致しなければ、通常のログイン(存在を示さない)', (tester) async {
+      final session = _FakeSession()
+        ..failure = const PbException(PbFailureKind.invalidCredentials);
+      final gate = _Gate();
+      await _pump(tester, const LoginDestination(), [
+        sessionServiceProvider.overrideWithValue(session),
+        backstageEntryGateProvider.overrideWithValue(gate),
+      ]);
+      await tester.enterText(find.byType(TextField).at(0), 'maker');
+      await tester.enterText(find.byType(TextField).at(1), 'wrong');
+      await tester.tap(find.text('ログイン'));
+      await tester.pumpAndSettle();
+
+      expect(gate.calls, ['maker/wrong']);
+      expect(session.logins, ['maker/wrong']);
+      // 通常のログイン失敗と同じ表示。裏設定ページへは進まない
+      expect(find.text('ユーザーIDまたはパスワードが正しくありません。'), findsOneWidget);
+      expect(find.text('裏設定ページ'), findsNothing);
     });
 
     testWidgets('失敗: 理由に応じた文言を出し、画面に留まる', (tester) async {

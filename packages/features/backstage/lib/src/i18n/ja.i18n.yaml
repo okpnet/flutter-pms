@@ -1,0 +1,33 @@
+# 裏設定の文字列(日本語。基準言語)。
+title: 裏設定
+intro: システム制作者だけが変更できる、アプリケーションの設定です。接続先とログのレベルは、アプリを再起動すると反映されます。
+fields:
+  isChangeUserImage: ユーザーが自分の画像を変更できる
+  graphqlUrl: 接続先(GraphQL)
+  pocketbaseUrl: 接続先(PocketBase)
+  maintenanceUrl: メンテナンスの確認先
+  logLevel: ログのレベル
+  sidebarIconOnly: サイドバーをアイコンだけにする(既定)
+choice:
+  followDefault: 既定に従う
+  yes: はい
+  no: いいえ
+source:
+  launch: 起動時の指定(変更できません)
+  stored: 裏設定
+  asset: 既定値
+  none: 未指定
+hint:
+  url: 'https のURL(ローカルのネットワークだけ http)。空にすると既定に従います。'
+buttons:
+  save: 保存
+  reset: 保存した値を消す
+  exit: 終了
+notice:
+  saved: 保存しました。接続先とログのレベルは、再起動すると反映されます。
+  reset: 保存した値を消しました。
+  storeFailed: 保存できませんでした。保管庫を使えない可能性があります。
+issue:
+  urlInvalid: URLの形式が正しくありません。
+  urlNotHttps: https のURLにしてください(http はローカルのネットワークだけ)。
+  logLevelUnknown: 知らないログのレベルです。

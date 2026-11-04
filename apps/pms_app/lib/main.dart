@@ -1,5 +1,6 @@
 // Project imports:
 import 'package:app_core/app_core.dart';
+import 'package:backstage/backstage.dart';
 import 'package:dashboard_container/dashboard_container_api.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:settings_keeper/settings_keeper.dart';
@@ -11,17 +12,27 @@ import 'imports.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final logger = await DefaultLoggerProvider.fromAsset(
+  // 裏設定の材料を読む(アセット・保管庫・起動時の値)。値の優先順位は 起動時の指定 > 裏設定 > 既定値。
+  // 接続先・ログのレベルは起動時に使うので、ここで決める(保存した変更は再起動で反映される)
+  var backstage = await loadBackstageForStartup();
+  final values = backstage.values;
+  final logger = await createLoggerWithLevel(
     'assets/logger_config.json',
+    values.logLevel,
   );
-  final pocketbase = await pocketbaseOverrides(logger);
+  backstage = backstage.withStore(SecureBackstageStore(logger: logger));
+  final pocketbase = await pocketbaseOverrides(
+    logger,
+    url: values.pocketbaseUrl ?? '',
+  );
   runApp(
     ProviderScope(
       overrides: [
         loggerProvider.overrideWithValue(logger),
         commandBusProvider.overrideWith(createFeatureCommandBus),
         //ページ用の拡張(メンテナンス・認証のセッション確認)とダッシュボードの件数の元
-        ...sessionOverrides(),
+        ...backstageOverrides(backstage),
+        ...sessionOverrides(url: values.maintenanceUrl ?? ''),
         ...dashboardOverrides(),
         //画面の取得元(GRAPHQL_URL を指定したときだけ GraphQL 版)
         ...graphqlOverrides(),

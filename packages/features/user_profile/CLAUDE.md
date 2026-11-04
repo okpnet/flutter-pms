@@ -6,7 +6,7 @@
 ## 仕様
 1.  デザインは画面案(`tools/open-design/index.html`・`app.js` の設定画面の「自分のイメージ」)に合わせる。現在の画像・名前・役割のプレビュー、画像ファイルを選ぶ(PNG・JPEG・GIF・WebP、2MBまで)、「初期のイメージに戻す」。
 1.  画像が登録されていない・取得できないときは、既定のイメージ(画面案の `avatar.svg`)を使う。`DefaultAvatar` が `viewBox="0 0 120 120"` の図形を `dart:ui` で描いて PNG にする(SVG の描画ライブラリは使わない)。
-1.  標準では、ユーザーは自分のイメージを変更できない(変更できるのはユーザーを追加できる管理者)。起動時のプロパティ `isChangeUserImage`(`--dart-define=IS_CHANGE_USER_IMAGE=true`)で、ユーザーも変更できるようになる。`isChangeUserImageProvider` を上書きすれば、アプリケーションの裏設定からも変えられる(優先順位は、起動時の値 > 裏設定の値 > 標準の `false`)。
+1.  標準では、ユーザーは自分のイメージを変更できない(変更できるのはユーザーを追加できる管理者)。起動時のプロパティ `isChangeUserImage`(`--dart-define=IS_CHANGE_USER_IMAGE=true`)で、ユーザーも変更できるようになる。アプリケーションの裏設定(`backstage`)の値は `feature_shared` の `backstageValuesProvider` から読む(優先順位は、起動時の値 > 裏設定の値 > 標準の `false`)。
 1.  変更できないときの画面は、現在のイメージと「管理者が変更します」の案内だけを出す。
 1.  管理者が他のユーザーの画像を変える操作は、サーバー(`user_avatars` のルール)と `AvatarService.set(userId, …)` が対応している。画面は、担当者の画面(`organization`)から開く形で別の Issue とする(この機能は、自分のイメージだけを持つ)。
 1.  ログインしていない(`userSummaryProvider` が null)ときは、何も取得しない。
@@ -68,7 +68,8 @@
 2.  `pbapi` のサービス(`SessionService`・`AvatarService`)を Provider の上書きで差し替え、サーバーには接続しない。画像の選択・縮小・既定のイメージは差し替えるか、`tester.runAsync` で実際に描く。
 3.  サーバーのデータを変更するテストは書かない。
 
+## example
+`example`(Windows 向けのビジュアルテスト)は、`FeatureHost` でこの機能だけを載せる。PocketBase のセッションと画像の保存先は代役(メモリ上)。変更できる設定で確かめるには `flutter run -d windows --dart-define=IS_CHANGE_USER_IMAGE=true`。起動と、変更できない/できる設定の表示は `example/test/widget_test.dart`。
+
 ## 未対応
-1.  ビジュアルテスト用の `example`(features/CLAUDE.md の「ビジュアルテスト」)。
-2.  管理者が他のユーザーの画像を変える画面(担当者の画面から)。
-3.  アプリケーションの裏設定(`packages/features/issue/20261104_0006.md`)からの `isChangeUserImage` の上書き。
+1.  管理者が他のユーザーの画像を変える画面(担当者の画面から)。

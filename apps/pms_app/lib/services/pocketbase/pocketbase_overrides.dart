@@ -11,16 +11,18 @@ const pocketbaseUrl = String.fromEnvironment('POCKETBASE_URL');
 /// 未指定は空(認証・ファイル共有・GraphQL 用 JWT の取得は使えない)。
 ///
 /// トークンの保存先は、既定で OS の安全な保管庫([SecureTokenStore]。ログイン情報は次の起動でも続く)。
+/// [url] は接続先(既定は起動時の指定。裏設定を使うときは解決した値を渡す)。
 /// [tokenStore] を渡すと、それを使う(テスト・別の保管庫)。同じものを `tokenStoreProvider` にも差し込み、
 /// ログアウトで確実に消す。
 Future<List<Override>> pocketbaseOverrides(
   ILoggerProvider logger, {
   ITokenStore? tokenStore,
+  String url = pocketbaseUrl,
 }) async {
-  if (pocketbaseUrl.isEmpty) return const [];
+  if (url.isEmpty) return const [];
   final store = tokenStore ?? SecureTokenStore(logger: logger);
   final connection = await PbConnection.open(
-    url: pocketbaseUrl,
+    url: url,
     logger: logger,
     tokenStore: store,
   );

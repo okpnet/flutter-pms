@@ -1,6 +1,7 @@
 import 'package:access_control/access_control.dart';
 import 'package:app_core/app_core.dart';
 import 'package:auth_files/auth_files.dart';
+import 'package:backstage/backstage.dart';
 import 'package:barcode_entry/barcode_entry.dart';
 import 'package:item/item.dart';
 import 'package:maintenance/maintenance.dart';
@@ -25,6 +26,8 @@ import '../../imports.dart';
 ///メンテナンス中のページは、枠(サイドバー・タイトルバー)を持たず、ほかのページへリンクしない。
 const List<FeatureModule> standaloneFeatureModules = [
   MaintenanceModule(),
+  // 裏設定(枠の外。ログインページの特定の入口からだけ入れる)
+  BackstageModule(),
   // ログイン前の画面(ログイン・登録申請・再設定・コード入力)
   AuthFilesModule(includeFramed: false),
 ];

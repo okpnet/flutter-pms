@@ -1,5 +1,6 @@
 // Project imports:
 import 'package:auth_files/auth_files.dart' show AuthFilesPaths;
+import 'package:backstage/backstage.dart' show BackstagePaths;
 import 'package:maintenance/maintenance.dart';
 import 'package:page_mediator_extension/page_mediator_extension.dart';
 import 'package:pms_app/contents/_models/error/app_error.dart';
@@ -64,6 +65,7 @@ GoRouter rootRouter(Ref ref) {
           AuthFilesPaths.register,
           AuthFilesPaths.forgot,
           MaintenancePaths.maintenance,
+          BackstagePaths.backstage,
         ],
       );
     },

@@ -81,6 +81,8 @@ dependencies:
     path: ../../packages/features/access_control
   barcode_entry:
     path: ../../packages/features/barcode_entry
+  backstage:
+    path: ../../packages/features/backstage
   work_record:
     path: ../../packages/features/work_record
   shared_master:
@@ -111,3 +113,4 @@ flutter:
   assets:
     - assets/images.png
     - assets/logger_config.json
+    - assets/backstage.json

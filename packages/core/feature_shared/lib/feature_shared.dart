@@ -5,6 +5,7 @@
 /// - [localeProvider]: アプリが使う言語(多言語の文字列を選ぶため)
 /// - [MenuEntry] / [MenuContributor]: トップメニューの項目(機能が提供し、アプリが集める)
 /// - [userSummaryProvider]: ログインユーザーの表示用の情報(AppCore が提供)
+/// - [BackstageValues] / [backstageValuesProvider] / [IBackstageEntryGate]: アプリケーションの裏設定の値と入口の判定(実体は backstage が差し込む)
 /// - [busyProvider] / [BusyScope]: 長時間の処理中の状態と、画面全体を覆う部品(処理中は操作と戻る操作を無効にする)
 /// - [GoRouterDestinationNavigator]: 遷移先を GoRouter で実行する(アプリと example が共用)
 /// - [EntityFeatureModule]: 実体の定義から台帳・編集の画面を提供する機能の土台
@@ -14,6 +15,7 @@ library;
 export 'package:baton_lib/baton_lib.dart';
 export 'package:selection_result/selection_result.dart';
 
+export 'src/backstage.dart';
 export 'src/busy.dart';
 
 export 'src/command_bus_provider.dart';

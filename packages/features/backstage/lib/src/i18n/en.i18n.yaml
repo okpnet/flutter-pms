@@ -1,0 +1,33 @@
+# Backstage settings strings (English).
+title: Backstage settings
+intro: Application settings for the system maintainer only. Connection URLs and the log level take effect after the app restarts.
+fields:
+  isChangeUserImage: Users can change their own image
+  graphqlUrl: Endpoint (GraphQL)
+  pocketbaseUrl: Endpoint (PocketBase)
+  maintenanceUrl: Maintenance check URL
+  logLevel: Log level
+  sidebarIconOnly: Icon-only sidebar (default)
+choice:
+  followDefault: Follow the default
+  yes: Yes
+  no: 'No'
+source:
+  launch: Set at launch (read-only)
+  stored: Backstage
+  asset: Default
+  none: Not set
+hint:
+  url: 'An https URL (http only on the local network). Leave empty to follow the default.'
+buttons:
+  save: Save
+  reset: Clear saved values
+  exit: Exit
+notice:
+  saved: Saved. Connection URLs and the log level take effect after a restart.
+  reset: Cleared the saved values.
+  storeFailed: Could not save. The secure storage may be unavailable.
+issue:
+  urlInvalid: The URL format is invalid.
+  urlNotHttps: Use an https URL (http is allowed only on the local network).
+  logLevelUnknown: Unknown log level.

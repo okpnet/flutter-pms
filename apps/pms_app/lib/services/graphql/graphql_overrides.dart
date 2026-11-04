@@ -1,4 +1,5 @@
 import 'package:access_control/access_control.dart';
+import 'package:backstage/backstage.dart' show backstageBootProvider;
 import 'package:entity_screens/entity_screens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
@@ -36,7 +37,8 @@ class GraphqlTokenNotifier extends Notifier<String?> {
 /// 未指定のときは [graphqlTokenProvider] の値を使う(テスト・手動の指定用。トークンが無ければヘッダーを付けない)。
 /// PocketBase を使うか([pocketbaseUrl] の指定の有無)。テストで上書きできる。
 final pocketbaseEnabledProvider = Provider<bool>(
-  (ref) => pocketbaseUrl.isNotEmpty,
+  // 接続先は起動時に決まった値(起動時の指定 > 裏設定 > 既定値)。実行中に裏設定を保存しても、ここは変わらない(再起動で反映)
+  (ref) => (ref.watch(backstageBootProvider).values.pocketbaseUrl ?? '').isNotEmpty,
 );
 
 final graphqlAuthorizationProvider = Provider<Future<String?> Function()>((
@@ -64,10 +66,11 @@ String? bearerOf(String? token) =>
 
 /// [graphqlUrl] が指定されているときの [GraphQLClient]。未指定は null。
 final graphqlClientProvider = Provider<GraphQLClient?>((ref) {
-  if (graphqlUrl.isEmpty) return null;
+  final url = ref.watch(backstageBootProvider).values.graphqlUrl ?? '';
+  if (url.isEmpty) return null;
   final link = AuthLink(
     getToken: ref.read(graphqlAuthorizationProvider),
-  ).concat(HttpLink(graphqlUrl));
+  ).concat(HttpLink(url));
   return GraphQLClient(link: link, cache: GraphQLCache());
 });
 

@@ -179,6 +179,32 @@ void main() {
     );
   });
 
+  group('アプリケーションの裏設定との優先順位(起動時の値 > 裏設定の値 > 標準の false)', () {
+    const defined = bool.hasEnvironment('IS_CHANGE_USER_IMAGE');
+
+    test('裏設定の値を読む(起動時の値が無いとき)', () {
+      for (final v in [true, false]) {
+        final value = _container([
+          backstageValuesProvider.overrideWithValue(
+            BackstageValues(isChangeUserImage: v),
+          ),
+        ]).read(isChangeUserImageProvider);
+        expect(
+          value,
+          defined ? const bool.fromEnvironment('IS_CHANGE_USER_IMAGE') : v,
+          reason: '起動時の値があるときは、裏設定の値に関係なく起動時の値',
+        );
+      }
+    });
+
+    test('裏設定が未指定なら標準の false(起動時の値が無いとき)', () {
+      final value = _container([
+        backstageValuesProvider.overrideWithValue(const BackstageValues()),
+      ]).read(isChangeUserImageProvider);
+      expect(value, const bool.fromEnvironment('IS_CHANGE_USER_IMAGE'));
+    });
+  });
+
   group('顔写真の取得', () {
     test('ログインしていなければ何も取得しない', () async {
       final avatars = _FakeAvatars();
