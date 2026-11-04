@@ -51,6 +51,7 @@ PMS のシェルアプリ。GoRouter を構築済みのモックアップ(旧 `l
 4.  枠と設定
     1.  タイトルバー・サイドバー・ユーザー表示は`app_shell`の`MultiMainFrame`(`AppMainFrame`)を使い、アプリ独自の枠を作らない。文字列は`app_core`の文字列を使う。
     1.  ユーザー設定(言語・サイドバー・ユーザー)は`settings_keeper`で`shared_preferences`に保存する(`main()`で`settingsStorageProvider`を差し込む)。保存する形のJSONモデルは`app_core`に定義する。
+    1.  ユーザーの顔写真は`user_profile`の`userAvatarProvider`を`AppMainFrame`が`AppUser.photo`へ渡す。ユーザーメニューの「自分のイメージ」(`MyImageDestination`)で画像を確認する。標準はユーザーが変更できず、`--dart-define=IS_CHANGE_USER_IMAGE=true`(`isChangeUserImage`)で変更できる。画像は PocketBase の`user_avatars`(`pbapi`の`AvatarService`)。PocketBase に接続していないときは既定のイメージ。
 5.  ページのアクセスパス(CSV)
     1.  アプリのページ(`TypedGoRoute`・`GoRoute`、機能のページ)を追加・変更・削除するたびに、アクセスパスの一覧 `doc/contents/access_paths.csv` を更新する。これがアクセス管理(`access_control`)で登録するアクセスパスの元で、アプリが正規に発行する権限の単位になる。
     1.  列は `usecase_path`(ページのパス)、`name_ja`・`name_en`(名前)、`feature`、`public`(ログイン前から使えるページは `true`。アクセス権の対象にせず、登録しない)。`symbol` は DB のトリガーが自動で付けるので、CSV には持たない。

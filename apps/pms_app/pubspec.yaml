@@ -45,6 +45,8 @@ dependencies:
   graphql: ^5.2.3
   auth_files:
     path: ../../packages/features/auth_files
+  user_profile:
+    path: ../../packages/features/user_profile
   pbapi:
     path: ../../packages/infra/pbapi
   pms_graphql:

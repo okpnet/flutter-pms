@@ -158,6 +158,8 @@ login "$USER_U" "$PW2"; USER="$TOKEN"
 [ -n "$USER" ] && ok "新パスワードでログイン" || ng "新パスワードでログイン" "$BODY"
 
 echo "== 6. コード総当たり対策"
+# ここまででコード受諾を多数呼んでいるため、レート制限（既定 10回/60秒）の窓を一度リセットする
+if [ "${PB_RATE_LIMIT:-true}" = "true" ]; then echo "  (レート制限の窓をリセットするため 61 秒待機)"; sleep 61; fi
 req POST "/api/app/admin/users/$USER_ID/reset-code" "$ADMIN" '{}'
 RCODE="$(echo "$BODY" | jq -r .code)"
 for i in 1 2 3 4 5; do accept "$USER_U" "ZZZZ-ZZZZ-ZZZ$i" "$PW3"; done
@@ -233,6 +235,84 @@ else
   req GET /api/app/graphql-token ""
   expect "未ログイン → 401" 401
 fi
+
+echo "== 12. アバター（user_avatars）"
+# テスト用の一般ユーザー（もう1人）を管理者が登録して有効化
+req POST /api/app/admin/users "$ADMIN" "{\"username\":\"$OTHER_U\",\"app_user_id\":\"O$RUN\",\"name\":\"花子\"}"
+OTHER_ID="$(echo "$BODY" | jq -r .user.id)"; OTHER_CODE="$(echo "$BODY" | jq -r .code)"
+accept "$OTHER_U" "$OTHER_CODE" "$PW1"
+# レート制限（コード受諾・ログインは 60 秒あたりの回数制限）に掛かったら待って再試行
+if [ "$CODE" = "429" ]; then echo "  (レート制限のため 61 秒待機)"; sleep 61; accept "$OTHER_U" "$OTHER_CODE" "$PW1"; fi
+login "$OTHER_U" "$PW1"
+if [ -z "$TOKEN" ] && [ "$CODE" = "429" ]; then echo "  (レート制限のため 61 秒待機)"; sleep 61; login "$OTHER_U" "$PW1"; fi
+OTHER="$TOKEN"
+[ -n "$OTHER" ] && ok "テスト用ユーザー（hana）でログイン" || ng "テスト用ユーザー（hana）でログイン" "$BODY"
+
+echo "iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAIAAAD2HxkiAAACeklEQVR42u3TMQkAAAzEwBf2/qmsaujU5eAUBJJpgUeRAEwIJgRMCCYETAgmBEwIJgRMCCYETAgmBEwIJgRMCCYETAgmBEwIJgRMCCYETAgmBEwIJgRMCCYETAgmBEwIJgRMCCYETAgmBEwIJgRMCCYETAgmBEwIJgRMCCYETAgmBEwIJgRMCCYETAgmBEwIJgRMCCYETAgmBEwIJgRMCCYEE6oAJgQTAiYEEwImBBMCJgQTAiYEEwImBBMCJgQTAiYEEwImBBMCJgQTAiYEEwImBBMCJgQTAiYEEwImBBMCJgQTAiYEEwImBBMCJgQTAiYEEwImBBMCJgQTAiYEEwImBBMCJgQTAiYEEwImBBMCJgQTAiYEEwImBBMCJgQTAiYEE4IJVQATggkBE4IJAROCCQETggkBE4IJAROCCQETggkBE4IJAROCCQETggkBE4IJAROCCQETggkBE4IJAROCCQETggkBE4IJAROCCQETggkBE4IJAROCCQETggkBE4IJAROCCQETggkBE4IJAROCCQETggkBE4IJAROCCQETggkBE4IJwYSACcGEgAnBhIAJwYSACcGEgAnBhIAJwYSACcGEgAnBhIAJwYSACcGEgAnBhIAJwYSACcGEgAnBhIAJwYSACcGEgAnBhIAJwYSACcGEgAnBhIAJwYSACcGEgAnBhIAJwYSACcGEgAnBhIAJwYSACcGEgAnBhIAJwYSACcGEYEIJwIRgQsCEYELAhGBCwIRgQsCEYELAhGBCwIRgQsCEYELAhGBCwIRgQsCEYELAhGBCwIRgQsCEYELAhGBCwIRgQsCEYELAhGBCwIRgQsCEYELgZgEoEY2632U+bAAAAABJRU5ErkJggg==" | base64 -d > "$TMP/a.png"     # 300x300 PNG
+echo "iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAIAAAAiOjnJAAABd0lEQVR42u3SMQ0AAAzDsAIrfw3WSOzYYckIoqQdOBcJMBbGwlhgLIyFscBYGAtjgbEwFsYCY2EsjAXGwlgYC4yFsTAWGAtjYSwwFsbCWGAsjIWxwFgYC2OBsTAWxgJjYSyMBcbCWBgLjIWxMBYYC2NhLDAWxsJYYCyMhbHAWBgLY4GxMBbGAmNhLIwFxsJYGAuMhbEwFhgLY2EsMBbGwlhgLIyFscBYGAtjgbEwFsYCY2EsjIWxVMBYGAtjgbEwFsYCY2EsjAXGwlgYC4yFsTAWGAtjYSwwFsbCWGAsjIWxwFgYC2OBsTAWxgJjYSyMBcbCWBgLjIWxMBYYC2NhLDAWxsJYYCyMhbHAWBgLY4GxMBbGAmNhLIwFxsJYGAuMhbEwFhgLY2EsMBbGwlhgLIyFscBYGAtjgbEwFsYCY2EsjAXGwlgYC2OpgLEwFsYCY2EsjAXGwlgYC4yFsTAWGAtjYSwwFsbCWGAsjIWxwFgYC2OBsfhmAej0W24DwotzAAAAAElFTkSuQmCC" | base64 -d > "$TMP/b.png"     # 200x200 PNG
+echo "not an image" > "$TMP/fake.png"
+{ cat "$TMP/a.png"; head -c 3145728 /dev/urandom; } > "$TMP/big.png"   # PNG ヘッダー + 3MB
+av() { # av METHOD PATH TOKEN [curl -F ...]
+  local m="$1" p="$2" t="$3"; shift 3
+  local args=(-s -o "$TMP/body" -w '%{http_code}' -X "$m" "$URL$p")
+  [ -n "$t" ] && args+=(-H "Authorization: $t")
+  CODE="$(curl "${args[@]}" "$@")"; BODY="$(cat "$TMP/body")"
+}
+png_size() { od -An -tu1 -j16 -N8 "$1" | awk '{printf "%dx%d", $1*16777216+$2*65536+$3*256+$4, $5*16777216+$6*65536+$7*256+$8}'; }
+
+av POST /api/collections/user_avatars/records "$USER" -F "user=$USER_ID" -F "image=@$TMP/a.png"
+expect "本人が自分のアバターを登録 → 200" 200
+expect_jq "updated_by は本人" '.updated_by' "$USER_ID"
+AV_ID="$(echo "$BODY" | jq -r .id)"; AV_OLD="$(echo "$BODY" | jq -r .image)"
+av POST /api/collections/user_avatars/records "$USER" -F "user=$USER_ID" -F "image=@$TMP/b.png"
+expect "2枚目は登録できない（1人1枚）→ 400" 400
+av POST /api/collections/user_avatars/records "$OTHER" -F "user=$USER_ID" -F "image=@$TMP/b.png"
+expect "一般ユーザーは他人のアバターを登録できない → 400" 400
+av PATCH "/api/collections/user_avatars/records/$AV_ID" "$OTHER" -F "image=@$TMP/b.png"
+expect "一般ユーザーは他人のアバターを差し替えできない → 404" 404
+av PATCH "/api/collections/user_avatars/records/$AV_ID" "$USER" -F "user=$OTHER_ID"
+expect "名義（user）の付け替えは不可 → 404" 404
+av POST /api/collections/user_avatars/records "$ADMIN" -F "user=$OTHER_ID" -F "image=@$TMP/b.png"
+expect "管理者が他人のアバターを登録 → 200" 200
+expect_jq "updated_by は管理者" '.updated_by' "$ADMIN_ID"
+av POST /api/collections/user_avatars/records "$ADMIN" -F "user=$ADMIN2_ID" -F "image=@$TMP/b.png"
+expect "管理者は他の管理者のアバターも登録できる → 200" 200
+av POST /api/collections/user_avatars/records "$ADMIN" -F "user=$ADMIN_ID" -F "image=@$TMP/fake.png"
+expect "画像以外は拒否 → 400" 400
+av POST /api/collections/user_avatars/records "$ADMIN" -F "user=$ADMIN_ID" -F "image=@$TMP/big.png"
+expect "サイズ上限（2MB）超過は拒否 → 400" 400
+CODE="$(curl -s -o /dev/null -w '%{http_code}' -X POST "$URL/api/collections/user_avatars/records" -F "user=$USER_ID" -F "image=@$TMP/b.png")"
+expect "未ログインは登録できない" 400
+av PATCH "/api/collections/users/records/$USER_ID" "$USER" -F "avatar=@$TMP/b.png"
+[ "$CODE" -ge 400 ] && ok "users.avatar には登録できない ($CODE)" || ng "users.avatar には登録できない" "$CODE"
+av PATCH "/api/collections/user_avatars/records/$AV_ID" "$ADMIN" -F "image=@$TMP/b.png"
+expect "管理者が差し替え → 200" 200
+AV_NEW="$(echo "$BODY" | jq -r .image)"
+[ "$AV_NEW" != "$AV_OLD" ] && ok "差し替えるとファイル名が変わる" || ng "差し替えるとファイル名が変わる" "$AV_NEW"
+
+FT="$(curl -s -X POST -H "Authorization: $OTHER" "$URL/api/files/token" | jq -r .token)"
+CODE="$(curl -s -o /dev/null -w '%{http_code}' "$URL/api/files/user_avatars/$AV_ID/$AV_OLD?token=$FT")"
+expect "差し替え前の画像は残らない → 404" 404
+req GET "/api/collections/user_avatars/records?filter=$(enc "user='$USER_ID'")" "$OTHER"
+expect_jq "他のユーザーもアバターを閲覧できる（担当者一覧用）" '.items | length' 1
+req GET "/api/collections/user_avatars/records" ""
+expect_jq "未ログインでは閲覧できない" '.items | length' 0
+CODE="$(curl -s -o "$TMP/av" -w '%{http_code}' "$URL/api/files/user_avatars/$AV_ID/$AV_NEW?token=$FT&thumb=128x128")"
+expect "他のユーザーの file token で取得 → 200" 200
+[ "$(png_size "$TMP/av")" = "128x128" ] && ok "サムネイル 128x128" || ng "サムネイル 128x128" "$(png_size "$TMP/av")"
+CODE="$(curl -s -o /dev/null -w '%{http_code}' "$URL/api/files/user_avatars/$AV_ID/$AV_NEW")"
+[ "$CODE" -ge 400 ] && ok "file token なしでは取得できない ($CODE)" || ng "file token なしでは取得できない" "$CODE"
+CODE="$(curl -s -L -o "$TMP/av2" -w '%{http_code}' -H "Authorization: $OTHER" "$URL/api/app/users/$USER_ID/avatar?thumb=256x256")"
+expect "入口 API（302 → 画像）→ 200" 200
+[ "$(png_size "$TMP/av2")" = "256x256" ] && ok "入口 API: サムネイル 256x256" || ng "入口 API: サムネイル 256x256" "$(png_size "$TMP/av2")"
+req GET "/api/app/users/$USER_ID/avatar" ""
+expect "入口 API: 未ログイン → 401" 401
+req GET "/api/app/users/$ADMIN_ID/avatar" "$OTHER"
+expect "入口 API: 未登録 → 404" 404
+req DELETE "/api/collections/user_avatars/records/$AV_ID" "$OTHER"
+expect "一般ユーザーは他人のアバターを削除できない → 404" 404
+req DELETE "/api/collections/user_avatars/records/$AV_ID" "$USER"
+expect "本人が削除 → 204" 204
 
 echo
 echo "== 結果: OK $PASS / NG $FAIL"

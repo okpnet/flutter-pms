@@ -611,3 +611,11 @@ features:
         code: E
         page: XE
         label: 担当者の実効アクセスパス
+  - feature: user_profile
+    code: F
+    label: ユーザー情報(顔写真)
+    screens:
+      - screen: image
+        code: I
+        page: FI
+        label: 自分のイメージ

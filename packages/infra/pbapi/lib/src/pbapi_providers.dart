@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'account/account_service.dart';
 import 'admin/admin_service.dart';
 import 'core/pb_connection.dart';
+import 'avatar/avatar_service.dart';
 import 'files/personal_file_service.dart';
 import 'files/shared_file_service.dart';
 import 'session/session_service.dart';
@@ -36,4 +37,8 @@ final sharedFileServiceProvider = Provider<SharedFileService>(
 
 final personalFileServiceProvider = Provider<PersonalFileService>(
   (ref) => PersonalFileService(ref.watch(pbConnectionProvider)),
+);
+
+final avatarServiceProvider = Provider<AvatarService>(
+  (ref) => AvatarService(ref.watch(pbConnectionProvider)),
 );

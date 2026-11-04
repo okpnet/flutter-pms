@@ -15,7 +15,8 @@
 | コード入力(有効化・再設定) | `AccountService.acceptCode` | `POST /api/app/codes/accept`。ユーザーID+コード+新しいパスワード。有効化とパスワード再設定で共通。成功は204。失敗は理由によらず同じ400 |
 | パスワードを忘れた | `AccountService.requestPasswordReset` | `POST /api/app/password-reset/request`。ユーザーIDまたはEメール。応答はいつも同じ(202)。メールで送るか管理者が手渡すかはサーバーが判断し、クライアントは分岐しない。続けて`acceptCode`でコードを入力する |
 | パスワード変更 | `AccountService.changePassword` | 古いパスワードが一致したら新しいパスワードを適用。トークンが失効するため新しいパスワードで入り直す |
-| プロフィール変更 | `AccountService.updateProfile` | 本人が変えられるのは`name`と`avatar`だけ。`username`・`app_user_id`・`role`・`email`・`disabled`は変えられない |
+| プロフィール変更 | `AccountService.updateProfile` | 本人が変えられるのは`name`だけ。`username`・`app_user_id`・`role`・`email`・`disabled`・`avatar`は変えられない(アバターは下の`AvatarService`) |
+| アバター | `AvatarService` | サーバーの`user_avatars`(`users.avatar`は使わない)。取得(`find`・`findMany`)は有効なユーザー全員、登録・差し替え(`set`)・削除(`delete`)は本人または管理者。1人1枚で上書き。画像は`download`(任意でサムネイル`128x128`・`256x256`)。キャッシュのキーは`UserAvatar.cacheKey`(差し替えるとファイル名が変わる)。権限が無いと登録は400(`validation`)、差し替え・削除は404(`notFound`)。形式はJPEG/PNG/WebP、2MBまで(サーバー設定)。**原寸の画像にはEXIF(位置情報)が残るため、アプリ側で縮小してからアップロードする** |
 | ログイン/ログアウト | `SessionService.login` / `logout` | ログイン欄は「ユーザーIDまたはEメール」の1つ。大文字小文字は区別しない。トークン(JWT)を含む`AuthSession`を返す。ログアウトは端末のトークンを破棄 |
 | セッション管理 | `ensureSession` / `watch` | サーバーへ問い合わせて有効かを返す(auth-refresh)。画面の切り替え・保存・呼び出しの度、または`watch`で定期的に。401/403/404ならトークンを破棄してログイン画面へ戻す |
 | GraphQL用トークン | `SessionService.graphqlToken` | `GET /api/app/graphql-token`。短期(既定15分)のJWTと期限。期限の少し前まで使い回し、切れたら`ensureSession`の後に取り直す。サーバーが無設定のときは404。取得済みの JWT は別のユーザーでログインし直したとき・ログアウト・無効なセッションで破棄する(前のユーザーの担当者のIDを使い回さない) |

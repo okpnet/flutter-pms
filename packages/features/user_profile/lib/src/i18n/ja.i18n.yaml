@@ -1,0 +1,23 @@
+# ユーザー情報の表示の文字列(日本語。基準言語)。画面案(tools/open-design)の「自分のイメージ」に合わせる。
+menu:
+  myImage: 自分のイメージ
+myImage:
+  title: 自分のイメージ
+  current: 現在の自分のイメージ
+  choose: 画像ファイルを選ぶ
+  note: PNG・JPEG・GIF・WebP、2MBまで。アプリバーとダッシュボードの顔写真が変わります。
+  reset: 初期のイメージに戻す
+  changed: 自分のイメージを変更しました。
+  resetDone: 初期のイメージに戻しました。
+  readOnly: 自分のイメージは、管理者が変更します。変更したいときは、管理者に依頼してください。
+  noSession: ログインしていないため、自分のイメージを表示できません。
+errors:
+  tooLarge: 画像が大きすぎます。{max}MB以下のファイルを選んでください。
+  invalidImage: 画像として読み込めません。PNG・JPEG・GIF・WebPのファイルを選んでください。
+  validation: 画像を受け付けられませんでした。形式(JPEG・PNG・WebP)と大きさを確認してください。
+  forbidden: この画像を変更する権限がありません。
+  unauthorized: ログインが必要です。もう一度ログインしてください。
+  rateLimited: 試行が多すぎます。しばらくしてからもう一度お試しください。
+  network: 通信できません。接続を確認してください。
+  unsupported: この環境ではファイルを選択できません。
+  unknown: 予期しないエラーが発生しました。

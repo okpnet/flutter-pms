@@ -38,6 +38,7 @@ const CUSTOM = [
   ['auth_files', 'files', '/auth/files', '共有ファイル', 'Shared files', false],
   ['auth_files', 'adminsignups', '/auth/admin/signups', '新規登録の管理', 'Manage sign-ups', false],
   ['auth_files', 'adminresets', '/auth/admin/resets', '再設定依頼の管理', 'Manage reset requests', false],
+  ['user_profile', 'image', '/profile/image', '自分のイメージ', 'My image', false],
   // 旧来の pms_app のページ(apps/pms_app/lib/contents)
   ['pms_app', 'login', '/login', 'ログイン', 'Log in', true],
   ['pms_app', 'material_transfer', '/actual/material_transfer/register', '資材移動の登録', 'Register material transfer', false],

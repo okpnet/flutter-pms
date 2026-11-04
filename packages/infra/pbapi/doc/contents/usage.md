@@ -89,8 +89,8 @@ await account.requestPasswordReset('yamada.t');
 // パスワード変更(ログイン中)。古いパスワードが違えば PbException.fieldErrors['oldPassword']
 await account.changePassword(oldPassword: old, newPassword: next);
 
-// プロフィール変更(名前とアバターだけ)
-await account.updateProfile(name: '山田 太郎', avatarBytes: bytes, avatarFilename: 'me.png');
+// プロフィール変更(名前だけ。アバターは 5-2 の AvatarService)
+await account.updateProfile(name: '山田 太郎');
 ```
 - コードの誤り・期限切れ・回数超過・ユーザーIDの誤りは区別されず、すべて`validation`です。
 - パスワードは8文字以上。短いと通信せず`ArgumentError`になります。
@@ -142,6 +142,29 @@ final personal = ref.read(personalFileServiceProvider);
 await personal.upload(key: 'settings', bytes: utf8.encode(jsonEncode(settings)));
 final bytes = await personal.download('settings');
 ```
+
+## 5-2. アバター(ユーザーの画像)
+サーバーの`user_avatars`を使います(`users.avatar`は使いません)。取得は有効なユーザー全員、登録・差し替え・削除は本人または管理者です。
+```dart
+final avatars = ref.read(avatarServiceProvider);
+
+// 取得(未登録は null)。複数人の一覧はまとめて取る
+final mine = await avatars.find(session.userId);
+final many = await avatars.findMany(['u1', 'u2']);         // userId → UserAvatar
+
+// 画像のバイト列。サムネイルは '128x128' / '256x256'(省略で原寸)
+if (mine != null) {
+  final bytes = await avatars.download(mine, thumb: '128x128');
+  // キャッシュのキーは mine.cacheKey('128x128')(差し替えるとファイル名が変わる)
+}
+
+// 登録または差し替え(1人1枚。上書き)。本人、または管理者が他のユーザーに対して
+final saved = await avatars.set(userId, resizedBytes, filename: 'me.png');
+await avatars.delete(userId);
+```
+- **EXIF:** 原寸の画像には位置情報などが残ります。アプリ側で縮小(例: 512px)してからアップロードしてください。
+- 形式は JPEG / PNG / WebP、2MBまで(サーバーが中身で判定。違うと`validation`)。
+- 権限が無いとき、登録は`validation`(400)、差し替え・削除は`notFound`(404)です。
 
 ## 6. エラーとログ
 このライブラリはユーザーに見せる文言を持ちません。`PbException`はログ・エラー追跡のためのもので、画面に出す文言への置き換えはページ側で行います。

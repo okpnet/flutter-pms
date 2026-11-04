@@ -1,4 +1,3 @@
-import 'package:http/http.dart' as http;
 
 import '../core/pb_connection.dart';
 import '../core/pb_exception.dart';
@@ -117,33 +116,19 @@ class AccountService {
     return _session.login(current.username, newPassword);
   }
 
-  /// ログイン中のユーザーが変えられる項目([name]・アバター)を更新する。
-  /// `username`・`app_user_id`・`role`・`email`・`disabled` は変えられない(サーバーが拒否する)。
+  /// ログイン中のユーザーが変えられる項目([name])を更新する。
+  /// `username`・`app_user_id`・`role`・`email`・`disabled`・`avatar` は変えられない(サーバーが拒否する)。
+  /// アバター画像は `AvatarService`(`user_avatars`)で登録する。
   /// 指定しなかった項目は変えない。
   ///
   /// [PbException]: 未ログインは [PbFailureKind.unauthorized]。
-  Future<void> updateProfile({
-    String? name,
-    List<int>? avatarBytes,
-    String avatarFilename = 'avatar.png',
-  }) async {
+  Future<void> updateProfile({String? name}) async {
     final current = _requireSession('updateProfile');
     await _connection.guard(
       'updateProfile',
       () => _connection.pb
           .collection('users')
-          .update(
-            current.userId,
-            body: {'name': ?name},
-            files: [
-              if (avatarBytes != null)
-                http.MultipartFile.fromBytes(
-                  'avatar',
-                  avatarBytes,
-                  filename: avatarFilename,
-                ),
-            ],
-          ),
+          .update(current.userId, body: {'name': ?name}),
     );
   }
 

@@ -5,6 +5,7 @@ Flutter アプリ (App) 向けに、次の3つを PocketBase で提供します�
 - **認証:** 登録申請 → 管理者の承認 → コードでパスワード設定
 - **セッション管理**
 - **共有ファイルの保管**
+- **ユーザーアバター**（閲覧は全員、登録は本人と管理者）
 
 OAuth2 は今回の対象外です。
 
@@ -16,7 +17,7 @@ OAuth2 は今回の対象外です。
 └──────────┘                              │ auth_codes       │
 ┌──────────┐ 申請一覧・承認・コード発行   │ reset_requests   │
 │ Flutter  │ ───────────────────────────▶ │ app_files        │
-│   App    │ ◀── GraphQL 用 JWT ───────── │                  │
+│   App    │ ◀── GraphQL 用 JWT ───────── │ user_avatars     │
 │ (管理者) │                              └──────────────────┘
 │          │ 担当者登録 (GraphQL) ───────▶ App DB (PostgreSQL / PostGraphile)
 └──────────┘   pb_user_id ⇄ app_user_id で相互に紐付け
@@ -26,7 +27,7 @@ OAuth2 は今回の対象外です。
 
 | 区分 | 持つもの |
 |---|---|
-| PocketBase | 認証情報・セッション・ファイル実体 |
+| PocketBase | 認証情報・セッション・ファイル実体（アバター画像を含む） |
 | App DB | 担当者の情報（部署など）の正本 |
 | 紐付け | PocketBase の `users.app_user_id` と、App DB の `pb_user_id` |
 
@@ -75,6 +76,7 @@ sudo usermod -aG docker $USER                          # sudo なしで docker �
 | 申請・コード | `PB_SIGNUP_MAX_PENDING` / `PB_ACTIVATE_CODE_TTL_HOURS`（72）/ `PB_RESET_CODE_TTL_HOURS`（24）/ `PB_CODE_MAX_ATTEMPTS`（5）/ `PB_CODE_LINK_BASE`（メール内のアプリ起動リンク。例 `myapp://code`） |
 | レート制限 | `PB_RATE_LIMIT`（全体の有効/無効）/ `PB_RATE_LIMIT_SIGNUP_PER_MIN` / `PB_RATE_LIMIT_RESET_REQUEST_PER_MIN` / `PB_RATE_LIMIT_CODE_PER_MIN` / `PB_RATE_LIMIT_LOGIN_PER_MIN` / `PB_TRUSTED_PROXY` |
 | ファイル | `PB_FILE_MAX_MB`（既定 100）/ `PB_PROXY_MAX_BODY`（Caddy の上限。既定 110MB） |
+| アバター | `PB_AVATAR_MAX_MB`（既定 2） |
 | GraphQL | `PB_GRAPHQL_JWT_SECRET` / `_TTL_SECONDS` / `_AUDIENCE` / `_DB_ROLE` / `_ADMIN_DB_ROLE` |
 | SMTP（任意） | `PB_SMTP_ENABLED` / `_HOST` / `_PORT` / `_USERNAME` / `_PASSWORD` / `_TLS` / `PB_SMTP_SENDER_ADDRESS` / `PB_SMTP_SENDER_NAME` |
 | S3（任意） | `PB_S3_ENABLED` / `_BUCKET` / `_REGION` / `_ENDPOINT` / `_ACCESS_KEY` / `_SECRET` / `_FORCE_PATH_STYLE` |
@@ -83,7 +85,7 @@ sudo usermod -aG docker $USER                          # sudo なしで docker �
 `pb_hooks/10_settings_from_env.pb.js` が、`serve` の起動のたびに .env の値を PocketBase の設定へ反映します（`migrate` などのコマンドでは何もしません）。
 
 - アプリ名・URL・SMTP・S3 などの任意項目は、**変数が空なら変更しません**（管理画面での設定を尊重します）。
-- セキュリティに関わる項目は、管理画面で変更しても**起動のたびに強制的に戻します**：`users` の自己登録 API を閉じる設定、authRule、OAuth2・OTP の無効化、ログイン項目、トークン期間、レート制限。
+- セキュリティに関わる項目は、管理画面で変更しても**起動のたびに強制的に戻します**：`users` の自己登録 API を閉じる設定、authRule、OAuth2・OTP の無効化、ログイン項目、トークン期間、レート制限、`user_avatars` のルール。
 
 ## 2. ボリューム
 
@@ -216,8 +218,8 @@ graph TD
   - すべての端末のトークンをすぐに失効させます。
   - `{"disabled":false}` で元に戻します。
 - **本人が自分で変更できる項目**
-  - 変更できる：`name`、`avatar`、パスワード（標準の update。`oldPassword` が必要）
-  - 変更できない：`username`、`app_user_id`、`role`、`email`、`disabled`
+  - 変更できる：`name`、パスワード（標準の update。`oldPassword` が必要）
+  - 変更できない：`username`、`app_user_id`、`role`、`email`、`disabled`、`avatar`（アバターは「9. ユーザーアバター」の `user_avatars` で登録します）
 - **他のユーザーから見える範囲**
   - 有効なユーザーの `username`・`name` は見えます（アップロードした人の表示用）。
   - `email` は非公開です。管理者から見ても非公開で、管理者 API の応答でだけ参照できます。
@@ -260,7 +262,42 @@ GET /api/app/graphql-token   (Authorization: <PocketBase token>)
 - **ダウンロード**には `POST /api/files/token` で取得する短期の file token が必要です。
 - **最大サイズ**は `PB_FILE_MAX_MB`（既定 100MB）です。Caddy を使う場合は `PB_PROXY_MAX_BODY` を少し大きめに合わせます。60MB でのアップロードは確認済みです。
 
-## 9. API 一覧（Flutter ライブラリ向け）
+## 9. ユーザーアバター
+
+アバター画像は、専用のコレクション `user_avatars` に保存します（`users.avatar` は使いません。書き込もうとすると拒否します）。
+
+| 操作 | できる人 |
+|---|---|
+| 一覧・参照・画像の取得 | 有効なユーザー全員（担当者一覧で表示するため）。未ログインでは取得できない |
+| 登録・差し替え・削除 | **本人**、または**管理者**（`role=admin` の有効なユーザー、または superuser）。管理者は他の管理者のアバターも変更できる |
+
+| 項目 | 内容 |
+|---|---|
+| 枚数・履歴 | 1人1枚。差し替えは上書きで、古い画像ファイルは自動で削除される（履歴は残さない） |
+| 形式・サイズ | JPEG / PNG / WebP、最大 `PB_AVATAR_MAX_MB`（既定 2MB）。中身で判定するので、拡張子だけ画像のファイルは 400 |
+| サムネイル | `128x128` / `256x256`（初めて要求されたときに生成） |
+| フィールド | `user`（一意。ユーザー削除時に連動削除）、`image`（protected）、`updated_by`（最後に登録・差し替えした人。自動）、`created`、`updated` |
+
+**呼び出し方**
+
+- **登録:** `POST /api/collections/user_avatars/records`（multipart：`user`、`image`）。2枚目は 400 になります。
+- **差し替え:** `PATCH /api/collections/user_avatars/records/{id}`（multipart：`image`）。`user` は変更できません。
+- **削除:** `DELETE /api/collections/user_avatars/records/{id}`
+- **取得（標準）:**
+  1. `GET /api/collections/user_avatars/records?filter=user='{pbUserId}'` でレコードを取得します。一覧画面では `user='a' || user='b' …` でまとめて取得します。
+  2. `POST /api/files/token` で file token を取得します。
+  3. `GET /api/files/user_avatars/{id}/{image}?thumb=128x128&token=…` で画像を取得します。
+- **取得（1回で）:** `GET /api/app/users/{pbUserId}/avatar?thumb=128x128` は、Authorization ヘッダーだけで取得できる入口です。
+  - file token 付きの URL へ 302 で転送します。
+  - 応答ヘッダー `X-Avatar-File` に、現在のファイル名が入ります。
+- **権限がない場合**、登録は 400、差し替え・削除は 404 になります。
+
+**注意**
+
+- **EXIF:** 原寸の画像には、位置情報などの EXIF が残ります。App 側で縮小してからアップロードしてください（例：`image_picker` の `maxWidth: 512`）。サムネイルは作り直されるので、EXIF は残りません。
+- **キャッシュ:** URL の token は毎回変わります。キャッシュのキーには `image` のファイル名を使ってください（差し替えるとファイル名が変わります）。
+
+## 10. API 一覧（Flutter ライブラリ向け）
 
 | メソッド・パス | 認証 | 用途 |
 |---|---|---|
@@ -272,6 +309,9 @@ GET /api/app/graphql-token   (Authorization: <PocketBase token>)
 | `GET /api/app/graphql-token` | 本人 | GraphQL 用 JWT |
 | `GET/POST /api/collections/app_files/records` | 本人 | 共有ファイルの一覧・アップロード |
 | `POST /api/files/token` | 本人 | ダウンロード用の file token |
+| `GET /api/collections/user_avatars/records` | 本人 | アバターの一覧・参照（全員分） |
+| `POST/PATCH/DELETE /api/collections/user_avatars/records` | 本人・管理者 | アバターの登録・差し替え・削除 |
+| `GET /api/app/users/{id}/avatar` | 本人 | アバター画像（1回で取得。302 で転送） |
 | `GET /api/collections/signup_profiles/records` | 管理者 | 申請一覧（`?expand=user`） |
 | `GET /api/collections/reset_requests/records` | 管理者 | 再設定依頼の一覧 |
 | `POST /api/app/admin/users` | 管理者 | 管理者が先に登録＋有効化コード |
@@ -280,7 +320,7 @@ GET /api/app/graphql-token   (Authorization: <PocketBase token>)
 | `POST /api/app/admin/users/{id}/reset-code` | 管理者 | 再設定コードの発行 |
 | `POST /api/app/admin/users/{id}/disable` | 管理者 | 無効化・再有効化 |
 
-`flutter_sample/lib/pb_service.dart` に、上の API を呼ぶメソッドの例があります（ライブラリ実装の参考用）。
+`flutter_sample/lib/pb_service.dart`（アバターは `avatar_api.dart`）に、上の API を呼ぶメソッドの例があります（ライブラリ実装の参考用）。
 
 | 画面・処理 | サンプルのメソッド |
 |---|---|
@@ -291,6 +331,7 @@ GET /api/app/graphql-token   (Authorization: <PocketBase token>)
 | GraphQL | `graphqlToken()`（期限 60 秒前まで使い回し） |
 | 管理者 | `adminListSignupRequests()` / `adminActivate(...)` / `adminReject(id)` / `adminListResetRequests()` / `adminResetCode(id)` / `adminSetDisabled(id, bool)` |
 | 共有ファイル | `upload(...)` / `latest(id)` / `history(id)` / `revision(id, rev)` / `downloadUrl(record)` / `downloadBytes(record)` |
+| アバター（`avatar_api.dart` の `AvatarApi`） | `find(id)` / `findMany(ids)` / `set(id, bytes, filename)` / `delete(id)` / `url(record, thumb:)` / `bytes(record)` / `cacheKey(record)` |
 
 **補足**
 
@@ -304,20 +345,29 @@ GET /api/app/graphql-token   (Authorization: <PocketBase token>)
   - 対象：申請・再設定依頼・コード受諾・`*:auth`（ログイン）。
   - Caddy を経由する場合は `PB_TRUSTED_PROXY=true` にし、さらに `PB_BIND=127.0.0.1` にして、Caddy を通らない直接アクセスを防いでください。
 
-## 10. 起動
+## 11. 起動
 
 ```bash
 cp .env.example .env
 #   PB_ENCRYPTION_KEY、PB_SUPERUSER_*、PB_DATA_DIR、PB_STORAGE_DIR、PB_APP_URL を設定
 docker compose up -d --build
 ./scripts/create_user.sh admin1 A0001 "" "管理者" admin   # 最初のアプリ管理者（コードを表示）
-./scripts/smoke_test.sh                                   # フロー・権限のテスト 79項目（空の DB で実行）
+./scripts/smoke_test.sh                                   # フロー・権限のテスト 104項目（空の DB で実行）
 ```
 
 - スクリプトには `curl` と `jq` が必要です（Raspberry Pi OS: `sudo apt install -y jq`）。
+- レート制限が有効なとき（既定）は、テストの途中で 61 秒待つ箇所があります（全体で約1〜2分）。
 
 - 管理画面は `http://<host>:8090/_/` です。
 - HTTPS を使う場合は `docker compose --profile proxy up -d` で起動します。
+
+> **アバター機能を追加する場合（この版より前の申請・承認方式の版から）**
+>
+> - 既存の `PB_DATA_DIR` のまま、`docker compose restart pocketbase` で再起動するだけで反映されます。
+>   - 再起動時に `1762200000_user_avatars.js` が適用されて、`user_avatars` が作られます。
+>   - 再ビルドは不要です。
+> - `users.avatar` に画像が入っていても移し替えは行いません。必要なら App から `user_avatars` に登録し直してください。
+> - `.env` に `PB_AVATAR_MAX_MB=2` を追記してください（省略時も 2MB）。
 
 > **以前の版（招待コード方式 `invites`、`1761955200_init_schema.js`）から更新する場合**
 >
@@ -334,7 +384,7 @@ docker compose up -d --build
 >   - `pocketbase/pb_migrations/1761955200_init_schema.js` は、残っていても動作に問題はありません。
 > - **Dockerfile・entrypoint.sh を変更したので、`docker compose up -d --build` で再ビルドしてください。**
 
-## 11. ファイル構成
+## 12. ファイル構成
 
 ```
 pb-app-service/
@@ -344,29 +394,32 @@ pb-app-service/
 │   ├── Dockerfile                         # alpine + PocketBase 公式バイナリ（arm64/armv7/amd64）。CRLF 改行を除去
 │   ├── entrypoint.sh                      # migrate up → superuser 作成/更新 → serve
 │   ├── pb_migrations/
-│   │   └── 1762041600_init_schema.js      # users 拡張 / signup_profiles / auth_codes / reset_requests / app_files
+│   │   ├── 1762041600_init_schema.js      # users 拡張 / signup_profiles / auth_codes / reset_requests / app_files
+│   │   └── 1762200000_user_avatars.js     # user_avatars（アバター）・users.avatar の更新禁止
 │   └── pb_hooks/
 │       ├── lib/common.js                  # 共通処理（正規化・コード生成/照合・メール・権限判定）
 │       ├── lib/admin.js                   # 管理者 API の共通処理（ID/メール/app_user_id の検証）
-│       ├── 10_settings_from_env.pb.js     # .env → 設定・レート制限・users のルール強制
+│       ├── 10_settings_from_env.pb.js     # .env → 設定・レート制限・users / user_avatars のルール強制
 │       ├── 15_users.pb.js                 # 小文字化・「ユーザーIDまたはEメール」ログイン・無効化ユーザーの延長拒否
 │       ├── 20_signup.pb.js                # POST /api/app/signup
 │       ├── 25_admin_users.pb.js           # 管理者 API（作成・承認・却下・再設定コード・無効化）
 │       ├── 30_codes.pb.js                 # 再設定依頼・コード受諾
 │       ├── 40_app_files.pb.js             # uploaded_by 設定・revision 採番・元ファイル名/サイズ記録
-│       └── 50_graphql_token.pb.js         # GraphQL 用 JWT
+│       ├── 50_graphql_token.pb.js         # GraphQL 用 JWT
+│       └── 60_avatars.pb.js               # アバター：updated_by 設定・users.avatar の拒否・取得用の入口 API
 ├── caddy/Caddyfile                        # HTTPS 終端（SSE をバッファリングしない・X-Forwarded-For を上書き）
 ├── scripts/
 │   ├── create_user.sh                     # 管理者が先に登録＋有効化コード（superuser）
 │   └── smoke_test.sh                      # フロー・権限テスト
 ├── flutter_sample/lib/pb_service.dart     # Flutter 側サンプル（申請・コード・ログイン・GraphQL トークン・管理者 API・共有ファイル）
 ├── flutter_sample/lib/login_page.dart     # Flutter 側サンプル（ログイン画面＋申請/再設定/コード入力への導線）
+├── flutter_sample/lib/avatar_api.dart     # Flutter 側サンプル（アバターの登録・取得）
 └── docs/card_login_research.md            # 物理カードでのログイン方式の調査
 ```
 
-## 12. 運用メモ
+## 13. 運用メモ
 
-- **バックアップ:** `PB_DATA_DIR` と `PB_STORAGE_DIR` の両方を取ります。App DB と組み合わせて使うので、App DB のバックアップと同じタイミングで取るのが理想です。
+- **バックアップ:** `PB_DATA_DIR` と `PB_STORAGE_DIR` の両方を取ります（アバター画像も `PB_STORAGE_DIR` に入ります）。App DB と組み合わせて使うので、App DB のバックアップと同じタイミングで取るのが理想です。
 - **App DB との整合性:** App DB に担当者がいて、PocketBase では申請中のまま（activate が失敗した）というズレが起きえます。管理者アプリで「App DB にある `pb_user_id` のうち、PocketBase で `status=pending` のもの」を一覧にし、activate を呼び直せるようにしてください。
 - **退職などで使わなくなったアカウント:** 削除ではなく無効化（disable）にしてください。`uploaded_by` の参照と App DB の紐付けを残すためです。
 - **古い版のファイルを消す場合:** superuser が管理画面から削除します（運用ルールで決めます）。

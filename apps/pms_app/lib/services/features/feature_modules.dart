@@ -15,6 +15,7 @@ import 'package:resource/resource.dart';
 import 'package:sales/sales.dart';
 import 'package:shared_master/shared_master.dart';
 import 'package:system/system.dart';
+import 'package:user_profile/user_profile.dart';
 import 'package:work_record/work_record.dart';
 
 import '../../imports.dart';
@@ -48,4 +49,6 @@ const List<FeatureModule> featureModules = [
   AccessControlModule(),
   // 共有ファイル・管理者の画面(ログイン前の画面は standaloneFeatureModules)
   AuthFilesModule(includeEntry: false),
+  // ユーザー情報の表示(自分のイメージ)
+  UserProfileModule(),
 ];

@@ -16,6 +16,7 @@
 /auth/files,共有ファイル,Shared files,auth_files,false
 /auth/admin/signups,新規登録の管理,Manage sign-ups,auth_files,false
 /auth/admin/resets,再設定依頼の管理,Manage reset requests,auth_files,false
+/profile/image,自分のイメージ,My image,user_profile,false
 /login,ログイン,Log in,pms_app,true
 /actual/material_transfer/register,資材移動の登録,Register material transfer,pms_app,false
 /actual/shipping,出荷の登録,Register shipping,pms_app,false

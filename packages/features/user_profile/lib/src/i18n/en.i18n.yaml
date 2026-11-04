@@ -1,0 +1,23 @@
+# Strings for the user profile (English). Mirrors "My image" in the prototype in tools/open-design.
+menu:
+  myImage: My image
+myImage:
+  title: My image
+  current: Your current image
+  choose: Choose an image file
+  note: PNG, JPEG, GIF or WebP, up to 2 MB. The photo in the app bar and on the dashboard changes.
+  reset: Restore the default image
+  changed: Your image was changed.
+  resetDone: The default image was restored.
+  readOnly: Your image is changed by an administrator. Ask an administrator if you want to change it.
+  noSession: You are not signed in, so your image cannot be shown.
+errors:
+  tooLarge: The image is too large. Choose a file of {max} MB or less.
+  invalidImage: The file cannot be read as an image. Choose a PNG, JPEG, GIF or WebP file.
+  validation: The image was not accepted. Check the format (JPEG, PNG, WebP) and the size.
+  forbidden: You do not have permission to change this image.
+  unauthorized: Sign-in is required. Please sign in again.
+  rateLimited: Too many attempts. Please try again later.
+  network: Cannot connect. Please check your connection.
+  unsupported: Files cannot be picked in this environment.
+  unknown: An unexpected error occurred.

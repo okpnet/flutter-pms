@@ -233,7 +233,28 @@ function userView(user) {
   }
 }
 
+// ------------------------------------------------------------------ アバター
+
+/**
+ * user_avatars のルール（migrations/1762200000_user_avatars.js と同じ内容）
+ *  閲覧: 有効なユーザー全員 / 登録・差し替え・削除: 本人 または 管理者
+ */
+function avatarRules() {
+  const ACTIVE = '@request.auth.collectionName = "users" && @request.auth.app_user_id != "" && @request.auth.disabled = false'
+  const ADMIN = `(${ACTIVE} && @request.auth.role = "admin")`
+  const SELF = `(${ACTIVE} && user = @request.auth.id)`
+  return {
+    listRule: ACTIVE,
+    viewRule: ACTIVE,
+    createRule: `(${ACTIVE} && @request.body.user = @request.auth.id) || ${ADMIN}`,
+    updateRule: `(${SELF} || ${ADMIN}) && @request.body.user:isset = false`,
+    deleteRule: `${SELF} || ${ADMIN}`,
+  }
+}
+const AVATAR_THUMBS = ["128x128", "256x256"]
+
 module.exports = {
+  avatarRules, AVATAR_THUMBS,
   env, envInt, envBool, str,
   normUsername, normEmail, isValidUsername, isValidEmail, fieldError,
   isActive, isPending, isActivated, requireAdmin, guardAdminTarget,

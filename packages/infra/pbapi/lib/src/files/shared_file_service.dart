@@ -160,21 +160,25 @@ class SharedFileService {
   );
 }
 
-/// レコードのファイル項目(`file`)を、短時間だけ有効なトークンでダウンロードする。
-/// URL(トークン入り)は例外・ログに出さない。共有ファイルと個人ファイルで共用する。
+/// レコードのファイル項目([field]。既定は `file`)を、短時間だけ有効なトークンでダウンロードする。
+/// [thumb] はサムネイルの大きさ(画像のみ)。
+/// URL(トークン入り)は例外・ログに出さない。共有ファイル・個人ファイル・アバターで共用する。
 Future<Uint8List> fetchRecordFile(
   PbConnection connection,
   RecordModel record,
-  String operation,
-) async {
+  String operation, {
+  String field = 'file',
+  String? thumb,
+}) async {
   final token = await connection.guard(
     operation,
     () => connection.pb.files.getToken(),
   );
   final url = connection.pb.files.getURL(
     record,
-    record.getStringValue('file'),
+    record.getStringValue(field),
     token: token,
+    thumb: thumb,
   );
   final client = connection.newHttpClient();
   try {

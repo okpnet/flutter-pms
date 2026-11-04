@@ -5,6 +5,8 @@
 library;
 
 export 'src/account/account_service.dart';
+export 'src/avatar/avatar_service.dart';
+export 'src/avatar/user_avatar.dart';
 export 'src/admin/admin_service.dart';
 export 'src/admin/issued_code.dart';
 export 'src/admin/reset_request.dart';

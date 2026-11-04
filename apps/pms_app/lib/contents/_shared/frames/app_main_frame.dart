@@ -1,6 +1,8 @@
 import 'package:app_core/app_core.dart';
 import 'package:app_core/app_core_api.dart';
 import 'package:app_shell/app_shell.dart';
+import 'package:user_profile/user_profile.dart';
+import 'package:user_profile/user_profile_api.dart';
 
 import '../../../imports.dart';
 import '../../../services/features/feature_modules.dart';
@@ -20,13 +22,20 @@ class AppMainFrame extends ConsumerWidget {
     final t = ref.watch(appCoreStringsProvider);
     final bus = ref.read(commandBusProvider);
     final summary = ref.watch(userSummaryProvider);
+    // 顔写真(user_profile)。取得中・取得できないときは写真なし(名前の頭文字)にして、枠の表示は止めない
+    final photo = ref.watch(userAvatarProvider).value?.image;
     return MultiMainFrame(
       title: t.app.title,
       menu: _menu(context, ref, t),
       user: summary == null
           ? null
-          : AppUser(name: summary.name, role: summary.role),
+          : AppUser(name: summary.name, role: summary.role, photo: photo),
       userActions: [
+        UserMenuAction(
+          label: ref.watch(userProfileStringsProvider).menu.myImage,
+          icon: Icons.account_circle_outlined,
+          onSelected: () => bus.execute(const MyImageDestination()),
+        ),
         UserMenuAction(
           label: t.shell.settings,
           icon: Icons.settings_outlined,

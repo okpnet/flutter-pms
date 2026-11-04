@@ -8,6 +8,7 @@
  *  - リバースプロキシ (X-Forwarded-For)
  *  - users のセキュリティ設定を強制 (自己登録 API を閉じる・authRule・OAuth2/OTP 無効)
  *  - app_files の最大ファイルサイズ
+ *  - user_avatars のルール (本人・管理者のみ登録) と最大サイズ (PB_AVATAR_MAX_MB)
  *
  * 任意項目は、環境変数が空なら変更しない (管理画面での設定を尊重)。
  * セキュリティに関わる users の設定だけは、管理画面で変更しても起動のたびに戻す。
@@ -92,6 +93,18 @@ onBootstrap((e) => {
     const files = e.app.findCollectionByNameOrId("app_files")
     files.fields.getByName("file").maxSize = c.envInt("PB_FILE_MAX_MB", 100) * 1024 * 1024
     e.app.save(files)
+
+    // ---------- user_avatars (ルールは常に強制) ----------
+    const avatars = e.app.findCollectionByNameOrId("user_avatars")
+    const r = c.avatarRules()
+    avatars.listRule = r.listRule
+    avatars.viewRule = r.viewRule
+    avatars.createRule = r.createRule
+    avatars.updateRule = r.updateRule
+    avatars.deleteRule = r.deleteRule
+    const avatarMb = parseFloat(c.env("PB_AVATAR_MAX_MB", "2"))
+    avatars.fields.getByName("image").maxSize = Math.floor((avatarMb > 0 ? avatarMb : 2) * 1024 * 1024)
+    e.app.save(avatars)
 
     console.log("[settings] applied from env")
   } catch (err) {

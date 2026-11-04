@@ -512,7 +512,7 @@ void main() {
       );
     });
 
-    test('プロフィール変更は名前とアバターだけを送る。未ログインはunauthorized', () async {
+    test('プロフィール変更は名前だけを送る(アバターはAvatarService)。未ログインはunauthorized', () async {
       await expectLater(
         account.updateProfile(name: 'x'),
         throwsA(
@@ -529,16 +529,14 @@ void main() {
         '/api/collections/users/records/u1',
         (r) => server.json(authBody()['record']),
       );
-      await account.updateProfile(name: 'tanaka', avatarBytes: [1, 2, 3]);
+      await account.updateProfile(name: 'tanaka');
       final body = server
           .where('PATCH', '/api/collections/users/records/u1')
           .single
           .body;
-      expect(body, contains('name="avatar"'));
-      expect(
-        body,
-        contains('{"name":"tanaka"}'),
-      ); // SDK ã¯æ¬æã @jsonPayload ã«ã¾ã¨ãã
+      expect(body, contains('"name":"tanaka"'));
+      // users.avatar はサーバーが拒否するため送らない
+      expect(body, isNot(contains('avatar')));
       expect(body, isNot(contains('username')));
       expect(body, isNot(contains('role')));
     });

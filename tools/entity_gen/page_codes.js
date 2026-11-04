@@ -39,6 +39,7 @@ const FEATURES = {
   dashboard_container: { code: 'B', label: 'ダッシュボードのコンテナ' },
   auth_files: { code: 'U', label: '認証・ファイル共有' },
   access_control: { code: 'X', label: 'アクセス管理' },
+  user_profile: { code: 'F', label: 'ユーザー情報(顔写真)' },
 };
 
 /** 実体の台帳・編集ではない画面(手書き)。 */
@@ -61,6 +62,7 @@ const EXTRA_SCREENS = {
     ['adminsignups', '新規登録の管理', 'A'],
     ['adminresets', '再設定依頼の管理', 'Q'],
   ],
+  user_profile: [['image', '自分のイメージ', 'I']],
   maintenance: [['maintenance', 'メンテナンス中', 'M']],
   barcode_entry: [['top', 'リーディングトップ', 'T']],
   production_plan: [['mrp', '資材所要計算(MRP)', 'M']],
