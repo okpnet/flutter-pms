@@ -11,31 +11,30 @@ enum UserContainerSize {
   /// サイドバー向け。標準的な顔写真 + 表示項目。メニューがあるときだけ ▼ を出す。
   medium,
 
-  /// ダイアログ向け。大きめの顔写真 + 表示項目 + 呼び出し元が渡す詳細。メニューは持たない。
+  /// ダイアログ向け。大きめの顔写真 + 表示項目 + 呼び出し元が渡す詳細。操作([UserContainer.actions])はボタンの行にする。
   large,
 }
-
-/// [UserContainer] に表示する項目(medium・large で選べる)。
-enum UserField { name, callName, role, department }
 
 /// 呼び出し元が渡す詳細情報を、表示のたびに作るデリゲート(large)。
 typedef UserDetailBuilder = Widget Function(BuildContext context, AppUser user);
 
-/// ログインユーザーの表示(顔写真・名前・呼称・役割・部署)と、ユーザーメニュー(設定・ログアウトなど)。
+/// ログインユーザーの表示(顔写真 + 見出し・タイトル・サブタイトル)と、ユーザーメニュー(設定・ログアウトなど)。
+///
+/// 表示する項目は提供者(アプリなど)が決める。[AppUser.heading](見出し)・[AppUser.name](タイトル)・
+/// [AppUser.role](サブタイトル)のうち、空のものは表示しない。
 ///
 /// 表示パターンは [UserContainerSize]。
 /// - small: 顔写真のみ。[actions] があればタップでメニュー(▼なし)
-/// - medium: 顔写真 + [fields]。[actions] があるときだけ ▼ とメニュー
-/// - large: 大きな顔写真 + [fields] + [detail]。メニューは持たない
+/// - medium: 顔写真 + 項目。[actions] があるときだけ ▼ とメニュー
+/// - large: 大きな顔写真 + 項目 + [detail]。[actions] はメニューではなくボタンの行
 ///
-/// [actions] が空のときは、▼ もメニューも出さない。
+/// [actions] が空のときは、▼もメニューもボタンも出さない。
 class UserContainer extends StatelessWidget {
   const UserContainer({
     super.key,
     required this.user,
     this.actions = const [],
     this.size = UserContainerSize.medium,
-    this.fields = const {UserField.name, UserField.role},
     this.detail,
     this.labels = const AppShellLabels(),
   });
@@ -43,9 +42,6 @@ class UserContainer extends StatelessWidget {
   final AppUser user;
   final List<UserMenuAction> actions;
   final UserContainerSize size;
-
-  /// 表示する項目(small では無視)。
-  final Set<UserField> fields;
 
   /// 詳細情報の表示(large だけ)。
   final UserDetailBuilder? detail;
@@ -56,16 +52,6 @@ class UserContainer extends StatelessWidget {
     UserContainerSize.medium => 18,
     UserContainerSize.large => 48,
   };
-
-  String? _value(UserField f) {
-    final v = switch (f) {
-      UserField.name => user.name,
-      UserField.callName => user.callName,
-      UserField.role => user.role,
-      UserField.department => user.department,
-    };
-    return v.isEmpty ? null : v;
-  }
 
   Widget _avatar() {
     final radius = avatarRadius(size);
@@ -81,18 +67,20 @@ class UserContainer extends StatelessWidget {
     );
   }
 
-  Widget _texts(ThemeData theme) {
+  Widget? _texts(ThemeData theme) {
     final large = size == UserContainerSize.large;
-    final items = <Widget>[];
-    for (final f in UserField.values) {
-      if (!fields.contains(f)) continue;
-      final v = _value(f);
-      if (v == null) continue;
-      final style = f == UserField.name
-          ? (large ? theme.textTheme.titleLarge : theme.textTheme.labelLarge)
-          : theme.textTheme.bodySmall;
-      items.add(Text(v, style: style));
-    }
+    final items = <Widget>[
+      if (user.heading.isNotEmpty)
+        Text(user.heading, style: theme.textTheme.labelSmall),
+      if (user.name.isNotEmpty)
+        Text(
+          user.name,
+          style: large ? theme.textTheme.titleLarge : theme.textTheme.labelLarge,
+        ),
+      if (user.role.isNotEmpty)
+        Text(user.role, style: theme.textTheme.bodySmall),
+    ];
+    if (items.isEmpty) return null;
     return Column(
       crossAxisAlignment: large
           ? CrossAxisAlignment.center
@@ -105,6 +93,7 @@ class UserContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final texts = _texts(theme);
     switch (size) {
       case UserContainerSize.small:
         return _withMenu(_avatar());
@@ -115,7 +104,7 @@ class UserContainer extends StatelessWidget {
             spacing: 8,
             children: [
               _avatar(),
-              if (fields.isNotEmpty) _texts(theme),
+              ?texts,
               if (actions.isNotEmpty) const Icon(Icons.arrow_drop_down),
             ],
           ),
@@ -126,8 +115,22 @@ class UserContainer extends StatelessWidget {
           spacing: 12,
           children: [
             _avatar(),
-            if (fields.isNotEmpty) _texts(theme),
+            ?texts,
             ?detail?.call(context, user),
+            if (actions.isNotEmpty)
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                alignment: WrapAlignment.center,
+                children: [
+                  for (final a in actions)
+                    OutlinedButton.icon(
+                      onPressed: a.onSelected,
+                      icon: a.icon == null ? null : Icon(a.icon, size: 18),
+                      label: Text(a.label),
+                    ),
+                ],
+              ),
           ],
         );
     }

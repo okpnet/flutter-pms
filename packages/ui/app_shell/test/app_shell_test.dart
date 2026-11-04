@@ -149,8 +149,7 @@ void main() {
     const user = AppUser(
       name: '鈴木 一郎',
       role: '課長',
-      callName: 'いっちゃん',
-      department: '生産管理部',
+      heading: '生産管理部',
     );
     final actions = [UserMenuAction(label: '設定', onSelected: () {})];
     Widget host(Widget child) =>
@@ -175,27 +174,28 @@ void main() {
       expect(find.text('設定'), findsOneWidget);
     });
 
-    testWidgets('medium: 項目を選べる。メニューがあるときだけ▼', (tester) async {
+    testWidgets('medium: 見出し・タイトル・サブタイトル。空は出さない。メニューがあるときだけ▼', (tester) async {
       await tester.pumpWidget(
-        host(
-          UserContainer(
-            user: user,
-            fields: const {UserField.callName, UserField.department},
-            actions: actions,
-          ),
-        ),
+        host(UserContainer(user: user, actions: actions)),
       );
-      expect(find.text('いっちゃん'), findsOneWidget);
       expect(find.text('生産管理部'), findsOneWidget);
-      expect(find.text('鈴木 一郎'), findsNothing);
+      expect(find.text('鈴木 一郎'), findsOneWidget);
+      expect(find.text('課長'), findsOneWidget);
       expect(find.byIcon(Icons.arrow_drop_down), findsOneWidget);
+
+      await tester.pumpWidget(
+        host(const UserContainer(user: AppUser(name: '鈴木 一郎'))),
+      );
+      expect(find.text('鈴木 一郎'), findsOneWidget);
+      expect(find.text('課長'), findsNothing);
+      expect(find.text('生産管理部'), findsNothing);
 
       await tester.pumpWidget(host(const UserContainer(user: user)));
       expect(find.byIcon(Icons.arrow_drop_down), findsNothing);
       expect(find.byType(PopupMenuButton<UserMenuAction>), findsNothing);
     });
 
-    testWidgets('large: 大きな顔写真と詳細。メニューは持たない', (tester) async {
+    testWidgets('large: 大きな顔写真と詳細。操作はメニューではなくボタン', (tester) async {
       await tester.pumpWidget(host(const UserContainer(user: user)));
       final medium = radius(tester);
       await tester.pumpWidget(
@@ -203,7 +203,6 @@ void main() {
           UserContainer(
             user: user,
             size: UserContainerSize.large,
-            fields: UserField.values.toSet(),
             actions: actions,
             detail: (context, u) => Text('詳細:${u.name}'),
           ),
@@ -214,6 +213,19 @@ void main() {
       expect(find.text('生産管理部'), findsOneWidget);
       expect(find.byType(PopupMenuButton<UserMenuAction>), findsNothing);
       expect(find.byIcon(Icons.arrow_drop_down), findsNothing);
+      expect(find.widgetWithText(OutlinedButton, '設定'), findsOneWidget);
+    });
+
+    testWidgets('タイトルバーの表示パターンは提供者(userSize)が決められる', (tester) async {
+      Widget bar(UserContainerSize? s) => MaterialApp(
+        home: Scaffold(
+          appBar: AppTitleBar(title: 't', user: user, userSize: s),
+        ),
+      );
+      await tester.pumpWidget(bar(null));
+      expect(find.text('鈴木 一郎'), findsOneWidget); // 既定は medium
+      await tester.pumpWidget(bar(UserContainerSize.small));
+      expect(find.text('鈴木 一郎'), findsNothing);
     });
 
     test('顔写真の大きさの順: small < medium < large', () {

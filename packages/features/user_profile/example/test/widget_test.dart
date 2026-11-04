@@ -2,7 +2,14 @@ import 'dart:convert';
 
 import 'package:app_shell/app_shell.dart';
 import 'package:flutter/material.dart'
-    show FilledButton, Icons, MemoryImage, PopupMenuButton, Size;
+    show
+        FilledButton,
+        Icons,
+        MemoryImage,
+        OutlinedButton,
+        PopupMenuButton,
+        PopupMenuItem,
+        Size;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:user_profile/user_profile.dart';
@@ -70,13 +77,20 @@ void main() {
     // ▼ は medium(メニューあり)だけ。small・メニューなしには出ない。
     expect(find.byIcon(Icons.arrow_drop_down), findsOneWidget);
     expect(find.byType(PopupMenuButton<UserMenuAction>), findsNWidgets(2));
-    expect(find.text('たろうさん'), findsOneWidget);
+    // 見出しは提供者が渡したときだけ(large の例だけが渡す)
+    expect(find.text('生産管理部'), findsOneWidget);
     expect(find.text('詳細情報(呼び出し元が渡したWidget)'), findsOneWidget);
+
+    // large の操作はメニューではなくボタン
+    expect(find.widgetWithText(OutlinedButton, 'ログアウト'), findsOneWidget);
+    await tester.tap(find.widgetWithText(OutlinedButton, '設定'));
+    await tester.pumpAndSettle();
+    expect(find.text('選んだ項目: 設定'), findsOneWidget);
 
     // small はタップでメニューが開く
     await tester.tap(find.byType(PopupMenuButton<UserMenuAction>).first);
     await tester.pumpAndSettle();
-    await tester.tap(find.text('ログアウト'));
+    await tester.tap(find.widgetWithText(PopupMenuItem<UserMenuAction>, 'ログアウト'));
     await tester.pumpAndSettle();
     expect(find.text('選んだ項目: ログアウト'), findsOneWidget);
   });

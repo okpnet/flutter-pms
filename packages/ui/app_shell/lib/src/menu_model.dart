@@ -52,17 +52,13 @@ class AppUser {
     required this.name,
     this.role = '',
     this.photo,
-    this.callName = '',
-    this.department = '',
+    this.heading = '',
   });
 
   final String name;
 
-  /// 呼称(愛称・敬称つきの呼び名など)。
-  final String callName;
-
-  /// 部署。
-  final String department;
+  /// 見出し(タイトルの上に小さく出す。空なら表示しない)。
+  final String heading;
 
   /// 役割・所属など(名前の下に出す)。
   final String role;

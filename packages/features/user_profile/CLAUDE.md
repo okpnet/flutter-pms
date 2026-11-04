@@ -12,11 +12,13 @@
 1.  ログインしていない(`userSummaryProvider` が null)ときは、何も取得しない。
 
 ## 表示パターン
-表示の部品は `app_shell` の `UserContainer`(`size: UserContainerSize`)。表示項目は `fields`(`UserField`: name・callName・role・department)で呼び出し元が選ぶ。
+表示の部品は `app_shell` の `UserContainer`(`size: UserContainerSize`)。
+1.  表示する項目は提供者(`pms_app` などの呼び出し元)が決める。`AppUser` の見出し(`heading`)・タイトル(`name`)・サブタイトル(`role`)に分けて受け取り、空の項目は表示しない。small では項目を出さない。
 1.  small(タイトルバー): 小さめの顔写真のみ。プルダウンアイコンは出さず、タップでメニュー。
-1.  medium(サイドバー): small よりわずかに大きい標準の顔写真 + 表示項目。
-1.  large(ダイアログ): 大きめの顔写真 + 表示項目 + 詳細情報。詳細は Widget を作るデリゲート(`UserDetailBuilder`)で受け取る。メニューは持たない。
-1.  small・medium はメニュー(`actions`)を受け取る。受け取らないとき(空)は、プルダウンアイコンもメニューも出さない。
+1.  medium(サイドバー): small よりわずかに大きい標準の顔写真 + 見出し・タイトル・サブタイトル。
+1.  large(ダイアログ): 大きめの顔写真 + 見出し・タイトル・サブタイトル + 詳細情報。詳細は Widget を作るデリゲート(`UserDetailBuilder`)で受け取る。操作(`actions`)はメニューではなく、ボタンの行で出す。
+1.  small・medium はメニュー(`actions`)を受け取る。受け取らないとき(空)は、プルダウンアイコンもメニューも(largeはボタンも)出さない。
+1.  タイトルバーの表示パターンは提供者が決める(`AppTitleBar`・`MultiMainFrame` の `userSize`)。指定しないときは、モバイルが small、それ以外は medium。
 
 ## 画面と遷移
 | 画面 | 遷移先 | パス | 枠 |

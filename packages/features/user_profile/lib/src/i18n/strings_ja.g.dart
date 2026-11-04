@@ -139,14 +139,14 @@ class UserProfileStrings$display$ja {
 	/// ja: 'small(タイトルバー向け。顔写真のみ。タップでメニュー)'
 	String get small => 'small(タイトルバー向け。顔写真のみ。タップでメニュー)';
 
-	/// ja: 'medium(サイドバー向け。顔写真 + 表示項目。メニューがあるときだけ ▼)'
-	String get medium => 'medium(サイドバー向け。顔写真 + 表示項目。メニューがあるときだけ ▼)';
+	/// ja: 'medium(サイドバー向け。顔写真 + 見出し・タイトル・サブタイトル。メニューがあるときだけ ▼)'
+	String get medium => 'medium(サイドバー向け。顔写真 + 見出し・タイトル・サブタイトル。メニューがあるときだけ ▼)';
 
 	/// ja: 'medium(メニューなし。▼ もメニューも出さない)'
 	String get mediumNoMenu => 'medium(メニューなし。▼ もメニューも出さない)';
 
-	/// ja: 'large(ダイアログ向け。大きな顔写真 + 表示項目 + 詳細)'
-	String get large => 'large(ダイアログ向け。大きな顔写真 + 表示項目 + 詳細)';
+	/// ja: 'large(ダイアログ向け。大きな顔写真 + 項目 + 詳細 + 操作のボタン)'
+	String get large => 'large(ダイアログ向け。大きな顔写真 + 項目 + 詳細 + 操作のボタン)';
 
 	/// ja: '詳細情報(呼び出し元が渡したWidget)'
 	String get detail => '詳細情報(呼び出し元が渡したWidget)';
@@ -160,11 +160,11 @@ class UserProfileStrings$display$ja {
 	/// ja: '選んだ項目: {label}'
 	String picked({required Object label}) => '選んだ項目: ${label}';
 
-	/// ja: 'たろうさん'
-	String get sampleCallName => 'たろうさん';
-
 	/// ja: '生産管理部'
-	String get sampleDepartment => '生産管理部';
+	String get sampleHeading => '生産管理部';
+
+	/// ja: '課長'
+	String get sampleSubtitle => '課長';
 }
 
 /// The flat map containing all translations for locale <ja>.
@@ -196,15 +196,15 @@ extension on UserProfileStrings {
 			'errors.unknown' => '予期しないエラーが発生しました。',
 			'display.title' => '表示パターン',
 			'display.small' => 'small(タイトルバー向け。顔写真のみ。タップでメニュー)',
-			'display.medium' => 'medium(サイドバー向け。顔写真 + 表示項目。メニューがあるときだけ ▼)',
+			'display.medium' => 'medium(サイドバー向け。顔写真 + 見出し・タイトル・サブタイトル。メニューがあるときだけ ▼)',
 			'display.mediumNoMenu' => 'medium(メニューなし。▼ もメニューも出さない)',
-			'display.large' => 'large(ダイアログ向け。大きな顔写真 + 表示項目 + 詳細)',
+			'display.large' => 'large(ダイアログ向け。大きな顔写真 + 項目 + 詳細 + 操作のボタン)',
 			'display.detail' => '詳細情報(呼び出し元が渡したWidget)',
 			'display.menuSettings' => '設定',
 			'display.menuLogout' => 'ログアウト',
 			'display.picked' => ({required Object label}) => '選んだ項目: ${label}',
-			'display.sampleCallName' => 'たろうさん',
-			'display.sampleDepartment' => '生産管理部',
+			'display.sampleHeading' => '生産管理部',
+			'display.sampleSubtitle' => '課長',
 			_ => null,
 		};
 	}

@@ -17,6 +17,7 @@ class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
     this.showHamburger = false,
     this.onOpenMenu,
     this.compactUser = false,
+    this.userSize,
     this.labels = const AppShellLabels(),
   });
 
@@ -31,6 +32,9 @@ class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showHamburger;
   final VoidCallback? onOpenMenu;
   final bool compactUser;
+
+  /// ユーザーの表示パターン。null のとき compactUser で決める(true: small、false: medium)。提供者が決められる。
+  final UserContainerSize? userSize;
   final AppShellLabels labels;
 
   @override
@@ -62,9 +66,10 @@ class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
             child: UserContainer(
               user: user!,
               actions: userActions,
-              size: compactUser
-                  ? UserContainerSize.small
-                  : UserContainerSize.medium,
+              size: userSize ??
+                  (compactUser
+                      ? UserContainerSize.small
+                      : UserContainerSize.medium),
               labels: labels,
             ),
           ),

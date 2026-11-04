@@ -99,15 +99,15 @@ class _UserProfileStrings$display$en extends UserProfileStrings$display$ja {
 	// Translations
 	@override String get title => 'Display patterns';
 	@override String get small => 'small (title bar - photo only; tap opens the menu)';
-	@override String get medium => 'medium (sidebar - photo + fields; the arrow shows only with a menu)';
+	@override String get medium => 'medium (sidebar - photo + heading, title, subtitle; the arrow shows only with a menu)';
 	@override String get mediumNoMenu => 'medium (no menu - no arrow, no menu)';
-	@override String get large => 'large (dialog - large photo + fields + detail)';
+	@override String get large => 'large (dialog - large photo + fields + detail + action buttons)';
 	@override String get detail => 'Detail (a widget supplied by the caller)';
 	@override String get menuSettings => 'Settings';
 	@override String get menuLogout => 'Sign out';
 	@override String picked({required Object label}) => 'Selected: ${label}';
-	@override String get sampleCallName => 'Taro-san';
-	@override String get sampleDepartment => 'Production control';
+	@override String get sampleHeading => 'Production control';
+	@override String get sampleSubtitle => 'Manager';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -139,15 +139,15 @@ extension on UserProfileStringsEn {
 			'errors.unknown' => 'An unexpected error occurred.',
 			'display.title' => 'Display patterns',
 			'display.small' => 'small (title bar - photo only; tap opens the menu)',
-			'display.medium' => 'medium (sidebar - photo + fields; the arrow shows only with a menu)',
+			'display.medium' => 'medium (sidebar - photo + heading, title, subtitle; the arrow shows only with a menu)',
 			'display.mediumNoMenu' => 'medium (no menu - no arrow, no menu)',
-			'display.large' => 'large (dialog - large photo + fields + detail)',
+			'display.large' => 'large (dialog - large photo + fields + detail + action buttons)',
 			'display.detail' => 'Detail (a widget supplied by the caller)',
 			'display.menuSettings' => 'Settings',
 			'display.menuLogout' => 'Sign out',
 			'display.picked' => ({required Object label}) => 'Selected: ${label}',
-			'display.sampleCallName' => 'Taro-san',
-			'display.sampleDepartment' => 'Production control',
+			'display.sampleHeading' => 'Production control',
+			'display.sampleSubtitle' => 'Manager',
 			_ => null,
 		};
 	}

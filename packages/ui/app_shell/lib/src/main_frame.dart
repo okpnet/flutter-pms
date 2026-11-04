@@ -6,6 +6,7 @@ import 'hamburger_menu.dart';
 import 'menu_model.dart';
 import 'side_bar.dart';
 import 'title_bar.dart';
+import 'user_container.dart';
 
 /// マルチメインフレーム: タイトルバー + サイドバー + メインの3つの子を持つ。
 ///
@@ -22,6 +23,7 @@ class MultiMainFrame extends StatelessWidget {
     this.userActions = const [],
     this.logo,
     this.sidebarIconOnly = false,
+    this.userSize,
     this.labels = const AppShellLabels(),
   });
 
@@ -34,6 +36,9 @@ class MultiMainFrame extends StatelessWidget {
 
   /// 設定でアイコンだけにする。
   final bool sidebarIconOnly;
+
+  /// タイトルバーのユーザー表示。null のときは、モバイルが small、それ以外は medium。
+  final UserContainerSize? userSize;
   final AppShellLabels labels;
 
   @override
@@ -54,6 +59,7 @@ class MultiMainFrame extends StatelessWidget {
         showHamburger: mobile && hasMenu,
         onOpenMenu: () => scaffoldKey.currentState?.openDrawer(),
         compactUser: mobile,
+        userSize: userSize,
         labels: labels,
       ),
       drawer: mobile && hasMenu ? HamburgerMenu(menu: menu) : null,

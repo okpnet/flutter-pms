@@ -24,12 +24,12 @@ errors:
 display:
   title: 表示パターン
   small: small(タイトルバー向け。顔写真のみ。タップでメニュー)
-  medium: medium(サイドバー向け。顔写真 + 表示項目。メニューがあるときだけ ▼)
+  medium: medium(サイドバー向け。顔写真 + 見出し・タイトル・サブタイトル。メニューがあるときだけ ▼)
   mediumNoMenu: medium(メニューなし。▼ もメニューも出さない)
-  large: large(ダイアログ向け。大きな顔写真 + 表示項目 + 詳細)
+  large: large(ダイアログ向け。大きな顔写真 + 項目 + 詳細 + 操作のボタン)
   detail: 詳細情報(呼び出し元が渡したWidget)
   menuSettings: 設定
   menuLogout: ログアウト
   picked: '選んだ項目: {label}'
-  sampleCallName: たろうさん
-  sampleDepartment: 生産管理部
+  sampleHeading: 生産管理部
+  sampleSubtitle: 課長

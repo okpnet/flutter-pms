@@ -24,12 +24,12 @@ errors:
 display:
   title: Display patterns
   small: small (title bar - photo only; tap opens the menu)
-  medium: medium (sidebar - photo + fields; the arrow shows only with a menu)
+  medium: medium (sidebar - photo + heading, title, subtitle; the arrow shows only with a menu)
   mediumNoMenu: medium (no menu - no arrow, no menu)
-  large: large (dialog - large photo + fields + detail)
+  large: large (dialog - large photo + fields + detail + action buttons)
   detail: Detail (a widget supplied by the caller)
   menuSettings: Settings
   menuLogout: Sign out
   picked: 'Selected: {label}'
-  sampleCallName: Taro-san
-  sampleDepartment: Production control
+  sampleHeading: Production control
+  sampleSubtitle: Manager

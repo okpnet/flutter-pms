@@ -26,10 +26,15 @@ class _UserDisplayPageState extends ConsumerState<UserDisplayPage> {
     final photo = ref.watch(userAvatarProvider).value?.image;
     final user = AppUser(
       name: summary?.name ?? '',
-      role: summary?.role ?? '',
+      role: t.display.sampleSubtitle,
       photo: photo,
-      callName: t.display.sampleCallName,
-      department: t.display.sampleDepartment,
+      heading: t.display.sampleHeading,
+    );
+    // 提供者が項目を決める: 見出しが空なら表示しない。
+    final noHeading = AppUser(
+      name: user.name,
+      role: user.role,
+      photo: user.photo,
     );
     List<UserMenuAction> actions() => [
       for (final (label, icon) in [
@@ -69,18 +74,17 @@ class _UserDisplayPageState extends ConsumerState<UserDisplayPage> {
           section(
             t.display.medium,
             UserContainer(
-              user: user,
-              fields: const {UserField.name, UserField.department},
+              user: noHeading,
               actions: actions(),
             ),
           ),
-          section(t.display.mediumNoMenu, UserContainer(user: user)),
+          section(t.display.mediumNoMenu, UserContainer(user: noHeading)),
           section(
             t.display.large,
             UserContainer(
               user: user,
               size: UserContainerSize.large,
-              fields: UserField.values.toSet(),
+              actions: actions(),
               detail: (context, u) => Text(t.display.detail),
             ),
           ),
