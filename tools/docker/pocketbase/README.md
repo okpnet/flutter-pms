@@ -338,6 +338,7 @@ GET /api/app/graphql-token   (Authorization: <PocketBase token>)
 - **管理者とは**、`role=admin` かつ有効なユーザー、または superuser のことです。
   - `role` は superuser だけが変更できます（管理画面、または `create_user.sh`）。
   - 管理者アカウントを対象にした操作（再設定・無効化など）は superuser だけが実行できます。
+    - 例外：アバター（`user_avatars`）の登録・差し替え・削除は、管理者が他の管理者のアバターに対しても行えます（「9. ユーザーアバター」）。
 - **エラーの形式**は PocketBase 標準の `{status, message, data:{<field>:{code, message}}}` です。
   - PocketBase はメッセージの末尾に `.` を付けます。
   - App 側では、ステータスコードと `data` のフィールド名で表示を切り替えることを推奨します。

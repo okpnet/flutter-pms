@@ -366,6 +366,15 @@ void main() {
       });
     });
 
+    testWidgets('GIFもPNGに変換する(サーバーはGIFを受け付けない)', (tester) async {
+      await tester.runAsync(() async {
+        final gif = base64Decode('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+        final png = await const UiImageNormalizer().normalize(gif);
+        expect(png.sublist(0, 8), [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]);
+        expect(await sizeOf(png), (1, 1));
+      });
+    });
+
     testWidgets('画像として読み込めないバイト列はInvalidImageException', (tester) async {
       await tester.runAsync(() async {
         await expectLater(
