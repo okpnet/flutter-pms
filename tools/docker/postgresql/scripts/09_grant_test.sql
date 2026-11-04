@@ -1,9 +1,87 @@
-\c test_avocado
-GRANT ALL ON ALL SEQUENCES IN SCHEMA tests TO pms_admin,tester_admin;
-GRANT ALL ON ALL FUNCTIONS IN SCHEMA tests TO pms_admin,tester_admin;
-GRANT ALL ON ALL TABLES IN SCHEMA tests TO pms_admin,tester_admin;
+\c ${DB_TEST_SVR}
 
-GRANT CREATE ON DATABASE test_avocado TO pms_admin,tester_admin;
-GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA tests TO pms_admin,tester_admin;
-GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA tests TO pms_user;
-GRANT SELECT,UPDATE,DELETE ON ALL TABLES IN SCHEMA  tests TO pms_user;
+-- ============================================================
+-- 06〜08 で（初期化実行ユーザーにより）作成されたオブジェクトのオーナーを
+-- オーナーロールへ付け替える
+-- ※ ALTER SCHEMA ... OWNER はスキーマ自体のみが対象で、中のオブジェクトは変わらないため個別に変更する
+-- ============================================================
+DO $$
+DECLARE
+    v_schema text := '${DB_TEST_SCHEMA}';
+    v_owner  text := '${APP_OWNER_ID}';
+    r record;
+BEGIN
+    -- テーブル・ビュー・マテビュー・外部テーブル・複合型
+    -- （テーブルを先に変更すると、serial/identity の紐付きシーケンスも自動で付け替わる）
+    FOR r IN
+        SELECT c.oid::regclass AS obj, c.relkind
+          FROM pg_class c
+          JOIN pg_namespace n ON n.oid = c.relnamespace
+         WHERE n.nspname = v_schema
+           AND c.relkind IN ('r', 'p', 'v', 'm', 'f', 'c')
+           AND pg_get_userbyid(c.relowner) <> v_owner
+    LOOP
+        EXECUTE format('ALTER %s %s OWNER TO %I',
+            CASE r.relkind
+                WHEN 'v' THEN 'VIEW'
+                WHEN 'm' THEN 'MATERIALIZED VIEW'
+                WHEN 'f' THEN 'FOREIGN TABLE'
+                WHEN 'c' THEN 'TYPE'
+                ELSE 'TABLE'
+            END, r.obj, v_owner);
+    END LOOP;
+
+    -- 単独シーケンス（テーブルに紐付くものは上で付け替え済みのため対象外になる）
+    FOR r IN
+        SELECT c.oid::regclass AS obj
+          FROM pg_class c
+          JOIN pg_namespace n ON n.oid = c.relnamespace
+         WHERE n.nspname = v_schema
+           AND c.relkind = 'S'
+           AND pg_get_userbyid(c.relowner) <> v_owner
+    LOOP
+        EXECUTE format('ALTER SEQUENCE %s OWNER TO %I', r.obj, v_owner);
+    END LOOP;
+
+    -- 関数・プロシージャ・集約
+    FOR r IN
+        SELECT p.oid::regprocedure AS obj
+          FROM pg_proc p
+          JOIN pg_namespace n ON n.oid = p.pronamespace
+         WHERE n.nspname = v_schema
+           AND pg_get_userbyid(p.proowner) <> v_owner
+    LOOP
+        EXECUTE format('ALTER ROUTINE %s OWNER TO %I', r.obj, v_owner);
+    END LOOP;
+
+    -- 列挙型・ドメイン・範囲型
+    FOR r IN
+        SELECT t.oid::regtype AS obj, t.typtype
+          FROM pg_type t
+          JOIN pg_namespace n ON n.oid = t.typnamespace
+         WHERE n.nspname = v_schema
+           AND t.typtype IN ('e', 'd', 'r')
+           AND pg_get_userbyid(t.typowner) <> v_owner
+    LOOP
+        EXECUTE format('ALTER %s %s OWNER TO %I',
+            CASE r.typtype WHEN 'd' THEN 'DOMAIN' ELSE 'TYPE' END, r.obj, v_owner);
+    END LOOP;
+END
+$$;
+
+-- ============================================================
+-- 作成済みオブジェクトへの権限付与
+-- （以降に作成されるものは 05 の DEFAULT PRIVILEGES で自動付与）
+-- ============================================================
+-- 管理者
+GRANT ALL ON ALL TABLES    IN SCHEMA ${DB_TEST_SCHEMA} TO ${APP_ADMIN_ID};
+GRANT ALL ON ALL SEQUENCES IN SCHEMA ${DB_TEST_SCHEMA} TO ${APP_ADMIN_ID};
+
+-- 管理者・一般ユーザー共通（関数の権限は EXECUTE のみ）
+GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA ${DB_TEST_SCHEMA} TO ${APP_USER_ID}, ${APP_ADMIN_ID};
+
+-- 一般ユーザー
+GRANT SELECT, UPDATE, DELETE ON ALL TABLES IN SCHEMA ${DB_TEST_SCHEMA} TO ${APP_USER_ID};
+
+-- デバッガー用の権限付与は不要
+-- （05 でオーナーロールのメンバーにしているため。本番での削除対象は 05 のみ）
