@@ -11,10 +11,18 @@
 1.  管理者が他のユーザーの画像を変える操作は、サーバー(`user_avatars` のルール)と `AvatarService.set(userId, …)` が対応している。画面は、担当者の画面(`organization`)から開く形で別の Issue とする(この機能は、自分のイメージだけを持つ)。
 1.  ログインしていない(`userSummaryProvider` が null)ときは、何も取得しない。
 
+## 表示パターン
+表示の部品は `app_shell` の `UserContainer`(`size: UserContainerSize`)。表示項目は `fields`(`UserField`: name・callName・role・department)で呼び出し元が選ぶ。
+1.  small(タイトルバー): 小さめの顔写真のみ。プルダウンアイコンは出さず、タップでメニュー。
+1.  medium(サイドバー): small よりわずかに大きい標準の顔写真 + 表示項目。
+1.  large(ダイアログ): 大きめの顔写真 + 表示項目 + 詳細情報。詳細は Widget を作るデリゲート(`UserDetailBuilder`)で受け取る。メニューは持たない。
+1.  small・medium はメニュー(`actions`)を受け取る。受け取らないとき(空)は、プルダウンアイコンもメニューも出さない。
+
 ## 画面と遷移
 | 画面 | 遷移先 | パス | 枠 |
 |---|---|---|---|
 | 自分のイメージ | `MyImageDestination` | `/profile/image` | 枠の中 |
+| 表示パターン(確認用) | `UserDisplayDestination` | `/profile/display` | 枠の中 |
 メニューの項目は持たず、アプリのユーザーメニュー(`pms_app` の `AppMainFrame`)の「自分のイメージ」から開く。顔写真は `AppMainFrame` が `userAvatarProvider` を `AppUser.photo` へ渡す。
 
 ## 構成

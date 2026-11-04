@@ -21,3 +21,15 @@ errors:
   network: Cannot connect. Please check your connection.
   unsupported: Files cannot be picked in this environment.
   unknown: An unexpected error occurred.
+display:
+  title: Display patterns
+  small: small (title bar - photo only; tap opens the menu)
+  medium: medium (sidebar - photo + fields; the arrow shows only with a menu)
+  mediumNoMenu: medium (no menu - no arrow, no menu)
+  large: large (dialog - large photo + fields + detail)
+  detail: Detail (a widget supplied by the caller)
+  menuSettings: Settings
+  menuLogout: Sign out
+  picked: 'Selected: {label}'
+  sampleCallName: Taro-san
+  sampleDepartment: Production control

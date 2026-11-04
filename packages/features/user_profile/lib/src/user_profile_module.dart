@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'pages/my_image_page.dart';
+import 'pages/user_display_page.dart';
 import 'user_profile_destinations.dart';
 import 'user_profile_paths.dart';
 
@@ -20,12 +21,17 @@ class UserProfileModule implements FeatureModule {
       path: UserProfilePaths.myImage,
       builder: (context, state) => const MyImagePage(),
     ),
+    GoRoute(
+      path: UserProfilePaths.display,
+      builder: (context, state) => const UserDisplayPage(),
+    ),
   ];
 
   @override
   String? locationOf(PageDestination<Object?> destination) =>
       switch (destination) {
         MyImageDestination() => UserProfilePaths.myImage,
+        UserDisplayDestination() => UserProfilePaths.display,
         _ => null,
       };
 

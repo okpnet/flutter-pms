@@ -38,6 +38,7 @@ class UserProfileStrings with BaseTranslations<UserProfileLocale, UserProfileStr
 	late final UserProfileStrings$menu$ja menu = UserProfileStrings$menu$ja.internal(_root);
 	late final UserProfileStrings$myImage$ja myImage = UserProfileStrings$myImage$ja.internal(_root);
 	late final UserProfileStrings$errors$ja errors = UserProfileStrings$errors$ja.internal(_root);
+	late final UserProfileStrings$display$ja display = UserProfileStrings$display$ja.internal(_root);
 }
 
 // Path: menu
@@ -124,6 +125,48 @@ class UserProfileStrings$errors$ja {
 	String get unknown => '予期しないエラーが発生しました。';
 }
 
+// Path: display
+class UserProfileStrings$display$ja {
+	UserProfileStrings$display$ja.internal(this._root);
+
+	final UserProfileStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '表示パターン'
+	String get title => '表示パターン';
+
+	/// ja: 'small(タイトルバー向け。顔写真のみ。タップでメニュー)'
+	String get small => 'small(タイトルバー向け。顔写真のみ。タップでメニュー)';
+
+	/// ja: 'medium(サイドバー向け。顔写真 + 表示項目。メニューがあるときだけ ▼)'
+	String get medium => 'medium(サイドバー向け。顔写真 + 表示項目。メニューがあるときだけ ▼)';
+
+	/// ja: 'medium(メニューなし。▼ もメニューも出さない)'
+	String get mediumNoMenu => 'medium(メニューなし。▼ もメニューも出さない)';
+
+	/// ja: 'large(ダイアログ向け。大きな顔写真 + 表示項目 + 詳細)'
+	String get large => 'large(ダイアログ向け。大きな顔写真 + 表示項目 + 詳細)';
+
+	/// ja: '詳細情報(呼び出し元が渡したWidget)'
+	String get detail => '詳細情報(呼び出し元が渡したWidget)';
+
+	/// ja: '設定'
+	String get menuSettings => '設定';
+
+	/// ja: 'ログアウト'
+	String get menuLogout => 'ログアウト';
+
+	/// ja: '選んだ項目: {label}'
+	String picked({required Object label}) => '選んだ項目: ${label}';
+
+	/// ja: 'たろうさん'
+	String get sampleCallName => 'たろうさん';
+
+	/// ja: '生産管理部'
+	String get sampleDepartment => '生産管理部';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -151,6 +194,17 @@ extension on UserProfileStrings {
 			'errors.network' => '通信できません。接続を確認してください。',
 			'errors.unsupported' => 'この環境ではファイルを選択できません。',
 			'errors.unknown' => '予期しないエラーが発生しました。',
+			'display.title' => '表示パターン',
+			'display.small' => 'small(タイトルバー向け。顔写真のみ。タップでメニュー)',
+			'display.medium' => 'medium(サイドバー向け。顔写真 + 表示項目。メニューがあるときだけ ▼)',
+			'display.mediumNoMenu' => 'medium(メニューなし。▼ もメニューも出さない)',
+			'display.large' => 'large(ダイアログ向け。大きな顔写真 + 表示項目 + 詳細)',
+			'display.detail' => '詳細情報(呼び出し元が渡したWidget)',
+			'display.menuSettings' => '設定',
+			'display.menuLogout' => 'ログアウト',
+			'display.picked' => ({required Object label}) => '選んだ項目: ${label}',
+			'display.sampleCallName' => 'たろうさん',
+			'display.sampleDepartment' => '生産管理部',
 			_ => null,
 		};
 	}

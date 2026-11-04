@@ -92,7 +92,10 @@ class ExampleApp extends StatelessWidget {
   Widget build(BuildContext context) => FeatureHost(
     title: 'ユーザー情報 (example)',
     modules: const [UserProfileModule()],
-    entries: const [FeatureHostEntry('自分のイメージ', MyImageDestination())],
+    entries: const [
+      FeatureHostEntry('自分のイメージ', MyImageDestination()),
+      FeatureHostEntry('表示パターン', UserDisplayDestination()),
+    ],
     logger: logger,
     overrides: [
       themeLoggerProvider.overrideWithValue(logger),

@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart' show FilledButton, MemoryImage, Size;
+import 'package:app_shell/app_shell.dart';
+import 'package:flutter/material.dart'
+    show FilledButton, Icons, MemoryImage, PopupMenuButton, Size;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:user_profile/user_profile.dart';
@@ -47,5 +49,35 @@ void main() {
     expect(find.text(readOnlyNote), findsNothing);
     expect(find.text('画像ファイルを選ぶ'), findsOneWidget);
     expect(find.byType(FilledButton), findsWidgets);
+  });
+
+  testWidgets('表示パターン: small・medium・large とプルダウンの振る舞い', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1000, 1400));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(
+      ExampleApp(
+        logger: const NoopLoggerProvider(),
+        extraOverrides: [
+          defaultAvatarImageProvider.overrideWith((ref) => MemoryImage(_tinyPng)),
+        ],
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('表示パターン'));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(UserContainer), findsNWidgets(4));
+    // ▼ は medium(メニューあり)だけ。small・メニューなしには出ない。
+    expect(find.byIcon(Icons.arrow_drop_down), findsOneWidget);
+    expect(find.byType(PopupMenuButton<UserMenuAction>), findsNWidgets(2));
+    expect(find.text('たろうさん'), findsOneWidget);
+    expect(find.text('詳細情報(呼び出し元が渡したWidget)'), findsOneWidget);
+
+    // small はタップでメニューが開く
+    await tester.tap(find.byType(PopupMenuButton<UserMenuAction>).first);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('ログアウト'));
+    await tester.pumpAndSettle();
+    expect(find.text('選んだ項目: ログアウト'), findsOneWidget);
   });
 }

@@ -144,4 +144,82 @@ void main() {
     expect(find.text('ログイン'), findsOneWidget);
     expect(find.byType(SideBar), findsNothing);
   });
+
+  group('UserContainer', () {
+    const user = AppUser(
+      name: '鈴木 一郎',
+      role: '課長',
+      callName: 'いっちゃん',
+      department: '生産管理部',
+    );
+    final actions = [UserMenuAction(label: '設定', onSelected: () {})];
+    Widget host(Widget child) =>
+        MaterialApp(home: Scaffold(body: Center(child: child)));
+    double radius(WidgetTester t) =>
+        t.widget<CircleAvatar>(find.byType(CircleAvatar)).radius!;
+
+    testWidgets('small: 顔写真のみ。▼を出さず、タップでメニュー', (tester) async {
+      await tester.pumpWidget(
+        host(
+          UserContainer(
+            user: user,
+            size: UserContainerSize.small,
+            actions: actions,
+          ),
+        ),
+      );
+      expect(find.text('鈴木 一郎'), findsNothing);
+      expect(find.byIcon(Icons.arrow_drop_down), findsNothing);
+      await tester.tap(find.byType(CircleAvatar));
+      await tester.pumpAndSettle();
+      expect(find.text('設定'), findsOneWidget);
+    });
+
+    testWidgets('medium: 項目を選べる。メニューがあるときだけ▼', (tester) async {
+      await tester.pumpWidget(
+        host(
+          UserContainer(
+            user: user,
+            fields: const {UserField.callName, UserField.department},
+            actions: actions,
+          ),
+        ),
+      );
+      expect(find.text('いっちゃん'), findsOneWidget);
+      expect(find.text('生産管理部'), findsOneWidget);
+      expect(find.text('鈴木 一郎'), findsNothing);
+      expect(find.byIcon(Icons.arrow_drop_down), findsOneWidget);
+
+      await tester.pumpWidget(host(const UserContainer(user: user)));
+      expect(find.byIcon(Icons.arrow_drop_down), findsNothing);
+      expect(find.byType(PopupMenuButton<UserMenuAction>), findsNothing);
+    });
+
+    testWidgets('large: 大きな顔写真と詳細。メニューは持たない', (tester) async {
+      await tester.pumpWidget(host(const UserContainer(user: user)));
+      final medium = radius(tester);
+      await tester.pumpWidget(
+        host(
+          UserContainer(
+            user: user,
+            size: UserContainerSize.large,
+            fields: UserField.values.toSet(),
+            actions: actions,
+            detail: (context, u) => Text('詳細:${u.name}'),
+          ),
+        ),
+      );
+      expect(radius(tester), greaterThan(medium));
+      expect(find.text('詳細:鈴木 一郎'), findsOneWidget);
+      expect(find.text('生産管理部'), findsOneWidget);
+      expect(find.byType(PopupMenuButton<UserMenuAction>), findsNothing);
+      expect(find.byIcon(Icons.arrow_drop_down), findsNothing);
+    });
+
+    test('顔写真の大きさの順: small < medium < large', () {
+      double r(UserContainerSize s) => UserContainer.avatarRadius(s);
+      expect(r(UserContainerSize.small), lessThan(r(UserContainerSize.medium)));
+      expect(r(UserContainerSize.medium), lessThan(r(UserContainerSize.large)));
+    });
+  });
 }

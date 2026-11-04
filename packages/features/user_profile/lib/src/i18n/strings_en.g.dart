@@ -41,6 +41,7 @@ class UserProfileStringsEn extends UserProfileStrings with BaseTranslations<User
 	@override late final _UserProfileStrings$menu$en menu = _UserProfileStrings$menu$en._(_root);
 	@override late final _UserProfileStrings$myImage$en myImage = _UserProfileStrings$myImage$en._(_root);
 	@override late final _UserProfileStrings$errors$en errors = _UserProfileStrings$errors$en._(_root);
+	@override late final _UserProfileStrings$display$en display = _UserProfileStrings$display$en._(_root);
 }
 
 // Path: menu
@@ -89,6 +90,26 @@ class _UserProfileStrings$errors$en extends UserProfileStrings$errors$ja {
 	@override String get unknown => 'An unexpected error occurred.';
 }
 
+// Path: display
+class _UserProfileStrings$display$en extends UserProfileStrings$display$ja {
+	_UserProfileStrings$display$en._(UserProfileStringsEn root) : this._root = root, super.internal(root);
+
+	final UserProfileStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Display patterns';
+	@override String get small => 'small (title bar - photo only; tap opens the menu)';
+	@override String get medium => 'medium (sidebar - photo + fields; the arrow shows only with a menu)';
+	@override String get mediumNoMenu => 'medium (no menu - no arrow, no menu)';
+	@override String get large => 'large (dialog - large photo + fields + detail)';
+	@override String get detail => 'Detail (a widget supplied by the caller)';
+	@override String get menuSettings => 'Settings';
+	@override String get menuLogout => 'Sign out';
+	@override String picked({required Object label}) => 'Selected: ${label}';
+	@override String get sampleCallName => 'Taro-san';
+	@override String get sampleDepartment => 'Production control';
+}
+
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -116,6 +137,17 @@ extension on UserProfileStringsEn {
 			'errors.network' => 'Cannot connect. Please check your connection.',
 			'errors.unsupported' => 'Files cannot be picked in this environment.',
 			'errors.unknown' => 'An unexpected error occurred.',
+			'display.title' => 'Display patterns',
+			'display.small' => 'small (title bar - photo only; tap opens the menu)',
+			'display.medium' => 'medium (sidebar - photo + fields; the arrow shows only with a menu)',
+			'display.mediumNoMenu' => 'medium (no menu - no arrow, no menu)',
+			'display.large' => 'large (dialog - large photo + fields + detail)',
+			'display.detail' => 'Detail (a widget supplied by the caller)',
+			'display.menuSettings' => 'Settings',
+			'display.menuLogout' => 'Sign out',
+			'display.picked' => ({required Object label}) => 'Selected: ${label}',
+			'display.sampleCallName' => 'Taro-san',
+			'display.sampleDepartment' => 'Production control',
 			_ => null,
 		};
 	}

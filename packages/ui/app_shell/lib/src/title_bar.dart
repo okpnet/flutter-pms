@@ -62,7 +62,9 @@ class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
             child: UserContainer(
               user: user!,
               actions: userActions,
-              compact: compactUser,
+              size: compactUser
+                  ? UserContainerSize.small
+                  : UserContainerSize.medium,
               labels: labels,
             ),
           ),

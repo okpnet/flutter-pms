@@ -48,9 +48,21 @@ class AppMenu {
 
 /// ログインユーザーの表示用の情報。
 class AppUser {
-  const AppUser({required this.name, this.role = '', this.photo});
+  const AppUser({
+    required this.name,
+    this.role = '',
+    this.photo,
+    this.callName = '',
+    this.department = '',
+  });
 
   final String name;
+
+  /// 呼称(愛称・敬称つきの呼び名など)。
+  final String callName;
+
+  /// 部署。
+  final String department;
 
   /// 役割・所属など(名前の下に出す)。
   final String role;

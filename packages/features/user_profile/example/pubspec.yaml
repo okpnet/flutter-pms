@@ -10,6 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^3.4.3
+  app_shell:
+    path: ../../../ui/app_shell
   feature_shared:
     path: ../../../core/feature_shared
   logger_provider:

@@ -21,3 +21,15 @@ errors:
   network: 通信できません。接続を確認してください。
   unsupported: この環境ではファイルを選択できません。
   unknown: 予期しないエラーが発生しました。
+display:
+  title: 表示パターン
+  small: small(タイトルバー向け。顔写真のみ。タップでメニュー)
+  medium: medium(サイドバー向け。顔写真 + 表示項目。メニューがあるときだけ ▼)
+  mediumNoMenu: medium(メニューなし。▼ もメニューも出さない)
+  large: large(ダイアログ向け。大きな顔写真 + 表示項目 + 詳細)
+  detail: 詳細情報(呼び出し元が渡したWidget)
+  menuSettings: 設定
+  menuLogout: ログアウト
+  picked: '選んだ項目: {label}'
+  sampleCallName: たろうさん
+  sampleDepartment: 生産管理部
