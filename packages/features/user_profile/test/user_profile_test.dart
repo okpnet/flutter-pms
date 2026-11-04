@@ -166,7 +166,11 @@ void main() {
   });
 
   test('標準はユーザーが変更できない(起動時のプロパティで変えられる)', () {
-    expect(_container([]).read(isChangeUserImageProvider), isFalse);
+    // 標準は false。起動時の --dart-define=IS_CHANGE_USER_IMAGE=true が最優先で、その値が標準になる
+    expect(
+      _container([]).read(isChangeUserImageProvider),
+      const bool.fromEnvironment('IS_CHANGE_USER_IMAGE'),
+    );
     expect(
       _container([
         isChangeUserImageProvider.overrideWithValue(true),
