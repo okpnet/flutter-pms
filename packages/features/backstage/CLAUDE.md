@@ -9,7 +9,9 @@
 1.  **条件の値は平文で持たない**。ソルト付きハッシュ(PBKDF2-HMAC-SHA256、既定の反復 100,000 回、32バイト)をアセットの設定に置き、入力と照合する(`crypto` の `Hmac` だけを使い、新しい外部ライブラリは足していない)。一致しないときは通常のログイン失敗と同じ表示になる(入口の存在を示さない)。
 
 ## 入口の条件の作り方
+**このプロジェクト(`packages/features/backstage`)のフォルダで実行する**(`bin/make_entry_hash.dart` がここにあるため)。手順の詳細は [README.md](README.md)。
 ```powershell
+cd packages\features\backstage
 dart run backstage:make_entry_hash          # ユーザーIDとパスワードを標準入力から読む(履歴に残さない)
 ```
 出力の `{"entry": {...}}` を、アプリのアセット(`apps/pms_app/assets/backstage.json`)に貼る。`entry` が無いときは入口なし(裏設定へ入れない)。IDとパスワードはソース・アセットに書かない。反復回数は `dart run backstage:make_entry_hash 200000` のように変えられる(照会は別の isolate で行い、画面を止めない)。

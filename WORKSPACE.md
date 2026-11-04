@@ -62,6 +62,7 @@ melos bootstrap
 | build_runner を使うパッケージの生成 | `melos run gen` |
 | アプリ起動 | `cd apps\pms_app; flutter run -d windows` |
 | 特定パッケージだけで実行 | `melos exec --scope=customer -- flutter test` |
+| 裏設定の入口のハッシュを作る | `cd packages\features\backstage; dart run backstage:make_entry_hash`(ユーザーIDとパスワードを標準入力から読む。出力を `apps\pms_app\assets\backstage.json` の `entry` に貼る。詳細は `packages\features\backstage\README.md`) |
 
 ## 体験してほしいポイント
 

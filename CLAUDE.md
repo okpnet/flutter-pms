@@ -21,7 +21,10 @@ melos run gen                        # build_runner を使うパッケージの�
 melos exec --category=features -- flutter test   # 層ごと(apps/features/core/ui/infra/foundation)
 melos exec --scope=customer -- flutter test      # 特定パッケージだけ
 cd apps\pms_app; flutter run -d windows          # アプリ起動
+cd packages\features\backstage; dart run backstage:make_entry_hash   # 裏設定の入口のハッシュを作る(下記)
 ```
+
+裏設定の入口(ログインページの特定のユーザーIDとパスワード)のハッシュは、`packages\features\backstage` で上のコマンドを実行して作る(ユーザーIDとパスワードは標準入力。反復回数は引数で変えられる。例 `... make_entry_hash 200000`)。出力の `{"entry": {...}}` を `apps\pms_app\assets\backstage.json` に貼り、アプリを再起動する。ID・パスワードをソース・アセットに書かない。詳細は [packages/features/backstage/README.md](packages/features/backstage/README.md)。
 
 単一テスト: 対象パッケージ内で `flutter test test/xxx_test.dart`(純Dart パッケージは `dart test test/xxx_test.dart`、`--plain-name "名前"` で絞り込み)。
 
