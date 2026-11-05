@@ -57,5 +57,7 @@ class ExampleApp extends StatelessWidget {
       maintenanceStatusProvider.overrideWith(_UnderMaintenance.new),
     ],
     themeOf: (ref) => ref.watch(lightThemeProvider),
+    darkThemeOf: (ref) => ref.watch(darkThemeProvider),
+    themeModeOf: (ref) => ref.watch(themeModeProvider),
   );
 }

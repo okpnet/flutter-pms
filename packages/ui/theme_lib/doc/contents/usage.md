@@ -136,13 +136,13 @@ manager.importJson(jsonString, activate: false);                 // 登録だけ
 | `name` | ✅ | 表示名（64文字まで） |
 | `fontFamily` | | アプリ側で登録済みのフォント名 |
 | `light.seedColor` | ✅ | `#RRGGBB` または `#AARRGGBB` |
-| `light.colors` | | 個別上書き。`primary` `onPrimary` `secondary` `onSecondary` `tertiary` `onTertiary` `error` `onError` `surface` `onSurface` `outline` |
+| `light.colors` | | 個別上書き。`primary` `onPrimary` `primaryContainer` `onPrimaryContainer` `secondary` `onSecondary` `tertiary` `onTertiary` `error` `onError` `errorContainer` `onErrorContainer` `surface` `background`(画面の地) `onSurface` `surfaceContainerHighest` `onSurfaceVariant` `outline` `outlineVariant` |
 | `dark` | | `light` と同じ形。省略するとライトのシード色から自動生成 |
 | `metrics` | | 下表の数値（0〜256）。省略した項目は既定値 |
 
 `metrics` の項目と既定値: `spacing` 4 / `formFieldPadding` 4 / `menuFieldPadding` 8 / `radius` 3 /
 `fullRadius` 32 / `borderWidth` 0.8 / `activeBorderWidth` 1 / `buttonHeight` 46 /
-`buttonWidth` 128 / `buttonElevation` 2 / `iconButtonSize` 32
+`buttonWidth` 128 / `buttonElevation` 2 / `iconButtonSize` 32 / `cardRadius`(省略すると `radius` と同じ。カード・ダイアログ・シートの角丸)
 
 ### 🚨 不正な JSON のとき
 

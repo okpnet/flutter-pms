@@ -29,6 +29,8 @@ dependencies:
     path: ../../infra/logger_provider
 
 dev_dependencies:
+  theme_lib:
+    path: ../../ui/theme_lib
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

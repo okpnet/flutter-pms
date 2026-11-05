@@ -32,6 +32,8 @@ class FeatureHost extends StatefulWidget {
     required this.entries,
     this.overrides = const [],
     this.themeOf,
+    this.darkThemeOf,
+    this.themeModeOf,
     this.logger,
   });
 
@@ -44,6 +46,12 @@ class FeatureHost extends StatefulWidget {
 
   /// テーマ。省略時は Material の既定。
   final ThemeData Function(WidgetRef ref)? themeOf;
+
+  /// ダークのテーマ。省略時は [themeOf] だけ(ダークに切り替わらない)。
+  final ThemeData Function(WidgetRef ref)? darkThemeOf;
+
+  /// ライト/ダーク/システムの選択。省略時はシステムの設定。
+  final ThemeMode Function(WidgetRef ref)? themeModeOf;
 
   /// 省略時は何も出力しない。
   final ILoggerProvider? logger;
@@ -98,6 +106,8 @@ class _FeatureHostState extends State<FeatureHost> {
           title: widget.title,
           debugShowCheckedModeBanner: false,
           theme: widget.themeOf?.call(ref),
+          darkTheme: widget.darkThemeOf?.call(ref),
+          themeMode: widget.themeModeOf?.call(ref) ?? ThemeMode.system,
           routerConfig: _router,
           // 長時間の処理中は、画面全体の操作と戻る操作を無効にする
           builder: (context, child) =>

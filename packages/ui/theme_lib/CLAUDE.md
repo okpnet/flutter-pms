@@ -27,6 +27,33 @@
     1.  ライブラリは実行したときのログを残す。ただし、このライブラリ側のエラーログがけを残し、実行側のアプリケーションがどの実行でエラーが発生したか調査するとき、機能毎のライブラリ側なのかを切り分け可能にするために、適切に選別する。
     2. ロガーはRiverpodから提供され、アプリケーション全体をとおして同じ仕様のログ出力を行う。
 
+##  既定のテーマ(画面案のデザイン)
+組み込みの先頭(`id: default`、`openDesignTheme`)は、画面案(`flutter-pms/tools/open-design`)のデザイントークンと同じ値にする。正本は `design/theme.md`・`flutter/app_theme.dart`・`styles.css`。画面案の値を変えたら、ここも同じ値に直す。ライトとダークは、それぞれ独立に調整した配色(ダークはライトの自動変換ではない)。
+1.  色(ライト / ダーク)
+
+    | 画面案のトークン | ColorScheme の色 | ライト | ダーク |
+    |---|---|---|---|
+    | `--bg` | 画面の地(`background` → `scaffoldBackgroundColor`) | `#F2F5F6` | `#0E171D` |
+    | `--surface` | `surface` | `#FFFFFF` | `#16232B` |
+    | `--ink` | `onSurface` | `#12202A` | `#E8EFF2` |
+    | `--accent` | `primary`(seed も同じ) | `#0B6B6F` | `#5CC3C6` |
+    | `--accent-ink` | `onPrimary` | `#FFFFFF` | `#062A2C` |
+    | `--accent-soft` | `primaryContainer`(`onPrimaryContainer` は accent) | `#DCEFEF` | `#1B3F43` |
+    | `--danger` | `error`(`onError` は accent-ink と同じ) | `#B3261E` | `#FF8A80` |
+    | `--danger-soft` | `errorContainer`(`onErrorContainer` は danger) | `#FBE3E1` | `#4A1F1D` |
+    | `--surface-2` | `surfaceContainerHighest` | `#EAF0F1` | `#1E2F39` |
+    | `--muted` | `onSurfaceVariant` | `#4F5E69` | `#A5B4BD` |
+    | `--line` | `outlineVariant`(カード・区切りの罫線) | `#D3DCE1` | `#2D4250` |
+    | (入力欄・ボタンの枠) | `outline`。罫線より濃くして背景との差を 3:1 以上にする | `#7C8B96` | `#5B7384` |
+    | `--seg-2` / `--seg-3` | `secondary` / `tertiary` | `#3B78A8` / `#7B8895` | `#7DB4E0` / `#98A6B2` |
+1.  数値: 角丸 8(ボタン・入力。`radius`)、12(カード・ダイアログ・シート。`cardRadius`)、タップ領域 44x44(`buttonHeight`・`buttonWidth`・`iconButtonSize`)、罫線 1・フォーカス 2、ボタンの影なし。余白は 4 刻み。
+1.  フォント: 日本語を優先する代替(Noto Sans JP → Hiragino Sans → Yu Gothic UI → Meiryo)を `ThemeBuilder.fontFamilyFallback` として、すべてのテーマに付ける。`fontFamily` を指定した場合は、それが先。
+1.  部品の見た目: 面は影ではなく罫線で区切る(カードは影なし+`outlineVariant` の罫線、タイトルバーは下に罫線、ダイアログ・シートは `cardRadius`)。チップ・ナビゲーションの選択中は `primaryContainer`。これらはすべてのテーマに共通(`ThemeBuilder`)。`cardRadius` を省略したテーマ(`ocean`・`forest`)は、カードの角丸が従来どおり `radius`。
+1.  色の個別上書き(`light.colors`・`dark.colors`)に使える名前: `primary` `onPrimary` `primaryContainer` `onPrimaryContainer` `secondary` `onSecondary` `tertiary` `onTertiary` `error` `onError` `errorContainer` `onErrorContainer` `surface` `background` `onSurface` `surfaceContainerHighest` `onSurfaceVariant` `outline` `outlineVariant`。
+1.  コントラスト: 文字は 4.5:1 以上、枠は背景に対して 3:1 以上(`test/open_design_theme_test.dart` が確認する)。区分や状態は色だけで伝えない。
+1.  `ColorScheme` に収まらない画面案の値(`--focus`、`--seg-1`、タイポグラフィの大きさ)は、まだ持たない。必要になったら `ThemeExtension` を足す。
+1.  features の `example` は、この既定のテーマを使う(`FeatureHost` の `themeOf: lightThemeProvider`・`darkThemeOf: darkThemeProvider`・`themeModeOf: themeModeProvider`)。
+
 ##  実際の実装状態
 `example`以下にthemeの機能を使用した状態として、全ての機能を適用した状態のサンプルアプリケーションを作成する。
 

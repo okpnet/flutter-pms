@@ -6,11 +6,28 @@ import '../tokens/space_field.dart';
 
 /// [ThemeDefinition] から [ThemeData] を組み立てる。
 abstract final class ThemeBuilder {
+  /// 日本語を優先するフォントの代替(画面案 `tools/open-design/design/theme.md` のフォント)。
+  /// [ThemeDefinition.fontFamily] があればそちらが先で、見つからない文字をここで補う。
+  static const fontFamilyFallback = [
+    'Noto Sans JP',
+    'Hiragino Sans',
+    'Yu Gothic UI',
+    'Meiryo',
+  ];
+
   static ThemeData build(ThemeDefinition definition, Brightness brightness) {
     final metrics = definition.metrics;
     final colors = _colorScheme(definition, brightness);
+    final background = _overrides(definition, brightness)['background'];
     final shape = RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(metrics.radius),
+    );
+    final cardRadius = BorderRadius.circular(
+      metrics.cardRadius ?? metrics.radius,
+    );
+    final line = BorderSide(
+      color: colors.outlineVariant,
+      width: metrics.borderWidth,
     );
     OutlineInputBorder outline(Color color, double width) => OutlineInputBorder(
       borderRadius: BorderRadius.circular(metrics.radius),
@@ -22,7 +39,9 @@ abstract final class ThemeBuilder {
     return ThemeData(
       useMaterial3: true,
       colorScheme: colors,
+      scaffoldBackgroundColor: background,
       fontFamily: definition.fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       extensions: [
         SpaceField(
           formFieldPd: metrics.formFieldPadding,
@@ -43,6 +62,13 @@ abstract final class ThemeBuilder {
           shape: shape,
         ),
       ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          minimumSize: buttonSize,
+          side: BorderSide(color: colors.outline, width: metrics.borderWidth),
+          shape: shape,
+        ),
+      ),
       iconButtonTheme: IconButtonThemeData(
         style: IconButton.styleFrom(
           minimumSize: iconSize,
@@ -59,14 +85,78 @@ abstract final class ThemeBuilder {
         errorBorder: outline(colors.error, metrics.borderWidth),
         focusedErrorBorder: outline(colors.error, metrics.activeBorderWidth),
       ),
-      cardTheme: CardThemeData(shape: shape),
-      dialogTheme: DialogThemeData(shape: shape),
+      // 面は影ではなく罫線で区切る(画面案のカード・タイトルバー)
+      cardTheme: CardThemeData(
+        elevation: 0,
+        margin: EdgeInsets.zero,
+        color: colors.surface,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(borderRadius: cardRadius, side: line),
+      ),
+      dialogTheme: DialogThemeData(
+        backgroundColor: colors.surface,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(borderRadius: cardRadius),
+      ),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: colors.surface,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: cardRadius.topLeft),
+        ),
+      ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: colors.surface,
+        foregroundColor: colors.onSurface,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        shape: Border(bottom: line),
+      ),
+      dividerTheme: DividerThemeData(
+        color: colors.outlineVariant,
+        space: 1,
+        thickness: 1,
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: colors.primaryContainer,
+        labelStyle: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+          color: colors.onPrimaryContainer,
+        ),
+        side: BorderSide.none,
+        shape: const StadiumBorder(),
+      ),
+      navigationRailTheme: NavigationRailThemeData(
+        backgroundColor: colors.surface,
+        indicatorColor: colors.primaryContainer,
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: colors.surface,
+        surfaceTintColor: Colors.transparent,
+        indicatorColor: colors.primaryContainer,
+      ),
       checkboxTheme: CheckboxThemeData(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(metrics.radius / 2),
         ),
       ),
     );
+  }
+
+  /// 配色の個別指定の色。`dark` が無いときのダークは、ライト用の指定を重ねない
+  /// (ライト用の個別指定色はダークで破綻するため)。
+  static Map<String, Color> _overrides(
+    ThemeDefinition definition,
+    Brightness brightness,
+  ) {
+    final explicit = brightness == Brightness.dark ? definition.dark : null;
+    final palette = brightness == Brightness.dark
+        ? (definition.dark ?? definition.light)
+        : definition.light;
+    final useOverrides = brightness == Brightness.light || explicit != null;
+    return useOverrides ? palette.overrides : const <String, Color>{};
   }
 
   /// seed から配色を生成し、個別指定の色を重ねる。
@@ -77,27 +167,32 @@ abstract final class ThemeBuilder {
     ThemeDefinition definition,
     Brightness brightness,
   ) {
-    final explicit = brightness == Brightness.dark ? definition.dark : null;
     final palette = brightness == Brightness.dark
         ? (definition.dark ?? definition.light)
         : definition.light;
-    final useOverrides = brightness == Brightness.light || explicit != null;
-    final o = useOverrides ? palette.overrides : const <String, Color>{};
+    final o = _overrides(definition, brightness);
     return ColorScheme.fromSeed(
       seedColor: palette.seed,
       brightness: brightness,
     ).copyWith(
       primary: o['primary'],
       onPrimary: o['onPrimary'],
+      primaryContainer: o['primaryContainer'],
+      onPrimaryContainer: o['onPrimaryContainer'],
       secondary: o['secondary'],
       onSecondary: o['onSecondary'],
       tertiary: o['tertiary'],
       onTertiary: o['onTertiary'],
       error: o['error'],
       onError: o['onError'],
+      errorContainer: o['errorContainer'],
+      onErrorContainer: o['onErrorContainer'],
       surface: o['surface'],
       onSurface: o['onSurface'],
+      surfaceContainerHighest: o['surfaceContainerHighest'],
+      onSurfaceVariant: o['onSurfaceVariant'],
       outline: o['outline'],
+      outlineVariant: o['outlineVariant'],
     );
   }
 }

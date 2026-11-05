@@ -61,6 +61,8 @@ class ExampleApp extends StatelessWidget {
         backstageUnlockProvider.overrideWith(_Unlocked.new),
       ],
       themeOf: (ref) => ref.watch(lightThemeProvider),
+      darkThemeOf: (ref) => ref.watch(darkThemeProvider),
+      themeModeOf: (ref) => ref.watch(themeModeProvider),
     );
   }
 }

@@ -120,6 +120,8 @@ class ExampleApp extends StatelessWidget {
       builder: (context, ref, _) => MaterialApp(
         title: '件数のコンテナ (example)',
         theme: ref.watch(lightThemeProvider),
+        darkTheme: ref.watch(darkThemeProvider),
+        themeMode: ref.watch(themeModeProvider),
         home: const _Home(),
       ),
     ),

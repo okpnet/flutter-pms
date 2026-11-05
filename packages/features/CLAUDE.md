@@ -43,6 +43,7 @@
     1.  各プロジェクトは、プロジェクト内の`example`に、Windows向けのビジュアルテスト用アプリを持つ。そのプロジェクトだけを起動して画面を個別に確認できるようにする。
     2.  `example`は本番のアプリと同じ配線(GoRouter・CommandBus・ハンドラ登録)の`feature_shared`の`FeatureHost`を使い、`lib/main.dart`の`entries`に遷移先を並べる。画面を追加したら`entries`に1行足し、`test/widget_test.dart`で起動と遷移を確認する。
     3.  `example`は`flutter-pms`のworkspace対象外(ロックファイルは別。`flutter pub get`で一緒に解決される)。起動は`flutter run -d windows`。
+    4.  `example`のテーマは`theme_lib`の既定のテーマ(画面案`tools/open-design`のデザイン)を使う。`FeatureHost`の`themeOf: (ref) => ref.watch(lightThemeProvider)`・`darkThemeOf: (ref) => ref.watch(darkThemeProvider)`・`themeModeOf: (ref) => ref.watch(themeModeProvider)`を渡し、`overrides`に`themeLoggerProvider.overrideWithValue(logger)`を入れる(`theme_lib`は`example`の依存に書く)。画面の配色・角丸・余白は、`ColorScheme`・`BorderField`・`SpaceField`から取り、色の値を機能の中に直接書かない。
 5.  多言語(slang)
     1.  表示する文字列は、プロジェクト内の`lib/src/i18n`の言語ファイル(Yaml、`ja.i18n.yaml`が基準、`en.i18n.yaml`など)に置く。設定は`slang.yaml`(`class_name`・`enum_name`はプロジェクト固有の名前にする)。生成は`dart run slang`。生成物(`strings*.g.dart`)もコミットする。
     2.  言語の選択は`riverpod`で行う。`feature_shared`の`localeProvider`を`ref.watch`して`xxxStringsProvider`が文字列を返す。slangのFlutter連携・グローバル変数は使わない。基準言語以外は遅延読み込みのため、読み込みが終わるまでは基準言語(日本語)を返す。

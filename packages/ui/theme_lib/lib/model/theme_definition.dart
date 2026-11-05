@@ -27,6 +27,14 @@ class ThemePalette {
     'error',
     'onError',
     'surface',
+    'background',
+    'primaryContainer',
+    'onPrimaryContainer',
+    'errorContainer',
+    'onErrorContainer',
+    'surfaceContainerHighest',
+    'onSurfaceVariant',
+    'outlineVariant',
     'onSurface',
     'outline',
   };
@@ -70,6 +78,7 @@ class ThemeMetrics {
     this.buttonWidth = 128,
     this.buttonElevation = 2,
     this.iconButtonSize = 32,
+    this.cardRadius,
   });
 
   /// Row/Column/Wrap のギャップ、および標準余白。
@@ -90,6 +99,9 @@ class ThemeMetrics {
   final double buttonElevation;
   final double iconButtonSize;
 
+  /// カード・ダイアログ・シートの角丸。省略すると [radius] と同じ。
+  final double? cardRadius;
+
   static const Set<String> _keys = {
     'spacing',
     'formFieldPadding',
@@ -102,6 +114,7 @@ class ThemeMetrics {
     'buttonWidth',
     'buttonElevation',
     'iconButtonSize',
+    'cardRadius',
   };
 
   Map<String, Object?> toJson() => {
@@ -116,6 +129,7 @@ class ThemeMetrics {
     'buttonWidth': buttonWidth,
     'buttonElevation': buttonElevation,
     'iconButtonSize': iconButtonSize,
+    if (cardRadius != null) 'cardRadius': cardRadius,
   };
 
   @override
@@ -294,6 +308,7 @@ ThemeMetrics _readMetrics(_Reader r) {
     buttonWidth: r.number('buttonWidth', min: 1) ?? d.buttonWidth,
     buttonElevation: r.number('buttonElevation') ?? d.buttonElevation,
     iconButtonSize: r.number('iconButtonSize', min: 1) ?? d.iconButtonSize,
+    cardRadius: r.number('cardRadius'),
   );
 }
 

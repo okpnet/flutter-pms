@@ -106,8 +106,8 @@ void main() {
       ),
     );
     expect(style.elevation!.resolve({}), 0);
-    expect(style.side!.resolve({})!.width, 0.8);
-    expect(style.minimumSize!.resolve({}), const Size(128, 46));
+    expect(style.side!.resolve({})!.width, 1);
+    expect(style.minimumSize!.resolve({}), const Size(44, 44));
   });
 
   testWidgets('バリアント変換したボタンが描画できる', (tester) async {

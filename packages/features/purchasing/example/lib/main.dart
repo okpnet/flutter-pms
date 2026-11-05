@@ -32,5 +32,7 @@ class ExampleApp extends StatelessWidget {
     // flgtable_lib / theme_lib が使うテーマ側のロガー
     overrides: [themeLoggerProvider.overrideWithValue(logger)],
     themeOf: (ref) => ref.watch(lightThemeProvider),
+    darkThemeOf: (ref) => ref.watch(darkThemeProvider),
+    themeModeOf: (ref) => ref.watch(themeModeProvider),
   );
 }

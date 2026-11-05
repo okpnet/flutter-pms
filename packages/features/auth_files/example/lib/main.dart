@@ -59,6 +59,8 @@ class ExampleApp extends StatelessWidget {
       fileSaverGatewayProvider.overrideWithValue(ExampleSaver()),
     ],
     themeOf: themeOf ?? (ref) => ref.watch(lightThemeProvider),
+    darkThemeOf: themeOf == null ? (ref) => ref.watch(darkThemeProvider) : null,
+    themeModeOf: themeOf == null ? (ref) => ref.watch(themeModeProvider) : null,
   );
 }
 

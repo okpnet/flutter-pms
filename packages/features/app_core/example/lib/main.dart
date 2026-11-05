@@ -247,5 +247,7 @@ class ExampleApp extends StatelessWidget {
       ...extraOverrides,
     ],
     themeOf: (ref) => ref.watch(lightThemeProvider),
+    darkThemeOf: (ref) => ref.watch(darkThemeProvider),
+    themeModeOf: (ref) => ref.watch(themeModeProvider),
   );
 }

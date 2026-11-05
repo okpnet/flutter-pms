@@ -33,5 +33,7 @@ class ExampleApp extends StatelessWidget {
     logger: logger,
     overrides: [themeLoggerProvider.overrideWithValue(logger)],
     themeOf: (ref) => ref.watch(lightThemeProvider),
+    darkThemeOf: (ref) => ref.watch(darkThemeProvider),
+    themeModeOf: (ref) => ref.watch(themeModeProvider),
   );
 }
