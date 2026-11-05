@@ -105,8 +105,8 @@ class AppCoreStrings$boot$ja {
 
 	// Translations
 
-	/// ja: '起動しています…'
-	String get title => '起動しています…';
+	/// ja: '{app}を起動しています…'
+	String title({required Object app}) => '${app}を起動しています…';
 
 	/// ja: 'データと設定を読み込んでいます。'
 	String get message => 'データと設定を読み込んでいます。';
@@ -287,7 +287,7 @@ extension on AppCoreStrings {
 			'dashboard.title' => 'ダッシュボード',
 			'dashboard.edit' => '配置を編集',
 			'dashboard.done' => '完了',
-			'boot.title' => '起動しています…',
+			'boot.title' => ({required Object app}) => '${app}を起動しています…',
 			'boot.message' => 'データと設定を読み込んでいます。',
 			'error.title' => 'エラー',
 			'error.message' => 'アプリケーションでエラーが発生しました',

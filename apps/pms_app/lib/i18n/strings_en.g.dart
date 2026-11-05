@@ -40,7 +40,6 @@ class AppStringsEn extends AppStrings with BaseTranslations<AppLocale, AppString
 	// Translations
 	@override late final _AppStrings$splash$en splash = _AppStrings$splash$en._(_root);
 	@override late final _AppStrings$common$en common = _AppStrings$common$en._(_root);
-	@override late final _AppStrings$login$en login = _AppStrings$login$en._(_root);
 	@override late final _AppStrings$grid$en grid = _AppStrings$grid$en._(_root);
 	@override late final _AppStrings$company$en company = _AppStrings$company$en._(_root);
 }
@@ -63,22 +62,6 @@ class _AppStrings$common$en extends AppStrings$common$ja {
 
 	// Translations
 	@override String get notImplemented => 'Not implemented';
-}
-
-// Path: login
-class _AppStrings$login$en extends AppStrings$login$ja {
-	_AppStrings$login$en._(AppStringsEn root) : this._root = root, super.internal(root);
-
-	final AppStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Sign in';
-	@override String get invalidCredential => 'The ID or password is incorrect';
-	@override String get userId => 'User ID';
-	@override String get userIdRequired => 'User ID is required';
-	@override String get password => 'Password';
-	@override String get passwordRequired => 'Password is required';
-	@override String get submit => 'Sign in';
 }
 
 // Path: grid
@@ -117,13 +100,6 @@ extension on AppStringsEn {
 		return switch (path) {
 			'splash.initializing' => 'Initializing',
 			'common.notImplemented' => 'Not implemented',
-			'login.title' => 'Sign in',
-			'login.invalidCredential' => 'The ID or password is incorrect',
-			'login.userId' => 'User ID',
-			'login.userIdRequired' => 'User ID is required',
-			'login.password' => 'Password',
-			'login.passwordRequired' => 'Password is required',
-			'login.submit' => 'Sign in',
 			'grid.filtered' => ({required Object count}) => '${count} filtered',
 			'grid.wait' => 'Please wait',
 			'grid.total' => ({required Object count}) => '${count} in total',

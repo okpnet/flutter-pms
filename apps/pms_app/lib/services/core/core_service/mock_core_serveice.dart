@@ -1,13 +1,6 @@
-import 'package:auth_files/auth_files.dart' show AuthFilesPaths;
-import 'package:pms_app/contents/_models/error/error.dart';
-import 'package:pms_app/contents/contents.dart';
-import 'package:pms_app/services/core/core.dart';
-import 'package:pms_app/services/features/feature_error.dart';
 import 'package:pms_app/services/core/core_service/app_standard_time.dart';
 
-import '../../../contents/_models/authorization/auth_state_type.dart';
 import '../../../imports.dart';
-import '../../authorization/authorization.dart';
 import '../../router/router.dart';
 
 part 'mock_core_serveice.g.dart';
@@ -15,6 +8,9 @@ part 'mock_core_serveice.g.dart';
 ///主サービス
 ///立ち上げるときに1度呼びだし、インスタンス化する。
 ///終了時に明示的には記するサービスを追加する。
+///
+///ログイン・ログアウトの画面とセッションは`auth_files`が持つ。ページの切り替え・更新での
+///セッション確認とログインへの向け先は、`rootRouter`の`redirect`が行う。
 @Riverpod(keepAlive: true)
 Future<void> mockCoreService(Ref ref) async {
   debugPrint('init start');
@@ -27,80 +23,11 @@ Future<void> mockCoreService(Ref ref) async {
     //ここにページ切り替えを入れてはいけない
   });
 
-  ///問題なければ認証状態でページを切り替える機能登録
+  ///ルーターのインスタンス化
   final _ = ref.read(rootRouterProvider);
-
-  final timeState = ref.read(appStandardTimeProvider);
-
-  ///問題なければ認証状態でページを切り替える機能登録
-  final router = ref.read(rootRouterProvider);
-  ref.listen(mockAutorizeServiceProvider, (prev, next) {
-    ///エラーで移動
-    void goError(SpecificError error) => router.go(errorLocationOf(error));
-
-    ///時間取得で例外が発生している
-    if (timeState.hasException) {
-      goError(timeState.exception!);
-      return;
-    }
-
-    ///標準時間がセットされていない
-    if (!timeState.isEnable) {
-      final error = AppError(.standardTimeRelated);
-      goError(error);
-      return;
-    }
-
-    ///途中で時間を不正操作した
-    if (!timeState.timeState!.getNow().isSameTimeWithTolerance(
-      DateTime.now().toUtc(),
-    )) {
-      final error = ManipulationError(.timeManipulation);
-      goError(error);
-      return;
-    }
-
-    ///標準
-    next.authStateType.go(router);
-  });
 
   ref.onDispose(() {
     reflesh.dispose();
   });
   debugPrint('end init');
-}
-
-extension AutoTypeEx on AuthStateType {
-  void go(GoRouter router) {
-    switch (this) {
-      case .expired:
-        router.push(AuthFilesPaths.login);
-        break;
-      case .fail:
-        final error = ServerError(.authorize, .timeout);
-        router.go(errorLocationOf(error));
-        break;
-      case .authenticated:
-        if (router.canPop()) {
-          router.pop();
-        } else {
-          router.go(DashboardConstant.path);
-        }
-        break;
-      case .signedOut:
-        router.go(AuthFilesPaths.login);
-        break;
-    }
-  }
-}
-
-extension DataTimeExtenssion on DateTime {
-  /// 60秒以内なら「同じ時刻」とみなす比較
-  bool isSameTimeWithTolerance(
-    DateTime a, {
-    Duration tolerance = const Duration(seconds: 60),
-  }) {
-    final diff = difference(a).inSeconds.abs();
-    return diff <= tolerance.inSeconds;
-  }
 }

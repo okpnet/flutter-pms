@@ -37,7 +37,6 @@ class AppStrings with BaseTranslations<AppLocale, AppStrings> {
 	// Translations
 	late final AppStrings$splash$ja splash = AppStrings$splash$ja.internal(_root);
 	late final AppStrings$common$ja common = AppStrings$common$ja.internal(_root);
-	late final AppStrings$login$ja login = AppStrings$login$ja.internal(_root);
 	late final AppStrings$grid$ja grid = AppStrings$grid$ja.internal(_root);
 	late final AppStrings$company$ja company = AppStrings$company$ja.internal(_root);
 }
@@ -64,36 +63,6 @@ class AppStrings$common$ja {
 
 	/// ja: '未実装'
 	String get notImplemented => '未実装';
-}
-
-// Path: login
-class AppStrings$login$ja {
-	AppStrings$login$ja.internal(this._root);
-
-	final AppStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'ログイン'
-	String get title => 'ログイン';
-
-	/// ja: 'IDまたはパスワードが違います'
-	String get invalidCredential => 'IDまたはパスワードが違います';
-
-	/// ja: 'ユーザーID'
-	String get userId => 'ユーザーID';
-
-	/// ja: 'ユーザーIDは必須です'
-	String get userIdRequired => 'ユーザーIDは必須です';
-
-	/// ja: 'パスワード'
-	String get password => 'パスワード';
-
-	/// ja: 'パスワードは必須です'
-	String get passwordRequired => 'パスワードは必須です';
-
-	/// ja: 'ログイン'
-	String get submit => 'ログイン';
 }
 
 // Path: grid
@@ -148,13 +117,6 @@ extension on AppStrings {
 		return switch (path) {
 			'splash.initializing' => '初期化中',
 			'common.notImplemented' => '未実装',
-			'login.title' => 'ログイン',
-			'login.invalidCredential' => 'IDまたはパスワードが違います',
-			'login.userId' => 'ユーザーID',
-			'login.userIdRequired' => 'ユーザーIDは必須です',
-			'login.password' => 'パスワード',
-			'login.passwordRequired' => 'パスワードは必須です',
-			'login.submit' => 'ログイン',
 			'grid.filtered' => ({required Object count}) => '条件適用 ${count} 件',
 			'grid.wait' => 'お待ちください',
 			'grid.total' => ({required Object count}) => '全 ${count} 件',

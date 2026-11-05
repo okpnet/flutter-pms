@@ -158,8 +158,8 @@ class AuthFilesStrings$login$ja {
 
 	// Translations
 
-	/// ja: '生産管理にサインイン'
-	String get heading => '生産管理にサインイン';
+	/// ja: '{app}にサインイン'
+	String heading({required Object app}) => '${app}にサインイン';
 
 	/// ja: 'ユーザーIDまたはEメール'
 	String get identity => 'ユーザーIDまたはEメール';
@@ -543,7 +543,7 @@ extension on AuthFilesStrings {
 			'rules.code' => 'コードは12文字の英数字で入力してください。(ハイフン・空白は不要です)',
 			'rules.password' => ({required Object n}) => 'パスワードは${n}文字以上にしてください。',
 			'rules.passwordConfirm' => '新しいパスワードと同じ値を入力してください。',
-			'login.heading' => '生産管理にサインイン',
+			'login.heading' => ({required Object app}) => '${app}にサインイン',
 			'login.identity' => 'ユーザーIDまたはEメール',
 			'login.password' => 'パスワード',
 			'login.submit' => 'ログイン',

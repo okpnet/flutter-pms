@@ -11,7 +11,7 @@ dashboard:
   edit: Edit layout
   done: Done
 boot:
-  title: Starting up…
+  title: "Starting {app}…"
   message: Loading data and settings.
 error:
   title: Error

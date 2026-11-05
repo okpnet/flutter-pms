@@ -89,7 +89,7 @@ class _AppCoreStrings$boot$en extends AppCoreStrings$boot$ja {
 	final AppCoreStringsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Starting up…';
+	@override String title({required Object app}) => 'Starting ${app}…';
 	@override String get message => 'Loading data and settings.';
 }
 
@@ -214,7 +214,7 @@ extension on AppCoreStringsEn {
 			'dashboard.title' => 'Dashboard',
 			'dashboard.edit' => 'Edit layout',
 			'dashboard.done' => 'Done',
-			'boot.title' => 'Starting up…',
+			'boot.title' => ({required Object app}) => 'Starting ${app}…',
 			'boot.message' => 'Loading data and settings.',
 			'error.title' => 'Error',
 			'error.message' => 'An error occurred in the application',

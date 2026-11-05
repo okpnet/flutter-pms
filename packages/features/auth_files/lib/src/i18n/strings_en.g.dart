@@ -110,7 +110,7 @@ class _AuthFilesStrings$login$en extends AuthFilesStrings$login$ja {
 	final AuthFilesStringsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get heading => 'Sign in to Production Management';
+	@override String heading({required Object app}) => 'Sign in to ${app}';
 	@override String get identity => 'User ID or email';
 	@override String get password => 'Password';
 	@override String get submit => 'Sign in';
@@ -324,7 +324,7 @@ extension on AuthFilesStringsEn {
 			'rules.code' => 'Enter the 12-character code. (No hyphens or spaces needed.)',
 			'rules.password' => ({required Object n}) => 'The password must be at least ${n} characters.',
 			'rules.passwordConfirm' => 'Enter the same value as the new password.',
-			'login.heading' => 'Sign in to Production Management',
+			'login.heading' => ({required Object app}) => 'Sign in to ${app}',
 			'login.identity' => 'User ID or email',
 			'login.password' => 'Password',
 			'login.submit' => 'Sign in',

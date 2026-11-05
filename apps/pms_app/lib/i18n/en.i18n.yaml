@@ -2,14 +2,6 @@ splash:
   initializing: "Initializing"
 common:
   notImplemented: "Not implemented"
-login:
-  title: "Sign in"
-  invalidCredential: "The ID or password is incorrect"
-  userId: "User ID"
-  userIdRequired: "User ID is required"
-  password: "Password"
-  passwordRequired: "Password is required"
-  submit: "Sign in"
 grid:
   filtered: "$count filtered"
   wait: "Please wait"

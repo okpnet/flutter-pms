@@ -253,6 +253,26 @@ void main() {
     });
   });
 
+  group('アプリの名前(見出しの引数)', () {
+    testWidgets('ログイン画面の見出しは、アプリの名前を引数に取り、言語に合わせる', (tester) async {
+      final container = await _open(
+        tester,
+        const LoginDestination(),
+        user: null,
+        overrides: [appNameProvider.overrideWithValue('Foo')],
+      );
+      expect(find.text('Fooにサインイン'), findsOneWidget);
+      container.read(localeProvider.notifier).set(const Locale('en'));
+      await tester.pumpAndSettle();
+      expect(find.text('Sign in to Foo'), findsOneWidget);
+    });
+
+    testWidgets('上書きしないときは、製品の名前「生産管理」', (tester) async {
+      await _open(tester, const LoginDestination(), user: null);
+      expect(find.text('生産管理にサインイン'), findsOneWidget);
+    });
+  });
+
   test('パスと遷移先: ログアウトはセッション切れだけ ?expired=1 を付ける', () {
     const module = AuthFilesModule();
     expect(module.locationOf(const LogoutDestination()), '/auth/logout');

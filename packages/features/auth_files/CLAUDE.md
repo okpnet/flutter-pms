@@ -57,6 +57,7 @@
 7.  アプリへの組み込み: ログイン前の画面は枠の外、共有ファイルと管理者の画面は枠の中に置くため、`AuthFilesModule` は2つに分けて組み込める(`AuthFilesModule(includeFramed: false)` を枠の外のモジュールへ、`AuthFilesModule(includeEntry: false)` を枠の中のモジュールへ)。既定は両方。
 8.  セッションの確認(`IPageSessionMediator`)と、ログインしていないときのログインへの向け先は、アプリ(`pms_app`)が持つ(`PocketBasePageSession`・`authRedirect`)。この機能は画面だけを持つ。
 9.  認証サーバーに接続しない開発用(`AuthMode.provisional`。アプリが `authModeProvider` を上書きする。`pms_app` は `POCKETBASE_URL` を指定しないとき)は、ログイン画面が資格情報を求めず、標準のユーザー(`userSummaryProvider` の標準値)でログインする。ログアウトはユーザー表示を消すだけ(セッション・保管庫は触らない)。資格情報を確認しないので、本番のビルドでは使わない。裏設定の入口(ID とパスワード)は、この開発用では使えない。
+10. ログイン画面の見出しは、アプリの名前を引数にする(「{app}にサインイン」。`feature_shared`の`appNameProvider`。アプリが使用言語に合わせて上書きする。既定は「生産管理」)。
 9.  ログアウトは `authFilesSignOut`(PocketBase のセッション・保管庫のログイン情報・ログインユーザーの表示・画面をまたぐ入力を破棄。一部が失敗しても続け、例外にしない)。ログアウト画面は `app_core` が持ち、開いたとき1回これを実行する。
 10. ログイン情報の保存は `SecureTokenStore`(`flutter_secure_storage`)。保管庫が使えないときは、読めなければ未ログイン、書けなくてもメモリ上で続ける。
 11. ファイルは `file_picker`(`PlatformFilePicker`・`PlatformFileSaver`)。選択は100MBを超えるファイルをメモリへ読む前に断る。

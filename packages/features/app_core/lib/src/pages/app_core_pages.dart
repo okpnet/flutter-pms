@@ -26,7 +26,7 @@ class BootPage extends ConsumerWidget {
           height: 48,
           child: CircularProgressIndicator(strokeWidth: 4),
         ),
-        title: t.title,
+        title: t.title(app: ref.watch(appCoreStringsProvider).app.title),
         message: t.message,
         showProgress: true,
       ),

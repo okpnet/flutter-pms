@@ -28,7 +28,7 @@ rules:
   password: パスワードは{n}文字以上にしてください。
   passwordConfirm: 新しいパスワードと同じ値を入力してください。
 login:
-  heading: 生産管理にサインイン
+  heading: "{app}にサインイン"
   identity: ユーザーIDまたはEメール
   password: パスワード
   submit: ログイン

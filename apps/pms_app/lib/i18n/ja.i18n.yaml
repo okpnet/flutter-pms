@@ -2,14 +2,6 @@ splash:
   initializing: "初期化中"
 common:
   notImplemented: "未実装"
-login:
-  title: "ログイン"
-  invalidCredential: "IDまたはパスワードが違います"
-  userId: "ユーザーID"
-  userIdRequired: "ユーザーIDは必須です"
-  password: "パスワード"
-  passwordRequired: "パスワードは必須です"
-  submit: "ログイン"
 grid:
   filtered: "条件適用 $count 件"
   wait: "お待ちください"

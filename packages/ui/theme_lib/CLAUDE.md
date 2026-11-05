@@ -52,6 +52,7 @@
 1.  フォント: **OS に入っているフォントだけを使い、フォントは同梱しない。** 日本語の代替を `ThemeBuilder.fontFamilyFallback`(Hiragino Sans → Yu Gothic UI → Meiryo)として、すべてのテーマに付ける。`fontFamily` を指定した場合は、それが先。画面案の Noto Sans JP は同梱しないため使わない。同梱が必要になったときは、メイリオにする。
 1.  部品の見た目: 面は影ではなく罫線で区切る(カードは影なし+`outlineVariant` の罫線、タイトルバーは下に罫線、ダイアログ・シートは `cardRadius`)。チップ・ナビゲーションの選択中は `primaryContainer`。これらはすべてのテーマに共通(`ThemeBuilder`)。`cardRadius` を省略したテーマは、カードの角丸が `radius` と同じ。
 1.  `AppColors`(`ThemeExtension`。`Theme.of(context).extension<AppColors>()` または `AppColors.of(theme)`): `ColorScheme` に収まらない画面案の色を持つ。すべてのテーマで `ThemeBuilder` が `ColorScheme` から作る(`surface2`=surfaceContainerHighest、`muted`=onSurfaceVariant、`line`=outlineVariant、`accentSoft`=primaryContainer、`seg1/2/3`=primary/secondary/tertiary、`focus`=色の個別指定 `focus`、無ければ primary)。区分の色は色だけで伝えず、ラベルや数値を併記する。
+    区分の色(`seg1/2/3`)が`primary`/`secondary`/`tertiary`と別の色になるテーマが必要になったら、色の個別上書きに足す(`AppColors`の作り方を変える)。
 1.  色の個別上書き(`light.colors`・`dark.colors`)に使える名前: `primary` `onPrimary` `primaryContainer` `onPrimaryContainer` `secondary` `onSecondary` `tertiary` `onTertiary` `error` `onError` `errorContainer` `onErrorContainer` `surface` `background` `onSurface` `surfaceContainerHighest` `onSurfaceVariant` `outline` `outlineVariant` `focus`。
 1.  コントラスト: 文字は 4.5:1 以上、枠は背景に対して 3:1 以上(`test/open_design_theme_test.dart`・`test/external_themes_test.dart` が確認する)。区分や状態は色だけで伝えない。
 

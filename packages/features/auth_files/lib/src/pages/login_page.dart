@@ -91,7 +91,7 @@ class _LoginPageState extends ConsumerState<LoginPage> with BusyAction {
     final flash = ref.watch(authFlashProvider);
     if (ref.watch(authModeProvider) == AuthMode.provisional) {
       return AuthCard(
-        heading: t.login.heading,
+        heading: t.login.heading(app: ref.watch(appNameProvider)),
         children: [
           NoticeBanner(t.login.provisionalNotice),
           FilledButton(
@@ -102,7 +102,7 @@ class _LoginPageState extends ConsumerState<LoginPage> with BusyAction {
       );
     }
     return AuthCard(
-      heading: t.login.heading,
+      heading: t.login.heading(app: ref.watch(appNameProvider)),
       children: [
         if (flash != null) NoticeBanner(flash, isError: false),
         if (errorText != null) NoticeBanner(errorText!),

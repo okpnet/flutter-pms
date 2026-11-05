@@ -163,7 +163,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('ブート'));
     await tester.pump(const Duration(milliseconds: 100));
-    expect(find.text('起動しています…'), findsOneWidget);
+    expect(find.text('生産管理を起動しています…'), findsOneWidget);
     expect(find.text('データと設定を読み込んでいます。'), findsOneWidget);
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
     expect(find.byType(LinearProgressIndicator), findsOneWidget);

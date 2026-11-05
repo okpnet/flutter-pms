@@ -11,6 +11,9 @@ part of 'mock_core_serveice.dart';
 ///主サービス
 ///立ち上げるときに1度呼びだし、インスタンス化する。
 ///終了時に明示的には記するサービスを追加する。
+///
+///ログイン・ログアウトの画面とセッションは`auth_files`が持つ。ページの切り替え・更新での
+///セッション確認とログインへの向け先は、`rootRouter`の`redirect`が行う。
 
 @ProviderFor(mockCoreService)
 final mockCoreServiceProvider = MockCoreServiceProvider._();
@@ -18,6 +21,9 @@ final mockCoreServiceProvider = MockCoreServiceProvider._();
 ///主サービス
 ///立ち上げるときに1度呼びだし、インスタンス化する。
 ///終了時に明示的には記するサービスを追加する。
+///
+///ログイン・ログアウトの画面とセッションは`auth_files`が持つ。ページの切り替え・更新での
+///セッション確認とログインへの向け先は、`rootRouter`の`redirect`が行う。
 
 final class MockCoreServiceProvider
     extends $FunctionalProvider<AsyncValue<void>, void, FutureOr<void>>
@@ -25,6 +31,9 @@ final class MockCoreServiceProvider
   ///主サービス
   ///立ち上げるときに1度呼びだし、インスタンス化する。
   ///終了時に明示的には記するサービスを追加する。
+  ///
+  ///ログイン・ログアウトの画面とセッションは`auth_files`が持つ。ページの切り替え・更新での
+  ///セッション確認とログインへの向け先は、`rootRouter`の`redirect`が行う。
   MockCoreServiceProvider._()
     : super(
         from: null,
@@ -50,4 +59,4 @@ final class MockCoreServiceProvider
   }
 }
 
-String _$mockCoreServiceHash() => r'0dee539a4f9f410bd6af008644f5c844d2e0b54b';
+String _$mockCoreServiceHash() => r'8eda8a69bfbfba9ec501769d3319bccade83e010';

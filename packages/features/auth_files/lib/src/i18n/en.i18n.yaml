@@ -28,7 +28,7 @@ rules:
   password: The password must be at least {n} characters.
   passwordConfirm: Enter the same value as the new password.
 login:
-  heading: Sign in to Production Management
+  heading: "Sign in to {app}"
   identity: User ID or email
   password: Password
   submit: Sign in

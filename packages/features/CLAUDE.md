@@ -49,6 +49,7 @@
     2.  言語の選択は`riverpod`で行う。`feature_shared`の`localeProvider`を`ref.watch`して`xxxStringsProvider`が文字列を返す。slangのFlutter連携・グローバル変数は使わない。基準言語以外は遅延読み込みのため、読み込みが終わるまでは基準言語(日本語)を返す。
     3.  エラーは文字列ではなく種類(enum・例外の型)で持ち、画面が表示時に文字列へ変換する。ログの文言は多言語の対象にしない。
     4.  画面を持つようになったプロジェクトから導入する(画面が空のプロジェクトは、画面を作るときに追加する)。
+    5.  画面の見出しにアプリの名前を入れるときは、名前を文字列に直接書かず、`feature_shared`の`appNameProvider`(アプリが使用言語に合わせて上書きする。既定は「生産管理」)を slang の引数(`{app}`、`slang.yaml`に`string_interpolation: braces`)として渡す(例: ログイン「{app}にサインイン」、ブート「{app}を起動しています…」)。
 6.  IDの扱い
     1.  GraphQLのUUIDは、アプリ内では文字列(`String`)として扱う。遷移先・命令・モデル・パスのidはすべて`String`にする。
 7.  削除の参照チェック

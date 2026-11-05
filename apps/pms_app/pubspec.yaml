@@ -39,8 +39,6 @@ dependencies:
     path: ../../packages/features/maintenance
   dashboard_container:
     path: ../../packages/features/dashboard_container
-  pms_authenticator:
-    path: ../../packages/features/pms_authenticator
   shared_preferences: ^2.5.3
   graphql: ^5.2.3
   auth_files:

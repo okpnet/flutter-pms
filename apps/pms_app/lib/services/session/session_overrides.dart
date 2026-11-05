@@ -8,8 +8,9 @@ import 'package:page_mediator_extension/page_mediator_extension.dart';
 
 import '../../imports.dart';
 import '../graphql/graphql_overrides.dart' show pocketbaseEnabledProvider;
-import 'authenticator_page_session.dart';
+
 import 'pocketbase_page_session.dart';
+import 'provisional_page_session.dart';
 
 /// メンテナンスの確認先(サーバーの状態を返す URL)。ビルド時に
 /// `--dart-define=MAINTENANCE_URL=https://.../health` で渡す。未指定のときは、常に利用可能とする。
@@ -21,7 +22,7 @@ const maintenanceUrl = String.fromEnvironment('MAINTENANCE_URL');
 /// - セッション確認: メンテナンスの確認を先に行い、使えるときだけ認証を確認する
 ///   (ページの切り替え・更新で呼ばれる。ログイン中の処理でも、ここでメンテナンスへ切り替わる)。
 ///   認証は、PocketBase を使うとき(`POCKETBASE_URL` の指定あり)は pbapi([PocketBasePageSession])、
-///   使わないときは pms_authenticator([AuthenticatorPageSession])
+///   使わないときは開発用の簡単な確認([ProvisionalPageSession])
 List<Override> sessionOverrides({String url = maintenanceUrl}) => [
   if (url.isNotEmpty)
     maintenanceCheckerProvider.overrideWith(
@@ -46,7 +47,7 @@ List<Override> sessionOverrides({String url = maintenanceUrl}) => [
               .isUnderMaintenance,
       inner: ref.read(pocketbaseEnabledProvider)
           ? PocketBasePageSession(ref)
-          : AuthenticatorPageSession(ref),
+          : ProvisionalPageSession(ref),
     ),
   ),
 ];

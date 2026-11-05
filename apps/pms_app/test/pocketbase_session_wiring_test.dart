@@ -124,11 +124,16 @@ void main() {
       expect(session.intervals, isEmpty);
     });
 
-    test('PocketBase を使わないときは、これまでの認証(AuthenticatorPageSession)のまま', () async {
+    test('PocketBase を使わないときは、開発用の確認(ユーザーがいれば有効、いなければログアウト)', () async {
       final container = _container(_FakeSession(), pocketbase: false);
       final mediator = container.read(pageSessionMediatorProvider);
       expect(mediator.toJson().toString(), contains('MaintenanceAware'));
       expect(await mediator.refresh(), PageSessionStatus.signedOut);
+      container
+          .read(userSummaryProvider.notifier)
+          .set(const UserSummary(name: 'dev'));
+      expect(await mediator.refresh(), PageSessionStatus.valid);
+      expect(await mediator.check(), PageSessionStatus.valid);
     });
   });
 

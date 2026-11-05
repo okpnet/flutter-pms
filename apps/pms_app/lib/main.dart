@@ -41,6 +41,10 @@ Future<void> main() async {
         //使用言語は実行環境(OS)に従う。設定画面で変更できる
         localeProvider.overrideWith(SystemLocaleNotifier.new),
         themeLoggerProvider.overrideWithValue(logger),
+        //画面の見出しに入れるアプリの名前は、使用言語に合わせる
+        appNameProvider.overrideWith(
+          (ref) => ref.watch(appCoreStringsProvider).app.title,
+        ),
         //設定の保存先は shared_preferences
         settingsStorageProvider.overrideWithValue(
           SharedPreferencesSettingsStorage(SharedPreferencesAsync()),

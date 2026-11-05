@@ -98,9 +98,6 @@ class _GridTree<R> extends ConsumerState<GridTree> with GridTreeMixin<R> {
     ///親でwatchする
     ref.read(editableSessionControllerProvider.notifier);
 
-    ///権限を取得する
-    ref.read(mockAutorizeServiceProvider);
-
     return TrinaGrid(
       mode: .select,
       isTreeDragMode: true, //ツリーモード指定。ドラッグ中に行左端へホバーすると右に寄る。
