@@ -4,7 +4,7 @@
 画面の枠(タイトルバー・サイドバー・ハンバーガー・ログインユーザー)の見た目は `packages/ui/app_shell` が持ち、このプロジェクトはその文字列(アプリ名・メニューの説明・設定)と、基盤の画面を持つ。
 
 ## 画面(Html のメニュー・features/CLAUDE.md の AppCore)
-1.  ブート画面(シングルメインフレーム): 読み込み中の表示。`/boot`
+1.  ブート画面(シングルメインフレーム): 読み込み中の表示。`BootDestination` → `/boot`
 2.  ダッシュボード(マルチメインフレーム): `DashboardDestination` → `/dashboard`。件数のコンテナ(`dashboard_container`)の領域を置き、「配置を編集」で編集に切り替える(コンテナ・項目の追加・削除・並び替え・大きさ。変更は設定として保存し、表示するときに設定から読み込む)。件数の元(`countSourcesProvider`)はアプリが差し込む
 3.  エラー画面(シングルメインフレーム): アプリケーションエラーの表示。`ErrorDestination({message})` → `/error`
 4.  設定(マルチメインフレーム): 使用言語(実行環境に従う/日本語/English)、サイドバーをアイコンだけにする設定、ログインユーザー(ユーザー名・役割を設定値として与える。標準値へ戻せる)、バージョン情報(`--dart-define=APP_VERSION=x.y.z`)。`SettingsDestination` → `/settings`。使用者全体ではなく、使用ユーザーにだけ影響する設定
@@ -15,7 +15,7 @@
 | 種別 | ファイル | 内容 |
 |---|---|---|
 | 実装の入口 | `lib/app_core.dart` | 公開は `AppCoreModule` と、アプリが使う文字列(`appCoreStringsProvider`) |
-| 契約の入口 | `lib/app_core_api.dart` | 遷移先の型(`DashboardDestination`・`SettingsDestination`・`LogoutDestination`・`ErrorDestination`) |
+| 契約の入口 | `lib/app_core_api.dart` | 遷移先の型(`BootDestination`・`DashboardDestination`・`SettingsDestination`・`LogoutDestination`・`ErrorDestination`) |
 | モジュール | `lib/src/app_core_module.dart` | ルートと遷移先の変換 |
 | 画面 | `lib/src/pages/` | ブート・エラー・ログアウト・設定(`app_core_pages.dart`)、ダッシュボード(`dashboard_page.dart`) |
 | 文字列 | `lib/src/i18n` | slang の Yaml(日本語・英語) |
@@ -26,7 +26,7 @@
 3.  ログは `logger_provider` の `loggerProvider` を `ref` から直接取得し、この機能が発生元のエラーだけを出す。
 
 ## example と多言語
-1.  ビジュアルテスト用の `example` は、画面を増やすときに追加する(現状は `test/` の `FeatureHost` を使ったテストで確認している)。
+1.  ビジュアルテスト用の `example`(Windows、`flutter run -d windows`)で、すべての画面の状態を目視で確認できる。一覧はブート・ダッシュボード・エラー(内容なし/あり)・設定・ログアウト・状態の切り替え。状態の切り替え(ログアウトの失敗、ログイン先の有無、ダッシュボードの件数の元の有無)は example だけのモジュールが持つ。画面を増やしたら一覧に足し、`example/test/widget_test.dart` で確認する。依存関係上必要なライブラリだけ参照し、それ以外は example の中で完結する。
 2.  文字列は `lib/src/i18n` の言語ファイル(Yaml)に置き、`slang.yaml` の `class_name: AppCoreStrings` で生成する(`dart run slang`)。
 
 ## 規則/仕様

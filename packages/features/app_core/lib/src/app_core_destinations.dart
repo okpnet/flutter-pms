@@ -1,5 +1,10 @@
 import 'package:baton_lib/baton_lib.dart';
 
+/// ブート画面へ(読み込み中の表示)。
+final class BootDestination extends PageDestination<void> {
+  const BootDestination();
+}
+
 /// ダッシュボードへ。件数のコンテナ(`dashboard_container`)を置く。
 final class DashboardDestination extends PageDestination<void> {
   const DashboardDestination();
@@ -27,6 +32,7 @@ final class ErrorDestination extends PageDestination<void> {
 
 /// 登録漏れ検出用の見本。遷移先を追加したら、ここにも1件足す。
 const List<PageDestination<Object?>> appCoreDestinationSamples = [
+  BootDestination(),
   DashboardDestination(),
   SettingsDestination(),
   LogoutDestination(),

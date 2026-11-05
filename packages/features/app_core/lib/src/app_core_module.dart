@@ -40,6 +40,7 @@ class AppCoreModule implements FeatureModule {
   @override
   String? locationOf(PageDestination<Object?> destination) =>
       switch (destination) {
+        BootDestination() => AppCorePaths.boot,
         DashboardDestination() => AppCorePaths.dashboard,
         SettingsDestination() => AppCorePaths.settings,
         LogoutDestination() => AppCorePaths.logout,
