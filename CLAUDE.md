@@ -21,7 +21,8 @@ melos run gen                        # build_runner を使うパッケージの�
 melos exec --category=features -- flutter test   # 層ごと(apps/features/core/ui/infra/foundation)
 melos exec --scope=customer -- flutter test      # 特定パッケージだけ
 cd apps\pms_app; flutter run -d windows          # アプリ起動
-tools\init\test_init.bat                         # テスト環境: アプリからログインできる管理者ユーザーを用意する(tools\init\README.md)
+tools\init\test_admin_init.bat                   # テスト環境: アプリからログインできる管理者を用意する(本番は admin_init.bat。tools\init\README.md)
+tools\init\test_user_init.bat                    # テスト環境: ダミーの担当者を PocketBase のユーザーにする(本番は user_init.bat -File users.csv)
 cd packages\features\backstage; dart run backstage:make_entry_hash   # 裏設定の入口のハッシュを作る(下記)
 ```
 

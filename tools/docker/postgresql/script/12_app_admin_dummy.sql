@@ -3,7 +3,7 @@
 -- App の管理者ユーザーに対応する担当者(info_staff)のダミーデータ
 --
 -- PocketBase の管理者ユーザー(role=admin)の app_user_id は、この担当者のID(info_staff_id、UUID)。
--- tools/init/test_init.bat が、担当者のコードを PocketBase のユーザーIDと同じ(大文字小文字を区別しない)
+-- tools/init/test_admin_init.bat が、担当者のコードを PocketBase のユーザーIDと同じ(大文字小文字を区別しない)
 -- ものから探して、PocketBase の app_user_id に設定する(無ければコード ADMIN)。
 --
 -- ■ 実行順   06_cteate_test.sql → 08_mrp.sql → 10_mrp_dummy.sql → 本ファイル
