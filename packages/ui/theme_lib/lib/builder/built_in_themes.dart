@@ -31,6 +31,7 @@ final ThemeDefinition openDesignTheme = ThemeDefinition(
         0xFF7C8B96,
       ), // 入力欄・ボタンの枠(罫線 line より濃くして、背景との差を 3:1 以上にする)
       'outlineVariant': Color(0xFFD3DCE1), // line(カード・区切りの罫線)
+      'focus': Color(0xFF1A5FD0), // --focus(フォーカスリング)
     },
   ),
   dark: ThemePalette(
@@ -55,6 +56,7 @@ final ThemeDefinition openDesignTheme = ThemeDefinition(
       'onSurfaceVariant': Color(0xFFA5B4BD),
       'outline': Color(0xFF5B7384),
       'outlineVariant': Color(0xFF2D4250),
+      'focus': Color(0xFF8AB4FF),
     },
   ),
   metrics: const ThemeMetrics(
@@ -73,18 +75,9 @@ final ThemeDefinition openDesignTheme = ThemeDefinition(
   ),
 );
 
-/// 組み込みテーマ。先頭が既定で、いずれも削除できない。
+/// 組み込みテーマ。既定の1つだけで、削除できない。
+/// `ocean`・`forest` などの追加のテーマは外部のJSONファイル(`themes/`、[ThemeAssets])で、
+/// [ThemeManager.importAssets] から取り込む。
 final List<ThemeDefinition> builtInThemes = List.unmodifiable([
   openDesignTheme,
-  ThemeDefinition(
-    id: 'ocean',
-    name: 'Ocean',
-    light: ThemePalette(seed: const Color(0xFF00838F)),
-  ),
-  ThemeDefinition(
-    id: 'forest',
-    name: 'Forest',
-    light: ThemePalette(seed: const Color(0xFF2E7D32)),
-    metrics: const ThemeMetrics(spacing: 6, radius: 12, fullRadius: 28),
-  ),
 ]);

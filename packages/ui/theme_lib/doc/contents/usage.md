@@ -61,6 +61,7 @@ class MyApp extends ConsumerWidget {
 final manager = ref.read(themeManagerProvider.notifier);
 
 manager.setMode(ThemeMode.dark);   // システム / ライト / ダーク
+await manager.importAssets(ThemeAssets.all);  // 追加のテーマ(ocean・forest)を取り込む(起動時に1回)
 manager.select('ocean');           // 登録済みテーマへ切り替え
 ```
 
@@ -79,8 +80,8 @@ manager.select('ocean');           // 登録済みテーマへ切り替え
 
 ## 🎭 4. テーマを切り替える
 
-標準で3種類が登録されています。**角丸・余白・ボタン高さ** もテーマごとに変わります。
-組み込みテーマは削除できません。
+組み込みは `default`(画面案のデザイン)だけです。`ocean`・`forest` は外部のJSONファイル(`themes/`)で、`manager.importAssets(ThemeAssets.all)` で取り込むと選べます。**角丸・余白・ボタン高さ** もテーマごとに変わります。
+組み込みの `default` は削除できません。
 
 | `default` | `ocean`（角丸 6） | `forest`（角丸 12・余白 6） |
 | --- | --- | --- |
@@ -246,7 +247,9 @@ Text('エラー', style: context.textStyleMode(color: TextColorStyleMode.error))
 
 ## ⚠️ 10. 知っておくこと
 
-- 🔒 `default` / `ocean` / `forest` は削除できません（`ThemeProtectedException`）。
+- 🔒 組み込みの `default` は削除できません（`ThemeProtectedException`）。取り込んだ `ocean` などは削除できます。
+- 🔤 フォントは OS のものだけを使い、同梱しません（日本語の代替は `ThemeBuilder.fontFamilyFallback`）。
+- 🎨 `ColorScheme` に収まらない色は `AppColors.of(Theme.of(context))` で取れます（`muted`・`line`・`accentSoft`・`focus` など）。
 - 🔎 存在しない id の `select` / `exportJson` / `remove` は `ThemeNotFoundException` です。
 - 💾 テーマはメモリ上のみ保持します。再起動後も残したいときは `exportJson` した内容をアプリ側で保存し、起動時に `importJson` してください。
 - 🏗️ `ThemeBuilder.build(definition, brightness)` を直接呼べば、Riverpod を使わずに `ThemeData` を作れます。

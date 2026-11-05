@@ -5,12 +5,14 @@
 /// - [IFilePickerGateway] / [IFileSaverGateway]: ファイルの選択・保存の差し込み口
 ///   (既定は OS のダイアログの [PlatformFilePicker]・[PlatformFileSaver])
 /// - [SecureTokenStore] / [tokenStoreProvider]: ログイン情報の安全な保管庫(OS の保管庫)
-/// - [authFilesSignOut]: ログアウト(PocketBase のセッションと保管庫を破棄する)
+/// - [signOutProvider] / [authFilesSignOut]: ログアウトの実体(PocketBase のセッションと保管庫を破棄する)
+/// - [AuthMode] / [authModeProvider]: 認証サーバーに接続するか、開発用の仮のログインか
 /// 他の機能が使う遷移先の型は `auth_files_api.dart` を読み込む。
 library;
 
 export 'src/auth_files_module.dart' show AuthFilesModule;
 export 'src/auth_files_paths.dart';
+export 'src/auth_mode.dart';
 export 'src/file_gateway.dart';
 export 'src/i18n/strings_provider.dart'
     show AuthFilesStrings, authFilesStringsProvider;

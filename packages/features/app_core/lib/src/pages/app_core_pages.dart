@@ -3,35 +3,40 @@ import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logger_provider/logger_provider.dart';
+import 'package:theme_lib/theme_lib.dart';
 
 import '../i18n/strings_provider.dart';
-import '../sign_out.dart';
 export 'dashboard_page.dart';
 
 /// アプリケーションのバージョン。ビルド時に `--dart-define=APP_VERSION=1.2.3` で渡す。
 const appVersion = String.fromEnvironment('APP_VERSION', defaultValue: '0.0.1');
 
-/// ブート画面(読み込み中)。
+/// ブート画面(読み込み中)。画面案(`tools/open-design` の `#/boot`)の構成:
+/// 中央のカードに、進行中の表示・見出し・説明・進行バー。
 class BootPage extends ConsumerWidget {
   const BootPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(appCoreStringsProvider);
+    final t = ref.watch(appCoreStringsProvider).boot;
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          spacing: 16,
-          children: [const CircularProgressIndicator(), Text(t.boot.loading)],
+      body: StatusCard(
+        leading: const SizedBox(
+          width: 48,
+          height: 48,
+          child: CircularProgressIndicator(strokeWidth: 4),
         ),
+        title: t.title,
+        message: t.message,
+        showProgress: true,
       ),
     );
   }
 }
 
 /// エラー画面。アプリケーションエラーの内容を表示する。
+/// 画面案(`tools/open-design` の `#/error`)の構成: 中央のカードに、丸いアイコン
+/// (`errorContainer` の地に `onErrorContainer`)・見出し・エラーの内容・ボタン。
 class ErrorPage extends ConsumerWidget {
   const ErrorPage({super.key, this.message});
 
@@ -40,134 +45,24 @@ class ErrorPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(appCoreStringsProvider);
-    final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
-    // 画面案(`tools/open-design` の `#/error`)の構成: 丸いアイコン(danger-soft の地に danger)・
-    // 見出し・説明・注記(エラーの内容)・ボタンを、中央のカードに置く。
     return ScreenScaffold(
       title: t.error.title,
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 480),
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 32,
-                ),
-                child: Semantics(
-                  liveRegion: true,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    spacing: 16,
-                    children: [
-                      Container(
-                        width: 64,
-                        height: 64,
-                        decoration: BoxDecoration(
-                          color: scheme.errorContainer,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          Icons.error_outline,
-                          size: 32,
-                          color: scheme.onErrorContainer,
-                        ),
-                      ),
-                      Text(
-                        t.error.message,
-                        style: theme.textTheme.titleLarge,
-                        textAlign: TextAlign.center,
-                      ),
-                      if (message != null && message!.isNotEmpty)
-                        Text(
-                          message!,
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: scheme.onSurfaceVariant,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      FilledButton(
-                        onPressed: () {
-                          if (context.canPop()) {
-                            context.pop();
-                          } else {
-                            context.go('/');
-                          }
-                        },
-                        child: Text(t.error.back),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// ログアウト画面。ログアウトしたこと(セッション切れを含む)を表示する。
-///
-/// 開いたときに1回、[signOutProvider] のログアウトを実行する(認証を持つアプリが、セッションと保管庫の
-/// ログイン情報の破棄を差し込む)。ボタンは、[signInDestinationProvider] があればログイン画面へ、
-/// 無ければ認証の導入前の仮のログイン(標準のユーザーに戻す)。
-class LogoutPage extends ConsumerStatefulWidget {
-  const LogoutPage({super.key});
-
-  @override
-  ConsumerState<LogoutPage> createState() => _LogoutPageState();
-}
-
-class _LogoutPageState extends ConsumerState<LogoutPage> {
-  @override
-  void initState() {
-    super.initState();
-    // 描画の途中で状態を変えないよう、構築の後に実行する。
-    Future.microtask(_signOut);
-  }
-
-  Future<void> _signOut() async {
-    try {
-      await ref.read(signOutProvider)();
-    } catch (e, s) {
-      // 失敗してもログアウト画面は表示する。原因は、ここで [app_core] の失敗としてログに残す。
-      ref
-          .read(loggerProvider)
-          .error('[app_core] ログアウトの実行に失敗しました', ex: e, trace: s);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final t = ref.watch(appCoreStringsProvider).logout;
-    final signIn = ref.watch(signInDestinationProvider);
-    return ScreenScaffold(
-      title: t.title,
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          spacing: 12,
-          children: [
-            const Icon(Icons.logout, size: 48),
-            Text(t.message),
-            FilledButton(
-              onPressed: () {
-                if (signIn != null) {
-                  ref.read(commandBusProvider).execute(signIn);
-                  return;
-                }
-                ref.read(userSummaryProvider.notifier).reset();
+      body: StatusCard(
+        leading: const StatusIcon(Icons.error_outline, isError: true),
+        title: t.error.message,
+        message: message,
+        actions: [
+          FilledButton(
+            onPressed: () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
                 context.go('/');
-              },
-              child: Text(signIn != null ? t.toLogin : t.signIn),
-            ),
-          ],
-        ),
+              }
+            },
+            child: Text(t.error.back),
+          ),
+        ],
       ),
     );
   }
@@ -245,6 +140,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   Widget build(BuildContext context) {
     final t = ref.watch(appCoreStringsProvider).settings;
     final iconOnly = ref.watch(sidebarIconOnlyProvider);
+    final themeState = ref.watch(themeManagerProvider);
+    final themeManager = ref.read(themeManagerProvider.notifier);
     return ScreenScaffold(
       title: t.title,
       body: ListView(
@@ -284,6 +181,57 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             title: Text(t.layout.sidebarIconOnly),
             value: iconOnly,
             onChanged: ref.read(sidebarIconOnlyProvider.notifier).set,
+          ),
+          const Divider(),
+          Text(t.theme.title, style: Theme.of(context).textTheme.titleMedium),
+          Text(t.theme.note, style: Theme.of(context).textTheme.bodySmall),
+          const SizedBox(height: 8),
+          Text(
+            t.theme.mode.title,
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+          RadioGroup<ThemeMode>(
+            groupValue: themeState.mode,
+            onChanged: (v) {
+              if (v != null) themeManager.setMode(v);
+            },
+            child: Column(
+              children: [
+                RadioListTile<ThemeMode>(
+                  value: ThemeMode.system,
+                  title: Text(t.theme.mode.system),
+                ),
+                RadioListTile<ThemeMode>(
+                  value: ThemeMode.light,
+                  title: Text(t.theme.mode.light),
+                ),
+                RadioListTile<ThemeMode>(
+                  value: ThemeMode.dark,
+                  title: Text(t.theme.mode.dark),
+                ),
+              ],
+            ),
+          ),
+          Text(
+            t.theme.selection,
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+          // 登録されているテーマ(組み込みの既定と、取り込んだ追加のテーマ)から選ぶ。
+          // テーマの中身の編集は、このアプリでは行わない(別のアプリケーションで行う)。
+          RadioGroup<String>(
+            groupValue: themeState.activeId,
+            onChanged: (id) {
+              if (id != null) themeManager.select(id);
+            },
+            child: Column(
+              children: [
+                for (final theme in themeState.themes.values)
+                  RadioListTile<String>(
+                    value: theme.id,
+                    title: Text(theme.name),
+                  ),
+              ],
+            ),
           ),
           const Divider(),
           Text(t.user.title, style: Theme.of(context).textTheme.titleMedium),

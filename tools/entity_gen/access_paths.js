@@ -24,7 +24,6 @@ const CUSTOM = [
   ['app_core', 'boot', '/boot', 'ブート', 'Boot', true],
   ['app_core', 'dashboard', '/dashboard', 'ダッシュボード', 'Dashboard', false],
   ['app_core', 'settings', '/settings', '設定', 'Settings', false],
-  ['app_core', 'logout', '/logout', 'ログアウト', 'Log out', true],
   ['app_core', 'error', '/error', 'エラー', 'Error', true],
   ['maintenance', 'maintenance', '/maintenance', 'メンテナンス中', 'Under maintenance', true],
   ['backstage', 'backstage', '/backstage', '裏設定', 'Backstage settings', true],
@@ -32,6 +31,7 @@ const CUSTOM = [
   ['production_plan', 'mrp', '/mrp', '資材所要計算(MRP)', 'Material requirements planning (MRP)', false],
   ['shared_master', 'shipkind', '/shipping-kinds', '配送区分', 'Shipping kind', false],
   ['auth_files', 'login', '/auth/login', 'ログイン', 'Log in', true],
+  ['auth_files', 'logout', '/auth/logout', 'ログアウト', 'Log out', true],
   ['auth_files', 'register', '/auth/register', '新規登録', 'Sign up', true],
   ['auth_files', 'forgot', '/auth/forgot', 'パスワードを忘れた', 'Forgot password', true],
   ['auth_files', 'code', '/auth/forgot/code', '認証コードの入力', 'Enter verification code', true],
@@ -41,7 +41,6 @@ const CUSTOM = [
   ['auth_files', 'adminresets', '/auth/admin/resets', '再設定依頼の管理', 'Manage reset requests', false],
   ['user_profile', 'image', '/profile/image', '自分のイメージ', 'My image', false],
   // 旧来の pms_app のページ(apps/pms_app/lib/contents)
-  ['pms_app', 'login', '/login', 'ログイン', 'Log in', true],
   ['pms_app', 'material_transfer', '/actual/material_transfer/register', '資材移動の登録', 'Register material transfer', false],
   ['pms_app', 'shipping', '/actual/shipping', '出荷の登録', 'Register shipping', false],
   ['pms_app', 'stock_state', '/actual/stock_state', '在庫状況', 'Stock status', false],

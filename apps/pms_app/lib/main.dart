@@ -68,7 +68,15 @@ class _AppMain extends ConsumerState {
   }
 
   Future<void> _initialize() async {
-    //保存した設定(言語・サイドバー・ユーザー)を復元してから、変更の保存を始める
+    //追加のテーマ(ocean・forest。theme_lib の外部のJSONファイル)を取り込む。保存した設定にテーマの選択が
+    //あるので、設定の復元より前に行う。取り込めないテーマがあっても起動は止めず、ログに残す
+    final themeFailures = await ref
+        .read(themeManagerProvider.notifier)
+        .importAssets(ThemeAssets.all);
+    for (final failure in themeFailures) {
+      ref.read(loggerProvider).error('[pms_app] テーマを取り込めませんでした: $failure');
+    }
+    //保存した設定(言語・サイドバー・テーマ・ユーザー)を復元してから、変更の保存を始める
     await ref
         .read(settingsKeeperProvider)
         .restore(ref.read(userSettingsOriginatorProvider));

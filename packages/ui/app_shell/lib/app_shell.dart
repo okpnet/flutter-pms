@@ -17,5 +17,6 @@ export 'src/main_frame.dart';
 export 'src/menu_model.dart';
 export 'src/screen_scaffold.dart';
 export 'src/side_bar.dart';
+export 'src/status_card.dart';
 export 'src/title_bar.dart';
 export 'src/user_container.dart';

@@ -19,18 +19,20 @@ features:
         code: S
         page: AS
         label: 設定
-      - screen: logout
-        code: O
-        page: AO
-        label: ログアウト
       - screen: error
         code: E
         page: AE
         label: エラー
+      - screen: logout
+        code: O
+        page: AO
+        label: (削除済み。再利用の前にレビューする)
+        removed: true
       - screen: login
         code: L
         page: AL
-        label: ログイン
+        label: (削除済み。再利用の前にレビューする)
+        removed: true
   - feature: organization
     code: O
     label: 会社情報
@@ -563,6 +565,10 @@ features:
         code: L
         page: UL
         label: ログイン
+      - screen: logout
+        code: O
+        page: UO
+        label: ログアウト
       - screen: register
         code: S
         page: US

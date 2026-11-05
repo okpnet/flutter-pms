@@ -68,7 +68,6 @@ void main() {
     );
     // 日本語を優先するフォントの代替
     expect(light.textTheme.bodyMedium!.fontFamilyFallback, [
-      'Noto Sans JP',
       'Hiragino Sans',
       'Yu Gothic UI',
       'Meiryo',
@@ -109,17 +108,14 @@ void main() {
   });
 
   test('cardRadius を省略したテーマは、カードの角丸が radius と同じ(従来どおり)', () {
-    final ocean = builtInThemes.firstWhere((t) => t.id == 'ocean');
-    expect(ocean.metrics.cardRadius, isNull);
+    final d = ThemeDefinition.parse(
+      '{"id":"x","name":"X","light":{"seedColor":"#112233"},"metrics":{"radius":10}}',
+    );
+    expect(d.metrics.cardRadius, isNull);
     final card =
-        ThemeBuilder.build(ocean, Brightness.light).cardTheme.shape!
+        ThemeBuilder.build(d, Brightness.light).cardTheme.shape!
             as RoundedRectangleBorder;
-    expect(card.borderRadius, BorderRadius.circular(3));
-    final forest = builtInThemes.firstWhere((t) => t.id == 'forest');
-    final forestCard =
-        ThemeBuilder.build(forest, Brightness.light).cardTheme.shape!
-            as RoundedRectangleBorder;
-    expect(forestCard.borderRadius, BorderRadius.circular(12));
+    expect(card.borderRadius, BorderRadius.circular(10));
   });
 
   test('取り込むJSONで、背景などの新しい色も指定できる。未知の色名は拒否', () {

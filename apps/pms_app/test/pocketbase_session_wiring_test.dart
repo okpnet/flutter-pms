@@ -1,4 +1,10 @@
-import 'package:auth_files/auth_files.dart' show AuthFilesPaths;
+import 'package:auth_files/auth_files.dart'
+    show
+        AuthFilesPaths,
+        AuthMode,
+        authModeProvider,
+        signOutProvider,
+        tokenStoreProvider;
 import 'package:app_core/app_core_api.dart';
 import 'package:auth_files/auth_files_api.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -56,6 +62,8 @@ ProviderContainer _container(_FakeSession session, {bool pocketbase = true}) {
       commandBusProvider.overrideWith(createFeatureCommandBus),
       pocketbaseEnabledProvider.overrideWithValue(pocketbase),
       sessionServiceProvider.overrideWithValue(session),
+      // 保管庫(OS のプラグイン)は使わない
+      tokenStoreProvider.overrideWithValue(InMemoryTokenStore()),
       ...sessionOverrides(),
     ],
   );
@@ -168,13 +176,14 @@ void main() {
     });
   });
 
-  group('ログアウト', () {
-    test('PocketBase を使うとき、セッションを破棄し、ボタンの遷移先はログイン画面', () async {
+  group('ログイン・ログアウト(auth_files に集約)', () {
+    test('PocketBase を使うとき、サーバーの認証。ログアウトはセッションを破棄する', () async {
       final session = _FakeSession(loggedIn: true);
       final container = _container(session);
       container
           .read(userSummaryProvider.notifier)
           .set(const UserSummary(name: 'tanaka.t'));
+      expect(container.read(authModeProvider), AuthMode.server);
       expect(
         container.read(signInDestinationProvider),
         isA<LoginDestination>(),
@@ -190,19 +199,31 @@ void main() {
       );
     });
 
-    test('PocketBase を使わないときは、何もせず、これまでの仮のログイン', () async {
+    test('PocketBase を使わないときは、開発用の仮のログイン。ログアウトはセッションを触らない', () async {
       final session = _FakeSession(loggedIn: true);
       final container = _container(session, pocketbase: false);
-      expect(container.read(signInDestinationProvider), isNull);
+      container
+          .read(userSummaryProvider.notifier)
+          .set(const UserSummary(name: 'dev'));
+      expect(container.read(authModeProvider), AuthMode.provisional);
+      // ログイン画面の遷移先は、使わないときも auth_files のログイン(画面は1つ)
+      expect(
+        container.read(signInDestinationProvider),
+        isA<LoginDestination>(),
+      );
       await container.read(signOutProvider)();
       expect(session.logouts, 0);
+      expect(container.read(userSummaryProvider), isNull);
     });
 
-    testWidgets('ユーザーメニューのログアウトで開く画面が、セッションを破棄し、ログイン画面へ戻れる', (tester) async {
+    testWidgets('ユーザーメニューのログアウト: 確認 → セッションを破棄 → ログイン画面へ戻れる', (tester) async {
       await tester.binding.setSurfaceSize(const Size(1200, 900));
       addTearDown(() => tester.binding.setSurfaceSize(null));
       final session = _FakeSession(loggedIn: true);
       final container = _container(session);
+      container
+          .read(userSummaryProvider.notifier)
+          .set(const UserSummary(name: 'tanaka.t'));
       await tester.pumpWidget(
         UncontrolledProviderScope(
           container: container,
@@ -216,15 +237,33 @@ void main() {
       );
       await tester.pumpAndSettle();
       final router = container.read(rootRouterProvider);
-      router.go('/logout');
+      router.go(AuthFilesPaths.logout);
       await tester.pumpAndSettle();
-      expect(find.text('ログアウトしました。'), findsOneWidget);
-      expect(session.logouts, 1, reason: 'ログアウト画面を開いたとき、1回だけ実行する');
+      expect(find.text('ログアウトしますか?'), findsOneWidget);
+      expect(session.logouts, 0, reason: '確認の前には何もしない');
 
-      await tester.tap(find.text('ログイン画面へ'));
+      await tester.tap(find.text('ログアウト'));
+      await tester.pump();
+      await tester.pump();
+      expect(find.text('ログアウトしました'), findsOneWidget);
+      expect(session.logouts, 1, reason: 'ログアウトは1回だけ実行する');
+
+      await tester.tap(find.text('今すぐログイン画面へ'));
       await tester.pumpAndSettle();
       expect(find.text('生産管理にサインイン'), findsOneWidget);
-      expect(find.text('ログアウトしました。'), findsNothing);
+      expect(find.text('ログアウトしました'), findsNothing);
+    });
+
+    test('ログアウトの完了は、ログインしていない状態でも開ける(ログインへ向けない)', () {
+      final container = _container(_FakeSession());
+      final redirect = authRedirect(
+        status: PageSessionStatus.signedOut,
+        location: AuthFilesPaths.logout,
+        loginPath: AuthFilesPaths.login,
+        openPaths: const [AuthFilesPaths.login, AuthFilesPaths.logout],
+      );
+      expect(redirect, isNull);
+      expect(container.read(rootRouterProvider), isNotNull);
     });
   });
 
@@ -256,7 +295,7 @@ void main() {
       expect(has(standalone, AuthFilesPaths.files), isFalse);
     });
 
-    test('最初の画面: PocketBase を使うときはログイン、使わないときはこれまでのログイン(仮)', () {
+    test('最初の画面は、PocketBase を使うときも使わないときも auth_files のログイン(画面は1つ)', () {
       expect(
         _container(
           _FakeSession(),
@@ -268,7 +307,7 @@ void main() {
           _FakeSession(),
           pocketbase: false,
         ).read(rootRouterProvider).routeInformationProvider.value.uri.path,
-        isNot(AuthFilesPaths.login),
+        AuthFilesPaths.login,
       );
     });
 

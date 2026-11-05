@@ -40,6 +40,11 @@ class ExampleApp extends StatelessWidget {
     modules: const [AuthFilesModule(), _DashboardModule()],
     entries: const [
       FeatureHostEntry('ログイン', LoginDestination()),
+      FeatureHostEntry('ログアウト(確認から)', LogoutDestination()),
+      FeatureHostEntry(
+        'ログアウト(セッション切れ)',
+        LogoutDestination(sessionExpired: true),
+      ),
       FeatureHostEntry('新規登録', SignupDestination()),
       FeatureHostEntry('パスワードを忘れた', PasswordResetRequestDestination()),
       FeatureHostEntry('認証コードの入力', AcceptCodeDestination()),
@@ -51,6 +56,15 @@ class ExampleApp extends StatelessWidget {
     logger: logger,
     overrides: [
       themeLoggerProvider.overrideWithValue(logger),
+      // ログイン中のユーザー(ログアウトの確認に出す)と、ログアウトの実体(見本は表示を消すだけ)
+      userSummaryProvider.overrideWith(
+        () =>
+            UserSummaryNotifier(const UserSummary(name: '山田 太郎', role: '管理者')),
+      ),
+      signOutProvider.overrideWith(
+        (ref) =>
+            () async => ref.read(userSummaryProvider.notifier).logout(),
+      ),
       sessionServiceProvider.overrideWithValue(ExampleSession()),
       accountServiceProvider.overrideWithValue(ExampleAccount()),
       sharedFileServiceProvider.overrideWithValue(ExampleFiles()),

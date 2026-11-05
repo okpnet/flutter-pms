@@ -6,11 +6,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:settings_keeper/settings_keeper.dart';
+import 'package:theme_lib/theme_lib.dart';
 
 ProviderContainer _container(SettingsStorage storage) {
   final container = ProviderContainer(
     overrides: [
       loggerProvider.overrideWithValue(const NoopLoggerProvider()),
+      themeLoggerProvider.overrideWithValue(const NoopLoggerProvider()),
       settingsStorageProvider.overrideWithValue(storage),
       userSummaryProvider.overrideWith(
         () => UserSummaryNotifier(const UserSummary(name: '標準', role: '部')),

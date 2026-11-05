@@ -11,12 +11,8 @@ dashboard:
   edit: Edit layout
   done: Done
 boot:
-  loading: Loading...
-logout:
-  title: Signed out
-  message: You have been signed out.
-  signIn: Sign in (temporary)
-  toLogin: Go to sign in
+  title: Starting up…
+  message: Loading data and settings.
 error:
   title: Error
   message: An error occurred in the application
@@ -32,6 +28,15 @@ settings:
   layout:
     title: Screen
     sidebarIconOnly: Show only icons in the sidebar
+  theme:
+    title: Theme
+    note: Switches the colors and shapes. Light and dark can also follow the operating system.
+    mode:
+      title: Appearance
+      system: Follow the system
+      light: Light
+      dark: Dark
+    selection: Color theme
   user:
     title: Signed-in user
     note: The user name and role shown on screen. Not saved; reverts to the standard values on every start.

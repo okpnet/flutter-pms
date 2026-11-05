@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 
 import '../model/theme_definition.dart';
+import '../tokens/app_colors.dart';
 import '../tokens/border_field.dart';
 import '../tokens/space_field.dart';
 
 /// [ThemeDefinition] から [ThemeData] を組み立てる。
 abstract final class ThemeBuilder {
-  /// 日本語を優先するフォントの代替(画面案 `tools/open-design/design/theme.md` のフォント)。
+  /// 日本語を表示するフォントの代替。OS に入っているフォントだけを使い、フォントは同梱しない
+  /// (画面案の Noto Sans JP は同梱しないため外した)。同梱が必要になったときはメイリオにする。
   /// [ThemeDefinition.fontFamily] があればそちらが先で、見つからない文字をここで補う。
-  static const fontFamilyFallback = [
-    'Noto Sans JP',
-    'Hiragino Sans',
-    'Yu Gothic UI',
-    'Meiryo',
-  ];
+  static const fontFamilyFallback = ['Hiragino Sans', 'Yu Gothic UI', 'Meiryo'];
 
   static ThemeData build(ThemeDefinition definition, Brightness brightness) {
     final metrics = definition.metrics;
     final colors = _colorScheme(definition, brightness);
-    final background = _overrides(definition, brightness)['background'];
+    final overrides = _overrides(definition, brightness);
+    final background = overrides['background'];
     final shape = RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(metrics.radius),
     );
@@ -36,7 +34,7 @@ abstract final class ThemeBuilder {
     final buttonSize = Size(metrics.buttonWidth, metrics.buttonHeight);
     final iconSize = Size.square(metrics.iconButtonSize);
 
-    return ThemeData(
+    final theme = ThemeData(
       useMaterial3: true,
       colorScheme: colors,
       scaffoldBackgroundColor: background,
@@ -48,6 +46,7 @@ abstract final class ThemeBuilder {
           menuFieldPd: metrics.menuFieldPadding,
           spacing: metrics.spacing,
         ),
+        AppColors.fromScheme(colors, focus: overrides['focus']),
         BorderField(
           radius: metrics.radius,
           fullRadius: metrics.fullRadius,
@@ -143,7 +142,36 @@ abstract final class ThemeBuilder {
         ),
       ),
     );
+    return theme.copyWith(
+      focusColor: overrides['focus'],
+      textTheme: _textTheme(theme.textTheme),
+    );
   }
+
+  /// 文字の大きさ・太さ・行の高さ(画面案の 28 / 20 / 16 / 14 / 12。本文は行高 1.6)。
+  /// 色は `ColorScheme` に従うため、ここでは大きさだけを決める。
+  static TextTheme _textTheme(TextTheme base) => base.copyWith(
+    headlineMedium: base.headlineMedium?.copyWith(
+      fontSize: 28,
+      fontWeight: FontWeight.w700,
+      height: 1.3,
+    ),
+    titleLarge: base.titleLarge?.copyWith(
+      fontSize: 20,
+      fontWeight: FontWeight.w700,
+      height: 1.4,
+    ),
+    titleMedium: base.titleMedium?.copyWith(
+      fontSize: 16,
+      fontWeight: FontWeight.w700,
+    ),
+    bodyLarge: base.bodyLarge?.copyWith(fontSize: 16, height: 1.6),
+    bodyMedium: base.bodyMedium?.copyWith(fontSize: 14, height: 1.6),
+    labelSmall: base.labelSmall?.copyWith(
+      fontSize: 12,
+      fontWeight: FontWeight.w700,
+    ),
+  );
 
   /// 配色の個別指定の色。`dark` が無いときのダークは、ライト用の指定を重ねない
   /// (ライト用の個別指定色はダークで破綻するため)。

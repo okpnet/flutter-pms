@@ -2,7 +2,6 @@
 /boot,ブート,Boot,app_core,true
 /dashboard,ダッシュボード,Dashboard,app_core,false
 /settings,設定,Settings,app_core,false
-/logout,ログアウト,Log out,app_core,true
 /error,エラー,Error,app_core,true
 /maintenance,メンテナンス中,Under maintenance,maintenance,true
 /backstage,裏設定,Backstage settings,backstage,true
@@ -10,6 +9,7 @@
 /mrp,資材所要計算(MRP),Material requirements planning (MRP),production_plan,false
 /shipping-kinds,配送区分,Shipping kind,shared_master,false
 /auth/login,ログイン,Log in,auth_files,true
+/auth/logout,ログアウト,Log out,auth_files,true
 /auth/register,新規登録,Sign up,auth_files,true
 /auth/forgot,パスワードを忘れた,Forgot password,auth_files,true
 /auth/forgot/code,認証コードの入力,Enter verification code,auth_files,true
@@ -18,7 +18,6 @@
 /auth/admin/signups,新規登録の管理,Manage sign-ups,auth_files,false
 /auth/admin/resets,再設定依頼の管理,Manage reset requests,auth_files,false
 /profile/image,自分のイメージ,My image,user_profile,false
-/login,ログイン,Log in,pms_app,true
 /actual/material_transfer/register,資材移動の登録,Register material transfer,pms_app,false
 /actual/shipping,出荷の登録,Register shipping,pms_app,false
 /actual/stock_state,在庫状況,Stock status,pms_app,false

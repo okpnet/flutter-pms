@@ -146,14 +146,11 @@ void main() {
   });
 
   group('UserContainer', () {
-    const user = AppUser(
-      name: '鈴木 一郎',
-      role: '課長',
-      heading: '生産管理部',
-    );
+    const user = AppUser(name: '鈴木 一郎', role: '課長', heading: '生産管理部');
     final actions = [UserMenuAction(label: '設定', onSelected: () {})];
-    Widget host(Widget child) =>
-        MaterialApp(home: Scaffold(body: Center(child: child)));
+    Widget host(Widget child) => MaterialApp(
+      home: Scaffold(body: Center(child: child)),
+    );
     double radius(WidgetTester t) =>
         t.widget<CircleAvatar>(find.byType(CircleAvatar)).radius!;
 

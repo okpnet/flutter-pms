@@ -46,13 +46,22 @@
     | `--line` | `outlineVariant`(カード・区切りの罫線) | `#D3DCE1` | `#2D4250` |
     | (入力欄・ボタンの枠) | `outline`。罫線より濃くして背景との差を 3:1 以上にする | `#7C8B96` | `#5B7384` |
     | `--seg-2` / `--seg-3` | `secondary` / `tertiary` | `#3B78A8` / `#7B8895` | `#7DB4E0` / `#98A6B2` |
+    | `--focus` | `focus`(フォーカスリング。`focusColor` と `AppColors.focus`) | `#1A5FD0` | `#8AB4FF` |
 1.  数値: 角丸 8(ボタン・入力。`radius`)、12(カード・ダイアログ・シート。`cardRadius`)、タップ領域 44x44(`buttonHeight`・`buttonWidth`・`iconButtonSize`)、罫線 1・フォーカス 2、ボタンの影なし。余白は 4 刻み。
-1.  フォント: 日本語を優先する代替(Noto Sans JP → Hiragino Sans → Yu Gothic UI → Meiryo)を `ThemeBuilder.fontFamilyFallback` として、すべてのテーマに付ける。`fontFamily` を指定した場合は、それが先。
-1.  部品の見た目: 面は影ではなく罫線で区切る(カードは影なし+`outlineVariant` の罫線、タイトルバーは下に罫線、ダイアログ・シートは `cardRadius`)。チップ・ナビゲーションの選択中は `primaryContainer`。これらはすべてのテーマに共通(`ThemeBuilder`)。`cardRadius` を省略したテーマ(`ocean`・`forest`)は、カードの角丸が従来どおり `radius`。
-1.  色の個別上書き(`light.colors`・`dark.colors`)に使える名前: `primary` `onPrimary` `primaryContainer` `onPrimaryContainer` `secondary` `onSecondary` `tertiary` `onTertiary` `error` `onError` `errorContainer` `onErrorContainer` `surface` `background` `onSurface` `surfaceContainerHighest` `onSurfaceVariant` `outline` `outlineVariant`。
-1.  コントラスト: 文字は 4.5:1 以上、枠は背景に対して 3:1 以上(`test/open_design_theme_test.dart` が確認する)。区分や状態は色だけで伝えない。
-1.  `ColorScheme` に収まらない画面案の値(`--focus`、`--seg-1`、タイポグラフィの大きさ)は、まだ持たない。必要になったら `ThemeExtension` を足す。
-1.  features の `example` は、この既定のテーマを使う(`FeatureHost` の `themeOf: lightThemeProvider`・`darkThemeOf: darkThemeProvider`・`themeModeOf: themeModeProvider`)。
+1.  文字: 画面案の大きさ(headlineMedium 28/太字/行高 1.3、titleLarge 20/太字/1.4、titleMedium 16/太字、bodyLarge 16/1.6、bodyMedium 14/1.6、labelSmall 12/太字)を、すべてのテーマに適用する(`ThemeBuilder`)。色は `ColorScheme` に従う。
+1.  フォント: **OS に入っているフォントだけを使い、フォントは同梱しない。** 日本語の代替を `ThemeBuilder.fontFamilyFallback`(Hiragino Sans → Yu Gothic UI → Meiryo)として、すべてのテーマに付ける。`fontFamily` を指定した場合は、それが先。画面案の Noto Sans JP は同梱しないため使わない。同梱が必要になったときは、メイリオにする。
+1.  部品の見た目: 面は影ではなく罫線で区切る(カードは影なし+`outlineVariant` の罫線、タイトルバーは下に罫線、ダイアログ・シートは `cardRadius`)。チップ・ナビゲーションの選択中は `primaryContainer`。これらはすべてのテーマに共通(`ThemeBuilder`)。`cardRadius` を省略したテーマは、カードの角丸が `radius` と同じ。
+1.  `AppColors`(`ThemeExtension`。`Theme.of(context).extension<AppColors>()` または `AppColors.of(theme)`): `ColorScheme` に収まらない画面案の色を持つ。すべてのテーマで `ThemeBuilder` が `ColorScheme` から作る(`surface2`=surfaceContainerHighest、`muted`=onSurfaceVariant、`line`=outlineVariant、`accentSoft`=primaryContainer、`seg1/2/3`=primary/secondary/tertiary、`focus`=色の個別指定 `focus`、無ければ primary)。区分の色は色だけで伝えず、ラベルや数値を併記する。
+1.  色の個別上書き(`light.colors`・`dark.colors`)に使える名前: `primary` `onPrimary` `primaryContainer` `onPrimaryContainer` `secondary` `onSecondary` `tertiary` `onTertiary` `error` `onError` `errorContainer` `onErrorContainer` `surface` `background` `onSurface` `surfaceContainerHighest` `onSurfaceVariant` `outline` `outlineVariant` `focus`。
+1.  コントラスト: 文字は 4.5:1 以上、枠は背景に対して 3:1 以上(`test/open_design_theme_test.dart`・`test/external_themes_test.dart` が確認する)。区分や状態は色だけで伝えない。
+
+##  追加のテーマ(外部のJSONファイル)
+`ocean`・`forest` は組み込みではなく、このライブラリの外部のJSONファイル(`themes/ocean.json`・`themes/forest.json`、アセット)として持つ。組み込みは既定の1つだけ(削除できない)。
+1.  取り込み: `ThemeManager.importAssets(paths, {bundle})`(`ThemeAssets.all` が追加のテーマすべて)。アプリは起動時に、設定の復元より前に呼ぶ。登録だけで、適用中のテーマは変えない。読めない・構造が不正なテーマは、残りを続けて取り込み、失敗の一覧(`ThemeAssetFailure`)を返す(起動を止めない。失敗は `[theme_lib]` 付きでログに残る)。
+1.  内容: 既定のテーマと同じ項目をすべて指定し(色の個別上書きの全項目、ライトとダークの両方、数値)、画面案の配色と同じ構造にする。`ocean` は青緑〜青、`forest` は緑を主色にする。中立の色(地・面・文字・罫線・エラー)は既定に近い値で、主色の系統だけが違う。
+1.  テーマの中身の編集(色・数値を作る画面)は、別のアプリケーションで行う。このライブラリとアプリは、選ぶ・取り込む・書き出すだけ。
+1.  アプリの設定画面(`app_core`)は、登録されているテーマと表示モード(システム・ライト・ダーク)から選ぶ。選んだテーマと表示モードは、ユーザー設定として保存・復元する。保存したテーマが取り込まれていないときは、既定のテーマのまま。
+1.  features の `example` は、既定のテーマを使う(`FeatureHost` の `themeOf: lightThemeProvider`・`darkThemeOf: darkThemeProvider`・`themeModeOf: themeModeProvider`)。
 
 ##  実際の実装状態
 `example`以下にthemeの機能を使用した状態として、全ての機能を適用した状態のサンプルアプリケーションを作成する。

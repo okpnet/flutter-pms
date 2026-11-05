@@ -35,6 +35,7 @@ class ThemePalette {
     'surfaceContainerHighest',
     'onSurfaceVariant',
     'outlineVariant',
+    'focus',
     'onSurface',
     'outline',
   };

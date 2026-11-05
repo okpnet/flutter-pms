@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -66,7 +68,11 @@ void main() {
       ),
     );
     final before = Theme.of(captured).colorScheme.primary;
-    container.read(themeManagerProvider.notifier).select('ocean');
+    final manager = container.read(themeManagerProvider.notifier);
+    manager.register(
+      ThemeDefinition.parse(File('themes/ocean.json').readAsStringSync()),
+    );
+    manager.select('ocean');
     await tester.pumpAndSettle();
     expect(Theme.of(captured).colorScheme.primary, isNot(before));
     expect(captured.spacing, 4);

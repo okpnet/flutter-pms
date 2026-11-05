@@ -3,7 +3,6 @@ abstract final class AppCorePaths {
   static const boot = '/boot';
   static const dashboard = '/dashboard';
   static const settings = '/settings';
-  static const logout = '/logout';
   static const error = '/error';
 
   /// エラー画面。内容があるときは `?message=` で渡す。

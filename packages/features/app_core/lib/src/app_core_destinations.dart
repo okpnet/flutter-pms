@@ -15,10 +15,6 @@ final class SettingsDestination extends PageDestination<void> {
   const SettingsDestination();
 }
 
-/// ログアウト画面へ。
-final class LogoutDestination extends PageDestination<void> {
-  const LogoutDestination();
-}
 
 /// エラー画面へ。[message] はアプリケーションエラーの内容(省略可)。
 final class ErrorDestination extends PageDestination<void> {
@@ -35,7 +31,6 @@ const List<PageDestination<Object?>> appCoreDestinationSamples = [
   BootDestination(),
   DashboardDestination(),
   SettingsDestination(),
-  LogoutDestination(),
   ErrorDestination(),
   ErrorDestination(message: 'sample'),
 ];

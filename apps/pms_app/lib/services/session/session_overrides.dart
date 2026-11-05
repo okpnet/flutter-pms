@@ -30,17 +30,15 @@ List<Override> sessionOverrides({String url = maintenanceUrl}) => [
         logger: ref.watch(loggerProvider),
       ),
     ),
-  // ログアウト: PocketBase を使うとき、セッションと保管庫のログイン情報を破棄し、ボタンはログイン画面へ
-  // (使わないときは、これまでの仮の動き)
-  signOutProvider.overrideWith(
+  // ログイン・ログアウトの画面は auth_files。PocketBase に接続しないときは、資格情報を求めず標準のユーザーで
+  // ログインする開発用(AuthMode.provisional)
+  authModeProvider.overrideWith(
     (ref) => ref.read(pocketbaseEnabledProvider)
-        ? () => authFilesSignOut(ref)
-        : () async {},
+        ? AuthMode.server
+        : AuthMode.provisional,
   ),
-  signInDestinationProvider.overrideWith(
-    (ref) =>
-        ref.read(pocketbaseEnabledProvider) ? const LoginDestination() : null,
-  ),
+  // 他の機能(裏設定など)が「ログイン画面へ」向かうときの遷移先
+  signInDestinationProvider.overrideWithValue(const LoginDestination()),
   pageSessionMediatorProvider.overrideWith(
     (ref) => MaintenanceAwarePageSession(
       refreshMaintenance: () async =>

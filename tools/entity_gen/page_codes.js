@@ -49,12 +49,11 @@ const EXTRA_SCREENS = {
     ['boot', 'ブート', 'B'],
     ['dashboard', 'ダッシュボード', 'D'],
     ['settings', '設定', 'S'],
-    ['logout', 'ログアウト', 'O'],
     ['error', 'エラー', 'E'],
-    ['login', 'ログイン', 'L'],
   ],
   auth_files: [
     ['login', 'ログイン', 'L'],
+    ['logout', 'ログアウト', 'O'],
     ['register', '新規登録', 'S'],
     ['forgot', 'パスワードを忘れた', 'R'],
     ['code', '認証コードの入力', 'C'],

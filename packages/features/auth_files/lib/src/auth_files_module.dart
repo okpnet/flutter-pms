@@ -7,6 +7,7 @@ import 'auth_files_paths.dart';
 import 'pages/code_page.dart';
 import 'pages/admin_pages.dart';
 import 'pages/login_page.dart';
+import 'pages/logout_page.dart';
 import 'pages/forgot_page.dart';
 import 'pages/new_password_page.dart';
 import 'pages/shared_files_page.dart';
@@ -34,6 +35,12 @@ class AuthFilesModule implements FeatureModule {
       GoRoute(
         path: AuthFilesPaths.login,
         builder: (context, state) => const LoginPage(),
+      ),
+      GoRoute(
+        path: AuthFilesPaths.logout,
+        builder: (context, state) => LogoutPage(
+          sessionExpired: state.uri.queryParameters['expired'] == '1',
+        ),
       ),
       GoRoute(
         path: AuthFilesPaths.register,
@@ -73,6 +80,8 @@ class AuthFilesModule implements FeatureModule {
     PageDestination<Object?> destination,
   ) => switch (destination) {
     LoginDestination() when includeEntry => AuthFilesPaths.login,
+    LogoutDestination(:final sessionExpired) when includeEntry =>
+      AuthFilesPaths.logoutWith(sessionExpired: sessionExpired),
     SignupDestination() when includeEntry => AuthFilesPaths.register,
     PasswordResetRequestDestination() when includeEntry =>
       AuthFilesPaths.forgot,

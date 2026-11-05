@@ -1,6 +1,7 @@
 import 'package:app_core/app_core.dart';
 import 'package:app_core/app_core_api.dart';
 import 'package:app_shell/app_shell.dart';
+import 'package:auth_files/auth_files_api.dart';
 import 'package:user_profile/user_profile.dart';
 import 'package:user_profile/user_profile_api.dart';
 

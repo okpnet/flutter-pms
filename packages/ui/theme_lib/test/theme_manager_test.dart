@@ -1,9 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:theme_lib/theme_lib.dart';
 
 import 'fake_logger.dart';
+
+/// 外部のテーマのJSONファイル(`themes/`)から読む。
+ThemeDefinition _theme(String id) =>
+    ThemeDefinition.parse(File('themes/$id.json').readAsStringSync());
 
 const _custom =
     '{"id":"custom","name":"Custom","light":{"seedColor":"#AA0000"},'
@@ -28,7 +34,8 @@ void main() {
   test('初期状態はシステム設定+組み込みの先頭テーマ', () {
     expect(state().mode, ThemeMode.system);
     expect(state().activeId, 'default');
-    expect(state().themes.keys, containsAll(['default', 'ocean', 'forest']));
+    // 追加のテーマ(ocean・forest)は外部のJSONファイル。取り込むまでは既定だけ
+    expect(state().themes.keys, ['default']);
   });
 
   test('ロガー未設定なら分かりやすいエラー', () {
@@ -47,6 +54,7 @@ void main() {
 
   test('select でオンザフライに切り替わり、テーマの見た目が変わる', () {
     final before = container.read(lightThemeProvider);
+    manager.register(_theme('forest'));
     manager.select('forest');
     final after = container.read(lightThemeProvider);
     expect(after.colorScheme.primary, isNot(before.colorScheme.primary));

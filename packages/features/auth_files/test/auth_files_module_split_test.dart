@@ -10,6 +10,7 @@ List<String> _paths(AuthFilesModule m) => [
 void main() {
   const entryPaths = [
     AuthFilesPaths.login,
+    AuthFilesPaths.logout,
     AuthFilesPaths.register,
     AuthFilesPaths.forgot,
     AuthFilesPaths.forgotCode,

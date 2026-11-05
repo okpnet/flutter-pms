@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pbapi/pbapi.dart';
 
 import '../account_flow.dart';
+import '../auth_mode.dart';
 import '../auth_files_destinations.dart';
 import '../form_rules.dart';
 import '../i18n/strings_provider.dart';
@@ -13,6 +14,7 @@ import 'form_support.dart';
 
 /// ログイン(画面案 `#/login`)。ユーザーIDまたはEメールの1つの欄とパスワード。
 ///
+/// 認証サーバーに接続しない開発用([AuthMode.provisional])は、資格情報を求めず標準のユーザーでログインする。
 /// 成功したらログインユーザーの表示(`userSummaryProvider`)を更新してダッシュボードへ進む。
 /// 状態(申請中・無効など)の判定はサーバーが行い、ここでは判定しない。
 /// 新規登録・パスワードの再設定の完了は、案内の帯(`authFlashProvider`)で伝える。
@@ -34,6 +36,13 @@ class _LoginPageState extends ConsumerState<LoginPage> with BusyAction {
     _identity.dispose();
     _password.dispose();
     super.dispose();
+  }
+
+  /// 認証サーバーに接続しない開発用([AuthMode.provisional])。資格情報は確認せず、標準のユーザーでログインする。
+  Future<void> _signInProvisional() async {
+    ref.read(authFlashProvider.notifier).clear();
+    ref.read(userSummaryProvider.notifier).reset();
+    await ref.read(commandBusProvider).execute(const DashboardDestination());
   }
 
   Future<void> _submit() async {
@@ -66,7 +75,9 @@ class _LoginPageState extends ConsumerState<LoginPage> with BusyAction {
       await ref
           .read(commandBusProvider)
           .execute(
-            entered ? const BackstageDestination() : const DashboardDestination(),
+            entered
+                ? const BackstageDestination()
+                : const DashboardDestination(),
           );
     }
   }
@@ -78,6 +89,18 @@ class _LoginPageState extends ConsumerState<LoginPage> with BusyAction {
   Widget build(BuildContext context) {
     final t = ref.watch(authFilesStringsProvider);
     final flash = ref.watch(authFlashProvider);
+    if (ref.watch(authModeProvider) == AuthMode.provisional) {
+      return AuthCard(
+        heading: t.login.heading,
+        children: [
+          NoticeBanner(t.login.provisionalNotice),
+          FilledButton(
+            onPressed: _signInProvisional,
+            child: Text(t.login.provisionalSubmit),
+          ),
+        ],
+      );
+    }
     return AuthCard(
       heading: t.login.heading,
       children: [

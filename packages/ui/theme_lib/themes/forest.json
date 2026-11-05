@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "id": "forest",
+  "name": "Forest",
+  "light": {
+    "seedColor": "#2E6B34",
+    "colors": {
+      "primary": "#2E6B34",
+      "onPrimary": "#FFFFFF",
+      "primaryContainer": "#DDEFDD",
+      "onPrimaryContainer": "#25592B",
+      "secondary": "#4F7A4A",
+      "onSecondary": "#FFFFFF",
+      "tertiary": "#7B8895",
+      "onTertiary": "#FFFFFF",
+      "error": "#B3261E",
+      "onError": "#FFFFFF",
+      "errorContainer": "#FBE3E1",
+      "onErrorContainer": "#B3261E",
+      "background": "#F3F6F1",
+      "surface": "#FFFFFF",
+      "onSurface": "#15221A",
+      "surfaceContainerHighest": "#E9F0E6",
+      "onSurfaceVariant": "#4F5F52",
+      "outline": "#7D8E80",
+      "outlineVariant": "#D3DDD0",
+      "focus": "#1A5FD0"
+    }
+  },
+  "dark": {
+    "seedColor": "#8FD694",
+    "colors": {
+      "primary": "#8FD694",
+      "onPrimary": "#0B2A0E",
+      "primaryContainer": "#1D4222",
+      "onPrimaryContainer": "#8FD694",
+      "secondary": "#A6CF9B",
+      "onSecondary": "#0B2A0E",
+      "tertiary": "#98A6B2",
+      "onTertiary": "#0B2A0E",
+      "error": "#FF8A80",
+      "onError": "#0B2A0E",
+      "errorContainer": "#4A1F1D",
+      "onErrorContainer": "#FF8A80",
+      "background": "#0E1810",
+      "surface": "#16251A",
+      "onSurface": "#E8F0E8",
+      "surfaceContainerHighest": "#1E3223",
+      "onSurfaceVariant": "#A8B8AB",
+      "outline": "#5E7762",
+      "outlineVariant": "#2D4632",
+      "focus": "#8AB4FF"
+    }
+  },
+  "metrics": {
+    "spacing": 6,
+    "formFieldPadding": 4,
+    "menuFieldPadding": 8,
+    "radius": 12,
+    "cardRadius": 16,
+    "fullRadius": 28,
+    "borderWidth": 1,
+    "activeBorderWidth": 2,
+    "buttonHeight": 44,
+    "buttonWidth": 44,
+    "buttonElevation": 0,
+    "iconButtonSize": 44
+  }
+}

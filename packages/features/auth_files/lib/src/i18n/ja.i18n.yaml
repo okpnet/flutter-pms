@@ -36,6 +36,22 @@ login:
   register: 新規登録
   haveCode: 認証コードをお持ちの方
   sending: ログインしています...
+  provisionalNotice: 認証サーバーに接続していません(開発用)。資格情報は確認せず、標準のユーザーでログインします。
+  provisionalSubmit: 標準のユーザーでログイン
+logout:
+  confirmHeading: ログアウトしますか?
+  confirmMessage: "{name} さんとしてサインインしています。未保存の入力は失われます。"
+  confirmCancel: キャンセル
+  confirmSubmit: ログアウト
+  workingHeading: ログアウトしています…
+  workingMessage: セッションを終了しています。しばらくお待ちください。
+  doneHeading: ログアウトしました
+  doneMessage: 再度ご利用の際は、ログインしてください。
+  expiredHeading: セッションが切れました
+  expiredMessage: ログインの有効期限が切れたため、ログアウトしました。再度ログインしてください。
+  countdown: "{n}秒後にログイン画面へ移動します。"
+  toLogin: 今すぐログイン画面へ
+  note: セッションが切れたときも、この画面を表示します。
 register:
   heading: 新規登録
   userId: ユーザーID

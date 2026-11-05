@@ -36,6 +36,22 @@ login:
   register: Register
   haveCode: I have a code
   sending: Signing in...
+  provisionalNotice: Not connected to an authentication server (development). Credentials are not checked; you sign in as the standard user.
+  provisionalSubmit: Sign in as the standard user
+logout:
+  confirmHeading: Sign out?
+  confirmMessage: "You are signed in as {name}. Unsaved input will be lost."
+  confirmCancel: Cancel
+  confirmSubmit: Sign out
+  workingHeading: Signing out…
+  workingMessage: Ending the session. Please wait.
+  doneHeading: You have signed out
+  doneMessage: Please sign in again when you use the app next time.
+  expiredHeading: Your session expired
+  expiredMessage: You were signed out because your sign-in expired. Please sign in again.
+  countdown: "Moving to the sign-in screen in {n} seconds."
+  toLogin: Go to sign in now
+  note: This screen is also shown when the session expires.
 register:
   heading: Register
   userId: User ID

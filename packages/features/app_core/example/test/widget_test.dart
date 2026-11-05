@@ -31,7 +31,7 @@ void main() {
     await open(tester);
     await tester.tap(find.text('ブート(読み込み中)'));
     await tester.pump(const Duration(milliseconds: 500));
-    expect(find.text('読み込み中...'), findsOneWidget);
+    expect(find.text('起動しています…'), findsOneWidget);
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
 
@@ -72,22 +72,5 @@ void main() {
     await tester.tap(find.text('English'));
     await tester.pumpAndSettle();
     expect(find.text('Settings'), findsWidgets);
-  });
-
-  testWidgets('ログアウト画面は、失敗しても表示し、ログイン先の有無でボタンが変わる', (tester) async {
-    await open(tester);
-    await go(tester, 'ログアウト');
-    expect(find.text('ログアウトしました。'), findsOneWidget);
-    expect(find.text('ログインする(仮)'), findsOneWidget);
-    await back(tester);
-
-    await go(tester, '状態の切り替え');
-    await tester.tap(find.byKey(const ValueKey('signOutFails')));
-    await tester.tap(find.byKey(const ValueKey('hasSignIn')));
-    await tester.pumpAndSettle();
-    await back(tester);
-    await go(tester, 'ログアウト');
-    expect(find.text('ログアウトしました。'), findsOneWidget);
-    expect(find.text('ログイン画面へ'), findsOneWidget);
   });
 }

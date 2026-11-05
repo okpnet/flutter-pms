@@ -1,12 +1,15 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart' show ThemeMode;
+
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:settings_keeper/settings_keeper.dart';
+import 'package:theme_lib/theme_lib.dart';
 
 import 'user_settings_model.dart';
 
-/// 使用ユーザーにだけ影響する設定(使用言語・サイドバーをアイコンだけ・ユーザー名と役割)を、
+/// 使用ユーザーにだけ影響する設定(使用言語・サイドバーをアイコンだけ・テーマ・ユーザー名と役割)を、
 /// 保存・復元する持ち主。保存先は知らない(アプリが [settingsStorageProvider] で選ぶ)。
 /// 保存する形は [UserSettingsModel](JSON)。
 ///
@@ -24,6 +27,7 @@ class UserSettingsOriginator implements SettingsOriginator {
   UserSettingsModel _current() {
     final user = _ref.read(userSummaryProvider);
     final followsSystem = _ref.read(localeFollowsSystemProvider);
+    final theme = _ref.read(themeManagerProvider);
     return UserSettingsModel(
       followsSystemLocale: followsSystem,
       languageCode: _ref.read(localeProvider).languageCode,
@@ -31,6 +35,8 @@ class UserSettingsOriginator implements SettingsOriginator {
       // ログアウト中(null)は、ユーザーの設定値を書かない
       userName: user?.name,
       userRole: user?.role,
+      themeId: theme.activeId,
+      themeMode: theme.mode.name,
     );
   }
 
@@ -52,11 +58,28 @@ class UserSettingsOriginator implements SettingsOriginator {
       locale.useSystemLocale();
     }
     _ref.read(sidebarIconOnlyProvider.notifier).set(model.sidebarIconOnly);
+    _restoreTheme(model);
     final name = model.userName;
     if (name != null) {
       _ref
           .read(userSummaryProvider.notifier)
           .set(UserSummary(name: name, role: model.userRole ?? ''));
+    }
+  }
+
+  /// テーマを復元する。保存したテーマが登録されていない(取り込んでいない・消えた)ときは、
+  /// 既定のテーマのまま(表示モードだけ復元する)。追加のテーマは、復元の前に取り込んでおくこと。
+  void _restoreTheme(UserSettingsModel model) {
+    final manager = _ref.read(themeManagerProvider.notifier);
+    manager.setMode(
+      ThemeMode.values.firstWhere(
+        (m) => m.name == model.themeMode,
+        orElse: () => ThemeMode.system,
+      ),
+    );
+    final id = model.themeId;
+    if (id != null && _ref.read(themeManagerProvider).themes.containsKey(id)) {
+      manager.select(id);
     }
   }
 }
@@ -75,6 +98,7 @@ final userSettingsAutoSaveProvider = Provider<void>((ref) {
   ref.listen(localeProvider, (_, _) => save());
   ref.listen(localeFollowsSystemProvider, (_, _) => save());
   ref.listen(sidebarIconOnlyProvider, (_, _) => save());
+  ref.listen(themeManagerProvider, (_, _) => save());
   // ログアウト(null)では保存しない(次回起動で標準値に戻るのを妨げないため)
   ref.listen(userSummaryProvider, (_, user) {
     if (user != null) save();

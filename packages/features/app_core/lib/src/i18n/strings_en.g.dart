@@ -42,7 +42,6 @@ class AppCoreStringsEn extends AppCoreStrings with BaseTranslations<AppCoreLocal
 	@override late final _AppCoreStrings$shell$en shell = _AppCoreStrings$shell$en._(_root);
 	@override late final _AppCoreStrings$dashboard$en dashboard = _AppCoreStrings$dashboard$en._(_root);
 	@override late final _AppCoreStrings$boot$en boot = _AppCoreStrings$boot$en._(_root);
-	@override late final _AppCoreStrings$logout$en logout = _AppCoreStrings$logout$en._(_root);
 	@override late final _AppCoreStrings$error$en error = _AppCoreStrings$error$en._(_root);
 	@override late final _AppCoreStrings$settings$en settings = _AppCoreStrings$settings$en._(_root);
 }
@@ -90,20 +89,8 @@ class _AppCoreStrings$boot$en extends AppCoreStrings$boot$ja {
 	final AppCoreStringsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get loading => 'Loading...';
-}
-
-// Path: logout
-class _AppCoreStrings$logout$en extends AppCoreStrings$logout$ja {
-	_AppCoreStrings$logout$en._(AppCoreStringsEn root) : this._root = root, super.internal(root);
-
-	final AppCoreStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Signed out';
-	@override String get message => 'You have been signed out.';
-	@override String get signIn => 'Sign in (temporary)';
-	@override String get toLogin => 'Go to sign in';
+	@override String get title => 'Starting up…';
+	@override String get message => 'Loading data and settings.';
 }
 
 // Path: error
@@ -129,6 +116,7 @@ class _AppCoreStrings$settings$en extends AppCoreStrings$settings$ja {
 	@override String get note => 'These settings affect only the user who is signed in, not all users.';
 	@override late final _AppCoreStrings$settings$language$en language = _AppCoreStrings$settings$language$en._(_root);
 	@override late final _AppCoreStrings$settings$layout$en layout = _AppCoreStrings$settings$layout$en._(_root);
+	@override late final _AppCoreStrings$settings$theme$en theme = _AppCoreStrings$settings$theme$en._(_root);
 	@override late final _AppCoreStrings$settings$user$en user = _AppCoreStrings$settings$user$en._(_root);
 	@override late final _AppCoreStrings$settings$about$en about = _AppCoreStrings$settings$about$en._(_root);
 }
@@ -157,6 +145,19 @@ class _AppCoreStrings$settings$layout$en extends AppCoreStrings$settings$layout$
 	@override String get sidebarIconOnly => 'Show only icons in the sidebar';
 }
 
+// Path: settings.theme
+class _AppCoreStrings$settings$theme$en extends AppCoreStrings$settings$theme$ja {
+	_AppCoreStrings$settings$theme$en._(AppCoreStringsEn root) : this._root = root, super.internal(root);
+
+	final AppCoreStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Theme';
+	@override String get note => 'Switches the colors and shapes. Light and dark can also follow the operating system.';
+	@override late final _AppCoreStrings$settings$theme$mode$en mode = _AppCoreStrings$settings$theme$mode$en._(_root);
+	@override String get selection => 'Color theme';
+}
+
 // Path: settings.user
 class _AppCoreStrings$settings$user$en extends AppCoreStrings$settings$user$ja {
 	_AppCoreStrings$settings$user$en._(AppCoreStringsEn root) : this._root = root, super.internal(root);
@@ -183,6 +184,19 @@ class _AppCoreStrings$settings$about$en extends AppCoreStrings$settings$about$ja
 	@override String get version => 'Application version';
 }
 
+// Path: settings.theme.mode
+class _AppCoreStrings$settings$theme$mode$en extends AppCoreStrings$settings$theme$mode$ja {
+	_AppCoreStrings$settings$theme$mode$en._(AppCoreStringsEn root) : this._root = root, super.internal(root);
+
+	final AppCoreStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Appearance';
+	@override String get system => 'Follow the system';
+	@override String get light => 'Light';
+	@override String get dark => 'Dark';
+}
+
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -200,11 +214,8 @@ extension on AppCoreStringsEn {
 			'dashboard.title' => 'Dashboard',
 			'dashboard.edit' => 'Edit layout',
 			'dashboard.done' => 'Done',
-			'boot.loading' => 'Loading...',
-			'logout.title' => 'Signed out',
-			'logout.message' => 'You have been signed out.',
-			'logout.signIn' => 'Sign in (temporary)',
-			'logout.toLogin' => 'Go to sign in',
+			'boot.title' => 'Starting up…',
+			'boot.message' => 'Loading data and settings.',
 			'error.title' => 'Error',
 			'error.message' => 'An error occurred in the application',
 			'error.back' => 'Back',
@@ -216,6 +227,13 @@ extension on AppCoreStringsEn {
 			'settings.language.en' => 'English',
 			'settings.layout.title' => 'Screen',
 			'settings.layout.sidebarIconOnly' => 'Show only icons in the sidebar',
+			'settings.theme.title' => 'Theme',
+			'settings.theme.note' => 'Switches the colors and shapes. Light and dark can also follow the operating system.',
+			'settings.theme.mode.title' => 'Appearance',
+			'settings.theme.mode.system' => 'Follow the system',
+			'settings.theme.mode.light' => 'Light',
+			'settings.theme.mode.dark' => 'Dark',
+			'settings.theme.selection' => 'Color theme',
 			'settings.user.title' => 'Signed-in user',
 			'settings.user.note' => 'The user name and role shown on screen. Not saved; reverts to the standard values on every start.',
 			'settings.user.name' => 'User name',

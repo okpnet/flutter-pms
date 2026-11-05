@@ -23,7 +23,10 @@ void main() {
       router: container.read(rootRouterProvider),
       modules: [...featureModules, ...standaloneFeatureModules],
     );
-    expect(navigator.resolve(const BackstageDestination()), BackstagePaths.backstage);
+    expect(
+      navigator.resolve(const BackstageDestination()),
+      BackstagePaths.backstage,
+    );
     // ログインしていなくても、裏設定のパスは認証の転送の対象外
     expect(
       authRedirect(
@@ -69,7 +72,10 @@ void main() {
     final boot = await loadBackstageBoot(
       store: InMemoryBackstageStore(),
       assetJson: jsonEncode({
-        'defaults': {'pocketbaseUrl': 'https://pb.example.com', 'graphqlUrl': 'https://gql.example.com/graphql'},
+        'defaults': {
+          'pocketbaseUrl': 'https://pb.example.com',
+          'graphqlUrl': 'https://gql.example.com/graphql',
+        },
       }),
     );
     final container = ProviderContainer(
@@ -83,7 +89,9 @@ void main() {
     expect(container.read(graphqlClientProvider), isNotNull);
     await container
         .read(backstageControllerProvider.notifier)
-        .save(const BackstageSettings(pocketbaseUrl: 'https://other.example.com'));
+        .save(
+          const BackstageSettings(pocketbaseUrl: 'https://other.example.com'),
+        );
     expect(container.read(pocketbaseEnabledProvider), isTrue);
   });
 

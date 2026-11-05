@@ -81,12 +81,8 @@ class UserContainer extends StatelessWidget {
 
   Widget? _texts(ThemeData theme) {
     final large = size == UserContainerSize.large;
-    Text line(String text, TextStyle? style) => Text(
-      text,
-      style: style,
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
-    );
+    Text line(String text, TextStyle? style) =>
+        Text(text, style: style, maxLines: 1, overflow: TextOverflow.ellipsis);
     final items = <Widget>[
       if (user.heading.isNotEmpty)
         line(user.heading, theme.textTheme.labelSmall),

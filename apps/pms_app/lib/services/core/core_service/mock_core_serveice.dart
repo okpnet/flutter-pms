@@ -1,3 +1,4 @@
+import 'package:auth_files/auth_files.dart' show AuthFilesPaths;
 import 'package:pms_app/contents/_models/error/error.dart';
 import 'package:pms_app/contents/contents.dart';
 import 'package:pms_app/services/core/core.dart';
@@ -73,7 +74,7 @@ extension AutoTypeEx on AuthStateType {
   void go(GoRouter router) {
     switch (this) {
       case .expired:
-        router.push(LoginConstant.path);
+        router.push(AuthFilesPaths.login);
         break;
       case .fail:
         final error = ServerError(.authorize, .timeout);
@@ -87,7 +88,7 @@ extension AutoTypeEx on AuthStateType {
         }
         break;
       case .signedOut:
-        router.go(LoginConstant.path);
+        router.go(AuthFilesPaths.login);
         break;
     }
   }

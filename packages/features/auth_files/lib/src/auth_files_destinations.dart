@@ -5,6 +5,20 @@ final class LoginDestination extends PageDestination<void> {
   const LoginDestination();
 }
 
+/// ログアウト画面へ。ユーザーメニューの「ログアウト」から開くと、確認 → ログアウト → 完了(5秒後にログイン画面へ)。
+/// [sessionExpired] が true(セッション切れ)のときは、確認を出さずにログアウトし、切れたことを案内する。
+final class LogoutDestination extends PageDestination<void> {
+  const LogoutDestination({this.sessionExpired = false});
+
+  final bool sessionExpired;
+
+  @override
+  Map<String, Object?> toJson() => {
+    ...super.toJson(),
+    'sessionExpired': sessionExpired,
+  };
+}
+
 /// 新規登録(申請)へ。
 final class SignupDestination extends PageDestination<void> {
   const SignupDestination();
@@ -44,6 +58,8 @@ final class AdminResetsDestination extends PageDestination<void> {
 /// 登録漏れ検出用の見本。遷移先を追加したら、ここにも1件足す。
 const List<PageDestination<Object?>> authFilesDestinationSamples = [
   LoginDestination(),
+  LogoutDestination(),
+  LogoutDestination(sessionExpired: true),
   SignupDestination(),
   PasswordResetRequestDestination(),
   AcceptCodeDestination(),

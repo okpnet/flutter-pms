@@ -39,6 +39,7 @@ class AuthFilesStrings with BaseTranslations<AuthFilesLocale, AuthFilesStrings> 
 	late final AuthFilesStrings$errors$ja errors = AuthFilesStrings$errors$ja.internal(_root);
 	late final AuthFilesStrings$rules$ja rules = AuthFilesStrings$rules$ja.internal(_root);
 	late final AuthFilesStrings$login$ja login = AuthFilesStrings$login$ja.internal(_root);
+	late final AuthFilesStrings$logout$ja logout = AuthFilesStrings$logout$ja.internal(_root);
 	late final AuthFilesStrings$register$ja register = AuthFilesStrings$register$ja.internal(_root);
 	late final AuthFilesStrings$forgot$ja forgot = AuthFilesStrings$forgot$ja.internal(_root);
 	late final AuthFilesStrings$code$ja code = AuthFilesStrings$code$ja.internal(_root);
@@ -180,6 +181,60 @@ class AuthFilesStrings$login$ja {
 
 	/// ja: 'ログインしています...'
 	String get sending => 'ログインしています...';
+
+	/// ja: '認証サーバーに接続していません(開発用)。資格情報は確認せず、標準のユーザーでログインします。'
+	String get provisionalNotice => '認証サーバーに接続していません(開発用)。資格情報は確認せず、標準のユーザーでログインします。';
+
+	/// ja: '標準のユーザーでログイン'
+	String get provisionalSubmit => '標準のユーザーでログイン';
+}
+
+// Path: logout
+class AuthFilesStrings$logout$ja {
+	AuthFilesStrings$logout$ja.internal(this._root);
+
+	final AuthFilesStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'ログアウトしますか?'
+	String get confirmHeading => 'ログアウトしますか?';
+
+	/// ja: '{name} さんとしてサインインしています。未保存の入力は失われます。'
+	String confirmMessage({required Object name}) => '${name} さんとしてサインインしています。未保存の入力は失われます。';
+
+	/// ja: 'キャンセル'
+	String get confirmCancel => 'キャンセル';
+
+	/// ja: 'ログアウト'
+	String get confirmSubmit => 'ログアウト';
+
+	/// ja: 'ログアウトしています…'
+	String get workingHeading => 'ログアウトしています…';
+
+	/// ja: 'セッションを終了しています。しばらくお待ちください。'
+	String get workingMessage => 'セッションを終了しています。しばらくお待ちください。';
+
+	/// ja: 'ログアウトしました'
+	String get doneHeading => 'ログアウトしました';
+
+	/// ja: '再度ご利用の際は、ログインしてください。'
+	String get doneMessage => '再度ご利用の際は、ログインしてください。';
+
+	/// ja: 'セッションが切れました'
+	String get expiredHeading => 'セッションが切れました';
+
+	/// ja: 'ログインの有効期限が切れたため、ログアウトしました。再度ログインしてください。'
+	String get expiredMessage => 'ログインの有効期限が切れたため、ログアウトしました。再度ログインしてください。';
+
+	/// ja: '{n}秒後にログイン画面へ移動します。'
+	String countdown({required Object n}) => '${n}秒後にログイン画面へ移動します。';
+
+	/// ja: '今すぐログイン画面へ'
+	String get toLogin => '今すぐログイン画面へ';
+
+	/// ja: 'セッションが切れたときも、この画面を表示します。'
+	String get note => 'セッションが切れたときも、この画面を表示します。';
 }
 
 // Path: register
@@ -496,6 +551,21 @@ extension on AuthFilesStrings {
 			'login.register' => '新規登録',
 			'login.haveCode' => '認証コードをお持ちの方',
 			'login.sending' => 'ログインしています...',
+			'login.provisionalNotice' => '認証サーバーに接続していません(開発用)。資格情報は確認せず、標準のユーザーでログインします。',
+			'login.provisionalSubmit' => '標準のユーザーでログイン',
+			'logout.confirmHeading' => 'ログアウトしますか?',
+			'logout.confirmMessage' => ({required Object name}) => '${name} さんとしてサインインしています。未保存の入力は失われます。',
+			'logout.confirmCancel' => 'キャンセル',
+			'logout.confirmSubmit' => 'ログアウト',
+			'logout.workingHeading' => 'ログアウトしています…',
+			'logout.workingMessage' => 'セッションを終了しています。しばらくお待ちください。',
+			'logout.doneHeading' => 'ログアウトしました',
+			'logout.doneMessage' => '再度ご利用の際は、ログインしてください。',
+			'logout.expiredHeading' => 'セッションが切れました',
+			'logout.expiredMessage' => 'ログインの有効期限が切れたため、ログアウトしました。再度ログインしてください。',
+			'logout.countdown' => ({required Object n}) => '${n}秒後にログイン画面へ移動します。',
+			'logout.toLogin' => '今すぐログイン画面へ',
+			'logout.note' => 'セッションが切れたときも、この画面を表示します。',
 			'register.heading' => '新規登録',
 			'register.userId' => 'ユーザーID',
 			'register.email' => 'メールアドレス',

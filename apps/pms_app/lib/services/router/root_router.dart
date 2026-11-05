@@ -22,10 +22,8 @@ part 'root_router.g.dart';
 GoRouter rootRouter(Ref ref) {
   return GoRouter(
     debugLogDiagnostics: true,
-    // PocketBase を使うときは auth_files のログイン、使わないときはこれまでのログイン(仮)
-    initialLocation: ref.read(pocketbaseEnabledProvider)
-        ? AuthFilesPaths.login
-        : LoginConstant.path,
+    // 最初の画面は auth_files のログイン(PocketBase に接続しないときは、標準のユーザーでログインする開発用)
+    initialLocation: AuthFilesPaths.login,
     routes: [
       ...controller.$appRoutes,
 
@@ -64,6 +62,8 @@ GoRouter rootRouter(Ref ref) {
           AuthFilesPaths.login,
           AuthFilesPaths.register,
           AuthFilesPaths.forgot,
+          // ログアウトの完了(ログインしていない状態で表示する)
+          AuthFilesPaths.logout,
           MaintenancePaths.maintenance,
           BackstagePaths.backstage,
         ],

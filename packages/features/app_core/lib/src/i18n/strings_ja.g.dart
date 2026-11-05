@@ -39,7 +39,6 @@ class AppCoreStrings with BaseTranslations<AppCoreLocale, AppCoreStrings> {
 	late final AppCoreStrings$shell$ja shell = AppCoreStrings$shell$ja.internal(_root);
 	late final AppCoreStrings$dashboard$ja dashboard = AppCoreStrings$dashboard$ja.internal(_root);
 	late final AppCoreStrings$boot$ja boot = AppCoreStrings$boot$ja.internal(_root);
-	late final AppCoreStrings$logout$ja logout = AppCoreStrings$logout$ja.internal(_root);
 	late final AppCoreStrings$error$ja error = AppCoreStrings$error$ja.internal(_root);
 	late final AppCoreStrings$settings$ja settings = AppCoreStrings$settings$ja.internal(_root);
 }
@@ -106,29 +105,11 @@ class AppCoreStrings$boot$ja {
 
 	// Translations
 
-	/// ja: '読み込み中...'
-	String get loading => '読み込み中...';
-}
+	/// ja: '起動しています…'
+	String get title => '起動しています…';
 
-// Path: logout
-class AppCoreStrings$logout$ja {
-	AppCoreStrings$logout$ja.internal(this._root);
-
-	final AppCoreStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'ログアウト'
-	String get title => 'ログアウト';
-
-	/// ja: 'ログアウトしました。'
-	String get message => 'ログアウトしました。';
-
-	/// ja: 'ログインする(仮)'
-	String get signIn => 'ログインする(仮)';
-
-	/// ja: 'ログイン画面へ'
-	String get toLogin => 'ログイン画面へ';
+	/// ja: 'データと設定を読み込んでいます。'
+	String get message => 'データと設定を読み込んでいます。';
 }
 
 // Path: error
@@ -165,6 +146,7 @@ class AppCoreStrings$settings$ja {
 
 	late final AppCoreStrings$settings$language$ja language = AppCoreStrings$settings$language$ja.internal(_root);
 	late final AppCoreStrings$settings$layout$ja layout = AppCoreStrings$settings$layout$ja.internal(_root);
+	late final AppCoreStrings$settings$theme$ja theme = AppCoreStrings$settings$theme$ja.internal(_root);
 	late final AppCoreStrings$settings$user$ja user = AppCoreStrings$settings$user$ja.internal(_root);
 	late final AppCoreStrings$settings$about$ja about = AppCoreStrings$settings$about$ja.internal(_root);
 }
@@ -203,6 +185,26 @@ class AppCoreStrings$settings$layout$ja {
 
 	/// ja: 'サイドバーをアイコンだけにする'
 	String get sidebarIconOnly => 'サイドバーをアイコンだけにする';
+}
+
+// Path: settings.theme
+class AppCoreStrings$settings$theme$ja {
+	AppCoreStrings$settings$theme$ja.internal(this._root);
+
+	final AppCoreStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'テーマ'
+	String get title => 'テーマ';
+
+	/// ja: '配色と形を切り替えます。ライト・ダークは実行環境の設定にも従えます。'
+	String get note => '配色と形を切り替えます。ライト・ダークは実行環境の設定にも従えます。';
+
+	late final AppCoreStrings$settings$theme$mode$ja mode = AppCoreStrings$settings$theme$mode$ja.internal(_root);
+
+	/// ja: '配色のテーマ'
+	String get selection => '配色のテーマ';
 }
 
 // Path: settings.user
@@ -247,6 +249,27 @@ class AppCoreStrings$settings$about$ja {
 	String get version => 'アプリケーションのバージョン';
 }
 
+// Path: settings.theme.mode
+class AppCoreStrings$settings$theme$mode$ja {
+	AppCoreStrings$settings$theme$mode$ja.internal(this._root);
+
+	final AppCoreStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '表示モード'
+	String get title => '表示モード';
+
+	/// ja: '実行環境に従う'
+	String get system => '実行環境に従う';
+
+	/// ja: 'ライト'
+	String get light => 'ライト';
+
+	/// ja: 'ダーク'
+	String get dark => 'ダーク';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -264,11 +287,8 @@ extension on AppCoreStrings {
 			'dashboard.title' => 'ダッシュボード',
 			'dashboard.edit' => '配置を編集',
 			'dashboard.done' => '完了',
-			'boot.loading' => '読み込み中...',
-			'logout.title' => 'ログアウト',
-			'logout.message' => 'ログアウトしました。',
-			'logout.signIn' => 'ログインする(仮)',
-			'logout.toLogin' => 'ログイン画面へ',
+			'boot.title' => '起動しています…',
+			'boot.message' => 'データと設定を読み込んでいます。',
 			'error.title' => 'エラー',
 			'error.message' => 'アプリケーションでエラーが発生しました',
 			'error.back' => '戻る',
@@ -280,6 +300,13 @@ extension on AppCoreStrings {
 			'settings.language.en' => 'English',
 			'settings.layout.title' => '画面',
 			'settings.layout.sidebarIconOnly' => 'サイドバーをアイコンだけにする',
+			'settings.theme.title' => 'テーマ',
+			'settings.theme.note' => '配色と形を切り替えます。ライト・ダークは実行環境の設定にも従えます。',
+			'settings.theme.mode.title' => '表示モード',
+			'settings.theme.mode.system' => '実行環境に従う',
+			'settings.theme.mode.light' => 'ライト',
+			'settings.theme.mode.dark' => 'ダーク',
+			'settings.theme.selection' => '配色のテーマ',
 			'settings.user.title' => 'ログインユーザー',
 			'settings.user.note' => '画面に表示するユーザー名と役割です。保存はされず、起動のたびに標準の値へ戻ります。',
 			'settings.user.name' => 'ユーザー名',

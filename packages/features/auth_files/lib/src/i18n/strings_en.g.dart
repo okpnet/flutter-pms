@@ -42,6 +42,7 @@ class AuthFilesStringsEn extends AuthFilesStrings with BaseTranslations<AuthFile
 	@override late final _AuthFilesStrings$errors$en errors = _AuthFilesStrings$errors$en._(_root);
 	@override late final _AuthFilesStrings$rules$en rules = _AuthFilesStrings$rules$en._(_root);
 	@override late final _AuthFilesStrings$login$en login = _AuthFilesStrings$login$en._(_root);
+	@override late final _AuthFilesStrings$logout$en logout = _AuthFilesStrings$logout$en._(_root);
 	@override late final _AuthFilesStrings$register$en register = _AuthFilesStrings$register$en._(_root);
 	@override late final _AuthFilesStrings$forgot$en forgot = _AuthFilesStrings$forgot$en._(_root);
 	@override late final _AuthFilesStrings$code$en code = _AuthFilesStrings$code$en._(_root);
@@ -117,6 +118,30 @@ class _AuthFilesStrings$login$en extends AuthFilesStrings$login$ja {
 	@override String get register => 'Register';
 	@override String get haveCode => 'I have a code';
 	@override String get sending => 'Signing in...';
+	@override String get provisionalNotice => 'Not connected to an authentication server (development). Credentials are not checked; you sign in as the standard user.';
+	@override String get provisionalSubmit => 'Sign in as the standard user';
+}
+
+// Path: logout
+class _AuthFilesStrings$logout$en extends AuthFilesStrings$logout$ja {
+	_AuthFilesStrings$logout$en._(AuthFilesStringsEn root) : this._root = root, super.internal(root);
+
+	final AuthFilesStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get confirmHeading => 'Sign out?';
+	@override String confirmMessage({required Object name}) => 'You are signed in as ${name}. Unsaved input will be lost.';
+	@override String get confirmCancel => 'Cancel';
+	@override String get confirmSubmit => 'Sign out';
+	@override String get workingHeading => 'Signing out…';
+	@override String get workingMessage => 'Ending the session. Please wait.';
+	@override String get doneHeading => 'You have signed out';
+	@override String get doneMessage => 'Please sign in again when you use the app next time.';
+	@override String get expiredHeading => 'Your session expired';
+	@override String get expiredMessage => 'You were signed out because your sign-in expired. Please sign in again.';
+	@override String countdown({required Object n}) => 'Moving to the sign-in screen in ${n} seconds.';
+	@override String get toLogin => 'Go to sign in now';
+	@override String get note => 'This screen is also shown when the session expires.';
 }
 
 // Path: register
@@ -307,6 +332,21 @@ extension on AuthFilesStringsEn {
 			'login.register' => 'Register',
 			'login.haveCode' => 'I have a code',
 			'login.sending' => 'Signing in...',
+			'login.provisionalNotice' => 'Not connected to an authentication server (development). Credentials are not checked; you sign in as the standard user.',
+			'login.provisionalSubmit' => 'Sign in as the standard user',
+			'logout.confirmHeading' => 'Sign out?',
+			'logout.confirmMessage' => ({required Object name}) => 'You are signed in as ${name}. Unsaved input will be lost.',
+			'logout.confirmCancel' => 'Cancel',
+			'logout.confirmSubmit' => 'Sign out',
+			'logout.workingHeading' => 'Signing out…',
+			'logout.workingMessage' => 'Ending the session. Please wait.',
+			'logout.doneHeading' => 'You have signed out',
+			'logout.doneMessage' => 'Please sign in again when you use the app next time.',
+			'logout.expiredHeading' => 'Your session expired',
+			'logout.expiredMessage' => 'You were signed out because your sign-in expired. Please sign in again.',
+			'logout.countdown' => ({required Object n}) => 'Moving to the sign-in screen in ${n} seconds.',
+			'logout.toLogin' => 'Go to sign in now',
+			'logout.note' => 'This screen is also shown when the session expires.',
 			'register.heading' => 'Register',
 			'register.userId' => 'User ID',
 			'register.email' => 'Email address',

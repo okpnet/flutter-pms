@@ -4,29 +4,29 @@
 画面の枠(タイトルバー・サイドバー・ハンバーガー・ログインユーザー)の見た目は `packages/ui/app_shell` が持ち、このプロジェクトはその文字列(アプリ名・メニューの説明・設定)と、基盤の画面を持つ。
 
 ## 画面(Html のメニュー・features/CLAUDE.md の AppCore)
-1.  ブート画面(シングルメインフレーム): 読み込み中の表示。`BootDestination` → `/boot`
+1.  ブート画面(シングルメインフレーム): 読み込み中の表示。`BootDestination` → `/boot`。画面案(`tools/open-design` の `#/boot`)の構成で、中央のカードに、進行中の表示・見出し(起動しています…)・説明・進行バーを置く
 2.  ダッシュボード(マルチメインフレーム): `DashboardDestination` → `/dashboard`。件数のコンテナ(`dashboard_container`)の領域を置き、「配置を編集」で編集に切り替える(コンテナ・項目の追加・削除・並び替え・大きさ。変更は設定として保存し、表示するときに設定から読み込む)。件数の元(`countSourcesProvider`)はアプリが差し込む
 3.  エラー画面(シングルメインフレーム): アプリケーションエラーの表示。`ErrorDestination({message})` → `/error`。画面案(`tools/open-design` の `#/error`)の構成で、中央のカードに、丸いアイコン(`errorContainer` の地に `onErrorContainer`)・見出し・エラーの内容・ボタンを置く。色は `Theme` から取る
-4.  設定(マルチメインフレーム): 使用言語(実行環境に従う/日本語/English)、サイドバーをアイコンだけにする設定、ログインユーザー(ユーザー名・役割を設定値として与える。標準値へ戻せる)、バージョン情報(`--dart-define=APP_VERSION=x.y.z`)。`SettingsDestination` → `/settings`。使用者全体ではなく、使用ユーザーにだけ影響する設定
-5.  ログアウト画面(シングルメインフレーム): `LogoutDestination` → `/logout`。ユーザーメニューの「ログアウト」で開く。開いたとき1回、ログアウトの実体(`signOutProvider`。認証を持つアプリが上書きする。既定は何もしない)を実行し、失敗しても表示する。ボタンは、`signInDestinationProvider`(ログイン画面の遷移先)があればそこへ、無ければ認証の導入前の仮のログイン(標準のユーザーに戻す)
-6.  ログイン画面: 認証(Keycloak)の導入後に追加する(未実装)。ログイン状態は `userSummaryProvider`(`feature_shared`)で提供する
+4.  設定(マルチメインフレーム): 使用言語(実行環境に従う/日本語/English)、サイドバーをアイコンだけにする設定、テーマ(表示モード: 実行環境に従う/ライト/ダーク、配色のテーマ: `theme_lib` に登録されているテーマから選ぶ)、ログインユーザー(ユーザー名・役割を設定値として与える。標準値へ戻せる)、バージョン情報(`--dart-define=APP_VERSION=x.y.z`)。`SettingsDestination` → `/settings`。使用者全体ではなく、使用ユーザーにだけ影響する設定。テーマの中身(色・数値)の編集は、別のアプリケーションで行い、この設定画面には持たない
+5.  ログイン・ログアウトの画面は持たない。`auth_files` にある(ログイン前後の画面・セッションの処理を1か所にまとめるため)。ログイン画面の遷移先を、他の機能が `auth_files` に依存せずに指せるよう、`signInDestinationProvider`(アプリが `LoginDestination` を指定する)だけを持つ。ログイン状態は `userSummaryProvider`(`feature_shared`)で提供する
 
 ## 構成
 | 種別 | ファイル | 内容 |
 |---|---|---|
-| 実装の入口 | `lib/app_core.dart` | 公開は `AppCoreModule` と、アプリが使う文字列(`appCoreStringsProvider`) |
-| 契約の入口 | `lib/app_core_api.dart` | 遷移先の型(`BootDestination`・`DashboardDestination`・`SettingsDestination`・`LogoutDestination`・`ErrorDestination`) |
+| 実装の入口 | `lib/app_core.dart` | 公開は `AppCoreModule` と、アプリが使う文字列(`appCoreStringsProvider`)、ユーザー設定の保存と復元 |
+| 契約の入口 | `lib/app_core_api.dart` | 遷移先の型(`BootDestination`・`DashboardDestination`・`SettingsDestination`・`ErrorDestination`)と `signInDestinationProvider` |
 | モジュール | `lib/src/app_core_module.dart` | ルートと遷移先の変換 |
-| 画面 | `lib/src/pages/` | ブート・エラー・ログアウト・設定(`app_core_pages.dart`)、ダッシュボード(`dashboard_page.dart`) |
+| 画面 | `lib/src/pages/` | ブート・エラー・設定(`app_core_pages.dart`)、ダッシュボード(`dashboard_page.dart`)。ブート・エラーのカードは `app_shell` の `StatusCard`・`StatusIcon` |
 | 文字列 | `lib/src/i18n` | slang の Yaml(日本語・英語) |
 
 ## 実装の指針
-1.  設定の変更は `feature_shared` の Provider(`localeProvider`・`sidebarIconOnlyProvider`)へ反映する。保存と復元は`app_core`の`UserSettingsOriginator`(`settings_keeper`のメメント)が行い、保存する形は`app_core`のJSONモデル`UserSettingsModel`。保存先はアプリが決める(`pms_app`は`shared_preferences`)。
-2.  使用言語の既定は実行環境(OS)の言語(アプリが `SystemLocaleNotifier` を差し込む)。
-3.  ログは `logger_provider` の `loggerProvider` を `ref` から直接取得し、この機能が発生元のエラーだけを出す。
+1.  設定の変更は `feature_shared` の Provider(`localeProvider`・`sidebarIconOnlyProvider`)と `theme_lib` の `themeManagerProvider`(テーマ・表示モード)へ反映する。保存と復元は`app_core`の`UserSettingsOriginator`(`settings_keeper`のメメント)が行い、保存する形は`app_core`のJSONモデル`UserSettingsModel`(テーマの識別子 `themeId` と表示モード `themeMode` を含む)。保存先はアプリが決める(`pms_app`は`shared_preferences`)。
+2.  テーマの復元: 保存したテーマが登録されていなければ、既定のテーマのまま(表示モードだけ復元する)。`theme_lib` の追加のテーマ(`ThemeAssets`)は、設定の復元より前に取り込む(アプリの起動の順序)。`themeManagerProvider` を読むので、アプリ・テストは `themeLoggerProvider` を上書きする。
+3.  使用言語の既定は実行環境(OS)の言語(アプリが `SystemLocaleNotifier` を差し込む)。
+4.  ログは `logger_provider` の `loggerProvider` を `ref` から直接取得し、この機能が発生元のエラーだけを出す。
 
 ## example と多言語
-1.  ビジュアルテスト用の `example`(Windows、`flutter run -d windows`)で、すべての画面の状態を目視で確認できる。一覧はブート・ダッシュボード・エラー(内容なし/あり)・設定・ログアウト・状態の切り替え。状態の切り替え(ログアウトの失敗、ログイン先の有無、ダッシュボードの件数の元の有無)は example だけのモジュールが持つ。画面を増やしたら一覧に足し、`example/test/widget_test.dart` で確認する。依存関係上必要なライブラリだけ参照し、それ以外は example の中で完結する。
+1.  ビジュアルテスト用の `example`(Windows、`flutter run -d windows`)で、すべての画面の状態を目視で確認できる。一覧はブート・ダッシュボード・エラー(内容なし/あり)・設定・状態の切り替え。状態の切り替え(ダッシュボードの件数の元の有無)は example だけのモジュールが持つ。画面を増やしたら一覧に足し、`example/test/widget_test.dart` で確認する。依存関係上必要なライブラリだけ参照し、それ以外は example の中で完結する。
 2.  文字列は `lib/src/i18n` の言語ファイル(Yaml)に置き、`slang.yaml` の `class_name: AppCoreStrings` で生成する(`dart run slang`)。
 
 ## 規則/仕様

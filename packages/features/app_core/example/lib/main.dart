@@ -82,30 +82,13 @@ Future<SettingsStorage> seededStorage() async {
 
 /// 画面の状態を切り替える見本の条件。
 class ExampleConditions {
-  const ExampleConditions({
-    this.signOutFails = false,
-    this.hasSignIn = false,
-    this.hasSources = true,
-  });
-
-  /// ログアウトの実体が失敗する(失敗しても画面は表示される)。
-  final bool signOutFails;
-
-  /// ログイン画面の遷移先がある(無いときは、仮のログイン)。
-  final bool hasSignIn;
+  const ExampleConditions({this.hasSources = true});
 
   /// ダッシュボードの件数の元がある。
   final bool hasSources;
 
-  ExampleConditions copyWith({
-    bool? signOutFails,
-    bool? hasSignIn,
-    bool? hasSources,
-  }) => ExampleConditions(
-    signOutFails: signOutFails ?? this.signOutFails,
-    hasSignIn: hasSignIn ?? this.hasSignIn,
-    hasSources: hasSources ?? this.hasSources,
-  );
+  ExampleConditions copyWith({bool? hasSources}) =>
+      ExampleConditions(hasSources: hasSources ?? this.hasSources);
 }
 
 class ExampleConditionsNotifier extends Notifier<ExampleConditions> {
@@ -158,20 +141,6 @@ class ConditionsPage extends ConsumerWidget {
       body: ListView(
         children: [
           SwitchListTile(
-            key: const ValueKey('signOutFails'),
-            title: const Text('ログアウトの実行が失敗する'),
-            subtitle: const Text('ログアウト画面: 失敗してもログに残して表示する'),
-            value: c.signOutFails,
-            onChanged: (v) => notifier.update((s) => s.copyWith(signOutFails: v)),
-          ),
-          SwitchListTile(
-            key: const ValueKey('hasSignIn'),
-            title: const Text('ログイン画面の遷移先がある'),
-            subtitle: const Text('ログアウト画面: ボタンが「ログイン画面へ」(設定画面へ遷移)になる'),
-            value: c.hasSignIn,
-            onChanged: (v) => notifier.update((s) => s.copyWith(hasSignIn: v)),
-          ),
-          SwitchListTile(
             key: const ValueKey('hasSources'),
             title: const Text('ダッシュボードの件数の元がある'),
             subtitle: const Text('ダッシュボード: 件数の元が無いときの表示'),
@@ -217,32 +186,19 @@ class ExampleApp extends StatelessWidget {
         ErrorDestination(message: 'サーバーに接続できません(example)'),
       ),
       FeatureHostEntry('設定', SettingsDestination()),
-      FeatureHostEntry('ログアウト', LogoutDestination()),
     ],
     logger: logger,
     overrides: [
       themeLoggerProvider.overrideWithValue(logger),
       settingsStorageProvider.overrideWithValue(storage),
       userSummaryProvider.overrideWith(
-        () => UserSummaryNotifier(
-          const UserSummary(name: '山田 太郎', role: '管理者'),
-        ),
+        () =>
+            UserSummaryNotifier(const UserSummary(name: '山田 太郎', role: '管理者')),
       ),
       countSourcesProvider.overrideWith(
         (ref) => ref.watch(exampleConditionsProvider).hasSources
             ? demoSources
             : const <ICountSource>[],
-      ),
-      signOutProvider.overrideWith((ref) {
-        final fails = ref.watch(exampleConditionsProvider).signOutFails;
-        return () async {
-          if (fails) throw StateError('ログアウトの失敗(example)');
-        };
-      }),
-      signInDestinationProvider.overrideWith(
-        (ref) => ref.watch(exampleConditionsProvider).hasSignIn
-            ? const SettingsDestination()
-            : null,
       ),
       ...extraOverrides,
     ],

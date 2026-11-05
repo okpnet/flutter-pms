@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:app_core/app_core_api.dart';
+import 'package:auth_files/auth_files_api.dart';
 import 'package:pms_app/contents/_models/error/error.dart';
 import 'package:pms_app/imports.dart';
 import 'package:pms_app/services/services.dart';
@@ -21,11 +22,11 @@ void main() {
 
     final navigator = GoRouterDestinationNavigator(
       router: container.read(rootRouterProvider),
-      modules: featureModules,
+      modules: [...featureModules, ...standaloneFeatureModules],
     );
     expect(navigator.resolve(const EntityListDestination('item')), '/e/item');
     expect(navigator.resolve(const SettingsDestination()), '/settings');
-    expect(navigator.resolve(const LogoutDestination()), '/logout');
+    expect(navigator.resolve(const LogoutDestination()), '/auth/logout');
     expect(
       errorLocationOf(AppError(.standardTimeRelated)),
       startsWith('/error?message='),
