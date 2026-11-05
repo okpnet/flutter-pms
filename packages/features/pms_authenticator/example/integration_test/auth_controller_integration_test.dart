@@ -63,7 +63,7 @@ void main() {
         realms: uriModel.realms,
         clientId: uriModel.clientId,
         redirectUrl: uriModel.redirectUri,
-        logger: Logger(),
+        logger: const NoopLoggerProvider(),
       );
     });
 
