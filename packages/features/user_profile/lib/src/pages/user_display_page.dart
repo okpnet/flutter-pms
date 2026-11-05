@@ -88,6 +88,31 @@ class _UserDisplayPageState extends ConsumerState<UserDisplayPage> {
               detail: (context, u) => Text(t.display.detail),
             ),
           ),
+          section(
+            t.display.largeNarrow,
+            SizedBox(
+              width: 200,
+              child: UserContainer(
+                user: AppUser(
+                  name: '${user.name} ${user.name} ${user.name}',
+                  role: user.role,
+                  photo: user.photo,
+                  heading: user.heading,
+                ),
+                size: UserContainerSize.large,
+                actions: actions(),
+              ),
+            ),
+          ),
+          section(
+            t.display.largeRight,
+            UserContainer(
+              user: user,
+              size: UserContainerSize.large,
+              detailAlignment: Alignment.centerRight,
+              detail: (context, u) => Text(t.display.detail),
+            ),
+          ),
           if (_picked != null) Text(_picked!),
         ],
       ),

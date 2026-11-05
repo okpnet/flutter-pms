@@ -26,7 +26,9 @@ display:
   small: small(タイトルバー向け。顔写真のみ。タップでメニュー)
   medium: medium(サイドバー向け。顔写真 + 見出し・タイトル・サブタイトル。メニューがあるときだけ ▼)
   mediumNoMenu: medium(メニューなし。▼ もメニューも出さない)
-  large: large(ダイアログ向け。大きな顔写真 + 項目 + 詳細 + 操作のボタン)
+  large: large(ダイアログ向け。左に顔写真・右に項目、中央に操作のボタン、下に詳細)
+  largeNarrow: large(幅が狭いとき。項目が顔写真の下へ回り込み、長い文字は省略)
+  largeRight: large(詳細を右寄せにした例)
   detail: 詳細情報(呼び出し元が渡したWidget)
   menuSettings: 設定
   menuLogout: ログアウト

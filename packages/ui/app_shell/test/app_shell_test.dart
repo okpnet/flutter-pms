@@ -216,6 +216,61 @@ void main() {
       expect(find.widgetWithText(OutlinedButton, '設定'), findsOneWidget);
     });
 
+    Widget large(double width, {AlignmentGeometry? align, AppUser u = user}) =>
+        host(
+          SizedBox(
+            width: width,
+            child: UserContainer(
+              user: u,
+              size: UserContainerSize.large,
+              actions: actions,
+              detail: (context, _) => const Text('詳細'),
+              detailAlignment: align ?? Alignment.center,
+            ),
+          ),
+        );
+
+    testWidgets('large: 広いときは左に顔写真・右にラベル群', (tester) async {
+      await tester.pumpWidget(large(400));
+      final avatar = tester.getRect(find.byType(CircleAvatar));
+      final name = tester.getRect(find.text('鈴木 一郎'));
+      expect(name.left, greaterThan(avatar.right));
+    });
+
+    testWidgets('large: 狭いときは顔写真の下へ回り込み、顔写真は縮まない', (tester) async {
+      await tester.pumpWidget(large(400));
+      final wide = tester.getSize(find.byType(CircleAvatar));
+      await tester.pumpWidget(large(200));
+      final avatar = tester.getRect(find.byType(CircleAvatar));
+      expect(avatar.size, wide);
+      expect(
+        tester.getRect(find.text('鈴木 一郎')).top,
+        greaterThanOrEqualTo(avatar.bottom),
+      );
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('large: 長いラベルは省略し、あふれない', (tester) async {
+      await tester.pumpWidget(
+        large(
+          260,
+          u: AppUser(name: '長い名前' * 30, role: '課長', heading: '部' * 80),
+        ),
+      );
+      expect(tester.takeException(), isNull);
+      final text = tester.widget<Text>(find.textContaining('長い名前').first);
+      expect(text.overflow, TextOverflow.ellipsis);
+      expect(text.maxLines, 1);
+    });
+
+    testWidgets('large: 詳細の寄せを指定できる(左・右)', (tester) async {
+      await tester.pumpWidget(large(400, align: Alignment.centerLeft));
+      final left = tester.getRect(find.text('詳細')).left;
+      await tester.pumpWidget(large(400, align: Alignment.centerRight));
+      final right = tester.getRect(find.text('詳細')).left;
+      expect(right, greaterThan(left));
+    });
+
     testWidgets('タイトルバーの表示パターンは提供者(userSize)が決められる', (tester) async {
       Widget bar(UserContainerSize? s) => MaterialApp(
         home: Scaffold(

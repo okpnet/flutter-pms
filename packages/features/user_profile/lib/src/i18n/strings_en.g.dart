@@ -101,7 +101,9 @@ class _UserProfileStrings$display$en extends UserProfileStrings$display$ja {
 	@override String get small => 'small (title bar - photo only; tap opens the menu)';
 	@override String get medium => 'medium (sidebar - photo + heading, title, subtitle; the arrow shows only with a menu)';
 	@override String get mediumNoMenu => 'medium (no menu - no arrow, no menu)';
-	@override String get large => 'large (dialog - large photo + fields + detail + action buttons)';
+	@override String get large => 'large (dialog - photo left, fields right, action buttons centered, detail below)';
+	@override String get largeNarrow => 'large (narrow - fields wrap under the photo; long text is ellipsized)';
+	@override String get largeRight => 'large (detail aligned to the right)';
 	@override String get detail => 'Detail (a widget supplied by the caller)';
 	@override String get menuSettings => 'Settings';
 	@override String get menuLogout => 'Sign out';
@@ -141,7 +143,9 @@ extension on UserProfileStringsEn {
 			'display.small' => 'small (title bar - photo only; tap opens the menu)',
 			'display.medium' => 'medium (sidebar - photo + heading, title, subtitle; the arrow shows only with a menu)',
 			'display.mediumNoMenu' => 'medium (no menu - no arrow, no menu)',
-			'display.large' => 'large (dialog - large photo + fields + detail + action buttons)',
+			'display.large' => 'large (dialog - photo left, fields right, action buttons centered, detail below)',
+			'display.largeNarrow' => 'large (narrow - fields wrap under the photo; long text is ellipsized)',
+			'display.largeRight' => 'large (detail aligned to the right)',
 			'display.detail' => 'Detail (a widget supplied by the caller)',
 			'display.menuSettings' => 'Settings',
 			'display.menuLogout' => 'Sign out',

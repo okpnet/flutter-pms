@@ -26,7 +26,9 @@ typedef UserDetailBuilder = Widget Function(BuildContext context, AppUser user);
 /// 表示パターンは [UserContainerSize]。
 /// - small: 顔写真のみ。[actions] があればタップでメニュー(▼なし)
 /// - medium: 顔写真 + 項目。[actions] があるときだけ ▼ とメニュー
-/// - large: 大きな顔写真 + 項目 + [detail]。[actions] はメニューではなくボタンの行
+/// - large: 左に顔写真・右に項目(幅に合わせて省略)、中央にボタンの行([actions])、その下に
+///   [detail]([detailAlignment] で寄せる)。狭いときは項目が顔写真の下へ回り込む。
+///   タイトルバーに入れて高さが溢れるのは、提供者の責任(large はダイアログ向け)
 ///
 /// [actions] が空のときは、▼もメニューもボタンも出さない。
 class UserContainer extends StatelessWidget {
@@ -36,6 +38,7 @@ class UserContainer extends StatelessWidget {
     this.actions = const [],
     this.size = UserContainerSize.medium,
     this.detail,
+    this.detailAlignment = Alignment.center,
     this.labels = const AppShellLabels(),
   });
 
@@ -45,7 +48,16 @@ class UserContainer extends StatelessWidget {
 
   /// 詳細情報の表示(large だけ)。
   final UserDetailBuilder? detail;
+
+  /// 詳細の寄せ(左寄せ・右寄せ・上寄せ・下寄せ。既定は中央)。
+  final AlignmentGeometry detailAlignment;
   final AppShellLabels labels;
+
+  /// large の周囲の余白。
+  static const double largePadding = 16;
+
+  /// large で、これより狭いとラベル群を顔写真の下へ回り込ませる幅。
+  static const double wrapWidth = 240;
 
   static double avatarRadius(UserContainerSize size) => switch (size) {
     UserContainerSize.small => 14,
@@ -69,22 +81,25 @@ class UserContainer extends StatelessWidget {
 
   Widget? _texts(ThemeData theme) {
     final large = size == UserContainerSize.large;
+    Text line(String text, TextStyle? style) => Text(
+      text,
+      style: style,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+    );
     final items = <Widget>[
       if (user.heading.isNotEmpty)
-        Text(user.heading, style: theme.textTheme.labelSmall),
+        line(user.heading, theme.textTheme.labelSmall),
       if (user.name.isNotEmpty)
-        Text(
+        line(
           user.name,
-          style: large ? theme.textTheme.titleLarge : theme.textTheme.labelLarge,
+          large ? theme.textTheme.titleLarge : theme.textTheme.labelLarge,
         ),
-      if (user.role.isNotEmpty)
-        Text(user.role, style: theme.textTheme.bodySmall),
+      if (user.role.isNotEmpty) line(user.role, theme.textTheme.bodySmall),
     ];
     if (items.isEmpty) return null;
     return Column(
-      crossAxisAlignment: large
-          ? CrossAxisAlignment.center
-          : CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: items,
     );
@@ -110,30 +125,62 @@ class UserContainer extends StatelessWidget {
           ),
         );
       case UserContainerSize.large:
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          spacing: 12,
-          children: [
-            _avatar(),
-            ?texts,
-            ?detail?.call(context, user),
-            if (actions.isNotEmpty)
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                alignment: WrapAlignment.center,
-                children: [
-                  for (final a in actions)
-                    OutlinedButton.icon(
-                      onPressed: a.onSelected,
-                      icon: a.icon == null ? null : Icon(a.icon, size: 18),
-                      label: Text(a.label),
-                    ),
-                ],
-              ),
-          ],
+        return Padding(
+          padding: const EdgeInsets.all(largePadding),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            spacing: 12,
+            children: [
+              _largeHeader(texts),
+              if (actions.isNotEmpty)
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  alignment: WrapAlignment.center,
+                  children: [
+                    for (final a in actions)
+                      OutlinedButton.icon(
+                        onPressed: a.onSelected,
+                        icon: a.icon == null ? null : Icon(a.icon, size: 18),
+                        label: Text(a.label),
+                      ),
+                  ],
+                ),
+              if (detail != null)
+                Align(
+                  alignment: detailAlignment,
+                  child: detail!(context, user),
+                ),
+            ],
+          ),
         );
     }
+  }
+
+  /// large の上段。左に顔写真、右にラベル群。置かれた幅が狭いときは、顔写真の下へラベル群を回り込ませる
+  /// (顔写真は縮めない)。画面幅ではなく置かれた幅で決める(ダイアログに入るため。view_responsiveness は画面幅用)。
+  Widget _largeHeader(Widget? texts) {
+    final avatar = _avatar();
+    if (texts == null) return Center(child: avatar);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < wrapWidth) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            spacing: 8,
+            children: [avatar, texts],
+          );
+        }
+        return Row(
+          spacing: 16,
+          children: [
+            avatar,
+            Expanded(child: texts),
+          ],
+        );
+      },
+    );
   }
 
   Widget _withMenu(Widget child) {

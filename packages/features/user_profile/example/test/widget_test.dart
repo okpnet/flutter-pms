@@ -73,17 +73,17 @@ void main() {
     await tester.tap(find.text('表示パターン'));
     await tester.pumpAndSettle();
 
-    expect(find.byType(UserContainer), findsNWidgets(4));
+    expect(find.byType(UserContainer), findsNWidgets(6));
     // ▼ は medium(メニューあり)だけ。small・メニューなしには出ない。
     expect(find.byIcon(Icons.arrow_drop_down), findsOneWidget);
     expect(find.byType(PopupMenuButton<UserMenuAction>), findsNWidgets(2));
     // 見出しは提供者が渡したときだけ(large の例だけが渡す)
-    expect(find.text('生産管理部'), findsOneWidget);
-    expect(find.text('詳細情報(呼び出し元が渡したWidget)'), findsOneWidget);
+    expect(find.text('生産管理部'), findsNWidgets(3));
+    expect(find.text('詳細情報(呼び出し元が渡したWidget)'), findsNWidgets(2));
 
     // large の操作はメニューではなくボタン
-    expect(find.widgetWithText(OutlinedButton, 'ログアウト'), findsOneWidget);
-    await tester.tap(find.widgetWithText(OutlinedButton, '設定'));
+    expect(find.widgetWithText(OutlinedButton, 'ログアウト'), findsNWidgets(2));
+    await tester.tap(find.widgetWithText(OutlinedButton, '設定').first);
     await tester.pumpAndSettle();
     expect(find.text('選んだ項目: 設定'), findsOneWidget);
 

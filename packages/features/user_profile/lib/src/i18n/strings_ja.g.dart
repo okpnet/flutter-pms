@@ -145,8 +145,14 @@ class UserProfileStrings$display$ja {
 	/// ja: 'medium(メニューなし。▼ もメニューも出さない)'
 	String get mediumNoMenu => 'medium(メニューなし。▼ もメニューも出さない)';
 
-	/// ja: 'large(ダイアログ向け。大きな顔写真 + 項目 + 詳細 + 操作のボタン)'
-	String get large => 'large(ダイアログ向け。大きな顔写真 + 項目 + 詳細 + 操作のボタン)';
+	/// ja: 'large(ダイアログ向け。左に顔写真・右に項目、中央に操作のボタン、下に詳細)'
+	String get large => 'large(ダイアログ向け。左に顔写真・右に項目、中央に操作のボタン、下に詳細)';
+
+	/// ja: 'large(幅が狭いとき。項目が顔写真の下へ回り込み、長い文字は省略)'
+	String get largeNarrow => 'large(幅が狭いとき。項目が顔写真の下へ回り込み、長い文字は省略)';
+
+	/// ja: 'large(詳細を右寄せにした例)'
+	String get largeRight => 'large(詳細を右寄せにした例)';
 
 	/// ja: '詳細情報(呼び出し元が渡したWidget)'
 	String get detail => '詳細情報(呼び出し元が渡したWidget)';
@@ -198,7 +204,9 @@ extension on UserProfileStrings {
 			'display.small' => 'small(タイトルバー向け。顔写真のみ。タップでメニュー)',
 			'display.medium' => 'medium(サイドバー向け。顔写真 + 見出し・タイトル・サブタイトル。メニューがあるときだけ ▼)',
 			'display.mediumNoMenu' => 'medium(メニューなし。▼ もメニューも出さない)',
-			'display.large' => 'large(ダイアログ向け。大きな顔写真 + 項目 + 詳細 + 操作のボタン)',
+			'display.large' => 'large(ダイアログ向け。左に顔写真・右に項目、中央に操作のボタン、下に詳細)',
+			'display.largeNarrow' => 'large(幅が狭いとき。項目が顔写真の下へ回り込み、長い文字は省略)',
+			'display.largeRight' => 'large(詳細を右寄せにした例)',
 			'display.detail' => '詳細情報(呼び出し元が渡したWidget)',
 			'display.menuSettings' => '設定',
 			'display.menuLogout' => 'ログアウト',
