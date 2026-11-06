@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:page_mediator_extension/page_mediator_extension.dart';
 import 'package:pbapi/pbapi.dart';
 
 /// ログイン後の遷移先(ダッシュボード)の代役。app_core の実装には依存しない。
@@ -74,6 +75,23 @@ class _FakeSession implements SessionService {
       appUserId: 'U0001',
     );
   }
+
+  PbException? tokenFailure;
+  var loggedOut = 0;
+
+  @override
+  Future<GraphqlToken> graphqlToken({
+    Duration margin = const Duration(seconds: 60),
+  }) async {
+    if (tokenFailure != null) throw tokenFailure!;
+    return GraphqlToken(
+      token: 'jwt',
+      expiresAt: DateTime.now().add(const Duration(minutes: 15)),
+    );
+  }
+
+  @override
+  Future<void> logout() async => loggedOut++;
 
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
@@ -239,6 +257,39 @@ void main() {
         tester.element(find.byType(Scaffold).first),
       );
       expect(container.read(userSummaryProvider)?.name, 'yamada');
+    });
+
+    testWidgets('JWTを取得できないときは、ログインを取り消してメッセージを出す', (tester) async {
+      final session = _FakeSession()
+        ..tokenFailure = const PbException(PbFailureKind.network);
+      await _pump(tester, const LoginDestination(), [
+        sessionServiceProvider.overrideWithValue(session),
+      ]);
+      await tester.enterText(find.byType(TextField).at(0), 'yamada');
+      await tester.enterText(find.byType(TextField).at(1), 'password1');
+      await tester.tap(find.text('ログイン'));
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining('認証を取得できませんでした'), findsOneWidget);
+      expect(find.text('ダッシュボード'), findsNothing);
+      expect(session.loggedOut, 1);
+    });
+
+    testWidgets('メンテナンス中は、ログインを送信しない', (tester) async {
+      final session = _FakeSession();
+      await _pump(tester, const LoginDestination(), [
+        sessionServiceProvider.overrideWithValue(session),
+        pageSessionMediatorProvider.overrideWithValue(
+          const _MaintenanceSession(),
+        ),
+      ]);
+      await tester.enterText(find.byType(TextField).at(0), 'yamada');
+      await tester.enterText(find.byType(TextField).at(1), 'password1');
+      await tester.tap(find.text('ログイン'));
+      await tester.pumpAndSettle();
+
+      expect(session.logins, isEmpty);
+      expect(find.text('ダッシュボード'), findsNothing);
     });
 
     testWidgets('裏設定の入口: 特定のIDとパスワードなら、ログインせず裏設定へ進む', (tester) async {
@@ -521,4 +572,17 @@ void main() {
       expect(find.text('この環境ではファイルを選択・保存できません。'), findsOneWidget);
     });
   });
+}
+
+class _MaintenanceSession implements IPageSessionMediator {
+  const _MaintenanceSession();
+
+  @override
+  Future<PageSessionStatus> check() async => PageSessionStatus.maintenance;
+
+  @override
+  Future<PageSessionStatus> refresh() async => PageSessionStatus.maintenance;
+
+  @override
+  Map<String, Object?> toJson() => {};
 }

@@ -83,6 +83,7 @@ class _AuthFilesStrings$errors$en extends AuthFilesStrings$errors$ja {
 	@override String get server => 'A server error occurred.';
 	@override String get network => 'Cannot connect. Please check your connection.';
 	@override String get unknown => 'An unexpected error occurred.';
+	@override String get jwtUnavailable => 'Could not obtain the credentials to connect to the server. Please try again later.';
 	@override String get fileUnsupported => 'Files cannot be picked or saved in this environment.';
 	@override String get fileTooLarge => 'The file is too large. Choose a file of 100 MB or less.';
 }
@@ -315,6 +316,7 @@ extension on AuthFilesStringsEn {
 			'errors.server' => 'A server error occurred.',
 			'errors.network' => 'Cannot connect. Please check your connection.',
 			'errors.unknown' => 'An unexpected error occurred.',
+			'errors.jwtUnavailable' => 'Could not obtain the credentials to connect to the server. Please try again later.',
 			'errors.fileUnsupported' => 'Files cannot be picked or saved in this environment.',
 			'errors.fileTooLarge' => 'The file is too large. Choose a file of 100 MB or less.',
 			'rules.required' => 'This field is required.',

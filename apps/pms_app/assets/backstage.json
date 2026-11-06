@@ -1,8 +1,8 @@
 {
   "entry": {
-    "salt": "hYTFxNFDkVWRnxH6PR9hxQ==",
-    "iterations": 100000,
-    "hash": "urKBAWo4ih6UxsdK4t5rl1GjX0LqTrspADtyw6QiuEc="
+    "salt": "6bufcCWy1DFtN8PRgi5RbQ==",
+    "iterations": 10000,
+    "hash": "2v5Yi+UrkUp/G57atPNcCQPT1CF2ZUFDyJQH5TuBepA="
   },
   "defaults": {}
 }

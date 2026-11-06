@@ -43,3 +43,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# デバッグ用にコピーした暗号化済みの裏設定(tools/config_generator の出力。Git に入れない)
+/assets/debug/*.enc.json

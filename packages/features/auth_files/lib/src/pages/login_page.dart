@@ -3,11 +3,15 @@ import 'package:backstage/backstage_api.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:logger_provider/logger_provider.dart';
+import 'package:page_mediator_extension/page_mediator_extension.dart';
 import 'package:pbapi/pbapi.dart';
 
 import '../account_flow.dart';
 import '../auth_mode.dart';
 import '../auth_files_destinations.dart';
+import '../failure_message.dart' show JwtUnavailableException;
 import '../form_rules.dart';
 import '../i18n/strings_provider.dart';
 import 'form_support.dart';
@@ -54,8 +58,14 @@ class _LoginPageState extends ConsumerState<LoginPage> with BusyAction {
     if (_identityError != null || _passwordError != null) return;
     ref.read(authFlashProvider.notifier).clear();
     var entered = false;
+    var underMaintenance = false;
     final ok = await run(() async {
-      // 裏設定の入口(特定のユーザーIDとパスワード)。一致しなければ、通常のログインとして続ける
+      // 1. メンテナンス中か。中なら、以降の評価・送信をせず、メンテナンスのページへ向ける
+      underMaintenance =
+          await ref.read(pageSessionMediatorProvider).refresh() ==
+          PageSessionStatus.maintenance;
+      if (underMaintenance) return;
+      // 2. 裏設定の入口(特定のユーザーIDとパスワード)。一致しなければ、通常のログインとして続ける
       // (一致しない理由・入口の存在は示さない)。
       if (await ref
           .read(backstageEntryGateProvider)
@@ -63,22 +73,41 @@ class _LoginPageState extends ConsumerState<LoginPage> with BusyAction {
         entered = true;
         return;
       }
-      final session = await ref
-          .read(sessionServiceProvider)
-          .login(_identity.text.trim(), _password.text);
+      // 3. ログイン(サーバーの判定。不一致はメッセージにする)
+      final sessions = ref.read(sessionServiceProvider);
+      final session = await sessions.login(
+        _identity.text.trim(),
+        _password.text,
+      );
+      // 4. JWT(GraphQL サーバー用)を取得できるか。できなければログインを取り消してメッセージにする
+      try {
+        await sessions.graphqlToken();
+      } on PbException catch (e) {
+        await sessions.logout();
+        throw JwtUnavailableException(e.logMessage);
+      }
       ref
           .read(userSummaryProvider.notifier)
           .set(UserSummary(name: session.username));
     }, operation: 'login');
-    if (ok && mounted) {
-      _password.clear();
-      await ref
-          .read(commandBusProvider)
-          .execute(
-            entered
-                ? const BackstageDestination()
-                : const DashboardDestination(),
-          );
+    if (!ok || !mounted) return;
+    _password.clear();
+    if (underMaintenance) {
+      // 評価し直すと、メンテナンスの状態に従ってメンテナンスのページへ向く
+      GoRouter.of(context).refresh();
+      return;
+    }
+    if (!entered) {
+      await ref.read(commandBusProvider).execute(const DashboardDestination());
+      return;
+    }
+    // 裏設定へ進めなかったときは、ログインのページに留まる
+    try {
+      await ref.read(commandBusProvider).execute(const BackstageDestination());
+    } catch (e, st) {
+      ref
+          .read(loggerProvider)
+          .error('[auth_files] backstage', ex: e, trace: st);
     }
   }
 

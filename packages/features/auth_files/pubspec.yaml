@@ -22,6 +22,8 @@ dependencies:
     path: ../app_core
   backstage:
     path: ../backstage
+  page_mediator_extension:
+    path: ../../core/page_mediator_extension
   pbapi:
     path: ../../infra/pbapi
   flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

@@ -12,6 +12,9 @@ import 'imports.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // 準備(裏設定・ログ・接続先)の間も、最初のフレームから読み込み中を表示する
+  runApp(const BootSplash());
+  await yieldToFrame();
   // 裏設定の材料を読む(アセット・保管庫・起動時の値)。値の優先順位は 起動時の指定 > 裏設定 > 既定値。
   // 接続先・ログのレベルは起動時に使うので、ここで決める(保存した変更は再起動で反映される)
   var backstage = await loadBackstageForStartup();
@@ -72,6 +75,7 @@ class _AppMain extends ConsumerState {
   }
 
   Future<void> _initialize() async {
+    await yieldToFrame();
     //追加のテーマ(ocean・forest。theme_lib の外部のJSONファイル)を取り込む。保存した設定にテーマの選択が
     //あるので、設定の復元より前に行う。取り込めないテーマがあっても起動は止めず、ログに残す
     final themeFailures = await ref
@@ -80,17 +84,19 @@ class _AppMain extends ConsumerState {
     for (final failure in themeFailures) {
       ref.read(loggerProvider).error('[pms_app] テーマを取り込めませんでした: $failure');
     }
+    await yieldToFrame();
     //保存した設定(言語・サイドバー・テーマ・ユーザー)を復元してから、変更の保存を始める
     await ref
         .read(settingsKeeperProvider)
         .restore(ref.read(userSettingsOriginatorProvider));
     ref.read(userSettingsAutoSaveProvider);
+    await yieldToFrame();
     //ダッシュボードの配置を復元する。保存が無いときは初期の配置にする
     final dashboard = ref.read(dashboardContainersProvider.notifier);
     if (!await dashboard.restore()) {
       await dashboard.replace(defaultDashboardLayout());
     }
-    await Future.delayed(const Duration(seconds: 3)); //仮の待ち時間
+    await yieldToFrame();
     await ref.read(mockCoreServiceProvider.future);
     setState(() => isInitialized = true);
   }

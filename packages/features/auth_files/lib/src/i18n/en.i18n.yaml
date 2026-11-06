@@ -17,6 +17,7 @@ errors:
   server: A server error occurred.
   network: Cannot connect. Please check your connection.
   unknown: An unexpected error occurred.
+  jwtUnavailable: Could not obtain the credentials to connect to the server. Please try again later.
   fileUnsupported: Files cannot be picked or saved in this environment.
   fileTooLarge: The file is too large. Choose a file of 100 MB or less.
 rules:

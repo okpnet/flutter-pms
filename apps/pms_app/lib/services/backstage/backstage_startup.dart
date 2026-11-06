@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:backstage/backstage.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:logger_provider/logger_provider.dart';
 
@@ -14,6 +15,22 @@ const backstageAssetPath = 'assets/backstage.json';
 
 /// 暗号化した裏設定のファイル名。実行ファイル(exe)と同じフォルダに置く(外部から置き換えられる)。
 const backstageEncryptedConfigFileName = 'backstage_config.enc.json';
+
+/// デバッグ時にコピーして使う、暗号化した裏設定のアセット(`tools/config_generator` の出力。Git に入れない)。
+const backstageDebugEncryptedConfigAsset =
+    'assets/debug/backstage_config.enc.json';
+
+/// 暗号化した裏設定の本文を読む。無い・読めないときは null(標準を使う。通知しない)。
+/// exe と同じフォルダを先に見る。無ければ、デバッグビルドだけアセットを見る。
+Future<String?> loadEncryptedBackstageConfig() async {
+  final file = readEncryptedBackstageConfig();
+  if (file != null || !kDebugMode) return file;
+  try {
+    return await rootBundle.loadString(backstageDebugEncryptedConfigAsset);
+  } catch (_) {
+    return null;
+  }
+}
 
 /// 暗号化した裏設定の本文を読む。無い・読めないときは null(標準を使う。通知しない)。
 String? readEncryptedBackstageConfig() {
@@ -52,7 +69,7 @@ Future<BackstageBoot> loadBackstageForStartup({IBackstageStore? store}) async {
     store: store ?? SecureBackstageStore(),
     assetJson: asset,
     launch: backstageLaunchFromEnvironment(),
-    encryptedConfigJson: readEncryptedBackstageConfig(),
+    encryptedConfigJson: await loadEncryptedBackstageConfig(),
   );
 }
 

@@ -112,3 +112,4 @@ flutter:
     - assets/images.png
     - assets/logger_config.json
     - assets/backstage.json
+    - assets/debug/

@@ -12,6 +12,7 @@ String failureMessage(
   Object error, {
   bool codeEntry = false,
 }) {
+  if (error is JwtUnavailableException) return t.errors.jwtUnavailable;
   if (error is ArgumentError) return t.errors.validation;
   if (error is UnsupportedError) return t.errors.fileUnsupported;
   if (error is FileTooLargeException) return t.errors.fileTooLarge;
@@ -29,4 +30,16 @@ String failureMessage(
     PbFailureKind.network => t.errors.network,
     PbFailureKind.unknown => t.errors.unknown,
   };
+}
+
+/// ログインはできたが、GraphQL サーバー用の JWT を取得できなかった。
+/// ログインは取り消し(セッションを破棄)、画面にメッセージを出す。
+class JwtUnavailableException implements Exception {
+  const JwtUnavailableException([this.cause]);
+
+  /// 取得に失敗した原因(ログ用)。
+  final Object? cause;
+
+  @override
+  String toString() => 'JwtUnavailableException($cause)';
 }
