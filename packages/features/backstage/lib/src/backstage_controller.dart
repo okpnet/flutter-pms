@@ -9,6 +9,7 @@ import 'backstage_boot.dart';
 import 'entry/entry_gate.dart';
 import 'settings/backstage_resolver.dart';
 import 'settings/backstage_settings.dart';
+import 'settings/encrypted_config.dart';
 
 /// 起動時に読み込んだ材料。アプリが [backstageOverrides] で差し込む(既定は材料なし)。
 final backstageBootProvider = Provider<BackstageBoot>(
@@ -65,6 +66,18 @@ class BackstageController extends Notifier<BackstageSettings> {
     return const BackstageSaveResult();
   }
 
+  /// 暗号化した裏設定を、入口のパスワードで復号して保存する(入口を通ったときに1回)。
+  ///
+  /// 保管庫に値があるときは何もしない(ページで編集した値を上書きしない)。復号できない・検証に通らない
+  /// ときは、通知もせず標準のまま。
+  Future<void> applyEncryptedConfig(String password) async {
+    final text = ref.read(backstageBootProvider).encryptedConfig;
+    if (text == null || !state.isEmpty) return;
+    final settings = await decryptBackstageSettings(text, password);
+    if (settings == null) return;
+    await save(settings);
+  }
+
   /// 保管庫の値をすべて消す(アセットの既定値と起動時の値だけになる)。
   Future<BackstageSaveResult> reset() => save(const BackstageSettings());
 
@@ -107,6 +120,9 @@ List<Override> backstageOverrides(BackstageBoot boot) => [
     return BackstageEntryGate(
       entry: entry,
       onMatch: () => ref.read(backstageUnlockProvider.notifier).unlock(),
+      afterMatch: (password) => ref
+          .read(backstageControllerProvider.notifier)
+          .applyEncryptedConfig(password),
     );
   }),
 ];

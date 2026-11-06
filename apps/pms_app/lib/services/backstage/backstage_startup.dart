@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:backstage/backstage.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -10,6 +11,20 @@ import '../session/session_overrides.dart' show maintenanceUrl;
 
 /// アセットの裏設定(入口のハッシュ・既定値)。
 const backstageAssetPath = 'assets/backstage.json';
+
+/// 暗号化した裏設定のファイル名。実行ファイル(exe)と同じフォルダに置く(外部から置き換えられる)。
+const backstageEncryptedConfigFileName = 'backstage_config.enc.json';
+
+/// 暗号化した裏設定の本文を読む。無い・読めないときは null(標準を使う。通知しない)。
+String? readEncryptedBackstageConfig() {
+  try {
+    final dir = File(Platform.resolvedExecutable).parent.path;
+    final file = File('$dir${Platform.pathSeparator}$backstageEncryptedConfigFileName');
+    return file.existsSync() ? file.readAsStringSync() : null;
+  } catch (_) {
+    return null;
+  }
+}
 
 /// 起動時の値(`--dart-define`)。裏設定より優先する。
 BackstageLaunch backstageLaunchFromEnvironment() => BackstageLaunch(
@@ -37,6 +52,7 @@ Future<BackstageBoot> loadBackstageForStartup({IBackstageStore? store}) async {
     store: store ?? SecureBackstageStore(),
     assetJson: asset,
     launch: backstageLaunchFromEnvironment(),
+    encryptedConfigJson: readEncryptedBackstageConfig(),
   );
 }
 

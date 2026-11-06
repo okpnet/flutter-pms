@@ -45,7 +45,7 @@ Uint8List pbkdf2HmacSha256(
 /// {"salt": "...", "iterations": 100000, "hash": "..."}
 /// ```
 /// ハッシュは、PBKDF2(HMAC-SHA256)で `"<ユーザーID>\u0000<パスワード>"` から導出した32バイト。
-/// 作るには `dart run backstage:make_entry_hash`。
+/// 作るには `tools/config_user_generator`(`dart run bin/config_user_generator.dart`)。
 class EntryHash {
   const EntryHash({
     required this.salt,

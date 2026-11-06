@@ -18,6 +18,7 @@ class BackstageBoot {
     this.defaults,
     this.entry,
     this.stored,
+    this.encryptedConfig,
   });
 
   /// 材料なし(入口なし・既定値なし・メモリ上の保存先)。テスト・`example` 用。
@@ -39,6 +40,9 @@ class BackstageBoot {
   /// 保管庫から読んだ裏設定。
   final BackstageSettings? stored;
 
+  /// 暗号化した裏設定(`tools/config_generator` の出力)の本文。入口のパスワードで復号する。無ければ null。
+  final String? encryptedConfig;
+
   /// 保存先だけを替える(ログの作成のあとで、ログつきの保管庫へ)。
   BackstageBoot withStore(IBackstageStore next) => BackstageBoot(
     store: next,
@@ -46,6 +50,7 @@ class BackstageBoot {
     defaults: defaults,
     entry: entry,
     stored: stored,
+    encryptedConfig: encryptedConfig,
   );
 
   BackstageResolver get resolver =>
@@ -94,6 +99,7 @@ Future<BackstageBoot> loadBackstageBoot({
   required IBackstageStore store,
   String? assetJson,
   BackstageLaunch launch = const BackstageLaunch(),
+  String? encryptedConfigJson,
 }) async {
   final asset = BackstageAssetConfig.parse(assetJson);
   return BackstageBoot(
@@ -102,5 +108,6 @@ Future<BackstageBoot> loadBackstageBoot({
     defaults: asset.defaults,
     entry: asset.entry,
     stored: BackstageSettings.tryParse(await store.read()),
+    encryptedConfig: encryptedConfigJson,
   );
 }

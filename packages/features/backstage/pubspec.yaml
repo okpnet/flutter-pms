@@ -27,6 +27,7 @@ dependencies:
     path: ../../infra/logger_provider
   flutter_secure_storage: ^10.3.4
   crypto: ^3.0.7
+  pointycastle: ^4.0.0
 
 dev_dependencies:
   theme_lib:

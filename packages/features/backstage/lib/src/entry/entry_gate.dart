@@ -29,11 +29,15 @@ class BackstageEntryGate implements IBackstageEntryGate {
     required this.entry,
     required this.onMatch,
     this.verifier = verifyInIsolate,
+    this.afterMatch,
   });
 
   final EntryHash? entry;
   final void Function() onMatch;
   final EntryVerifier verifier;
+
+  /// 一致したとき、入口のパスワードで行う後処理(暗号化した裏設定の適用)。失敗しても入口は開く。
+  final Future<void> Function(String password)? afterMatch;
 
   @override
   Future<bool> matches(String identity, String password) async {
@@ -42,7 +46,14 @@ class BackstageEntryGate implements IBackstageEntryGate {
       return false;
     }
     final ok = await verifier(hash, identity, password);
-    if (ok) onMatch();
+    if (ok) {
+      try {
+        await afterMatch?.call(password);
+      } catch (_) {
+        // 適用できなくても標準のまま続ける(通知しない)
+      }
+      onMatch();
+    }
     return ok;
   }
 }

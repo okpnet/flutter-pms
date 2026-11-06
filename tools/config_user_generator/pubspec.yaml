@@ -1,0 +1,13 @@
+name: config_user_generator
+description: 裏設定の入口(ユーザーIDとパスワード)のハッシュを作るコマンドラインのツール。
+publish_to: none
+version: 1.0.0
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  crypto: ^3.0.7
+
+dev_dependencies:
+  test: ^1.25.0

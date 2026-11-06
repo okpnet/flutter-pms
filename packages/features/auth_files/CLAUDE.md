@@ -63,6 +63,12 @@
 11. ファイルは `file_picker`(`PlatformFilePicker`・`PlatformFileSaver`)。選択は100MBを超えるファイルをメモリへ読む前に断る。
 
 
+## 裏設定の手作業(ツール)
+裏設定の入口(ID とパスワード)は、ログイン画面でこの機能の通常のログインより先に判定する(`backstage`)。その条件のハッシュと設定ファイルの暗号化は `tools/` のコマンドラインのツールで作る。
+1.  `tools/config_user_generator`(`dart run bin/config_user_generator.dart`。`--help`): 入口のハッシュ。一方向で、元の ID・パスワードは取り出せない。`apps/pms_app/assets/backstage.json` の `entry` に貼る。
+1.  `tools/config_generator`(`dart run bin/config_generator.dart`。`--help`): 設定ファイルの暗号化。パスフレーズは入口のパスワード。同じフォルダの `backstage_config.json` を省略時の入力にし、できた `backstage_config.enc.json` を exe と同じフォルダに置く。入口を通ったとき、そのパスワードで復号して適用する(復号できなければ標準。通知しない)。
+1.  ID・パスワード・パスフレーズは標準入力で渡し、ソース・アセット・ログに書かない。詳細は `packages/features/CLAUDE.md` の「裏設定の手作業(ツール)」と各ツールの `doc/usage.md`。
+
 ## 規則/仕様
 1.  ディリクトリ/ファイル
     1.  生成結果のレポートは`doc/log`ディリクトリにファイル名`年月日_4桁ゼロ埋の番号.md`として保存する。

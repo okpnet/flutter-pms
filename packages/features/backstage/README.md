@@ -6,18 +6,18 @@
 
 ログインページで、特定の**ユーザーID**と**パスワード**を入力すると、通常のログインをせず裏設定のページへ進む。その条件は、平文ではなくハッシュ(PBKDF2-HMAC-SHA256・ソルト付き)で、アプリのアセットに置く。
 
-### 1. ハッシュを作る
-**このフォルダ(`packages/features/backstage`)で**実行する。
+ツールは `tools/config_user_generator`(このパッケージの外)。リポジトリのルートから:
 
 ```powershell
-cd packages\features\backstage
-dart run backstage:make_entry_hash
+cd tools/config_user_generator
+dart pub get
+dart run bin/config_user_generator.dart          # --help でヘルプ
 ```
 
 - `ユーザーID:` と `パスワード:` を聞かれる(標準入力。パスワードは画面に表示されず、コマンドの履歴にも残らない)。
 - 反復回数を変えるときは、引数で渡す。既定は 100000。大きいほど総当たりに強いが、ログインのたびの計算が重くなる。
   ```powershell
-  dart run backstage:make_entry_hash 200000
+  dart run bin/config_user_generator.dart 200000
   ```
 - 先に、リポジトリのルートで `flutter pub get` を実行しておく(ワークスペース)。
 

@@ -241,6 +241,11 @@ GraphQLから取得したデータのうち、イミュータブルな更新者�
 | ユーザー情報の表示(顔写真・自分のイメージ) | `user_profile`(画像は PocketBase の `user_avatars`。標準はユーザーが変更できない。`isChangeUserImage` で変更可)|
 | アプリケーションの裏設定(システム制作者だけ。接続先・ログのレベル・画像の変更可否など) | `backstage`(入口はログインページの特定のユーザーIDとパスワード。値は `feature_shared` の `backstageValuesProvider`。優先順位は 起動時の `--dart-define` > 保管庫 > アセットの既定値)|
 
+### 裏設定の手作業(ツール)
+裏設定(`backstage`)の入口の条件と設定ファイルは、リポジトリの `tools/` のコマンドラインのツール(ワークスペースの対象外。単独の Dart パッケージ。使い方は各 `doc/usage.md`、ヘルプは `dart run bin/<名前>.dart --help`)で作る。ID・パスワード・パスフレーズをソース・アセット・ログに書かない。
+1.  `tools/config_user_generator`: 入口(ログインページの特定のユーザーIDとパスワード)の**ハッシュ**を作る(PBKDF2-HMAC-SHA256・ソルト付きの一方向。元の値は取り出せず、暗号化して保存しているのではない)。出力の `{"entry": {...}}` を `apps/pms_app/assets/backstage.json` の `entry` に貼り、アプリを再起動する。変えるときは作り直して貼り替える。
+1.  `tools/config_generator`: 設定ファイル(JSON)を、**入口のパスワードをパスフレーズにして**暗号化する(AES-256-GCM)。平文を同じフォルダの `backstage_config.json` に置けばパスを省略して実行でき、`backstage_config.enc.json` ができる(いずれも Git に入れない)。これをアプリの exe と同じフォルダに置くと、入口を通ったときのパスワードで復号して裏設定に適用する。復号できないときは標準のまま(通知しない)。
+
 ### 契約(xxx_api)の置き方
 別パッケージ `xxx_api` は作らない。1機能=1パッケージとし、`lib/xxx.dart`(実装の入口。アプリだけが読み込み、公開は `XxxModule` のみ)と `lib/xxx_api.dart`(遷移先・命令の型だけ。他の機能・アプリが読み込む)の2つのバレルに分ける。他の機能は `lib/src` や `xxx.dart` を読み込まない。
 

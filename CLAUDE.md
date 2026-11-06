@@ -23,10 +23,10 @@ melos exec --scope=customer -- flutter test      # 特定パッケージだけ
 cd apps\pms_app; flutter run -d windows          # アプリ起動
 tools\init\test_admin_init.bat                   # テスト環境: アプリからログインできる管理者を用意する(本番は admin_init.bat。tools\init\README.md)
 tools\init\test_user_init.bat                    # テスト環境: ダミーの担当者を PocketBase のユーザーにする(本番は user_init.bat -File users.csv)
-cd packages\features\backstage; dart run backstage:make_entry_hash   # 裏設定の入口のハッシュを作る(下記)
+cd tools/config_user_generator; dart run bin/config_user_generator.dart   # 裏設定の入口のハッシュを作る(下記)。設定ファイルの暗号化は tools/config_generator(--help)
 ```
 
-裏設定の入口(ログインページの特定のユーザーIDとパスワード)のハッシュは、`packages\features\backstage` で上のコマンドを実行して作る(ユーザーIDとパスワードは標準入力。反復回数は引数で変えられる。例 `... make_entry_hash 200000`)。出力の `{"entry": {...}}` を `apps\pms_app\assets\backstage.json` に貼り、アプリを再起動する。ID・パスワードをソース・アセットに書かない。詳細は [packages/features/backstage/README.md](packages/features/backstage/README.md)。
+裏設定の入口(ログインページの特定のユーザーIDとパスワード)のハッシュは、`tools\config_user_generator` で上のコマンドを実行して作る(ユーザーIDとパスワードは標準入力。反復回数は引数で変えられる。例 `... config_user_generator.dart 200000`。`--help` で使い方)。出力の `{"entry": {...}}` を `apps\pms_app\assets\backstage.json` に貼り、アプリを再起動する。ID・パスワードをソース・アセットに書かない。詳細は [packages/features/backstage/README.md](packages/features/backstage/README.md)。
 
 単一テスト: 対象パッケージ内で `flutter test test/xxx_test.dart`(純Dart パッケージは `dart test test/xxx_test.dart`、`--plain-name "名前"` で絞り込み)。
 

@@ -21,3 +21,4 @@ export 'src/pages/backstage_page.dart' show BackstagePage;
 export 'src/settings/backstage_resolver.dart';
 export 'src/settings/backstage_settings.dart';
 export 'src/settings/backstage_store.dart';
+export 'src/settings/encrypted_config.dart';

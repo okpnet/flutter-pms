@@ -9,12 +9,19 @@
 1.  **条件の値は平文で持たない**。ソルト付きハッシュ(PBKDF2-HMAC-SHA256、既定の反復 100,000 回、32バイト)をアセットの設定に置き、入力と照合する(`crypto` の `Hmac` だけを使い、新しい外部ライブラリは足していない)。一致しないときは通常のログイン失敗と同じ表示になる(入口の存在を示さない)。
 
 ## 入口の条件の作り方
-**このプロジェクト(`packages/features/backstage`)のフォルダで実行する**(`bin/make_entry_hash.dart` がここにあるため)。手順の詳細は [README.md](README.md)。
+ツールは `tools/config_user_generator`(このパッケージの外。使い方は同フォルダの `doc/usage.md`)。手順の詳細は [README.md](README.md)。
 ```powershell
-cd packages\features\backstage
-dart run backstage:make_entry_hash          # ユーザーIDとパスワードを標準入力から読む(履歴に残さない)
+cd tools/config_user_generator
+dart run bin/config_user_generator.dart   # ユーザーIDとパスワードを標準入力から読む(履歴に残さない。--help でヘルプ)
 ```
-出力の `{"entry": {...}}` を、アプリのアセット(`apps/pms_app/assets/backstage.json`)に貼る。`entry` が無いときは入口なし(裏設定へ入れない)。IDとパスワードはソース・アセットに書かない。反復回数は `dart run backstage:make_entry_hash 200000` のように変えられる(照会は別の isolate で行い、画面を止めない)。
+出力の `{"entry": {...}}` を、アプリのアセット(`apps/pms_app/assets/backstage.json`)に貼る。`entry` が無いときは入口なし(裏設定へ入れない)。IDとパスワードはソース・アセットに書かない。反復回数は `dart run bin/config_user_generator.dart 200000` のように変えられる(照会は別の isolate で行い、画面を止めない)。
+
+## 暗号化した裏設定の適用
+`tools/config_generator` が入口のパスワードで暗号化した `backstage_config.enc.json` を、アプリの exe と同じフォルダに置くと、入口を通ったとき(`BackstageEntryGate.afterMatch`)にそのパスワードで復号し、検証(`BackstageUrlRules`・ログのレベル)を通れば保管庫へ保存する(`BackstageController.applyEncryptedConfig`、復号は別の isolate、AES-256-GCM・`pointycastle`)。設定ファイルを作れる人は入口を通れる人に限られる(別のパスフレーズを持たない)。
+1.  復号できない(パスワード違い・改ざん・形式違い)・検証に通らないときは標準のまま。通知しない(理由も区別しない)。
+1.  保管庫に値があるときは上書きしない(ページで編集した値を守る)。置き換えるときは「保存した値を消す」のあと、もう一度入口を通る。
+1.  ファイルの読み込みは `pms_app` の `readEncryptedBackstageConfig`(`BackstageBoot.encryptedConfig`)。
+1.  パスワードを共有する運用のリスクは `doc/log/20261106_0001.md` の提案を参照。
 
 ## 値の優先順位
 高い順に、**起動時の `--dart-define` > 保管庫の裏設定 > アセットの既定値**(`BackstageResolver`)。検証に通らない値(不正な URL・知らないログのレベル)は無いものとして次へ進む。起動時の値がある項目は、ページで変更できない(出どころに「起動時の指定」と出る)。
@@ -52,7 +59,7 @@ OS の保管庫(`flutter_secure_storage`、`SecureBackstageStore`)に JSON で�
 | 材料・差し込み | `lib/src/backstage_boot.dart`、`backstage_controller.dart` | 起動時の材料、保存、`backstageOverrides` |
 | ページ | `lib/src/pages/backstage_page.dart` | 裏設定のページ |
 | 文字列 | `lib/src/i18n` | slang の Yaml(日本語・English) |
-| ツール | `bin/make_entry_hash.dart` | 入口のハッシュを作る |
+| ツール | `tools/config_user_generator`(入口のハッシュ)、`tools/config_generator`(設定の暗号化) | このパッケージの外 |
 
 ## 制限・課題
 1.  入口の判定は、ログインのたびに PBKDF2(反復 100,000 回)を別の isolate で計算する(入口の設定があるときだけ)。
