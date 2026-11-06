@@ -173,6 +173,49 @@ void main() {
       expect(status.retryAfter, const Duration(seconds: 120));
     });
 
+    test('503 のとき、同じサーバーの /info/maintenance.json から文面・時間を読む', () async {
+      final requested = <Uri>[];
+      final checker = HttpMaintenanceChecker(
+        uri: Uri.parse('https://example.test:18480/health'),
+        client: MockClient((request) async {
+          requested.add(request.url);
+          if (request.url.path == '/health') {
+            return http.Response('{"status":"maintenance"}', 503);
+          }
+          return http.Response.bytes(
+            utf8.encode(
+              '{"message":"定期メンテナンス","startAt":"2026-10-27T01:00:00","endAt":"2026-10-27T03:00:00"}',
+            ),
+            200,
+          );
+        }),
+      );
+      final status = await checker.check();
+      expect(status.isUnderMaintenance, isTrue);
+      expect(status.message, '定期メンテナンス');
+      expect(status.startAt, DateTime(2026, 10, 27, 1));
+      expect(status.endAt, DateTime(2026, 10, 27, 3));
+      expect(
+        requested.last.toString(),
+        'https://example.test:18480/info/maintenance.json',
+      );
+    });
+
+    test('情報ファイルが無い(404)・読めなくても、503 ならメンテナンス中(既定の文面)', () async {
+      final checker = HttpMaintenanceChecker(
+        uri: Uri.parse('https://example.test/health'),
+        client: MockClient(
+          (request) async => request.url.path == '/health'
+              ? http.Response('{"status":"maintenance"}', 503)
+              : http.Response('not found', 404),
+        ),
+      );
+      final status = await checker.check();
+      expect(status.isUnderMaintenance, isTrue);
+      expect(status.message, isNull);
+      expect(status.startAt, isNull);
+    });
+
     test('本文が JSON でなくても、503 ならメンテナンス中(既定の文面)', () async {
       final checker = HttpMaintenanceChecker(
         uri: Uri.parse('https://example.test/health'),

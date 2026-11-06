@@ -26,6 +26,22 @@ curl.exe -u maintainer:パスワード -X PUT http://localhost:18480/maintenance
 curl.exe -u maintainer:パスワード -X DELETE http://localhost:18480/maintenance.flag
 ```
 
+## メンテナンス中の表示(アプリ)
+アプリは、`/health` が 503 のとき、同じサーバーの `GET /info/maintenance.json` を読んで、メンテナンスページに表示する。
+ファイル名は `maintenance.json` に固定する(`status.json` は使わない)。キーは次の3つで、すべて省略できる(無いときは既定の文面・時間なし)。
+```json
+{"message": "定期メンテナンス", "startAt": "2026-11-07T01:00:00", "endAt": "2026-11-07T03:00:00"}
+```
+| キー | 内容 | ページの表示 |
+|---|---|---|
+| `message` | 利用者へ知らせる文面 | 文面 |
+| `startAt` | 開始の日時(ISO 8601) | 「開始」 |
+| `endAt` | 終了の日時(ISO 8601) | 「終了」 |
+```powershell
+curl.exe -u maintainer:パスワード -T maintenance.json http://localhost:18480/info/maintenance.json
+```
+`maintenance.json` が無い・読めなくても、メンテナンス中の判定は変わらない(既定の文面)。メンテナンスの開始・解除は `/maintenance.flag`。
+
 ## 注意
 - `https` で公開するときは前段にリバースプロキシを置く(Basic 認証は平文)。ローカルのネットワークだけなら `http` 可。
 - `.env` と `data/` は Git に入れない。
