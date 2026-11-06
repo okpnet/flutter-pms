@@ -1,0 +1,23 @@
+name: pms-maintenance
+
+services:
+  maintenance:
+    image: nginx:1.27-alpine
+    container_name: pms-maintenance
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "${MAINT_BIND:-0.0.0.0}:${MAINT_PORT:-18480}:8080"
+    volumes:
+      - ./nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
+      - ./nginx/10-htpasswd.sh:/docker-entrypoint.d/10-htpasswd.sh:ro
+      - type: bind
+        source: ${MAINT_DATA_DIR:-./data}
+        target: /data
+        bind:
+          create_host_path: true
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/ping"]
+      interval: 30s
+      timeout: 3s
+      retries: 3

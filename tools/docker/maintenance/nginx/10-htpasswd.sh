@@ -1,0 +1,9 @@
+#!/bin/sh
+# .env の ID・パスワードから Basic 認証のファイルを作る(起動のたび)。
+set -eu
+: "${MAINT_USER:?MAINT_USER を .env に指定してください}"
+: "${MAINT_PASSWORD:?MAINT_PASSWORD を .env に指定してください}"
+mkdir -p /data/info
+umask 077
+printf '%s:{PLAIN}%s\n' "$MAINT_USER" "$MAINT_PASSWORD" > /etc/nginx/htpasswd
+chown nginx /data/info 2>/dev/null || true

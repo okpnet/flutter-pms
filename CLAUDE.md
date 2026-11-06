@@ -64,6 +64,10 @@ PocketBase のクライアントは `packages/infra/pbapi`(公式 SDK の `pocke
 
 GraphQL(PostGraphile)には PocketBase が発行した短期の JWT(`SessionService.graphqlToken`、`GET /api/app/graphql-token`、既定15分)を `Authorization: Bearer` で送る。JWT はメモリ上(Riverpod のサービス)にだけ置き、暗号化・永続化はしない。JWT を用意できないとき(未ログイン・破棄)は通信せず、`pms_graphql` の `SessionUnavailableException` を投げる。結果の型は `SessionExpiredError`(期限切れ=401・不正=403・セッション無し=`missing`)、`PermissionDeniedError`(DB の権限なし。JWT なしの匿名を含む)、`NetworkError`(認証サーバーに接続できないだけ)。PocketBase → PostGraphile → 全モデルの検証は `packages/infra/jwt_verification_test`(テスト専用。実行方法と実施ログは同プロジェクトの `CLAUDE.md`・`doc/`)。JWT の鍵(`PB_GRAPHQL_JWT_SECRET`)を Git に入れない(`tools/docker/postgraphile/.env` は追跡されているため注意)。
 
+## メンテナンス情報サーバー
+
+`tools/docker/maintenance`(nginx 1つ、FTP なし、既定ポート 18480)。アプリの `MAINTENANCE_URL` に `/health`(通常 200・メンテナンス中 503)を指定する。通知する情報ファイルは `/info/` を GET で読み、認証つき(Basic)の PUT/DELETE で書き換える。ID・パスワード・ポートは `.env` にまとめ、Git に入れない。詳細は [tools/docker/maintenance/README.md](tools/docker/maintenance/README.md)。
+
 ## バージョン管理
 
 依存・SDK バージョンはルート [pubspec.yaml](pubspec.yaml) の `melos > command > bootstrap` で集中管理する。上げるときはここだけ直して `melos bootstrap`(各パッケージの該当行は "Managed by Melos" コメント付きで上書きされる)。

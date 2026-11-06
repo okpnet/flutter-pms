@@ -1,0 +1,31 @@
+# メンテナンス情報サーバー
+
+メンテナンスや稼働状況の情報を配る、nginx 1つだけの軽量なサーバー(FTP は使わない)。
+
+## 起動
+```powershell
+cd tools\docker\maintenance
+copy .env.example .env   # MAINT_USER / MAINT_PASSWORD を必ず変える
+docker compose up -d
+```
+ポートは既定 `18480`(`.env` の `MAINT_PORT`)。ID・パスワード・ポート・置き場は `.env` にまとめる。
+
+## 使い方(例: `http://サーバー:18480`)
+| 操作 | 認証 | 内容 |
+|---|---|---|
+| `GET /health` | 不要 | 通常 200、メンテナンス中は 503。アプリの `MAINTENANCE_URL` に指定する |
+| `GET /info/<名前>.json` | 不要 | 通知する情報ファイルを読む |
+| `PUT /info/<名前>.json` | Basic | 情報ファイルを作る・書き換える |
+| `DELETE /info/<名前>.json` | Basic | 情報ファイルを消す |
+| `PUT /maintenance.flag` | Basic | メンテナンス中にする |
+| `DELETE /maintenance.flag` | Basic | メンテナンスを解除する |
+
+```powershell
+curl.exe -u maintainer:パスワード -T status.json http://localhost:18480/info/status.json
+curl.exe -u maintainer:パスワード -X PUT http://localhost:18480/maintenance.flag
+curl.exe -u maintainer:パスワード -X DELETE http://localhost:18480/maintenance.flag
+```
+
+## 注意
+- `https` で公開するときは前段にリバースプロキシを置く(Basic 認証は平文)。ローカルのネットワークだけなら `http` 可。
+- `.env` と `data/` は Git に入れない。
