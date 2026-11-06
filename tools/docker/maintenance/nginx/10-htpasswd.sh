@@ -6,4 +6,7 @@ set -eu
 mkdir -p /data/info
 umask 077
 printf '%s:{PLAIN}%s\n' "$MAINT_USER" "$MAINT_PASSWORD" > /etc/nginx/htpasswd
-chown nginx /data/info 2>/dev/null || true
+chown nginx /etc/nginx/htpasswd 2>/dev/null || chmod 644 /etc/nginx/htpasswd
+chown nginx /data /data/info 2>/dev/null || true
+# chown が効かない置き場(共有フォルダ・NAS など)でも、nginx が書けるようにする
+chmod 777 /data /data/info 2>/dev/null || true

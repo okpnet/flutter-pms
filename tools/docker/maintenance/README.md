@@ -29,3 +29,5 @@ curl.exe -u maintainer:パスワード -X DELETE http://localhost:18480/maintena
 ## 注意
 - `https` で公開するときは前段にリバースプロキシを置く(Basic 認証は平文)。ローカルのネットワークだけなら `http` 可。
 - `.env` と `data/` は Git に入れない。
+- 書き込みは `PUT`(削除は `DELETE`)だけ。`POST` は受け付けず、404 になる(Talend API Tester などはメソッドを `PUT` にする)。
+- Windows で作ったスクリプトは実行権限が付かない(Git では 100644)。認証ファイルの作成は、`docker-compose.yml` の `entrypoint` が `sh` に直接渡して行うので、権限に関係なく動く。

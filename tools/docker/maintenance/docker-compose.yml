@@ -6,11 +6,16 @@ services:
     container_name: pms-maintenance
     restart: unless-stopped
     env_file: .env
+    # 認証ファイルの作成は、実行権限(git では 100644)や改行(CRLF)に左右されないよう、sh に直接渡して行う。
+    entrypoint:
+      - /bin/sh
+      - -c
+      - tr -d "\r" < /opt/10-htpasswd.sh | sh && exec /docker-entrypoint.sh nginx -g "daemon off;"
     ports:
       - "${MAINT_BIND:-0.0.0.0}:${MAINT_PORT:-18480}:8080"
     volumes:
       - ./nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
-      - ./nginx/10-htpasswd.sh:/docker-entrypoint.d/10-htpasswd.sh:ro
+      - ./nginx/10-htpasswd.sh:/opt/10-htpasswd.sh:ro
       - type: bind
         source: ${MAINT_DATA_DIR:-./data}
         target: /data

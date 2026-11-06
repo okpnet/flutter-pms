@@ -1,8 +1,8 @@
 {
   "isChangeUserImage": false,
-  "graphqlUrl": "http://192.168.1.100",
-  "pocketbaseUrl": "http://192.168.1.103:8090",
-  "maintenanceUrl": "http://192.168.1.102:18480",
+  "graphqlUrl": "http://192.168.1.100:5000/graphql",
+  "pocketbaseUrl": "http://192.168.1.103:8090/api/",
+  "maintenanceUrl": "http://192.168.1.101:18480/health",
   "logLevel": "debug",
   "sidebarIconOnly": false
 }
