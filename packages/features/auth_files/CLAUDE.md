@@ -69,6 +69,22 @@
 1.  `tools/config_generator`(`dart run bin/config_generator.dart`。`--help`): 設定ファイルの暗号化。パスフレーズは入口のパスワード。同じフォルダの `backstage_config.json` を省略時の入力にし、できた `backstage_config.enc.json` を exe と同じフォルダに置く。入口を通ったとき、そのパスワードで復号して適用する(復号できなければ標準。通知しない)。
 1.  ID・パスワード・パスフレーズは標準入力で渡し、ソース・アセット・ログに書かない。詳細は `packages/features/CLAUDE.md` の「裏設定の手作業(ツール)」と各ツールの `doc/usage.md`。
 
+## 裏設定のキー一覧
+`tools/config_generator` で暗号化する設定ファイル(`backstage_config.json`)のキー。値のないキーだけの見本は `doc/backstage_config.json.example`。指定する項目だけ書く(`null`・空文字・型違いは「指定なし」)。定義は `packages/features/backstage` の `BackstageSettings`。
+
+| キー | 型 | 内容 | 起動時の値(`--dart-define`) |
+|---|---|---|---|
+| `isChangeUserImage` | bool | ユーザー画像の変更可否 | `IS_CHANGE_USER_IMAGE` |
+| `graphqlUrl` | string | 接続先(GraphQL)。`https`(ローカルのネットワークのみ `http` 可) | `GRAPHQL_URL` |
+| `pocketbaseUrl` | string | 接続先(PocketBase)。同上 | `POCKETBASE_URL` |
+| `maintenanceUrl` | string | メンテナンスの確認先。同上 | `MAINTENANCE_URL` |
+| `logLevel` | string | `trace`・`debug`・`info`・`warning`・`error`・`fatal` | `LOG_LEVEL` |
+| `sidebarIconOnly` | bool | サイドバーの既定(アイコンだけ) | `SIDEBAR_ICON_ONLY` |
+
+キー一覧と `doc/backstage_config.json.example` は、次のときにレビューして揃える。
+1.  `backstage` の `BackstageSettings` を変更したとき(外部プロジェクトからの指示を含む)。
+1.  この機能(`auth_files`)を更新するたび。
+
 ## 規則/仕様
 1.  ディリクトリ/ファイル
     1.  生成結果のレポートは`doc/log`ディリクトリにファイル名`年月日_4桁ゼロ埋の番号.md`として保存する。
