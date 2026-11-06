@@ -15,7 +15,7 @@ import 'secure_token_store.dart';
 /// PocketBase のトークンはサーバーで失効させられないため、端末のログイン情報を消すことで
 /// ログアウトとする(全端末を止めるときは管理者がパスワードを変更する)。
 ///
-/// 認証サーバーに接続していない([AuthMode.provisional])ときは、セッションも保管庫も無いので、
+/// 認証サーバーの接続先が未設定([AuthMode.unconfigured])のときは、セッションも保管庫も無いので、
 /// ログインユーザーの表示と入力を消すだけ。
 Future<void> authFilesSignOut(Ref ref) async {
   final logger = ref.read(loggerProvider);

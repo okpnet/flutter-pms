@@ -38,7 +38,7 @@ class BackstageStringsEn extends BackstageStrings with BaseTranslations<Backstag
 	BackstageStringsEn $copyWith({TranslationMetadata<BackstageLocale, BackstageStrings>? meta}) => BackstageStringsEn(meta: meta ?? this.$meta);
 
 	// Translations
-	@override String get title => 'Backstage settings';
+	@override String get title => 'Development mode';
 	@override String get intro => 'Application settings for the system maintainer only. Connection URLs and the log level take effect after the app restarts.';
 	@override late final _BackstageStrings$fields$en fields = _BackstageStrings$fields$en._(_root);
 	@override late final _BackstageStrings$choice$en choice = _BackstageStrings$choice$en._(_root);
@@ -143,7 +143,7 @@ class _BackstageStrings$issue$en extends BackstageStrings$issue$ja {
 extension on BackstageStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'title' => 'Backstage settings',
+			'title' => 'Development mode',
 			'intro' => 'Application settings for the system maintainer only. Connection URLs and the log level take effect after the app restarts.',
 			'fields.isChangeUserImage' => 'Users can change their own image',
 			'fields.graphqlUrl' => 'Endpoint (GraphQL)',

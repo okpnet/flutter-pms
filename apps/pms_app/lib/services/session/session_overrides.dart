@@ -10,7 +10,7 @@ import '../../imports.dart';
 import '../graphql/graphql_overrides.dart' show pocketbaseEnabledProvider;
 
 import 'pocketbase_page_session.dart';
-import 'provisional_page_session.dart';
+import 'unconfigured_page_session.dart';
 
 /// メンテナンスの確認先(サーバーの状態を返す URL)。ビルド時に
 /// `--dart-define=MAINTENANCE_URL=https://.../health` で渡す。未指定のときは、常に利用可能とする。
@@ -22,7 +22,7 @@ const maintenanceUrl = String.fromEnvironment('MAINTENANCE_URL');
 /// - セッション確認: メンテナンスの確認を先に行い、使えるときだけ認証を確認する
 ///   (ページの切り替え・更新で呼ばれる。ログイン中の処理でも、ここでメンテナンスへ切り替わる)。
 ///   認証は、PocketBase を使うとき(`POCKETBASE_URL` の指定あり)は pbapi([PocketBasePageSession])、
-///   使わないときは開発用の簡単な確認([ProvisionalPageSession])
+///   使わないとき(接続先が未設定)は常にログアウト([UnconfiguredPageSession])
 List<Override> sessionOverrides({String url = maintenanceUrl}) => [
   if (url.isNotEmpty)
     maintenanceCheckerProvider.overrideWith(
@@ -32,11 +32,11 @@ List<Override> sessionOverrides({String url = maintenanceUrl}) => [
       ),
     ),
   // ログイン・ログアウトの画面は auth_files。PocketBase に接続しないときは、資格情報を求めず標準のユーザーで
-  // ログインする開発用(AuthMode.provisional)
+  // ログインできない(AuthMode.unconfigured。裏設定の入口だけ通れる)
   authModeProvider.overrideWith(
     (ref) => ref.read(pocketbaseEnabledProvider)
         ? AuthMode.server
-        : AuthMode.provisional,
+        : AuthMode.unconfigured,
   ),
   // 他の機能(裏設定など)が「ログイン画面へ」向かうときの遷移先
   signInDestinationProvider.overrideWithValue(const LoginDestination()),
@@ -47,7 +47,7 @@ List<Override> sessionOverrides({String url = maintenanceUrl}) => [
               .isUnderMaintenance,
       inner: ref.read(pocketbaseEnabledProvider)
           ? PocketBasePageSession(ref)
-          : ProvisionalPageSession(ref),
+          : const UnconfiguredPageSession(),
     ),
   ),
 ];

@@ -83,6 +83,7 @@ class _AuthFilesStrings$errors$en extends AuthFilesStrings$errors$ja {
 	@override String get server => 'A server error occurred.';
 	@override String get network => 'Cannot connect. Please check your connection.';
 	@override String get unknown => 'An unexpected error occurred.';
+	@override String get serverUnconfigured => 'The authentication server is not configured. Set the connection in the development mode (backstage) settings, then restart the app.';
 	@override String get jwtUnavailable => 'Could not obtain the credentials to connect to the server. Please try again later.';
 	@override String get fileUnsupported => 'Files cannot be picked or saved in this environment.';
 	@override String get fileTooLarge => 'The file is too large. Choose a file of 100 MB or less.';
@@ -119,8 +120,6 @@ class _AuthFilesStrings$login$en extends AuthFilesStrings$login$ja {
 	@override String get register => 'Register';
 	@override String get haveCode => 'I have a code';
 	@override String get sending => 'Signing in...';
-	@override String get provisionalNotice => 'Not connected to an authentication server (development). Credentials are not checked; you sign in as the standard user.';
-	@override String get provisionalSubmit => 'Sign in as the standard user';
 }
 
 // Path: logout
@@ -316,6 +315,7 @@ extension on AuthFilesStringsEn {
 			'errors.server' => 'A server error occurred.',
 			'errors.network' => 'Cannot connect. Please check your connection.',
 			'errors.unknown' => 'An unexpected error occurred.',
+			'errors.serverUnconfigured' => 'The authentication server is not configured. Set the connection in the development mode (backstage) settings, then restart the app.',
 			'errors.jwtUnavailable' => 'Could not obtain the credentials to connect to the server. Please try again later.',
 			'errors.fileUnsupported' => 'Files cannot be picked or saved in this environment.',
 			'errors.fileTooLarge' => 'The file is too large. Choose a file of 100 MB or less.',
@@ -334,8 +334,6 @@ extension on AuthFilesStringsEn {
 			'login.register' => 'Register',
 			'login.haveCode' => 'I have a code',
 			'login.sending' => 'Signing in...',
-			'login.provisionalNotice' => 'Not connected to an authentication server (development). Credentials are not checked; you sign in as the standard user.',
-			'login.provisionalSubmit' => 'Sign in as the standard user',
 			'logout.confirmHeading' => 'Sign out?',
 			'logout.confirmMessage' => ({required Object name}) => 'You are signed in as ${name}. Unsaved input will be lost.',
 			'logout.confirmCancel' => 'Cancel',

@@ -328,6 +328,43 @@ void main() {
       expect(find.text('裏設定ページ'), findsNothing);
     });
 
+    testWidgets('接続先が未設定でも、通常の画面。入口に一致しなければ、設定を促すエラーにする', (tester) async {
+      final session = _FakeSession();
+      final gate = _Gate();
+      await _pump(tester, const LoginDestination(), [
+        sessionServiceProvider.overrideWithValue(session),
+        backstageEntryGateProvider.overrideWithValue(gate),
+        authModeProvider.overrideWithValue(AuthMode.unconfigured),
+      ]);
+      // 標準のユーザーでログインするボタンは無い。通常の入力欄がある
+      expect(find.byType(TextField), findsNWidgets(2));
+      expect(find.text('標準のユーザーでログイン'), findsNothing);
+      await tester.enterText(find.byType(TextField).at(0), 'yamada');
+      await tester.enterText(find.byType(TextField).at(1), 'secret');
+      await tester.tap(find.text('ログイン'));
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining('認証サーバーの接続先が設定されていません'), findsOneWidget);
+      expect(session.logins, isEmpty, reason: '接続先が無いので、通信しない');
+      expect(find.text('ダッシュボード'), findsNothing);
+    });
+
+    testWidgets('接続先が未設定でも、裏設定の入口には一致できる(接続先を設定するため)', (tester) async {
+      final session = _FakeSession();
+      final gate = _Gate();
+      await _pump(tester, const LoginDestination(), [
+        sessionServiceProvider.overrideWithValue(session),
+        backstageEntryGateProvider.overrideWithValue(gate),
+        authModeProvider.overrideWithValue(AuthMode.unconfigured),
+      ]);
+      await tester.enterText(find.byType(TextField).at(0), 'maker');
+      await tester.enterText(find.byType(TextField).at(1), 'open-sesame');
+      await tester.tap(find.text('ログイン'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('裏設定ページ'), findsOneWidget);
+    });
+
     testWidgets('失敗: 理由に応じた文言を出し、画面に留まる', (tester) async {
       final session = _FakeSession()
         ..failure = const PbException(PbFailureKind.invalidCredentials);

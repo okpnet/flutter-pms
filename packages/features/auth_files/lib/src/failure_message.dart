@@ -13,6 +13,9 @@ String failureMessage(
   bool codeEntry = false,
 }) {
   if (error is JwtUnavailableException) return t.errors.jwtUnavailable;
+  if (error is AuthServerUnconfiguredException) {
+    return t.errors.serverUnconfigured;
+  }
   if (error is ArgumentError) return t.errors.validation;
   if (error is UnsupportedError) return t.errors.fileUnsupported;
   if (error is FileTooLargeException) return t.errors.fileTooLarge;
@@ -42,4 +45,13 @@ class JwtUnavailableException implements Exception {
 
   @override
   String toString() => 'JwtUnavailableException($cause)';
+}
+
+/// 認証サーバーの接続先が未設定で、ログインできない([AuthMode.unconfigured])。
+/// 裏設定で接続先を設定するよう、画面にメッセージを出す。
+class AuthServerUnconfiguredException implements Exception {
+  const AuthServerUnconfiguredException();
+
+  @override
+  String toString() => 'AuthServerUnconfiguredException()';
 }

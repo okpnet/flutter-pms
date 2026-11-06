@@ -1,3 +1,4 @@
+import 'package:auth_files/auth_files.dart' show AuthFilesPaths;
 import 'package:dashboard_container/dashboard_container_api.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger_provider/logger_provider.dart';
@@ -21,11 +22,27 @@ class _Checker implements IMaintenanceChecker {
   }
 }
 
-List<Override> _overrides(_Checker checker) => [
+/// ログイン済みのセッション(接続先が設定されたアプリの、ログイン後の状態の代わり)。
+class _SignedInSession implements IPageSessionMediator {
+  @override
+  Future<PageSessionStatus> check() async => PageSessionStatus.valid;
+
+  @override
+  Future<PageSessionStatus> refresh() async => PageSessionStatus.valid;
+
+  @override
+  Map<String, Object?> toJson() => {'type': '_SignedInSession'};
+}
+
+List<Override> _overrides(_Checker checker, {bool signedIn = false}) => [
   loggerProvider.overrideWithValue(const NoopLoggerProvider()),
   themeLoggerProvider.overrideWithValue(const NoopLoggerProvider()),
   commandBusProvider.overrideWith(createFeatureCommandBus),
-  ...sessionOverrides(),
+  // ログイン済みのときは、セッションの確認だけを差し替える(メンテナンスの確認は下で差し替える)
+  if (signedIn)
+    pageSessionMediatorProvider.overrideWith((ref) => _SignedInSession())
+  else
+    ...sessionOverrides(),
   ...dashboardOverrides(),
   maintenanceCheckerProvider.overrideWithValue(checker),
 ];
@@ -82,9 +99,10 @@ void main() {
     await tester.tap(find.text('再確認'));
     await tester.pumpAndSettle();
     expect(find.text('メンテナンス中です'), findsNothing);
+    // 接続先が未設定でログインしていないので、ログインへ向く(開発用の例外はない)
     expect(
       container.read(rootRouterProvider).state.uri.path,
-      DashboardConstant.path,
+      AuthFilesPaths.login,
     );
   });
 
@@ -92,7 +110,9 @@ void main() {
     await tester.binding.setSurfaceSize(const Size(1400, 1000));
     addTearDown(() => tester.binding.setSurfaceSize(null));
     final checker = _Checker()..status = MaintenanceStatus.available;
-    final container = ProviderContainer(overrides: _overrides(checker));
+    final container = ProviderContainer(
+      overrides: _overrides(checker, signedIn: true),
+    );
     addTearDown(container.dispose);
     await container
         .read(dashboardContainersProvider.notifier)

@@ -11,14 +11,15 @@ import 'package:pbapi/pbapi.dart';
 import '../account_flow.dart';
 import '../auth_mode.dart';
 import '../auth_files_destinations.dart';
-import '../failure_message.dart' show JwtUnavailableException;
+import '../failure_message.dart'
+    show AuthServerUnconfiguredException, JwtUnavailableException;
 import '../form_rules.dart';
 import '../i18n/strings_provider.dart';
 import 'form_support.dart';
 
 /// ログイン(画面案 `#/login`)。ユーザーIDまたはEメールの1つの欄とパスワード。
 ///
-/// 認証サーバーに接続しない開発用([AuthMode.provisional])は、資格情報を求めず標準のユーザーでログインする。
+/// 認証サーバーの接続先が未設定([AuthMode.unconfigured])でも画面は通常のまま。裏設定の入口に一致しなければエラーにする。
 /// 成功したらログインユーザーの表示(`userSummaryProvider`)を更新してダッシュボードへ進む。
 /// 状態(申請中・無効など)の判定はサーバーが行い、ここでは判定しない。
 /// 新規登録・パスワードの再設定の完了は、案内の帯(`authFlashProvider`)で伝える。
@@ -40,13 +41,6 @@ class _LoginPageState extends ConsumerState<LoginPage> with BusyAction {
     _identity.dispose();
     _password.dispose();
     super.dispose();
-  }
-
-  /// 認証サーバーに接続しない開発用([AuthMode.provisional])。資格情報は確認せず、標準のユーザーでログインする。
-  Future<void> _signInProvisional() async {
-    ref.read(authFlashProvider.notifier).clear();
-    ref.read(userSummaryProvider.notifier).reset();
-    await ref.read(commandBusProvider).execute(const DashboardDestination());
   }
 
   Future<void> _submit() async {
@@ -73,7 +67,10 @@ class _LoginPageState extends ConsumerState<LoginPage> with BusyAction {
         entered = true;
         return;
       }
-      // 3. ログイン(サーバーの判定。不一致はメッセージにする)
+      // 3. ログイン(サーバーの判定。不一致はメッセージにする)。接続先が未設定ならログインできない
+      if (ref.read(authModeProvider) == AuthMode.unconfigured) {
+        throw const AuthServerUnconfiguredException();
+      }
       final sessions = ref.read(sessionServiceProvider);
       final session = await sessions.login(
         _identity.text.trim(),
@@ -118,18 +115,6 @@ class _LoginPageState extends ConsumerState<LoginPage> with BusyAction {
   Widget build(BuildContext context) {
     final t = ref.watch(authFilesStringsProvider);
     final flash = ref.watch(authFlashProvider);
-    if (ref.watch(authModeProvider) == AuthMode.provisional) {
-      return AuthCard(
-        heading: t.login.heading(app: ref.watch(appNameProvider)),
-        children: [
-          NoticeBanner(t.login.provisionalNotice),
-          FilledButton(
-            onPressed: _signInProvisional,
-            child: Text(t.login.provisionalSubmit),
-          ),
-        ],
-      );
-    }
     return AuthCard(
       heading: t.login.heading(app: ref.watch(appNameProvider)),
       children: [
@@ -157,7 +142,20 @@ class _LoginPageState extends ConsumerState<LoginPage> with BusyAction {
         ),
         FilledButton(
           onPressed: busy ? null : _submit,
-          child: Text(busy ? t.login.sending : t.login.submit),
+          child: busy
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox.square(
+                      dimension: 16,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(t.login.sending),
+                  ],
+                )
+              : Text(t.login.submit),
         ),
         Wrap(
           alignment: WrapAlignment.center,

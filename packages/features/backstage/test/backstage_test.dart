@@ -448,7 +448,7 @@ void main() {
         boot: BackstageBoot(store: InMemoryBackstageStore()),
         unlocked: false,
       );
-      expect(find.text('裏設定'), findsNothing);
+      expect(find.text('開発モード'), findsNothing);
       expect(find.byType(TextField), findsNothing);
       expect(bus.executed.single, isA<_SignIn>());
       expect(container.read(backstageUnlockProvider), isFalse);
@@ -459,7 +459,7 @@ void main() {
         tester,
         boot: BackstageBoot(store: InMemoryBackstageStore()),
       );
-      expect(find.text('裏設定'), findsOneWidget);
+      expect(find.text('開発モード'), findsOneWidget);
       expect(find.byType(AppBar), findsNothing);
       expect(find.byType(BackButton), findsNothing);
       expect(find.byType(NavigationBar), findsNothing);

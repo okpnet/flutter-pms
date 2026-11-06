@@ -113,6 +113,9 @@ class AuthFilesStrings$errors$ja {
 	/// ja: '予期しないエラーが発生しました。'
 	String get unknown => '予期しないエラーが発生しました。';
 
+	/// ja: '認証サーバーの接続先が設定されていません。開発モード(裏設定)で接続先を設定し、アプリを再起動してください。'
+	String get serverUnconfigured => '認証サーバーの接続先が設定されていません。開発モード(裏設定)で接続先を設定し、アプリを再起動してください。';
+
 	/// ja: 'サーバーへ接続するための認証を取得できませんでした。しばらくしてからもう一度お試しください。'
 	String get jwtUnavailable => 'サーバーへ接続するための認証を取得できませんでした。しばらくしてからもう一度お試しください。';
 
@@ -184,12 +187,6 @@ class AuthFilesStrings$login$ja {
 
 	/// ja: 'ログインしています...'
 	String get sending => 'ログインしています...';
-
-	/// ja: '認証サーバーに接続していません(開発用)。資格情報は確認せず、標準のユーザーでログインします。'
-	String get provisionalNotice => '認証サーバーに接続していません(開発用)。資格情報は確認せず、標準のユーザーでログインします。';
-
-	/// ja: '標準のユーザーでログイン'
-	String get provisionalSubmit => '標準のユーザーでログイン';
 }
 
 // Path: logout
@@ -537,6 +534,7 @@ extension on AuthFilesStrings {
 			'errors.server' => 'サーバーでエラーが発生しました。',
 			'errors.network' => '通信できません。接続を確認してください。',
 			'errors.unknown' => '予期しないエラーが発生しました。',
+			'errors.serverUnconfigured' => '認証サーバーの接続先が設定されていません。開発モード(裏設定)で接続先を設定し、アプリを再起動してください。',
 			'errors.jwtUnavailable' => 'サーバーへ接続するための認証を取得できませんでした。しばらくしてからもう一度お試しください。',
 			'errors.fileUnsupported' => 'この環境ではファイルを選択・保存できません。',
 			'errors.fileTooLarge' => 'ファイルが大きすぎます。100MB以下のファイルを選んでください。',
@@ -555,8 +553,6 @@ extension on AuthFilesStrings {
 			'login.register' => '新規登録',
 			'login.haveCode' => '認証コードをお持ちの方',
 			'login.sending' => 'ログインしています...',
-			'login.provisionalNotice' => '認証サーバーに接続していません(開発用)。資格情報は確認せず、標準のユーザーでログインします。',
-			'login.provisionalSubmit' => '標準のユーザーでログイン',
 			'logout.confirmHeading' => 'ログアウトしますか?',
 			'logout.confirmMessage' => ({required Object name}) => '${name} さんとしてサインインしています。未保存の入力は失われます。',
 			'logout.confirmCancel' => 'キャンセル',

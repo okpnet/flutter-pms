@@ -6,7 +6,7 @@
 ///   (既定は OS のダイアログの [PlatformFilePicker]・[PlatformFileSaver])
 /// - [SecureTokenStore] / [tokenStoreProvider]: ログイン情報の安全な保管庫(OS の保管庫)
 /// - [signOutProvider] / [authFilesSignOut]: ログアウトの実体(PocketBase のセッションと保管庫を破棄する)
-/// - [AuthMode] / [authModeProvider]: 認証サーバーに接続するか、開発用の仮のログインか
+/// - [AuthMode] / [authModeProvider]: 認証サーバーの接続先が設定されているか
 /// 他の機能が使う遷移先の型は `auth_files_api.dart` を読み込む。
 library;
 

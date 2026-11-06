@@ -17,6 +17,7 @@ errors:
   server: サーバーでエラーが発生しました。
   network: 通信できません。接続を確認してください。
   unknown: 予期しないエラーが発生しました。
+  serverUnconfigured: 認証サーバーの接続先が設定されていません。開発モード(裏設定)で接続先を設定し、アプリを再起動してください。
   jwtUnavailable: サーバーへ接続するための認証を取得できませんでした。しばらくしてからもう一度お試しください。
   fileUnsupported: この環境ではファイルを選択・保存できません。
   fileTooLarge: ファイルが大きすぎます。100MB以下のファイルを選んでください。
@@ -37,8 +38,6 @@ login:
   register: 新規登録
   haveCode: 認証コードをお持ちの方
   sending: ログインしています...
-  provisionalNotice: 認証サーバーに接続していません(開発用)。資格情報は確認せず、標準のユーザーでログインします。
-  provisionalSubmit: 標準のユーザーでログイン
 logout:
   confirmHeading: ログアウトしますか?
   confirmMessage: "{name} さんとしてサインインしています。未保存の入力は失われます。"

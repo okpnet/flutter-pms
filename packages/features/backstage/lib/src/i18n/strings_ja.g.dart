@@ -36,8 +36,8 @@ class BackstageStrings with BaseTranslations<BackstageLocale, BackstageStrings> 
 
 	// Translations
 
-	/// ja: '裏設定'
-	String get title => '裏設定';
+	/// ja: '開発モード'
+	String get title => '開発モード';
 
 	/// ja: 'システム制作者だけが変更できる、アプリケーションの設定です。接続先とログのレベルは、アプリを再起動すると反映されます。'
 	String get intro => 'システム制作者だけが変更できる、アプリケーションの設定です。接続先とログのレベルは、アプリを再起動すると反映されます。';
@@ -191,7 +191,7 @@ class BackstageStrings$issue$ja {
 extension on BackstageStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'title' => '裏設定',
+			'title' => '開発モード',
 			'intro' => 'システム制作者だけが変更できる、アプリケーションの設定です。接続先とログのレベルは、アプリを再起動すると反映されます。',
 			'fields.isChangeUserImage' => 'ユーザーが自分の画像を変更できる',
 			'fields.graphqlUrl' => '接続先(GraphQL)',

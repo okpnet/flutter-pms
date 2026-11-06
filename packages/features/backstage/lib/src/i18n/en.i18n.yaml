@@ -1,5 +1,5 @@
 # Backstage settings strings (English).
-title: Backstage settings
+title: Development mode
 intro: Application settings for the system maintainer only. Connection URLs and the log level take effect after the app restarts.
 fields:
   isChangeUserImage: Users can change their own image

@@ -217,31 +217,13 @@ void main() {
     });
   });
 
-  group('認証サーバーに接続しない開発用(provisional)', () {
-    testWidgets('ログイン画面は資格情報を求めず、標準のユーザーでログインする', (tester) async {
-      final container = await _open(
-        tester,
-        const LoginDestination(),
-        overrides: [authModeProvider.overrideWithValue(AuthMode.provisional)],
-      );
-      // 標準のユーザーを消した状態から始める
-      container.read(userSummaryProvider.notifier).logout();
-      await tester.pump();
-      expect(container.read(userSummaryProvider), isNull);
-      expect(find.byType(TextField), findsNothing);
-      expect(find.textContaining('認証サーバーに接続していません'), findsOneWidget);
-      await tester.tap(find.text('標準のユーザーでログイン'));
-      await tester.pumpAndSettle();
-      expect(find.text('ダッシュボード'), findsOneWidget);
-      expect(container.read(userSummaryProvider)?.name, '山田 太郎');
-    });
-
+  group('認証サーバーの接続先が未設定(unconfigured)', () {
     test('ログアウトは、セッションも保管庫も触らず、表示だけを消す', () async {
       final session = _CountingSession();
       final container = ProviderContainer(
         overrides: [
           loggerProvider.overrideWithValue(const NoopLoggerProvider()),
-          authModeProvider.overrideWithValue(AuthMode.provisional),
+          authModeProvider.overrideWithValue(AuthMode.unconfigured),
           sessionServiceProvider.overrideWithValue(session),
           userSummaryProvider.overrideWith(() => UserSummaryNotifier(_user)),
         ],

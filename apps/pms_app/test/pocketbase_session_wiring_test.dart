@@ -124,7 +124,7 @@ void main() {
       expect(session.intervals, isEmpty);
     });
 
-    test('PocketBase を使わないときは、開発用の確認(ユーザーがいれば有効、いなければログアウト)', () async {
+    test('PocketBase を使わない(接続先が未設定)ときは、ユーザーの表示があっても常にログアウト', () async {
       final container = _container(_FakeSession(), pocketbase: false);
       final mediator = container.read(pageSessionMediatorProvider);
       expect(mediator.toJson().toString(), contains('MaintenanceAware'));
@@ -132,8 +132,8 @@ void main() {
       container
           .read(userSummaryProvider.notifier)
           .set(const UserSummary(name: 'dev'));
-      expect(await mediator.refresh(), PageSessionStatus.valid);
-      expect(await mediator.check(), PageSessionStatus.valid);
+      expect(await mediator.refresh(), PageSessionStatus.signedOut);
+      expect(await mediator.check(), PageSessionStatus.signedOut);
     });
   });
 
@@ -204,13 +204,18 @@ void main() {
       );
     });
 
-    test('PocketBase を使わないときは、開発用の仮のログイン。ログアウトはセッションを触らない', () async {
+    test('PocketBase を使わない(接続先が未設定)ときは、ログインできない。ログアウトはセッションを触らない', () async {
       final session = _FakeSession(loggedIn: true);
       final container = _container(session, pocketbase: false);
       container
           .read(userSummaryProvider.notifier)
           .set(const UserSummary(name: 'dev'));
-      expect(container.read(authModeProvider), AuthMode.provisional);
+      expect(container.read(authModeProvider), AuthMode.unconfigured);
+      // 確認の結果は常にログアウト(ログイン前の画面を除いて、ログインへ向く)
+      expect(
+        await container.read(pageSessionMediatorProvider).refresh(),
+        PageSessionStatus.signedOut,
+      );
       // ログイン画面の遷移先は、使わないときも auth_files のログイン(画面は1つ)
       expect(
         container.read(signInDestinationProvider),

@@ -10,7 +10,6 @@ import '../../contents/contents.dart';
 import '../../imports.dart';
 import '../features/feature_error.dart';
 import '../features/feature_modules.dart';
-import '../graphql/graphql_overrides.dart' show pocketbaseEnabledProvider;
 import 'router.dart';
 
 part 'root_router.g.dart';
@@ -52,8 +51,8 @@ GoRouter rootRouter(Ref ref) {
         home: DashboardConstant.path,
       );
       if (maintenance != null) return maintenance;
-      // PocketBase を使うとき、ログインしていなければ(ログイン前の画面を除いて)ログインへ向ける
-      if (!ref.read(pocketbaseEnabledProvider)) return null;
+      // ログインしていなければ(ログイン前の画面を除いて)ログインへ向ける。
+      // 接続先が未設定のときも同じ(開発用の例外はない。ログイン画面から裏設定の入口を通って接続先を設定する)
       return authRedirect(
         status: session,
         location: state.uri.toString(),

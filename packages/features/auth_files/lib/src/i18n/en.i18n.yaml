@@ -17,6 +17,7 @@ errors:
   server: A server error occurred.
   network: Cannot connect. Please check your connection.
   unknown: An unexpected error occurred.
+  serverUnconfigured: The authentication server is not configured. Set the connection in the development mode (backstage) settings, then restart the app.
   jwtUnavailable: Could not obtain the credentials to connect to the server. Please try again later.
   fileUnsupported: Files cannot be picked or saved in this environment.
   fileTooLarge: The file is too large. Choose a file of 100 MB or less.
@@ -37,8 +38,6 @@ login:
   register: Register
   haveCode: I have a code
   sending: Signing in...
-  provisionalNotice: Not connected to an authentication server (development). Credentials are not checked; you sign in as the standard user.
-  provisionalSubmit: Sign in as the standard user
 logout:
   confirmHeading: Sign out?
   confirmMessage: "You are signed in as {name}. Unsaved input will be lost."
