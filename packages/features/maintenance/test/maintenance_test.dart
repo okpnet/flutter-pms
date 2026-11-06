@@ -173,7 +173,7 @@ void main() {
       expect(status.retryAfter, const Duration(seconds: 120));
     });
 
-    test('503 のとき、同じサーバーの /info/maintenance.json から文面・時間を読む', () async {
+    test('503 のとき、同じサーバーの /info(ファイル名なし)から文面・時間を読む', () async {
       final requested = <Uri>[];
       final checker = HttpMaintenanceChecker(
         uri: Uri.parse('https://example.test:18480/health'),
@@ -197,7 +197,44 @@ void main() {
       expect(status.endAt, DateTime(2026, 10, 27, 3));
       expect(
         requested.last.toString(),
-        'https://example.test:18480/info/maintenance.json',
+        'https://example.test:18480/info',
+      );
+    });
+
+    test('サーバーのルートだけを設定すると、/health と /info を組み立てる', () async {
+      final requested = <Uri>[];
+      final checker = HttpMaintenanceChecker.forServer(
+        'http://192.168.1.101:18480',
+        client: MockClient((request) async {
+          requested.add(request.url);
+          return request.url.path == '/health'
+              ? http.Response('', 503)
+              : http.Response('{"message":"m"}', 200);
+        }),
+      );
+      final status = await checker.check();
+      expect(status.message, 'm');
+      expect(requested.map((u) => u.toString()), [
+        'http://192.168.1.101:18480/health',
+        'http://192.168.1.101:18480/info',
+      ]);
+    });
+
+    test('以前の設定(末尾が /health)・末尾の / も同じサーバーのルートになる', () {
+      for (final input in [
+        'http://192.168.1.101:18480/health',
+        'http://192.168.1.101:18480/',
+        'http://192.168.1.101:18480',
+      ]) {
+        expect(
+          maintenanceServerRoot(input).toString(),
+          'http://192.168.1.101:18480',
+          reason: input,
+        );
+      }
+      expect(
+        maintenanceServerRoot('https://example.test/maint/health').path,
+        '/maint',
       );
     });
 

@@ -14,16 +14,16 @@ server {
     # コンテナの生存確認(メンテナンス中でも 200)
     location = /ping { return 200 'ok'; }
 
-    # 通知する情報ファイル。読むのは誰でも、書き換え・削除は Basic 認証のみ。FTP は使わない。
-    location /info/ {
-        alias /data/info/;
+    # メンテナンスの通知する情報(1つ)。ファイル名は持たず、パス /info だけで読み書きする
+    # (管理者がファイル名を間違えないように。実体は /data/info/maintenance.json)。
+    # 読むのは誰でも、書き換え・削除は Basic 認証のみ。FTP は使わない。
+    location = /info {
+        alias /data/info/maintenance.json;
         default_type application/json;
         add_header Cache-Control "no-store";
-        autoindex off;
 
         dav_methods PUT DELETE;
         dav_access user:rw group:r all:r;
-        create_full_put_path on;
 
         limit_except GET HEAD {
             auth_basic "maintenance";

@@ -77,7 +77,7 @@
 | `isChangeUserImage` | bool | ユーザー画像の変更可否 | `IS_CHANGE_USER_IMAGE` |
 | `graphqlUrl` | string | 接続先(GraphQL)。`https`(ローカルのネットワークのみ `http` 可) | `GRAPHQL_URL` |
 | `pocketbaseUrl` | string | 接続先(PocketBase)。同上 | `POCKETBASE_URL` |
-| `maintenanceUrl` | string | メンテナンスの確認先。同上 | `MAINTENANCE_URL` |
+| `maintenanceUrl` | string | メンテナンス情報サーバーのルート(例 `http://192.168.1.101:18480`)。`/health`・`/info` はアプリが付ける。末尾が `/health` の以前の形も可 | `MAINTENANCE_URL` |
 | `logLevel` | string | `trace`・`debug`・`info`・`warning`・`error`・`fatal` | `LOG_LEVEL` |
 | `sidebarIconOnly` | bool | サイドバーの既定(アイコンだけ) | `SIDEBAR_ICON_ONLY` |
 

@@ -11,24 +11,28 @@ docker compose up -d
 ポートは既定 `18480`(`.env` の `MAINT_PORT`)。ID・パスワード・ポート・置き場は `.env` にまとめる。
 
 ## 使い方(例: `http://サーバー:18480`)
+アプリ(裏設定の `maintenanceUrl`、または `MAINTENANCE_URL`)には、**サーバーのルートだけ**(`http://サーバー:18480`)を指定する。`/health` と `/info` はアプリが付ける(以前の形の `.../health` も受け付け、末尾の `/health` を取り除く)。パスの食い違いが起きないよう、サーバーとアプリはこのパスを固定で共有する。
+
 | 操作 | 認証 | 内容 |
 |---|---|---|
-| `GET /health` | 不要 | 通常 200、メンテナンス中は 503。アプリの `MAINTENANCE_URL` に指定する |
-| `GET /info/<名前>.json` | 不要 | 通知する情報ファイルを読む |
-| `PUT /info/<名前>.json` | Basic | 情報ファイルを作る・書き換える |
-| `DELETE /info/<名前>.json` | Basic | 情報ファイルを消す |
+| `GET /health` | 不要 | 通常 200、メンテナンス中は 503 |
+| `GET /info` | 不要 | メンテナンスの通知する情報(JSON)を読む。無ければ 404 |
+| `PUT /info` | Basic | 情報を作る・書き換える |
+| `DELETE /info` | Basic | 情報を消す |
 | `PUT /maintenance.flag` | Basic | メンテナンス中にする |
 | `DELETE /maintenance.flag` | Basic | メンテナンスを解除する |
 
+情報にファイル名は無い。パス `/info` だけで1つの情報を読み書きする(管理者がファイル名を間違えないため。サーバー内の実体は `data/info/maintenance.json`)。`/info/<名前>.json` のようなパスは無く、404 になる。
+
 ```powershell
-curl.exe -u maintainer:パスワード -T status.json http://localhost:18480/info/status.json
+curl.exe -u maintainer:パスワード -T maintenance.json http://localhost:18480/info
 curl.exe -u maintainer:パスワード -X PUT http://localhost:18480/maintenance.flag
 curl.exe -u maintainer:パスワード -X DELETE http://localhost:18480/maintenance.flag
 ```
+(`curl.exe -T` は `PUT` で送る。ローカルのファイル名 `maintenance.json` は何でもよい。)
 
 ## メンテナンス中の表示(アプリ)
-アプリは、`/health` が 503 のとき、同じサーバーの `GET /info/maintenance.json` を読んで、メンテナンスページに表示する。
-ファイル名は `maintenance.json` に固定する(`status.json` は使わない)。キーは次の3つで、すべて省略できる(無いときは既定の文面・時間なし)。
+アプリは、`/health` が 503 のとき、同じサーバーの `GET /info` を読んで、メンテナンスページに表示する。キーは次の3つで、すべて省略できる(無いときは既定の文面・時間なし)。
 ```json
 {"message": "定期メンテナンス", "startAt": "2026-11-07T01:00:00", "endAt": "2026-11-07T03:00:00"}
 ```
@@ -37,10 +41,8 @@ curl.exe -u maintainer:パスワード -X DELETE http://localhost:18480/maintena
 | `message` | 利用者へ知らせる文面 | 文面 |
 | `startAt` | 開始の日時(ISO 8601) | 「開始」 |
 | `endAt` | 終了の日時(ISO 8601) | 「終了」 |
-```powershell
-curl.exe -u maintainer:パスワード -T maintenance.json http://localhost:18480/info/maintenance.json
-```
-`maintenance.json` が無い・読めなくても、メンテナンス中の判定は変わらない(既定の文面)。メンテナンスの開始・解除は `/maintenance.flag`。
+
+`/info` が無い・読めなくても、メンテナンス中の判定は変わらない(既定の文面)。メンテナンスの開始・解除は `/maintenance.flag`。
 
 ## 注意
 - `https` で公開するときは前段にリバースプロキシを置く(Basic 認証は平文)。ローカルのネットワークだけなら `http` 可。

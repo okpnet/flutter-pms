@@ -11,7 +11,7 @@
 ## 仕組み
 | 部品 | 内容 |
 |---|---|
-| `IMaintenanceChecker` | サーバーの状態の確認。`HttpMaintenanceChecker` は HTTP 503 をメンテナンス中とする(`Retry-After`を読む)。表示の情報は、同じサーバーの `/info/maintenance.json`(`maintenanceInfoPath`。`infoUri` で変えられる)から `message`・`startAt`・`endAt`(ISO 8601)を読み、無い・読めないときは 503 の本文の同じキー、それも無ければ既定の文面にする(`tools/docker/maintenance/README.md` と同じ仕様)。通信できないときは利用可能として扱い、ログに残す。既定は `AlwaysAvailableMaintenanceChecker`(テスト用) |
+| `IMaintenanceChecker` | サーバーの状態の確認。`HttpMaintenanceChecker` は HTTP 503 をメンテナンス中とする(`Retry-After`を読む)。設定はサーバーのルートだけ(`HttpMaintenanceChecker.forServer`が`/health`(`maintenanceHealthPath`)と`/info`(`maintenanceInfoPath`。ファイル名なし)を付ける。末尾が`/health`の以前の形も可)。表示の情報は、同じサーバーの `/info` から `message`・`startAt`・`endAt`(ISO 8601)を読み、無い・読めないときは 503 の本文の同じキー、それも無ければ既定の文面にする(`tools/docker/maintenance/README.md` と同じ仕様)。通信できないときは利用可能として扱い、ログに残す。既定は `AlwaysAvailableMaintenanceChecker`(テスト用) |
 | `maintenanceStatusProvider` | いまの状態。`refresh()`(サーバーへ確認)と `report()`(通常の通信の応答から知らせる) |
 | `maintenanceRedirect` | ルーターの `redirect` に使う判定。メンテナンス中はどのページもメンテナンスページへ向け、終わっていればメンテナンスページから戻す |
 | `MaintenanceAwarePageSession` | `page_mediator_extension` のセッション確認へ、メンテナンスの確認を足す(Decorator)。ページの切り替え・更新で、認証の確認より先にメンテナンスを確認する |

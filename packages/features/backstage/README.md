@@ -51,7 +51,7 @@ dart run bin/config_user_generator.dart          # --help でヘルプ
 | ユーザー画像の変更可否 | `IS_CHANGE_USER_IMAGE=true` | すぐ |
 | 接続先(GraphQL) | `GRAPHQL_URL=https://.../graphql` | 再起動 |
 | 接続先(PocketBase) | `POCKETBASE_URL=https://...` | 再起動 |
-| メンテナンスの確認先 | `MAINTENANCE_URL=https://.../health` | 再起動 |
+| メンテナンスの確認先 | `MAINTENANCE_URL=https://サーバー:18480`(サーバーのルート。`/health`・`/info` はアプリが付ける) | 再起動 |
 | ログのレベル | `LOG_LEVEL=info`(`trace`・`debug`・`info`・`warning`・`error`・`fatal`) | 再起動 |
 | サイドバーの既定 | `SIDEBAR_ICON_ONLY=true` | 次の起動 |
 

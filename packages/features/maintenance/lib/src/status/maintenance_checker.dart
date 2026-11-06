@@ -20,9 +20,33 @@ class AlwaysAvailableMaintenanceChecker implements IMaintenanceChecker {
   Future<MaintenanceStatus> check() async => MaintenanceStatus.available;
 }
 
-/// メンテナンス情報サーバー(`tools/docker/maintenance`)が、メンテナンスの表示用に置く情報ファイルのパス。
-/// 確認先(`/health`)と同じサーバーの `/info/maintenance.json`。キーは `message`・`startAt`・`endAt`(ISO 8601)。
-const maintenanceInfoPath = '/info/maintenance.json';
+/// メンテナンス情報サーバー(`tools/docker/maintenance`)の、状態を返すパス。通常 200・メンテナンス中は 503。
+const maintenanceHealthPath = '/health';
+
+/// メンテナンスの表示用の情報(JSON)を返すパス。ファイル名は持たない(管理者が名前を間違えないように、
+/// サーバーがパスだけで1つの情報を返す)。キーは `message`・`startAt`・`endAt`(ISO 8601)。
+const maintenanceInfoPath = '/info';
+
+/// 設定された URL から、メンテナンス情報サーバーのルートを求める。
+///
+/// 設定はサーバーのルート(例 `http://192.168.1.101:18480`)。以前の形(末尾が `/health`)も受け付け、
+/// 末尾の `/health` と `/` を取り除く。
+Uri maintenanceServerRoot(String url) {
+  final uri = Uri.parse(url.trim());
+  var path = uri.path;
+  if (path.endsWith(maintenanceHealthPath)) {
+    path = path.substring(0, path.length - maintenanceHealthPath.length);
+  }
+  while (path.endsWith('/')) {
+    path = path.substring(0, path.length - 1);
+  }
+  return Uri(
+    scheme: uri.scheme,
+    host: uri.host,
+    port: uri.hasPort ? uri.port : null,
+    path: path,
+  );
+}
 
 /// HTTP の応答で確認する。HTTP 503 をメンテナンス中として扱う(サーバーの推奨は
 /// 「HTTP 503 + `Retry-After`」)。
@@ -50,6 +74,25 @@ class HttpMaintenanceChecker implements IMaintenanceChecker {
            ),
        _client = client ?? http.Client(),
        _log = logger;
+
+  /// サーバーのルート([server])から、状態([maintenanceHealthPath])と表示の情報([maintenanceInfoPath])の
+  /// URL を組み立てる。設定にはルートだけを持てばよく、パスの食い違いが起きない。
+  /// [server] の末尾が `/health` の以前の形も受け付ける([maintenanceServerRoot])。
+  factory HttpMaintenanceChecker.forServer(
+    String server, {
+    http.Client? client,
+    Duration timeout = const Duration(seconds: 10),
+    ILoggerProvider? logger,
+  }) {
+    final root = maintenanceServerRoot(server);
+    return HttpMaintenanceChecker(
+      uri: root.replace(path: '${root.path}$maintenanceHealthPath'),
+      infoUri: root.replace(path: '${root.path}$maintenanceInfoPath'),
+      client: client,
+      timeout: timeout,
+      logger: logger,
+    );
+  }
 
   /// 確認先(サーバーの状態を返す URL)。
   final Uri uri;

@@ -13,7 +13,7 @@ import 'pocketbase_page_session.dart';
 import 'unconfigured_page_session.dart';
 
 /// メンテナンスの確認先(サーバーの状態を返す URL)。ビルド時に
-/// `--dart-define=MAINTENANCE_URL=https://.../health` で渡す。未指定のときは、常に利用可能とする。
+/// `--dart-define=MAINTENANCE_URL=https://サーバー:18480`(サーバーのルート。`/health`・`/info` はアプリが付ける)で渡す。未指定のときは、常に利用可能とする。
 const maintenanceUrl = String.fromEnvironment('MAINTENANCE_URL');
 
 /// ページ用の拡張(page_mediator_extension)・メンテナンスの実体(アプリが差し込む)。
@@ -26,8 +26,8 @@ const maintenanceUrl = String.fromEnvironment('MAINTENANCE_URL');
 List<Override> sessionOverrides({String url = maintenanceUrl}) => [
   if (url.isNotEmpty)
     maintenanceCheckerProvider.overrideWith(
-      (ref) => HttpMaintenanceChecker(
-        uri: Uri.parse(url),
+      (ref) => HttpMaintenanceChecker.forServer(
+        url,
         logger: ref.watch(loggerProvider),
       ),
     ),
