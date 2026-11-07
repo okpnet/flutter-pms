@@ -4,4 +4,7 @@ abstract final class BarcodeEntryPaths {
   static const top = '/barcode';
 
   static const symbolQuery = 'symbol';
+
+  /// 続けて読み込む品目(コード付き)。`symbol`(棚など)の次に読む。
+  static const itemQuery = 'item';
 }

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger_provider/logger_provider.dart';
 
+import '../barcode_code.dart';
 import 'scan_gateway.dart';
 import 'scan_models.dart';
 import 'scan_providers.dart';
@@ -210,7 +211,11 @@ class ScanFlow extends Notifier<ScanState> {
   void _notice(ScanNotice notice) =>
       state = state.copyWith(notice: () => notice);
 
-  void _log(LogKind kind, {bool ok = true, Map<String, Object> args = const {}}) {
+  void _log(
+    LogKind kind, {
+    bool ok = true,
+    Map<String, Object> args = const {},
+  }) {
     final entry = ScanLogEntry(DateTime.now(), kind, ok: ok, args: args);
     state = state.copyWith(
       log: [entry, ...state.log].take(_historyLimit).toList(),
@@ -218,17 +223,11 @@ class ScanFlow extends Notifier<ScanState> {
   }
 
   /// リーディングトップへ戻る。モードと履歴は残す。
-  void _reset([ScanNotice? notice]) => state = ScanState(
-    mode: state.mode,
-    log: state.log,
-    notice: notice,
-  );
+  void _reset([ScanNotice? notice]) =>
+      state = ScanState(mode: state.mode, log: state.log, notice: notice);
 
-  void _go(ScanStep step, ScanContext context) => state = state.copyWith(
-    step: step,
-    context: context,
-    notice: () => null,
-  );
+  void _go(ScanStep step, ScanContext context) =>
+      state = state.copyWith(step: step, context: context, notice: () => null);
 
   /// 直近の [_guard] が失敗したか。
   bool _failed = false;
@@ -348,12 +347,25 @@ class ScanFlow extends Notifier<ScanState> {
   // ---- 段階ごとの判定 ----
 
   Future<ScanTarget?> _find(String v) async {
-    final target = await _guard('symbol の照会', v, () => _gateway.find(v));
+    final target = await _guard('symbol の照会', v, () => _findWithCode(v));
     if (target == null && !_failed) {
       _log(LogKind.unknown, ok: false, args: {'value': v});
-      _notice(ScanNotice(NoticeKind.unknown, isError: true, args: {'value': v}));
+      _notice(
+        ScanNotice(NoticeKind.unknown, isError: true, args: {'value': v}),
+      );
     }
     return target;
+  }
+
+  /// コード付き(`<コード 2 文字><symbol>`)ならコードを外して照会し、コードの種類と一致した対象だけを返す。
+  /// 一致しない・見つからないときは、全体を従来の symbol として照会する(コードに似た接頭辞の symbol を守る)。
+  Future<ScanTarget?> _findWithCode(String v) async {
+    final parsed = BarcodeCode.parse(v);
+    final code = parsed.code;
+    if (code == null) return _gateway.find(v);
+    final byCode = await _gateway.find(parsed.symbol);
+    if (byCode != null && byCode.kind == code.kind) return byCode;
+    return _gateway.find(v);
   }
 
   Future<void> _submitTop(String v) async {

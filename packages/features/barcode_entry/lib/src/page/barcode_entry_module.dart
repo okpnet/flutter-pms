@@ -19,6 +19,7 @@ class BarcodeEntryModule implements FeatureModule, MenuContributor {
       path: BarcodeEntryPaths.top,
       builder: (context, state) => BarcodeEntryPage(
         symbol: state.uri.queryParameters[BarcodeEntryPaths.symbolQuery],
+        item: state.uri.queryParameters[BarcodeEntryPaths.itemQuery],
       ),
     ),
   ];
@@ -26,14 +27,20 @@ class BarcodeEntryModule implements FeatureModule, MenuContributor {
   @override
   String? locationOf(PageDestination<Object?> destination) =>
       switch (destination) {
-        BarcodeEntryDestination(:final symbol) => Uri(
-          path: BarcodeEntryPaths.top,
-          queryParameters: symbol == null || symbol.isEmpty
-              ? null
-              : {BarcodeEntryPaths.symbolQuery: symbol},
-        ).toString(),
+        BarcodeEntryDestination d => _locationOf(d),
         _ => null,
       };
+
+  static String _locationOf(BarcodeEntryDestination d) {
+    final query = <String, String>{
+      BarcodeEntryPaths.symbolQuery: ?d.scanValue,
+      BarcodeEntryPaths.itemQuery: ?d.itemScanValue,
+    };
+    return Uri(
+      path: BarcodeEntryPaths.top,
+      queryParameters: query.isEmpty ? null : query,
+    ).toString();
+  }
 
   @override
   void registerHandlers(CommandHandlerRegistry registry, Ref ref) {}

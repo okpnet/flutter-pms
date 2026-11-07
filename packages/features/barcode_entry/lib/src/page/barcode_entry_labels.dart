@@ -95,8 +95,7 @@ extension BarcodeEntryLabels on BarcodeEntryStrings {
 
   String logText(ScanLogEntry e) {
     final a = e.args;
-    String judge() =>
-        a['judge'] == 'fail' ? input.judgeFail : input.judgePass;
+    String judge() => a['judge'] == 'fail' ? input.judgeFail : input.judgePass;
     return switch (e.kind) {
       LogKind.unknown => log.unknown(value: a['value']!),
       LogKind.workDone => log.workDone(

@@ -64,7 +64,11 @@ class GraphqlScanGateway implements IScanGateway {
         receivedQuantity: f.doneQuantity,
         unit: '',
       ),
-      ScanFoundKind.item => ItemTarget(symbol: f.symbol, name: f.name, unit: ''),
+      ScanFoundKind.item => ItemTarget(
+        symbol: f.symbol,
+        name: f.name,
+        unit: '',
+      ),
       ScanFoundKind.equipment => EquipmentTarget(
         symbol: f.symbol,
         name: f.name,

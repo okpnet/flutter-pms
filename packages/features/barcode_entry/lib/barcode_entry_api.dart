@@ -2,4 +2,5 @@
 /// 実装(画面)は `barcode_entry.dart` 側にあり、ここからは参照しない。
 library;
 
+export 'src/barcode_code.dart';
 export 'src/page/barcode_entry_destinations.dart';

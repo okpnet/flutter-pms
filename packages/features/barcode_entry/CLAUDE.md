@@ -27,12 +27,28 @@ graph TD;
     L --> M --> A;
 ```
 
+## コード体系(バーコードの文字列)
+バーコードの文字列は `<コード 2 文字><symbol>`。コード = メニューの種類、symbol = DB の対象(`リニアシンボル`。0-9 と A-Z の 33進数で、O・L・I は含まない。`tools/database/仕様/バーコードNo仕様.md`)。ルートの `CLAUDE.md` の「バーコードの体系」の実装。
+| コード | メニュー | 対象の種類(`SymbolKind`) |
+|---|---|---|
+| `WR` | 作業実績(作業指示書の工程。N 工程目は工程ごとの symbol が決める) | work |
+| `RC` | 受入検品(発注明細) | purchase |
+| `SM` | 棚移動 | shelf |
+| `CN` | コンテナ | shelf |
+| `EQ` | 設備点検 | equipment |
+| `IT` | 品目(製品識別ラベル) | item |
+1.  コードと symbol の分解は `BarcodeCode.parse`(大文字小文字を区別しない)。画面・流れはコードの形式を知らない(`ScanFlow` だけが分解して、取得元に symbol を渡す)。
+1.  コード付きは、コードを外した symbol を照会し、コードの種類と対象の種類が一致したときだけ採用する。一致しない・見つからないときは、全体を従来の symbol として照会する(コードの無い従来の symbol も、コードに似た接頭辞の symbol もそのまま読める)。
+1.  発行(印刷)は `BarcodeCode.encode(symbol)`。symbol は DB のトリガーが付けるので、DB は変えない。
+1.  他の画面からの遷移は `BarcodeEntryDestination(code:, symbol:, itemSymbol:)`。`symbol`(棚など)を読み込んだ次に `itemSymbol`(品目)を読み込んだものとして進める(例: 棚移動で棚と品目を読み込んだ状態から、数量入力を始める)。パスは `/barcode?symbol=<コード付き>&item=<コード付き>`。
+
 ## 構成(画面とビジネスロジックの分離)
 ビジネスロジックは新しいパッケージにせず、このプロジェクトの `lib/src/logic` に分ける(画面は `lib/src/page`)。登録・照会の実体は取得元の窓口に閉じるので、別のプロジェクトへ切り出すときはここをそのまま移せる。
 | 種別 | ファイル | 内容 |
 |---|---|---|
 | 実装の入口 | `lib/barcode_entry.dart` | アプリだけが読み込む(モジュール・流れ・取得元の窓口) |
 | 契約の入口 | `lib/barcode_entry_api.dart` | 遷移先の型(`BarcodeEntryDestination`) |
+| コード | `lib/src/barcode_code.dart` | `BarcodeCode`(コードの一覧・分解・付加。契約の入口から公開) |
 | 対象・種類 | `lib/src/logic/scan_models.dart` | `ScanTarget`(作業指示・棚・購入品・製品/購入品・設備)、`ScanMode`、`StockSource` ほか |
 | 流れ | `lib/src/logic/scan_flow.dart` | `ScanFlow`(State)。段階ごとの判定と登録。通知・履歴は種類(enum)で持つ |
 | 取得元 | `lib/src/logic/scan_gateway.dart` | `IScanGateway`(Strategy)。照会 `find`、棚出庫 `startWork`、入庫 `putAway`、点検 `recordInspection` |

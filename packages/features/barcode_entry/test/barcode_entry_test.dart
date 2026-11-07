@@ -94,7 +94,10 @@ void main() {
     expect(st().step, ScanStep.ng);
     flow().confirmReject(RejectReason.appearance);
     await flow().submit('SH-X-01');
-    expect(gateway.journal.single, 'put WO-2610-002 x120 -> SH-X-01 (appearance)');
+    expect(
+      gateway.journal.single,
+      'put WO-2610-002 x120 -> SH-X-01 (appearance)',
+    );
     expect(st().log.first.kind, LogKind.storedWorkDone);
     await flow().submit('WO-2610-002');
     expect(st().notice?.kind, NoticeKind.workDone);
@@ -181,10 +184,49 @@ void main() {
       '/barcode?symbol=WO-1',
     );
     expect(
-      barcodeEntryDestinationSamples.every(
-        (d) => module.locationOf(d) != null,
-      ),
+      barcodeEntryDestinationSamples.every((d) => module.locationOf(d) != null),
       isTrue,
     );
+  });
+  group('バーコードのコード(コード + symbol)', () {
+    test('parse: コードと symbol に分ける。コードの無い・接頭辞だけは全体が symbol', () {
+      final p = BarcodeCode.parse('wrAB12');
+      expect(p.code, BarcodeCode.work);
+      expect(p.symbol, 'AB12');
+      expect(BarcodeCode.parse('AB12').code, isNull);
+      expect(BarcodeCode.parse('WR').code, isNull);
+      expect(BarcodeCode.parse('WR').symbol, 'WR');
+      expect(BarcodeCode.container.encode('X1'), 'CNX1');
+    });
+
+    test('コード付きの棚 → コード付きの品目で、棚移動が進む', () async {
+      await flow().submit('CNSH-A-02');
+      expect(st().step, ScanStep.stockItem);
+      await flow().submit('ITIT-UNIT-A');
+      expect(st().step, ScanStep.stockQty);
+    });
+
+    test('コードに似た接頭辞の従来の symbol(IT-UNIT-A)は、全体で読める', () async {
+      await flow().submit('SH-A-02');
+      await flow().submit('IT-UNIT-A');
+      expect(st().step, ScanStep.stockQty);
+    });
+
+    test('コードの種類と対象の種類が合わなくても、従来の symbol として照会できる(見つからなければ未登録の通知)', () async {
+      await flow().submit('WRSH-A-02');
+      expect(st().notice?.kind, NoticeKind.unknown);
+      expect(st().step, ScanStep.top);
+    });
+
+    test('遷移先: 棚と品目をコード付きの引数にして、バーコード画面の場所を作る', () {
+      const d = BarcodeEntryDestination(
+        symbol: 'SH-A-02',
+        code: BarcodeCode.shelfMove,
+        itemSymbol: 'IT-UNIT-A',
+      );
+      expect(d.scanValue, 'SMSH-A-02');
+      expect(d.itemScanValue, 'ITIT-UNIT-A');
+      expect(d.toJson()['code'], 'SM');
+    });
   });
 }

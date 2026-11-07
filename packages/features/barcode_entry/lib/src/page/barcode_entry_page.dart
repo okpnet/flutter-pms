@@ -16,10 +16,13 @@ import 'camera_scanner.dart';
 /// 入力欄は常に選択された状態にして、続けて読み取れるようにする。
 /// 判定は [ScanFlow] に閉じ、この画面は状態の表示と操作の受け渡しだけを行う。
 class BarcodeEntryPage extends ConsumerStatefulWidget {
-  const BarcodeEntryPage({super.key, this.symbol});
+  const BarcodeEntryPage({super.key, this.symbol, this.item});
 
-  /// 開いた直後に読み込んだものとして進める symbol(ショートカット用)。
+  /// 開いた直後に読み込んだものとして進める symbol(ショートカット用。コード付きでもよい)。
   final String? symbol;
+
+  /// `symbol` の次に読み込んだものとして進める品目(コード付き)。例: 棚を読み込んだあとの品目。
+  final String? item;
 
   @override
   ConsumerState<BarcodeEntryPage> createState() => _BarcodeEntryPageState();
@@ -38,7 +41,12 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
     final symbol = widget.symbol;
     if (symbol != null && symbol.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) ref.read(scanFlowProvider.notifier).submit(symbol);
+        if (!mounted) return;
+        final flow = ref.read(scanFlowProvider.notifier);
+        flow.submit(symbol).then((_) {
+          final next = widget.item;
+          if (mounted && next != null && next.isNotEmpty) flow.submit(next);
+        });
       });
     }
   }
@@ -225,9 +233,7 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
                 ),
               ),
             FilledButton(
-              onPressed: s.working
-                  ? null
-                  : () => flow.saveInspection(_results),
+              onPressed: s.working ? null : () => flow.saveInspection(_results),
               child: Text(t.input.inspectionSave),
             ),
           ],

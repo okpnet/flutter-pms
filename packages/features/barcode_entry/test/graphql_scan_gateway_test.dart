@@ -22,7 +22,10 @@ class _FakeClient extends ScanClient {
   }
 
   @override
-  Future<String> startWork({required String workPlanId, String? staffId}) async {
+  Future<String> startWork({
+    required String workPlanId,
+    String? staffId,
+  }) async {
     calls.add('start $workPlanId $staffId');
     return 'wr';
   }
@@ -34,7 +37,8 @@ class _FakeClient extends ScanClient {
     required ScanFound shelf,
     String? staffId,
     String? rejectNote,
-  }) async => calls.add('putWork $workPlanId x$quantity ${shelf.id} $rejectNote');
+  }) async =>
+      calls.add('putWork $workPlanId x$quantity ${shelf.id} $rejectNote');
 
   @override
   Future<void> putPurchase({
@@ -77,7 +81,12 @@ void main() {
         doneQuantity: 10,
         started: true,
       ),
-      'SH-1': const ScanFound(kind: ScanFoundKind.container, id: 'shelf-1', symbol: 'SH-1', name: '棚1'),
+      'SH-1': const ScanFound(
+        kind: ScanFoundKind.container,
+        id: 'shelf-1',
+        symbol: 'SH-1',
+        name: '棚1',
+      ),
       'PO-1': const ScanFound(
         kind: ScanFoundKind.purchaseDetail,
         id: 'pd-1',
@@ -86,15 +95,26 @@ void main() {
         quantity: 200,
         doneQuantity: 0,
       ),
-      'IT-1': const ScanFound(kind: ScanFoundKind.item, id: 'item-1', symbol: 'IT-1', name: '部品'),
+      'IT-1': const ScanFound(
+        kind: ScanFoundKind.item,
+        id: 'item-1',
+        symbol: 'IT-1',
+        name: '部品',
+      ),
     });
     gateway = GraphqlScanGateway(client: client, staffId: 'staff-1');
   });
 
   test('照会した結果を機能の型に変換する', () async {
     final w = await gateway.find('wo-1') as WorkOrderTarget;
-    expect((w.itemName, w.taskName, w.remaining, w.state), ('ユニットA', '組立', 60, WorkState.inProgress));
-    expect(((await gateway.find('WO-2')) as WorkOrderTarget).state, WorkState.done);
+    expect(
+      (w.itemName, w.taskName, w.remaining, w.state),
+      ('ユニットA', '組立', 60, WorkState.inProgress),
+    );
+    expect(
+      ((await gateway.find('WO-2')) as WorkOrderTarget).state,
+      WorkState.done,
+    );
     expect(await gateway.find('SH-1'), isA<ShelfTarget>());
     expect(((await gateway.find('PO-1')) as PurchaseTarget).remaining, 200);
     expect(await gateway.find('IT-1'), isA<ItemTarget>());
@@ -121,9 +141,17 @@ void main() {
     final purchase = await gateway.find('PO-1') as PurchaseTarget;
     final item = await gateway.find('IT-1') as ItemTarget;
     await gateway.startWork(order, shelf);
-    await gateway.putAway(source: PurchaseSource(purchase), quantity: 3, shelf: shelf);
+    await gateway.putAway(
+      source: PurchaseSource(purchase),
+      quantity: 3,
+      shelf: shelf,
+    );
     await gateway.putAway(source: ItemSource(item), quantity: 2, shelf: shelf);
-    expect(client.calls, ['start plan-1 staff-1', 'putPurchase pd-1 x3 shelf-1', 'putItem item-1 x2 shelf-1']);
+    expect(client.calls, [
+      'start plan-1 staff-1',
+      'putPurchase pd-1 x3 shelf-1',
+      'putItem item-1 x2 shelf-1',
+    ]);
   });
 
   test('設備点検の記録は未対応', () async {

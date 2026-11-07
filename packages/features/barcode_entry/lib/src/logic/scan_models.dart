@@ -1,5 +1,18 @@
+import '../barcode_code.dart';
+
 /// 読み込んだ symbol の種類。
 enum SymbolKind { work, shelf, purchase, item, equipment }
+
+/// バーコードのコードが表すメニューの種類に対応する、対象の種類。
+extension BarcodeCodeKind on BarcodeCode {
+  SymbolKind get kind => switch (this) {
+    BarcodeCode.work => SymbolKind.work,
+    BarcodeCode.receive => SymbolKind.purchase,
+    BarcodeCode.shelfMove || BarcodeCode.container => SymbolKind.shelf,
+    BarcodeCode.equipment => SymbolKind.equipment,
+    BarcodeCode.item => SymbolKind.item,
+  };
+}
 
 /// 読み込みの入口で選ぶ種類(モード)。選ぶとその種類の symbol だけを受け付ける。
 enum ScanMode {
