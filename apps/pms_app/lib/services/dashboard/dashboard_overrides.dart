@@ -1,5 +1,4 @@
 import 'package:dashboard_container/dashboard_container_api.dart';
-import 'package:flutter_riverpod/misc.dart' show Override;
 
 import '../../imports.dart';
 
@@ -100,3 +99,22 @@ List<CountContainerSpec> defaultDashboardLayout() => const [
 List<Override> dashboardOverrides() => [
   countSourcesProvider.overrideWithValue(mockCountSources),
 ];
+
+/// ログインしたユーザーのダッシュボードの配置を読み出す。
+///
+/// ユーザーが変わる(ログイン・別のユーザーでの入り直し)たびに、そのユーザーの保存された配置を読む。
+/// 保存が無いユーザーは初期の配置にする(保存もする)。ログアウト(ユーザーなし)では何もしない。
+/// 配置はユーザーごとに別の識別子で保存される(`DashboardContainerOriginator.keyFor`)。
+/// アプリが起動時に1度読む。
+final userDashboardProvider = Provider<void>((ref) {
+  ref.listen(userSummaryProvider.select((u) => u?.name), (
+    previous,
+    name,
+  ) async {
+    if (name == null || name == previous) return;
+    final dashboard = ref.read(dashboardContainersProvider.notifier);
+    if (!await dashboard.restore()) {
+      await dashboard.replace(defaultDashboardLayout());
+    }
+  });
+});

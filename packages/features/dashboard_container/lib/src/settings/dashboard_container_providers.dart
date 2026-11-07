@@ -1,3 +1,4 @@
+import 'package:feature_shared/feature_shared.dart' show userSummaryProvider;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:page_mediator_extension/page_mediator_extension.dart';
 
@@ -18,6 +19,7 @@ class DashboardContainersNotifier extends Notifier<List<CountContainerSpec>> {
   DashboardContainerOriginator get _originator => DashboardContainerOriginator(
     read: () => state,
     apply: (containers) => state = containers,
+    owner: ref.read(userSummaryProvider)?.name,
   );
 
   /// 保存された配置を読み込む(ダッシュボードを表示するタイミングで呼ぶ)。保存が無いときは変えない。

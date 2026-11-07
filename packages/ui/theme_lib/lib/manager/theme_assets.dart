@@ -11,9 +11,10 @@ import 'theme_manager.dart';
 abstract final class ThemeAssets {
   static const ocean = 'packages/theme_lib/themes/ocean.json';
   static const forest = 'packages/theme_lib/themes/forest.json';
+  static const rose = 'packages/theme_lib/themes/rose.json';
 
   /// 追加のテーマすべて。
-  static const all = [ocean, forest];
+  static const all = [ocean, forest, rose];
 }
 
 /// アセットのJSONからテーマを取り込む([ThemeManager] の拡張)。

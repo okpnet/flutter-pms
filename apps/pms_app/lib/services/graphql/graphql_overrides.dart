@@ -1,4 +1,7 @@
 import 'package:access_control/access_control.dart';
+import 'package:auth_files/auth_files_api.dart' show LogoutDestination;
+import 'package:feature_shared/feature_shared.dart' show commandBusProvider;
+import 'package:page_mediator_extension/page_mediator_extension.dart';
 import 'package:backstage/backstage.dart' show backstageBootProvider;
 import 'package:entity_screens/entity_screens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +11,8 @@ import 'package:pbapi/pbapi.dart';
 import 'package:pms_graphql/pms_graphql.dart' show SessionUnavailableException;
 
 import '../pocketbase/pocketbase_overrides.dart';
+import '../router/root_router.dart' show rootRouterProvider;
+import 'graphql_access_guard.dart';
 
 /// GraphQL(PostGraphile)のエンドポイント。`--dart-define=GRAPHQL_URL=http://.../graphql` で指定する。
 /// 未指定のときは、サンプル(メモリ上)の取得元のまま動く。
@@ -38,7 +43,20 @@ class GraphqlTokenNotifier extends Notifier<String?> {
 /// PocketBase を使うか([pocketbaseUrl] の指定の有無)。テストで上書きできる。
 final pocketbaseEnabledProvider = Provider<bool>(
   // 接続先は起動時に決まった値(起動時の指定 > 裏設定 > 既定値)。実行中に裏設定を保存しても、ここは変わらない(再起動で反映)
-  (ref) => (ref.watch(backstageBootProvider).values.pocketbaseUrl ?? '').isNotEmpty,
+  (ref) =>
+      (ref.watch(backstageBootProvider).values.pocketbaseUrl ?? '').isNotEmpty,
+);
+
+/// GraphQL にアクセスする前の確認(メンテナンス・セッション)。PocketBase を使うときだけ行う。
+final graphqlAccessGuardProvider = Provider<GraphqlAccessGuard>(
+  (ref) => GraphqlAccessGuard(
+    session: ref.read(pageSessionMediatorProvider),
+    // メンテナンス中は、ルーターの評価し直しでメンテナンスのページへ向く
+    onMaintenance: () => ref.read(rootRouterProvider).refresh(),
+    onSessionExpired: () => ref
+        .read(commandBusProvider)
+        .execute(const LogoutDestination(sessionExpired: true)),
+  ),
 );
 
 final graphqlAuthorizationProvider = Provider<Future<String?> Function()>((
@@ -46,6 +64,7 @@ final graphqlAuthorizationProvider = Provider<Future<String?> Function()>((
 ) {
   return () async {
     if (ref.read(pocketbaseEnabledProvider)) {
+      await ref.read(graphqlAccessGuardProvider).ensure();
       try {
         final token = await ref.read(sessionServiceProvider).graphqlToken();
         return bearerOf(token.token);

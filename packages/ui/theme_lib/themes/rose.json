@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "id": "rose",
+  "name": "Rose",
+  "light": {
+    "seedColor": "#A8324A",
+    "colors": {
+      "primary": "#A8324A",
+      "onPrimary": "#FFFFFF",
+      "primaryContainer": "#F8DDE1",
+      "onPrimaryContainer": "#8A2A3E",
+      "secondary": "#8E4A5A",
+      "onSecondary": "#FFFFFF",
+      "tertiary": "#7B8895",
+      "onTertiary": "#FFFFFF",
+      "error": "#B3261E",
+      "onError": "#FFFFFF",
+      "errorContainer": "#FBE3E1",
+      "onErrorContainer": "#B3261E",
+      "background": "#FBF3F4",
+      "surface": "#FFFFFF",
+      "onSurface": "#261619",
+      "surfaceContainerHighest": "#F5E6E8",
+      "onSurfaceVariant": "#64494E",
+      "outline": "#8F767B",
+      "outlineVariant": "#EBD3D7",
+      "focus": "#1A5FD0"
+    }
+  },
+  "dark": {
+    "seedColor": "#F2A3B1",
+    "colors": {
+      "primary": "#F2A3B1",
+      "onPrimary": "#3E0E18",
+      "primaryContainer": "#5A2230",
+      "onPrimaryContainer": "#F2A3B1",
+      "secondary": "#E5B0BA",
+      "onSecondary": "#3E0E18",
+      "tertiary": "#98A6B2",
+      "onTertiary": "#1A222A",
+      "error": "#FF8A80",
+      "onError": "#3E0E18",
+      "errorContainer": "#4A1F1D",
+      "onErrorContainer": "#FF8A80",
+      "background": "#1A1013",
+      "surface": "#26181C",
+      "onSurface": "#F3E8EA",
+      "surfaceContainerHighest": "#34242A",
+      "onSurfaceVariant": "#C9B3B8",
+      "outline": "#85686F",
+      "outlineVariant": "#473138",
+      "focus": "#8AB4FF"
+    }
+  },
+  "metrics": {
+    "spacing": 4,
+    "formFieldPadding": 4,
+    "menuFieldPadding": 8,
+    "radius": 8,
+    "cardRadius": 12,
+    "fullRadius": 32,
+    "borderWidth": 1,
+    "activeBorderWidth": 2,
+    "buttonHeight": 44,
+    "buttonWidth": 44,
+    "buttonElevation": 0,
+    "iconButtonSize": 44
+  }
+}

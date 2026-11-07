@@ -30,3 +30,4 @@ flutter:
   assets:
     - themes/ocean.json
     - themes/forest.json
+    - themes/rose.json

@@ -33,9 +33,9 @@ class _Bundle extends CachingAssetBundle {
 }
 
 void main() {
-  const ids = ['ocean', 'forest'];
+  const ids = ['ocean', 'forest', 'rose'];
 
-  group('外部のテーマ(ocean・forest)', () {
+  group('外部のテーマ(ocean・forest・rose)', () {
     for (final id in ids) {
       test('$id: 取り込め、ライトとダークの両方が揃い、全項目が指定されている', () {
         final d = ThemeDefinition.parse(_source(id));
@@ -161,6 +161,7 @@ void main() {
       final bundle = _Bundle({
         ThemeAssets.ocean: _source('ocean'),
         ThemeAssets.forest: _source('forest'),
+        ThemeAssets.rose: _source('rose'),
       });
       final failures = await manager.importAssets(
         ThemeAssets.all,
@@ -168,7 +169,7 @@ void main() {
       );
       expect(failures, isEmpty);
       final state = container.read(themeManagerProvider);
-      expect(state.themes.keys, containsAll(['default', 'ocean', 'forest']));
+      expect(state.themes.keys, containsAll(['default', 'ocean', 'forest', 'rose']));
       expect(state.activeId, 'default');
       // 取り込んだテーマへ切り替えられ、見た目が変わる
       manager.select('ocean');

@@ -57,6 +57,8 @@ GoRouter rootRouter(Ref ref) {
         status: session,
         location: state.uri.toString(),
         loginPath: AuthFilesPaths.login,
+        // セッションが切れたときは、切れたことを案内するページ(ログインへの遷移を促す)
+        expiredPath: AuthFilesPaths.logoutWith(sessionExpired: true),
         openPaths: const [
           AuthFilesPaths.login,
           AuthFilesPaths.register,

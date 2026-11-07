@@ -123,3 +123,12 @@
 1.  共通の規則は`packages/features/CLAUDE.md`の「テスト」に従う。
 2.  GraphQLで取得する(従業員数の元`StaffCountMetricSource`)。通信テストは`test/staff_count_connection_test.dart`(検証用サーバー+代役サーバーで遅延・切断・認証)。取得元の単体テストは`RecordingDataRepository`(`test/staff_count_metric_source_test.dart`)。
 3.  サーバーを使うテストの`dart_test.yaml`に`server`タグの宣言がある。
+
+
+## 規則: プロジェクト間をまたぐ指示
+指示や実装が、プロジェクト(アプリ・ライブラリ)をまたいで行われるときの`issue`・`doc/log`の扱い。
+1.  指示をしたプロジェクト
+    1.  `doc/log`に、指示の内容・指示した先のプロジェクト・実施した結果を記録する。
+2.  指示を受けたプロジェクト
+    1.  指示の内容と、指示をしたプロジェクトを`issue`に追加する。
+    2.  実施した結果を`doc/log`に記録する。

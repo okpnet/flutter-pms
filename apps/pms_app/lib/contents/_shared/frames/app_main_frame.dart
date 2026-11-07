@@ -6,7 +6,11 @@ import 'package:user_profile/user_profile.dart';
 import 'package:user_profile/user_profile_api.dart';
 
 import '../../../imports.dart';
+import '../../../services/access/menu_access.dart';
+import '../../../services/features/feature_error.dart' show featureLocationOf;
 import '../../../services/features/feature_modules.dart';
+import '../../../services/graphql/graphql_overrides.dart'
+    show pocketbaseEnabledProvider;
 import '../../controls/route/dashboard_constant.dart';
 
 ///アプリの枠。タイトルバー・サイドバー(狭いときはハンバーガー)・ログインユーザーは`app_shell`の部品を使う。
@@ -57,13 +61,33 @@ class AppMainFrame extends ConsumerWidget {
     );
   }
 
+  ///[destination](メニュー用の包みは外す)のページが、許可されているか。パスを求められない遷移先は出さない。
+  bool _allowed(MenuAccess access, PageDestination<Object?> destination) {
+    final Object target = destination;
+    final inner = target is TopLevelDestination ? target.inner : destination;
+    try {
+      return access.allows(featureLocationOf(inner));
+    } on StateError {
+      return false;
+    }
+  }
+
   ///機能の項目をグループ(識別子)ごとにまとめる。出現順を保つ。
   AppMenu _menu(BuildContext context, WidgetRef ref, AppCoreStrings t) {
     final bus = ref.read(commandBusProvider);
+    // 権限で許可されたページだけを出す。ページのアクセスごとに取り出し、持ち回らない。
+    // 取り出す間は出さない(許可が分かる前に、許可されないページを見せない)
+    final access = ref.watch(pocketbaseEnabledProvider)
+        ? (ref
+                  .watch(menuAccessProvider(GoRouterState.of(context).uri.path))
+                  .value ??
+              MenuAccess.none)
+        : MenuAccess.all;
     final groups = <String, List<MenuEntry>>{};
     for (final module in featureModules) {
       if (module is! MenuContributor) continue;
       for (final entry in (module as MenuContributor).menuEntries(ref)) {
+        if (!_allowed(access, entry.destination)) continue;
         groups.putIfAbsent(entry.groupId, () => []).add(entry);
       }
     }

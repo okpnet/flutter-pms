@@ -64,3 +64,19 @@ PMS のシェルアプリ。GoRouter を構築済みのモックアップ(旧 `l
     1.  `--dart-define=GRAPHQL_URL=...`(PostGraphile)を指定したときだけ、画面の取得元を GraphQL 版にする(`lib/services/graphql`)。未指定はサンプル。
     1.  `--dart-define=POCKETBASE_URL=...`(PocketBase)を指定したときだけ、`pbapi` の接続を開く(`lib/services/pocketbase`)。GraphQL の認証ヘッダーは `pbapi` の `SessionService.graphqlToken` の JWT を使う(取得・更新は `pbapi`)。トークンの保存先は、いまはメモリ。
     1.  PostGraphile が JWT を検証する設定になるまで、JWT は効かない(`tools/docker/postgresql/issue/20261103_0003.md`)。
+
+
+## 規則: プロジェクト間をまたぐ指示
+指示や実装が、プロジェクト(アプリ・ライブラリ)をまたいで行われるときの`issue`・`doc/log`の扱い。
+1.  指示をしたプロジェクト
+    1.  `doc/log`に、指示の内容・指示した先のプロジェクト・実施した結果を記録する。
+2.  指示を受けたプロジェクト
+    1.  指示の内容と、指示をしたプロジェクトを`issue`に追加する。
+    2.  実施した結果を`doc/log`に記録する。
+7.  画面実装の確認
+    1.  すべてのページは`theme_lib`・`view_responsiveness`を使い、デザインは`tools/open-design`を参照した`packages/features`のライブラリを使う。
+    1.  GraphQLへアクセスする前に、メンテナンス中か・セッションが切れていないかを確認する(`services/graphql/graphql_access_guard.dart`の`GraphqlAccessGuard`を`graphqlAuthorizationProvider`の前に置く。メンテナンス中はメンテナンスのページ、セッション切れは`LogoutDestination(sessionExpired: true)`のページへ向ける)。確認は`minInterval`(15秒)の間は省く。ページの切り替えでは、ルーターの`redirect`(メンテナンス → 認証。セッション切れは`authRedirect`の`expiredPath`)が同じ確認を行う。
+    1.  サイドバーのメニューは、権限で許可されたページだけを出す(`services/access/menu_access.dart`の`menuAccessProvider`)。ロールは保持せず、ページのアクセスごとに取り出す。管理者(`role=admin`)はすべて許可、それ以外は担当者の実効アクセスパス(`usecase_path`)に含まれるページだけ。取り出せない・取得に失敗したときは出さない。PocketBase に接続しない環境は、判定する元がないためすべて許可する。
+    1.  ダッシュボードの配置はユーザーごとに保存し、ログインしたユーザーが変わるたびに読み出す(`userDashboardProvider`)。保存が無いユーザーは初期の配置。
+    1.  設定ページ(`app_core`)の言語・サイドバー・テーマ・ユーザーは再起動なしで反映する。再起動が必要なのは裏設定の接続先(GraphQL・PocketBase・メンテナンス)とログのレベル、サイドバーの既定(次の起動)。そのまとめは`doc/log`に残す。
+    1.  設定のテーマ選択には、既定に加えて`theme_lib`の追加のテーマ(`ocean`・`forest`・`rose`)が並ぶ。

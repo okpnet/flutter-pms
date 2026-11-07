@@ -7,3 +7,12 @@
 3.  取得元(`scanGatewayProvider`)は暫定でメモリ上のサンプル。GraphQL 版の取得元と認証(PocketBase。`pageSessionMediatorProvider`)は導入後にここで差し込む。
 4.  機能同士・アプリは `xxx_api.dart` の型だけを使う(`barcode_entry.dart` はアプリだけが読み込む)。
 5.  取得元は起動時の指定で選ぶ: `--dart-define=ENTRY_GRAPHQL_URL=http://.../graphql --dart-define=ENTRY_LANGUAGE_CODE_ID=<言語のid> --dart-define=ENTRY_STAFF_ID=<作業者のid>`。接続先と言語のどちらかが無ければ、メモリ上のサンプル。作業者のidは認証(PocketBase)の導入後にログインユーザーから与える。
+
+
+## 規則: プロジェクト間をまたぐ指示
+指示や実装が、プロジェクト(アプリ・ライブラリ)をまたいで行われるときの`issue`・`doc/log`の扱い。
+1.  指示をしたプロジェクト
+    1.  `doc/log`に、指示の内容・指示した先のプロジェクト・実施した結果を記録する。
+2.  指示を受けたプロジェクト
+    1.  指示の内容と、指示をしたプロジェクトを`issue`に追加する。
+    2.  実施した結果を`doc/log`に記録する。

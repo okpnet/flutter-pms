@@ -7,3 +7,12 @@
 3.  `lib/scan_client.dart`(`ScanClient`): 窓口。棚ビジターは「数量は棚ビジターだけ」の決まり(`../CLAUDE.md`)で作り、出庫・移動・棚卸しは `issueLot`・`moveLot`・`adjustLot`(DB の関数を1回呼ぶ。出しすぎ・仮止めはDBが止め、`ScanClientException.code` で判定)、取り出し可否は DB の `v_visiter_issuable`(`listVisiters`)で判定する。生成モデルを隠し、平らな型(`ScanFound`・`ScanInspection`・`ScanVisiter`)で返す。登録は1テーブルずつの部品と、組み合わせ(`startWork`・`putWork`・`putPurchase`・`putItem`・`registerComplaint`)。設備点検(`findPendingInspection`・`createInspectRecord`)と取り出し可否(`listVisiters`)も持つ。担当者・場所の履歴IDは、登録前に最新を読んで送る。クライアントで順に呼ぶ。`lib/barcode_entry_model.dart` は生成物のバレル(`gen_barrel`)のため、窓口は別のファイルに置く。
 4.  機能(`barcode_entry`)は `scan_client.dart` だけを使い、生成された型を読み込まない。
 5.  テスト: `test/scan_client_test.dart`(検証用サーバーでの照会、代役の通信路での登録の順序と値)。
+
+
+## 規則: プロジェクト間をまたぐ指示
+指示や実装が、プロジェクト(アプリ・ライブラリ)をまたいで行われるときの`issue`・`doc/log`の扱い。
+1.  指示をしたプロジェクト
+    1.  `doc/log`に、指示の内容・指示した先のプロジェクト・実施した結果を記録する。
+2.  指示を受けたプロジェクト
+    1.  指示の内容と、指示をしたプロジェクトを`issue`に追加する。
+    2.  実施した結果を`doc/log`に記録する。

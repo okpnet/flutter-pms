@@ -5,7 +5,6 @@ import 'package:backstage/backstage_api.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:pms_app/imports.dart';
-import 'package:pms_app/services/router/auth_redirect.dart';
 import 'package:pms_app/services/services.dart';
 import 'package:page_mediator_extension/page_mediator_extension.dart';
 

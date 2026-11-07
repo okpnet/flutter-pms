@@ -276,3 +276,12 @@
 1. 読み込みデリゲートへ渡す`LoadQuery`のフィルタ・ソートは、`query_builder`の式にできる(`LoadQuery.predicate`・`LoadQuery.orders`)。データ取得元は`data_strategist`の`IDataRepository.find`に渡す。
 2. 式にできるのは、列の型にかかわらず、EQ・NEQ・IN・NOT IN・LE・LT・GE・GT・BETWEEN・START WITH・END WITH(と各否定)と、前方・後方・部分・完全一致のLIKEだけ。途中のワイルドカードを持つLIKEは`UnsupportedError`とする。
 3. 式にした条件は大文字小文字を区別する。メモリ上の絞り込み(`ConditionMatcher`)は区別しない。
+
+
+## 規則: プロジェクト間をまたぐ指示
+指示や実装が、プロジェクト(アプリ・ライブラリ)をまたいで行われるときの`issue`・`doc/log`の扱い。
+1.  指示をしたプロジェクト
+    1.  `doc/log`に、指示の内容・指示した先のプロジェクト・実施した結果を記録する。
+2.  指示を受けたプロジェクト
+    1.  指示の内容と、指示をしたプロジェクトを`issue`に追加する。
+    2.  実施した結果を`doc/log`に記録する。

@@ -90,6 +90,8 @@ class _AppMain extends ConsumerState {
         .read(settingsKeeperProvider)
         .restore(ref.read(userSettingsOriginatorProvider));
     ref.read(userSettingsAutoSaveProvider);
+    //ログインしたユーザーごとに、ダッシュボードの配置を読み出す(ユーザーの変更で読み直す)
+    ref.read(userDashboardProvider);
     await yieldToFrame();
     //ダッシュボードの配置を復元する。保存が無いときは初期の配置にする
     final dashboard = ref.read(dashboardContainersProvider.notifier);
