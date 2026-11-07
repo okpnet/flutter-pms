@@ -1,7 +1,6 @@
 import 'package:access_control/access_control.dart';
 import 'package:auth_files/auth_files_api.dart' show LogoutDestination;
 import 'package:feature_shared/feature_shared.dart' show commandBusProvider;
-import 'package:page_mediator_extension/page_mediator_extension.dart';
 import 'package:backstage/backstage.dart' show backstageBootProvider;
 import 'package:entity_screens/entity_screens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +11,7 @@ import 'package:pms_graphql/pms_graphql.dart' show SessionUnavailableException;
 
 import '../pocketbase/pocketbase_overrides.dart';
 import '../router/root_router.dart' show rootRouterProvider;
-import 'graphql_access_guard.dart';
+import 'package:page_mediator_extension/page_mediator_extension.dart';
 
 /// GraphQL(PostGraphile)のエンドポイント。`--dart-define=GRAPHQL_URL=http://.../graphql` で指定する。
 /// 未指定のときは、サンプル(メモリ上)の取得元のまま動く。

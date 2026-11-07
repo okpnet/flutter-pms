@@ -19,6 +19,8 @@ dependencies:
     path: ../settings_keeper
   logger_provider:
     path: ../../infra/logger_provider
+  pms_graphql:
+    path: ../../infra/pms_graphql
 
 dev_dependencies:
   flutter_test:

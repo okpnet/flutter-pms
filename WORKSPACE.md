@@ -15,7 +15,7 @@ flutter-pms/
 │   ├─ infra/                 ← pms_graphql, logger_provider
 │   ├─ model_providers/       ← 機能単位の GraphQL モデル(sales_model, resource_model, ...)
 │   └─ foundation/            ← query_builder, data_strategist, undo_redo
-├─ legacy/                    ← workspace 対象外(grid_lib, pms_authenticator, fetch_token, fultter_main …)
+├─ legacy/                    ← workspace 対象外(grid_lib, fetch_token, fultter_main …)
 └─ tools/                     ← Flutter 以外(database, docker, condition_pipeline, uml)
 ```
 

@@ -8,6 +8,7 @@
 /// - [pageDataMediatorProvider] / [pageSettingsMediatorProvider] / [pageSessionMediatorProvider]: 実体の差し込み口
 library;
 
+export 'src/graphql_access_guard.dart';
 export 'src/page_data_mediator.dart';
 export 'src/page_mediator_ref_extension.dart';
 export 'src/page_mediator_providers.dart';

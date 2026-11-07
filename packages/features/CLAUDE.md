@@ -77,7 +77,6 @@
 	+ graphql_lib（通信）
 	+ model_providers（機能ごとのモデル）
 4. 認証画面ライブラリ
-	+ pms_authenticator ※移植が必要
 
 アプリケーション、ライブラリは日本語をメイン言語とした多言語対応として、`riverpod`からインジェクションする[slang](https://pub.dev/packages/slang) パッケージを使用する。または、これに準ずる自作ライブラリの作成。
 表示する全てのラベル、メッセージを対象とするが、機能画面上の列は、データベースのコメントが使用できるため、画面単位で使用する列などの日本語のラベルは、`flutter-pms\packages\infra\model_providers の各モデルパッケージ\lib\graphql`、`flutter-pms\packages\infra\model_providers の各モデルパッケージ\lib\postgraphile`を参照した、`schema.graphql`のコメントを使用する。画面で使用する不足しているラベルは適切なものを推論し、推論できないモノは仮で割り当て、後で変更できるようにログに残す。

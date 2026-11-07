@@ -21,6 +21,12 @@ dependencies:
   graphql: ^5.2.3
   logger_provider:
     path: ../../packages/infra/logger_provider
+  maintenance:
+    path: ../../packages/features/maintenance
+  page_mediator_extension:
+    path: ../../packages/core/page_mediator_extension
+  pms_graphql:
+    path: ../../packages/infra/pms_graphql
   theme_lib:
     path: ../../packages/ui/theme_lib
 

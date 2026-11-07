@@ -62,3 +62,6 @@
 2.  指示を受けたプロジェクト
     1.  指示の内容と、指示をしたプロジェクトを`issue`に追加する。
     2.  実施した結果を`doc/log`に記録する。
+
+## GraphQL にアクセスする前の確認
+`GraphqlAccessGuard`(`IPageSessionMediator` で、メンテナンス中・セッション切れを確認する。メンテナンス中は`transient`の`SessionUnavailableException`、切れていれば`transient`でない`SessionUnavailableException`で中断し、アプリが渡した遷移を呼ぶ)。確認の間隔内は省く。`pms_app`・`entry_app`が通信の前(認証ヘッダー・リンク)に呼ぶ。

@@ -37,7 +37,7 @@ PMS のシェルアプリ。GoRouter を構築済みのモックアップ(旧 `l
 ## 構成
 0.  ページ用の拡張・メンテナンス・ダッシュボード
     1.  メンテナンス中のページは `maintenance`(ライブラリ)のページを使う。ルートは `ShellRoute` の外に置き(`standaloneFeatureModules`)、ルーターの `redirect` で、ページの切り替え・更新のたびにセッション(`pageSessionMediatorProvider`)を更新して確認し、`maintenanceRedirect` でメンテナンス中はどのページもメンテナンスページへ向ける。確認先は `--dart-define=MAINTENANCE_URL=...`(HTTP 503 をメンテナンス中とする)。未指定のときは常に利用可能とする。
-    2.  セッション確認の実体は `services/session`。メンテナンスの確認を先に行い(`MaintenanceAwarePageSession`)、使えるときだけ認証を確認する。認証は、PocketBase を使うとき(`POCKETBASE_URL` の指定あり)は `pbapi`(`PocketBasePageSession`)、使わないとき(接続先が未設定。`AuthMode.unconfigured`)は通信せず、常にログアウトとして返す(`UnconfiguredPageSession`。ログイン前の画面以外はログインへ向く)。Keycloak(`pms_authenticator`)とモックの認証サービスは、このアプリから外した(`pms_authenticator` のパッケージ自体には着手しない)。テストでは、メンテナンスの確認だけを差し替える。
+    2.  セッション確認の実体は `services/session`。メンテナンスの確認を先に行い(`MaintenanceAwarePageSession`)、使えるときだけ認証を確認する。認証は、PocketBase を使うとき(`POCKETBASE_URL` の指定あり)は `pbapi`(`PocketBasePageSession`)、使わないとき(接続先が未設定。`AuthMode.unconfigured`)は通信せず、常にログアウトとして返す(`UnconfiguredPageSession`。ログイン前の画面以外はログインへ向く)。Keycloak(`pms_authenticator`。パッケージも削除した)とモックの認証サービスは、このアプリから外した。テストでは、メンテナンスの確認だけを差し替える。
     3.  ダッシュボードは `app_core` のページ(`/dashboard`)を使う。件数の元は `services/dashboard` のモック(`mockCountSources`)で、GraphQL の `totalCount` を返す取得元ができたら `RepositoryCountSource` へ置き換える。保存された配置が無いときは `defaultDashboardLayout` にする(`main.dart`)。
 1.  機能(ライブラリ)の組み込み
     1.  `packages/features`の機能は`lib/services/features/feature_modules.dart`の`featureModules`に並べる。ルートは`root_router.dart`の`ShellRoute`(`UnControlContentsFrame`)に追加し、命令の窓口は`main()`で`commandBusProvider`へ`createFeatureCommandBus`を差し込む。サイドバーの項目は機能の`MenuContributor`から`DrawerMenu`が集める。
@@ -75,8 +75,9 @@ PMS のシェルアプリ。GoRouter を構築済みのモックアップ(旧 `l
     2.  実施した結果を`doc/log`に記録する。
 7.  画面実装の確認
     1.  すべてのページは`theme_lib`・`view_responsiveness`を使い、デザインは`tools/open-design`を参照した`packages/features`のライブラリを使う。
-    1.  GraphQLへアクセスする前に、メンテナンス中か・セッションが切れていないかを確認する(`services/graphql/graphql_access_guard.dart`の`GraphqlAccessGuard`を`graphqlAuthorizationProvider`の前に置く。メンテナンス中はメンテナンスのページ、セッション切れは`LogoutDestination(sessionExpired: true)`のページへ向ける)。確認は`minInterval`(15秒)の間は省く。ページの切り替えでは、ルーターの`redirect`(メンテナンス → 認証。セッション切れは`authRedirect`の`expiredPath`)が同じ確認を行う。
+    1.  GraphQLへアクセスする前に、メンテナンス中か・セッションが切れていないかを確認する(`page_mediator_extension`の`GraphqlAccessGuard`を`graphqlAuthorizationProvider`の前に置く。メンテナンス中はメンテナンスのページ、セッション切れは`LogoutDestination(sessionExpired: true)`のページへ向ける)。確認は`minInterval`(15秒)の間は省く。ページの切り替えでは、ルーターの`redirect`(メンテナンス → 認証。セッション切れは`authRedirect`の`expiredPath`)が同じ確認を行う。
     1.  サイドバーのメニューは、権限で許可されたページだけを出す(`services/access/menu_access.dart`の`menuAccessProvider`)。ロールは保持せず、ページのアクセスごとに取り出す。管理者(`role=admin`)はすべて許可、それ以外は担当者の実効アクセスパス(`usecase_path`)に含まれるページだけ。取り出せない・取得に失敗したときは出さない。PocketBase に接続しない環境は、判定する元がないためすべて許可する。
     1.  ダッシュボードの配置はユーザーごとに保存し、ログインしたユーザーが変わるたびに読み出す(`userDashboardProvider`)。保存が無いユーザーは初期の配置。
     1.  設定ページ(`app_core`)の言語・サイドバー・テーマ・ユーザーは再起動なしで反映する。再起動が必要なのは裏設定の接続先(GraphQL・PocketBase・メンテナンス)とログのレベル、サイドバーの既定(次の起動)。そのまとめは`doc/log`に残す。
     1.  設定のテーマ選択には、既定に加えて`theme_lib`の追加のテーマ(`ocean`・`forest`・`rose`)が並ぶ。
+    1.  裏設定の接続先(GraphQL・PocketBase・メンテナンス)とログのレベルは、再起動して反映する方針のまま(実行中の接続の差し替えは影響が大きく、ログのレベルは利用者の操作に影響しないため)。

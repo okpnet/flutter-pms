@@ -16,3 +16,6 @@
 2.  指示を受けたプロジェクト
     1.  指示の内容と、指示をしたプロジェクトを`issue`に追加する。
     2.  実施した結果を`doc/log`に記録する。
+
+## GraphQL にアクセスする前の確認
+`--dart-define=ENTRY_MAINTENANCE_URL=http://サーバー:18480`(メンテナンス情報サーバーのルート)を指定すると、GraphQL へ通信する前にメンテナンス中かを確認し(`GuardLink`、`page_mediator_extension` の `GraphqlAccessGuard`)、中なら中断してメンテナンスのページへ向ける(`MaintenanceModule`)。セッション切れの確認とページは、認証(PocketBase)の導入時に足す。

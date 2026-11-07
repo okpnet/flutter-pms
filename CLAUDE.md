@@ -58,7 +58,7 @@ cd tools/config_user_generator; dart run bin/config_user_generator.dart   # 裏�
 
 ## 認証
 
-認証は PocketBase に切り替える。Keycloak を使う `packages/features/pms_authenticator` には、これ以上着手しない(アプリへの接続・テストの修正を含む)。導入までのログインは、仮のボタンで標準のユーザーに戻す。PocketBase のセッション確認は、認証の窓口(`page_mediator_extension` の `IPageSessionMediator`)の実装として `pms_app` の `PocketBasePageSession` が行う(`POCKETBASE_URL` を指定したときだけ。指定しないときはこれまでのまま)。ログイン前の画面は `auth_files`、ログインしていなければログインへ向けるのは `pms_app` の `authRedirect`。
+認証は PocketBase に切り替える。Keycloak を使う `pms_authenticator` は削除した(認証は PocketBase だけ)。導入までのログインは、仮のボタンで標準のユーザーに戻す。PocketBase のセッション確認は、認証の窓口(`page_mediator_extension` の `IPageSessionMediator`)の実装として `pms_app` の `PocketBasePageSession` が行う(`POCKETBASE_URL` を指定したときだけ。指定しないときはこれまでのまま)。ログイン前の画面は `auth_files`、ログインしていなければログインへ向けるのは `pms_app` の `authRedirect`。
 
 PocketBase のクライアントは `packages/infra/pbapi`(公式 SDK の `pocketbase` を使う。新規登録・パスワード・ログイン/ログアウト・セッション確認・共有ファイル・個人ファイル)。トークンは秘密情報として扱い、保存先は `ITokenStore` で差し替える。アプリの既定は OS の安全な保管庫(`auth_files` の `SecureTokenStore`、`flutter_secure_storage`)で、ログインは次の起動でも続く。ログアウトは `auth_files` の `authFilesSignOut`(`app_core` の `signOutProvider` に差し込む)がセッションと保管庫を破棄する。共有ファイルの選択・保存は `file_picker`(`auth_files`)。接続先は `https`(ローカルのネットワークのみ `http` 可)。ログイン・登録・再設定の画面は `packages/features/auth_files`。詳細は [packages/infra/pbapi/CLAUDE.md](packages/infra/pbapi/CLAUDE.md) を参照。
 
@@ -132,7 +132,7 @@ GraphQL(PostGraphile)には PocketBase が発行した短期の JWT(`SessionServ
 9.  GraphQLへアクセスする前の確認(このプロジェクトすべてに適用する)
     1.  メンテナンスサーバーの情報にアクセスし、メンテナンス中のときは、GraphQLへ通信せず中断して、メンテナンス中のページへ遷移する。
     2.  ユーザーのセッションを評価し、セッションが切れているときは、GraphQLへ通信せず中断して、セッション切れのページへ遷移する(ページがログインへの遷移を促す)。
-    3.  すでに適用されているアプリ・ライブラリでは、重ねて実装しない。`pms_app`は`GraphqlAccessGuard`(GraphQLの認証ヘッダーの前)と、ページの切り替えのリダイレクトで適用済み。適用していないアプリを追加・変更するときは、この確認を組み込む。
+    3.  すでに適用されているアプリ・ライブラリでは、重ねて実装しない。`GraphqlAccessGuard`(`page_mediator_extension`)を、`pms_app`はGraphQLの認証ヘッダーの前に置き、、ページの切り替えのリダイレクトで適用済み。`entry_app`はメンテナンスの確認を適用済み(セッション切れは認証の導入時)。適用していないアプリを追加・変更するときは、この確認を組み込む。
 10. プロジェクト間をまたぐ指示
     1.  指示や実装が、プロジェクト(アプリ・ライブラリ)をまたいで行われるときの`issue`・`doc/log`の扱い。各プロジェクトの`CLAUDE.md`にも同じ内容を置く。
     2.  指示をしたプロジェクト: `doc/log`に、指示の内容・指示した先のプロジェクト・実施した結果を記録する。

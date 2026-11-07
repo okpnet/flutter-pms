@@ -1,7 +1,7 @@
 # auth_files
 
 認証(PocketBase のログイン・登録申請・コード入力・パスワード再設定・管理者操作)と、共有ファイルのアップロード/ダウンロードの画面。`packages/features/CLAUDE.md` の[規則/仕様]を必ず適用する。
-名前は「認証(auth)」と「共有ファイル(files)」の両方を表す。PocketBase のクライアントは `packages/infra/pbapi`(この機能は画面とページの流れだけを持つ)。ページの遷移の仕様は `tools/docker/pocketbase/README.md` に従う。Keycloak の `pms_authenticator` には着手しない。
+名前は「認証(auth)」と「共有ファイル(files)」の両方を表す。PocketBase のクライアントは `packages/infra/pbapi`(この機能は画面とページの流れだけを持つ)。ページの遷移の仕様は `tools/docker/pocketbase/README.md` に従う。Keycloak の `pms_authenticator` は削除した。
 
 
 ## 画面案との対応

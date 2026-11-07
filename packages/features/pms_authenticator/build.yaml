@@ -1,7 +1,0 @@
-targets:
-  $default:
-    sources:
-      include:
-        - lib/**
-        - test/**
-        - pubspec.yaml
