@@ -44,6 +44,9 @@ validation:
   invalidChoice: 選択肢にない値です
   belowMinimum: $min 以上で入力してください
   notAboveMinimum: $min より大きい値を入力してください
+  aboveMaximum: $max 以下で入力してください
+  notBelowMaximum: $max より小さい値を入力してください
+  beforeOtherDate: $other 以降の日付を入力してください
   lockedByChildren: $child がある間は外せません
   invalidCondition: 演算子と値を入力してください
   parentCycle: 自分または配下は親にできません

@@ -27,4 +27,26 @@ const List<EntityDefinition> salesDefinitions = [
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),
+    EntityDefinition(
+      key: 'shipplan',
+      fields: [
+        FieldDefinition(key: 'order', kind: FieldKind.reference, reference: 'order'),
+        FieldDefinition(key: 'date', kind: FieldKind.date),
+        FieldDefinition(key: 'carrier', kind: FieldKind.reference, reference: 'supplier'),
+        FieldDefinition(key: 'arrival', kind: FieldKind.date, notBefore: 'date'),
+        FieldDefinition(key: 'done', kind: FieldKind.flag, required: false),
+        FieldDefinition(key: 'wait', kind: FieldKind.number, required: false, readOnly: true),
+      ],
+    ),
+    EntityDefinition(
+      key: 'shipline', owner: 'shipplan',
+      fields: [
+        FieldDefinition(key: 'pack', kind: FieldKind.reference, reference: 'itempack'),
+        FieldDefinition(key: 'qty', kind: FieldKind.number, gt: 0),
+        FieldDefinition(key: 'item', kind: FieldKind.reference, reference: 'item'),
+        FieldDefinition(key: 'date', kind: FieldKind.date),
+        FieldDefinition(key: 'arrival', kind: FieldKind.date, notBefore: 'date'),
+        FieldDefinition(key: 'progress', kind: FieldKind.number, ge: 0, le: 100),
+      ],
+    ),
 ];

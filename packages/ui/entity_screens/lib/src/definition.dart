@@ -44,6 +44,9 @@ class FieldDefinition {
     this.disables,
     this.ge,
     this.gt,
+    this.le,
+    this.lt,
+    this.notBefore,
     this.needUnless,
     this.lockedBy,
   }) : assert(
@@ -79,6 +82,14 @@ class FieldDefinition {
   final num? ge;
   final num? gt;
 
+  /// 数値の上限。[le] は「以下」、[lt] は「より小さい」(固定の値。進捗は 100 以下など)。
+  final num? le;
+  final num? lt;
+
+  /// [FieldKind.date] が、同じ実体の別の日付の項目(キー)以降でなければならない
+  /// (例: 到着予定日は予定日以降)。どちらかが空のときは検証しない。
+  final String? notBefore;
+
   /// 別の [FieldKind.flag] 項目がオンでなければ必須にする(例: 言い値でなければ単価は必須)。
   final String? needUnless;
 
@@ -98,6 +109,9 @@ class FieldDefinition {
     'disables': disables,
     'ge': ge,
     'gt': gt,
+    'le': le,
+    'lt': lt,
+    'notBefore': notBefore,
     'needUnless': needUnless,
     'lockedBy': lockedBy,
   };

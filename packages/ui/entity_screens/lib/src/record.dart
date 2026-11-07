@@ -57,6 +57,15 @@ enum EntityFieldError {
   /// 下限([FieldDefinition.gt])より大きくない。
   notAboveMinimum,
 
+  /// 上限([FieldDefinition.le])を上回っている(以下でない)。
+  aboveMaximum,
+
+  /// 上限([FieldDefinition.lt])より小さくない。
+  notBelowMaximum,
+
+  /// 別の日付の項目([FieldDefinition.notBefore])より前になっている。
+  beforeOtherDate,
+
   /// 子が存在する間は外せない([FieldDefinition.lockedBy])。
   lockedByChildren,
   parentCycle,

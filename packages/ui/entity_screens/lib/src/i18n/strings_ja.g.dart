@@ -201,6 +201,15 @@ class EntityScreenStrings$validation$ja {
 	/// ja: '$min より大きい値を入力してください'
 	String notAboveMinimum({required Object min}) => '${min} より大きい値を入力してください';
 
+	/// ja: '$max 以下で入力してください'
+	String aboveMaximum({required Object max}) => '${max} 以下で入力してください';
+
+	/// ja: '$max より小さい値を入力してください'
+	String notBelowMaximum({required Object max}) => '${max} より小さい値を入力してください';
+
+	/// ja: '$other 以降の日付を入力してください'
+	String beforeOtherDate({required Object other}) => '${other} 以降の日付を入力してください';
+
 	/// ja: '$child がある間は外せません'
 	String lockedByChildren({required Object child}) => '${child} がある間は外せません';
 
@@ -269,6 +278,9 @@ extension on EntityScreenStrings {
 			'validation.invalidChoice' => '選択肢にない値です',
 			'validation.belowMinimum' => ({required Object min}) => '${min} 以上で入力してください',
 			'validation.notAboveMinimum' => ({required Object min}) => '${min} より大きい値を入力してください',
+			'validation.aboveMaximum' => ({required Object max}) => '${max} 以下で入力してください',
+			'validation.notBelowMaximum' => ({required Object max}) => '${max} より小さい値を入力してください',
+			'validation.beforeOtherDate' => ({required Object other}) => '${other} 以降の日付を入力してください',
 			'validation.lockedByChildren' => ({required Object child}) => '${child} がある間は外せません',
 			'validation.invalidCondition' => '演算子と値を入力してください',
 			'validation.parentCycle' => '自分または配下は親にできません',

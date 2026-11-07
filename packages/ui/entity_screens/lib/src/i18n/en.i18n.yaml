@@ -42,6 +42,9 @@ validation:
   invalidDate: Enter a date as yyyy-MM-dd
   belowMinimum: Enter $min or more
   notAboveMinimum: Enter a value greater than $min
+  aboveMaximum: Enter $max or less
+  notBelowMaximum: Enter a value less than $max
+  beforeOtherDate: Enter a date on or after $other
   lockedByChildren: Cannot be turned off while $child exists
   invalidCondition: Select an operator and enter a value
   invalidChoice: Not one of the choices

@@ -18,10 +18,7 @@
 /auth/admin/signups,新規登録の管理,Manage sign-ups,auth_files,false
 /auth/admin/resets,再設定依頼の管理,Manage reset requests,auth_files,false
 /profile/image,自分のイメージ,My image,user_profile,false
-/actual/material_transfer/register,資材移動の登録,Register material transfer,pms_app,false
-/actual/shipping,出荷の登録,Register shipping,pms_app,false
 /actual/stock_state,在庫状況,Stock status,pms_app,false
-/shipping/order,出荷オーダー一覧,Shipping orders,pms_app,false
 /e/accesspath,アクセスパス,Access path,access_control,false
 /e/deptaccesspath,部署のアクセスパス,Department access path,access_control,false
 /e/staffaccesspermission,担当者のアクセスパス許可,Staff access permission,access_control,false
@@ -81,6 +78,7 @@
 /e/inspectionschedule,点検予定,Inspection schedule,resource,false
 /e/workcalendar,稼働カレンダー,Work calendar,resource,false
 /e/order,受注,Sales order,sales,false
+/e/shipplan,出荷予定,Shipping plan,sales,false
 /e/stakeholder,利害関係者,Stakeholder,shared_master,false
 /e/unit,単位,Unit,system,false
 /e/container,コンテナ,Container,work_record,false

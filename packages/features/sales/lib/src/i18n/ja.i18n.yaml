@@ -24,3 +24,21 @@ entity:
       f_delivery_date: "個別納期"
       f_deadline: "個別完了期限"
       f_remarks: "備考"
+  shipplan:
+    title: "出荷予定"
+    fields:
+      f_order: "受注"
+      f_date: "予定日"
+      f_carrier: "集荷業者"
+      f_arrival: "到着予定日"
+      f_done: "出荷状態（完了）"
+      f_wait: "出荷待ちの割合（%）"
+  shipline:
+    title: "出荷指示"
+    fields:
+      f_pack: "梱包サイズ"
+      f_qty: "出荷数量"
+      f_item: "出荷アイテム"
+      f_date: "個別の予定日"
+      f_arrival: "個別の到着日"
+      f_progress: "進捗（%）"

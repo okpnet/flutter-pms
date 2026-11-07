@@ -260,6 +260,15 @@ class _EntityEditPageState extends State<EntityEditPage> {
     EntityFieldError.notAboveMinimum => s.validation.notAboveMinimum(
       min: f?.gt ?? '',
     ),
+    EntityFieldError.aboveMaximum => s.validation.aboveMaximum(
+      max: f?.le ?? '',
+    ),
+    EntityFieldError.notBelowMaximum => s.validation.notBelowMaximum(
+      max: f?.lt ?? '',
+    ),
+    EntityFieldError.beforeOtherDate => s.validation.beforeOtherDate(
+      other: _scope.labels.field(widget.entityKey, f?.notBefore ?? ''),
+    ),
     EntityFieldError.lockedByChildren => s.validation.lockedByChildren(
       child: _scope.labels.entity(f?.lockedBy ?? ''),
     ),

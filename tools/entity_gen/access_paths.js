@@ -41,10 +41,7 @@ const CUSTOM = [
   ['auth_files', 'adminresets', '/auth/admin/resets', '再設定依頼の管理', 'Manage reset requests', false],
   ['user_profile', 'image', '/profile/image', '自分のイメージ', 'My image', false],
   // 旧来の pms_app のページ(apps/pms_app/lib/contents)
-  ['pms_app', 'material_transfer', '/actual/material_transfer/register', '資材移動の登録', 'Register material transfer', false],
-  ['pms_app', 'shipping', '/actual/shipping', '出荷の登録', 'Register shipping', false],
   ['pms_app', 'stock_state', '/actual/stock_state', '在庫状況', 'Stock status', false],
-  ['pms_app', 'shipping_order', '/shipping/order', '出荷オーダー一覧', 'Shipping orders', false],
 ];
 
 /** 実体(台帳)の英語名。キーは実体のキー。台帳を追加したら足す(無ければこのスクリプトが失敗する)。 */
@@ -108,6 +105,7 @@ const EN = {
   inspectionschedule: 'Inspection schedule',
   workcalendar: 'Work calendar',
   order: 'Sales order',
+  shipplan: 'Shipping plan',
   stakeholder: 'Stakeholder',
   unit: 'Unit',
   container: 'Container',

@@ -42,11 +42,15 @@ const GROUP_PROJECT = Object.fromEntries(
   Object.entries(PROJECTS).filter(([, p]) => p.group).map(([k, p]) => [p.group, k]),
 );
 
+/** 画面案のグループのうち、独立したプロジェクトを持たないもの(別のプロジェクトのメニューに入る)。出荷管理は営業のメニュー。 */
+GROUP_PROJECT.ship = 'sales';
+
 /** 専用の画面(手書きの Dart)を持つ実体。参照先としてだけ使う。 */
 const BESPOKE = {
   shipkind: { project: 'shared_master', ids: (n) => `5b1f0c1e-0000-4000-8000-${hex(n, 12)}`, max: 3 },
 };
-const SKIP = new Set(['customer', 'custcontact', 'supplier', 'suppcontact', 'shipkind']);
+/* 引当予約(stockrez)は、参照が動的(購買注文明細と生産計画のどちらか一方・引当元の在庫)で、entity_screens が扱えないため、生成しない(issue 20261107_0006 の2)。 */
+const SKIP = new Set(['customer', 'custcontact', 'supplier', 'suppcontact', 'shipkind', 'stockrez']);
 
 /** 利害関係者(stakeholder)。顧客・外部供給者は同じ mstr_stakeholder をフラグで見分けるだけなので、
  *  1つの実体にまとめる(shared_master)。他の実体からの参照のキー customer・supplier は、
@@ -114,7 +118,8 @@ const REVERSE = {
 };
 
 /* ------------------------------------------------------------------ 内部形式への変換 */
-const KIND = { t: 'text', x: 'multiline', n: 'number', d: 'date', s: 'choice', r: 'reference', b: 'flag' };
+/** 画面案の種類 → 項目の種類。c(計算項目)は読み取り専用の数値にする(値は DB のビュー・GraphQL の集計で返す。サンプルは空)。 */
+const KIND = { t: 'text', x: 'multiline', n: 'number', d: 'date', s: 'choice', r: 'reference', b: 'flag', c: 'number' };
 
 const byLabel = (key) => DOM.entities.find((x) => x.key === key)?.label ?? key;
 
@@ -127,8 +132,8 @@ function fromHtml(e) {
       ref = r.startsWith('@') ? COLL[r.slice(1).split(':')[0]] : r;
     }
     return {
-      key, label, kind: k, required: e.viewOnly ? false : extra.req !== false, readOnly: e.viewOnly ? true : extra.readOnly, options: k === 'choice' ? extra.opts : undefined, ref,
-      toggle: extra.toggle, disables: extra.disables, ge: extra.ge, gt: extra.gt, needUnless: extra.needUnless, lockedBy: extra.lockedBy, uniq: extra.uniq, picker: extra.picker,
+      key, label, kind: k, required: e.viewOnly || kind === 'c' ? false : extra.req !== false, readOnly: e.viewOnly || kind === 'c' ? true : extra.readOnly, options: k === 'choice' ? extra.opts : undefined, ref,
+      toggle: extra.toggle, disables: extra.disables, ge: extra.ge, gt: extra.gt, le: extra.le, lt: extra.lt, notBefore: extra.after, needUnless: extra.needUnless, lockedBy: extra.lockedBy, uniq: extra.uniq, picker: extra.picker,
     };
   });
   if (e.parent && e.tree) {
@@ -410,6 +415,9 @@ function defsDart(pkg, list) {
           if (fl.disables) a.push(`disables: ${dq(fl.disables)}`);
           if (fl.ge != null) a.push(`ge: ${fl.ge}`);
           if (fl.gt != null) a.push(`gt: ${fl.gt}`);
+          if (fl.le != null) a.push(`le: ${fl.le}`);
+          if (fl.lt != null) a.push(`lt: ${fl.lt}`);
+          if (fl.notBefore) a.push(`notBefore: ${dq(fl.notBefore)}`);
           if (fl.needUnless) a.push(`needUnless: ${dq(fl.needUnless)}`);
           if (fl.lockedBy) a.push(`lockedBy: ${dq(fl.lockedBy)}`);
           return `        FieldDefinition(${a.join(', ')}),`;

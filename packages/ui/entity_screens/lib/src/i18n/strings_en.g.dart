@@ -118,6 +118,9 @@ class _EntityScreenStrings$validation$en extends EntityScreenStrings$validation$
 	@override String get invalidDate => 'Enter a date as yyyy-MM-dd';
 	@override String belowMinimum({required Object min}) => 'Enter ${min} or more';
 	@override String notAboveMinimum({required Object min}) => 'Enter a value greater than ${min}';
+	@override String aboveMaximum({required Object max}) => 'Enter ${max} or less';
+	@override String notBelowMaximum({required Object max}) => 'Enter a value less than ${max}';
+	@override String beforeOtherDate({required Object other}) => 'Enter a date on or after ${other}';
 	@override String lockedByChildren({required Object child}) => 'Cannot be turned off while ${child} exists';
 	@override String get invalidCondition => 'Select an operator and enter a value';
 	@override String get invalidChoice => 'Not one of the choices';
@@ -175,6 +178,9 @@ extension on EntityScreenStringsEn {
 			'validation.invalidDate' => 'Enter a date as yyyy-MM-dd',
 			'validation.belowMinimum' => ({required Object min}) => 'Enter ${min} or more',
 			'validation.notAboveMinimum' => ({required Object min}) => 'Enter a value greater than ${min}',
+			'validation.aboveMaximum' => ({required Object max}) => 'Enter ${max} or less',
+			'validation.notBelowMaximum' => ({required Object max}) => 'Enter a value less than ${max}',
+			'validation.beforeOtherDate' => ({required Object other}) => 'Enter a date on or after ${other}',
 			'validation.lockedByChildren' => ({required Object child}) => 'Cannot be turned off while ${child} exists',
 			'validation.invalidCondition' => 'Select an operator and enter a value',
 			'validation.invalidChoice' => 'Not one of the choices',

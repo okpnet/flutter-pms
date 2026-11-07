@@ -74,7 +74,7 @@ class InMemoryEntityRepository implements IEntityRepository {
       );
       if (disabledBy.isNotEmpty) value = '';
       values[f.key] = value;
-      final error = disabledBy.isNotEmpty ? null : _validate(f, value);
+      final error = disabledBy.isNotEmpty ? null : _validate(f, value, record);
       if (error != null) errors[f.key] = error;
       // 別の項目がオンでなければ必須
       final unless = f.needUnless;
@@ -135,14 +135,18 @@ class InMemoryEntityRepository implements IEntityRepository {
     return false;
   }
 
-  EntityFieldError? _validate(FieldDefinition f, String value) {
+  EntityFieldError? _validate(
+    FieldDefinition f,
+    String value,
+    EntityRecord record,
+  ) {
     // 読み取り専用(集計)は、入力ではないので検証しない
     if (f.readOnly) return null;
     if (value.isEmpty) return f.required ? EntityFieldError.required : null;
     return switch (f.kind) {
       FieldKind.number => _validateNumber(f, value),
       FieldKind.flag => value == flagOn ? null : EntityFieldError.invalidChoice,
-      FieldKind.date => _isDate(value) ? null : EntityFieldError.invalidDate,
+      FieldKind.date => _validateDate(f, value, record),
       FieldKind.choice =>
         f.options.contains(value) ? null : EntityFieldError.invalidChoice,
       FieldKind.condition =>
@@ -158,6 +162,25 @@ class InMemoryEntityRepository implements IEntityRepository {
     if (n == null) return EntityFieldError.invalidNumber;
     if (f.ge != null && n < f.ge!) return EntityFieldError.belowMinimum;
     if (f.gt != null && n <= f.gt!) return EntityFieldError.notAboveMinimum;
+    if (f.le != null && n > f.le!) return EntityFieldError.aboveMaximum;
+    if (f.lt != null && n >= f.lt!) return EntityFieldError.notBelowMaximum;
+    return null;
+  }
+
+  /// 日付の形式と、[FieldDefinition.notBefore](別の日付の項目以降)を検証する。
+  static EntityFieldError? _validateDate(
+    FieldDefinition f,
+    String value,
+    EntityRecord record,
+  ) {
+    if (!_isDate(value)) return EntityFieldError.invalidDate;
+    final other = f.notBefore == null
+        ? ''
+        : record.valueOf(f.notBefore!).trim();
+    // yyyy-MM-dd は文字列の比較で日付の前後になる
+    if (other.isNotEmpty && _isDate(other) && value.compareTo(other) < 0) {
+      return EntityFieldError.beforeOtherDate;
+    }
     return null;
   }
 

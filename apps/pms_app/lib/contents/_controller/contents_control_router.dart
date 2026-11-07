@@ -18,33 +18,10 @@ final shellNavigatorKey = GlobalKey<NavigatorState>();
         ///実績ブランチ
         TypedStatefulShellBranch<ActualBranch>(
           routes: [
-            ///資材提供ページ
-            TypedGoRoute<RegisterMaterialTransferRouter>(
-              path: RegisterMaterialTransferConstant.path,
-              name: RegisterMaterialTransferConstant.name,
-            ),
-
-            ///出荷梱包ページ
-            TypedGoRoute<RegisterShippingRouter>(
-              path: RegisterShippingConstant.path,
-              name: RegisterShippingConstant.name,
-            ),
-
             ///在庫状態ページ
             TypedGoRoute<StockStateRouter>(
               path: StockStateConstant.path,
               name: StockStateConstant.name,
-            ),
-          ],
-        ),
-
-        ///出荷ブランチ
-        TypedStatefulShellBranch<ShippingBranch>(
-          routes: [
-            ///出荷管理閲覧ページ
-            TypedGoRoute<LitsShippingRouter>(
-              path: LitsShippingConstant.path,
-              name: LitsShippingConstant.name,
             ),
           ],
         ),

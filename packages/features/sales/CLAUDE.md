@@ -35,7 +35,10 @@
 |---|---|---|---|---|
 | 受注 | `order` | テーブル構造 | 6 |  |
 | 受注明細 | `orderdetail` | 子の台帳(親: 受注) | 8 |  |
+| 出荷予定 | `shipplan` | テーブル構造 | 6 | `order`, `supplier` |
+| 出荷指示 | `shipline` | 子の台帳(親: 出荷予定) | 6 | `itempack`, `item` |
 <!-- entity_gen:end -->
+
 
 
 

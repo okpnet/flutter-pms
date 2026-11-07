@@ -60,6 +60,8 @@ class SalesStrings$entity$ja {
 	// Translations
 	late final SalesStrings$entity$order$ja order = SalesStrings$entity$order$ja.internal(_root);
 	late final SalesStrings$entity$orderdetail$ja orderdetail = SalesStrings$entity$orderdetail$ja.internal(_root);
+	late final SalesStrings$entity$shipplan$ja shipplan = SalesStrings$entity$shipplan$ja.internal(_root);
+	late final SalesStrings$entity$shipline$ja shipline = SalesStrings$entity$shipline$ja.internal(_root);
 }
 
 // Path: entity.order
@@ -88,6 +90,34 @@ class SalesStrings$entity$orderdetail$ja {
 	String get title => '受注明細';
 
 	late final SalesStrings$entity$orderdetail$fields$ja fields = SalesStrings$entity$orderdetail$fields$ja.internal(_root);
+}
+
+// Path: entity.shipplan
+class SalesStrings$entity$shipplan$ja {
+	SalesStrings$entity$shipplan$ja.internal(this._root);
+
+	final SalesStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '出荷予定'
+	String get title => '出荷予定';
+
+	late final SalesStrings$entity$shipplan$fields$ja fields = SalesStrings$entity$shipplan$fields$ja.internal(_root);
+}
+
+// Path: entity.shipline
+class SalesStrings$entity$shipline$ja {
+	SalesStrings$entity$shipline$ja.internal(this._root);
+
+	final SalesStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '出荷指示'
+	String get title => '出荷指示';
+
+	late final SalesStrings$entity$shipline$fields$ja fields = SalesStrings$entity$shipline$fields$ja.internal(_root);
 }
 
 // Path: entity.order.fields
@@ -150,6 +180,60 @@ class SalesStrings$entity$orderdetail$fields$ja {
 	String get f_remarks => '備考';
 }
 
+// Path: entity.shipplan.fields
+class SalesStrings$entity$shipplan$fields$ja {
+	SalesStrings$entity$shipplan$fields$ja.internal(this._root);
+
+	final SalesStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '受注'
+	String get f_order => '受注';
+
+	/// ja: '予定日'
+	String get f_date => '予定日';
+
+	/// ja: '集荷業者'
+	String get f_carrier => '集荷業者';
+
+	/// ja: '到着予定日'
+	String get f_arrival => '到着予定日';
+
+	/// ja: '出荷状態（完了）'
+	String get f_done => '出荷状態（完了）';
+
+	/// ja: '出荷待ちの割合（%）'
+	String get f_wait => '出荷待ちの割合（%）';
+}
+
+// Path: entity.shipline.fields
+class SalesStrings$entity$shipline$fields$ja {
+	SalesStrings$entity$shipline$fields$ja.internal(this._root);
+
+	final SalesStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '梱包サイズ'
+	String get f_pack => '梱包サイズ';
+
+	/// ja: '出荷数量'
+	String get f_qty => '出荷数量';
+
+	/// ja: '出荷アイテム'
+	String get f_item => '出荷アイテム';
+
+	/// ja: '個別の予定日'
+	String get f_date => '個別の予定日';
+
+	/// ja: '個別の到着日'
+	String get f_arrival => '個別の到着日';
+
+	/// ja: '進捗（%）'
+	String get f_progress => '進捗（%）';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -175,6 +259,20 @@ extension on SalesStrings {
 			'entity.orderdetail.fields.f_delivery_date' => '個別納期',
 			'entity.orderdetail.fields.f_deadline' => '個別完了期限',
 			'entity.orderdetail.fields.f_remarks' => '備考',
+			'entity.shipplan.title' => '出荷予定',
+			'entity.shipplan.fields.f_order' => '受注',
+			'entity.shipplan.fields.f_date' => '予定日',
+			'entity.shipplan.fields.f_carrier' => '集荷業者',
+			'entity.shipplan.fields.f_arrival' => '到着予定日',
+			'entity.shipplan.fields.f_done' => '出荷状態（完了）',
+			'entity.shipplan.fields.f_wait' => '出荷待ちの割合（%）',
+			'entity.shipline.title' => '出荷指示',
+			'entity.shipline.fields.f_pack' => '梱包サイズ',
+			'entity.shipline.fields.f_qty' => '出荷数量',
+			'entity.shipline.fields.f_item' => '出荷アイテム',
+			'entity.shipline.fields.f_date' => '個別の予定日',
+			'entity.shipline.fields.f_arrival' => '個別の到着日',
+			'entity.shipline.fields.f_progress' => '進捗（%）',
 			_ => null,
 		};
 	}

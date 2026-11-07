@@ -61,6 +61,11 @@
         "key": "order",
         "label": "受注",
         "first": "SO-2610-001"
+      },
+      {
+        "key": "shipplan",
+        "label": "出荷予定",
+        "first": ""
       }
     ],
     "shared_master": [
@@ -382,7 +387,10 @@
       "resource",
       "shared_master"
     ],
-    "sales": [],
+    "sales": [
+      "item",
+      "shared_master"
+    ],
     "shared_master": [],
     "purchasing": [
       "item",
