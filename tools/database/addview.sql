@@ -74,6 +74,7 @@ COMMENT ON VIEW tests.v_visiter_item IS E'@primaryKey trans_visiter_id\n@foreign
 --    quantity   : 今の数量(v_visiter_lot.quantity)
 --    safety     : 品目の安全在庫(mstr_item_lot.safety_inventory。品目全体の値で、行ごとに重複して引かない)
 --    reserved   : この在庫を引当元にした引当予約の合計(trans_inventory_request.quantity)
+--    available_with_safety : 先行引当用。安全在庫を引かない出庫可能数
 --    available  : 出庫可能数 = 0 以上の min(この在庫の空き, 品目全体の在庫 − 品目全体の引当済 − 安全在庫)
 --                 (実在庫に安全在庫が含まれる分は引き当てられない。0 未満にはならない)
 -- ---------------------------------------------------------------------------------------------------------
@@ -120,6 +121,16 @@ SELECT
           )
           , 0
       ) AS available
+    -- 先行引当用: 安全在庫を引かない出庫可能数(品目全体の在庫 − 引当済。0 未満にはならない)。
+    -- 安全在庫を使ってよいかは、納期への影響で決める(apps/pms_app/issue/未20261107_0010.md の 5-1)。
+    , GREATEST(
+          LEAST(
+              lot.quantity - lot.reserved
+              , SUM(lot.quantity) OVER (PARTITION BY lot.mstr_item_id)
+                - SUM(lot.reserved) OVER (PARTITION BY lot.mstr_item_id)
+          )
+          , 0
+      ) AS available_with_safety
 FROM lot;
 
 COMMENT ON VIEW tests.v_stock_status IS E'@primaryKey trans_visiter_id\n@unique symbol\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (mstr_location_id) references mstr_location (mstr_location_id)\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n在庫状況(出庫可能数つき)';
