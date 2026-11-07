@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -1174,13 +1174,12 @@ Left=6700
 Top=1500
 Field="購買引当予約ID","trans_purchase_rez_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="発注明細ID","trans_purchase_detail_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="引当数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261014104450
+ModifiedDateTime=20261107153008
 Position="作業トランザクション",6700,1500
 ZOrder=108
 
@@ -1745,13 +1744,12 @@ Left=5550
 Top=600
 Field="生産引当ID","trans_product_rez_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="生産計画詳細ID","trans_work_plan_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="引当数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260919203712
+ModifiedDateTime=20261107153015
 Position="作業トランザクション",5550,600
 ZOrder=202
 
