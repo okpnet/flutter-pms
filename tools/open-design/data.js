@@ -289,3 +289,16 @@ window.OD_DATA.mrpRows = [
    takenIds  : すでに使われているユーザーID（小文字）。新規登録で入力すると重複エラーになる。
    maxTries  : コードを続けて間違えられる回数。超えると入力を止める。 */
 window.OD_DATA.auth = { code: "123456", takenIds: ["suzuki.ichiro", "yamada.taro"], maxTries: 5 };
+
+/* ---- 在庫状況（場所 × コンテナ × 品目）。実在しない架空の値 ----
+   loc: 場所ID(locations) / container: コンテナ行ID / item: 品目行ID / shelf・sym: バーコード画面へ渡す棚と品目のバーコード */
+window.OD_DATA.stock = [
+  { id: "st1", loc: "l5",  container: "container2", item: "item4", unit: "本", qty: 120, safety: 40,  shelf: "SH-M-01", sym: "IT-BAR" },
+  { id: "st2", loc: "l5",  container: "container3", item: "item4", unit: "本", qty: 30,  safety: 20,  shelf: "SH-M-01", sym: "IT-BAR" },
+  { id: "st3", loc: "l12", container: "container2", item: "item4", unit: "本", qty: 80,  safety: 50,  shelf: "SH-R-01", sym: "IT-BAR" },
+  { id: "st4", loc: "l10", container: "container2", item: "item1", unit: "台", qty: 18,  safety: 5,   shelf: "SH-A-01", sym: "IT-UNIT-A" },
+  { id: "st5", loc: "l10", container: "container3", item: "item1", unit: "台", qty: 6,   safety: 6,   shelf: "SH-A-02", sym: "IT-UNIT-A" },
+  { id: "st6", loc: "l8",  container: "container2", item: "item2", unit: "個", qty: 400, safety: 100, shelf: "SH-A-01", sym: "IT-BRKT" },
+  { id: "st7", loc: "l8",  container: "container3", item: "item2", unit: "個", qty: 90,  safety: 100, shelf: "SH-X-01", sym: "IT-BRKT" },
+  { id: "st8", loc: "l15", container: "container2", item: "item4", unit: "本", qty: 15,  safety: 0,   shelf: "SH-R-01", sym: "IT-BAR" },
+];

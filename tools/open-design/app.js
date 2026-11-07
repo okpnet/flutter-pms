@@ -99,6 +99,7 @@
     orders: "出荷",
     production: "生産計画",
     mrp: "資材所要計算",
+    stock: "在庫状況",
     organization: "組織",
     more: "その他",
     company: "会社情報",
@@ -156,8 +157,9 @@
     error: "エラー",
   };
   /* #/company/provision/<id|new>, #/company/position/<id|new>, #/company/position/<pid>/assign/<id|new> */
+  const hashQuery = () => new URLSearchParams(location.hash.split("?")[1] ?? "");
   const parseRoute = () => {
-    const r = location.hash.replace(/^#\//, "");
+    const r = location.hash.replace(/^#\//, "").split("?")[0];
     let m;
     if ((m = r.match(/^g\/e\/(\w+)\/([\w-]+)(?:\/([\w-]+))?$/))) return { name: "g/entity", ent: m[1], id: m[2], parentId: m[3] };
     if ((m = r.match(/^g\/(\w+)(?:\/(\w+))?(\/edit)?$/)) && m[1] !== "e") return { name: "g", sid: m[1], tab: m[2] === "edit" ? undefined : m[2], edit: !!m[3] || m[2] === "edit" };
@@ -189,6 +191,7 @@
   const crumbOf = (route) => ({
     barcode: "作業実績",
     mrp: "生産計画",
+    stock: "作業実績",
     "company/edit": "会社情報",
     "company/provision": "会社情報 › 編集",
     "company/position": "会社情報 › 編集",
@@ -510,11 +513,11 @@
     ["remarks", "備考", "textarea", 1024, false],
   ];
   /* ---------- edit structure helpers ---------- */
-  const fieldRow = ({ id, label, kind = "input", max = 60, req = true, options = [], value = "", taken = null, blank = "選択してください", after = null, min = null, toggle = false, disabled = false, ge = null, gt = null, keepMsg = null, needUnless = null, disables = null, rule = null, attrs = "" }) => {
+  const fieldRow = ({ id, label, kind = "input", max = 60, req = true, options = [], value = "", taken = null, blank = "選択してください", after = null, min = null, toggle = false, disabled = false, ge = null, gt = null, keepMsg = null, needUnless = null, disables = null, rule = null, attrs = "", le = null, xor = null, setsLe = null, leMap = null }) => {
     if (kind === "check") {
       return `<div class="field-row field-check ${toggle ? "is-switch" : ""}"><input type="checkbox" id="f-${id}" name="${id}" value="1" ${value ? "checked" : ""} ${toggle ? 'role="switch"' : ""} ${keepMsg ? `data-keep-msg="${esc(keepMsg)}"` : ""} ${disables ? `data-disables="${disables}"` : ""} aria-describedby="e-${id}"><label for="f-${id}">${label}</label><p class="field-err" id="e-${id}"></p></div>`;
     }
-    const common = `id="f-${id}" name="${id}" ${req ? "required" : ""} aria-describedby="e-${id}" ${taken ? `data-taken="${esc(JSON.stringify(taken))}"` : ""} ${after ? `data-after="${after}"` : ""} ${min ? `data-min="${min}"` : ""} ${ge != null ? `data-ge="${ge}"` : ""} ${gt != null ? `data-gt="${gt}"` : ""} ${needUnless ? `data-need-unless="${needUnless}"` : ""} ${disabled ? "disabled" : ""} ${rule ? `data-rule="${rule}"` : ""} ${attrs}`;
+    const common = `id="f-${id}" name="${id}" ${req ? "required" : ""} aria-describedby="e-${id}" ${taken ? `data-taken="${esc(JSON.stringify(taken))}"` : ""} ${after ? `data-after="${after}"` : ""} ${min ? `data-min="${min}"` : ""} ${ge != null ? `data-ge="${ge}"` : ""} ${gt != null ? `data-gt="${gt}"` : ""} ${needUnless ? `data-need-unless="${needUnless}"` : ""} ${disabled ? "disabled" : ""} ${rule ? `data-rule="${rule}"` : ""} ${le != null ? `data-le="${le}"` : ""} ${xor ? `data-xor="${xor}"` : ""} ${setsLe ? `data-sets-le="${setsLe}" data-le-map="${esc(JSON.stringify(leMap ?? {}))}"` : ""} ${attrs}`;
     let ctl;
     if (kind === "textarea") ctl = `<textarea ${common} rows="3" maxlength="${max}">${esc(value)}</textarea>`;
     else if (kind === "select") ctl = `<select ${common}><option value="">${blank}</option>${options.map(([v, l]) => `<option value="${esc(v)}" ${v === value ? "selected" : ""}>${esc(l)}</option>`).join("")}</select>`;
@@ -928,7 +931,7 @@
 
   /* ---------- generic table structure (used by the approval tables) ---------- */
   const TABLES = {}; // every makeTable() result, looked up by key from the DOM (data-tkey)
-  function makeTable({ key, cols, hidden = [], list, search, placeholder = "", filter = null, sort = null, href = null, pick = null, nest = null, always = false, noun = "件" }) {
+  function makeTable({ key, cols, hidden = [], list, search, placeholder = "", filter = null, sort = null, href = null, pick = null, nest = null, always = false, noun = "件", rowNote = null, linkAria = "を編集" }) {
     const view = { sort: sort ? { ...sort } : { key: null, dir: 1 }, q: "", type: "すべて", hidden: new Set(hidden), colsOpen: false, limit: null };
     const shown = () => cols.filter((c) => c.fixed || !view.hidden.has(c.key));
     const rows = () => {
@@ -955,7 +958,7 @@
       const body = l.map((r) => `<tr class="${link ? "row-link" : ""} ${sel === r.id ? "is-selected" : ""}" ${link ? `data-href="${href(r)}"` : ""}>${cs.map((c) => {
         const lab = `data-label="${c.label}"`;
         if (c.fixed && pick && !editMode) return `<th scope="row" ${lab} class="od-keep">${tg(r)}<button class="cell-link pick-btn" type="button" data-pickrow="${r.id}" aria-pressed="${sel === r.id}">${cellHtml(c, r)}</button></th>`;
-        if (c.fixed) return `<th scope="row" ${lab} class="od-keep">${tg(r)}${link ? `<a class="cell-link" href="${href(r)}" aria-label="${esc(String(c.val(r)))}を編集">${cellHtml(c, r)}</a>` : cellHtml(c, r)}</th>`;
+        if (c.fixed) return `<th scope="row" ${lab} class="od-keep">${tg(r)}${link ? `<a class="cell-link" href="${href(r)}" aria-label="${esc(String(c.val(r)))}${linkAria}">${cellHtml(c, r)}</a>` : cellHtml(c, r)}</th>`;
         return `<td ${lab} class="${c.num ? "num od-nowrap" : ""}">${cellHtml(c, r)}</td>`;
       }).join("")}</tr>${nest && !nest.closed.has(r.id) ? `<tr class="nest-row"><td colspan="${cs.length}">${nest.html(r, editMode)}</td></tr>` : ""}`).join("");
       const total = list().length;
@@ -963,7 +966,7 @@
         ? `<div class="tbl-wrap"><table class="tbl"><caption class="sr-only">一覧テーブル</caption><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`
         : emptyState(total ? "該当するデータがありません" : "まだ登録されていません", total ? "検索語や絞り込みを変えてください。" : "「追加」ボタンから登録してください。");
       const more = all.length > l.length ? `<div class="form-actions"><button class="btn" type="button" data-more="${key}">さらに読み込む（残り${all.length - l.length}${noun}）</button></div>` : "";
-      return `<p class="tbl-note">全${total}${noun}のうち${all.length === total ? "" : `条件に合う${all.length}${noun}から`}${l.length}${noun}を表示${link ? "。行を選ぶと編集できます。" : pick && !editMode ? "。名称を選ぶと、下に詳細を表示します。" : "。"}</p>${table}${more}`;
+      return `<p class="tbl-note">全${total}${noun}のうち${all.length === total ? "" : `条件に合う${all.length}${noun}から`}${l.length}${noun}を表示${link ? (rowNote ?? "。行を選ぶと編集できます。") : pick && !editMode ? "。名称を選ぶと、下に詳細を表示します。" : "。"}</p>${table}${more}`;
     };
     const toolbar = () => {
       const sortOpts = [`<option value="">指定なし</option>`].concat(shown().flatMap((c) =>
@@ -2373,7 +2376,7 @@
   const G_CHIP = { "高": "bad", "中": "warn", "低": "mute", "受付": "mute", "対応中": "line", "完了": "ok", "有効": "ok", "継続監視": "warn", "無効": "mute" };
   DOM.entities.forEach((e) => {
     G[e.key] = { ...e, coll: `g_${e.key}`, children: [],
-      fields: e.fields.map(([id, label, kind = "t", x = {}]) => ({ id, label, kind, req: x.req !== false, opts: x.opts, ref: x.ref, toggle: x.toggle, ge: x.ge, gt: x.gt, uniq: x.uniq, lockedBy: x.lockedBy, disables: x.disables, needUnless: x.needUnless })) };
+      fields: e.fields.map(([id, label, kind = "t", x = {}]) => ({ id, label, kind, req: x.req !== false, opts: x.opts, ref: x.ref, toggle: x.toggle, ge: x.ge, gt: x.gt, uniq: x.uniq, lockedBy: x.lockedBy, disables: x.disables, needUnless: x.needUnless, le: x.le, after: x.after, calc: x.calc, xor: x.xor, limit: x.limit, setsLe: x.setsLe })) };
   });
   DOM.entities.forEach((e) => { if (e.parent) G[e.parent.ent].children.push(e.key); });
   DOM.screens.forEach((s) => {
@@ -2390,7 +2393,7 @@
       const a = [...row];
       const r = { id: `${E.key}${i + 1}` };
       if (E.parent) r[E.parent.key] = a.shift();
-      E.fields.forEach((f) => { r[f.id] = a.shift() ?? ""; });
+      E.fields.forEach((f) => { if (f.kind !== "c") r[f.id] = a.shift() ?? ""; });
       if (E.tree) r.parent = a.shift() ?? "";
       return { ...r, updatedBy: "鈴木 一郎", updatedAt: "2026年9月30日" };
     });
@@ -2427,11 +2430,12 @@
   function gSelect(k, id) { gSel[k] = id; G[k].children.forEach((c) => gSelect(c, null)); }
   const gCols = (E) => [
     ...E.fields.map((f, i) => ({
-      key: f.id, label: f.label, fixed: i === 0, num: f.kind === "n",
-      val: (r) => (f.kind === "b" ? (r[f.id] ? 1 : 0) : f.kind === "n" ? Number(r[f.id]) || 0 : f.kind === "s" ? f.opts.indexOf(r[f.id]) : f.kind === "d" ? r[f.id] : String(gShow(f, r[f.id]))),
-      html: (r) => (f.kind === "b" ? (r[f.id] ? chip("はい", "check", "ok") : chip("いいえ", "", "mute")) : f.kind === "s" && r[f.id] ? chip(esc(r[f.id]), "", G_CHIP[r[f.id]] ?? "") : f.kind === "d" ? `<span class="od-nowrap">${esc(gShow(f, r[f.id]))}</span>` : esc(gShow(f, r[f.id]))),
+      key: f.id, label: f.label, fixed: i === 0, num: f.kind === "n" || f.kind === "c",
+      val: (r) => (f.kind === "c" ? Number(f.calc(r)) : f.kind === "b" ? (r[f.id] ? 1 : 0) : f.kind === "n" ? Number(r[f.id]) || 0 : f.kind === "s" ? f.opts.indexOf(r[f.id]) : f.kind === "d" ? r[f.id] : String(gShow(f, r[f.id]))),
+      html: (r) => (f.kind === "c" ? `<span class="od-nowrap">${f.calc(r)}%</span>` : f.kind === "b" ? (r[f.id] ? chip("はい", "check", "ok") : chip("いいえ", "", "mute")) : f.kind === "s" && r[f.id] ? chip(esc(r[f.id]), "", G_CHIP[r[f.id]] ?? "") : f.kind === "d" ? `<span class="od-nowrap">${esc(gShow(f, r[f.id]))}</span>` : esc(gShow(f, r[f.id]))),
     })),
     ...E.children.map((c) => numCol(`c_${c}`, G[c].label, G[c].coll, G[c].parent.key, "件")),
+    ...(E.action ? [{ key: "_act", label: "操作", val: () => "", html: (r) => `<a class="btn tree-act" href="#/g/e/stockrez/new?${E.action.param}=${r.id}">${E.action.label}</a>` }] : []),
     byCol, dateCol,
   ];
   Object.values(G).forEach((E) => {
@@ -2560,13 +2564,16 @@
     const pid = E.parent ? (isNew ? parentId : rec[E.parent.key]) : null;
     const P = pid ? gGet(E.parent.ent, pid) : null;
     if (pid && !P) return notFound(`${G[E.parent.ent].label}が見つかりません`, home);
-    const back = P && (!E.screen || gPrev.includes(`#/g/e/${E.parent.ent}/${pid}`)) ? `#/g/e/${E.parent.ent}/${pid}` : home;
+    const qs = hashQuery();
+    const back = ent === "stockrez" && isNew && gPrev.includes("#/stock") ? "#/stock" : P && (!E.screen || gPrev.includes(`#/g/e/${E.parent.ent}/${pid}`)) ? `#/g/e/${E.parent.ent}/${pid}` : home;
     const rows = [];
     if (E.parent && !pid) rows.push(fieldRow({ id: E.parent.key, label: G[E.parent.ent].label, kind: "select", options: gRefOpts({ ref: E.parent.ent }), value: "" }));
-    E.fields.forEach((f) => rows.push(fieldRow({
+    const lim = E.limit ? E.limit(rec, qs) : null;
+    E.fields.filter((f) => f.kind !== "c").forEach((f) => rows.push(fieldRow({
       id: f.id, label: f.label, kind: FK[f.kind], max: f.kind === "x" ? 200 : 60, req: f.req,
-      options: f.kind === "s" ? f.opts.map((o) => [o, o]) : f.kind === "r" ? gRefOpts(f) : [], value: String(rec[f.id] ?? ""),
-      toggle: f.toggle, ge: f.ge, gt: f.gt, needUnless: f.needUnless, disables: f.disables, disabled: !!(f.needUnless && rec[f.needUnless]),
+      options: f.kind === "s" ? f.opts.map((o) => [o, o]) : f.kind === "r" ? (E.opts?.[f.id] ? E.opts[f.id](rec, qs) : gRefOpts(f)) : [], value: isNew ? (qs.get(f.id) ?? "") : String(rec[f.id] ?? ""),
+      after: f.after, xor: f.xor, setsLe: f.setsLe, leMap: f.setsLe ? lim?.byStock : null, le: f.limit ? lim?.max : f.le,
+      toggle: f.toggle, ge: f.ge, gt: f.gt, needUnless: f.needUnless, disables: f.disables, disabled: !!(f.needUnless && rec[f.needUnless]) || !!(isNew && f.xor && (qs.get(f.id) || qs.get(f.xor))),
       taken: f.uniq && E.parent && pid ? D[E.coll].filter((r) => r[E.parent.key] === pid && r.id !== id).map((r) => r[f.id]) : null,
       keepMsg: f.lockedBy && !isNew && D[G[f.lockedBy].coll].some((r) => r[G[f.lockedBy].parent.key] === id)
         ? `${G[f.lockedBy].label}が登録されているため、チェックは外せません。先に${G[f.lockedBy].label}を削除してください。` : null,
@@ -2586,6 +2593,7 @@
         <div class="err-sum" id="err-sum" role="alert" tabindex="-1" hidden></div>
         ${P ? `<dl><div class="kv"><dt>${G[E.parent.ent].label}</dt><dd>${esc(gName(G[E.parent.ent], P))}</dd></div></dl>` : ""}
         ${rows.join("")}
+        ${!isNew && E.fields.some((f) => f.kind === "c") ? `<dl class="meta" aria-label="自動で計算される項目（編集できません）">${E.fields.filter((f) => f.kind === "c").map((f) => `<div class="kv"><dt>${f.label}</dt><dd class="od-nowrap">${f.calc(rec)}%</dd></div>`).join("")}</dl>` : ""}
         ${isNew ? "" : metaHtml(rec)}
         <div class="form-actions">${isNew ? "" : `<button class="btn btn-danger" type="button" id="del-btn">削除</button>`}<button class="btn btn-primary" type="submit">${isNew ? "追加" : "保存"}</button></div>
       </form>
@@ -2617,13 +2625,57 @@
     return DOM.groups.map((g) => `<section class="card list-card" aria-labelledby="mg-${g.id}"><h2 class="sec-title menu-title" id="mg-${g.id}">${icon(g.icon)}${g.label}</h2>${g.screens.map((sid) => {
       const S = GS[sid];
       return row(`#/g/${sid}`, S.icon, S.label, S.tabs.map((t) => t.label).join("・"));
-    }).join("")}${g.id === "result" ? row("#/barcode", "barcode", "バーコード", "作業実績・受入検品・棚移動・設備点検") : ""}${g.id === "plan" ? row("#/mrp", "box", "資材所要計算", "MRP・再MRPの実行") : ""}</section>`).join("") +
+    }).join("")}${g.id === "result" ? row("#/barcode", "barcode", "バーコード", "作業実績・受入検品・棚移動・設備点検") + row("#/stock", "box", "在庫状況", "場所・コンテナ別の在庫と出庫可能数") : ""}${g.id === "plan" ? row("#/mrp", "box", "資材所要計算", "MRP・再MRPの実行") : ""}</section>`).join("") +
       `<section class="card list-card" aria-label="アプリケーション">${row("#/settings", "gear", "設定", "自分のイメージ・読込件数・テーマ・言語・画面の列")}</section>`;
   }
 
   /* ---------- AppCore: boot / login / error / settings ---------- */
   let loginMsg = "";
   let gErr = { title: "認証サーバーに接続できません", msg: "ネットワークの状態を確認して、もう一度お試しください。", code: "KC-503" };
+  /* ---------- 作業実績 › 在庫状況（読み取り専用の台帳）と、引当予約 ----------
+     在庫の行 = 場所 × コンテナ × 品目。出庫可能数 = 在庫数 − 安全在庫 − 引当予約済み（0を下回らない）。
+     行を選ぶと、棚と品目を引数にバーコード画面（棚移動）へ移る。「引当予約」ボタンで引当予約の画面を開く。 */
+  const stockReserved = (id) => (D.g_stockrez ?? []).filter((r) => r.stock === id).reduce((n, r) => n + (Number(r.qty) || 0), 0);
+  const stockAvail = (s) => Math.max(0, s.qty - s.safety - stockReserved(s.id));
+  const locNm = (id) => locById(id)?.name ?? "―";
+  const conNm = (id) => { const c = gGet("container", id); return c ? gName(G.container, c) : "―"; };
+  const stItemNm = (id) => { const i = gGet("item", id); return i ? gName(G.item, i) : "―"; };
+  D.stock.forEach((s) => { s.label = `${locNm(s.loc)}／${conNm(s.container)}／${stItemNm(s.item)}`; });
+  /* 引当予約の「引当先」の選択肢（発注明細・生産計画）。台帳の増減に追随するよう、参照のたびに作る */
+  Object.defineProperty(D, "srcPur", { get: () => D.g_purdetail.map((r) => ({ id: r.id, label: `${gName(G.purchase, gGet("purchase", r.purchase) ?? {})} 明細（数量 ${fmt(Number(r.quantity) || 0)}）` })) });
+  Object.defineProperty(D, "srcOps", { get: () => D.g_opsplan.map((r) => ({ id: r.id, label: `${gName(G.resplan, gGet("resplan", r.resplan) ?? {})}／完了期限 ${r.deadline ? fmtDate(r.deadline) : "―"}` })) });
+  G.stockrez.opts = { stock: () => D.stock.map((s) => [s.id, `${s.label}（出庫可能 ${fmt(stockAvail(s))}）`]) };
+  /* 引当数量の上限 = 選んだ在庫の出庫可能数 と 購買注文明細の未引当数量 の小さいほう */
+  G.stockrez.limit = (rec, qs) => {
+    const p = rec.purdetail || qs.get("purdetail") || "";
+    const need = p ? (Number(gGet("purdetail", p)?.quantity) || 0) - D.g_stockrez.filter((r) => r.purdetail === p && r.id !== rec.id).reduce((n, r) => n + (Number(r.qty) || 0), 0) : Infinity;
+    const cap = Number.isFinite(need) ? Math.max(0, need) : Infinity;
+    const own = (s) => (rec.id && rec.stock === s.id ? Number(rec.qty) || 0 : 0);
+    const byStock = Object.fromEntries(D.stock.map((s) => [s.id, Math.min(stockAvail(s) + own(s), cap)]));
+    const st = rec.stock || qs.get("stock") || "";
+    return { byStock, max: st && st in byStock ? byStock[st] : undefined };
+  };
+  const stockT = makeTable({
+    key: "stock", noun: "件", list: () => D.stock, placeholder: "場所・コンテナ・品目",
+    search: (r) => r.label, rowNote: "。行を選ぶと、その棚と品目を引数にバーコード画面（棚移動）を開きます。", linkAria: "の棚と品目でバーコード画面を開く",
+    filter: { label: "場所", values: [...new Set(D.stock.map((r) => locNm(r.loc)))], get: (r) => locNm(r.loc) },
+    href: (r) => `#/barcode?shelf=${encodeURIComponent(r.shelf)}&item=${encodeURIComponent(r.sym)}`,
+    cols: [
+      { key: "loc", label: "場所", fixed: true, val: (r) => locNm(r.loc) },
+      { key: "container", label: "コンテナ", val: (r) => conNm(r.container) },
+      { key: "item", label: "品目", val: (r) => stItemNm(r.item) },
+      { key: "qty", label: "在庫数", num: true, val: (r) => r.qty, html: (r) => `${fmt(r.qty)}${esc(r.unit ?? "")}` },
+      { key: "safety", label: "安全在庫", num: true, val: (r) => r.safety, html: (r) => `${fmt(r.safety)}${esc(r.unit ?? "")}` },
+      { key: "avail", label: "出庫可能数", num: true, val: (r) => stockAvail(r), html: (r) => `${fmt(stockAvail(r))}${esc(r.unit ?? "")}${stockAvail(r) ? "" : ` ${chip("出庫不可", "alert", "warn")}`}` },
+      { key: "rez", label: "引当予約済", num: true, val: (r) => stockReserved(r.id), html: (r) => `${fmt(stockReserved(r.id))}${esc(r.unit ?? "")}` },
+      { key: "act", label: "操作", val: () => "", html: (r) => `<a class="btn tree-act" href="#/g/e/stockrez/new?stock=${r.id}">引当予約</a>` },
+    ],
+  });
+  function stockScreen() {
+    return `${flashHtml()}<section class="card" aria-label="説明"><p>場所・コンテナごとの在庫です（読み取り専用）。出庫可能数は、在庫数から安全在庫と引当予約済みの数量を引いた数です。</p></section>
+      ${tableCard(stockT, true, "h-stock", "在庫の台帳", "")}`;
+  }
+
   /* ---------- barcode: 作業実績 › バーコード ----------
      バーコードリーダー（キーボード入力として届く。末尾の Enter で確定）・スマートフォン・タブレットから、
      symbol を読み込んで作業を進める画面。コマンド分岐は symbol の種類で決まる（data.extra.js の barcode）。
@@ -2662,6 +2714,17 @@
   const bcRemain = (w) => Math.max(0, w.qty - w.done);
   const bcPoRemain = (p) => Math.max(0, p.qty - (p.received ?? 0));
 
+  /* 在庫状況などからの引数: #/barcode?shelf=<棚のバーコード>&item=<品目のバーコード>。棚移動のモードで順に読み取った状態から始める */
+  function bcApplyArgs() {
+    const q = hashQuery();
+    const sh = q.get("shelf"), it = q.get("item");
+    if ((!sh && !it) || BC.argKey === location.hash) return;
+    BC.argKey = location.hash;
+    BC.mode = "shelf";
+    bcReset();
+    if (sh) bcSubmit(sh);
+    if (it) bcSubmit(it);
+  }
   /* 入庫処理: 作業/受入/棚移動のどれでも、最後は棚へ入庫してリーディングトップへ戻る */
   function bcPut(shelf) {
     const c = BC.ctx;
@@ -3278,6 +3341,7 @@
     { id: "maintenance-mode", icon: "wrench", label: "メンテナンス中" },
   ];
   NAV.find((n) => n.group === "g_plan")?.children.push({ id: "mrp", icon: "box", label: "資材所要計算" });
+  NAV.find((n) => n.group === "g_result")?.children.push({ id: "stock", icon: "box", label: "在庫状況" });
   const navOpen = new Set(); // expanded groups (PC / drawer)
   let navPop = null; // group whose fly-out is open (icon-only tablet sidebar)
   const isCurNav = (id, r) => (id.startsWith("g/") ? gCurScreen() === id.slice(2) : id === "company" ? /^(company|sites|departments|staff|approval|offerings)/.test(r) : id === "home" ? ["home", "orders", "production"].includes(r) : r === id || r.startsWith(id + "/"));
@@ -3361,7 +3425,7 @@
   function render() {
     const P = parseRoute();
     const mntLive = maintenanceOn();
-    if (P.name !== "barcode" || mntLive) { BC.cam = false; bcCamStop(); }
+    if (P.name !== "barcode" || mntLive) { BC.cam = false; bcCamStop(); BC.argKey = null; }
     const route = mntLive ? "maintenance-mode" : P.name;
     const isLogout = route === "logout";
     const title = route === "maintenance/entity" ? `${ENT[P.ent]?.label ?? "保全"}の編集`
@@ -3396,6 +3460,7 @@
         orders: ordersScreen,
         production: productionScreen,
         mrp: mrpScreen,
+        stock: stockScreen,
         organization: organizationScreen,
         more: moreScreen,
         company: companyScreen,
@@ -3444,7 +3509,7 @@
         "g/entity": () => gEntityScreen(P.ent, P.id, P.parentId),
         menu: menuScreen,
         "maintenance-mode": () => downtimeScreen(false),
-        barcode: barcodeScreen,
+        barcode: () => { bcApplyArgs(); return barcodeScreen(); },
         settings: settingsScreen,
       }[route]();
       screen.innerHTML = pageHead(title, crumbOf(route)) + `<div class="${mobile ? "m-body" : "page-body"}">${["home", "orders", "production"].includes(route) ? dashTabs(route) : ""}${body}</div>`;
@@ -3495,6 +3560,9 @@
       msg = `${label}は予定日（${fmtDate(el.dataset.min)}）以降の日付にしてください。`;
     } else if (v && el.dataset.ge != null && Number(v) < Number(el.dataset.ge)) msg = `${label}は${el.dataset.ge}以上の数値にしてください。`;
     else if (v && el.dataset.gt != null && !(Number(v) > Number(el.dataset.gt))) msg = `${label}は${el.dataset.gt}より大きい数値にしてください。`;
+    else if (v && el.dataset.le != null && Number(v) > Number(el.dataset.le)) msg = `${label}は${fmt(Number(el.dataset.le))}以下にしてください。`;
+    else if (el.dataset.xor && !v && !other(el.dataset.xor)?.value) msg = `${label}か${other(el.dataset.xor).closest(".field-row").querySelector("label").firstChild.textContent}のどちらかを選んでください。`;
+    else if (el.dataset.xor && v && other(el.dataset.xor)?.value) msg = `${label}と${other(el.dataset.xor).closest(".field-row").querySelector("label").firstChild.textContent}は、どちらか一方だけを選んでください。`;
     else if (v && taken.includes(v)) {
       const shown = el.tagName === "SELECT" ? el.selectedOptions[0]?.text ?? v : v;
       msg = `「${shown}」は既に登録されています。別の${label}にしてください。`;
@@ -3504,6 +3572,13 @@
   function bindForm(form) {
     const sum = document.getElementById("err-sum");
     form.querySelectorAll("input, textarea, select").forEach((el) => el.addEventListener("blur", () => validateField(el)));
+    form.querySelectorAll("[data-sets-le]").forEach((sel) => sel.addEventListener("change", () => {
+      const t = form.elements[sel.dataset.setsLe];
+      const map = JSON.parse(sel.dataset.leMap || "{}");
+      if (!t) return;
+      if (sel.value in map) t.dataset.le = String(map[sel.value]); else delete t.dataset.le;
+      if (t.value) validateField(t);
+    }));
     form.querySelectorAll("[data-disables]").forEach((cb) => cb.addEventListener("change", () => {
       const t = form.elements[cb.dataset.disables];
       if (!t) return;
