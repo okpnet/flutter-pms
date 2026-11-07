@@ -45,6 +45,7 @@ validation:
   aboveMaximum: Enter $max or less
   notBelowMaximum: Enter a value less than $max
   beforeOtherDate: Enter a date on or after $other
+  bothSelected: Select only one of them
   lockedByChildren: Cannot be turned off while $child exists
   invalidCondition: Select an operator and enter a value
   invalidChoice: Not one of the choices

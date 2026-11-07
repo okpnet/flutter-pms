@@ -28,6 +28,47 @@ enum FieldKind {
 /// [FieldKind.flag] がオンのときの値。
 const String flagOn = '1';
 
+/// 参照の選択肢を、同じ画面の別の参照で選んだ1件の値で絞る指定([FieldDefinition.optionFilters])。
+///
+/// 例: 引当元の在庫は、選んだ購買注文明細の品目と同じ品目の在庫だけ。
+/// [source] の項目(参照)で選んだ1件の [sourceField] の値と、この参照先の各件の [targetField] が等しいものだけを出す。
+class OptionFilter {
+  const OptionFilter({
+    required this.source,
+    required this.sourceField,
+    required this.targetField,
+  });
+
+  /// 同じ実体の、絞り込みの元になる参照の項目のキー。
+  final String source;
+
+  /// [source] で選んだ1件の中の、比べる値の項目のキー。
+  final String sourceField;
+
+  /// この参照先の各件の中の、比べられる値の項目のキー。
+  final String targetField;
+
+  Map<String, Object?> toJson() => {
+    'source': source,
+    'sourceField': sourceField,
+    'targetField': targetField,
+  };
+}
+
+/// 数値の上限を、同じ画面の別の参照で選んだ1件の値から取る指定([FieldDefinition.maxFrom])。
+/// 例: 引当数量は、選んだ在庫の出庫可能数まで。
+class LimitSource {
+  const LimitSource({required this.source, required this.field});
+
+  /// 同じ実体の、上限の元になる参照の項目のキー。
+  final String source;
+
+  /// [source] で選んだ1件の中の、上限になる数値の項目のキー。
+  final String field;
+
+  Map<String, Object?> toJson() => {'source': source, 'field': field};
+}
+
 /// 項目の定義。表示名は含めず([EntityLabels]が言語ごとに返す)、キーと種類だけを持つ。
 ///
 /// キーは model_providers の各モデルパッケージ のビュー(DB の列)に合わせる。
@@ -47,6 +88,9 @@ class FieldDefinition {
     this.le,
     this.lt,
     this.notBefore,
+    this.exclusiveWith,
+    this.optionFilters = const [],
+    this.maxFrom = const [],
     this.needUnless,
     this.lockedBy,
   }) : assert(
@@ -90,6 +134,19 @@ class FieldDefinition {
   /// (例: 到着予定日は予定日以降)。どちらかが空のときは検証しない。
   final String? notBefore;
 
+  /// [FieldKind.reference] が、別の参照の項目(キー)とどちらか一方だけを選ぶ(排他)。
+  /// 片方を選ぶともう片方は空になり、選べなくなる。保存には、どちらかが必要(両方とも required: false で定義し、
+  /// 相手の項目にも同じ指定を書く)。
+  final String? exclusiveWith;
+
+  /// [FieldKind.reference] の選択肢を絞る指定。選ばれている元が複数あるときは、いずれかに合うもの。
+  /// 元がまだ選ばれていないときは、絞らない。
+  final List<OptionFilter> optionFilters;
+
+  /// 数値の上限を、選んだ参照先の値から取る指定。複数あるときは、いちばん小さい値までとする。
+  /// 元がまだ選ばれていないときは、その元を数えない。
+  final List<LimitSource> maxFrom;
+
   /// 別の [FieldKind.flag] 項目がオンでなければ必須にする(例: 言い値でなければ単価は必須)。
   final String? needUnless;
 
@@ -112,6 +169,9 @@ class FieldDefinition {
     'le': le,
     'lt': lt,
     'notBefore': notBefore,
+    'exclusiveWith': exclusiveWith,
+    'optionFilters': [for (final o in optionFilters) o.toJson()],
+    'maxFrom': [for (final m in maxFrom) m.toJson()],
     'needUnless': needUnless,
     'lockedBy': lockedBy,
   };

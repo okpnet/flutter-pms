@@ -47,6 +47,7 @@ validation:
   aboveMaximum: $max 以下で入力してください
   notBelowMaximum: $max より小さい値を入力してください
   beforeOtherDate: $other 以降の日付を入力してください
+  bothSelected: どちらか一方だけを選んでください
   lockedByChildren: $child がある間は外せません
   invalidCondition: 演算子と値を入力してください
   parentCycle: 自分または配下は親にできません

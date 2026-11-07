@@ -121,6 +121,7 @@ class _EntityScreenStrings$validation$en extends EntityScreenStrings$validation$
 	@override String aboveMaximum({required Object max}) => 'Enter ${max} or less';
 	@override String notBelowMaximum({required Object max}) => 'Enter a value less than ${max}';
 	@override String beforeOtherDate({required Object other}) => 'Enter a date on or after ${other}';
+	@override String get bothSelected => 'Select only one of them';
 	@override String lockedByChildren({required Object child}) => 'Cannot be turned off while ${child} exists';
 	@override String get invalidCondition => 'Select an operator and enter a value';
 	@override String get invalidChoice => 'Not one of the choices';
@@ -181,6 +182,7 @@ extension on EntityScreenStringsEn {
 			'validation.aboveMaximum' => ({required Object max}) => 'Enter ${max} or less',
 			'validation.notBelowMaximum' => ({required Object max}) => 'Enter a value less than ${max}',
 			'validation.beforeOtherDate' => ({required Object other}) => 'Enter a date on or after ${other}',
+			'validation.bothSelected' => 'Select only one of them',
 			'validation.lockedByChildren' => ({required Object child}) => 'Cannot be turned off while ${child} exists',
 			'validation.invalidCondition' => 'Select an operator and enter a value',
 			'validation.invalidChoice' => 'Not one of the choices',

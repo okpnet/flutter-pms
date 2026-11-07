@@ -50,6 +50,26 @@ class EntityCatalog {
       if (r.definition.owner == ownerKey) r.definition,
   ];
 
+  /// 参照先の 1 件。登録が無い実体、または無い id は null。
+  Future<EntityRecord?> recordOf(String entityKey, String id) async =>
+      _repositories[entityKey]?.findById(id);
+
+  /// 参照先の選択肢のうち、[field] の値が [value] に等しいものだけ([OptionFilter]用)。
+  Future<List<EntityOption>> optionsMatching(
+    String entityKey,
+    String field,
+    String value,
+  ) async {
+    final repository = _repositories[entityKey];
+    if (repository == null) return const [];
+    final records = await repository.find(take: _all);
+    return [
+      for (final r in records)
+        if (r.valueOf(field) == value)
+          EntityOption(r.id, await labelOf(repository.definition, r)),
+    ];
+  }
+
   /// 参照先の選択肢。登録が無い実体は空(画面は値をそのまま表示する)。
   Future<List<EntityOption>> options(String entityKey) async {
     final lookup = _lookups[entityKey];

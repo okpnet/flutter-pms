@@ -61,6 +61,12 @@ class _EntityEditPageState extends State<EntityEditPage> {
   EntityDefinition? _definition;
   EntityRecord? _original;
   Map<String, List<EntityOption>> _options = {};
+
+  /// 選択肢を絞る指定([FieldDefinition.optionFilters])がある参照の、絞った選択肢。
+  final Map<String, List<EntityOption>> _filtered = {};
+
+  /// 上限を参照先から取る数値([FieldDefinition.maxFrom])の、エラー表示用の上限。
+  final Map<String, num> _limitShown = {};
   List<EntityOption> _parentOptions = [];
 
   bool _loading = true;
@@ -128,6 +134,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
         _treeParent = record?.parentId;
         _loading = false;
       });
+      await _refilter();
     } catch (e) {
       if (mounted) {
         setState(() {
@@ -136,6 +143,104 @@ class _EntityEditPageState extends State<EntityEditPage> {
         });
       }
     }
+  }
+
+  /// 選んだ参照の値の変更後に呼ぶ。排他の相手を空にし、選択肢の絞り込みを更新する。
+  Future<void> _onReferenceChanged(FieldDefinition f, String value) async {
+    setState(() {
+      _chosen[f.key] = value;
+      _errors = {..._errors}..remove(f.key);
+      final other = f.exclusiveWith;
+      if (value.isNotEmpty && other != null) _chosen[other] = '';
+    });
+    await _refilter();
+  }
+
+  /// [FieldDefinition.optionFilters] に従って、選択肢を絞り直す。選べなくなった値は空にする。
+  Future<void> _refilter() async {
+    final definition = _definition;
+    if (definition == null) return;
+    final next = <String, List<EntityOption>>{};
+    for (final f in definition.fields) {
+      if (f.optionFilters.isEmpty) continue;
+      var any = false;
+      final seen = <String>{};
+      final matched = <EntityOption>[];
+      for (final filter in f.optionFilters) {
+        final value = await _sourceValue(
+          definition,
+          filter.source,
+          filter.sourceField,
+        );
+        if (value == null) continue;
+        any = true;
+        for (final o in await _scope.catalog.optionsMatching(
+          f.reference!,
+          filter.targetField,
+          value,
+        )) {
+          if (seen.add(o.id)) matched.add(o);
+        }
+      }
+      if (any) next[f.key] = matched;
+    }
+    if (!mounted) return;
+    setState(() {
+      _filtered
+        ..clear()
+        ..addAll(next);
+      for (final entry in next.entries) {
+        final current = _chosen[entry.key] ?? '';
+        if (current.isNotEmpty && !entry.value.any((o) => o.id == current)) {
+          _chosen[entry.key] = '';
+        }
+      }
+    });
+  }
+
+  /// 同じ画面の参照 [source] で選んだ 1 件の [field] の値。選ばれていない・見つからないときは null。
+  Future<String?> _sourceValue(
+    EntityDefinition definition,
+    String source,
+    String field,
+  ) async {
+    final id = _chosen[source] ?? '';
+    final entity = definition.field(source)?.reference;
+    if (id.isEmpty || entity == null) return null;
+    final record = await _scope.catalog.recordOf(entity, id);
+    return record?.valueOf(field);
+  }
+
+  /// 画面だけでできる検査(排他の参照にどちらも無い・上限を参照先から取る数値)。誤りがあれば返す。
+  Future<Map<String, EntityFieldError>> _relationErrors(
+    EntityDefinition definition,
+  ) async {
+    final errors = <String, EntityFieldError>{};
+    _limitShown.clear();
+    for (final f in definition.fields) {
+      final other = f.exclusiveWith;
+      if (other != null) {
+        final mine = (_chosen[f.key] ?? '').isNotEmpty;
+        final theirs = (_chosen[other] ?? '').isNotEmpty;
+        if (!mine && !theirs) errors[f.key] = EntityFieldError.required;
+        if (mine && theirs) errors[f.key] = EntityFieldError.bothSelected;
+      }
+      if (f.maxFrom.isEmpty) continue;
+      final n = num.tryParse(_text[f.key]?.text.trim() ?? '');
+      if (n == null) continue;
+      num? limit;
+      for (final m in f.maxFrom) {
+        final v = num.tryParse(
+          await _sourceValue(definition, m.source, m.field) ?? '',
+        );
+        if (v != null && (limit == null || v < limit)) limit = v;
+      }
+      if (limit != null && n > limit) {
+        errors[f.key] = EntityFieldError.aboveMaximum;
+        _limitShown[f.key] = limit;
+      }
+    }
+    return errors;
   }
 
   Map<String, String> _currentValues(EntityDefinition definition) => {
@@ -155,6 +260,15 @@ class _EntityEditPageState extends State<EntityEditPage> {
     if (locked.isNotEmpty) {
       setState(() {
         _errors = locked;
+        _failure = null;
+      });
+      return;
+    }
+    final relation = await _relationErrors(definition);
+    if (relation.isNotEmpty) {
+      if (!mounted) return;
+      setState(() {
+        _errors = relation;
         _failure = null;
       });
       return;
@@ -260,8 +374,9 @@ class _EntityEditPageState extends State<EntityEditPage> {
     EntityFieldError.notAboveMinimum => s.validation.notAboveMinimum(
       min: f?.gt ?? '',
     ),
+    EntityFieldError.bothSelected => s.validation.bothSelected,
     EntityFieldError.aboveMaximum => s.validation.aboveMaximum(
-      max: f?.le ?? '',
+      max: _limitShown[f?.key] ?? f?.le ?? '',
     ),
     EntityFieldError.notBelowMaximum => s.validation.notBelowMaximum(
       max: f?.lt ?? '',
@@ -408,19 +523,26 @@ class _EntityEditPageState extends State<EntityEditPage> {
         ], strings);
       case FieldKind.reference:
         if (f.picker) return _pickerField(f, strings);
-        return _dropdown(f, _options[f.key] ?? const [], strings);
+        return _dropdown(
+          f,
+          _filtered[f.key] ?? _options[f.key] ?? const [],
+          strings,
+          enabled: !disabled,
+        );
     }
   }
 
   /// 別の真偽(トグル)がオンになって、無効になっている項目か([FieldDefinition.disables])。
   bool _isDisabled(FieldDefinition f) =>
-      _definition?.fields.any(
+      (f.exclusiveWith != null &&
+          (_chosen[f.exclusiveWith] ?? '').isNotEmpty) ||
+      (_definition?.fields.any(
         (o) =>
             o.kind == FieldKind.flag &&
             o.disables == f.key &&
             _chosen[o.key] == flagOn,
       ) ??
-      false;
+      false);
 
   /// 真偽の入力(チェックボックス・トグル)。理由のエラーは項目の下に出す。
   Widget _flagField(FieldDefinition f) {
@@ -542,8 +664,9 @@ class _EntityEditPageState extends State<EntityEditPage> {
   Widget _dropdown(
     FieldDefinition f,
     List<EntityOption> options,
-    EntityScreenStrings strings,
-  ) {
+    EntityScreenStrings strings, {
+    bool enabled = true,
+  }) {
     final value = _chosen[f.key] ?? '';
     final items = [
       if (!f.required || value.isEmpty)
@@ -562,7 +685,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
         labelText: _label(f),
         errorText: _error(f.key),
       ),
-      onChanged: (v) => setState(() => _chosen[f.key] = v ?? ''),
+      onChanged: enabled ? (v) => _onReferenceChanged(f, v ?? '') : null,
     );
   }
 

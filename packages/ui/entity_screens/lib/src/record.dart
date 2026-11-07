@@ -66,6 +66,9 @@ enum EntityFieldError {
   /// 別の日付の項目([FieldDefinition.notBefore])より前になっている。
   beforeOtherDate,
 
+  /// 排他の参照([FieldDefinition.exclusiveWith])で、両方が選ばれている。
+  bothSelected,
+
   /// 子が存在する間は外せない([FieldDefinition.lockedBy])。
   lockedByChildren,
   parentCycle,
