@@ -270,7 +270,7 @@ void main() {
       await tester.tap(find.text('ログイン'));
       await tester.pumpAndSettle();
 
-      expect(find.textContaining('認証を取得できませんでした'), findsOneWidget);
+      expect(find.textContaining('サーバーに接続できませんでした'), findsOneWidget);
       expect(find.text('ダッシュボード'), findsNothing);
       expect(session.loggedOut, 1);
     });
@@ -344,7 +344,7 @@ void main() {
       await tester.tap(find.text('ログイン'));
       await tester.pumpAndSettle();
 
-      expect(find.textContaining('認証サーバーの接続先が設定されていません'), findsOneWidget);
+      expect(find.textContaining('サーバーに接続できませんでした'), findsOneWidget);
       expect(session.logins, isEmpty, reason: '接続先が無いので、通信しない');
       expect(find.text('ダッシュボード'), findsNothing);
     });

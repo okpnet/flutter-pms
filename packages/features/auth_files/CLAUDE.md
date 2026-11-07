@@ -51,12 +51,14 @@
 1.  アプリが差し込むもの: `pbConnectionProvider`(`PbConnection.open`。保存先には `SecureTokenStore` を渡し、同じものを `tokenStoreProvider` にも差し込む)、`app_core` の `signOutProvider`(`authFilesSignOut` を呼ぶ関数)と `signInDestinationProvider`(`LoginDestination`)。`filePickerGatewayProvider`・`fileSaverGatewayProvider` の既定は OS のダイアログ(`file_picker`)で、テスト・ファイル選択を持たない環境では `UnsupportedFileGateway` などに上書きする。
 2.  ログイン前の画面(ログイン・新規登録・パスワードを忘れた・認証コードの入力・新しいパスワード)はアプリの枠(`ShellRoute`)の外に置く(サイドバー・タイトルバーを出さない)。
 3.  失敗は文字列ではなく種類(`PbFailureKind`)で受け、画面が `failureMessage` で文言にする。コードの誤りは理由を区別しない(サーバーが区別しない)。ログの文言は多言語の対象にしない。
+3.  サーバーの接続に関する失敗(通信できない・サーバーの内部エラー・JWT を取得できない・接続先が未設定)は、利用者には「サーバーに接続できませんでした。」だけを見せる(`errors.connection`)。セキュリティ上、サーバー名・アドレス・設定の有無は表示しない(アクセス先の通知になるため)。ログには、どの種類(`ServerType`: `maintenance`(nginx)・`graphql`(PostGraphile)・`authentication`(PocketBase))のサーバーが、どのような失敗を返したかを `server=<種類>` つきで残す(`serverFailureLog`。アドレス・パスワード・コード・トークンは含めない)。この機能の通信は認証サーバーだけで、GraphQL 用の JWT も認証サーバーが発行するため、失敗は `authentication` で残す。メンテナンス・GraphQL のログは各担当の機能・アプリが同じ書式(`server=<種類>`)で残す。
+3.  ログインしたユーザーの権限(ロール)は保持しない。ページにアクセスするたびに取り出す(セッションの確認と同じ窓口 `IPageSessionMediator` で、サーバーに問い合わせる)。管理者ロール(`role=admin` の有効なユーザー)は、すべてのアクセスを許可する。判定の速さが UX に影響するため、取り出しはページのアクセスごとに1回とし、結果を画面をまたいで持ち回らない。`userSummaryProvider` の `role` は表示用で、権限の判定には使わない。この方針の実装(窓口と判定)はアプリ(`pms_app`)が持ち、この機能は画面だけを持つ。
 4.  ログは `loggerProvider` を `ref` から取得し、この機能が発生元のものだけを `[auth_files]` 付きで出す。パスワード・コード・トークンはログに残さない。コードは「新しいパスワード」を送るまでの間だけ `accountFlowProvider` に預かり、送信後(または失敗でやり直すとき以外)に消す。発行したコード(管理者)は表示の間だけ持つ。
 5.  クライアント側の事前検証は形式だけ(必須、ユーザーID・メール・ふりがな・コードの形式、パスワードの長さと一致、ファイルIDの形式)。重複・コードの正否・状態はサーバーが判定する。
 6.  ログイン後は `app_core` の `DashboardDestination` へ進む(`app_core_api.dart` の型だけに依存する)。
 7.  アプリへの組み込み: ログイン前の画面は枠の外、共有ファイルと管理者の画面は枠の中に置くため、`AuthFilesModule` は2つに分けて組み込める(`AuthFilesModule(includeFramed: false)` を枠の外のモジュールへ、`AuthFilesModule(includeEntry: false)` を枠の中のモジュールへ)。既定は両方。
 8.  セッションの確認(`IPageSessionMediator`)と、ログインしていないときのログインへの向け先は、アプリ(`pms_app`)が持つ(`PocketBasePageSession`・`authRedirect`)。この機能は画面だけを持つ。
-9.  認証サーバーの接続先が未設定(`AuthMode.unconfigured`。アプリが `authModeProvider` を上書きする。`pms_app` は `POCKETBASE_URL` も裏設定も持たないとき)でも、ログイン画面は通常のまま(ID・パスワード欄あり。標準のユーザーでログインする開発用の動きはない)。裏設定の入口(ID とパスワード)に一致すれば裏設定へ進み、一致しないログインは `AuthServerUnconfiguredException`(「接続先が設定されていません」)のエラーにして通信しない。接続先は裏設定で設定する。ログアウトはユーザー表示を消すだけ(セッション・保管庫は触らない)。
+9.  認証サーバーの接続先が未設定(`AuthMode.unconfigured`。アプリが `authModeProvider` を上書きする。`pms_app` は `POCKETBASE_URL` も裏設定も持たないとき)でも、ログイン画面は通常のまま(ID・パスワード欄あり。標準のユーザーでログインする開発用の動きはない)。裏設定の入口(ID とパスワード)に一致すれば裏設定へ進み、一致しないログインは `AuthServerUnconfiguredException` のエラーにして通信しない(利用者には「サーバーに接続できませんでした。」だけを見せ、未設定であることは見せない)。接続先は裏設定で設定する。ログアウトはユーザー表示を消すだけ(セッション・保管庫は触らない)。
 10. ログイン画面の見出しは、アプリの名前を引数にする(「{app}にサインイン」。`feature_shared`の`appNameProvider`。アプリが使用言語に合わせて上書きする。既定は「生産管理」)。
 9.  ログアウトは `authFilesSignOut`(PocketBase のセッション・保管庫のログイン情報・ログインユーザーの表示・画面をまたぐ入力を破棄。一部が失敗しても続け、例外にしない)。ログアウト画面は `app_core` が持ち、開いたとき1回これを実行する。
 10. ログイン情報の保存は `SecureTokenStore`(`flutter_secure_storage`)。保管庫が使えないときは、読めなければ未ログイン、書けなくてもメモリ上で続ける。

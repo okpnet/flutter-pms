@@ -80,11 +80,8 @@ class _AuthFilesStrings$errors$en extends AuthFilesStrings$errors$ja {
 	@override String get notFound => 'The target was not found.';
 	@override String get rateLimited => 'Too many attempts. Please try again later.';
 	@override String get unavailable => 'Not accepting requests right now. Please try again later.';
-	@override String get server => 'A server error occurred.';
-	@override String get network => 'Cannot connect. Please check your connection.';
+	@override String get connection => 'Could not connect to the server.';
 	@override String get unknown => 'An unexpected error occurred.';
-	@override String get serverUnconfigured => 'The authentication server is not configured. Set the connection in the development mode (backstage) settings, then restart the app.';
-	@override String get jwtUnavailable => 'Could not obtain the credentials to connect to the server. Please try again later.';
 	@override String get fileUnsupported => 'Files cannot be picked or saved in this environment.';
 	@override String get fileTooLarge => 'The file is too large. Choose a file of 100 MB or less.';
 }
@@ -312,11 +309,8 @@ extension on AuthFilesStringsEn {
 			'errors.notFound' => 'The target was not found.',
 			'errors.rateLimited' => 'Too many attempts. Please try again later.',
 			'errors.unavailable' => 'Not accepting requests right now. Please try again later.',
-			'errors.server' => 'A server error occurred.',
-			'errors.network' => 'Cannot connect. Please check your connection.',
+			'errors.connection' => 'Could not connect to the server.',
 			'errors.unknown' => 'An unexpected error occurred.',
-			'errors.serverUnconfigured' => 'The authentication server is not configured. Set the connection in the development mode (backstage) settings, then restart the app.',
-			'errors.jwtUnavailable' => 'Could not obtain the credentials to connect to the server. Please try again later.',
 			'errors.fileUnsupported' => 'Files cannot be picked or saved in this environment.',
 			'errors.fileTooLarge' => 'The file is too large. Choose a file of 100 MB or less.',
 			'rules.required' => 'This field is required.',

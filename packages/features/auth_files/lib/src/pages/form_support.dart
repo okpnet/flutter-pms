@@ -226,8 +226,11 @@ mixin BusyAction<T extends ConsumerStatefulWidget> on ConsumerState<T> {
       return true;
     } catch (e, st) {
       final t = ref.read(authFilesStringsProvider);
-      if (e is PbException) {
-        ref.read(loggerProvider).warn('[auth_files] $operation', ex: e);
+      if (e is PbException ||
+          e is JwtUnavailableException ||
+          e is AuthServerUnconfiguredException) {
+        // 利用者には「サーバーに接続できませんでした」だけ。ログには、サーバーの種類と失敗の内容を残す。
+        ref.read(loggerProvider).warn(serverFailureLog(operation, e));
       } else if (e is! ArgumentError &&
           e is! UnsupportedError &&
           e is! FileTooLargeException) {

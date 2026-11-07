@@ -12,9 +12,10 @@ String failureMessage(
   Object error, {
   bool codeEntry = false,
 }) {
-  if (error is JwtUnavailableException) return t.errors.jwtUnavailable;
-  if (error is AuthServerUnconfiguredException) {
-    return t.errors.serverUnconfigured;
+  // サーバーの種類・アドレス・設定の有無は利用者に見せない(アクセス先の通知になるため)。
+  if (error is JwtUnavailableException ||
+      error is AuthServerUnconfiguredException) {
+    return t.errors.connection;
   }
   if (error is ArgumentError) return t.errors.validation;
   if (error is UnsupportedError) return t.errors.fileUnsupported;
@@ -29,8 +30,7 @@ String failureMessage(
     PbFailureKind.notFound => t.errors.notFound,
     PbFailureKind.rateLimited => t.errors.rateLimited,
     PbFailureKind.unavailable => t.errors.unavailable,
-    PbFailureKind.server => t.errors.server,
-    PbFailureKind.network => t.errors.network,
+    PbFailureKind.server || PbFailureKind.network => t.errors.connection,
     PbFailureKind.unknown => t.errors.unknown,
   };
 }
@@ -54,4 +54,32 @@ class AuthServerUnconfiguredException implements Exception {
 
   @override
   String toString() => 'AuthServerUnconfiguredException()';
+}
+
+/// 接続先のサーバーの種類。利用者にはサーバー名・アドレスを見せず(アクセス先の通知になるため)、
+/// ログにだけ、どの種類のサーバーが失敗したかを残す。
+enum ServerType {
+  /// メンテナンス情報サーバー(nginx)。
+  maintenance,
+
+  /// GraphQL サーバー(PostGraphile)。
+  graphql,
+
+  /// 認証サーバー(PocketBase)。
+  authentication,
+}
+
+/// この機能の失敗のログの1行(`server=<種類>` つき)。アドレス・パスワード・コード・トークンは含めない。
+///
+/// この機能の通信は認証サーバー(PocketBase)だけ。GraphQL 用の JWT も認証サーバーが発行するため、
+/// JWT の失敗は `authentication` で、原因が JWT であることを `cause` に残す。
+String serverFailureLog(String operation, Object error) {
+  const type = ServerType.authentication;
+  final detail = switch (error) {
+    PbException e => e.logMessage,
+    JwtUnavailableException e => 'jwt: ${e.cause}',
+    AuthServerUnconfiguredException _ => 'unconfigured',
+    _ => '${error.runtimeType}',
+  };
+  return '[auth_files] $operation server=${type.name} $detail';
 }

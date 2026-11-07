@@ -104,20 +104,11 @@ class AuthFilesStrings$errors$ja {
 	/// ja: '現在受け付けていません。しばらくしてからもう一度お試しください。'
 	String get unavailable => '現在受け付けていません。しばらくしてからもう一度お試しください。';
 
-	/// ja: 'サーバーでエラーが発生しました。'
-	String get server => 'サーバーでエラーが発生しました。';
-
-	/// ja: '通信できません。接続を確認してください。'
-	String get network => '通信できません。接続を確認してください。';
+	/// ja: 'サーバーに接続できませんでした。'
+	String get connection => 'サーバーに接続できませんでした。';
 
 	/// ja: '予期しないエラーが発生しました。'
 	String get unknown => '予期しないエラーが発生しました。';
-
-	/// ja: '認証サーバーの接続先が設定されていません。開発モード(裏設定)で接続先を設定し、アプリを再起動してください。'
-	String get serverUnconfigured => '認証サーバーの接続先が設定されていません。開発モード(裏設定)で接続先を設定し、アプリを再起動してください。';
-
-	/// ja: 'サーバーへ接続するための認証を取得できませんでした。しばらくしてからもう一度お試しください。'
-	String get jwtUnavailable => 'サーバーへ接続するための認証を取得できませんでした。しばらくしてからもう一度お試しください。';
 
 	/// ja: 'この環境ではファイルを選択・保存できません。'
 	String get fileUnsupported => 'この環境ではファイルを選択・保存できません。';
@@ -531,11 +522,8 @@ extension on AuthFilesStrings {
 			'errors.notFound' => '対象が見つかりません。',
 			'errors.rateLimited' => '試行が多すぎます。しばらくしてからもう一度お試しください。',
 			'errors.unavailable' => '現在受け付けていません。しばらくしてからもう一度お試しください。',
-			'errors.server' => 'サーバーでエラーが発生しました。',
-			'errors.network' => '通信できません。接続を確認してください。',
+			'errors.connection' => 'サーバーに接続できませんでした。',
 			'errors.unknown' => '予期しないエラーが発生しました。',
-			'errors.serverUnconfigured' => '認証サーバーの接続先が設定されていません。開発モード(裏設定)で接続先を設定し、アプリを再起動してください。',
-			'errors.jwtUnavailable' => 'サーバーへ接続するための認証を取得できませんでした。しばらくしてからもう一度お試しください。',
 			'errors.fileUnsupported' => 'この環境ではファイルを選択・保存できません。',
 			'errors.fileTooLarge' => 'ファイルが大きすぎます。100MB以下のファイルを選んでください。',
 			'rules.required' => '入力してください。',
