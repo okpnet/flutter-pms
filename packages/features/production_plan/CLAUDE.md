@@ -47,7 +47,9 @@
 | 発注予定 | `mrppurchase` | テーブル構造 | 8 | `supplier` |
 | マスタ不備 | `mrpissue` | テーブル構造 | 5 | `item` |
 | 資材計画の充足状況 | `mrpcoverage` | テーブル構造 | 8 | `item` |
+| 引当予約 | `stockrez` | テーブル構造 | 6 | `purdetail`, `opsplan`, `stockstatus` |
 <!-- entity_gen:end -->
+
 
 
 

@@ -65,6 +65,7 @@ class WorkRecordStrings$entity$ja {
 	late final WorkRecordStrings$entity$workrec$ja workrec = WorkRecordStrings$entity$workrec$ja.internal(_root);
 	late final WorkRecordStrings$entity$wrcert$ja wrcert = WorkRecordStrings$entity$wrcert$ja.internal(_root);
 	late final WorkRecordStrings$entity$mrpvisiter$ja mrpvisiter = WorkRecordStrings$entity$mrpvisiter$ja.internal(_root);
+	late final WorkRecordStrings$entity$stockstatus$ja stockstatus = WorkRecordStrings$entity$stockstatus$ja.internal(_root);
 }
 
 // Path: entity.container
@@ -163,6 +164,20 @@ class WorkRecordStrings$entity$mrpvisiter$ja {
 	String get title => 'ビジター品目';
 
 	late final WorkRecordStrings$entity$mrpvisiter$fields$ja fields = WorkRecordStrings$entity$mrpvisiter$fields$ja.internal(_root);
+}
+
+// Path: entity.stockstatus
+class WorkRecordStrings$entity$stockstatus$ja {
+	WorkRecordStrings$entity$stockstatus$ja.internal(this._root);
+
+	final WorkRecordStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '在庫状況'
+	String get title => '在庫状況';
+
+	late final WorkRecordStrings$entity$stockstatus$fields$ja fields = WorkRecordStrings$entity$stockstatus$fields$ja.internal(_root);
 }
 
 // Path: entity.container.fields
@@ -315,6 +330,39 @@ class WorkRecordStrings$entity$mrpvisiter$fields$ja {
 	String get f_quantity => '数量';
 }
 
+// Path: entity.stockstatus.fields
+class WorkRecordStrings$entity$stockstatus$fields$ja {
+	WorkRecordStrings$entity$stockstatus$fields$ja.internal(this._root);
+
+	final WorkRecordStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '場所'
+	String get f_location => '場所';
+
+	/// ja: 'コンテナ'
+	String get f_container => 'コンテナ';
+
+	/// ja: '品目'
+	String get f_item => '品目';
+
+	/// ja: '在庫数'
+	String get f_qty => '在庫数';
+
+	/// ja: '安全在庫'
+	String get f_safety => '安全在庫';
+
+	/// ja: '出庫可能数'
+	String get f_avail => '出庫可能数';
+
+	/// ja: '引当予約済'
+	String get f_reserved => '引当予約済';
+
+	/// ja: '引当予約'
+	String get f_reserve => '引当予約';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -360,6 +408,15 @@ extension on WorkRecordStrings {
 			'entity.mrpvisiter.fields.f_item_count' => '品目数',
 			'entity.mrpvisiter.fields.f_finished' => '完了',
 			'entity.mrpvisiter.fields.f_quantity' => '数量',
+			'entity.stockstatus.title' => '在庫状況',
+			'entity.stockstatus.fields.f_location' => '場所',
+			'entity.stockstatus.fields.f_container' => 'コンテナ',
+			'entity.stockstatus.fields.f_item' => '品目',
+			'entity.stockstatus.fields.f_qty' => '在庫数',
+			'entity.stockstatus.fields.f_safety' => '安全在庫',
+			'entity.stockstatus.fields.f_avail' => '出庫可能数',
+			'entity.stockstatus.fields.f_reserved' => '引当予約済',
+			'entity.stockstatus.fields.f_reserve' => '引当予約',
 			_ => null,
 		};
 	}

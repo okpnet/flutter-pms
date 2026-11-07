@@ -25,6 +25,9 @@ dependencies:
   item:
     path: ../../item
 
+  resource:
+    path: ../../resource
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

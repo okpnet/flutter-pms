@@ -127,6 +127,11 @@
         "key": "mrpcoverage",
         "label": "資材計画の充足状況",
         "first": "PURCHASE"
+      },
+      {
+        "key": "stockrez",
+        "label": "引当予約",
+        "first": "20"
       }
     ],
     "work_record": [
@@ -159,6 +164,11 @@
         "key": "mrpvisiter",
         "label": "ビジター品目",
         "first": "2"
+      },
+      {
+        "key": "stockstatus",
+        "label": "在庫状況",
+        "first": "120"
       }
     ],
     "quality_common": [
@@ -403,11 +413,13 @@
       "production_process",
       "purchasing",
       "sales",
-      "shared_master"
+      "shared_master",
+      "work_record"
     ],
     "work_record": [
       "item",
-      "production_plan"
+      "production_plan",
+      "resource"
     ],
     "quality_common": [
       "organization",
@@ -433,6 +445,8 @@
     ]
   },
   "warnings": [
-    "補完: preventiondetail.info_department_id の空を department の先頭で補った"
+    "補完: preventiondetail.info_department_id の空を department の先頭で補った",
+    "stockstatus.location: location の location1 が見つからない",
+    "stockstatus.location: location の location1 が見つからない"
   ]
 }

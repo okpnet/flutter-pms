@@ -67,4 +67,16 @@ const List<EntityDefinition> workRecordDefinitions = [
         FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false, readOnly: true),
       ],
     ),
+    EntityDefinition(
+      key: 'stockstatus', viewOnly: true, rowActions: [RowAction(key: 'reserve', target: 'stockrez', initialValues: {'stock': RowAction.idSource})],
+      fields: [
+        FieldDefinition(key: 'location', kind: FieldKind.reference, required: false, reference: 'location', readOnly: true),
+        FieldDefinition(key: 'container', kind: FieldKind.reference, required: false, reference: 'container', readOnly: true),
+        FieldDefinition(key: 'item', kind: FieldKind.reference, required: false, reference: 'item', readOnly: true),
+        FieldDefinition(key: 'qty', kind: FieldKind.number, required: false, readOnly: true),
+        FieldDefinition(key: 'safety', kind: FieldKind.number, required: false, readOnly: true),
+        FieldDefinition(key: 'avail', kind: FieldKind.number, required: false, readOnly: true),
+        FieldDefinition(key: 'reserved', kind: FieldKind.number, required: false, readOnly: true),
+      ],
+    ),
 ];

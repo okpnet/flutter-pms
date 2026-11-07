@@ -20,6 +20,7 @@ class EntityListPage extends StatefulWidget {
     this.title,
     this.onReparent,
     this.showCreate = true,
+    this.onAction,
   });
 
   final String entityKey;
@@ -39,6 +40,9 @@ class EntityListPage extends StatefulWidget {
 
   /// 新規登録のボタンを出すか。選択画面では出さない。
   final bool showCreate;
+
+  /// 行のボタン([EntityDefinition.rowActions])を押したときの処理。null のときはボタンを出さない。
+  final Future<void> Function(RowAction action, EntityRecord record)? onAction;
 
   /// ツリーの台帳の親の付け替え(ドラッグ&ドロップ)を受けるハンドラ。[newParent] が null ならトップへ。
   /// 更新と検証(循環・権限)は呼び出し側が行う。null のときは付け替えを有効にしない。
@@ -123,13 +127,17 @@ class _EntityListPageState extends State<EntityListPage> {
 
   Widget _table(_Loaded loaded) {
     final scope = widget.scope;
-    final columns = columnsOf(
-      loaded.definition,
-      scope.labels,
-      loaded.names,
-      yes: scope.strings.yes,
-      no: scope.strings.no,
-    );
+    final columns = [
+      ...columnsOf(
+        loaded.definition,
+        scope.labels,
+        loaded.names,
+        yes: scope.strings.yes,
+        no: scope.strings.no,
+      ),
+      if (widget.onAction != null)
+        for (final a in loaded.definition.rowActions) _actionColumn(loaded, a),
+    ];
     final config = TableConfig(
       sortEnabled: true,
       filterEnabled: true,
@@ -185,6 +193,30 @@ class _EntityListPageState extends State<EntityListPage> {
       config: config,
       events: events,
       treeConfig: const TreeConfig(childCountColumnKey: _childCountKey),
+    );
+  }
+
+  /// 行のボタンの列。並べ替え・絞り込み・出力の対象にしない。
+  ColumnDefinition<EntityRecord> _actionColumn(_Loaded loaded, RowAction a) {
+    final label = widget.scope.labels.field(widget.entityKey, a.key);
+    return ColumnDefinition<EntityRecord>(
+      key: '_action:${a.key}',
+      label: label,
+      readOnly: true,
+      sortable: false,
+      filterable: false,
+      exportable: false,
+      getter: (_) => '',
+      renderer: BuilderCellRenderer<EntityRecord>(
+        (context, cell) => TextButton(
+          key: ValueKey('action:${a.key}:${cell.item.id}'),
+          onPressed: () async {
+            await widget.onAction!(a, cell.item);
+            if (mounted) _reload();
+          },
+          child: Text(label),
+        ),
+      ),
     );
   }
 

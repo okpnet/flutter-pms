@@ -38,7 +38,7 @@ const List<EntityDefinition> purchasingDefinitions = [
       ],
     ),
     EntityDefinition(
-      key: 'purdetail', owner: 'purchase',
+      key: 'purdetail', owner: 'purchase', rowActions: [RowAction(key: 'reserve', target: 'stockrez', initialValues: {'purdetail': RowAction.idSource})],
       fields: [
         FieldDefinition(key: 'trans_resource_plan_id', kind: FieldKind.reference, required: false, reference: 'resplan'),
         FieldDefinition(key: 'restocking_purchase', kind: FieldKind.choice, required: false, options: ['はい', 'いいえ']),

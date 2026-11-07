@@ -45,6 +45,7 @@ entity:
       f_material_supply: "材料支給"
       f_paid_supply: "有償支給"
       f_remarks: "備考"
+      f_reserve: "引当予約"
   purchaserec:
     title: "受入実績"
     fields:

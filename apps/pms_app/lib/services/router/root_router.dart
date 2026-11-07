@@ -5,7 +5,6 @@ import 'package:maintenance/maintenance.dart';
 import 'package:page_mediator_extension/page_mediator_extension.dart';
 import 'package:pms_app/contents/_models/error/app_error.dart';
 
-import '../../contents/_controller/contents_control_router.dart' as controller;
 import '../../contents/contents.dart';
 import '../../imports.dart';
 import '../features/feature_error.dart';
@@ -14,18 +13,14 @@ import 'router.dart';
 
 part 'root_router.g.dart';
 
-///GoRouterのメイン
-///[controller]は$appRoutesへのアクセスを提供するが、そのまま使用するとどのappRoutesを使用するかわからないため
-///別名アクセスをしてコントローラーにアクセスしてappRoutesを使用する
+///GoRouterのメイン。ページはすべて機能(ライブラリ)のルート(`featureModules`・`standaloneFeatureModules`)で、アプリには持たない
 @Riverpod(keepAlive: true)
 GoRouter rootRouter(Ref ref) {
   return GoRouter(
     debugLogDiagnostics: true,
-    // 最初の画面は auth_files のログイン(PocketBase に接続しないときは、標準のユーザーでログインする開発用)
+    // 最初の画面は auth_files のログイン
     initialLocation: AuthFilesPaths.login,
     routes: [
-      ...controller.$appRoutes,
-
       ///メンテナンス中のページ。アプリの枠(ShellRoute)の外に置く(サイドバー・リンクを持たない)
       for (final module in standaloneFeatureModules) ...module.routes,
 

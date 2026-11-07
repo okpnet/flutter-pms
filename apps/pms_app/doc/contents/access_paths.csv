@@ -18,7 +18,6 @@
 /auth/admin/signups,新規登録の管理,Manage sign-ups,auth_files,false
 /auth/admin/resets,再設定依頼の管理,Manage reset requests,auth_files,false
 /profile/image,自分のイメージ,My image,user_profile,false
-/actual/stock_state,在庫状況,Stock status,pms_app,false
 /e/accesspath,アクセスパス,Access path,access_control,false
 /e/deptaccesspath,部署のアクセスパス,Department access path,access_control,false
 /e/staffaccesspermission,担当者のアクセスパス許可,Staff access permission,access_control,false
@@ -41,6 +40,7 @@
 /e/mrppurchase,発注予定,Planned purchases,production_plan,false
 /e/mrpissue,マスタ不備,Master data issues,production_plan,false
 /e/mrpcoverage,資材計画の充足状況,Resource plan coverage,production_plan,false
+/e/stockrez,引当予約,Stock reservation,production_plan,false
 /e/taskgroup,工程グループ,Task group,production_process,false
 /e/task,工程,Task,production_process,false
 /e/operation,工程運用,Operation,production_process,false
@@ -87,3 +87,4 @@
 /e/certificate,成績書,Certificate,work_record,false
 /e/workrec,作業実績,Work record,work_record,false
 /e/mrpvisiter,ビジター品目,Visiter item,work_record,false
+/e/stockstatus,在庫状況,Stock status,work_record,false

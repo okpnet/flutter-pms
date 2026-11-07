@@ -349,6 +349,13 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
         onOpen: (r) => bus.execute(EntityEditDestination(key, id: r.id)),
         onCreate: () =>
             bus.execute(EntityEditDestination(key, initialValues: filter)),
+        // 行のボタン: 別の実体の新規登録を、行の値を初期値にして開く(開く先は別の機能でもよい)
+        onAction: (action, r) => bus.execute(
+          EntityEditDestination(
+            action.target,
+            initialValues: action.initialValuesOf(r),
+          ),
+        ),
       );
     },
   );

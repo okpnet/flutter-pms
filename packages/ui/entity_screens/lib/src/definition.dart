@@ -1,3 +1,5 @@
+import 'record.dart';
+
 /// 項目の種類。入力の部品と検証が決まる。
 enum FieldKind {
   /// 1行の文字。
@@ -218,6 +220,43 @@ class NestedList {
   };
 }
 
+/// 台帳の各行に出すボタンの指定([EntityDefinition.rowActions])。
+///
+/// 押すと、別の実体 [target] の新規登録を、行の値を初期値にして開く(例: 在庫の行の「引当予約」で、
+/// その在庫を引当元にした引当予約の登録)。ボタンの名称は [EntityLabels.field] に [key] で問い合わせる。
+/// 開く処理は、台帳を出す側が行う([EntityListPage.onAction])。
+class RowAction {
+  const RowAction({
+    required this.key,
+    required this.target,
+    this.initialValues = const {},
+  });
+
+  /// ボタンの識別子(名称を引くキー。実体の項目のキーと重ならない名前にする)。
+  final String key;
+
+  /// 新規登録を開く実体のキー。
+  final String target;
+
+  /// [target] の項目のキー → 初期値にする、この行の項目のキー(`id` はこの行の id)。
+  final Map<String, String> initialValues;
+
+  /// この行から、[target] の初期値を作る。
+  Map<String, String> initialValuesOf(EntityRecord record) => {
+    for (final e in initialValues.entries)
+      e.key: e.value == idSource ? record.id : record.valueOf(e.value),
+  };
+
+  /// [initialValues] で、行の id を指す値。
+  static const idSource = 'id';
+
+  Map<String, Object?> toJson() => {
+    'key': key,
+    'target': target,
+    'initialValues': initialValues,
+  };
+}
+
 /// 実体(台帳の1種類)の定義。
 class EntityDefinition {
   const EntityDefinition({
@@ -229,6 +268,7 @@ class EntityDefinition {
     this.reverseLists = const [],
     this.nest,
     this.viewOnly = false,
+    this.rowActions = const [],
   }) : assert(!(isTree && owner != null), 'ツリーと所有は同時に持てない');
 
   /// 実体のキー(全体で一意。画面のパスにも使う)。
@@ -253,6 +293,9 @@ class EntityDefinition {
 
   /// 読み取り専用の実体(DB のビューなど)。台帳に「新規」を出さず、編集画面に保存・削除を出さない。
   final bool viewOnly;
+
+  /// 台帳の各行に出すボタン(別の実体の新規登録を開く)。
+  final List<RowAction> rowActions;
 
   /// 親の編集画面の下に表示する子の台帳か。
   bool get isChild => owner != null;
@@ -299,6 +342,7 @@ class EntityDefinition {
     'reverseLists': [for (final r in reverseLists) r.toJson()],
     'nest': nest?.toJson(),
     'viewOnly': viewOnly,
+    'rowActions': [for (final a in rowActions) a.toJson()],
     'fields': [for (final f in fields) f.toJson()],
   };
 }

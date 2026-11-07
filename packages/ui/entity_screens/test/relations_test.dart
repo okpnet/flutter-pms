@@ -1,6 +1,4 @@
 import 'package:entity_screens/entity_screens.dart';
-import 'package:entity_screens/src/pages/entity_edit_page.dart';
-import 'package:entity_screens/src/pages/entity_scope.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';

@@ -129,6 +129,20 @@
     ["quantity", "数量", "n"],
   ], [["item1", "2", "", "30"]]);
   screen("mrpvisiter", "ビジター品目", "wrench", "result");
+
+  // 在庫状況(#/stock)。場所 × コンテナ × 品目の在庫を見る読み取り専用の台帳。出庫可能数 = 在庫数 − 安全在庫 − 引当予約済(0未満にはならない)。
+  // 行の「引当予約」ボタンで、その在庫を引当元にした引当予約(stockrez)の登録を開く。
+  view("stockstatus", "在庫状況", [
+    ["location", "場所", "r", { ref: "location" }],
+    ["container", "コンテナ", "r", { ref: "container" }],
+    ["item", "品目", "r", { ref: "item" }],
+    ["qty", "在庫数", "n"],
+    ["safety", "安全在庫", "n"],
+    ["avail", "出庫可能数", "n"],
+    ["reserved", "引当予約済", "n"],
+  ], [["location1", "container1", "item1", "120", "40", "30", "50"], ["location1", "container1", "item2", "30", "20", "10", "0"]]);
+  screen("stockstatus", "在庫状況", "box", "result");
+  D.entities.find((x) => x.key === "stockstatus").action = { label: "引当予約", param: "stock" };
 })();
 
 /* 手書きの追加（20261031_0001 の採択）。工程場所(taskres)が所有する、使える設備(mstr_equipment_available)と
@@ -248,8 +262,8 @@
         ["shipplan2", "itempack1", "200", "item2", "2026-11-12", "2026-11-14", "100"], ["shipplan3", "itempack1", "30", "item1", "2026-11-16", "2026-11-18", "0"]] },
     { key: "stockrez", label: "引当予約",
       fields: [["purdetail", "購買注文明細", "r", { ref: "@srcPur:id:label", req: false, xor: "opsplan" }], ["opsplan", "生産計画", "r", { ref: "@srcOps:id:label", req: false, xor: "purdetail" }],
-        ["stock", "引当元の在庫", "r", { ref: "@stock:id:label", setsLe: "qty" }], ["date", "予約日", "d"], ["qty", "引当数量", "n", { gt: 0, limit: true }], ["remarks", "備考", "x", { req: false }]],
-      rows: [["purdetail1", "", "st1", "2026-11-05", "50", ""]] },
+        ["stock", "引当元の在庫", "r", { ref: "@stock:id:label", setsLe: "qty", limitField: "avail" }], ["date", "予約日", "d"], ["qty", "引当数量", "n", { gt: 0, limit: true }], ["remarks", "備考", "x", { req: false }]],
+      rows: [["purdetail1", "", "stockstatus1", "2026-11-05", "20", ""]] },
   );
   D.screens.push({ id: "shipplan", label: "出荷予定台帳", icon: "truck", tabs: [["main", "出荷予定台帳", "shipplan"]] });
   const sales = D.groups.findIndex((g) => g.id === "sales");

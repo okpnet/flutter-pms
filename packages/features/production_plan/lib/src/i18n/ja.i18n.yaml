@@ -101,6 +101,7 @@ entity:
       f_deadline: "完了期限"
       f_quantity: "数量"
       f_remarks: "備考"
+      f_reserve: "引当予約"
   workplan:
     title: "生産計画明細"
     fields:
@@ -164,3 +165,12 @@ entity:
       f_reserved_purchase: "購買引当"
       f_reserved_production: "生産引当"
       f_shortage: "不足"
+  stockrez:
+    title: "引当予約"
+    fields:
+      f_purdetail: "購買注文明細"
+      f_opsplan: "生産計画"
+      f_stock: "引当元の在庫"
+      f_date: "予約日"
+      f_qty: "引当数量"
+      f_remarks: "備考"

@@ -111,6 +111,7 @@ class ProductionPlanStrings$entity$ja {
 	late final ProductionPlanStrings$entity$mrppurchase$ja mrppurchase = ProductionPlanStrings$entity$mrppurchase$ja.internal(_root);
 	late final ProductionPlanStrings$entity$mrpissue$ja mrpissue = ProductionPlanStrings$entity$mrpissue$ja.internal(_root);
 	late final ProductionPlanStrings$entity$mrpcoverage$ja mrpcoverage = ProductionPlanStrings$entity$mrpcoverage$ja.internal(_root);
+	late final ProductionPlanStrings$entity$stockrez$ja stockrez = ProductionPlanStrings$entity$stockrez$ja.internal(_root);
 }
 
 // Path: mrp.empty
@@ -503,6 +504,20 @@ class ProductionPlanStrings$entity$mrpcoverage$ja {
 	late final ProductionPlanStrings$entity$mrpcoverage$fields$ja fields = ProductionPlanStrings$entity$mrpcoverage$fields$ja.internal(_root);
 }
 
+// Path: entity.stockrez
+class ProductionPlanStrings$entity$stockrez$ja {
+	ProductionPlanStrings$entity$stockrez$ja.internal(this._root);
+
+	final ProductionPlanStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '引当予約'
+	String get title => '引当予約';
+
+	late final ProductionPlanStrings$entity$stockrez$fields$ja fields = ProductionPlanStrings$entity$stockrez$fields$ja.internal(_root);
+}
+
 // Path: entity.resplan.fields
 class ProductionPlanStrings$entity$resplan$fields$ja {
 	ProductionPlanStrings$entity$resplan$fields$ja.internal(this._root);
@@ -552,6 +567,9 @@ class ProductionPlanStrings$entity$opsplan$fields$ja {
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
+
+	/// ja: '引当予約'
+	String get f_reserve => '引当予約';
 }
 
 // Path: entity.workplan.fields
@@ -743,6 +761,33 @@ class ProductionPlanStrings$entity$mrpcoverage$fields$ja {
 	String get f_shortage => '不足';
 }
 
+// Path: entity.stockrez.fields
+class ProductionPlanStrings$entity$stockrez$fields$ja {
+	ProductionPlanStrings$entity$stockrez$fields$ja.internal(this._root);
+
+	final ProductionPlanStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '購買注文明細'
+	String get f_purdetail => '購買注文明細';
+
+	/// ja: '生産計画'
+	String get f_opsplan => '生産計画';
+
+	/// ja: '引当元の在庫'
+	String get f_stock => '引当元の在庫';
+
+	/// ja: '予約日'
+	String get f_date => '予約日';
+
+	/// ja: '引当数量'
+	String get f_qty => '引当数量';
+
+	/// ja: '備考'
+	String get f_remarks => '備考';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -834,6 +879,7 @@ extension on ProductionPlanStrings {
 			'entity.opsplan.fields.f_deadline' => '完了期限',
 			'entity.opsplan.fields.f_quantity' => '数量',
 			'entity.opsplan.fields.f_remarks' => '備考',
+			'entity.opsplan.fields.f_reserve' => '引当予約',
 			'entity.workplan.title' => '生産計画明細',
 			'entity.workplan.fields.f_mstr_task_id' => '工程',
 			'entity.workplan.fields.f_sequence' => '順',
@@ -883,6 +929,13 @@ extension on ProductionPlanStrings {
 			'entity.mrpcoverage.fields.f_reserved_purchase' => '購買引当',
 			'entity.mrpcoverage.fields.f_reserved_production' => '生産引当',
 			'entity.mrpcoverage.fields.f_shortage' => '不足',
+			'entity.stockrez.title' => '引当予約',
+			'entity.stockrez.fields.f_purdetail' => '購買注文明細',
+			'entity.stockrez.fields.f_opsplan' => '生産計画',
+			'entity.stockrez.fields.f_stock' => '引当元の在庫',
+			'entity.stockrez.fields.f_date' => '予約日',
+			'entity.stockrez.fields.f_qty' => '引当数量',
+			'entity.stockrez.fields.f_remarks' => '備考',
 			_ => null,
 		};
 	}

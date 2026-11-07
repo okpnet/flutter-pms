@@ -17,7 +17,7 @@ const List<EntityDefinition> productionPlanDefinitions = [
       ],
     ),
     EntityDefinition(
-      key: 'opsplan', owner: 'resplan',
+      key: 'opsplan', owner: 'resplan', rowActions: [RowAction(key: 'reserve', target: 'stockrez', initialValues: {'opsplan': RowAction.idSource})],
       fields: [
         FieldDefinition(key: 'deadline', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
@@ -99,6 +99,17 @@ const List<EntityDefinition> productionPlanDefinitions = [
         FieldDefinition(key: 'reserved_purchase', kind: FieldKind.number, required: false, readOnly: true),
         FieldDefinition(key: 'reserved_production', kind: FieldKind.number, required: false, readOnly: true),
         FieldDefinition(key: 'shortage', kind: FieldKind.number, required: false, readOnly: true),
+      ],
+    ),
+    EntityDefinition(
+      key: 'stockrez',
+      fields: [
+        FieldDefinition(key: 'purdetail', kind: FieldKind.reference, required: false, reference: 'purdetail', exclusiveWith: 'opsplan'),
+        FieldDefinition(key: 'opsplan', kind: FieldKind.reference, required: false, reference: 'opsplan', exclusiveWith: 'purdetail'),
+        FieldDefinition(key: 'stock', kind: FieldKind.reference, reference: 'stockstatus'),
+        FieldDefinition(key: 'date', kind: FieldKind.date),
+        FieldDefinition(key: 'qty', kind: FieldKind.number, gt: 0, maxFrom: [LimitSource(source: 'stock', field: 'avail')]),
+        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),
 ];

@@ -1,6 +1,5 @@
 export 'core/core.dart';
 export 'router/router.dart';
-export 'behavior/behavior.dart';
 export 'repositories/repositories.dart';
 export 'features/features.dart';
 export 'session/session.dart';

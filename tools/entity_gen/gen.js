@@ -49,14 +49,13 @@ GROUP_PROJECT.ship = 'sales';
 const BESPOKE = {
   shipkind: { project: 'shared_master', ids: (n) => `5b1f0c1e-0000-4000-8000-${hex(n, 12)}`, max: 3 },
 };
-/* 引当予約(stockrez)は、参照が動的(購買注文明細と生産計画のどちらか一方・引当元の在庫)で、entity_screens が扱えないため、生成しない(issue 20261107_0006 の2)。 */
-const SKIP = new Set(['customer', 'custcontact', 'supplier', 'suppcontact', 'shipkind', 'stockrez']);
+const SKIP = new Set(['customer', 'custcontact', 'supplier', 'suppcontact', 'shipkind']);
 
 /** 利害関係者(stakeholder)。顧客・外部供給者は同じ mstr_stakeholder をフラグで見分けるだけなので、
  *  1つの実体にまとめる(shared_master)。他の実体からの参照のキー customer・supplier は、
  *  同じ利害関係者の行への別名(登録簿の lookup)として残す。 */
 const STAKEHOLDER_ALIASES = { customer: 'is_customer', supplier: 'is_supplier' };
-const COLL = { employees: 'staff', locations: 'location', equipments: 'equipment', departments: 'department' };
+const COLL = { employees: 'staff', locations: 'location', equipments: 'equipment', departments: 'department', stock: 'stockstatus', srcPur: 'purdetail', srcOps: 'opsplan' };
 
 /** 重複を認めない項目の組。範囲は、所有される実体なら同じ親の中、それ以外は全体。
  *  出典: DB の一意制約(06_cteate_test.sql: info_department_kind, mstr_item_actual_size, mstr_operation_task)、
@@ -133,9 +132,16 @@ function fromHtml(e) {
     }
     return {
       key, label, kind: k, required: e.viewOnly || kind === 'c' ? false : extra.req !== false, readOnly: e.viewOnly || kind === 'c' ? true : extra.readOnly, options: k === 'choice' ? extra.opts : undefined, ref,
-      toggle: extra.toggle, disables: extra.disables, ge: extra.ge, gt: extra.gt, le: extra.le, lt: extra.lt, notBefore: extra.after, needUnless: extra.needUnless, lockedBy: extra.lockedBy, uniq: extra.uniq, picker: extra.picker,
+      toggle: extra.toggle, disables: extra.disables, ge: extra.ge, gt: extra.gt, le: extra.le, lt: extra.lt, notBefore: extra.after, needUnless: extra.needUnless, lockedBy: extra.lockedBy, uniq: extra.uniq, picker: extra.picker, exclusiveWith: extra.xor,
     };
   });
+  // 参照を選ぶと数値の上限が決まる(setsLe)。上限は、選んだ参照先の limitField の値(entity_screens の maxFrom)
+  e.fields.forEach(([key, , , extra = {}]) => {
+    const target = extra.setsLe && fields.find((x) => x.key === extra.setsLe);
+    if (target) target.maxFrom = [{ source: key, field: extra.limitField }];
+  });
+  // 行のボタン(action): 引当予約の新規登録を、この行(param の項目)を初期値にして開く
+  const rowActions = e.action ? [{ key: 'reserve', label: e.action.label, target: 'stockrez', param: e.action.param }] : undefined;
   if (e.parent && e.tree) {
     // 所有する親とツリーの親の両方を持つ実体: 所有する親は参照の項目にし、ツリーの親だけを親子にする
     fields.unshift({ key: e.parent.key, label: byLabel(e.parent.ent), kind: 'reference', required: true, ref: e.parent.ent });
@@ -163,7 +169,7 @@ function fromHtml(e) {
   if (e.parent && e.tree) {
     return { key: e.key, label: e.label, isTree: true, hintParent: e.parent.ent, fields, rows };
   }
-  return { key: e.key, label: e.label, owner: e.parent?.ent, isTree: !!e.tree, viewOnly: !!e.viewOnly, fields, rows };
+  return { key: e.key, label: e.label, owner: e.parent?.ent, isTree: !!e.tree, viewOnly: !!e.viewOnly, fields, rows, rowActions };
 }
 
 const htmlEntities = DOM.entities.filter((e) => !SKIP.has(e.key)).map(fromHtml);
@@ -418,6 +424,8 @@ function defsDart(pkg, list) {
           if (fl.le != null) a.push(`le: ${fl.le}`);
           if (fl.lt != null) a.push(`lt: ${fl.lt}`);
           if (fl.notBefore) a.push(`notBefore: ${dq(fl.notBefore)}`);
+          if (fl.exclusiveWith) a.push(`exclusiveWith: ${dq(fl.exclusiveWith)}`);
+          if (fl.maxFrom) a.push(`maxFrom: [${fl.maxFrom.map((m) => `LimitSource(source: ${dq(m.source)}, field: ${dq(m.field)})`).join(', ')}]`);
           if (fl.needUnless) a.push(`needUnless: ${dq(fl.needUnless)}`);
           if (fl.lockedBy) a.push(`lockedBy: ${dq(fl.lockedBy)}`);
           return `        FieldDefinition(${a.join(', ')}),`;
@@ -432,6 +440,7 @@ function defsDart(pkg, list) {
         a.push(`nest: NestedList(parent: ${dq(e.nest.parent)}, where: {${where}}${e.nest.menuGroup ? `, menuGroup: ${dq(e.nest.menuGroup)}` : ''})`);
       }
       if (e.viewOnly) a.push('viewOnly: true');
+      if (e.rowActions) a.push(`rowActions: [${e.rowActions.map((r) => `RowAction(key: ${dq(r.key)}, target: ${dq(r.target)}, initialValues: {${dq(r.param)}: RowAction.idSource})`).join(', ')}]`);
       if (uniq) a.push(`uniqueKeys: [${uniq.map((k) => `[${k.map(dq).join(', ')}]`).join(', ')}]`);
       const rev = REVERSE[e.key];
       if (rev) a.push(`reverseLists: [${rev.map((r) => `ReverseList(entity: ${dq(r.entity)}, field: ${dq(r.field)})`).join(', ')}]`);
@@ -485,6 +494,7 @@ function yamlJa(pkg, list, file) {
       const flag = e.fields.find((x) => x.disables === fl.key);
       if (flag) lines.push(`      f_${fl.key}__off: ${y(flag.label.replace(/区分$/, '') + '（都度確認）')}`);
     }
+    for (const r of e.rowActions ?? []) lines.push(`      f_${r.key}: ${y(r.label)}`);
     if (REVERSE[e.key]) {
       lines.push('    reverse:');
       for (const r of REVERSE[e.key]) lines.push(`      ${r.entity}: ${y(r.label)}`);

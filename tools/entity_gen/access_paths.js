@@ -41,7 +41,6 @@ const CUSTOM = [
   ['auth_files', 'adminresets', '/auth/admin/resets', '再設定依頼の管理', 'Manage reset requests', false],
   ['user_profile', 'image', '/profile/image', '自分のイメージ', 'My image', false],
   // 旧来の pms_app のページ(apps/pms_app/lib/contents)
-  ['pms_app', 'stock_state', '/actual/stock_state', '在庫状況', 'Stock status', false],
 ];
 
 /** 実体(台帳)の英語名。キーは実体のキー。台帳を追加したら足す(無ければこのスクリプトが失敗する)。 */
@@ -106,6 +105,8 @@ const EN = {
   workcalendar: 'Work calendar',
   order: 'Sales order',
   shipplan: 'Shipping plan',
+  stockrez: 'Stock reservation',
+  stockstatus: 'Stock status',
   stakeholder: 'Stakeholder',
   unit: 'Unit',
   container: 'Container',

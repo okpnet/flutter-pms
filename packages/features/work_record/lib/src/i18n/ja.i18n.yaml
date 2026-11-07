@@ -54,3 +54,14 @@ entity:
       f_item_count: "品目数"
       f_finished: "完了"
       f_quantity: "数量"
+  stockstatus:
+    title: "在庫状況"
+    fields:
+      f_location: "場所"
+      f_container: "コンテナ"
+      f_item: "品目"
+      f_qty: "在庫数"
+      f_safety: "安全在庫"
+      f_avail: "出庫可能数"
+      f_reserved: "引当予約済"
+      f_reserve: "引当予約"

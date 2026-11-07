@@ -40,7 +40,9 @@ MRP のビジター品目(`mrpvisiter`、`v_mrp_visiter_item`)は、読み取り
 | 作業実績 | `workrec` | テーブル構造 | 6 | `workplan` |
 | 作業成績書 | `wrcert` | 子の台帳(親: 作業実績) | 2 | `certificate` |
 | ビジター品目 | `mrpvisiter` | テーブル構造 | 4 | `item` |
+| 在庫状況 | `stockstatus` | テーブル構造 | 7 | `location`, `container`, `item` |
 <!-- entity_gen:end -->
+
 
 
 

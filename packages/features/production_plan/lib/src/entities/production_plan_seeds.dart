@@ -34,4 +34,7 @@ const Map<String, List<EntityRecord>> productionPlanSeeds = {
     'mrpcoverage': [
       EntityRecord(id: 'a1f3bde8-0000-4000-8000-000000000001', values: {'item': '9f3833e6-0000-4000-8000-000000000001', 'plan_kind': 'PURCHASE', 'deadline': '2026-11-10', 'quantity': '100', 'reserved_stock': '40', 'reserved_purchase': '50', 'reserved_production': '0', 'shortage': '10'}),
     ],
+    'stockrez': [
+      EntityRecord(id: '09b2094e-0000-4000-8000-000000000001', values: {'purdetail': 'e66a7505-0000-4000-8000-000000000001', 'opsplan': '', 'stock': '05c9f11f-0000-4000-8000-000000000001', 'date': '2026-11-05', 'qty': '20', 'remarks': ''}),
+    ],
 };

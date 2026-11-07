@@ -286,6 +286,9 @@ class PurchasingStrings$entity$purdetail$fields$ja {
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
+
+	/// ja: '引当予約'
+	String get f_reserve => '引当予約';
 }
 
 // Path: entity.purchaserec.fields
@@ -384,6 +387,7 @@ extension on PurchasingStrings {
 			'entity.purdetail.fields.f_material_supply' => '材料支給',
 			'entity.purdetail.fields.f_paid_supply' => '有償支給',
 			'entity.purdetail.fields.f_remarks' => '備考',
+			'entity.purdetail.fields.f_reserve' => '引当予約',
 			'entity.purchaserec.title' => '受入実績',
 			'entity.purchaserec.fields.f_trans_purchase_detail_id' => '発注明細',
 			'entity.purchaserec.fields.f_receive_at' => '受入日時',

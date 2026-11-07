@@ -34,6 +34,9 @@ dependencies:
   shared_master:
     path: ../../shared_master
 
+  work_record:
+    path: ../../work_record
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

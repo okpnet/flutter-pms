@@ -26,4 +26,8 @@ const Map<String, List<EntityRecord>> workRecordSeeds = {
     'mrpvisiter': [
       EntityRecord(id: '9ca8f31a-0000-4000-8000-000000000001', values: {'item': '9f3833e6-0000-4000-8000-000000000001', 'item_count': '2', 'finished': '', 'quantity': '30'}),
     ],
+    'stockstatus': [
+      EntityRecord(id: '05c9f11f-0000-4000-8000-000000000001', values: {'location': '', 'container': '8daff178-0000-4000-8000-000000000001', 'item': '9f3833e6-0000-4000-8000-000000000001', 'qty': '120', 'safety': '40', 'avail': '30', 'reserved': '50'}),
+      EntityRecord(id: '05c9f11f-0000-4000-8000-000000000002', values: {'location': '', 'container': '8daff178-0000-4000-8000-000000000001', 'item': '9f3833e6-0000-4000-8000-000000000002', 'qty': '30', 'safety': '20', 'avail': '10', 'reserved': '0'}),
+    ],
 };
