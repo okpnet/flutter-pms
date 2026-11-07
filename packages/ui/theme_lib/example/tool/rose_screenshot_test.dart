@@ -13,7 +13,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:theme_lib/theme_lib.dart';
 
-const _outDir = '../../flgtable_lib/doc/contents';
+const _outDir = '../doc/contents/images';
 const _sdkFonts = 'C:/flutterSDK/flutter/bin/cache/artifacts/material_fonts';
 
 Future<void> _loadFont(String family, String path) async {
