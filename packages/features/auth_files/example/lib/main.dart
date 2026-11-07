@@ -120,6 +120,15 @@ class ExampleSession implements SessionService {
     );
   }
 
+  /// ログインの事後確認(GraphQL 用の JWT の取得)に使う。見本なので固定の値を返す。
+  @override
+  Future<GraphqlToken> graphqlToken({
+    Duration margin = const Duration(seconds: 60),
+  }) async => GraphqlToken(
+    token: 'example-graphql-token',
+    expiresAt: DateTime.now().add(const Duration(minutes: 15)),
+  );
+
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
