@@ -89,6 +89,7 @@ entity:
     fields:
       f_trans_order_detail_id: "受注明細"
       f_trans_unrecognized_detail_id: "非計上明細"
+      f_item: "品目"
       f_parent_trans_operations_plan_id: "親の生産計画"
       f_register_at: "登録日時"
       f_quantity: "数量"

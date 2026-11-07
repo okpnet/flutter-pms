@@ -65,6 +65,8 @@ module.exports = function writeExamples({ PROJECTS, rootsOf, dependsOn, features
       '    // flgtable_lib / theme_lib が使うテーマ側のロガー',
       '    overrides: [themeLoggerProvider.overrideWithValue(logger)' + extraOverrides + '],',
       '    themeOf: (ref) => ref.watch(lightThemeProvider),',
+      '    darkThemeOf: (ref) => ref.watch(darkThemeProvider),',
+      '    themeModeOf: (ref) => ref.watch(themeModeProvider),',
       '  );',
       '}',
       '',

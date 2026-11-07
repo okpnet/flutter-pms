@@ -31,12 +31,18 @@ const _pur = EntityDefinition(
     FieldDefinition(key: 'item'),
   ],
 );
-const _plan = EntityDefinition(
-  key: 'plan',
+// 生産計画の品目は、所有する親(資材計画)にある
+const _res = EntityDefinition(
+  key: 'res',
   fields: [
     FieldDefinition(key: 'code'),
     FieldDefinition(key: 'item'),
   ],
+);
+const _plan = EntityDefinition(
+  key: 'plan',
+  owner: 'res',
+  fields: [FieldDefinition(key: 'code')],
 );
 const _rez = EntityDefinition(
   key: 'rez',
@@ -61,7 +67,11 @@ const _rez = EntityDefinition(
       reference: 'stock',
       optionFilters: [
         OptionFilter(source: 'pur', sourceField: 'item', targetField: 'item'),
-        OptionFilter(source: 'plan', sourceField: 'item', targetField: 'item'),
+        OptionFilter(
+          source: 'plan',
+          sourceField: 'parent.item',
+          targetField: 'item',
+        ),
       ],
     ),
     FieldDefinition(
@@ -91,7 +101,12 @@ EntityCatalog _catalog() => EntityCatalog()
   )
   ..register(
     InMemoryEntityRepository(_plan, [
-      _r('l1', {'code': 'L1', 'item': 'B'}),
+      EntityRecord(id: 'l1', values: {'code': 'L1'}, parentId: 'r1'),
+    ]),
+  )
+  ..register(
+    InMemoryEntityRepository(_res, [
+      _r('r1', {'code': 'R1', 'item': 'B'}),
     ]),
   )
   ..register(InMemoryEntityRepository(_rez));
@@ -176,6 +191,21 @@ void main() {
       expect(find.text('S1 A'), findsWidgets);
       expect(find.text('S2 A'), findsWidgets);
       expect(find.text('S3 B'), findsNothing);
+    });
+
+    testWidgets('親をたどる絞り込み: 生産計画は、所有する親の品目の在庫だけが出る', (tester) async {
+      await _pump(tester, _catalog());
+      await _choose(tester, 'plan', 'L1');
+      await tester.tap(
+        find.byWidgetPredicate(
+          (w) =>
+              w is DropdownButtonFormField<String> &&
+              w.key.toString().contains("'stock:"),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('S3 B'), findsWidgets);
+      expect(find.text('S1 A'), findsNothing);
     });
 
     testWidgets('上限: 数量は選んだ在庫の出庫可能数まで', (tester) async {

@@ -34,11 +34,12 @@
 | 非計上 | `unrec` | テーブル構造 | 5 |  |
 | 非計上明細 | `unrecdetail` | 子の台帳(親: 非計上) | 8 |  |
 | 発注 | `purchase` | テーブル構造 | 6 |  |
-| 発注明細 | `purdetail` | 子の台帳(親: 発注) | 10 | `resplan` |
+| 発注明細 | `purdetail` | 子の台帳(親: 発注) | 11 | `resplan`, `item` |
 | 受入実績 | `purchaserec` | テーブル構造 | 4 | `purdetail` |
 | 受入明細 | `purchaseline` | 子の台帳(親: 受入実績) | 3 | `item`, `unit` |
 | 発注品目成績書 | `purcert` | 子の台帳(親: 受入実績) | 2 | `certificate` |
 <!-- entity_gen:end -->
+
 
 
 

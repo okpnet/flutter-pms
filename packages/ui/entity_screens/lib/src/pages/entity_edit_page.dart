@@ -205,10 +205,20 @@ class _EntityEditPageState extends State<EntityEditPage> {
     String field,
   ) async {
     final id = _chosen[source] ?? '';
-    final entity = definition.field(source)?.reference;
+    var entity = definition.field(source)?.reference;
     if (id.isEmpty || entity == null) return null;
-    final record = await _scope.catalog.recordOf(entity, id);
-    return record?.valueOf(field);
+    var record = await _scope.catalog.recordOf(entity, id);
+    // `parent.項目`: 所有する親をたどる
+    var name = field;
+    while (record != null && name.startsWith(OptionFilter.parentPrefix)) {
+      name = name.substring(OptionFilter.parentPrefix.length);
+      final owner = _scope.catalog.definition(entity!)?.owner;
+      final parentId = record.parentId;
+      if (owner == null || parentId == null) return null;
+      entity = owner;
+      record = await _scope.catalog.recordOf(owner, parentId);
+    }
+    return record?.valueOf(name);
   }
 
   /// 画面だけでできる検査(排他の参照にどちらも無い・上限を参照先から取る数値)。誤りがあれば返す。

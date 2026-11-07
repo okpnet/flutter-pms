@@ -532,6 +532,9 @@ class ProductionPlanStrings$entity$resplan$fields$ja {
 	/// ja: '非計上明細'
 	String get f_trans_unrecognized_detail_id => '非計上明細';
 
+	/// ja: '品目'
+	String get f_item => '品目';
+
 	/// ja: '親の生産計画'
 	String get f_parent_trans_operations_plan_id => '親の生産計画';
 
@@ -869,6 +872,7 @@ extension on ProductionPlanStrings {
 			'entity.resplan.title' => '資材計画',
 			'entity.resplan.fields.f_trans_order_detail_id' => '受注明細',
 			'entity.resplan.fields.f_trans_unrecognized_detail_id' => '非計上明細',
+			'entity.resplan.fields.f_item' => '品目',
 			'entity.resplan.fields.f_parent_trans_operations_plan_id' => '親の生産計画',
 			'entity.resplan.fields.f_register_at' => '登録日時',
 			'entity.resplan.fields.f_quantity' => '数量',

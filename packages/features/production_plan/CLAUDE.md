@@ -38,7 +38,7 @@
 
 | 実体 | キー | 構造 | 項目数 | 参照先 |
 |---|---|---|---|---|
-| 資材計画 | `resplan` | テーブル構造 | 8 | `orderdetail`, `unrecdetail`, `opsplan` |
+| 資材計画 | `resplan` | テーブル構造 | 9 | `orderdetail`, `unrecdetail`, `item`, `opsplan` |
 | 生産計画 | `opsplan` | 子の台帳(親: 資材計画) | 3 |  |
 | 生産計画明細 | `workplan` | 子の台帳(親: 生産計画) | 6 | `task` |
 | 生産引き当て予約 | `prodrez` | テーブル構造 | 3 | `workplan` |
@@ -49,6 +49,7 @@
 | 資材計画の充足状況 | `mrpcoverage` | テーブル構造 | 8 | `item` |
 | 引当予約 | `stockrez` | テーブル構造 | 6 | `purdetail`, `opsplan`, `stockstatus` |
 <!-- entity_gen:end -->
+
 
 
 

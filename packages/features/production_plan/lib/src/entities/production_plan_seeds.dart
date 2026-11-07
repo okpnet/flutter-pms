@@ -4,8 +4,8 @@ import 'package:entity_screens/entity_screens.dart';
 /// 生産計画のサンプルデータ(架空の値)。参照は参照先の id(UUID の文字列)。
 const Map<String, List<EntityRecord>> productionPlanSeeds = {
     'resplan': [
-      EntityRecord(id: '5518c986-0000-4000-8000-000000000001', values: {'trans_order_detail_id': '44b192d6-0000-4000-8000-000000000001', 'trans_unrecognized_detail_id': 'a1bcd19d-0000-4000-8000-000000000001', 'register_at': '2026-10-01', 'quantity': '10', 'inventory_resavation': '10', 'deadline': '2026-10-10', 'remarks': '', 'parent_trans_operations_plan_id': ''}),
-      EntityRecord(id: '5518c986-0000-4000-8000-000000000002', values: {'trans_order_detail_id': '44b192d6-0000-4000-8000-000000000001', 'trans_unrecognized_detail_id': 'a1bcd19d-0000-4000-8000-000000000001', 'register_at': '2026-11-01', 'quantity': '20', 'inventory_resavation': '20', 'deadline': '2026-10-11', 'remarks': '', 'parent_trans_operations_plan_id': ''}),
+      EntityRecord(id: '5518c986-0000-4000-8000-000000000001', values: {'trans_order_detail_id': '44b192d6-0000-4000-8000-000000000001', 'trans_unrecognized_detail_id': 'a1bcd19d-0000-4000-8000-000000000001', 'register_at': '2026-10-01', 'quantity': '10', 'inventory_resavation': '10', 'deadline': '2026-10-10', 'remarks': '', 'item': '9f3833e6-0000-4000-8000-000000000001', 'parent_trans_operations_plan_id': ''}),
+      EntityRecord(id: '5518c986-0000-4000-8000-000000000002', values: {'trans_order_detail_id': '44b192d6-0000-4000-8000-000000000001', 'trans_unrecognized_detail_id': 'a1bcd19d-0000-4000-8000-000000000001', 'register_at': '2026-11-01', 'quantity': '20', 'inventory_resavation': '20', 'deadline': '2026-10-11', 'remarks': '', 'item': '9f3833e6-0000-4000-8000-000000000002', 'parent_trans_operations_plan_id': ''}),
     ],
     'opsplan': [
       EntityRecord(id: 'c32b4dd4-0000-4000-8000-000000000001', values: {'deadline': '2026-11-10', 'remarks': '', 'quantity': ''}, parentId: '5518c986-0000-4000-8000-000000000001'),

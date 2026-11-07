@@ -8,6 +8,7 @@ import 'package:production_process/production_process.dart';
 import 'package:purchasing/purchasing.dart';
 import 'package:sales/sales.dart';
 import 'package:shared_master/shared_master.dart';
+import 'package:work_record/work_record.dart';
 import 'package:theme_lib/theme_lib.dart';
 
 Future<void> main() async {
@@ -28,8 +29,8 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FeatureHost(
     title: '生産計画 (example)',
-    modules: const [ProductionPlanModule(), ItemModule(), ProductionProcessModule(), PurchasingModule(), SalesModule(), SharedMasterModule()],
-    entries: const [FeatureHostEntry('資材所要計算', MrpDestination()), FeatureHostEntry('資材計画', EntityListDestination('resplan')), FeatureHostEntry('生産引き当て予約', EntityListDestination('prodrez')), FeatureHostEntry('購買引き当て予約', EntityListDestination('purrez')), FeatureHostEntry('要判断の提案', EntityListDestination('mrppending')), FeatureHostEntry('発注予定', EntityListDestination('mrppurchase')), FeatureHostEntry('マスタ不備', EntityListDestination('mrpissue')), FeatureHostEntry('資材計画の充足状況', EntityListDestination('mrpcoverage'))],
+    modules: const [ProductionPlanModule(), ItemModule(), ProductionProcessModule(), PurchasingModule(), SalesModule(), SharedMasterModule(), WorkRecordModule()],
+    entries: const [FeatureHostEntry('資材所要計算', MrpDestination()), FeatureHostEntry('資材計画', EntityListDestination('resplan')), FeatureHostEntry('生産引き当て予約', EntityListDestination('prodrez')), FeatureHostEntry('購買引き当て予約', EntityListDestination('purrez')), FeatureHostEntry('要判断の提案', EntityListDestination('mrppending')), FeatureHostEntry('発注予定', EntityListDestination('mrppurchase')), FeatureHostEntry('マスタ不備', EntityListDestination('mrpissue')), FeatureHostEntry('資材計画の充足状況', EntityListDestination('mrpcoverage')), FeatureHostEntry('引当予約', EntityListDestination('stockrez'))],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー
     overrides: [themeLoggerProvider.overrideWithValue(logger), mrpGatewayProvider.overrideWithValue(DemoMrpGateway())],

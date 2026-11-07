@@ -260,6 +260,9 @@ class PurchasingStrings$entity$purdetail$fields$ja {
 	/// ja: '資材計画'
 	String get f_trans_resource_plan_id => '資材計画';
 
+	/// ja: '品目'
+	String get f_item => '品目';
+
 	/// ja: '在庫発注'
 	String get f_restocking_purchase => '在庫発注';
 
@@ -378,6 +381,7 @@ extension on PurchasingStrings {
 			'entity.purchase.fields.f_remarks' => '備考',
 			'entity.purdetail.title' => '発注明細',
 			'entity.purdetail.fields.f_trans_resource_plan_id' => '資材計画',
+			'entity.purdetail.fields.f_item' => '品目',
 			'entity.purdetail.fields.f_restocking_purchase' => '在庫発注',
 			'entity.purdetail.fields.f_quantity' => '数量',
 			'entity.purdetail.fields.f_unit_price' => '単価',

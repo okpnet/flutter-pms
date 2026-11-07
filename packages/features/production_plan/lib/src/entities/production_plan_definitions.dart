@@ -8,6 +8,7 @@ const List<EntityDefinition> productionPlanDefinitions = [
       fields: [
         FieldDefinition(key: 'trans_order_detail_id', kind: FieldKind.reference, required: false, reference: 'orderdetail'),
         FieldDefinition(key: 'trans_unrecognized_detail_id', kind: FieldKind.reference, required: false, reference: 'unrecdetail'),
+        FieldDefinition(key: 'item', kind: FieldKind.reference, required: false, reference: 'item'),
         FieldDefinition(key: 'parent_trans_operations_plan_id', kind: FieldKind.reference, required: false, reference: 'opsplan'),
         FieldDefinition(key: 'register_at', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
@@ -106,7 +107,7 @@ const List<EntityDefinition> productionPlanDefinitions = [
       fields: [
         FieldDefinition(key: 'purdetail', kind: FieldKind.reference, required: false, reference: 'purdetail', exclusiveWith: 'opsplan'),
         FieldDefinition(key: 'opsplan', kind: FieldKind.reference, required: false, reference: 'opsplan', exclusiveWith: 'purdetail'),
-        FieldDefinition(key: 'stock', kind: FieldKind.reference, reference: 'stockstatus'),
+        FieldDefinition(key: 'stock', kind: FieldKind.reference, reference: 'stockstatus', optionFilters: [OptionFilter(source: 'purdetail', sourceField: 'item', targetField: 'item'), OptionFilter(source: 'opsplan', sourceField: 'parent.item', targetField: 'item')]),
         FieldDefinition(key: 'date', kind: FieldKind.date),
         FieldDefinition(key: 'qty', kind: FieldKind.number, gt: 0, maxFrom: [LimitSource(source: 'stock', field: 'avail')]),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),

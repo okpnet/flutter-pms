@@ -41,6 +41,7 @@ const List<EntityDefinition> purchasingDefinitions = [
       key: 'purdetail', owner: 'purchase', rowActions: [RowAction(key: 'reserve', target: 'stockrez', initialValues: {'purdetail': RowAction.idSource})],
       fields: [
         FieldDefinition(key: 'trans_resource_plan_id', kind: FieldKind.reference, required: false, reference: 'resplan'),
+        FieldDefinition(key: 'item', kind: FieldKind.reference, required: false, reference: 'item'),
         FieldDefinition(key: 'restocking_purchase', kind: FieldKind.choice, required: false, options: ['はい', 'いいえ']),
         FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
         FieldDefinition(key: 'unit_price', kind: FieldKind.number),

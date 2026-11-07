@@ -1,7 +1,9 @@
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:logger_provider/logger_provider.dart';
+import 'package:item/item.dart';
 import 'package:sales/sales.dart';
+import 'package:shared_master/shared_master.dart';
 import 'package:theme_lib/theme_lib.dart';
 
 Future<void> main() async {
@@ -22,8 +24,8 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FeatureHost(
     title: '営業 (example)',
-    modules: const [SalesModule()],
-    entries: const [FeatureHostEntry('受注', EntityListDestination('order'))],
+    modules: const [SalesModule(), ItemModule(), SharedMasterModule()],
+    entries: const [FeatureHostEntry('受注', EntityListDestination('order')), FeatureHostEntry('出荷予定', EntityListDestination('shipplan'))],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー
     overrides: [themeLoggerProvider.overrideWithValue(logger)],

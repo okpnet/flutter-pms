@@ -45,7 +45,11 @@ class OptionFilter {
   final String source;
 
   /// [source] で選んだ1件の中の、比べる値の項目のキー。
+  /// 所有する親([EntityDefinition.owner])の項目は `parent.項目`(親の親は `parent.parent.項目`)で指す。
   final String sourceField;
+
+  /// [sourceField] の、所有する親をたどる印。
+  static const parentPrefix = 'parent.';
 
   /// この参照先の各件の中の、比べられる値の項目のキー。
   final String targetField;

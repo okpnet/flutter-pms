@@ -132,7 +132,7 @@ function fromHtml(e) {
     }
     return {
       key, label, kind: k, required: e.viewOnly || kind === 'c' ? false : extra.req !== false, readOnly: e.viewOnly || kind === 'c' ? true : extra.readOnly, options: k === 'choice' ? extra.opts : undefined, ref,
-      toggle: extra.toggle, disables: extra.disables, ge: extra.ge, gt: extra.gt, le: extra.le, lt: extra.lt, notBefore: extra.after, needUnless: extra.needUnless, lockedBy: extra.lockedBy, uniq: extra.uniq, picker: extra.picker, exclusiveWith: extra.xor,
+      toggle: extra.toggle, disables: extra.disables, ge: extra.ge, gt: extra.gt, le: extra.le, lt: extra.lt, notBefore: extra.after, needUnless: extra.needUnless, lockedBy: extra.lockedBy, uniq: extra.uniq, picker: extra.picker, exclusiveWith: extra.xor, optionFilters: extra.filterBy,
     };
   });
   // 参照を選ぶと数値の上限が決まる(setsLe)。上限は、選んだ参照先の limitField の値(entity_screens の maxFrom)
@@ -201,7 +201,9 @@ for (const e of htmlEntities) {
 }
 const empty = () => '';
 const FIELD_ADDITIONS = {
+  /* 発注明細・資材計画の品目(DB は mstr_item_id。model_providers は item_id で返す)。引当予約が、品目で在庫を絞るのに使う */
   purdetail: [
+    { after: 'trans_resource_plan_id', field: { key: 'item', label: '品目', kind: 'reference', required: false, ref: 'item' }, sample: (i) => 'item' + (i % 2 + 1) },
     { after: 'quantity', field: { key: 'unit_price', label: '単価', kind: 'number', required: true }, sample: (i) => String([1200, 900, 1500][i] ?? 1000) },
     { after: 'unit_price', field: { key: 'price_adjustment', label: '価格調整', kind: 'number', required: false }, sample: empty },
     { after: 'price_adjustment', field: { key: 'fixed_price', label: '固定価格', kind: 'number', required: false }, sample: empty },
@@ -212,7 +214,7 @@ const FIELD_ADDITIONS = {
      trans_resource_plan.parent_trans_operations_plan_id、trans_inventory_request.trans_resource_plan_id */
   opsplan: [{ after: 'deadline', field: { key: 'quantity', label: '数量', kind: 'number', required: false }, sample: empty }],
   workplan: [{ after: 'mstr_task_id', field: { key: 'sequence', label: '順', kind: 'number', required: false }, sample: empty }],
-  resplan: [{ after: 'trans_unrecognized_detail_id', field: { key: 'parent_trans_operations_plan_id', label: '親の生産計画', kind: 'reference', required: false, ref: 'opsplan' }, sample: empty }],
+  resplan: [{ after: 'trans_unrecognized_detail_id', field: { key: 'item', label: '品目', kind: 'reference', required: false, ref: 'item' }, sample: (i) => 'item' + (i % 2 + 1) }, { after: 'item', field: { key: 'parent_trans_operations_plan_id', label: '親の生産計画', kind: 'reference', required: false, ref: 'opsplan' }, sample: empty }],
   invreq: [{ after: '', field: { key: 'trans_resource_plan_id', label: '資材計画', kind: 'reference', required: false, ref: 'resplan' }, sample: empty }],
   /* mstr_task_location.priority(優先順位) */
   taskres: [{ after: 'info_department_id', field: { key: 'priority', label: '優先順位', kind: 'number', required: false }, sample: empty }],
@@ -425,6 +427,7 @@ function defsDart(pkg, list) {
           if (fl.lt != null) a.push(`lt: ${fl.lt}`);
           if (fl.notBefore) a.push(`notBefore: ${dq(fl.notBefore)}`);
           if (fl.exclusiveWith) a.push(`exclusiveWith: ${dq(fl.exclusiveWith)}`);
+          if (fl.optionFilters) a.push(`optionFilters: [${fl.optionFilters.map((o) => `OptionFilter(source: ${dq(o.source)}, sourceField: ${dq(o.sourceField)}, targetField: ${dq(o.targetField)})`).join(', ')}]`);
           if (fl.maxFrom) a.push(`maxFrom: [${fl.maxFrom.map((m) => `LimitSource(source: ${dq(m.source)}, field: ${dq(m.field)})`).join(', ')}]`);
           if (fl.needUnless) a.push(`needUnless: ${dq(fl.needUnless)}`);
           if (fl.lockedBy) a.push(`lockedBy: ${dq(fl.lockedBy)}`);
