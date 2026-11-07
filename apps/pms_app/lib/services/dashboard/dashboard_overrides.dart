@@ -1,6 +1,12 @@
 import 'package:dashboard_container/dashboard_container_api.dart';
+import 'package:organization/organization_api.dart';
+import 'package:production_plan/production_plan_api.dart';
+import 'package:purchasing/purchasing_api.dart';
+import 'package:resource/resource_api.dart';
+import 'package:sales/sales_api.dart';
 
 import '../../imports.dart';
+import '../graphql/graphql_overrides.dart' show graphqlClientProvider;
 
 /// 件数の元(暫定のモック)。当日出荷・進捗遅延・受注の件数と、区分・利害関係者のフィルタグループを持つ。
 ///
@@ -98,7 +104,22 @@ List<CountContainerSpec> defaultDashboardLayout() => const [
 /// ダッシュボードの件数の元(アプリが差し込む)。
 List<Override> dashboardOverrides() => [
   countSourcesProvider.overrideWithValue(mockCountSources),
+  metricSourcesProvider.overrideWith(_metricSources),
 ];
+
+/// 集計値の元(従業員数・売り上げ実績・発注金額など)。GraphQL に接続するときだけ。接続しないときは空。
+/// 画面(ダッシュボード)に出す部品は、`dashboard_container`が元を選ぶ。
+List<IMetricSource> _metricSources(Ref ref) {
+  final client = ref.watch(graphqlClientProvider);
+  if (client == null) return const [];
+  return [
+    staffCountMetricSource(client),
+    ...salesMetricSources(client),
+    ...purchasingMetricSources(client),
+    ...resourceMetricSources(client),
+    ...productionPlanMetricSources(client),
+  ];
+}
 
 /// ログインしたユーザーのダッシュボードの配置を読み出す。
 ///

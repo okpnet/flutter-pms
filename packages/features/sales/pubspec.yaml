@@ -29,10 +29,19 @@ dependencies:
     path: ../../ui/flgtable_lib
   logger_provider:
     path: ../../infra/logger_provider
+  dashboard_container:
+    path: ../dashboard_container
+  graphql: ^5.2.3
+  pms_graphql:
+    path: ../../infra/pms_graphql
+  sales_model:
+    path: ../../model_providers/sales_model
 
 dev_dependencies:
   theme_lib:
     path: ../../ui/theme_lib
+  data_test_harness:
+    path: ../../infra/data_test_harness
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

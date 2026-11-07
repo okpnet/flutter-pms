@@ -3,3 +3,5 @@
 library;
 
 export 'src/mrp/mrp_destinations.dart';
+export 'src/dashboard/work_plan_compliance_metric_source.dart'
+    show WorkPlanComplianceMetricSource, productionPlanMetricSources;
