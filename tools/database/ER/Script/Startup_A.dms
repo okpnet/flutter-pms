@@ -6,7 +6,7 @@ var domainArray=new Array;//ERで使用しているドメイン
 var commonAttrs=new Array;//ERで使用しているコモンドメイン
 //CONST
 var CR="\n";
-var SCHEMA=':"db_test_schema"';
+var SCHEMA='tests';
 var TAB="    ";
 var HIERARCHY_METHOD_PRIFIX="trg_03_hierarchy";
 var UPDATE_TRIGGER_PRIFIX="trg_01_updatetimes";

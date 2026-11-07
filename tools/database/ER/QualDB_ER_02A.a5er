@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -1765,6 +1765,7 @@ Top=1350
 Field="引当予約ID","trans_inventory_request_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="引当予約日","register_at","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="引当予定日","register_plan_at","*@DATETIME",,,"now()","",$FFFFFFFF,""
+Field="棚ビジターID","trans_visiter_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="購買引き当てID","trans_purchase_rez_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="生産引き当てID","trans_product_rez_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="引当数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
@@ -1776,7 +1777,7 @@ Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20261028213309
+ModifiedDateTime=20261107230649
 Position="作業トランザクション",5050,1350
 ZOrder=206
 
@@ -23983,3 +23984,81 @@ Bar3=432
 TermPos1=R
 TermPos2=R
 ZOrder=1493
+
+[View]
+PName=v_visiter_item
+LName=棚ビジター－品目
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_visiter_item is E\q@primaryKey trans_visiter_id\\n@unique symbol\\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\\n在庫(ロット)の品目\q;
+Query=-- 在庫(ロット)の品目 (issue 20261107_0009 B案)\n-- 分割・移動した在庫は、分割元をたどった最初の在庫(root_visiter_id)の\n-- 受入実績(発注明細の品目)または作業実績(生産計画 → 資材計画の品目)で決める。\nSELECT\n    l.trans_visiter_id\n    , l.symbol\n    , COALESCE(pd.item_id, rp.item_id) AS mstr_item_id\nFROM @schema.v_visiter_lot AS l\nLEFT JOIN LATERAL (\n    -- 受入実績(購入品)の品目\n    SELECT d.item_id\n    FROM @schema.trans_purchase_rec_visiter AS prv\n    INNER JOIN @schema.trans_purchase_rec AS pr\n        ON pr.trans_purchase_rec_id = prv.trans_purchase_rec_id AND pr.remove IS FALSE\n    INNER JOIN @schema.trans_purchase_detail AS d\n        ON d.trans_purchase_detail_id = pr.trans_purchase_detail_id\n    WHERE prv.trans_visiter_id = COALESCE(l.root_visiter_id, l.trans_visiter_id)\n    LIMIT 1\n) AS pd ON TRUE\nLEFT JOIN LATERAL (\n    -- 作業実績(製造品)の品目\n    SELECT r.item_id\n    FROM @schema.trans_work_record_visiter AS wrv\n    INNER JOIN @schema.trans_work_record AS wr\n        ON wr.trans_work_record_id = wrv.trans_work_record_id AND wr.remove IS FALSE\n    INNER JOIN @schema.trans_work_plan AS wp\n        ON wp.trans_work_plan_id = wr.trans_work_plan_id\n    INNER JOIN @schema.trans_operations_plan AS op\n        ON op.trans_operations_plan_id = wp.trans_operations_plan_id\n    INNER JOIN @schema.trans_resource_plan AS r\n        ON r.trans_resource_plan_id = op.trans_resource_plan_id\n    WHERE wrv.trans_visiter_id = COALESCE(l.root_visiter_id, l.trans_visiter_id)\n    LIMIT 1\n) AS rp ON TRUE
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="カスタムビュー",3100,3000
+ZOrder=1428
+Page=カスタムビュー
+Left=3100
+Top=3000
+
+[View]
+PName=v_stock_status
+LName=在庫状況(出庫可能数)
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_stock_status is E\q@primaryKey trans_visiter_id\\n@unique symbol\\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\\n@foreignKey (mstr_location_id) references mstr_location (mstr_location_id)\\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\\n在庫状況(出庫可能数つき)\q;
+Query=-- 在庫状況 (画面の stockstatus。1行 = 在庫(ロット) 1件)\n-- quantity   : 今の数量(v_visiter_lot.quantity)\n-- safety     : 品目の安全在庫(mstr_item_lot.safety_inventory。品目全体の値で、行ごとに重複して引かない)\n-- reserved   : この在庫を引当元にした引当予約の合計(trans_inventory_request.quantity)\n-- available  : 出庫可能数 = 0 以上の min(この在庫の空き, 品目全体の在庫 − 品目全体の引当済 − 安全在庫)\nWITH lot AS (\n    SELECT\n        l.trans_visiter_id\n        , l.symbol\n        , l.mstr_location_id\n        , l.trans_container_id\n        , vi.mstr_item_id\n        , l.quantity\n        , COALESCE(rz.reserved, 0) AS reserved\n        , COALESCE(il.safety_inventory, 0) AS safety\n    FROM @schema.v_visiter_lot AS l\n    LEFT JOIN @schema.v_visiter_item AS vi\n        ON vi.trans_visiter_id = l.trans_visiter_id\n    LEFT JOIN @schema.mstr_item AS i\n        ON i.mstr_item_id = vi.mstr_item_id\n    LEFT JOIN @schema.mstr_item_lot AS il\n        ON il.mstr_item_lot_id = i.mstr_item_lot_id\n    LEFT JOIN LATERAL (\n        SELECT SUM(ir.quantity) AS reserved\n        FROM @schema.trans_inventory_request AS ir\n        WHERE ir.trans_visiter_id = l.trans_visiter_id AND ir.remove IS FALSE\n    ) AS rz ON TRUE\n    WHERE l.quantity > 0\n)\nSELECT\n    lot.trans_visiter_id\n    , lot.symbol\n    , lot.mstr_location_id\n    , lot.trans_container_id\n    , lot.mstr_item_id\n    , lot.quantity\n    , lot.safety\n    , lot.reserved\n    , GREATEST(\n          LEAST(\n              lot.quantity - lot.reserved\n              , SUM(lot.quantity) OVER (PARTITION BY lot.mstr_item_id)\n                - SUM(lot.reserved) OVER (PARTITION BY lot.mstr_item_id)\n                - lot.safety\n          )\n          , 0\n      ) AS available\nFROM lot
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="カスタムビュー",2300,3600
+ZOrder=1427
+Page=カスタムビュー
+Left=2300
+Top=3600
+
+[View]
+PName=v_purchase_detail_unreserved
+LName=発注明細－未引当数量
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_purchase_detail_unreserved is E\q@primaryKey trans_purchase_detail_id\\n@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\\n発注明細の未引当数量\q;
+Query=-- 発注明細の未引当数量\n-- quantity   : 発注数量\n-- reserved   : 購買引当(trans_purchase_rez)を通した引当予約の合計(trans_inventory_request.quantity)\n-- unreserved : 未引当数量 = 発注数量 − 引当済(0 未満にはならない)\nSELECT\n    d.trans_purchase_detail_id\n    , d.symbol\n    , d.item_id AS mstr_item_id\n    , d.quantity\n    , COALESCE(rz.reserved, 0) AS reserved\n    , GREATEST(d.quantity - COALESCE(rz.reserved, 0), 0) AS unreserved\nFROM @schema.trans_purchase_detail AS d\nLEFT JOIN LATERAL (\n    SELECT SUM(ir.quantity) AS reserved\n    FROM @schema.trans_purchase_rez AS pz\n    INNER JOIN @schema.trans_inventory_request AS ir\n        ON ir.trans_purchase_rez_id = pz.trans_purchase_rez_id AND ir.remove IS FALSE\n    WHERE pz.trans_purchase_detail_id = d.trans_purchase_detail_id AND pz.remove IS FALSE\n) AS rz ON TRUE\nWHERE d.remove IS FALSE
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="カスタムビュー",3500,3300
+ZOrder=1426
+Page=カスタムビュー
+Left=3500
+Top=3300
+
+[View]
+PName=v_operations_plan_unreserved
+LName=生産計画－未引当数量
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_operations_plan_unreserved is E\q@primaryKey trans_operations_plan_id\\n@unique symbol\\n@foreignKey (trans_operations_plan_id) references trans_operations_plan (trans_operations_plan_id)\\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\\n生産計画の未引当数量\q;
+Query=-- 生産計画の未引当数量\n-- quantity    : 生産計画の数量(trans_operations_plan.quantity)\n-- reserved    : 生産引当(trans_product_rez。工程 = 生産計画詳細ごと)を通した引当予約の合計\n-- unreserved  : 未引当数量 = 数量 − 引当済(0 未満にはならない)\n-- mstr_item_id: 資材計画の品目\nSELECT\n    op.trans_operations_plan_id\n    , op.symbol\n    , rp.item_id AS mstr_item_id\n    , COALESCE(op.quantity, 0) AS quantity\n    , COALESCE(rz.reserved, 0) AS reserved\n    , GREATEST(COALESCE(op.quantity, 0) - COALESCE(rz.reserved, 0), 0) AS unreserved\nFROM @schema.trans_operations_plan AS op\nLEFT JOIN @schema.trans_resource_plan AS rp\n    ON rp.trans_resource_plan_id = op.trans_resource_plan_id\nLEFT JOIN LATERAL (\n    SELECT SUM(ir.quantity) AS reserved\n    FROM @schema.trans_work_plan AS wp\n    INNER JOIN @schema.trans_product_rez AS pz\n        ON pz.trans_work_plan_id = wp.trans_work_plan_id AND pz.remove IS FALSE\n    INNER JOIN @schema.trans_inventory_request AS ir\n        ON ir.trans_product_rez_id = pz.trans_product_rez_id AND ir.remove IS FALSE\n    WHERE wp.trans_operations_plan_id = op.trans_operations_plan_id AND wp.remove IS FALSE\n) AS rz ON TRUE\nWHERE op.remove IS FALSE
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="カスタムビュー",2450,3200
+ZOrder=1425
+Page=カスタムビュー
+Left=2450
+Top=3200
+
+[Relation]
+Entity1=trans_visiter
+Entity2=trans_inventory_request
+RelationType1=1
+RelationType2=3
+Fields1=trans_visiter_id
+Fields2=trans_visiter_id
+Cardinarity1=
+Cardinarity2=
+Position="作業トランザクション",0,2417,7583,4515,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20261107230724
+LineMode=0
+Bar1=242
+Bar2=758
+Bar3=452
+TermPos1=R
+TermPos2=R
+ZOrder=1494

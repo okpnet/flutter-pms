@@ -2888,7 +2888,7 @@ create table tests.info_access_path (
     info_access_path_id uuid default gen_random_uuid(),
     info_app_id uuid not null,
     names uuid not null,
-    usecase_path varchar(255) default null,
+    usecase_path varchar(255) not null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2901,6 +2901,7 @@ create table tests.trans_inventory_request (
     trans_inventory_request_id uuid default gen_random_uuid(),
     register_at timestamp default now(),
     register_plan_at timestamp default now(),
+    trans_visiter_id uuid default null,
     trans_purchase_rez_id uuid default null,
     trans_product_rez_id uuid default null,
     quantity decimal(10,2) default 0,
@@ -2917,7 +2918,6 @@ create table tests.trans_inventory_request (
 create table tests.trans_product_rez (
     trans_product_rez_id uuid default gen_random_uuid(),
     trans_work_plan_id uuid not null,
-    quantity decimal(10,2) default 0,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -3082,7 +3082,6 @@ create table tests.trans_purchase_certification (
 create table tests.trans_purchase_rez (
     trans_purchase_rez_id uuid default gen_random_uuid(),
     trans_purchase_detail_id uuid not null,
-    quantity decimal(10,2) default 0,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -6185,6 +6184,7 @@ comment on table tests.trans_inventory_request is '引き当て予約';
 comment on column tests.trans_inventory_request.trans_inventory_request_id is '引当予約ID';
 comment on column tests.trans_inventory_request.register_at is '引当予約日';
 comment on column tests.trans_inventory_request.register_plan_at is '引当予定日';
+comment on column tests.trans_inventory_request.trans_visiter_id is '棚ビジターID';
 comment on column tests.trans_inventory_request.trans_purchase_rez_id is '購買引き当てID';
 comment on column tests.trans_inventory_request.trans_product_rez_id is '生産引き当てID';
 comment on column tests.trans_inventory_request.quantity is '引当数量';
@@ -6200,7 +6200,6 @@ comment on column tests.trans_inventory_request.remove is '削除';
 comment on table tests.trans_product_rez is '生産引き当て予約';
 comment on column tests.trans_product_rez.trans_product_rez_id is '生産引当ID';
 comment on column tests.trans_product_rez.trans_work_plan_id is '生産計画詳細ID';
-comment on column tests.trans_product_rez.quantity is '引当数量';
 comment on column tests.trans_product_rez.symbol is 'リニアシンボル';
 comment on column tests.trans_product_rez.remarks is '備考';
 comment on column tests.trans_product_rez.update_at is '更新日時';
@@ -6352,7 +6351,6 @@ comment on column tests.trans_purchase_certification.remove is '削除';
 comment on table tests.trans_purchase_rez is '購買引き当て予約';
 comment on column tests.trans_purchase_rez.trans_purchase_rez_id is '購買引当予約ID';
 comment on column tests.trans_purchase_rez.trans_purchase_detail_id is '発注明細ID';
-comment on column tests.trans_purchase_rez.quantity is '引当数量';
 comment on column tests.trans_purchase_rez.symbol is 'リニアシンボル';
 comment on column tests.trans_purchase_rez.remarks is '備考';
 comment on column tests.trans_purchase_rez.update_at is '更新日時';
@@ -8824,11 +8822,12 @@ alter table tests.info_app add constraint info_app_FK2 foreign key (update_user_
 alter table tests.info_access_path add constraint info_access_path_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_access_path add constraint info_access_path_FK2 foreign key (info_app_id) references tests.info_app (info_app_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_access_path add constraint info_access_path_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inventory_request add constraint trans_inventory_request_FK1 foreign key (trans_resource_plan_id) references tests.trans_resource_plan (trans_resource_plan_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inventory_request add constraint trans_inventory_request_FK2 foreign key (staff_history_id,staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inventory_request add constraint trans_inventory_request_FK3 foreign key (trans_product_rez_id) references tests.trans_product_rez (trans_product_rez_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inventory_request add constraint trans_inventory_request_FK4 foreign key (trans_purchase_rez_id) references tests.trans_purchase_rez (trans_purchase_rez_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inventory_request add constraint trans_inventory_request_FK5 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_request add constraint trans_inventory_request_FK1 foreign key (trans_visiter_id) references tests.trans_visiter (trans_visiter_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_request add constraint trans_inventory_request_FK2 foreign key (trans_resource_plan_id) references tests.trans_resource_plan (trans_resource_plan_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_request add constraint trans_inventory_request_FK3 foreign key (staff_history_id,staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_request add constraint trans_inventory_request_FK4 foreign key (trans_product_rez_id) references tests.trans_product_rez (trans_product_rez_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_request add constraint trans_inventory_request_FK5 foreign key (trans_purchase_rez_id) references tests.trans_purchase_rez (trans_purchase_rez_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_request add constraint trans_inventory_request_FK6 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_product_rez add constraint trans_product_rez_FK1 foreign key (trans_work_plan_id) references tests.trans_work_plan (trans_work_plan_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_product_rez add constraint trans_product_rez_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_work_record_visiter add constraint trans_work_record_visiter_FK1 foreign key (trans_visiter_id) references tests.trans_visiter (trans_visiter_id) DEFERRABLE INITIALLY DEFERRED;
@@ -21985,7 +21984,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE OR REPLACE TRIGGER trg_03_hierarchy_mstr_location_tree AFTER INSERT OR UPDATE OR DELETE ON tests.mstr_location_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_03_hierarchy_mstr_location_tree();
 
---154.create view
+--158.create view
 
 drop view if exists tests.v_visiter_complaint_visiter_count;
 create view  tests.v_visiter_complaint_visiter_count as
@@ -23227,6 +23226,46 @@ GROUP BY
 -- Postgraphile additional comment.
 comment on view tests.v_purchase_purchase_detail_count is E'@foreignKey (trans_purchase_id) references trans_purchase (trans_purchase_id)\n@unique trans_purchase_id';
 
+drop view if exists tests.v_visiter_item;
+create view  tests.v_visiter_item as
+-- 在庫(ロット)の品目 (issue 20261107_0009 B案)
+-- 分割・移動した在庫は、分割元をたどった最初の在庫(root_visiter_id)の
+-- 受入実績(発注明細の品目)または作業実績(生産計画 → 資材計画の品目)で決める。
+SELECT
+    l.trans_visiter_id
+    , l.symbol
+    , COALESCE(pd.item_id, rp.item_id) AS mstr_item_id
+FROM tests.v_visiter_lot AS l
+LEFT JOIN LATERAL (
+    -- 受入実績(購入品)の品目
+    SELECT d.item_id
+    FROM tests.trans_purchase_rec_visiter AS prv
+    INNER JOIN tests.trans_purchase_rec AS pr
+        ON pr.trans_purchase_rec_id = prv.trans_purchase_rec_id AND pr.remove IS FALSE
+    INNER JOIN tests.trans_purchase_detail AS d
+        ON d.trans_purchase_detail_id = pr.trans_purchase_detail_id
+    WHERE prv.trans_visiter_id = COALESCE(l.root_visiter_id, l.trans_visiter_id)
+    LIMIT 1
+) AS pd ON TRUE
+LEFT JOIN LATERAL (
+    -- 作業実績(製造品)の品目
+    SELECT r.item_id
+    FROM tests.trans_work_record_visiter AS wrv
+    INNER JOIN tests.trans_work_record AS wr
+        ON wr.trans_work_record_id = wrv.trans_work_record_id AND wr.remove IS FALSE
+    INNER JOIN tests.trans_work_plan AS wp
+        ON wp.trans_work_plan_id = wr.trans_work_plan_id
+    INNER JOIN tests.trans_operations_plan AS op
+        ON op.trans_operations_plan_id = wp.trans_operations_plan_id
+    INNER JOIN tests.trans_resource_plan AS r
+        ON r.trans_resource_plan_id = op.trans_resource_plan_id
+    WHERE wrv.trans_visiter_id = COALESCE(l.root_visiter_id, l.trans_visiter_id)
+    LIMIT 1
+) AS rp ON TRUE;
+
+-- Postgraphile additional comment.
+comment on view tests.v_visiter_item is E'@primaryKey trans_visiter_id\n@unique symbol\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n在庫(ロット)の品目';
+
 drop view if exists tests.v_inspect_record_inspection_report_count;
 create view  tests.v_inspect_record_inspection_report_count as
 SELECT
@@ -23243,6 +23282,60 @@ GROUP BY
 
 -- Postgraphile additional comment.
 comment on view tests.v_inspect_record_inspection_report_count is E'@foreignKey (trans_inspect_record_id) references trans_inspect_record (trans_inspect_record_id)\n@unique trans_inspect_record_id';
+
+drop view if exists tests.v_stock_status;
+create view  tests.v_stock_status as
+-- 在庫状況 (画面の stockstatus。1行 = 在庫(ロット) 1件)
+-- quantity   : 今の数量(v_visiter_lot.quantity)
+-- safety     : 品目の安全在庫(mstr_item_lot.safety_inventory。品目全体の値で、行ごとに重複して引かない)
+-- reserved   : この在庫を引当元にした引当予約の合計(trans_inventory_request.quantity)
+-- available  : 出庫可能数 = 0 以上の min(この在庫の空き, 品目全体の在庫 − 品目全体の引当済 − 安全在庫)
+WITH lot AS (
+    SELECT
+        l.trans_visiter_id
+        , l.symbol
+        , l.mstr_location_id
+        , l.trans_container_id
+        , vi.mstr_item_id
+        , l.quantity
+        , COALESCE(rz.reserved, 0) AS reserved
+        , COALESCE(il.safety_inventory, 0) AS safety
+    FROM tests.v_visiter_lot AS l
+    LEFT JOIN tests.v_visiter_item AS vi
+        ON vi.trans_visiter_id = l.trans_visiter_id
+    LEFT JOIN tests.mstr_item AS i
+        ON i.mstr_item_id = vi.mstr_item_id
+    LEFT JOIN tests.mstr_item_lot AS il
+        ON il.mstr_item_lot_id = i.mstr_item_lot_id
+    LEFT JOIN LATERAL (
+        SELECT SUM(ir.quantity) AS reserved
+        FROM tests.trans_inventory_request AS ir
+        WHERE ir.trans_visiter_id = l.trans_visiter_id AND ir.remove IS FALSE
+    ) AS rz ON TRUE
+    WHERE l.quantity > 0
+)
+SELECT
+    lot.trans_visiter_id
+    , lot.symbol
+    , lot.mstr_location_id
+    , lot.trans_container_id
+    , lot.mstr_item_id
+    , lot.quantity
+    , lot.safety
+    , lot.reserved
+    , GREATEST(
+          LEAST(
+              lot.quantity - lot.reserved
+              , SUM(lot.quantity) OVER (PARTITION BY lot.mstr_item_id)
+                - SUM(lot.reserved) OVER (PARTITION BY lot.mstr_item_id)
+                - lot.safety
+          )
+          , 0
+      ) AS available
+FROM lot;
+
+-- Postgraphile additional comment.
+comment on view tests.v_stock_status is E'@primaryKey trans_visiter_id\n@unique symbol\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (mstr_location_id) references mstr_location (mstr_location_id)\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n在庫状況(出庫可能数つき)';
 
 drop view if exists tests.v_stakeholder_outsource_available_count;
 create view  tests.v_stakeholder_outsource_available_count as
@@ -23261,6 +23354,32 @@ GROUP BY
 -- Postgraphile additional comment.
 comment on view tests.v_stakeholder_outsource_available_count is E'@foreignKey (mstr_stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)\n@unique mstr_stakeholder_id';
 
+drop view if exists tests.v_purchase_detail_unreserved;
+create view  tests.v_purchase_detail_unreserved as
+-- 発注明細の未引当数量
+-- quantity   : 発注数量
+-- reserved   : 購買引当(trans_purchase_rez)を通した引当予約の合計(trans_inventory_request.quantity)
+-- unreserved : 未引当数量 = 発注数量 − 引当済(0 未満にはならない)
+SELECT
+    d.trans_purchase_detail_id
+    , d.symbol
+    , d.item_id AS mstr_item_id
+    , d.quantity
+    , COALESCE(rz.reserved, 0) AS reserved
+    , GREATEST(d.quantity - COALESCE(rz.reserved, 0), 0) AS unreserved
+FROM tests.trans_purchase_detail AS d
+LEFT JOIN LATERAL (
+    SELECT SUM(ir.quantity) AS reserved
+    FROM tests.trans_purchase_rez AS pz
+    INNER JOIN tests.trans_inventory_request AS ir
+        ON ir.trans_purchase_rez_id = pz.trans_purchase_rez_id AND ir.remove IS FALSE
+    WHERE pz.trans_purchase_detail_id = d.trans_purchase_detail_id AND pz.remove IS FALSE
+) AS rz ON TRUE
+WHERE d.remove IS FALSE;
+
+-- Postgraphile additional comment.
+comment on view tests.v_purchase_detail_unreserved is E'@primaryKey trans_purchase_detail_id\n@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n発注明細の未引当数量';
+
 drop view if exists tests.v_equipment_equipment_available_count;
 create view  tests.v_equipment_equipment_available_count as
 SELECT
@@ -23277,6 +23396,37 @@ GROUP BY
 
 -- Postgraphile additional comment.
 comment on view tests.v_equipment_equipment_available_count is E'@foreignKey (mstr_equipment_id) references mstr_equipment (mstr_equipment_id)\n@unique mstr_equipment_id';
+
+drop view if exists tests.v_operations_plan_unreserved;
+create view  tests.v_operations_plan_unreserved as
+-- 生産計画の未引当数量
+-- quantity    : 生産計画の数量(trans_operations_plan.quantity)
+-- reserved    : 生産引当(trans_product_rez。工程 = 生産計画詳細ごと)を通した引当予約の合計
+-- unreserved  : 未引当数量 = 数量 − 引当済(0 未満にはならない)
+-- mstr_item_id: 資材計画の品目
+SELECT
+    op.trans_operations_plan_id
+    , op.symbol
+    , rp.item_id AS mstr_item_id
+    , COALESCE(op.quantity, 0) AS quantity
+    , COALESCE(rz.reserved, 0) AS reserved
+    , GREATEST(COALESCE(op.quantity, 0) - COALESCE(rz.reserved, 0), 0) AS unreserved
+FROM tests.trans_operations_plan AS op
+LEFT JOIN tests.trans_resource_plan AS rp
+    ON rp.trans_resource_plan_id = op.trans_resource_plan_id
+LEFT JOIN LATERAL (
+    SELECT SUM(ir.quantity) AS reserved
+    FROM tests.trans_work_plan AS wp
+    INNER JOIN tests.trans_product_rez AS pz
+        ON pz.trans_work_plan_id = wp.trans_work_plan_id AND pz.remove IS FALSE
+    INNER JOIN tests.trans_inventory_request AS ir
+        ON ir.trans_product_rez_id = pz.trans_product_rez_id AND ir.remove IS FALSE
+    WHERE wp.trans_operations_plan_id = op.trans_operations_plan_id AND wp.remove IS FALSE
+) AS rz ON TRUE
+WHERE op.remove IS FALSE;
+
+-- Postgraphile additional comment.
+comment on view tests.v_operations_plan_unreserved is E'@primaryKey trans_operations_plan_id\n@unique symbol\n@foreignKey (trans_operations_plan_id) references trans_operations_plan (trans_operations_plan_id)\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n生産計画の未引当数量';
 
 drop view if exists tests.v_capability_staff_capability_count;
 create view  tests.v_capability_staff_capability_count as
