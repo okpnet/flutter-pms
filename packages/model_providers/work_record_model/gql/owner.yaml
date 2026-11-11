@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 有効な所有者(trans_visiter_owner。ロット1件につき1行。行なし/所有者 NULL = 自社)。
+# 読み取り専用。DB のトリガー(13)だけが書く。create / update / delete の mutation は使わない(YAML に書かない)。
+VisiterOwnerPage:
+  kind: read
+  from: trans_visiter_owner
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_visiter_owner_id
+    - trans_visiter_id
+    - owner_stakeholder_id
+    - trans_supply_detail_id
+    - trans_order_detail_id
+    - effective_at
+    - symbol
+    - remarks
+    - update_at
+
+# 社外の所有物の一覧(v_external_property。顧客・発注先。ISO 9001 8.5.3)
+ExternalPropertyPage:
+  kind: read
+  from: v_external_property
+  filter: true
+  columns:
+    - trans_visiter_id
+    - symbol
+    - owner_stakeholder_id
+    - item_id
+    - trans_container_id
+    - mstr_location_id
+    - quantity
+    - release
+    - open_complaint_count
+    - trans_supply_detail_id
+    - trans_order_detail_id
+    - effective_at

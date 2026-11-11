@@ -1,0 +1,18 @@
+targets:
+  $default:
+    builders:
+      graphql_codegen:
+        options:
+          clients:
+            - graphql_flutter
+          scalars:
+            Datetime:
+              type: DateTime
+              fromJsonFunctionName: fromJsonDatetime
+              toJsonFunctionName: toJsonDatetime
+              import: package:pms_graphql/scalars.dart
+            BigInt:
+              type: BigInt
+              fromJsonFunctionName: fromJsonBigInt
+              toJsonFunctionName: toJsonBigInt
+              import: package:pms_graphql/scalars.dart

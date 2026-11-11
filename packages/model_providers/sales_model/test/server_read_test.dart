@@ -9,6 +9,7 @@ import 'package:graphql/client.dart';
 import 'package:sales_model/sales_model.dart';
 import 'package:pms_graphql/pms_graphql.dart';
 
+// ignore: unused_element
 const _zeroId = '00000000-0000-0000-0000-000000000000';
 
 void main() {
@@ -25,6 +26,18 @@ void main() {
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
+    serverTest('OrderDetailBalancePageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryOrderDetailBalancePageRead,
+          variables: Variables$Query$OrderDetailBalancePageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$OrderDetailBalancePageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('OrderDetailPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(
@@ -34,6 +47,18 @@ void main() {
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
       Query$OrderDetailPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
+    serverTest('OrderDetailSettlementPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryOrderDetailSettlementPageRead,
+          variables: Variables$Query$OrderDetailSettlementPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$OrderDetailSettlementPageRead.fromJson(
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });

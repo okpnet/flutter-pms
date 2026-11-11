@@ -1,0 +1,34 @@
+# supply_visiter_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #SupplyVisiterPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query SupplyVisiterPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransSupplyVisiterFilter = {and: []}
+  $orderBy: [TransSupplyVisitersOrderBy!]
+  $removed: Boolean = false
+) {
+  allTransSupplyVisiters(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transSupplyVisiterId
+      transSupplyDetailId
+      transVisiterId
+      symbol
+      remarks
+      updateAt
+      remove
+    }
+  }
+}

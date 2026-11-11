@@ -144,7 +144,7 @@ void main() {
     for (final mode in MrpMode.values) {
       serverTest('${mode.name}MRP を実行して提案を受け取る', (server) async {
         // MRP の計算は重く、検証用サーバーの既定の制限時間(20秒)を超えることがある。制限の無い接続を使う。
-        final client = _clientTo(server.url);
+        final client = _clientTo(server.url, headers: server.provider.headers);
         final gateway = GraphqlMrpGateway(
           client: client,
           languageCodeId: await japaneseId(client),
@@ -198,6 +198,20 @@ void main() {
       expect(server.requests.first.body, contains('"pMode":1'));
       expect(server.requests.first.body, contains('"pAcceptLate":true'));
       expect(server.requests.last.body, contains(_languageId));
+    });
+
+    test('支給依頼(SUPPLY_REQUEST。要判断)の提案を受け取る(行が消えない・失敗にならない)', () async {
+      server.data = _data([
+        _suggestion(seq: 1, kind: 'SUPPLY_REQUEST', decision: 0),
+        _suggestion(seq: 2, kind: 'PURCHASE_NEW'),
+      ]);
+      final result = await _gateway(
+        _clientTo(server.url),
+      ).execute(mode: MrpMode.order, staffId: '');
+      expect(result.suggestions.length, 2);
+      expect(result.suggestions.first.kind, MrpSuggestionKind.supplyRequest);
+      expect(result.suggestions.first.decision, MrpDecision.pending);
+      expect(MrpSuggestionKind.ofCode('SUPPLY_REQUEST'), MrpSuggestionKind.supplyRequest);
     });
 
     test('未知の提案種別は失敗にする(確かめていない結果を出さない)', () async {

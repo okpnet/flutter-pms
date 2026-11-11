@@ -6,12 +6,11 @@
 import 'package:pms_graphql/pms_graphql.dart';
 
 abstract class LanguageCodePageFilterSpec {
-  static const FlatFilterSpec spec =
-      FlatFilterSpec('SharedLanguageCodeFilter', {
-        'sharedLanguageCodeId': FlatFilterPath([], 'sharedLanguageCodeId'),
-        'code': FlatFilterPath([], 'code'),
-        'label': FlatFilterPath([], 'label'),
-        'priority': FlatFilterPath([], 'priority'),
-        'isDefault': FlatFilterPath([], 'isDefault'),
-      });
+  static const FlatFilterSpec spec = FlatFilterSpec('SharedLanguageCodeFilter', {
+    'sharedLanguageCodeId': FlatFilterPath([], 'sharedLanguageCodeId'),
+    'code': FlatFilterPath([], 'code'),
+    'label': FlatFilterPath([], 'label'),
+    'priority': FlatFilterPath([], 'priority'),
+    'isDefault': FlatFilterPath([], 'isDefault'),
+  });
 }

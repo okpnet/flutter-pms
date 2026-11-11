@@ -1,0 +1,60 @@
+# plan_change_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #PlanChangePage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query PlanChangePageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransPlanChangeFilter = {and: []}
+  $orderBy: [TransPlanChangesOrderBy!]
+  $removed: Boolean = false
+) {
+  allTransPlanChanges(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transPlanChangeId
+      parentTransPlanChangeId
+      changeAt
+      transOrderDetailId
+      transPurchaseDetailId
+      transOperationsPlanId
+      transInventoryRequestId
+      transVisiterId
+      transShippingOrderDetailId
+      oldQuantity
+      newQuantity
+      cancelQuantity
+      oldDate
+      newDate
+      oldStop
+      newStop
+      discontinue
+      release
+      hold
+      scrap
+      deliver
+      transContainerId
+      transOrderDetailSettlementId
+      changeReasonId
+      reason
+      stakeholderId
+      staffId
+      transMrpSuggestionId
+      reflectedTransMrpRunId
+      symbol
+      remarks
+      updateAt
+      remove
+    }
+  }
+}

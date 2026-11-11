@@ -355,6 +355,9 @@ class ProductionPlanStrings$mrp$kind$ja {
 
 	/// ja: '生産計画の取消'
 	String get planCancel => '生産計画の取消';
+
+	/// ja: '支給依頼'
+	String get supplyRequest => '支給依頼';
 }
 
 // Path: mrp.decision
@@ -864,6 +867,7 @@ extension on ProductionPlanStrings {
 			'mrp.kind.planUpdate' => '生産計画の変更',
 			'mrp.kind.planKeep' => '生産計画の維持',
 			'mrp.kind.planCancel' => '生産計画の取消',
+			'mrp.kind.supplyRequest' => '支給依頼',
 			'mrp.decision.pending' => '要判断',
 			'mrp.decision.adopted' => '採用',
 			'mrp.decision.rejected' => '却下',

@@ -9,6 +9,7 @@ import 'package:graphql/client.dart';
 import 'package:quality_model/quality_model.dart';
 import 'package:pms_graphql/pms_graphql.dart';
 
+// ignore: unused_element
 const _zeroId = '00000000-0000-0000-0000-000000000000';
 
 void main() {
@@ -166,6 +167,18 @@ void main() {
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
       Query$ComplaintStakeholderPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
+    serverTest('ComplaintSupplyPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryComplaintSupplyPageRead,
+          variables: Variables$Query$ComplaintSupplyPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ComplaintSupplyPageRead.fromJson(
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });

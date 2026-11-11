@@ -1,0 +1,42 @@
+# purchase_detail_balance_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #PurchaseDetailBalancePage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query PurchaseDetailBalancePageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VPurchaseDetailBalanceFilter = {and: []}
+  $orderBy: [VPurchaseDetailBalancesOrderBy!]
+) {
+  allVPurchaseDetailBalances(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transPurchaseDetailId
+      symbol
+      transPurchaseId
+      itemId
+      stop
+      materialSupply
+      paidSupply
+      isOutsource
+      quantity
+      cancelQuantity
+      receivedQuantity
+      returnedQuantity
+      replacementQuantity
+      remainingQuantity
+      openQuantity
+      cancelClosed
+    }
+  }
+}

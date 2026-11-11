@@ -9,7 +9,6 @@ query ProductRezPageRfe(
   transProductRezByTransProductRezId(transProductRezId: $transProductRezId) {
     transProductRezId
     transWorkPlanId
-    quantity
     remarks
     updateUserId
     updateUserHistoryId

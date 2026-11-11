@@ -1,0 +1,47 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 受注明細の残(v_order_detail_balance)。残 = 数量 − キャンセル + 代品ありの返品 − 出荷。
+# 停止中は open_quantity が 0。全部キャンセルは cancel_closed で判定する(数量・キャンセル数量を自前で計算しない)。
+OrderDetailBalancePage:
+  kind: read
+  from: v_order_detail_balance
+  filter: true
+  columns:
+    - trans_order_detail_id
+    - symbol
+    - trans_order_id
+    - item_id
+    - stop
+    - customer_property
+    - quantity
+    - cancel_quantity
+    - shipped_quantity
+    - returned_quantity
+    - replacement_quantity
+    - remaining_quantity
+    - open_quantity
+    - cancel_closed
+    - settlement_amount
+
+# 受注明細精算(trans_order_detail_settlement。精算1件 = 請求書1行。読み取り。登録は DB の関数ができてから)
+OrderDetailSettlementPage:
+  kind: read
+  from: trans_order_detail_settlement
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_order_detail_settlement_id
+    - trans_order_detail_id
+    - settlement_kind_id
+    - settle_at
+    - quantity
+    - amount
+    - trans_plan_change_id
+    - reason
+    - staff_id
+    - symbol
+    - remarks
+    - update_at

@@ -96,6 +96,7 @@ void main(List<String> args) {
       ..writeln("import 'package:$name/$name.dart';")
       ..writeln("import 'package:pms_graphql/pms_graphql.dart';")
       ..writeln()
+      ..writeln("// ignore: unused_element")
       ..writeln("const _zeroId = '00000000-0000-0000-0000-000000000000';")
       ..writeln()
       ..writeln('void main() {')

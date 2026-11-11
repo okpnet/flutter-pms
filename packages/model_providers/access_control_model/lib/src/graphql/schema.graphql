@@ -220,7 +220,7 @@ type InfoAccessPath {
   infoAccessPathId: UUID!
   infoAppId: UUID!
   names: UUID!
-  usecasePath: String
+  usecasePath: String!
   symbol: String
   remarks: String
   updateAt: Datetime
@@ -489,6 +489,26 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transVisiterOwnersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintSuppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSupplyVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSupplyDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSuppliesByStaffHistoryIdAndStaffIdExist: Boolean
+  transSuppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnsByStaffHistoryIdAndStaffIdExist: Boolean
+  transReturnsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transOrderDetailSettlementsByStaffHistoryIdAndStaffIdExist: Boolean
+  transOrderDetailSettlementsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPlanChangesByStaffHistoryIdAndStaffIdExist: Boolean
+  transPlanChangesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrSettlementKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrSettlementKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrReturnKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrReturnKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrChangeReasonsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrChangeReasonsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyInfoDepartmentAccessPathsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintVisitersByReleaseStaffHistoryIdAndReleaseStaffIdExist: Boolean
   transComplaintVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -795,7 +815,7 @@ input InfoAccessPathFk1Input {
 input InfoAccessPathInput {
   infoAppId: UUID
   names: UUID
-  usecasePath: String
+  usecasePath: String!
   remarks: String
 }
 
@@ -928,6 +948,9 @@ input SharedAppellationFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  mstrSettlementKindsByNamesExist: Boolean
+  mstrReturnKindsByNamesExist: Boolean
+  mstrChangeReasonsByNamesExist: Boolean
   mstrItemOperationsByNamesExist: Boolean
   infoDepartmentKindValuesByNamesExist: Boolean
   mstrInspectionKindsByNamesExist: Boolean

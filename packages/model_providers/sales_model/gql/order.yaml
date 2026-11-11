@@ -122,6 +122,10 @@ OrderDetailPage: &OrderDetailPage
     - deadline
     - symbol
     - remarks
+    # キャンセル・停止・顧客所有(受注・発注まわりの仕様。残は OrderDetailBalancePage を使う)
+    - cancel_quantity
+    - stop
+    - customer_property
     # MRP用のマスタ不備の件数(計算列)
     - master_error_count
     # 子のレコード数(要件0056。DBのビュー 2本)

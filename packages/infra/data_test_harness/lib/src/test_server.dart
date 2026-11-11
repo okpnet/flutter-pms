@@ -2,12 +2,18 @@ import 'dart:io';
 
 import 'package:pms_graphql/pms_graphql.dart';
 
+import 'test_token.dart';
+
 /// 検証用GraphQLサーバー(PostGraphile)への接続。テストの接続先はここだけが持つ。
 ///
 /// GoFパターン: Factory Method([connect])。既定の候補での接続の確認は1回だけ行い、
 /// 結果(接続できなかった場合を含む)をプロセス内で使い回す。
 class TestServer {
-  TestServer._(this.url) : provider = GraphQLClientProvider(url, timeLimit: 20);
+  TestServer._(
+    this.url, {
+    this.authenticated = false,
+    Map<String, String> headers = const {},
+  }) : provider = GraphQLClientProvider(url, headers: headers, timeLimit: 20);
 
   /// 先に接続できた方を使う候補。`--dart-define=PMS_TEST_GRAPHQL_URL=...`があればそれを先頭に加える。
   static const candidateUrls = <String>[
@@ -19,6 +25,10 @@ class TestServer {
 
   /// 接続できたエンドポイント。
   final String url;
+
+  /// テスト用ユーザーの JWT(`Authorization: Bearer`)を付けているか。付けていなければ匿名(DB の匿名ロールの権限だけ)。
+  /// 付けるには `--dart-define=PMS_TEST_USER=...` と `PMS_TEST_PASSWORD=...`(または同名の環境変数)を渡す([TestToken])。
+  final bool authenticated;
 
   /// 実接続の[GraphQLClientProvider]。モデルパッケージの生成クエリ文書を実行する。
   final GraphQLClientProvider provider;
@@ -40,7 +50,15 @@ class TestServer {
     Duration timeout,
   ) async {
     for (final url in candidates.where((u) => u.isNotEmpty)) {
-      if (await _canConnect(url, timeout)) return TestServer._(url);
+      if (await _canConnect(url, timeout)) {
+        // 資格情報が渡されていれば、アプリと同じ JWT で要求する(渡されていなければ匿名)。
+        final token = await TestToken.obtain();
+        return TestServer._(
+          url,
+          authenticated: token != null,
+          headers: token == null ? const {} : {'Authorization': token.value},
+        );
+      }
     }
     return null;
   }
@@ -57,7 +75,7 @@ class TestServer {
     }
   }
 
-  Map<String, Object?> toJson() => {'url': url};
+  Map<String, Object?> toJson() => {'url': url, 'authenticated': authenticated};
 
   @override
   String toString() => 'TestServer($url)';

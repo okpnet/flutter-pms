@@ -29,6 +29,7 @@ query MrpPeggingPageRead(
       supplyTransMrpSuggestionId
       transPurchaseDetailId
       transOperationsPlanId
+      transSupplyDetailId
       quantity
       needAt
       availableAt

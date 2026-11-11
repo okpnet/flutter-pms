@@ -6,7 +6,7 @@
 mutation AccessPathPageCreate(
   $infoAppId: UUID
   $names: UUID
-  $usecasePath: String
+  $usecasePath: String!
   $remarks: String
 ) {
   createInfoAccessPath(

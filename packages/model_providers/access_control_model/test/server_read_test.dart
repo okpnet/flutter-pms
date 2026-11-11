@@ -9,6 +9,7 @@ import 'package:graphql/client.dart';
 import 'package:access_control_model/access_control_model.dart';
 import 'package:pms_graphql/pms_graphql.dart';
 
+// ignore: unused_element
 const _zeroId = '00000000-0000-0000-0000-000000000000';
 
 void main() {
@@ -17,10 +18,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryAccessPathPageRead,
-          variables: Variables$Query$AccessPathPageRead(
-            first: 1,
-            languageCodeId: _zeroId,
-          ).toJson(),
+          variables: Variables$Query$AccessPathPageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -28,14 +26,23 @@ void main() {
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
+    serverTest('AppPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryAppPageRead,
+          variables: Variables$Query$AppPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$AppPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('DepartmentAccessPathPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryDepartmentAccessPathPageRead,
-          variables: Variables$Query$DepartmentAccessPathPageRead(
-            first: 1,
-            languageCodeId: _zeroId,
-          ).toJson(),
+          variables: Variables$Query$DepartmentAccessPathPageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -43,14 +50,23 @@ void main() {
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
+    serverTest('LanguageCodePageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryLanguageCodePageRead,
+          variables: Variables$Query$LanguageCodePageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$LanguageCodePageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('StaffAccessPermissionPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryStaffAccessPermissionPageRead,
-          variables: Variables$Query$StaffAccessPermissionPageRead(
-            first: 1,
-            languageCodeId: _zeroId,
-          ).toJson(),
+          variables: Variables$Query$StaffAccessPermissionPageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -62,9 +78,7 @@ void main() {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryStaffEffectiveAccessPathPageRead,
-          variables: Variables$Query$StaffEffectiveAccessPathPageRead(
-            first: 1,
-          ).toJson(),
+          variables: Variables$Query$StaffEffectiveAccessPathPageRead(first: 1).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -81,38 +95,23 @@ void main() {
 
     QueryOptions options() => QueryOptions(
       document: documentNodeQueryAccessPathPageRead,
-      variables: Variables$Query$AccessPathPageRead(
-        first: 1,
-        languageCodeId: _zeroId,
-      ).toJson(),
+      variables: Variables$Query$AccessPathPageRead(first: 1, languageCodeId: _zeroId).toJson(),
     );
 
     // 代役サーバーの既定の応答に合う、中身の無い問い合わせ(応答の読み取りを確認しないテスト用)。
     QueryOptions plain() => QueryOptions(document: gql('{ __typename }'));
 
-    GraphQLClientProvider provider({
-      int timeLimit = 10,
-      Map<String, String> headers = const {},
-    }) => GraphQLClientProvider(
-      server.url,
-      timeLimit: timeLimit,
-      headers: headers,
-    );
+    GraphQLClientProvider provider({int timeLimit = 10, Map<String, String> headers = const {}}) =>
+        GraphQLClientProvider(server.url, timeLimit: timeLimit, headers: headers);
 
     test('遅延が制限時間を超えるとタイムアウトで終わる', () async {
       server.kind = FaultKind.delay;
       server.delay = const Duration(seconds: 3);
-      expect(
-        await endedInTimeout(() => provider(timeLimit: 1).query(options())),
-        isTrue,
-      );
+      expect(await endedInTimeout(() => provider(timeLimit: 1).query(options())), isTrue);
     });
 
     test('応答の途中・前の切断は Err(NetworkError)', () async {
-      for (final kind in [
-        FaultKind.dropMidResponse,
-        FaultKind.dropBeforeResponse,
-      ]) {
+      for (final kind in [FaultKind.dropMidResponse, FaultKind.dropBeforeResponse]) {
         server.kind = kind;
         final result = await provider().query(options());
         expect((result as Err).error, isA<NetworkError>(), reason: '$kind');
@@ -131,9 +130,7 @@ void main() {
     });
 
     test('認証ヘッダーが要求に付く', () async {
-      await provider(
-        headers: {'Authorization': 'Bearer test-token'},
-      ).query(plain());
+      await provider(headers: {'Authorization': 'Bearer test-token'}).query(plain());
       expect(server.requests.single.authorization, 'Bearer test-token');
     });
 

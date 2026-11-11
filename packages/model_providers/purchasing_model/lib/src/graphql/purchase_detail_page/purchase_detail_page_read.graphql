@@ -39,6 +39,8 @@ query PurchaseDetailPageRead(
       itemId
       symbol
       remarks
+      cancelQuantity
+      stop
 
       purchase_rez_count: vPurchaseDetailPurchaseRezCountByTransPurchaseDetailId {
         transPurchaseDetailId

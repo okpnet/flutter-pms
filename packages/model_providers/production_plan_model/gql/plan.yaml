@@ -70,6 +70,8 @@ OperationsPlanPage: &OperationsPlanPage
     - trans_resource_plan_id
     - quantity
     - deadline
+    - stop
+    - discontinue
     - symbol
     - remarks
     # 子のレコード数(要件0056。DBのビュー 1本)
@@ -210,7 +212,6 @@ ProductRezPage: &ProductRezPage
   columns:
     - trans_product_rez_id
     - trans_work_plan_id
-    - quantity
     - symbol
     - remarks
     - update_at
@@ -230,7 +231,6 @@ ProductRezPageEdit:
   columns:
     - trans_product_rez_id
     - trans_work_plan_id
-    - quantity
     - remarks
     - update_user_id
     - update_user_history_id
@@ -251,7 +251,6 @@ PurchaseRezPage: &PurchaseRezPage
   columns:
     - trans_purchase_rez_id
     - trans_purchase_detail_id
-    - quantity
     - symbol
     - remarks
     - update_at
@@ -271,7 +270,6 @@ PurchaseRezPageEdit:
   columns:
     - trans_purchase_rez_id
     - trans_purchase_detail_id
-    - quantity
     - remarks
     - update_user_id
     - update_user_history_id

@@ -6,7 +6,6 @@
 mutation ProductRezPageEdit(
   $transProductRezId: UUID!
   $transWorkPlanId: UUID
-  $quantity: BigFloat
   $remarks: String
 ) {
   updateTransProductRezByTransProductRezId(
@@ -14,7 +13,6 @@ mutation ProductRezPageEdit(
       transProductRezId: $transProductRezId
       transProductRezPatch: {
         transWorkPlanId: $transWorkPlanId
-        quantity: $quantity
         remarks: $remarks
       }
     }
@@ -22,7 +20,6 @@ mutation ProductRezPageEdit(
     transProductRez {
       transProductRezId
       transWorkPlanId
-      quantity
       remarks
     }
   }

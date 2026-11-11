@@ -194,6 +194,7 @@ class _ProductionPlanStrings$mrp$kind$en extends ProductionPlanStrings$mrp$kind$
 	@override String get planUpdate => 'Production plan (change)';
 	@override String get planKeep => 'Production plan (keep)';
 	@override String get planCancel => 'Production plan (cancel)';
+	@override String get supplyRequest => 'Supply request';
 }
 
 // Path: mrp.decision
@@ -282,6 +283,7 @@ extension on ProductionPlanStringsEn {
 			'mrp.kind.planUpdate' => 'Production plan (change)',
 			'mrp.kind.planKeep' => 'Production plan (keep)',
 			'mrp.kind.planCancel' => 'Production plan (cancel)',
+			'mrp.kind.supplyRequest' => 'Supply request',
 			'mrp.decision.pending' => 'Needs decision',
 			'mrp.decision.adopted' => 'Adopted',
 			'mrp.decision.rejected' => 'Rejected',

@@ -11,6 +11,8 @@ abstract class OperationsPlanPageFilterSpec {
     'transResourcePlanId': FlatFilterPath([], 'transResourcePlanId'),
     'quantity': FlatFilterPath([], 'quantity'),
     'deadline': FlatFilterPath([], 'deadline'),
+    'stop': FlatFilterPath([], 'stop'),
+    'discontinue': FlatFilterPath([], 'discontinue'),
     'symbol': FlatFilterPath([], 'symbol'),
     'remarks': FlatFilterPath([], 'remarks'),
     'work_plan_count||transOperationsPlanId': FlatFilterPath([FilterStep('vOperationsPlanWorkPlanCountByTransOperationsPlanId')], 'transOperationsPlanId'),

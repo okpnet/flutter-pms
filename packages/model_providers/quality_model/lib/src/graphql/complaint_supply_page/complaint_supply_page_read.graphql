@@ -1,0 +1,35 @@
+# complaint_supply_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ComplaintSupplyPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ComplaintSupplyPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransComplaintSupplyFilter = {and: []}
+  $orderBy: [TransComplaintSuppliesOrderBy!]
+  $removed: Boolean = false
+) {
+  allTransComplaintSupplies(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transComplaintSupplyId
+      transComplaintId
+      transSupplyDetailId
+      quantity
+      symbol
+      remarks
+      updateAt
+      remove
+    }
+  }
+}

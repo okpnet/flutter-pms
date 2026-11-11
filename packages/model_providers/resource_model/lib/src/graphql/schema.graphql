@@ -1729,6 +1729,26 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transVisiterOwnersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintSuppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSupplyVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSupplyDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSuppliesByStaffHistoryIdAndStaffIdExist: Boolean
+  transSuppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnsByStaffHistoryIdAndStaffIdExist: Boolean
+  transReturnsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transOrderDetailSettlementsByStaffHistoryIdAndStaffIdExist: Boolean
+  transOrderDetailSettlementsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPlanChangesByStaffHistoryIdAndStaffIdExist: Boolean
+  transPlanChangesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrSettlementKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrSettlementKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrReturnKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrReturnKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrChangeReasonsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrChangeReasonsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyInfoDepartmentAccessPathsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintVisitersByReleaseStaffHistoryIdAndReleaseStaffIdExist: Boolean
   transComplaintVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -2666,6 +2686,7 @@ input MstrItemFilter {
   mstrItemTreesByMstrItemIdExist: Boolean
   mstrItemTreesByParentMstrItemIdExist: Boolean
   mstrEquipmentsByMstrItemIdExist: Boolean
+  vExternalPropertiesByItemIdExist: Boolean
   vItemDescendantByAncestorMstrItemIdExists: Boolean
   vItemEquipmentCountByMstrItemIdExists: Boolean
   vItemInspectionCountByMstrItemIdExists: Boolean
@@ -2678,12 +2699,19 @@ input MstrItemFilter {
   vMrpMasterIssuesByItemIdExist: Boolean
   vMrpPendingSuggestionsByItemIdExist: Boolean
   vMrpVisiterItemsByItemIdExist: Boolean
+  vOperationsPlanUnreservedsByMstrItemIdExist: Boolean
+  vOrderDetailBalancesByItemIdExist: Boolean
   vPurchaseAmountsByMstrItemIdExist: Boolean
   vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
+  vPurchaseDetailBalancesByItemIdExist: Boolean
+  vPurchaseDetailUnreservedsByMstrItemIdExist: Boolean
   vResourcePlanCoveragesByItemIdExist: Boolean
   vSalesRecordsByMstrItemIdExist: Boolean
   vShippingDeliveryCompliancesByMstrItemIdExist: Boolean
   vShippingOrderStatusesByMstrItemIdExist: Boolean
+  vStockStatusesByMstrItemIdExist: Boolean
+  vSupplyDetailBalancesByItemIdExist: Boolean
+  vVisiterItemsByMstrItemIdExist: Boolean
   mstrItemKindByMstrItemKindId: MstrItemKindFilter
   mstrManufacturerByMstrManufacturerId: MstrManufacturerFilter
   mstrManufacturerByMstrManufacturerIdExists: Boolean
@@ -2850,6 +2878,7 @@ input MstrLocationFilter {
   vLocationDescendantByAncestorMstrLocationId: VLocationDescendantFilter
   vLocationDescendantByAncestorMstrLocationIdExists: Boolean
   vShelfInventoryStatusesByMstrLocationIdExist: Boolean
+  vStockStatusesByMstrLocationIdExist: Boolean
   vVisiterHoldWithoutComplaintsByMstrLocationIdExist: Boolean
   vVisiterLotsByMstrLocationIdExist: Boolean
   infoDepartmentByInfoDepartmentId: InfoDepartmentFilter
@@ -3036,6 +3065,9 @@ input SharedAppellationFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  mstrSettlementKindsByNamesExist: Boolean
+  mstrReturnKindsByNamesExist: Boolean
+  mstrChangeReasonsByNamesExist: Boolean
   mstrItemOperationsByNamesExist: Boolean
   infoDepartmentKindValuesByNamesExist: Boolean
   mstrInspectionKindsByNamesExist: Boolean

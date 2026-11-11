@@ -22,11 +22,25 @@ foundation / features / model_providers の test/
 ### 内容
 | 名前 | 用途 |
 |---|---|
-| `TestServer` | 検証用サーバーの接続先の候補(`192.168.1.100`、`192.168.9.245`、`192.168.1.103`、`--dart-define=PMS_TEST_GRAPHQL_URL`)から、先に接続できたものを選び、`GraphQLClientProvider`を作る。どれにも接続できなければ`null` |
+| `TestServer` | 検証用サーバーの接続先の候補(`192.168.1.100`、`192.168.9.245`、`192.168.1.103`、`--dart-define=PMS_TEST_GRAPHQL_URL`)から、先に接続できたものを選び、`GraphQLClientProvider`を作る。どれにも接続できなければ`null`。資格情報(下)が渡されていれば、`Authorization: Bearer <JWT>`を付ける(`authenticated`) |
+| `TestToken` | テスト用ユーザーの GraphQL 用 JWT を用意する。PocketBase でログイン → `GET /api/app/graphql-token`(アプリと同じ手順)。取得した JWT は一時フォルダに期限の手前まで共有し、ログインの制限(同一 IP で 1 分 10 回)を避ける。資格情報が無ければ`null`(匿名) |
 | `serverTest` | サーバーを使うテストの登録。`server`タグを付け、接続できなければ中止(skip)にする。`flutter test --exclude-tags server`で除外できる |
 | `FaultyGraphqlServer` | ローカルのGraphQLサーバーの代役。遅延(`FaultKind.delay`)・応答の途中/前の切断(`dropMidResponse`/`dropBeforeResponse`)・HTTPエラー(`status`、認証エラーなど)を再現し、受け取った要求(`Authorization`ヘッダーなど)を記録する。実サーバーを使わない |
 | `endedInTimeout` | 問い合わせがタイムアウトで終わったか(例外でも`Err(TimeoutError)`でも真) |
 | `RecordingDataRepository<R>` | `IDataRepository<R>`の代役。`find`の引数を記録し、決めておいた結果(または`onFind`)を返す |
+
+### サーバーを使うテストの認証
+DB は JWT なし(匿名)を拒否する(`permission denied for schema tests`)。サーバーを使うテストは、一般ユーザー(`role=user`、DB のロール `pms_user`)の資格情報を実行時に渡して実行する。管理者だけで確認しない。資格情報はコード・Git に書かない。
+```powershell
+# 環境変数(melos exec など、複数のパッケージを続けて実行するとき)
+$env:PMS_TEST_USER='tanaka'; $env:PMS_TEST_PASSWORD='<パスワード>'
+melos exec --scope="*_model" --dir-exists=test -- flutter test
+# または、1パッケージずつ
+flutter test --dart-define=PMS_TEST_USER=tanaka --dart-define=PMS_TEST_PASSWORD=<パスワード>
+```
+- 接続先は `PMS_TEST_POCKETBASE_URL`(既定 `http://192.168.1.103:8090`)。
+- テスト用の一般ユーザーは `tools/init/test_user_init.bat`(ダミーの担当者 `tanaka`・`suzuki`・`sato`)で用意する。
+- 渡さなければ匿名で実行する(従来どおり。権限エラーで失敗する)。取得に失敗したとき(資格情報の誤り・PocketBase に接続できない)は `TestTokenException`(パスワード・トークンは含めない)。
 
 ### 使い方
 ```yaml

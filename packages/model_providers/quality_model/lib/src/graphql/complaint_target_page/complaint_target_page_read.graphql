@@ -26,6 +26,7 @@ query ComplaintTargetPageRead(
       targetKind
       transPurchaseRecId
       transWorkRecordId
+      transSupplyDetailId
       complaintQuantity
       visiterCount
       visiterQuantity

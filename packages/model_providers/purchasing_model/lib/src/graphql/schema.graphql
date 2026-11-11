@@ -126,6 +126,10 @@ enum TransPurchaseDetailsOrderBy {
   MATERIAL_SUPPLY_DESC
   PAID_SUPPLY_ASC
   PAID_SUPPLY_DESC
+  CANCEL_QUANTITY_ASC
+  CANCEL_QUANTITY_DESC
+  STOP_ASC
+  STOP_DESC
   SYMBOL_ASC
   SYMBOL_DESC
   REMARKS_ASC
@@ -338,6 +342,44 @@ enum VPurchaseDeliveryCompliancesOrderBy {
   RECEIVED_QUANTITY_DESC
 }
 
+enum VPurchaseDetailBalancesOrderBy {
+  NATURAL
+  TRANS_PURCHASE_DETAIL_ID_ASC
+  TRANS_PURCHASE_DETAIL_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  TRANS_PURCHASE_ID_ASC
+  TRANS_PURCHASE_ID_DESC
+  ITEM_ID_ASC
+  ITEM_ID_DESC
+  STOP_ASC
+  STOP_DESC
+  MATERIAL_SUPPLY_ASC
+  MATERIAL_SUPPLY_DESC
+  PAID_SUPPLY_ASC
+  PAID_SUPPLY_DESC
+  IS_OUTSOURCE_ASC
+  IS_OUTSOURCE_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
+  CANCEL_QUANTITY_ASC
+  CANCEL_QUANTITY_DESC
+  RECEIVED_QUANTITY_ASC
+  RECEIVED_QUANTITY_DESC
+  RETURNED_QUANTITY_ASC
+  RETURNED_QUANTITY_DESC
+  REPLACEMENT_QUANTITY_ASC
+  REPLACEMENT_QUANTITY_DESC
+  REMAINING_QUANTITY_ASC
+  REMAINING_QUANTITY_DESC
+  OPEN_QUANTITY_ASC
+  OPEN_QUANTITY_DESC
+  CANCEL_CLOSED_ASC
+  CANCEL_CLOSED_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 type CreateTransComplaintPurchaseRecPayload {
   transComplaintPurchaseRec: TransComplaintPurchaseRec
 }
@@ -479,6 +521,7 @@ type Query {
   allTransUnrecognizedDetails(first: Int, offset: Int, orderBy: [TransUnrecognizedDetailsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransUnrecognizedDetailFilter): TransUnrecognizedDetailsConnection
   allVPurchaseAmounts(first: Int, offset: Int, orderBy: [VPurchaseAmountsOrderBy!] = [NATURAL], filter: VPurchaseAmountFilter): VPurchaseAmountsConnection
   allVPurchaseDeliveryCompliances(first: Int, offset: Int, orderBy: [VPurchaseDeliveryCompliancesOrderBy!] = [NATURAL], filter: VPurchaseDeliveryComplianceFilter): VPurchaseDeliveryCompliancesConnection
+  allVPurchaseDetailBalances(first: Int, offset: Int, orderBy: [VPurchaseDetailBalancesOrderBy!] = [PRIMARY_KEY_ASC], filter: VPurchaseDetailBalanceFilter): VPurchaseDetailBalancesConnection
   mstrItemSupplierByMstrItemSupplierId(mstrItemSupplierId: UUID!): MstrItemSupplier
   mstrStakeholderByMstrStakeholderId(mstrStakeholderId: UUID!): MstrStakeholder
   transPurchaseByTransPurchaseId(transPurchaseId: UUID!): TransPurchase
@@ -552,6 +595,8 @@ type TransPurchaseDetail {
   itemId: UUID!
   materialSupply: Boolean
   paidSupply: Boolean
+  cancelQuantity: BigFloat!
+  stop: Boolean
   symbol: String
   remarks: String
   updateAt: Datetime
@@ -726,6 +771,31 @@ type VPurchaseDeliveryCompliancesConnection {
   totalCount: Int!
 }
 
+type VPurchaseDetailBalance {
+  transPurchaseDetailId: UUID!
+  symbol: String
+  transPurchaseId: UUID
+  itemId: UUID
+  stop: Boolean
+  materialSupply: Boolean
+  paidSupply: Boolean
+  isOutsource: Boolean
+  quantity: BigFloat
+  cancelQuantity: BigFloat
+  receivedQuantity: BigFloat
+  returnedQuantity: BigFloat
+  replacementQuantity: BigFloat
+  remainingQuantity: BigFloat
+  openQuantity: BigFloat
+  cancelClosed: Boolean
+}
+
+type VPurchaseDetailBalancesConnection {
+  nodes: [VPurchaseDetailBalance]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type VPurchaseDetailPurchaseRecCount {
   transPurchaseDetailId: UUID
 }
@@ -860,6 +930,26 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transVisiterOwnersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintSuppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSupplyVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSupplyDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSuppliesByStaffHistoryIdAndStaffIdExist: Boolean
+  transSuppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnsByStaffHistoryIdAndStaffIdExist: Boolean
+  transReturnsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transOrderDetailSettlementsByStaffHistoryIdAndStaffIdExist: Boolean
+  transOrderDetailSettlementsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPlanChangesByStaffHistoryIdAndStaffIdExist: Boolean
+  transPlanChangesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrSettlementKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrSettlementKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrReturnKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrReturnKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrChangeReasonsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrChangeReasonsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyInfoDepartmentAccessPathsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintVisitersByReleaseStaffHistoryIdAndReleaseStaffIdExist: Boolean
   transComplaintVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1307,6 +1397,7 @@ input MstrStakeholderFilter {
   transAuditsByMstrStakeholderIdExist: Boolean
   mstrInspectionsByExternalInspectionExist: Boolean
   mstrStakeholderContactsByMstrStakeholderIdExist: Boolean
+  vExternalPropertiesByOwnerStakeholderIdExist: Boolean
   vInspectionStatusesBySupplierIdExist: Boolean
   vMrpPendingSuggestionsByStakeholderIdExist: Boolean
   vMrpPurchasePlansByStakeholderIdExist: Boolean
@@ -1321,6 +1412,7 @@ input MstrStakeholderFilter {
   vStakeholderStakeholderContactCountByMstrStakeholderIdExists: Boolean
   vStakeholderStakeholderProvisionCountByMstrStakeholderId: VStakeholderStakeholderProvisionCountFilter
   vStakeholderStakeholderProvisionCountByMstrStakeholderIdExists: Boolean
+  vSupplyDetailBalancesByStakeholderIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   infoAddressByInfoAddressId: InfoAddressFilter
   infoAddressByInfoAddressIdExists: Boolean
@@ -1372,6 +1464,9 @@ input SharedAppellationFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  mstrSettlementKindsByNamesExist: Boolean
+  mstrReturnKindsByNamesExist: Boolean
+  mstrChangeReasonsByNamesExist: Boolean
   mstrItemOperationsByNamesExist: Boolean
   infoDepartmentKindValuesByNamesExist: Boolean
   mstrInspectionKindsByNamesExist: Boolean
@@ -1602,12 +1697,17 @@ input TransPurchaseDetailFilter {
   itemId: UUIDFilter
   materialSupply: BooleanFilter
   paidSupply: BooleanFilter
+  cancelQuantity: BigFloatFilter
+  stop: BooleanFilter
   symbol: StringFilter
   remarks: StringFilter
   updateAt: DatetimeFilter
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transSupplyDetailsByTransPurchaseDetailIdExist: Boolean
+  transReturnDetailsByTransPurchaseDetailIdExist: Boolean
+  transPlanChangesByTransPurchaseDetailIdExist: Boolean
   transInspectSchDetailsByTransPurchaseDetailIdExist: Boolean
   transPurchaseRecsByTransPurchaseDetailIdExist: Boolean
   transPurchaseRezsByTransPurchaseDetailIdExist: Boolean
@@ -1615,10 +1715,14 @@ input TransPurchaseDetailFilter {
   transMrpSuggestionsByTransPurchaseDetailIdExist: Boolean
   transMrpPeggingsByTransPurchaseDetailIdExist: Boolean
   vMrpPendingSuggestionsByTransPurchaseDetailIdExist: Boolean
+  vPlanChangeUnreflectedsByTransPurchaseDetailIdExist: Boolean
+  vPurchaseDetailBalanceByTransPurchaseDetailIdExists: Boolean
   vPurchaseDetailPurchaseRecCountByTransPurchaseDetailId: VPurchaseDetailPurchaseRecCountFilter
   vPurchaseDetailPurchaseRecCountByTransPurchaseDetailIdExists: Boolean
   vPurchaseDetailPurchaseRezCountByTransPurchaseDetailId: VPurchaseDetailPurchaseRezCountFilter
   vPurchaseDetailPurchaseRezCountByTransPurchaseDetailIdExists: Boolean
+  vPurchaseDetailUnreservedByTransPurchaseDetailIdExists: Boolean
+  vSupplyDetailBalancesByTransPurchaseDetailIdExist: Boolean
   transResourcePlanByTransResourcePlanIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -1662,7 +1766,10 @@ input TransPurchaseFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transSuppliesByTransPurchaseIdExist: Boolean
+  transReturnsByTransPurchaseIdExist: Boolean
   transPurchaseDetailsByTransPurchaseIdExist: Boolean
+  vPurchaseDetailBalancesByTransPurchaseIdExist: Boolean
   vPurchasePurchaseDetailCountByTransPurchaseId: VPurchasePurchaseDetailCountFilter
   vPurchasePurchaseDetailCountByTransPurchaseIdExists: Boolean
   historyMstrStakeholderContactByStakeholderContactHistoryIdAndStakeholderContactIdExists: Boolean
@@ -1699,6 +1806,7 @@ input TransPurchaseRecFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transReturnDetailsByTransPurchaseRecIdExist: Boolean
   transComplaintPurchaseRecsByTransPurchaseRecIdExist: Boolean
   transPurchaseRecVisitersByTransPurchaseRecIdExist: Boolean
   transPurchaseCertificationsByTransPurchaseRecIdExist: Boolean
@@ -1927,6 +2035,31 @@ input VPurchaseDeliveryComplianceFilter {
   and: [VPurchaseDeliveryComplianceFilter!]
   or: [VPurchaseDeliveryComplianceFilter!]
   not: VPurchaseDeliveryComplianceFilter
+}
+
+input VPurchaseDetailBalanceFilter {
+  transPurchaseDetailId: UUIDFilter
+  symbol: StringFilter
+  transPurchaseId: UUIDFilter
+  itemId: UUIDFilter
+  stop: BooleanFilter
+  materialSupply: BooleanFilter
+  paidSupply: BooleanFilter
+  isOutsource: BooleanFilter
+  quantity: BigFloatFilter
+  cancelQuantity: BigFloatFilter
+  receivedQuantity: BigFloatFilter
+  returnedQuantity: BigFloatFilter
+  replacementQuantity: BigFloatFilter
+  remainingQuantity: BigFloatFilter
+  openQuantity: BigFloatFilter
+  cancelClosed: BooleanFilter
+  transPurchaseDetailByTransPurchaseDetailIdExists: Boolean
+  transPurchaseByTransPurchaseIdExists: Boolean
+  mstrItemByItemIdExists: Boolean
+  and: [VPurchaseDetailBalanceFilter!]
+  or: [VPurchaseDetailBalanceFilter!]
+  not: VPurchaseDetailBalanceFilter
 }
 
 input VPurchaseDetailPurchaseRecCountFilter {

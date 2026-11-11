@@ -1,0 +1,47 @@
+# supply_detail_balance_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #SupplyDetailBalancePage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query SupplyDetailBalancePageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VSupplyDetailBalanceFilter = {and: []}
+  $orderBy: [VSupplyDetailBalancesOrderBy!]
+) {
+  allVSupplyDetailBalances(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transSupplyDetailId
+      symbol
+      transSupplyId
+      stakeholderId
+      receive
+      counterpartOwns
+      companyOwns
+      paidSupply
+      paidBySwitch
+      unitPrice
+      paidAmount
+      itemId
+      transOrderDetailId
+      transPurchaseDetailId
+      transResourcePlanId
+      scheduledAt
+      quantity
+      linkedLotQuantity
+      linkedIssueQuantity
+      remainingQuantity
+      currentQuantity
+    }
+  }
+}

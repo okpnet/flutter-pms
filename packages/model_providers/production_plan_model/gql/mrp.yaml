@@ -175,6 +175,8 @@ MrpOperationsPlanFields: &MrpOperationsPlanFields
   columns:
     - trans_operations_plan_id
     - symbol
+    - stop
+    - discontinue
 
 # MRP提案が参照する trans_purchase_detail(symbol)
 MrpPurchaseDetailFields: &MrpPurchaseDetailFields
@@ -183,6 +185,8 @@ MrpPurchaseDetailFields: &MrpPurchaseDetailFields
   columns:
     - trans_purchase_detail_id
     - symbol
+    - cancel_quantity
+    - stop
 
 # MRP提案(trans_mrp_suggestion)
 MrpSuggestionPage:
@@ -331,6 +335,7 @@ MrpPeggingPage:
     - supply_trans_mrp_suggestion_id
     - trans_purchase_detail_id
     - trans_operations_plan_id
+    - trans_supply_detail_id
     - quantity
     - need_at
     - available_at

@@ -9,6 +9,7 @@ import 'package:graphql/client.dart';
 import 'package:system_model/system_model.dart';
 import 'package:pms_graphql/pms_graphql.dart';
 
+// ignore: unused_element
 const _zeroId = '00000000-0000-0000-0000-000000000000';
 
 void main() {

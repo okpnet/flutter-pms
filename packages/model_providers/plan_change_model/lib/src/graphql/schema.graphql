@@ -1,0 +1,360 @@
+# このファイルは gql_schema_pruner が生成した画面用スキーマです。直接編集しないでください。
+# 再生成: melos run gql:prune(本家スキーマ .schema/schema.graphql が必要)
+
+schema {
+  query: Query
+}
+
+scalar BigFloat
+
+scalar Cursor
+
+scalar Datetime
+
+scalar UUID
+
+enum TransPlanChangesOrderBy {
+  NATURAL
+  TRANS_PLAN_CHANGE_ID_ASC
+  TRANS_PLAN_CHANGE_ID_DESC
+  PARENT_TRANS_PLAN_CHANGE_ID_ASC
+  PARENT_TRANS_PLAN_CHANGE_ID_DESC
+  CHANGE_AT_ASC
+  CHANGE_AT_DESC
+  TRANS_ORDER_DETAIL_ID_ASC
+  TRANS_ORDER_DETAIL_ID_DESC
+  TRANS_PURCHASE_DETAIL_ID_ASC
+  TRANS_PURCHASE_DETAIL_ID_DESC
+  TRANS_OPERATIONS_PLAN_ID_ASC
+  TRANS_OPERATIONS_PLAN_ID_DESC
+  TRANS_INVENTORY_REQUEST_ID_ASC
+  TRANS_INVENTORY_REQUEST_ID_DESC
+  TRANS_VISITER_ID_ASC
+  TRANS_VISITER_ID_DESC
+  TRANS_SHIPPING_ORDER_DETAIL_ID_ASC
+  TRANS_SHIPPING_ORDER_DETAIL_ID_DESC
+  OLD_QUANTITY_ASC
+  OLD_QUANTITY_DESC
+  NEW_QUANTITY_ASC
+  NEW_QUANTITY_DESC
+  CANCEL_QUANTITY_ASC
+  CANCEL_QUANTITY_DESC
+  OLD_DATE_ASC
+  OLD_DATE_DESC
+  NEW_DATE_ASC
+  NEW_DATE_DESC
+  OLD_STOP_ASC
+  OLD_STOP_DESC
+  NEW_STOP_ASC
+  NEW_STOP_DESC
+  DISCONTINUE_ASC
+  DISCONTINUE_DESC
+  RELEASE_ASC
+  RELEASE_DESC
+  HOLD_ASC
+  HOLD_DESC
+  SCRAP_ASC
+  SCRAP_DESC
+  DELIVER_ASC
+  DELIVER_DESC
+  TRANS_CONTAINER_ID_ASC
+  TRANS_CONTAINER_ID_DESC
+  TRANS_ORDER_DETAIL_SETTLEMENT_ID_ASC
+  TRANS_ORDER_DETAIL_SETTLEMENT_ID_DESC
+  CHANGE_REASON_HISTORY_ID_ASC
+  CHANGE_REASON_HISTORY_ID_DESC
+  CHANGE_REASON_ID_ASC
+  CHANGE_REASON_ID_DESC
+  REASON_ASC
+  REASON_DESC
+  STAKEHOLDER_HISTORY_ID_ASC
+  STAKEHOLDER_HISTORY_ID_DESC
+  STAKEHOLDER_ID_ASC
+  STAKEHOLDER_ID_DESC
+  STAFF_HISTORY_ID_ASC
+  STAFF_HISTORY_ID_DESC
+  STAFF_ID_ASC
+  STAFF_ID_DESC
+  TRANS_MRP_SUGGESTION_ID_ASC
+  TRANS_MRP_SUGGESTION_ID_DESC
+  REFLECTED_TRANS_MRP_RUN_ID_ASC
+  REFLECTED_TRANS_MRP_RUN_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum VPlanChangeUnreflectedsOrderBy {
+  NATURAL
+  TRANS_PLAN_CHANGE_ID_ASC
+  TRANS_PLAN_CHANGE_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  CHANGE_AT_ASC
+  CHANGE_AT_DESC
+  TRANS_ORDER_DETAIL_ID_ASC
+  TRANS_ORDER_DETAIL_ID_DESC
+  TRANS_PURCHASE_DETAIL_ID_ASC
+  TRANS_PURCHASE_DETAIL_ID_DESC
+  TRANS_OPERATIONS_PLAN_ID_ASC
+  TRANS_OPERATIONS_PLAN_ID_DESC
+  STAFF_ID_ASC
+  STAFF_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  endCursor: Cursor
+}
+
+type Query {
+  allTransPlanChanges(first: Int, offset: Int, orderBy: [TransPlanChangesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransPlanChangeFilter): TransPlanChangesConnection
+  allVPlanChangeUnreflecteds(first: Int, offset: Int, orderBy: [VPlanChangeUnreflectedsOrderBy!] = [PRIMARY_KEY_ASC], filter: VPlanChangeUnreflectedFilter): VPlanChangeUnreflectedsConnection
+}
+
+type TransPlanChange {
+  transPlanChangeId: UUID!
+  parentTransPlanChangeId: UUID
+  changeAt: Datetime
+  transOrderDetailId: UUID
+  transPurchaseDetailId: UUID
+  transOperationsPlanId: UUID
+  transInventoryRequestId: UUID
+  transVisiterId: UUID
+  transShippingOrderDetailId: UUID
+  oldQuantity: BigFloat
+  newQuantity: BigFloat
+  cancelQuantity: BigFloat
+  oldDate: Datetime
+  newDate: Datetime
+  oldStop: Boolean
+  newStop: Boolean
+  discontinue: Boolean
+  release: Boolean
+  hold: Boolean
+  scrap: Boolean
+  deliver: Boolean
+  transContainerId: UUID
+  transOrderDetailSettlementId: UUID
+  changeReasonId: UUID
+  reason: String
+  stakeholderId: UUID
+  staffId: UUID!
+  transMrpSuggestionId: UUID
+  reflectedTransMrpRunId: UUID
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  remove: Boolean
+}
+
+type TransPlanChangesConnection {
+  nodes: [TransPlanChange]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type VPlanChangeUnreflected {
+  transPlanChangeId: UUID!
+  symbol: String
+  changeAt: Datetime
+  transOrderDetailId: UUID
+  transPurchaseDetailId: UUID
+  transOperationsPlanId: UUID
+  staffId: UUID
+}
+
+type VPlanChangeUnreflectedsConnection {
+  nodes: [VPlanChangeUnreflected]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input BigFloatFilter {
+  isNull: Boolean
+  equalTo: BigFloat
+  notEqualTo: BigFloat
+  distinctFrom: BigFloat
+  notDistinctFrom: BigFloat
+  in: [BigFloat!]
+  notIn: [BigFloat!]
+  lessThan: BigFloat
+  lessThanOrEqualTo: BigFloat
+  greaterThan: BigFloat
+  greaterThanOrEqualTo: BigFloat
+}
+
+input BooleanFilter {
+  isNull: Boolean
+  equalTo: Boolean
+  notEqualTo: Boolean
+  distinctFrom: Boolean
+  notDistinctFrom: Boolean
+  in: [Boolean!]
+  notIn: [Boolean!]
+  lessThan: Boolean
+  lessThanOrEqualTo: Boolean
+  greaterThan: Boolean
+  greaterThanOrEqualTo: Boolean
+}
+
+input DatetimeFilter {
+  isNull: Boolean
+  equalTo: Datetime
+  notEqualTo: Datetime
+  distinctFrom: Datetime
+  notDistinctFrom: Datetime
+  in: [Datetime!]
+  notIn: [Datetime!]
+  lessThan: Datetime
+  lessThanOrEqualTo: Datetime
+  greaterThan: Datetime
+  greaterThanOrEqualTo: Datetime
+}
+
+input StringFilter {
+  isNull: Boolean
+  equalTo: String
+  notEqualTo: String
+  distinctFrom: String
+  notDistinctFrom: String
+  in: [String!]
+  notIn: [String!]
+  lessThan: String
+  lessThanOrEqualTo: String
+  greaterThan: String
+  greaterThanOrEqualTo: String
+  includes: String
+  notIncludes: String
+  includesInsensitive: String
+  notIncludesInsensitive: String
+  startsWith: String
+  notStartsWith: String
+  startsWithInsensitive: String
+  notStartsWithInsensitive: String
+  endsWith: String
+  notEndsWith: String
+  endsWithInsensitive: String
+  notEndsWithInsensitive: String
+  like: String
+  notLike: String
+  likeInsensitive: String
+  notLikeInsensitive: String
+  equalToInsensitive: String
+  notEqualToInsensitive: String
+  distinctFromInsensitive: String
+  notDistinctFromInsensitive: String
+  inInsensitive: [String!]
+  notInInsensitive: [String!]
+  lessThanInsensitive: String
+  lessThanOrEqualToInsensitive: String
+  greaterThanInsensitive: String
+  greaterThanOrEqualToInsensitive: String
+}
+
+input TransPlanChangeFilter {
+  transPlanChangeId: UUIDFilter
+  parentTransPlanChangeId: UUIDFilter
+  changeAt: DatetimeFilter
+  transOrderDetailId: UUIDFilter
+  transPurchaseDetailId: UUIDFilter
+  transOperationsPlanId: UUIDFilter
+  transInventoryRequestId: UUIDFilter
+  transVisiterId: UUIDFilter
+  transShippingOrderDetailId: UUIDFilter
+  oldQuantity: BigFloatFilter
+  newQuantity: BigFloatFilter
+  cancelQuantity: BigFloatFilter
+  oldDate: DatetimeFilter
+  newDate: DatetimeFilter
+  oldStop: BooleanFilter
+  newStop: BooleanFilter
+  discontinue: BooleanFilter
+  release: BooleanFilter
+  hold: BooleanFilter
+  scrap: BooleanFilter
+  deliver: BooleanFilter
+  transContainerId: UUIDFilter
+  transOrderDetailSettlementId: UUIDFilter
+  changeReasonHistoryId: UUIDFilter
+  changeReasonId: UUIDFilter
+  reason: StringFilter
+  stakeholderHistoryId: UUIDFilter
+  stakeholderId: UUIDFilter
+  staffHistoryId: UUIDFilter
+  staffId: UUIDFilter
+  transMrpSuggestionId: UUIDFilter
+  reflectedTransMrpRunId: UUIDFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transSuppliesByTransPlanChangeIdExist: Boolean
+  transReturnsByTransPlanChangeIdExist: Boolean
+  transOrderDetailSettlementsByTransPlanChangeIdExist: Boolean
+  transPlanChangesByParentTransPlanChangeIdExist: Boolean
+  vPlanChangeUnreflectedByTransPlanChangeIdExists: Boolean
+  transPlanChangeByParentTransPlanChangeIdExists: Boolean
+  transOrderDetailByTransOrderDetailIdExists: Boolean
+  transPurchaseDetailByTransPurchaseDetailIdExists: Boolean
+  transOperationsPlanByTransOperationsPlanIdExists: Boolean
+  transInventoryRequestByTransInventoryRequestIdExists: Boolean
+  transVisiterByTransVisiterIdExists: Boolean
+  transShippingOrderDetailByTransShippingOrderDetailIdExists: Boolean
+  transContainerByTransContainerIdExists: Boolean
+  transOrderDetailSettlementByTransOrderDetailSettlementIdExists: Boolean
+  historyMstrChangeReasonByChangeReasonHistoryIdAndChangeReasonIdExists: Boolean
+  historyMstrStakeholderByStakeholderHistoryIdAndStakeholderIdExists: Boolean
+  transMrpSuggestionByTransMrpSuggestionIdExists: Boolean
+  transMrpRunByReflectedTransMrpRunIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransPlanChangeFilter!]
+  or: [TransPlanChangeFilter!]
+  not: TransPlanChangeFilter
+}
+
+input UUIDFilter {
+  isNull: Boolean
+  equalTo: UUID
+  notEqualTo: UUID
+  distinctFrom: UUID
+  notDistinctFrom: UUID
+  in: [UUID!]
+  notIn: [UUID!]
+  lessThan: UUID
+  lessThanOrEqualTo: UUID
+  greaterThan: UUID
+  greaterThanOrEqualTo: UUID
+}
+
+input VPlanChangeUnreflectedFilter {
+  transPlanChangeId: UUIDFilter
+  symbol: StringFilter
+  changeAt: DatetimeFilter
+  transOrderDetailId: UUIDFilter
+  transPurchaseDetailId: UUIDFilter
+  transOperationsPlanId: UUIDFilter
+  staffId: UUIDFilter
+  transPlanChangeByTransPlanChangeIdExists: Boolean
+  transOrderDetailByTransOrderDetailIdExists: Boolean
+  transPurchaseDetailByTransPurchaseDetailIdExists: Boolean
+  transOperationsPlanByTransOperationsPlanIdExists: Boolean
+  and: [VPlanChangeUnreflectedFilter!]
+  or: [VPlanChangeUnreflectedFilter!]
+  not: VPlanChangeUnreflectedFilter
+}

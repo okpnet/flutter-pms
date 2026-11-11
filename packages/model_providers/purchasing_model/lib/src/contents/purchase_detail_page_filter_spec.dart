@@ -22,6 +22,8 @@ abstract class PurchaseDetailPageFilterSpec {
     'itemId': FlatFilterPath([], 'itemId'),
     'symbol': FlatFilterPath([], 'symbol'),
     'remarks': FlatFilterPath([], 'remarks'),
+    'cancelQuantity': FlatFilterPath([], 'cancelQuantity'),
+    'stop': FlatFilterPath([], 'stop'),
     'purchase_rez_count||transPurchaseDetailId': FlatFilterPath([FilterStep('vPurchaseDetailPurchaseRezCountByTransPurchaseDetailId')], 'transPurchaseDetailId'),
     'purchase_rec_count||transPurchaseDetailId': FlatFilterPath([FilterStep('vPurchaseDetailPurchaseRecCountByTransPurchaseDetailId')], 'transPurchaseDetailId'),
     'updateAt': FlatFilterPath([], 'updateAt'),

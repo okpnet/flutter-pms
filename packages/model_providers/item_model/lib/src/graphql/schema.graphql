@@ -490,6 +490,10 @@ enum VItemOnHandsOrderBy {
   VISITER_COUNT_DESC
   HELD_VISITER_COUNT_ASC
   HELD_VISITER_COUNT_DESC
+  EXTERNAL_QUANTITY_ASC
+  EXTERNAL_QUANTITY_DESC
+  EXTERNAL_VISITER_COUNT_ASC
+  EXTERNAL_VISITER_COUNT_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -1250,6 +1254,26 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transVisiterOwnersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintSuppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSupplyVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSupplyDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSuppliesByStaffHistoryIdAndStaffIdExist: Boolean
+  transSuppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnsByStaffHistoryIdAndStaffIdExist: Boolean
+  transReturnsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transOrderDetailSettlementsByStaffHistoryIdAndStaffIdExist: Boolean
+  transOrderDetailSettlementsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPlanChangesByStaffHistoryIdAndStaffIdExist: Boolean
+  transPlanChangesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrSettlementKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrSettlementKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrReturnKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrReturnKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrChangeReasonsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrChangeReasonsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyInfoDepartmentAccessPathsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintVisitersByReleaseStaffHistoryIdAndReleaseStaffIdExist: Boolean
   transComplaintVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1727,6 +1751,7 @@ input MstrItemFilter {
   mstrItemTreesByMstrItemIdExist: Boolean
   mstrItemTreesByParentMstrItemIdExist: Boolean
   mstrEquipmentsByMstrItemIdExist: Boolean
+  vExternalPropertiesByItemIdExist: Boolean
   vItemDescendantByAncestorMstrItemId: VItemDescendantFilter
   vItemDescendantByAncestorMstrItemIdExists: Boolean
   vItemEquipmentCountByMstrItemId: VItemEquipmentCountFilter
@@ -1747,12 +1772,19 @@ input MstrItemFilter {
   vMrpMasterIssuesByItemIdExist: Boolean
   vMrpPendingSuggestionsByItemIdExist: Boolean
   vMrpVisiterItemsByItemIdExist: Boolean
+  vOperationsPlanUnreservedsByMstrItemIdExist: Boolean
+  vOrderDetailBalancesByItemIdExist: Boolean
   vPurchaseAmountsByMstrItemIdExist: Boolean
   vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
+  vPurchaseDetailBalancesByItemIdExist: Boolean
+  vPurchaseDetailUnreservedsByMstrItemIdExist: Boolean
   vResourcePlanCoveragesByItemIdExist: Boolean
   vSalesRecordsByMstrItemIdExist: Boolean
   vShippingDeliveryCompliancesByMstrItemIdExist: Boolean
   vShippingOrderStatusesByMstrItemIdExist: Boolean
+  vStockStatusesByMstrItemIdExist: Boolean
+  vSupplyDetailBalancesByItemIdExist: Boolean
+  vVisiterItemsByMstrItemIdExist: Boolean
   mstrItemKindByMstrItemKindId: MstrItemKindFilter
   mstrManufacturerByMstrManufacturerId: MstrManufacturerFilter
   mstrManufacturerByMstrManufacturerIdExists: Boolean
@@ -2426,6 +2458,9 @@ input SharedAppellationFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  mstrSettlementKindsByNamesExist: Boolean
+  mstrReturnKindsByNamesExist: Boolean
+  mstrChangeReasonsByNamesExist: Boolean
   mstrItemOperationsByNamesExist: Boolean
   infoDepartmentKindValuesByNamesExist: Boolean
   mstrInspectionKindsByNamesExist: Boolean
@@ -3306,6 +3341,8 @@ input VItemOnHandFilter {
   availableQuantity: BigFloatFilter
   visiterCount: IntFilter
   heldVisiterCount: IntFilter
+  externalQuantity: BigFloatFilter
+  externalVisiterCount: IntFilter
   mstrItemByItemIdExists: Boolean
   and: [VItemOnHandFilter!]
   or: [VItemOnHandFilter!]

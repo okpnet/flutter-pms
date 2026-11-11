@@ -9,7 +9,6 @@ abstract class ProductRezPageFilterSpec {
   static const FlatFilterSpec spec = FlatFilterSpec('TransProductRezFilter', {
     'transProductRezId': FlatFilterPath([], 'transProductRezId'),
     'transWorkPlanId': FlatFilterPath([], 'transWorkPlanId'),
-    'quantity': FlatFilterPath([], 'quantity'),
     'symbol': FlatFilterPath([], 'symbol'),
     'remarks': FlatFilterPath([], 'remarks'),
     'updateAt': FlatFilterPath([], 'updateAt'),

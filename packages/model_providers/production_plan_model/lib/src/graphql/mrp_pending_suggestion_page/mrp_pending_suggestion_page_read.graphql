@@ -89,6 +89,8 @@ query MrpPendingSuggestionPageRead(
       parent_operations_plan: transOperationsPlanByParentTransOperationsPlanId {
         transOperationsPlanId
         symbol
+        stop
+        discontinue
       }
 
       transPurchaseDetailId
@@ -96,6 +98,8 @@ query MrpPendingSuggestionPageRead(
       purchase_detail: transPurchaseDetailByTransPurchaseDetailId {
         transPurchaseDetailId
         symbol
+        cancelQuantity
+        stop
       }
 
       transOperationsPlanId
@@ -103,6 +107,8 @@ query MrpPendingSuggestionPageRead(
       operations_plan: transOperationsPlanByTransOperationsPlanId {
         transOperationsPlanId
         symbol
+        stop
+        discontinue
       }
 
       stakeholderHistoryId

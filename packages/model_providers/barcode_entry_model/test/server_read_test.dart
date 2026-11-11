@@ -9,6 +9,7 @@ import 'package:graphql/client.dart';
 import 'package:barcode_entry_model/barcode_entry_model.dart';
 import 'package:pms_graphql/pms_graphql.dart';
 
+// ignore: unused_element
 const _zeroId = '00000000-0000-0000-0000-000000000000';
 
 void main() {

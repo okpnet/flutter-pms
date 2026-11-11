@@ -1,0 +1,37 @@
+# visiter_owner_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #VisiterOwnerPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query VisiterOwnerPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransVisiterOwnerFilter = {and: []}
+  $orderBy: [TransVisiterOwnersOrderBy!]
+  $removed: Boolean = false
+) {
+  allTransVisiterOwners(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transVisiterOwnerId
+      transVisiterId
+      ownerStakeholderId
+      transSupplyDetailId
+      transOrderDetailId
+      effectiveAt
+      symbol
+      remarks
+      updateAt
+      remove
+    }
+  }
+}

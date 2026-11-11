@@ -1,0 +1,67 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 返品(trans_return)。顧客からの返品は receive = true の種別、仕入先・外注先への返品は false の種別。
+ReturnPage:
+  kind: read
+  from: trans_return
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_return_id
+    - code
+    - return_kind_id
+    - return_at
+    - stakeholder_id
+    - trans_order_id
+    - trans_purchase_id
+    - trans_plan_change_id
+    - trans_complaint_id
+    - reason
+    - staff_id
+    - symbol
+    - remarks
+    - update_at
+
+# 返品明細。replacement が true なら受注残・発注残に戻す(代品あり)
+ReturnDetailPage:
+  kind: read
+  from: trans_return_detail
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_return_detail_id
+    - trans_return_id
+    - item_id
+    - quantity
+    - replacement
+    - trans_order_detail_id
+    - trans_shipping_order_detail_record_id
+    - trans_purchase_detail_id
+    - trans_purchase_rec_id
+    - origin_trans_visiter_id
+    - symbol
+    - remarks
+    - update_at
+
+# 返品とロット(棚ビジター)のつなぎ。数量は棚ビジターの行が持つ
+ReturnVisiterPage:
+  kind: read
+  from: trans_return_visiter
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_return_visiter_id
+    - trans_return_detail_id
+    - trans_visiter_id
+    - symbol
+    - remarks
+    - update_at

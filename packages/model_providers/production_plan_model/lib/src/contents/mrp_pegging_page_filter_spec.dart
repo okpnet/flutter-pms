@@ -14,6 +14,7 @@ abstract class MrpPeggingPageFilterSpec {
     'supplyTransMrpSuggestionId': FlatFilterPath([], 'supplyTransMrpSuggestionId'),
     'transPurchaseDetailId': FlatFilterPath([], 'transPurchaseDetailId'),
     'transOperationsPlanId': FlatFilterPath([], 'transOperationsPlanId'),
+    'transSupplyDetailId': FlatFilterPath([], 'transSupplyDetailId'),
     'quantity': FlatFilterPath([], 'quantity'),
     'needAt': FlatFilterPath([], 'needAt'),
     'availableAt': FlatFilterPath([], 'availableAt'),

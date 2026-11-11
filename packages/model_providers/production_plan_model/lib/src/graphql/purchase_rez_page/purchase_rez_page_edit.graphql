@@ -6,7 +6,6 @@
 mutation PurchaseRezPageEdit(
   $transPurchaseRezId: UUID!
   $transPurchaseDetailId: UUID
-  $quantity: BigFloat
   $remarks: String
 ) {
   updateTransPurchaseRezByTransPurchaseRezId(
@@ -14,7 +13,6 @@ mutation PurchaseRezPageEdit(
       transPurchaseRezId: $transPurchaseRezId
       transPurchaseRezPatch: {
         transPurchaseDetailId: $transPurchaseDetailId
-        quantity: $quantity
         remarks: $remarks
       }
     }
@@ -22,7 +20,6 @@ mutation PurchaseRezPageEdit(
     transPurchaseRez {
       transPurchaseRezId
       transPurchaseDetailId
-      quantity
       remarks
     }
   }

@@ -4,6 +4,7 @@ import 'package:data_test_harness/data_test_harness.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  tokenTests();
   group('RecordingDataRepository', () {
     test('呼び出しを記録し、固定の結果を返す', () async {
       final repo = RecordingDataRepository<List<int>>(result: [1, 2]);
@@ -41,7 +42,7 @@ void main() {
       );
       expect(server, isNotNull);
       expect(server!.url, reachable);
-      expect(server.toJson(), {'url': reachable});
+      expect(server.toJson(), {'authenticated': TestToken.isConfigured, 'url': reachable});
     });
 
     test('どれにも接続できなければnull', () async {
@@ -50,6 +51,22 @@ void main() {
         timeout: const Duration(seconds: 1),
       );
       expect(server, isNull);
+    });
+  });
+}
+
+void tokenTests() {
+  group('TestToken', () {
+    test('資格情報が渡されていなければ、取得せず null(匿名で実行する)', () async {
+      // この実行に PMS_TEST_USER / PMS_TEST_PASSWORD が無い場合だけ確かめられる。
+      if (TestToken.isConfigured) return;
+      expect(await TestToken.obtain(), isNull);
+    });
+
+    test('PocketBase の接続先は、末尾の / と /api を除く', () {
+      // 既定値の形(--dart-define で変えていないとき)。
+      if (Platform.environment['PMS_TEST_POCKETBASE_URL'] != null) return;
+      expect(TestToken.pocketBaseUrl, TestToken.defaultPocketBaseUrl);
     });
   });
 }

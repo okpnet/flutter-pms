@@ -411,6 +411,10 @@ enum TransPurchaseDetailsOrderBy {
   MATERIAL_SUPPLY_DESC
   PAID_SUPPLY_ASC
   PAID_SUPPLY_DESC
+  CANCEL_QUANTITY_ASC
+  CANCEL_QUANTITY_DESC
+  STOP_ASC
+  STOP_DESC
   SYMBOL_ASC
   SYMBOL_DESC
   REMARKS_ASC
@@ -499,8 +503,6 @@ enum TransWorkPlansOrderBy {
   START_AT_DESC
   COMPLETION_AT_ASC
   COMPLETION_AT_DESC
-  SYMBOL_ASC
-  SYMBOL_DESC
   MSTR_EQUIPMENT_AVAILABLE_HISTORY_ID_ASC
   MSTR_EQUIPMENT_AVAILABLE_HISTORY_ID_DESC
   MSTR_EQUIPMENT_AVAILABLE_ID_ASC
@@ -511,6 +513,8 @@ enum TransWorkPlansOrderBy {
   MSTR_OUTSOURCE_AVAILABLE_ID_DESC
   TRANS_PURCHASE_DETAIL_ID_ASC
   TRANS_PURCHASE_DETAIL_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
   REMARKS_ASC
   REMARKS_DESC
   UPDATE_AT_ASC
@@ -913,6 +917,26 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transVisiterOwnersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintSuppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSupplyVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSupplyDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSuppliesByStaffHistoryIdAndStaffIdExist: Boolean
+  transSuppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnsByStaffHistoryIdAndStaffIdExist: Boolean
+  transReturnsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transOrderDetailSettlementsByStaffHistoryIdAndStaffIdExist: Boolean
+  transOrderDetailSettlementsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPlanChangesByStaffHistoryIdAndStaffIdExist: Boolean
+  transPlanChangesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrSettlementKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrSettlementKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrReturnKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrReturnKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrChangeReasonsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrChangeReasonsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyInfoDepartmentAccessPathsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintVisitersByReleaseStaffHistoryIdAndReleaseStaffIdExist: Boolean
   transComplaintVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1352,6 +1376,7 @@ input MstrItemFilter {
   mstrItemTreesByMstrItemIdExist: Boolean
   mstrItemTreesByParentMstrItemIdExist: Boolean
   mstrEquipmentsByMstrItemIdExist: Boolean
+  vExternalPropertiesByItemIdExist: Boolean
   vItemDescendantByAncestorMstrItemIdExists: Boolean
   vItemEquipmentCountByMstrItemIdExists: Boolean
   vItemInspectionCountByMstrItemIdExists: Boolean
@@ -1364,12 +1389,19 @@ input MstrItemFilter {
   vMrpMasterIssuesByItemIdExist: Boolean
   vMrpPendingSuggestionsByItemIdExist: Boolean
   vMrpVisiterItemsByItemIdExist: Boolean
+  vOperationsPlanUnreservedsByMstrItemIdExist: Boolean
+  vOrderDetailBalancesByItemIdExist: Boolean
   vPurchaseAmountsByMstrItemIdExist: Boolean
   vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
+  vPurchaseDetailBalancesByItemIdExist: Boolean
+  vPurchaseDetailUnreservedsByMstrItemIdExist: Boolean
   vResourcePlanCoveragesByItemIdExist: Boolean
   vSalesRecordsByMstrItemIdExist: Boolean
   vShippingDeliveryCompliancesByMstrItemIdExist: Boolean
   vShippingOrderStatusesByMstrItemIdExist: Boolean
+  vStockStatusesByMstrItemIdExist: Boolean
+  vSupplyDetailBalancesByItemIdExist: Boolean
+  vVisiterItemsByMstrItemIdExist: Boolean
   mstrManufacturerByMstrManufacturerIdExists: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   sharedTextByDetailsExists: Boolean
@@ -1433,6 +1465,9 @@ input SharedAppellationFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  mstrSettlementKindsByNamesExist: Boolean
+  mstrReturnKindsByNamesExist: Boolean
+  mstrChangeReasonsByNamesExist: Boolean
   mstrItemOperationsByNamesExist: Boolean
   infoDepartmentKindValuesByNamesExist: Boolean
   mstrInspectionKindsByNamesExist: Boolean
@@ -1625,12 +1660,15 @@ input TransContainerFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transPlanChangesByTransContainerIdExist: Boolean
   transContainerTreesByTransContainerIdExist: Boolean
   transContainerTreesByParentTransContainerIdExist: Boolean
   transVisitersByTransContainerIdExist: Boolean
   vContainerDescendantByAncestorTransContainerIdExists: Boolean
   vContainerVisiterCountByTransContainerIdExists: Boolean
+  vExternalPropertiesByTransContainerIdExist: Boolean
   vShelfInventoryStatusesByTransContainerIdExist: Boolean
+  vStockStatusesByTransContainerIdExist: Boolean
   vVisiterHoldWithoutComplaintsByTransContainerIdExist: Boolean
   vVisiterIssuablesByTransContainerIdExist: Boolean
   vVisiterLedgerIssuesByTransContainerIdExist: Boolean
@@ -1800,12 +1838,15 @@ input TransOperationsPlanFilter {
   transResourcePlanId: UUIDFilter
   deadline: DatetimeFilter
   quantity: BigFloatFilter
+  stop: BooleanFilter
+  discontinue: BooleanFilter
   symbol: StringFilter
   remarks: StringFilter
   updateAt: DatetimeFilter
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transPlanChangesByTransOperationsPlanIdExist: Boolean
   transWorkPlansByTransOperationsPlanIdExist: Boolean
   transResourcePlansByParentTransOperationsPlanIdExist: Boolean
   transMrpSuggestionsByParentTransOperationsPlanIdExist: Boolean
@@ -1813,7 +1854,9 @@ input TransOperationsPlanFilter {
   transMrpPeggingsByTransOperationsPlanIdExist: Boolean
   vMrpPendingSuggestionsByParentTransOperationsPlanIdExist: Boolean
   vMrpPendingSuggestionsByTransOperationsPlanIdExist: Boolean
+  vOperationsPlanUnreservedByTransOperationsPlanIdExists: Boolean
   vOperationsPlanWorkPlanCountByTransOperationsPlanIdExists: Boolean
+  vPlanChangeUnreflectedsByTransOperationsPlanIdExist: Boolean
   vWorkPlanDeliveryCompliancesByTransOperationsPlanIdExist: Boolean
   transResourcePlanByTransResourcePlanId: TransResourcePlanFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -1836,12 +1879,17 @@ input TransPurchaseDetailFilter {
   itemId: UUIDFilter
   materialSupply: BooleanFilter
   paidSupply: BooleanFilter
+  cancelQuantity: BigFloatFilter
+  stop: BooleanFilter
   symbol: StringFilter
   remarks: StringFilter
   updateAt: DatetimeFilter
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transSupplyDetailsByTransPurchaseDetailIdExist: Boolean
+  transReturnDetailsByTransPurchaseDetailIdExist: Boolean
+  transPlanChangesByTransPurchaseDetailIdExist: Boolean
   transInspectSchDetailsByTransPurchaseDetailIdExist: Boolean
   transPurchaseRecsByTransPurchaseDetailIdExist: Boolean
   transPurchaseRezsByTransPurchaseDetailIdExist: Boolean
@@ -1849,8 +1897,12 @@ input TransPurchaseDetailFilter {
   transMrpSuggestionsByTransPurchaseDetailIdExist: Boolean
   transMrpPeggingsByTransPurchaseDetailIdExist: Boolean
   vMrpPendingSuggestionsByTransPurchaseDetailIdExist: Boolean
+  vPlanChangeUnreflectedsByTransPurchaseDetailIdExist: Boolean
+  vPurchaseDetailBalanceByTransPurchaseDetailIdExists: Boolean
   vPurchaseDetailPurchaseRecCountByTransPurchaseDetailIdExists: Boolean
   vPurchaseDetailPurchaseRezCountByTransPurchaseDetailIdExists: Boolean
+  vPurchaseDetailUnreservedByTransPurchaseDetailIdExists: Boolean
+  vSupplyDetailBalancesByTransPurchaseDetailIdExist: Boolean
   transResourcePlanByTransResourcePlanIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransPurchaseDetailFilter!]
@@ -1869,6 +1921,7 @@ input TransPurchaseRecFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transReturnDetailsByTransPurchaseRecIdExist: Boolean
   transComplaintPurchaseRecsByTransPurchaseRecIdExist: Boolean
   transPurchaseRecVisitersByTransPurchaseRecIdExist: Boolean
   transPurchaseCertificationsByTransPurchaseRecIdExist: Boolean
@@ -1900,12 +1953,14 @@ input TransResourcePlanFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transSupplyDetailsByTransResourcePlanIdExist: Boolean
   transInventoryRequestsByTransResourcePlanIdExist: Boolean
   transPurchaseDetailsByTransResourcePlanIdExist: Boolean
   transOperationsPlansByTransResourcePlanIdExist: Boolean
   transMrpSuggestionsByTransResourcePlanIdExist: Boolean
   vMrpPendingSuggestionsByTransResourcePlanIdExist: Boolean
   vResourcePlanCoverageByTransResourcePlanIdExists: Boolean
+  vSupplyDetailBalancesByTransResourcePlanIdExist: Boolean
   transOperationsPlanByParentTransOperationsPlanIdExists: Boolean
   transOrderDetailByTransOrderDetailIdExists: Boolean
   transUnrecognizedDetailByTransUnrecognizedDetailIdExists: Boolean
@@ -1928,19 +1983,28 @@ input TransVisiterFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transVisiterOwnerByTransVisiterIdExists: Boolean
+  transSupplyVisitersByTransVisiterIdExist: Boolean
+  transReturnVisitersByTransVisiterIdExist: Boolean
+  transReturnDetailsByOriginTransVisiterIdExist: Boolean
+  transPlanChangesByTransVisiterIdExist: Boolean
   transComplaintVisitersByTransVisiterIdExist: Boolean
+  transInventoryRequestsByTransVisiterIdExist: Boolean
   transWorkRecordVisitersByTransVisiterIdExist: Boolean
   transPurchaseRecVisitersByTransVisiterIdExist: Boolean
   transVisitersByParentTransVisiterIdExist: Boolean
   transConveysByTransVisiterIdExist: Boolean
   vComplaintTargetVisitersByTransVisiterIdExist: Boolean
+  vExternalPropertyByTransVisiterIdExists: Boolean
   vMrpVisiterItemByTransVisiterIdExists: Boolean
   vShelfInventoryStatusByTransVisiterIdExists: Boolean
   vShelfInventoryStatusesByParentTransVisiterIdExist: Boolean
+  vStockStatusByTransVisiterIdExists: Boolean
   vVisiterComplaintVisiterCountByTransVisiterIdExists: Boolean
   vVisiterConveyCountByTransVisiterIdExists: Boolean
   vVisiterHoldWithoutComplaintByTransVisiterIdExists: Boolean
   vVisiterIssuableByTransVisiterIdExists: Boolean
+  vVisiterItemByTransVisiterIdExists: Boolean
   vVisiterLedgerIssuesByTransVisiterIdExist: Boolean
   vVisiterLedgerIssuesByParentTransVisiterIdExist: Boolean
   vVisiterLineagesByTransVisiterIdExist: Boolean
@@ -1964,12 +2028,12 @@ input TransWorkPlanFilter {
   sequence: IntFilter
   startAt: DatetimeFilter
   completionAt: DatetimeFilter
-  symbol: StringFilter
   mstrEquipmentAvailableHistoryId: UUIDFilter
   mstrEquipmentAvailableId: UUIDFilter
   mstrOutsourceAvailableHistoryId: UUIDFilter
   mstrOutsourceAvailableId: UUIDFilter
   transPurchaseDetailId: UUIDFilter
+  symbol: StringFilter
   remarks: StringFilter
   updateAt: DatetimeFilter
   updateUserId: UUIDFilter

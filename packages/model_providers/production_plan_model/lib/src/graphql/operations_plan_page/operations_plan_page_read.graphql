@@ -27,6 +27,8 @@ query OperationsPlanPageRead(
       transResourcePlanId
       quantity
       deadline
+      stop
+      discontinue
       symbol
       remarks
 

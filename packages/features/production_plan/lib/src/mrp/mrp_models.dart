@@ -29,7 +29,10 @@ enum MrpSuggestionKind {
   planNew('PLAN_NEW'),
   planUpdate('PLAN_UPDATE'),
   planKeep('PLAN_KEEP'),
-  planCancel('PLAN_CANCEL');
+  planCancel('PLAN_CANCEL'),
+
+  /// 顧客支給の品目が足りないときの支給依頼(要判断。発注・生産は提案しない)。
+  supplyRequest('SUPPLY_REQUEST');
 
   const MrpSuggestionKind(this.code);
 

@@ -15,8 +15,11 @@ const _langQuery = '''
 query { allSharedLanguageCodes(first: 50) { nodes { sharedLanguageCodeId code } } }
 ''';
 
-GraphQLClient _clientTo(String url) =>
-    GraphQLClient(link: HttpLink(url), cache: GraphQLCache());
+/// 検証用サーバーへのクライアント。JWT(TestServer が付けるヘッダー)を同じように付ける。
+GraphQLClient _clientTo(TestServer server) => GraphQLClient(
+  link: HttpLink(server.url, defaultHeaders: server.provider.headers),
+  cache: GraphQLCache(),
+);
 
 /// 操作名ごとの応答を返し、呼び出しを記録する通信路。
 class _FakeLink extends Link {
@@ -80,7 +83,7 @@ Map<String, dynamic> _created(String field, String row, String idField, String i
 };
 
 Future<String?> _containerSymbol(TestServer server, String code) async {
-  final r = await _clientTo(server.url).query(
+  final r = await _clientTo(server).query(
     QueryOptions(
       document: parseString('query { allTransContainers(first: 1, filter: {code: {equalTo: "$code"}}) { nodes { symbol } } }'),
     ),
@@ -92,7 +95,7 @@ Future<String?> _containerSymbol(TestServer server, String code) async {
 void main() {
   group('検証用サーバー: symbol の照会(読み取り専用)', () {
     Future<ScanClient> clientOf(TestServer server) async {
-      final raw = _clientTo(server.url);
+      final raw = _clientTo(server);
       final langs = await raw.query(QueryOptions(document: parseString(_langQuery)));
       final nodes = (langs.data?['allSharedLanguageCodes']['nodes'] as List).cast<Map>();
       final ja = nodes.firstWhere((n) => '${n['code']}'.toLowerCase() == 'ja');
@@ -100,7 +103,7 @@ void main() {
     }
 
     Future<String?> sample(TestServer server, String field) async {
-      final r = await _clientTo(server.url).query(
+      final r = await _clientTo(server).query(
         QueryOptions(
           document: parseString('query { $field(first: 1, filter: {symbol: {isNull: false}, remove: {equalTo: false}}) { nodes { symbol } } }'),
         ),

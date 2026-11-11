@@ -13,6 +13,7 @@ abstract class ComplaintTargetVisiterPageFilterSpec {
     'targetLinkId': FlatFilterPath([], 'targetLinkId'),
     'transPurchaseRecId': FlatFilterPath([], 'transPurchaseRecId'),
     'transWorkRecordId': FlatFilterPath([], 'transWorkRecordId'),
+    'transSupplyDetailId': FlatFilterPath([], 'transSupplyDetailId'),
     'complaintQuantity': FlatFilterPath([], 'complaintQuantity'),
     'transVisiterId': FlatFilterPath([], 'transVisiterId'),
     'visiterQuantity': FlatFilterPath([], 'visiterQuantity'),

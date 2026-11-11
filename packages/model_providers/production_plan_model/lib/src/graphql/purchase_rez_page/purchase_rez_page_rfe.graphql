@@ -9,7 +9,6 @@ query PurchaseRezPageRfe(
   transPurchaseRezByTransPurchaseRezId(transPurchaseRezId: $transPurchaseRezId) {
     transPurchaseRezId
     transPurchaseDetailId
-    quantity
     remarks
     updateUserId
     updateUserHistoryId

@@ -1,0 +1,40 @@
+# order_detail_settlement_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #OrderDetailSettlementPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query OrderDetailSettlementPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransOrderDetailSettlementFilter = {and: []}
+  $orderBy: [TransOrderDetailSettlementsOrderBy!]
+  $removed: Boolean = false
+) {
+  allTransOrderDetailSettlements(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transOrderDetailSettlementId
+      transOrderDetailId
+      settlementKindId
+      settleAt
+      quantity
+      amount
+      transPlanChangeId
+      reason
+      staffId
+      symbol
+      remarks
+      updateAt
+      remove
+    }
+  }
+}

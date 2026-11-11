@@ -15,6 +15,7 @@ ComplaintTargetVisiterPage:
     - target_link_id
     - trans_purchase_rec_id
     - trans_work_record_id
+    - trans_supply_detail_id
     - complaint_quantity
     - trans_visiter_id
     - visiter_quantity
@@ -35,6 +36,7 @@ ComplaintTargetPage:
     - target_kind
     - trans_purchase_rec_id
     - trans_work_record_id
+    - trans_supply_detail_id
     - complaint_quantity
     - visiter_count
     - visiter_quantity
@@ -43,3 +45,21 @@ ComplaintTargetPage:
     - missing_count
     - missing_issuable_count
     - missing_empty_count
+
+# 支給異常(trans_complaint_supply。異常の対象に支給が加わった)
+ComplaintSupplyPage:
+  kind: read
+  from: trans_complaint_supply
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_complaint_supply_id
+    - trans_complaint_id
+    - trans_supply_detail_id
+    - quantity
+    - symbol
+    - remarks
+    - update_at

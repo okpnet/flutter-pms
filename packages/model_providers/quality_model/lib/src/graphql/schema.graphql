@@ -398,6 +398,32 @@ enum TransComplaintStakeholdersOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum TransComplaintSuppliesOrderBy {
+  NATURAL
+  TRANS_COMPLAINT_SUPPLY_ID_ASC
+  TRANS_COMPLAINT_SUPPLY_ID_DESC
+  TRANS_COMPLAINT_ID_ASC
+  TRANS_COMPLAINT_ID_DESC
+  TRANS_SUPPLY_DETAIL_ID_ASC
+  TRANS_SUPPLY_DETAIL_ID_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum TransComplaintVisitersOrderBy {
   NATURAL
   TRANS_COMPLAINT_VISITER_ID_ASC
@@ -774,6 +800,8 @@ enum VComplaintTargetVisitersOrderBy {
   TRANS_PURCHASE_REC_ID_DESC
   TRANS_WORK_RECORD_ID_ASC
   TRANS_WORK_RECORD_ID_DESC
+  TRANS_SUPPLY_DETAIL_ID_ASC
+  TRANS_SUPPLY_DETAIL_ID_DESC
   COMPLAINT_QUANTITY_ASC
   COMPLAINT_QUANTITY_DESC
   TRANS_VISITER_ID_ASC
@@ -810,6 +838,8 @@ enum VComplaintTargetsOrderBy {
   TRANS_PURCHASE_REC_ID_DESC
   TRANS_WORK_RECORD_ID_ASC
   TRANS_WORK_RECORD_ID_DESC
+  TRANS_SUPPLY_DETAIL_ID_ASC
+  TRANS_SUPPLY_DETAIL_ID_DESC
   COMPLAINT_QUANTITY_ASC
   COMPLAINT_QUANTITY_DESC
   VISITER_COUNT_ASC
@@ -1093,6 +1123,7 @@ type Query {
   allTransComplaintProcesses(first: Int, offset: Int, orderBy: [TransComplaintProcessesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransComplaintProcessFilter): TransComplaintProcessesConnection
   allTransComplaintReceives(first: Int, offset: Int, orderBy: [TransComplaintReceivesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransComplaintReceiveFilter): TransComplaintReceivesConnection
   allTransComplaintStakeholders(first: Int, offset: Int, orderBy: [TransComplaintStakeholdersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransComplaintStakeholderFilter): TransComplaintStakeholdersConnection
+  allTransComplaintSupplies(first: Int, offset: Int, orderBy: [TransComplaintSuppliesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransComplaintSupplyFilter): TransComplaintSuppliesConnection
   allTransComplaintVisiters(first: Int, offset: Int, orderBy: [TransComplaintVisitersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransComplaintVisiterFilter): TransComplaintVisitersConnection
   allTransDisposals(first: Int, offset: Int, orderBy: [TransDisposalsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransDisposalFilter): TransDisposalsConnection
   allTransObserverDisposals(first: Int, offset: Int, orderBy: [TransObserverDisposalsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransObserverDisposalFilter): TransObserverDisposalsConnection
@@ -1421,6 +1452,23 @@ type TransComplaintStakeholdersConnection {
   nodes: [TransComplaintStakeholder]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type TransComplaintSuppliesConnection {
+  nodes: [TransComplaintSupply]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TransComplaintSupply {
+  transComplaintSupplyId: UUID!
+  transComplaintId: UUID!
+  transSupplyDetailId: UUID!
+  quantity: BigFloat
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  remove: Boolean
 }
 
 type TransComplaintVisiter {
@@ -1871,6 +1919,7 @@ type VComplaintTarget {
   targetKind: String
   transPurchaseRecId: UUID
   transWorkRecordId: UUID
+  transSupplyDetailId: UUID
   complaintQuantity: BigFloat
   visiterCount: Int
   visiterQuantity: BigFloat
@@ -1888,6 +1937,7 @@ type VComplaintTargetVisiter {
   targetLinkId: UUID
   transPurchaseRecId: UUID
   transWorkRecordId: UUID
+  transSupplyDetailId: UUID
   complaintQuantity: BigFloat
   transVisiterId: UUID
   visiterQuantity: BigFloat
@@ -2050,6 +2100,26 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transVisiterOwnersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintSuppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSupplyVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSupplyDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSuppliesByStaffHistoryIdAndStaffIdExist: Boolean
+  transSuppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnsByStaffHistoryIdAndStaffIdExist: Boolean
+  transReturnsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transOrderDetailSettlementsByStaffHistoryIdAndStaffIdExist: Boolean
+  transOrderDetailSettlementsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPlanChangesByStaffHistoryIdAndStaffIdExist: Boolean
+  transPlanChangesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrSettlementKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrSettlementKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrReturnKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrReturnKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrChangeReasonsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrChangeReasonsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyInfoDepartmentAccessPathsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintVisitersByReleaseStaffHistoryIdAndReleaseStaffIdExist: Boolean
   transComplaintVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -2655,6 +2725,7 @@ input MstrStakeholderFilter {
   transAuditsByMstrStakeholderIdExist: Boolean
   mstrInspectionsByExternalInspectionExist: Boolean
   mstrStakeholderContactsByMstrStakeholderIdExist: Boolean
+  vExternalPropertiesByOwnerStakeholderIdExist: Boolean
   vInspectionStatusesBySupplierIdExist: Boolean
   vMrpPendingSuggestionsByStakeholderIdExist: Boolean
   vMrpPurchasePlansByStakeholderIdExist: Boolean
@@ -2669,6 +2740,7 @@ input MstrStakeholderFilter {
   vStakeholderStakeholderContactCountByMstrStakeholderIdExists: Boolean
   vStakeholderStakeholderProvisionCountByMstrStakeholderId: VStakeholderStakeholderProvisionCountFilter
   vStakeholderStakeholderProvisionCountByMstrStakeholderIdExists: Boolean
+  vSupplyDetailBalancesByStakeholderIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   infoAddressByInfoAddressId: InfoAddressFilter
   infoAddressByInfoAddressIdExists: Boolean
@@ -2759,6 +2831,9 @@ input SharedAppellationFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  mstrSettlementKindsByNamesExist: Boolean
+  mstrReturnKindsByNamesExist: Boolean
+  mstrChangeReasonsByNamesExist: Boolean
   mstrItemOperationsByNamesExist: Boolean
   infoDepartmentKindValuesByNamesExist: Boolean
   mstrInspectionKindsByNamesExist: Boolean
@@ -3301,6 +3376,9 @@ input TransComplaintFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transComplaintSuppliesByTransComplaintIdExist: Boolean
+  transSuppliesByTransComplaintIdExist: Boolean
+  transReturnsByTransComplaintIdExist: Boolean
   transComplaintVisitersByTransComplaintIdExist: Boolean
   transComplaintPurchaseRecsByTransComplaintIdExist: Boolean
   transComplaintWorksByTransComplaintIdExist: Boolean
@@ -3477,6 +3555,23 @@ input TransComplaintStakeholderPatch {
   stakeholderId: UUID
   remarks: String
   remove: Boolean
+}
+
+input TransComplaintSupplyFilter {
+  transComplaintSupplyId: UUIDFilter
+  transComplaintId: UUIDFilter
+  transSupplyDetailId: UUIDFilter
+  quantity: BigFloatFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransComplaintSupplyFilter!]
+  or: [TransComplaintSupplyFilter!]
+  not: TransComplaintSupplyFilter
 }
 
 input TransComplaintVisiterFilter {
@@ -4432,6 +4527,7 @@ input VComplaintTargetFilter {
   targetKind: StringFilter
   transPurchaseRecId: UUIDFilter
   transWorkRecordId: UUIDFilter
+  transSupplyDetailId: UUIDFilter
   complaintQuantity: BigFloatFilter
   visiterCount: IntFilter
   visiterQuantity: BigFloatFilter
@@ -4442,6 +4538,7 @@ input VComplaintTargetFilter {
   missingEmptyCount: IntFilter
   transComplaintByTransComplaintIdExists: Boolean
   transPurchaseRecByTransPurchaseRecIdExists: Boolean
+  transSupplyDetailByTransSupplyDetailIdExists: Boolean
   transWorkRecordByTransWorkRecordIdExists: Boolean
   and: [VComplaintTargetFilter!]
   or: [VComplaintTargetFilter!]
@@ -4456,6 +4553,7 @@ input VComplaintTargetVisiterFilter {
   targetLinkId: UUIDFilter
   transPurchaseRecId: UUIDFilter
   transWorkRecordId: UUIDFilter
+  transSupplyDetailId: UUIDFilter
   complaintQuantity: BigFloatFilter
   transVisiterId: UUIDFilter
   visiterSymbol: StringFilter
@@ -4467,6 +4565,7 @@ input VComplaintTargetVisiterFilter {
   visiterStatus: StringFilter
   transComplaintByTransComplaintIdExists: Boolean
   transPurchaseRecByTransPurchaseRecIdExists: Boolean
+  transSupplyDetailByTransSupplyDetailIdExists: Boolean
   transWorkRecordByTransWorkRecordIdExists: Boolean
   transVisiterByTransVisiterIdExists: Boolean
   transComplaintVisiterByTransComplaintVisiterIdExists: Boolean

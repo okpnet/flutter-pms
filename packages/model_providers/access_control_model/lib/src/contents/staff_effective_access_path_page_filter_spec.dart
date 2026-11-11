@@ -6,17 +6,16 @@
 import 'package:pms_graphql/pms_graphql.dart';
 
 abstract class StaffEffectiveAccessPathPageFilterSpec {
-  static const FlatFilterSpec spec =
-      FlatFilterSpec('VStaffEffectiveAccessPathFilter', {
-        'infoStaffId': FlatFilterPath([], 'infoStaffId'),
-        'staffCode': FlatFilterPath([], 'staffCode'),
-        'staffSymbol': FlatFilterPath([], 'staffSymbol'),
-        'infoAccessPathId': FlatFilterPath([], 'infoAccessPathId'),
-        'accessPathSymbol': FlatFilterPath([], 'accessPathSymbol'),
-        'usecasePath': FlatFilterPath([], 'usecasePath'),
-        'infoAppId': FlatFilterPath([], 'infoAppId'),
-        'canWrite': FlatFilterPath([], 'canWrite'),
-        'fromDepartment': FlatFilterPath([], 'fromDepartment'),
-        'fromStaff': FlatFilterPath([], 'fromStaff'),
-      });
+  static const FlatFilterSpec spec = FlatFilterSpec('VStaffEffectiveAccessPathFilter', {
+    'infoStaffId': FlatFilterPath([], 'infoStaffId'),
+    'staffCode': FlatFilterPath([], 'staffCode'),
+    'staffSymbol': FlatFilterPath([], 'staffSymbol'),
+    'infoAccessPathId': FlatFilterPath([], 'infoAccessPathId'),
+    'accessPathSymbol': FlatFilterPath([], 'accessPathSymbol'),
+    'usecasePath': FlatFilterPath([], 'usecasePath'),
+    'infoAppId': FlatFilterPath([], 'infoAppId'),
+    'canWrite': FlatFilterPath([], 'canWrite'),
+    'fromDepartment': FlatFilterPath([], 'fromDepartment'),
+    'fromStaff': FlatFilterPath([], 'fromStaff'),
+  });
 }

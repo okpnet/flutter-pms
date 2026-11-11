@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 発注明細の残(v_purchase_detail_balance)。停止中は open_quantity が 0。全部キャンセルは cancel_closed で判定する。
+PurchaseDetailBalancePage:
+  kind: read
+  from: v_purchase_detail_balance
+  filter: true
+  columns:
+    - trans_purchase_detail_id
+    - symbol
+    - trans_purchase_id
+    - item_id
+    - stop
+    - material_supply
+    - paid_supply
+    - is_outsource
+    - quantity
+    - cancel_quantity
+    - received_quantity
+    - returned_quantity
+    - replacement_quantity
+    - remaining_quantity
+    - open_quantity
+    - cancel_closed

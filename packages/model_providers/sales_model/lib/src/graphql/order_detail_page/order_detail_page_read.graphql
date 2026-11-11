@@ -36,6 +36,9 @@ query OrderDetailPageRead(
       deadline
       symbol
       remarks
+      cancelQuantity
+      stop
+      customerProperty
       masterErrorCount
 
       shipping_order_detail_count: vOrderDetailShippingOrderDetailCountByTransOrderDetailId {

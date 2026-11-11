@@ -28,6 +28,9 @@
 | `work_record_model` | ビジター・作業実績、棚在庫状況 |
 | `access_control_model` | ページアクセス管理(アクセスパス・部署のアクセスパス・担当者の許可・担当者の実効アクセスパス) |
 | `barcode_entry_model` | バーコード実績登録(symbol による照会。登録は `work_record_model`・`purchasing_model` を使う) |
+| `supply_model` | 支給(支給・支給明細・支給とロットのつなぎ・支給明細の残)。読み取りだけ |
+| `plan_change_model` | 計画変更の履歴・MRP に未反映の計画変更。読み取りだけ |
+| `return_model` | 返品(返品・返品明細・返品とロットのつなぎ)。読み取りだけ |
 
 ## ダッシュボード用のビュー
 

@@ -58,6 +58,46 @@ enum MstrStakeholdersOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum TransOrderDetailSettlementsOrderBy {
+  NATURAL
+  TRANS_ORDER_DETAIL_SETTLEMENT_ID_ASC
+  TRANS_ORDER_DETAIL_SETTLEMENT_ID_DESC
+  TRANS_ORDER_DETAIL_ID_ASC
+  TRANS_ORDER_DETAIL_ID_DESC
+  SETTLEMENT_KIND_HISTORY_ID_ASC
+  SETTLEMENT_KIND_HISTORY_ID_DESC
+  SETTLEMENT_KIND_ID_ASC
+  SETTLEMENT_KIND_ID_DESC
+  SETTLE_AT_ASC
+  SETTLE_AT_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
+  AMOUNT_ASC
+  AMOUNT_DESC
+  TRANS_PLAN_CHANGE_ID_ASC
+  TRANS_PLAN_CHANGE_ID_DESC
+  REASON_ASC
+  REASON_DESC
+  STAFF_HISTORY_ID_ASC
+  STAFF_HISTORY_ID_DESC
+  STAFF_ID_ASC
+  STAFF_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum TransOrderDetailsOrderBy {
   NATURAL
   TRANS_ORDER_DETAIL_ID_ASC
@@ -80,6 +120,12 @@ enum TransOrderDetailsOrderBy {
   DELIVERY_DATE_DESC
   DEADLINE_ASC
   DEADLINE_DESC
+  CANCEL_QUANTITY_ASC
+  CANCEL_QUANTITY_DESC
+  STOP_ASC
+  STOP_DESC
+  CUSTOMER_PROPERTY_ASC
+  CUSTOMER_PROPERTY_DESC
   SYMBOL_ASC
   SYMBOL_DESC
   REMARKS_ASC
@@ -228,6 +274,42 @@ enum TransShippingOrdersOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum VOrderDetailBalancesOrderBy {
+  NATURAL
+  TRANS_ORDER_DETAIL_ID_ASC
+  TRANS_ORDER_DETAIL_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  TRANS_ORDER_ID_ASC
+  TRANS_ORDER_ID_DESC
+  ITEM_ID_ASC
+  ITEM_ID_DESC
+  STOP_ASC
+  STOP_DESC
+  CUSTOMER_PROPERTY_ASC
+  CUSTOMER_PROPERTY_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
+  CANCEL_QUANTITY_ASC
+  CANCEL_QUANTITY_DESC
+  SHIPPED_QUANTITY_ASC
+  SHIPPED_QUANTITY_DESC
+  RETURNED_QUANTITY_ASC
+  RETURNED_QUANTITY_DESC
+  REPLACEMENT_QUANTITY_ASC
+  REPLACEMENT_QUANTITY_DESC
+  REMAINING_QUANTITY_ASC
+  REMAINING_QUANTITY_DESC
+  OPEN_QUANTITY_ASC
+  OPEN_QUANTITY_DESC
+  CANCEL_CLOSED_ASC
+  CANCEL_CLOSED_DESC
+  SETTLEMENT_AMOUNT_ASC
+  SETTLEMENT_AMOUNT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum VSalesRecordsOrderBy {
   NATURAL
   CUSTOMER_ID_ASC
@@ -246,12 +328,18 @@ enum VSalesRecordsOrderBy {
   ORDER_DETAIL_COUNT_DESC
   ORDER_QUANTITY_ASC
   ORDER_QUANTITY_DESC
+  CANCEL_QUANTITY_ASC
+  CANCEL_QUANTITY_DESC
   SHIPPED_QUANTITY_ASC
   SHIPPED_QUANTITY_DESC
   ORDER_AMOUNT_ASC
   ORDER_AMOUNT_DESC
   SHIPPED_AMOUNT_ASC
   SHIPPED_AMOUNT_DESC
+  SETTLEMENT_AMOUNT_ASC
+  SETTLEMENT_AMOUNT_DESC
+  TOTAL_AMOUNT_ASC
+  TOTAL_AMOUNT_DESC
 }
 
 enum VShippingDeliveryCompliancesOrderBy {
@@ -416,9 +504,11 @@ type Query {
   allMstrStakeholders(first: Int, offset: Int, orderBy: [MstrStakeholdersOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrStakeholderFilter): MstrStakeholdersConnection
   allTransOrders(first: Int, offset: Int, orderBy: [TransOrdersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransOrderFilter): TransOrdersConnection
   allTransOrderDetails(first: Int, offset: Int, orderBy: [TransOrderDetailsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransOrderDetailFilter): TransOrderDetailsConnection
+  allTransOrderDetailSettlements(first: Int, offset: Int, orderBy: [TransOrderDetailSettlementsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransOrderDetailSettlementFilter): TransOrderDetailSettlementsConnection
   allTransShippingOrders(first: Int, offset: Int, orderBy: [TransShippingOrdersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransShippingOrderFilter): TransShippingOrdersConnection
   allTransShippingOrderDetails(first: Int, offset: Int, orderBy: [TransShippingOrderDetailsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransShippingOrderDetailFilter): TransShippingOrderDetailsConnection
   allTransShippingOrderDetailRecords(first: Int, offset: Int, orderBy: [TransShippingOrderDetailRecordsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransShippingOrderDetailRecordFilter): TransShippingOrderDetailRecordsConnection
+  allVOrderDetailBalances(first: Int, offset: Int, orderBy: [VOrderDetailBalancesOrderBy!] = [PRIMARY_KEY_ASC], filter: VOrderDetailBalanceFilter): VOrderDetailBalancesConnection
   allVSalesRecords(first: Int, offset: Int, orderBy: [VSalesRecordsOrderBy!] = [NATURAL], filter: VSalesRecordFilter): VSalesRecordsConnection
   allVShippingDeliveryCompliances(first: Int, offset: Int, orderBy: [VShippingDeliveryCompliancesOrderBy!] = [NATURAL], filter: VShippingDeliveryComplianceFilter): VShippingDeliveryCompliancesConnection
   allVShippingOrderStatuses(first: Int, offset: Int, orderBy: [VShippingOrderStatusesOrderBy!] = [NATURAL], filter: VShippingOrderStatusFilter): VShippingOrderStatusesConnection
@@ -488,6 +578,9 @@ type TransOrderDetail {
   fixedPrice: BigFloat
   deliveryDate: Datetime
   deadline: Datetime
+  cancelQuantity: BigFloat!
+  stop: Boolean
+  customerProperty: Boolean
   symbol: String
   remarks: String
   updateAt: Datetime
@@ -498,6 +591,28 @@ type TransOrderDetail {
   vOrderDetailOrderDetailRiskCountByTransOrderDetailId: VOrderDetailOrderDetailRiskCount
   vOrderDetailShippingOrderDetailCountByTransOrderDetailId: VOrderDetailShippingOrderDetailCount
   masterErrorCount: Int
+}
+
+type TransOrderDetailSettlement {
+  transOrderDetailSettlementId: UUID!
+  transOrderDetailId: UUID!
+  settlementKindId: UUID!
+  settleAt: Datetime
+  quantity: BigFloat
+  amount: BigFloat!
+  transPlanChangeId: UUID
+  reason: String
+  staffId: UUID!
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  remove: Boolean
+}
+
+type TransOrderDetailSettlementsConnection {
+  nodes: [TransOrderDetailSettlement]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type TransOrderDetailsConnection {
@@ -606,6 +721,30 @@ type UpdateTransShippingOrderPayload {
 
 type VOrderComplaintOrderCount {
   transOrderId: UUID
+}
+
+type VOrderDetailBalance {
+  transOrderDetailId: UUID!
+  symbol: String
+  transOrderId: UUID
+  itemId: UUID
+  stop: Boolean
+  customerProperty: Boolean
+  quantity: BigFloat
+  cancelQuantity: BigFloat
+  shippedQuantity: BigFloat
+  returnedQuantity: BigFloat
+  replacementQuantity: BigFloat
+  remainingQuantity: BigFloat
+  openQuantity: BigFloat
+  cancelClosed: Boolean
+  settlementAmount: BigFloat
+}
+
+type VOrderDetailBalancesConnection {
+  nodes: [VOrderDetailBalance]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type VOrderDetailOrderDetailRiskCount {
@@ -802,6 +941,26 @@ input HistoryInfoStaffFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transVisiterOwnersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintSuppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSupplyVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSupplyDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSuppliesByStaffHistoryIdAndStaffIdExist: Boolean
+  transSuppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnsByStaffHistoryIdAndStaffIdExist: Boolean
+  transReturnsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transOrderDetailSettlementsByStaffHistoryIdAndStaffIdExist: Boolean
+  transOrderDetailSettlementsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPlanChangesByStaffHistoryIdAndStaffIdExist: Boolean
+  transPlanChangesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrSettlementKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrSettlementKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrReturnKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrReturnKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrChangeReasonsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrChangeReasonsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyInfoDepartmentAccessPathsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintVisitersByReleaseStaffHistoryIdAndReleaseStaffIdExist: Boolean
   transComplaintVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1088,6 +1247,10 @@ input HistoryMstrStakeholderFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transVisiterOwnersByOwnerStakeholderHistoryIdAndOwnerStakeholderIdExist: Boolean
+  transSuppliesByStakeholderHistoryIdAndStakeholderIdExist: Boolean
+  transReturnsByStakeholderHistoryIdAndStakeholderIdExist: Boolean
+  transPlanChangesByStakeholderHistoryIdAndStakeholderIdExist: Boolean
   transComplaintStakeholdersByStakeholderHistoryIdAndStakeholderIdExist: Boolean
   transInspectRecordsByStakeholderHistoryIdAndStakeholderIdExist: Boolean
   transInspectSchDetailsByStakeholderHistoryIdAndStakeholderIdExist: Boolean
@@ -1221,6 +1384,7 @@ input MstrStakeholderFilter {
   transAuditsByMstrStakeholderIdExist: Boolean
   mstrInspectionsByExternalInspectionExist: Boolean
   mstrStakeholderContactsByMstrStakeholderIdExist: Boolean
+  vExternalPropertiesByOwnerStakeholderIdExist: Boolean
   vInspectionStatusesBySupplierIdExist: Boolean
   vMrpPendingSuggestionsByStakeholderIdExist: Boolean
   vMrpPurchasePlansByStakeholderIdExist: Boolean
@@ -1235,6 +1399,7 @@ input MstrStakeholderFilter {
   vStakeholderStakeholderContactCountByMstrStakeholderIdExists: Boolean
   vStakeholderStakeholderProvisionCountByMstrStakeholderId: VStakeholderStakeholderProvisionCountFilter
   vStakeholderStakeholderProvisionCountByMstrStakeholderIdExists: Boolean
+  vSupplyDetailBalancesByStakeholderIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   infoAddressByInfoAddressId: InfoAddressFilter
   infoAddressByInfoAddressIdExists: Boolean
@@ -1286,6 +1451,9 @@ input SharedAppellationFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  mstrSettlementKindsByNamesExist: Boolean
+  mstrReturnKindsByNamesExist: Boolean
+  mstrChangeReasonsByNamesExist: Boolean
   mstrItemOperationsByNamesExist: Boolean
   infoDepartmentKindValuesByNamesExist: Boolean
   mstrInspectionKindsByNamesExist: Boolean
@@ -1506,6 +1674,9 @@ input TransOrderDetailFilter {
   fixedPrice: BigFloatFilter
   deliveryDate: DatetimeFilter
   deadline: DatetimeFilter
+  cancelQuantity: BigFloatFilter
+  stop: BooleanFilter
+  customerProperty: BooleanFilter
   symbol: StringFilter
   remarks: StringFilter
   updateAt: DatetimeFilter
@@ -1513,16 +1684,25 @@ input TransOrderDetailFilter {
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
   masterErrorCount: IntFilter
+  transVisiterOwnersByTransOrderDetailIdExist: Boolean
+  transSupplyDetailsByTransOrderDetailIdExist: Boolean
+  transReturnDetailsByTransOrderDetailIdExist: Boolean
+  transOrderDetailSettlementsByTransOrderDetailIdExist: Boolean
+  transPlanChangesByTransOrderDetailIdExist: Boolean
   transOrderDetailRisksByTransOrderDetailIdExist: Boolean
   transShippingOrderDetailsByTransOrderDetailIdExist: Boolean
   transResourcePlansByTransOrderDetailIdExist: Boolean
   transMrpSuggestionsByTransOrderDetailIdExist: Boolean
+  vExternalPropertiesByTransOrderDetailIdExist: Boolean
   vMrpPendingSuggestionsByTransOrderDetailIdExist: Boolean
+  vOrderDetailBalanceByTransOrderDetailIdExists: Boolean
   vOrderDetailOrderDetailRiskCountByTransOrderDetailId: VOrderDetailOrderDetailRiskCountFilter
   vOrderDetailOrderDetailRiskCountByTransOrderDetailIdExists: Boolean
   vOrderDetailShippingOrderDetailCountByTransOrderDetailId: VOrderDetailShippingOrderDetailCountFilter
   vOrderDetailShippingOrderDetailCountByTransOrderDetailIdExists: Boolean
+  vPlanChangeUnreflectedsByTransOrderDetailIdExist: Boolean
   vResourcePlanCoveragesByTransOrderDetailIdExist: Boolean
+  vSupplyDetailBalancesByTransOrderDetailIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransOrderDetailFilter!]
@@ -1542,6 +1722,32 @@ input TransOrderDetailPatch {
   deadline: Datetime
   remarks: String
   remove: Boolean
+}
+
+input TransOrderDetailSettlementFilter {
+  transOrderDetailSettlementId: UUIDFilter
+  transOrderDetailId: UUIDFilter
+  settlementKindHistoryId: UUIDFilter
+  settlementKindId: UUIDFilter
+  settleAt: DatetimeFilter
+  quantity: BigFloatFilter
+  amount: BigFloatFilter
+  transPlanChangeId: UUIDFilter
+  reason: StringFilter
+  staffHistoryId: UUIDFilter
+  staffId: UUIDFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transPlanChangesByTransOrderDetailSettlementIdExist: Boolean
+  transPlanChangeByTransPlanChangeIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransOrderDetailSettlementFilter!]
+  or: [TransOrderDetailSettlementFilter!]
+  not: TransOrderDetailSettlementFilter
 }
 
 input TransOrderFilter {
@@ -1564,12 +1770,15 @@ input TransOrderFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transSuppliesByTransOrderIdExist: Boolean
+  transReturnsByTransOrderIdExist: Boolean
   transOrderRisksByTransOrderIdExist: Boolean
   transComplaintOrdersByTransOrderIdExist: Boolean
   transOrderDetailByTransOrderIdExists: Boolean
   transShippingOrderByTransOrderIdExists: Boolean
   vOrderComplaintOrderCountByTransOrderId: VOrderComplaintOrderCountFilter
   vOrderComplaintOrderCountByTransOrderIdExists: Boolean
+  vOrderDetailBalancesByTransOrderIdExist: Boolean
   vOrderOrderDetailCountByTransOrderId: VOrderOrderDetailCountFilter
   vOrderOrderDetailCountByTransOrderIdExists: Boolean
   vOrderOrderRiskCountByTransOrderId: VOrderOrderRiskCountFilter
@@ -1615,6 +1824,7 @@ input TransShippingOrderDetailFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transPlanChangesByTransShippingOrderDetailIdExist: Boolean
   transShippingOrderDetailRecordsByTransShippingOrderDetailIdExist: Boolean
   vShippingOrderDetailShippingOrderDetailRecordCountByTransShippingOrderDetailId: VShippingOrderDetailShippingOrderDetailRecordCountFilter
   vShippingOrderDetailShippingOrderDetailRecordCountByTransShippingOrderDetailIdExists: Boolean
@@ -1646,6 +1856,7 @@ input TransShippingOrderDetailRecordFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transReturnDetailsByTransShippingOrderDetailRecordIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransShippingOrderDetailRecordFilter!]
@@ -1774,6 +1985,30 @@ input VOrderComplaintOrderCountFilter {
   not: VOrderComplaintOrderCountFilter
 }
 
+input VOrderDetailBalanceFilter {
+  transOrderDetailId: UUIDFilter
+  symbol: StringFilter
+  transOrderId: UUIDFilter
+  itemId: UUIDFilter
+  stop: BooleanFilter
+  customerProperty: BooleanFilter
+  quantity: BigFloatFilter
+  cancelQuantity: BigFloatFilter
+  shippedQuantity: BigFloatFilter
+  returnedQuantity: BigFloatFilter
+  replacementQuantity: BigFloatFilter
+  remainingQuantity: BigFloatFilter
+  openQuantity: BigFloatFilter
+  cancelClosed: BooleanFilter
+  settlementAmount: BigFloatFilter
+  transOrderDetailByTransOrderDetailIdExists: Boolean
+  transOrderByTransOrderIdExists: Boolean
+  mstrItemByItemIdExists: Boolean
+  and: [VOrderDetailBalanceFilter!]
+  or: [VOrderDetailBalanceFilter!]
+  not: VOrderDetailBalanceFilter
+}
+
 input VOrderDetailOrderDetailRiskCountFilter {
   transOrderDetailId: UUIDFilter
   allCount: BigIntFilter
@@ -1838,9 +2073,12 @@ input VSalesRecordFilter {
   isShipped: BooleanFilter
   orderDetailCount: BigIntFilter
   orderQuantity: BigFloatFilter
+  cancelQuantity: BigFloatFilter
   shippedQuantity: BigFloatFilter
   orderAmount: BigFloatFilter
   shippedAmount: BigFloatFilter
+  settlementAmount: BigFloatFilter
+  totalAmount: BigFloatFilter
   mstrStakeholderByCustomerIdExists: Boolean
   mstrItemKindByMstrItemKindIdExists: Boolean
   mstrItemByMstrItemIdExists: Boolean

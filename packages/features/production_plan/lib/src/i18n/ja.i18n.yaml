@@ -73,6 +73,7 @@ mrp:
     planUpdate: 生産計画の変更
     planKeep: 生産計画の維持
     planCancel: 生産計画の取消
+    supplyRequest: 支給依頼
   decision:
     pending: 要判断
     adopted: 採用

@@ -1,0 +1,96 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 支給(trans_supply)。receive / counterpart_owns / company_owns の組は boolean のまま扱う(場面ごとの定数にしない)。
+SupplyPage:
+  kind: read
+  from: trans_supply
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_supply_id
+    - code
+    - supply_at
+    - stakeholder_id
+    - receive
+    - counterpart_owns
+    - company_owns
+    - trans_order_id
+    - trans_purchase_id
+    - trans_plan_change_id
+    - trans_complaint_id
+    - reason
+    - staff_id
+    - symbol
+    - remarks
+    - update_at
+
+# 支給明細(予定を含む)
+SupplyDetailPage:
+  kind: read
+  from: trans_supply_detail
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_supply_detail_id
+    - trans_supply_id
+    - item_id
+    - quantity
+    - unit_price
+    - scheduled_at
+    - trans_order_detail_id
+    - trans_purchase_detail_id
+    - trans_resource_plan_id
+    - symbol
+    - remarks
+    - update_at
+
+# 支給とロット(棚ビジター)のつなぎ。数量は棚ビジターの行が持つ
+SupplyVisiterPage:
+  kind: read
+  from: trans_supply_visiter
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_supply_visiter_id
+    - trans_supply_detail_id
+    - trans_visiter_id
+    - symbol
+    - remarks
+    - update_at
+
+# 支給明細ごとの予定・つないだ数量・未受入・今の数量(v_supply_detail_balance)。画面の表示は、この列の boolean で決める
+SupplyDetailBalancePage:
+  kind: read
+  from: v_supply_detail_balance
+  filter: true
+  columns:
+    - trans_supply_detail_id
+    - symbol
+    - trans_supply_id
+    - stakeholder_id
+    - receive
+    - counterpart_owns
+    - company_owns
+    - paid_supply
+    - paid_by_switch
+    - unit_price
+    - paid_amount
+    - item_id
+    - trans_order_detail_id
+    - trans_purchase_detail_id
+    - trans_resource_plan_id
+    - scheduled_at
+    - quantity
+    - linked_lot_quantity
+    - linked_issue_quantity
+    - remaining_quantity
+    - current_quantity

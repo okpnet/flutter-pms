@@ -72,6 +72,7 @@ mrp:
     planUpdate: Production plan (change)
     planKeep: Production plan (keep)
     planCancel: Production plan (cancel)
+    supplyRequest: Supply request
   decision:
     pending: Needs decision
     adopted: Adopted

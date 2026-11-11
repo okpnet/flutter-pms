@@ -236,6 +236,7 @@ class _MrpPageState extends ConsumerState<MrpPage> {
     MrpSuggestionKind.planUpdate => t.kind.planUpdate as String,
     MrpSuggestionKind.planKeep => t.kind.planKeep as String,
     MrpSuggestionKind.planCancel => t.kind.planCancel as String,
+    MrpSuggestionKind.supplyRequest => t.kind.supplyRequest as String,
   };
 
   String _decisionLabel(dynamic t, MrpDecision d) => switch (d) {

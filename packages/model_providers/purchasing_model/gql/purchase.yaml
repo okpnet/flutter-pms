@@ -94,6 +94,9 @@ PurchaseDetailPage: &PurchaseDetailPage
     - item_id
     - symbol
     - remarks
+    # キャンセル・停止(残は PurchaseDetailBalancePage を使う)
+    - cancel_quantity
+    - stop
     # 子のレコード数(要件0056。DBのビュー 2本)
     - name: purchase_rez_count
       arrayType: toFirstOne
