@@ -14,6 +14,16 @@
 --                        v_mrp_purchase_plan / v_mrp_pending_suggestion
 --                        (v_item_on_hand / v_mrp_visiter_item ほか棚ビジターのビューは 06 側。claude/117_visiter_ledger_views.txt)
 --
+--   2026-11-11 キャンセル・停止・返品・支給・所有 (claude/129〜132、反映 claude/133):
+--     ・受注の需要 = v_order_detail_balance (数量 − キャンセル数量 − 出荷済み ＋ 代品ありの返品)。全部キャンセルした受注明細は需要なし
+--     ・受注明細の停止 (stop) は凍結。その下の生産計画・従属需要・発注も凍結 (変更・取消を提案しない)
+--     ・発注残 = v_purchase_detail_balance の残。発注明細の停止は、紐づく需要にだけ使う (空き供給にしない)
+--     ・生産計画の停止 (stop) は凍結、打ち切り (discontinue) は生産残 0。打ち切りの従属の資材計画は取り消す
+--     ・顧客の物の在庫 (trans_visiter_owner) と顧客からの支給予定 (v_supply_detail_balance) は、
+--       その受注明細(・資材計画)の需要にだけ使う。顧客支給の品目が足りないときは SUPPLY_REQUEST (要判断。発注・生産は提案しない)
+--     ・確定: 発注の取消はキャンセル数量で記録 (発注数量は書き換えない)、着手済みの生産の取消は打ち切り。どちらも計画変更を記録
+--     ・確定: 反映した計画変更 (v_plan_change_unreflected) に reflected_trans_mrp_run_id を入れる (再MRP)
+--
 --   2026-11-01 在庫の数え方の変更 (claude/117_*):
 --     ・数量は棚ビジターだけが持つ (+入庫 / -出庫)。受入実績ビジター・作業実績ビジターは数量の無い中間テーブル
 --     ・受払実績は数量・受入区分を持たない (どの棚ビジターの行を作ったかだけ)
@@ -139,6 +149,7 @@ create table tests.trans_mrp_pegging (
     supply_trans_mrp_suggestion_id uuid default null,
     trans_purchase_detail_id uuid default null,
     trans_operations_plan_id uuid default null,
+    trans_supply_detail_id uuid default null,
     quantity decimal(10,2) default 0,
     need_at timestamp default null,
     available_at timestamp default null,
@@ -260,7 +271,8 @@ comment on table tests.trans_mrp_pegging is 'MRPペギング';
 comment on column tests.trans_mrp_pegging.trans_mrp_pegging_id is 'MRPペギングID';
 comment on column tests.trans_mrp_pegging.trans_mrp_run_id is 'MRP実行ID';
 comment on column tests.trans_mrp_pegging.demand_trans_mrp_suggestion_id is '需要のMRP提案ID';
-comment on column tests.trans_mrp_pegging.supply_kind is '供給区分(1:在庫 2:発注残 3:生産残 4:新規発注 5:新規生産)';
+comment on column tests.trans_mrp_pegging.supply_kind is '供給区分(1:在庫 2:発注残 3:生産残 4:新規発注 5:新規生産 6:顧客の支給予定)';
+comment on column tests.trans_mrp_pegging.trans_supply_detail_id is '支給明細ID(顧客支給)';
 comment on column tests.trans_mrp_pegging.supply_trans_mrp_suggestion_id is '供給のMRP提案ID';
 comment on column tests.trans_mrp_pegging.trans_purchase_detail_id is '発注明細ID';
 comment on column tests.trans_mrp_pegging.trans_operations_plan_id is '生産計画ID';
@@ -372,6 +384,11 @@ alter table tests.trans_mrp_pegging add constraint trans_mrp_pegging_FK3 foreign
 alter table tests.trans_mrp_pegging add constraint trans_mrp_pegging_FK4 foreign key (trans_purchase_detail_id) references tests.trans_purchase_detail (trans_purchase_detail_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_mrp_pegging add constraint trans_mrp_pegging_FK5 foreign key (trans_operations_plan_id) references tests.trans_operations_plan (trans_operations_plan_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_mrp_pegging add constraint trans_mrp_pegging_FK6 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_mrp_pegging add constraint trans_mrp_pegging_FK7 foreign key (trans_supply_detail_id) references tests.trans_supply_detail (trans_supply_detail_id) DEFERRABLE INITIALLY DEFERRED;
+
+-- 計画変更 → MRP (MRP の表は 08 で作るので、外部キーは 08 に置く)  claude/131
+alter table tests.trans_plan_change add constraint trans_plan_change_FK91 foreign key (trans_mrp_suggestion_id) references tests.trans_mrp_suggestion (trans_mrp_suggestion_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_plan_change add constraint trans_plan_change_FK92 foreign key (reflected_trans_mrp_run_id) references tests.trans_mrp_run (trans_mrp_run_id) DEFERRABLE INITIALLY DEFERRED;
 
 alter table tests.trans_mrp_load add constraint trans_mrp_load_FK1 foreign key (trans_mrp_run_id) references tests.trans_mrp_run (trans_mrp_run_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_mrp_load add constraint trans_mrp_load_FK2 foreign key (mstr_equipment_id) references tests.mstr_equipment (mstr_equipment_id) DEFERRABLE INITIALLY DEFERRED;
@@ -865,6 +882,32 @@ CREATE OR REPLACE FUNCTION tests.mrp_issued(p_rp uuid) RETURNS numeric AS $$
     WHERE rq.trans_resource_plan_id = p_rp AND rq.remove IS FALSE;
 $$ LANGUAGE sql STABLE;
 
+-- 資材計画のいちばん上の受注明細 (従属の資材計画は 親の生産計画 → その資材計画 … とたどる)  claude/133
+CREATE OR REPLACE FUNCTION tests.mrp_root_order_detail(p_rp uuid) RETURNS uuid AS $$
+DECLARE r record; v_rp uuid := p_rp; v_guard integer := 0;
+BEGIN
+    WHILE v_rp IS NOT NULL AND v_guard < 30 LOOP
+        v_guard := v_guard + 1;
+        SELECT x.trans_order_detail_id, op.trans_resource_plan_id AS parent_rp INTO r
+        FROM tests.trans_resource_plan AS x
+        LEFT JOIN tests.trans_operations_plan AS op ON op.trans_operations_plan_id = x.parent_trans_operations_plan_id
+        WHERE x.trans_resource_plan_id = v_rp;
+        IF NOT FOUND THEN RETURN NULL; END IF;
+        IF r.trans_order_detail_id IS NOT NULL THEN RETURN r.trans_order_detail_id; END IF;
+        v_rp := r.parent_rp;
+    END LOOP;
+    RETURN NULL;
+END
+$$ LANGUAGE plpgsql STABLE;
+
+-- 生産計画が凍結か: 生産計画の停止、またはいちばん上の受注明細の停止  claude/133
+CREATE OR REPLACE FUNCTION tests.mrp_op_frozen(p_op uuid) RETURNS boolean AS $$
+    SELECT COALESCE(op.stop, false)
+        OR COALESCE((SELECT od.stop FROM tests.trans_order_detail AS od
+                     WHERE od.trans_order_detail_id = tests.mrp_root_order_detail(op.trans_resource_plan_id)), false)
+    FROM tests.trans_operations_plan AS op WHERE op.trans_operations_plan_id = p_op;
+$$ LANGUAGE sql STABLE;
+
 -- 外注加工の発注明細か (生産計画明細から参照されている)
 CREATE OR REPLACE FUNCTION tests.mrp_is_outsource_detail(p_pd uuid) RETURNS boolean AS $$
     SELECT EXISTS (SELECT 1 FROM tests.trans_work_plan AS wp
@@ -945,6 +988,8 @@ COMMENT ON FUNCTION tests.mrp_task_hours(uuid, uuid) IS '@omit';
 COMMENT ON FUNCTION tests.mrp_plan_task(uuid, uuid, numeric, timestamp, boolean, uuid, uuid) IS '@omit';
 COMMENT ON FUNCTION tests.mrp_issued(uuid) IS '@omit';
 COMMENT ON FUNCTION tests.mrp_is_outsource_detail(uuid) IS '@omit';
+COMMENT ON FUNCTION tests.mrp_root_order_detail(uuid) IS '@omit';
+COMMENT ON FUNCTION tests.mrp_op_frozen(uuid) IS '@omit';
 
 -- ============================================================================
 -- D. マスタ点検 (品目・工程・部品表・仕入先・棚ビジター)
@@ -1192,7 +1237,7 @@ UNION ALL
 --   取り出せる状態のものはエラー、保留中・払出済みは警告 (払出済みは流出先の確認が必要)
 SELECT md5(concat_ws('|', 'VISITER_COMPLAINT_MISSING', tv.complaint_target_visiter_key)), vi.item_id, NULL, 'VISITER_COMPLAINT_MISSING',
        CASE WHEN tv.visiter_status = 'issuable' THEN 1 ELSE 2 END::smallint,
-       (CASE WHEN tv.target_kind = 'purchase_rec' THEN '受入異常' ELSE '作業異常' END
+       (CASE tv.target_kind WHEN 'purchase_rec' THEN '受入異常' WHEN 'supply' THEN '支給異常' ELSE '作業異常' END
         || 'の対象から作られた棚ビジターに異常が付いていません('
         || CASE tv.visiter_status WHEN 'issuable' THEN '取り出せる状態です。異常を付けて止めてください'
                                   WHEN 'held' THEN '保留中です。異常を付けてください'
@@ -1200,7 +1245,7 @@ SELECT md5(concat_ws('|', 'VISITER_COMPLAINT_MISSING', tv.complaint_target_visit
        'trans_visiter', tv.trans_visiter_id
 FROM tests.v_complaint_target_visiter AS tv
 LEFT JOIN tests.v_mrp_visiter_item AS vi ON vi.trans_visiter_id = tv.trans_visiter_id
-WHERE tv.target_kind IN ('purchase_rec', 'work_record')
+WHERE tv.target_kind IN ('purchase_rec', 'work_record', 'supply')
   AND tv.trans_visiter_id IS NOT NULL
   AND NOT tv.linked
 UNION ALL
@@ -1354,7 +1399,7 @@ DECLARE
     v_rem numeric; v_take numeric; v_alloc numeric;
     v_sug uuid; v_sup uuid; v_sug2 uuid; v_tk uuid;
     v_qty numeric; v_lot numeric; v_proc smallint;
-    v_supplier record; v_found boolean; v_lead integer;
+    v_supplier record; v_found boolean; v_lead integer; v_supplied boolean;
     v_choice smallint; v_choice_msg varchar(256); v_buy_h numeric; v_make_h numeric;
     v_del numeric; v_ins numeric; v_arrival timestamp; v_rel timestamp; v_ready timestamp; v_asking boolean;
     v_period date; v_release date;
@@ -1458,34 +1503,32 @@ BEGIN
         sug_id uuid,
         old_qty numeric,
         old_need timestamp,
-        old_alloc numeric
+        old_alloc numeric,
+        root_od uuid
     ) ON COMMIT DROP;
 
-    -- 受注
+    -- 受注 (claude/133: キャンセル数量・代品ありの返品を数える。停止は凍結。全部キャンセルは需要なし)
     INSERT INTO _mrp_dem (item_id, gross, qty, need_at, src, frozen, order_detail_id, rp_id,
-                          frozen_alloc, old_qty, old_need, old_alloc)
+                          frozen_alloc, old_qty, old_need, old_alloc, root_od)
     SELECT
         od.item_id
-        , od.quantity
-        , GREATEST(od.quantity - COALESCE(sh.q, 0), 0)
+        , ob.quantity - ob.cancel_quantity + ob.replacement_quantity
+        , ob.remaining_quantity
         , tests.mrp_need_end(COALESCE(od.deadline, o.deadline, od.delivery_date, o.delivery_date))
         , 1
         , (rp.trans_resource_plan_id IS NOT NULL
-           AND (p_mode = 1 OR (v_scoped AND NOT (od.trans_order_detail_id = ANY (p_order_detail_ids)))))
+           AND (p_mode = 1 OR od.stop IS TRUE
+                OR (v_scoped AND NOT (od.trans_order_detail_id = ANY (p_order_detail_ids)))))
         , od.trans_order_detail_id
         , rp.trans_resource_plan_id
         , COALESCE(rp.inventory_resavation, 0)
         , rp.quantity, rp.deadline, rp.inventory_resavation
+        , od.trans_order_detail_id
     FROM tests.trans_order_detail AS od
     INNER JOIN tests.trans_order AS o
         ON o.trans_order_id = od.trans_order_id AND o.remove IS FALSE
-    LEFT JOIN LATERAL (
-        SELECT SUM(r2.shipping_quantity) AS q
-        FROM tests.trans_shipping_order_detail AS sd
-        INNER JOIN tests.trans_shipping_order_detail_record AS r2
-            ON r2.trans_shipping_order_detail_id = sd.trans_shipping_order_detail_id AND r2.remove IS FALSE
-        WHERE sd.trans_order_detail_id = od.trans_order_detail_id AND sd.remove IS FALSE
-    ) AS sh ON TRUE
+    INNER JOIN tests.v_order_detail_balance AS ob
+        ON ob.trans_order_detail_id = od.trans_order_detail_id
     LEFT JOIN LATERAL (
         SELECT x.* FROM tests.trans_resource_plan AS x
         WHERE x.trans_order_detail_id = od.trans_order_detail_id
@@ -1493,6 +1536,8 @@ BEGIN
         ORDER BY x.register_at DESC LIMIT 1
     ) AS rp ON TRUE
     WHERE od.remove IS FALSE
+      AND ob.quantity - ob.cancel_quantity + ob.replacement_quantity > 0
+      AND NOT (od.stop IS TRUE AND rp.trans_resource_plan_id IS NULL)
       AND ((p_mode = 2 AND NOT v_scoped)
            OR rp.trans_resource_plan_id IS NOT NULL
            OR p_order_detail_ids IS NULL
@@ -1549,19 +1594,38 @@ BEGIN
     -- 受注MRP・範囲指定の再MRP: 範囲外の既存の従属需要は凍結したまま読み込む
     IF p_mode = 1 OR v_scoped THEN
         INSERT INTO _mrp_dem (item_id, gross, qty, need_at, src, frozen, rp_id, parent_op_id,
-                              frozen_alloc, old_qty, old_need, old_alloc)
+                              frozen_alloc, old_qty, old_need, old_alloc, root_od)
         SELECT
             rp.item_id, rp.quantity
             , GREATEST(rp.quantity - tests.mrp_issued(rp.trans_resource_plan_id), 0)
             , rp.deadline, 4, TRUE, rp.trans_resource_plan_id, rp.parent_trans_operations_plan_id
             , COALESCE(rp.inventory_resavation, 0)
             , rp.quantity, rp.deadline, rp.inventory_resavation
+            , tests.mrp_root_order_detail(rp.trans_resource_plan_id)
         FROM tests.trans_resource_plan AS rp
         INNER JOIN tests.trans_operations_plan AS op
             ON op.trans_operations_plan_id = rp.parent_trans_operations_plan_id AND op.remove IS FALSE
         WHERE rp.remove IS FALSE
           AND NOT EXISTS (SELECT 1 FROM _mrp_scope AS sc WHERE sc.rp_id = rp.trans_resource_plan_id);
     END IF;
+
+    -- 凍結した生産計画 (生産計画の停止・受注明細の停止) の従属需要は、どの実行でも凍結のまま読み込む  claude/133
+    INSERT INTO _mrp_dem (item_id, gross, qty, need_at, src, frozen, rp_id, parent_op_id,
+                          frozen_alloc, old_qty, old_need, old_alloc, root_od)
+    SELECT
+        rp.item_id, rp.quantity
+        , GREATEST(rp.quantity - tests.mrp_issued(rp.trans_resource_plan_id), 0)
+        , rp.deadline, 4, TRUE, rp.trans_resource_plan_id, rp.parent_trans_operations_plan_id
+        , COALESCE(rp.inventory_resavation, 0)
+        , rp.quantity, rp.deadline, rp.inventory_resavation
+        , tests.mrp_root_order_detail(rp.trans_resource_plan_id)
+    FROM tests.trans_resource_plan AS rp
+    INNER JOIN tests.trans_operations_plan AS op
+        ON op.trans_operations_plan_id = rp.parent_trans_operations_plan_id AND op.remove IS FALSE
+       AND op.discontinue IS NOT TRUE
+    WHERE rp.remove IS FALSE
+      AND tests.mrp_op_frozen(op.trans_operations_plan_id)
+      AND NOT EXISTS (SELECT 1 FROM _mrp_dem AS y WHERE y.rp_id = rp.trans_resource_plan_id);
 
     -- 残所要0 で資材計画も無いもの(出荷済み等)は対象外
     DELETE FROM _mrp_dem WHERE qty <= 0 AND rp_id IS NULL;
@@ -1591,7 +1655,12 @@ BEGIN
         orig_rp uuid,
         in_scope boolean DEFAULT true,
         insp_h numeric DEFAULT 0,
-        supplier_id uuid
+        supplier_id uuid,
+        frozen_sup boolean DEFAULT false,
+        peg_rp uuid,
+        peg_od uuid,
+        sd_id uuid,
+        root_od uuid
     ) ON COMMIT DROP;
 
     INSERT INTO _mrp_sup (item_id, kind, qty, avail_at)
@@ -1599,12 +1668,34 @@ BEGIN
     SELECT oh.item_id, 1, oh.available_quantity, '-infinity'::timestamp
     FROM tests.v_item_on_hand AS oh WHERE oh.available_quantity > 0;
 
+    -- 顧客の物の在庫 (claude/131)。v_item_on_hand の使える量には入らない。その受注明細(・資材計画)の需要にだけ使う
+    --   peg_rp: 支給明細の資材計画 / peg_od: 支給明細の受注明細、または製品が顧客所有の受注明細
+    --   仮止め・未解除の異常のロット(検品前など)は数えない。発注先の物(有償支給)は数えない
+    INSERT INTO _mrp_sup (item_id, kind, qty, avail_at, peg_rp, peg_od, sd_id)
+    SELECT ep.item_id, 1, SUM(ep.quantity), '-infinity'::timestamp,
+           sd.trans_resource_plan_id, COALESCE(sd.trans_order_detail_id, ep.trans_order_detail_id), ep.trans_supply_detail_id
+    FROM tests.v_external_property AS ep
+    LEFT JOIN tests.trans_supply_detail AS sd ON sd.trans_supply_detail_id = ep.trans_supply_detail_id
+    WHERE ep.item_id IS NOT NULL AND ep.release IS TRUE AND COALESCE(ep.open_complaint_count, 0) = 0
+      AND COALESCE(sd.trans_order_detail_id, ep.trans_order_detail_id) IS NOT NULL
+    GROUP BY ep.item_id, sd.trans_resource_plan_id, COALESCE(sd.trans_order_detail_id, ep.trans_order_detail_id), ep.trans_supply_detail_id
+    HAVING SUM(ep.quantity) > 0;
+
+    -- 顧客からの支給予定 (kind 6、claude/131)。まだ受けていない数量を、その受注明細(・資材計画)の需要にだけ使う
+    INSERT INTO _mrp_sup (item_id, kind, qty, avail_at, peg_rp, peg_od, sd_id)
+    SELECT b.item_id, 6, b.remaining_quantity, COALESCE(b.scheduled_at, v_now),
+           b.trans_resource_plan_id, b.trans_order_detail_id, b.trans_supply_detail_id
+    FROM tests.v_supply_detail_balance AS b
+    WHERE b.receive AND b.counterpart_owns AND b.trans_order_detail_id IS NOT NULL AND b.remaining_quantity > 0;
+
     -- 発注残 (外注加工の発注明細 = 生産計画明細から参照されるものは品目の供給ではない)
     --   使える日時 = 納期 ＋ その仕入先の標準検品時間
-    INSERT INTO _mrp_sup (item_id, kind, qty, avail_at, pegged_rp, pd_id, restocking, started, orig_rp, insp_h, supplier_id)
+    --   claude/133: 残 = v_purchase_detail_balance (キャンセル数量・代品ありの返品)。停止中は凍結 (紐づく需要にだけ使う)
+    INSERT INTO _mrp_sup (item_id, kind, qty, avail_at, pegged_rp, pd_id, restocking, started, orig_rp, insp_h, supplier_id,
+                          frozen_sup)
     SELECT
         pd.item_id, 2
-        , pd.quantity - COALESCE(rc.q, 0)
+        , pb.remaining_quantity
         , COALESCE(pd.period, p.deadline, v_now) + COALESCE(ms.quality_inspection_time, INTERVAL '0')
         , rp.trans_resource_plan_id
         , pd.trans_purchase_detail_id
@@ -1613,7 +1704,9 @@ BEGIN
         , pd.trans_resource_plan_id
         , EXTRACT(EPOCH FROM COALESCE(ms.quality_inspection_time, INTERVAL '0')) / 3600
         , p.stakeholder_id
+        , pd.stop IS TRUE
     FROM tests.trans_purchase_detail AS pd
+    INNER JOIN tests.v_purchase_detail_balance AS pb ON pb.trans_purchase_detail_id = pd.trans_purchase_detail_id
     INNER JOIN tests.trans_purchase AS p
         ON p.trans_purchase_id = pd.trans_purchase_id AND p.remove IS FALSE
     LEFT JOIN tests.mstr_item_supplier AS ms
@@ -1626,10 +1719,12 @@ BEGIN
     ) AS rc ON TRUE
     WHERE pd.remove IS FALSE
       AND NOT tests.mrp_is_outsource_detail(pd.trans_purchase_detail_id)
-      AND COALESCE(pd.quantity, 0) - COALESCE(rc.q, 0) > 0;
+      AND pb.remaining_quantity > 0;
 
     -- 生産残 (生産数量 - 最終工程の作業実績)
-    INSERT INTO _mrp_sup (item_id, kind, qty, avail_at, pegged_rp, op_id, started, first_start, prod_qty, children_done, orig_rp)
+    --   claude/133: 打ち切り(discontinue)は生産残 0。停止・受注明細の停止は凍結 (紐づく需要にだけ使い、従属需要は展開し直さない)
+    INSERT INTO _mrp_sup (item_id, kind, qty, avail_at, pegged_rp, op_id, started, first_start, prod_qty, children_done, orig_rp,
+                          frozen_sup, root_od)
     SELECT
         rp.item_id, 3
         , x.prod_qty - COALESCE(done.q, 0)
@@ -1639,9 +1734,11 @@ BEGIN
         , COALESCE(wr.cnt, 0) > 0
         , wq.first_start
         , x.prod_qty
-        , (p_mode = 1 OR (v_scoped AND NOT EXISTS (
+        , (p_mode = 1 OR tests.mrp_op_frozen(op.trans_operations_plan_id) OR (v_scoped AND NOT EXISTS (
               SELECT 1 FROM _mrp_scope AS sc WHERE sc.rp_id = op.trans_resource_plan_id)))
         , op.trans_resource_plan_id
+        , tests.mrp_op_frozen(op.trans_operations_plan_id)
+        , tests.mrp_root_order_detail(op.trans_resource_plan_id)
     FROM tests.trans_operations_plan AS op
     INNER JOIN tests.trans_resource_plan AS rp
         ON rp.trans_resource_plan_id = op.trans_resource_plan_id
@@ -1670,7 +1767,7 @@ BEGIN
             ON wp.trans_work_plan_id = r2.trans_work_plan_id AND wp.remove IS FALSE
         WHERE wp.trans_operations_plan_id = op.trans_operations_plan_id AND r2.remove IS FALSE
     ) AS wr ON TRUE
-    WHERE op.remove IS FALSE
+    WHERE op.remove IS FALSE AND op.discontinue IS NOT TRUE
       AND x.prod_qty - COALESCE(done.q, 0) > 0;
 
     CREATE INDEX ON _mrp_sup (item_id, kind);
@@ -1736,7 +1833,7 @@ BEGIN
             ON wp.trans_operations_plan_id = s2.op_id AND wp.remove IS FALSE
         INNER JOIN tests.mstr_equipment_available AS ea
             ON ea.mstr_equipment_available_id = wp.mstr_equipment_available_id
-        WHERE s2.kind = 3
+        WHERE s2.kind = 3 AND NOT s2.frozen_sup
           AND wp.start_at IS NOT NULL AND wp.completion_at > wp.start_at
           AND COALESCE((SELECT SUM(r2.qty) FROM tests.trans_work_record AS r2
                         WHERE r2.trans_work_plan_id = wp.trans_work_plan_id AND r2.remove IS FALSE), 0) < s2.prod_qty
@@ -1786,6 +1883,34 @@ BEGIN
                 UPDATE _mrp_dem SET sug_id = v_sug WHERE dem_id = d.dem_id;
             END IF;
 
+            -- a0. 顧客支給 (顧客の物の在庫 → 支給予定)。その受注明細(・資材計画)の需要にだけ使う  claude/133
+            FOR s IN
+                SELECT x.* FROM _mrp_sup AS x
+                WHERE x.item_id = d.item_id AND x.kind IN (1, 6) AND x.qty - x.used > 0
+                  AND ((x.peg_rp IS NOT NULL AND x.peg_rp = d.rp_id)
+                       OR (x.peg_rp IS NULL AND x.peg_od IS NOT NULL AND x.peg_od = d.root_od))
+                ORDER BY x.kind, x.avail_at
+            LOOP
+                EXIT WHEN v_rem <= 0;
+                v_take := LEAST(v_rem, s.qty - s.used);
+                CONTINUE WHEN v_take <= 0;
+                UPDATE _mrp_sup SET used = used + v_take WHERE sup_id = s.sup_id;
+                INSERT INTO _mrp_peg VALUES (d.dem_id, s.sup_id, v_take);
+                v_rem := v_rem - v_take;
+                IF s.kind = 1 THEN v_alloc := v_alloc + v_take; END IF;
+            END LOOP;
+
+            -- 顧客支給の品目か (この受注明細・資材計画に顧客からの支給明細がある)。
+            --    顧客支給の品目は、自社の空き在庫・空き供給を使わず、足りなければ支給依頼にする  claude/133
+            v_supplied := EXISTS (
+                SELECT 1 FROM tests.trans_supply_detail AS sd
+                INNER JOIN tests.trans_supply AS sp
+                    ON sp.trans_supply_id = sd.trans_supply_id AND sp.remove IS FALSE
+                   AND sp.receive IS TRUE AND sp.counterpart_owns IS TRUE
+                WHERE sd.remove IS FALSE AND sd.item_id = d.item_id
+                  AND ((sd.trans_resource_plan_id IS NOT NULL AND sd.trans_resource_plan_id = d.rp_id)
+                       OR (sd.trans_resource_plan_id IS NULL AND sd.trans_order_detail_id = d.root_od)));
+
             -- a. この需要に紐づく既存の供給 (発注明細・生産計画の資材計画ID、または確定済みの引当予約)
             IF d.rp_id IS NOT NULL THEN
                 FOR s IN
@@ -1807,8 +1932,10 @@ BEGIN
             END IF;
 
             -- b. 現在庫。ほかの未処理の需要の確定済み在庫引当は残す (凍結需要は確定済みの引当数量まで)
-            IF v_rem > 0 THEN
-                SELECT * INTO s FROM _mrp_sup WHERE item_id = d.item_id AND kind = 1 AND qty - used > 0 LIMIT 1;
+            --    顧客支給の品目は使わない (a0 の顧客の物・支給予定だけ)  claude/133
+            IF v_rem > 0 AND (NOT v_supplied OR d.frozen) THEN
+                SELECT * INTO s FROM _mrp_sup WHERE item_id = d.item_id AND kind = 1 AND qty - used > 0
+                  AND peg_rp IS NULL AND peg_od IS NULL LIMIT 1;
                 IF FOUND THEN
                     SELECT COALESCE(SUM(LEAST(COALESCE(y.old_alloc, 0) + COALESCE(cl.qty, 0), y.qty)), 0) INTO v_load
                     FROM _mrp_dem AS y
@@ -1840,6 +1967,7 @@ BEGIN
                            WHERE rv.sup_id = x.sup_id), 0) AS cap
                 FROM _mrp_sup AS x
                 WHERE x.item_id = d.item_id AND x.kind IN (2, 3, 4, 5) AND x.qty - x.used > 0
+                  AND NOT x.frozen_sup AND NOT v_supplied
                   AND (x.kind IN (4, 5) OR x.pegged_rp IS NULL
                        OR NOT EXISTS (SELECT 1 FROM _mrp_dem AS y WHERE y.rp_id = x.pegged_rp AND NOT y.done))
                 ORDER BY (d.need_at IS NOT NULL AND x.avail_at > d.need_at), x.avail_at
@@ -1855,7 +1983,21 @@ BEGIN
             END LOOP;
 
             -- d. 新規の発注 / 生産
-            IF v_rem > 0 THEN
+            --    顧客支給の品目は発注・生産を提案せず、要判断の SUPPLY_REQUEST (支給依頼) を出す  claude/133
+            IF v_supplied AND v_rem > 0 THEN
+                v_seq := v_seq + 1;
+                INSERT INTO tests.trans_mrp_suggestion (
+                    trans_mrp_run_id, parent_trans_mrp_suggestion_id, seq, kind, decision, need_user, late,
+                    item_history_id, item_id, bom_level, plan_kind, quantity, need_at, trans_order_detail_id, message,
+                    update_user_id, update_user_history_id)
+                VALUES (
+                    v_run_id, v_sug, v_seq, 'SUPPLY_REQUEST', 0, TRUE, FALSE,
+                    tests.mrp_hist_item(d.item_id), d.item_id, v_llc, d.src, v_rem, d.need_at, d.root_od,
+                    '顧客支給の品目です。支給予定と顧客の物の在庫では ' || v_rem::text
+                        || ' 足りません。顧客に支給を依頼し、支給明細を登録してから再MRPしてください(発注・生産は提案しません)',
+                    v_staff, v_staff_hist);
+                v_rem := 0;
+            ELSIF v_rem > 0 THEN
                 -- 内製・購買の選択 (購入品フラグあり・工程あり): 品目体系の累積リードタイムで納期に間に合う方。両方なら上位(購買)
                 v_choice := v_proc; v_choice_msg := NULL;
                 IF v_proc = 3 THEN
@@ -1942,8 +2084,8 @@ BEGIN
                     v_qty := v_rem;
                     IF v_lot > 0 THEN v_qty := CEIL(v_qty / v_lot) * v_lot; END IF;
 
-                    INSERT INTO _mrp_sup (item_id, kind, qty, used, avail_at, prod_qty)
-                    VALUES (d.item_id, 5, v_qty, v_rem, COALESCE(d.need_at, v_now), v_qty)
+                    INSERT INTO _mrp_sup (item_id, kind, qty, used, avail_at, prod_qty, root_od)
+                    VALUES (d.item_id, 5, v_qty, v_rem, COALESCE(d.need_at, v_now), v_qty, d.root_od)
                     RETURNING sup_id INTO v_sup;
 
                     v_seq := v_seq + 1;
@@ -2095,6 +2237,8 @@ BEGIN
             WHERE x.kind IN (2, 3, 5)
             ORDER BY x.avail_at
         LOOP
+            -- 凍結した供給 (発注明細の停止・生産計画の停止・受注明細の停止) は取消・日程変更・展開をしない  claude/133
+            CONTINUE WHEN s.frozen_sup;
             IF s.kind IN (2, 3) THEN
                 IF s.used = 0 THEN
                     IF p_mode = 2 AND NOT s.restocking AND s.in_scope THEN
@@ -2385,7 +2529,7 @@ BEGIN
                         END IF;
                     END IF;
                     INSERT INTO _mrp_dem (item_id, llc, gross, qty, need_at, src, rp_id, parent_op_id, parent_sug_id,
-                                          old_qty, old_need, old_alloc)
+                                          old_qty, old_need, old_alloc, root_od)
                     VALUES (
                         c.child,
                         COALESCE((SELECT i.llc FROM _mrp_item AS i WHERE i.item_id = c.child), v_llc + 1),
@@ -2395,7 +2539,7 @@ BEGIN
                         4, v_rp_id,
                         CASE WHEN s.kind = 3 THEN s.op_id END,
                         CASE WHEN s.kind = 5 THEN s.sug_id END,
-                        v_rp_qty, v_rp_deadline, v_rp_alloc);
+                        v_rp_qty, v_rp_deadline, v_rp_alloc, s.root_od);
                 END LOOP;
                 UPDATE _mrp_sup SET children_done = TRUE WHERE sup_id = s.sup_id;
             END IF;
@@ -2421,6 +2565,7 @@ BEGIN
               AND (NOT v_scoped OR EXISTS (SELECT 1 FROM _mrp_scope AS sc WHERE sc.rp_id = rp.trans_resource_plan_id))
               AND (rp.parent_trans_operations_plan_id IS NULL
                    OR pop.remove IS NOT FALSE
+                   OR pop.discontinue IS TRUE
                    OR ps.sup_id IS NOT NULL)
         LOOP
             v_seq := v_seq + 1;
@@ -2445,16 +2590,16 @@ BEGIN
     -- ------------------------------------------------------------------
     INSERT INTO tests.trans_mrp_pegging (
         trans_mrp_run_id, demand_trans_mrp_suggestion_id, supply_kind, supply_trans_mrp_suggestion_id,
-        trans_purchase_detail_id, trans_operations_plan_id, quantity, need_at, available_at,
+        trans_purchase_detail_id, trans_operations_plan_id, trans_supply_detail_id, quantity, need_at, available_at,
         update_user_id, update_user_history_id)
     SELECT
-        v_run_id, y.sug_id, x.kind, x.sug_id, x.pd_id, x.op_id, ROUND(SUM(p2.qty), 2), y.need_at,
+        v_run_id, y.sug_id, x.kind, x.sug_id, x.pd_id, x.op_id, x.sd_id, ROUND(SUM(p2.qty), 2), y.need_at,
         CASE WHEN x.kind = 1 THEN NULL ELSE x.avail_at END,
         v_staff, v_staff_hist
     FROM _mrp_peg AS p2
     INNER JOIN _mrp_dem AS y ON y.dem_id = p2.dem_id AND NOT y.frozen AND y.sug_id IS NOT NULL
     INNER JOIN _mrp_sup AS x ON x.sup_id = p2.sup_id
-    GROUP BY y.sug_id, x.kind, x.sug_id, x.pd_id, x.op_id, y.need_at, x.avail_at;
+    GROUP BY y.sug_id, x.kind, x.sug_id, x.pd_id, x.op_id, x.sd_id, y.need_at, x.avail_at;
 
     -- ------------------------------------------------------------------
     -- 工程負荷 (設備×日) と過負荷
@@ -2572,6 +2717,29 @@ E'MRP計算。p_mode 1:受注MRP 2:再MRP(p_order_detail_ids で範囲指定)。
 --   decision = 0 (要判断) が残っていると確定できない。p_force = true なら要判断は却下として扱う。
 --   計算後に受注・発注・在庫などが更新されていたら確定できない(再計算が必要)。p_force で無視できる。
 -- ============================================================================
+-- 発注明細の残りをキャンセルする (確定から呼ぶ)。発注数量は書き換えず、キャンセル数量 = 数量 − 受入済み + 代品の返品。計画変更を記録  claude/133
+CREATE OR REPLACE FUNCTION tests.mrp_cancel_purchase_detail(p_pd uuid, p_suggestion uuid, p_run uuid,
+                                                            p_staff uuid, p_staff_hist uuid, p_reason varchar)
+RETURNS void AS $$
+DECLARE v_old numeric; v_rem numeric; v_qty numeric;
+BEGIN
+    SELECT pd.cancel_quantity, b.remaining_quantity, b.quantity INTO v_old, v_rem, v_qty
+    FROM tests.trans_purchase_detail AS pd
+    INNER JOIN tests.v_purchase_detail_balance AS b ON b.trans_purchase_detail_id = pd.trans_purchase_detail_id
+    WHERE pd.trans_purchase_detail_id = p_pd;
+    IF NOT FOUND OR COALESCE(v_rem, 0) <= 0 THEN RETURN; END IF;
+    UPDATE tests.trans_purchase_detail
+    SET cancel_quantity = LEAST(COALESCE(cancel_quantity, 0) + v_rem, v_qty),
+        update_user_id = p_staff, update_user_history_id = p_staff_hist
+    WHERE trans_purchase_detail_id = p_pd;
+    INSERT INTO tests.trans_plan_change (trans_purchase_detail_id, cancel_quantity, old_quantity, new_quantity, reason,
+                                         staff_history_id, staff_id, trans_mrp_suggestion_id, reflected_trans_mrp_run_id,
+                                         update_user_id, update_user_history_id)
+    VALUES (p_pd, v_rem, v_qty, v_qty, p_reason, p_staff_hist, p_staff, p_suggestion, p_run, p_staff, p_staff_hist);
+END
+$$ LANGUAGE plpgsql VOLATILE;
+COMMENT ON FUNCTION tests.mrp_cancel_purchase_detail(uuid, uuid, uuid, uuid, uuid, varchar) IS '@omit';
+
 CREATE OR REPLACE FUNCTION tests.mrp_commit(
     p_run_id uuid,
     p_staff_id uuid DEFAULT NULL,
@@ -2583,7 +2751,7 @@ DECLARE
     v_staff_hist uuid;
     r record; t record;
     v_rp uuid; v_op uuid; v_pd uuid; v_po uuid; v_wp uuid; v_parent_op uuid;
-    v_pr uuid; v_prod uuid; v_n integer; v_rec numeric; v_qty numeric; v_dh numeric;
+    v_pr uuid; v_prod uuid; v_n integer; v_rec numeric; v_qty numeric; v_dh numeric; v_ids uuid[];
 BEGIN
     v_staff_hist := tests.mrp_hist_staff(v_staff);
     IF v_staff_hist IS NULL THEN
@@ -2620,6 +2788,13 @@ BEGIN
         OR EXISTS (SELECT 1 FROM tests.mstr_equipment_available WHERE update_at > v_run.run_at)
         OR EXISTS (SELECT 1 FROM tests.mstr_outsource_available WHERE update_at > v_run.run_at)
         OR EXISTS (SELECT 1 FROM tests.mstr_item_supplier WHERE update_at > v_run.run_at)
+        -- claude/133: キャンセル・停止・返品・支給・所有
+        OR EXISTS (SELECT 1 FROM tests.trans_plan_change WHERE update_at > v_run.run_at)
+        OR EXISTS (SELECT 1 FROM tests.trans_return_detail WHERE update_at > v_run.run_at)
+        OR EXISTS (SELECT 1 FROM tests.trans_supply WHERE update_at > v_run.run_at)
+        OR EXISTS (SELECT 1 FROM tests.trans_supply_detail WHERE update_at > v_run.run_at)
+        OR EXISTS (SELECT 1 FROM tests.trans_supply_visiter WHERE update_at > v_run.run_at)
+        OR EXISTS (SELECT 1 FROM tests.trans_visiter_owner WHERE update_at > v_run.run_at)
     ) THEN
         RAISE EXCEPTION 'mrp_commit: MRP計算後にデータが更新されています。再計算してください'
             USING ERRCODE = 'MRP02';
@@ -2756,15 +2931,9 @@ BEGIN
             UPDATE tests.trans_mrp_suggestion SET applied_at = now() WHERE trans_mrp_suggestion_id = r.trans_mrp_suggestion_id;
 
         WHEN 'PURCHASE_CANCEL' THEN
-            SELECT COALESCE(SUM(quantity), 0) INTO v_rec FROM tests.trans_purchase_rec
-            WHERE trans_purchase_detail_id = r.trans_purchase_detail_id AND remove IS FALSE;
-            IF v_rec > 0 THEN
-                UPDATE tests.trans_purchase_detail SET quantity = v_rec, update_user_id = v_staff, update_user_history_id = v_staff_hist
-                WHERE trans_purchase_detail_id = r.trans_purchase_detail_id;
-            ELSE
-                UPDATE tests.trans_purchase_detail SET remove = TRUE, update_user_id = v_staff, update_user_history_id = v_staff_hist
-                WHERE trans_purchase_detail_id = r.trans_purchase_detail_id;
-            END IF;
+            -- claude/133: 発注数量は書き換えず、残りをキャンセル数量にする (契約は消さない)。計画変更を記録
+            PERFORM tests.mrp_cancel_purchase_detail(r.trans_purchase_detail_id, r.trans_mrp_suggestion_id, p_run_id, v_staff, v_staff_hist,
+                                                     'MRP: 需要が無くなった発注の取消');
             UPDATE tests.trans_mrp_suggestion SET applied_at = now() WHERE trans_mrp_suggestion_id = r.trans_mrp_suggestion_id;
 
         WHEN 'PRODUCTION_NEW' THEN
@@ -2830,25 +2999,34 @@ BEGIN
             IF EXISTS (SELECT 1 FROM tests.trans_work_record AS wr
                        INNER JOIN tests.trans_work_plan AS wp ON wp.trans_work_plan_id = wr.trans_work_plan_id
                        WHERE wp.trans_operations_plan_id = r.trans_operations_plan_id AND wr.remove IS FALSE) THEN
-                -- 着手済み: 完成数量まで減らし、未着手の工程は残す(実績の付け先として)
+                -- 着手済み: 打ち切り (生産数量は書き換えない。仕掛品はキャンセル後の処置で扱う)  claude/133
                 UPDATE tests.trans_operations_plan AS op
-                SET quantity = COALESCE((
-                        SELECT SUM(wr.qty) FROM tests.trans_work_record AS wr
-                        WHERE wr.remove IS FALSE AND wr.trans_work_plan_id = (
-                            SELECT wp.trans_work_plan_id FROM tests.trans_work_plan AS wp
-                            WHERE wp.trans_operations_plan_id = op.trans_operations_plan_id AND wp.remove IS FALSE
-                            ORDER BY wp.sequence DESC NULLS LAST, wp.completion_at DESC NULLS LAST LIMIT 1)), 0),
-                    update_user_id = v_staff, update_user_history_id = v_staff_hist
+                SET discontinue = TRUE, update_user_id = v_staff, update_user_history_id = v_staff_hist
                 WHERE op.trans_operations_plan_id = r.trans_operations_plan_id;
+                INSERT INTO tests.trans_plan_change (trans_operations_plan_id, discontinue, reason, staff_history_id, staff_id,
+                                                     trans_mrp_suggestion_id, reflected_trans_mrp_run_id,
+                                                     update_user_id, update_user_history_id)
+                VALUES (r.trans_operations_plan_id, TRUE, 'MRP: 需要が無くなった着手済みの生産の打ち切り', v_staff_hist, v_staff,
+                        r.trans_mrp_suggestion_id, p_run_id, v_staff, v_staff_hist);
             ELSE
-                -- 未入荷の外注発注も取り消す
-                UPDATE tests.trans_purchase_detail AS x SET remove = TRUE, update_user_id = v_staff, update_user_history_id = v_staff_hist
-                WHERE x.remove IS FALSE
-                  AND x.trans_purchase_detail_id IN (
-                      SELECT wp.trans_purchase_detail_id FROM tests.trans_work_plan AS wp
-                      WHERE wp.trans_operations_plan_id = r.trans_operations_plan_id AND wp.remove IS FALSE)
-                  AND NOT EXISTS (SELECT 1 FROM tests.trans_purchase_rec AS pr
-                                  WHERE pr.trans_purchase_detail_id = x.trans_purchase_detail_id AND pr.remove IS FALSE);
+                -- 未入荷の外注発注も取り消す (キャンセル数量で記録)  claude/133
+                FOR t IN
+                    SELECT x.trans_purchase_detail_id FROM tests.trans_purchase_detail AS x
+                    WHERE x.remove IS FALSE
+                      AND x.trans_purchase_detail_id IN (
+                          SELECT wp.trans_purchase_detail_id FROM tests.trans_work_plan AS wp
+                          WHERE wp.trans_operations_plan_id = r.trans_operations_plan_id AND wp.remove IS FALSE)
+                      AND NOT EXISTS (SELECT 1 FROM tests.trans_purchase_rec AS pr
+                                      WHERE pr.trans_purchase_detail_id = x.trans_purchase_detail_id AND pr.remove IS FALSE)
+                LOOP
+                    PERFORM tests.mrp_cancel_purchase_detail(t.trans_purchase_detail_id, r.trans_mrp_suggestion_id, p_run_id,
+                                                             v_staff, v_staff_hist, 'MRP: 取り消した生産の外注発注');
+                END LOOP;
+                INSERT INTO tests.trans_plan_change (trans_operations_plan_id, discontinue, reason, staff_history_id, staff_id,
+                                                     trans_mrp_suggestion_id, reflected_trans_mrp_run_id,
+                                                     update_user_id, update_user_history_id)
+                VALUES (r.trans_operations_plan_id, TRUE, 'MRP: 需要が無くなった未着手の生産の取消', v_staff_hist, v_staff,
+                        r.trans_mrp_suggestion_id, p_run_id, v_staff, v_staff_hist);
                 UPDATE tests.trans_work_plan SET remove = TRUE, update_user_id = v_staff, update_user_history_id = v_staff_hist
                 WHERE trans_operations_plan_id = r.trans_operations_plan_id AND remove IS FALSE;
                 UPDATE tests.trans_operations_plan SET remove = TRUE, update_user_id = v_staff, update_user_history_id = v_staff_hist
@@ -2938,14 +3116,12 @@ BEGIN
             v_po := NULL;
 
         WHEN 'OUTSOURCE_CANCEL' THEN
+            -- claude/133: 発注数量は書き換えず、残りをキャンセル数量にする。未入荷なら工程計画からも外す
             SELECT COALESCE(SUM(quantity), 0) INTO v_rec FROM tests.trans_purchase_rec
             WHERE trans_purchase_detail_id = r.trans_purchase_detail_id AND remove IS FALSE;
-            IF v_rec > 0 THEN
-                UPDATE tests.trans_purchase_detail SET quantity = v_rec, update_user_id = v_staff, update_user_history_id = v_staff_hist
-                WHERE trans_purchase_detail_id = r.trans_purchase_detail_id;
-            ELSE
-                UPDATE tests.trans_purchase_detail SET remove = TRUE, update_user_id = v_staff, update_user_history_id = v_staff_hist
-                WHERE trans_purchase_detail_id = r.trans_purchase_detail_id;
+            PERFORM tests.mrp_cancel_purchase_detail(r.trans_purchase_detail_id, r.trans_mrp_suggestion_id, p_run_id, v_staff, v_staff_hist,
+                                                     'MRP: 内部に戻した工程の外注発注の取消');
+            IF v_rec = 0 THEN
                 UPDATE tests.trans_work_plan SET trans_purchase_detail_id = NULL, update_user_id = v_staff, update_user_history_id = v_staff_hist
                 WHERE trans_purchase_detail_id = r.trans_purchase_detail_id;
             END IF;
@@ -2972,6 +3148,13 @@ BEGIN
           AND ds.kind IN ('PLAN_NEW', 'PLAN_UPDATE', 'PLAN_KEEP')
     LOOP
         CONTINUE WHEN NOT r.supply_ok OR r.rp_id IS NULL;
+        -- 顧客支給 (claude/133): 支給明細を充てる資材計画につなぐ。支給予定(6)は引当予約を作らない
+        IF r.trans_supply_detail_id IS NOT NULL THEN
+            UPDATE tests.trans_supply_detail
+            SET trans_resource_plan_id = r.rp_id, update_user_id = v_staff, update_user_history_id = v_staff_hist
+            WHERE trans_supply_detail_id = r.trans_supply_detail_id AND trans_resource_plan_id IS NULL;
+        END IF;
+        CONTINUE WHEN r.supply_kind = 6;
         v_pr := NULL; v_prod := NULL;
         -- 元の資材計画が取消済みの既存供給は、新しい需要に付け替える
         IF r.supply_kind = 2 THEN
@@ -2992,8 +3175,8 @@ BEGIN
         IF r.supply_kind IN (2, 4) THEN
             v_pd := COALESCE(r.trans_purchase_detail_id, r.new_pd);
             CONTINUE WHEN v_pd IS NULL;
-            INSERT INTO tests.trans_purchase_rez (trans_purchase_detail_id, quantity, update_user_id, update_user_history_id)
-            VALUES (v_pd, r.quantity, v_staff, v_staff_hist)
+            INSERT INTO tests.trans_purchase_rez (trans_purchase_detail_id, update_user_id, update_user_history_id)
+            VALUES (v_pd, v_staff, v_staff_hist)
             RETURNING trans_purchase_rez_id INTO v_pr;
         ELSIF r.supply_kind IN (3, 5) THEN
             v_op := COALESCE(r.trans_operations_plan_id, r.new_op);
@@ -3002,8 +3185,8 @@ BEGIN
             WHERE wp.trans_operations_plan_id = v_op AND wp.remove IS FALSE
             ORDER BY wp.sequence DESC NULLS LAST, wp.completion_at DESC NULLS LAST LIMIT 1;
             IF v_wp IS NOT NULL THEN
-                INSERT INTO tests.trans_product_rez (trans_work_plan_id, quantity, update_user_id, update_user_history_id)
-                VALUES (v_wp, r.quantity, v_staff, v_staff_hist)
+                INSERT INTO tests.trans_product_rez (trans_work_plan_id, update_user_id, update_user_history_id)
+                VALUES (v_wp, v_staff, v_staff_hist)
                 RETURNING trans_product_rez_id INTO v_prod;
             END IF;
         END IF;
@@ -3014,6 +3197,19 @@ BEGIN
             now(), COALESCE(r.need_at, now()), v_pr, v_prod, r.quantity,
             v_staff_hist, v_staff, r.rp_id, v_staff, v_staff_hist);
     END LOOP;
+
+    -- 反映した計画変更 (claude/133): 再MRPで、計算より前に登録された未反映の計画変更
+    --   範囲指定なら、その受注明細(生産計画の変更はその受注明細)の分だけ。受注MRPは既存の計画を凍結するので反映しない
+    IF v_run.run_mode = 2 THEN
+        SELECT array_agg(x::uuid) INTO v_ids
+        FROM jsonb_array_elements_text(CASE WHEN jsonb_typeof(v_run.params->'order_detail_ids') = 'array'
+                                            THEN v_run.params->'order_detail_ids' END) AS x;
+        UPDATE tests.trans_plan_change AS pc
+        SET reflected_trans_mrp_run_id = p_run_id, update_user_id = v_staff, update_user_history_id = v_staff_hist
+        FROM tests.v_plan_change_unreflected AS u
+        WHERE u.trans_plan_change_id = pc.trans_plan_change_id AND u.change_at <= v_run.run_at
+          AND (v_ids IS NULL OR u.trans_order_detail_id = ANY (v_ids));
+    END IF;
 
     UPDATE tests.trans_mrp_run
     SET status = 1, committed_at = now(), update_user_id = v_staff, update_user_history_id = v_staff_hist
@@ -3149,6 +3345,7 @@ RETURNS TABLE (equipment_id uuid, load_date date, capacity_hours numeric, load_h
             ON ea.mstr_equipment_available_id = w.mstr_equipment_available_id
         INNER JOIN tests.trans_operations_plan AS op
             ON op.trans_operations_plan_id = w.trans_operations_plan_id AND op.remove IS FALSE
+           AND op.stop IS NOT TRUE AND op.discontinue IS NOT TRUE
         WHERE w.remove IS FALSE
           AND w.start_at IS NOT NULL AND w.completion_at > w.start_at
           AND w.start_at::date <= p_to AND w.completion_at::date >= p_from

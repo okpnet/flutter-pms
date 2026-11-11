@@ -46,8 +46,9 @@ ALTER DEFAULT PRIVILEGES FOR ROLE :"app_owner_id" IN SCHEMA :"db_test_schema"
     GRANT ALL ON SEQUENCES TO :"app_admin_id";
 ALTER DEFAULT PRIVILEGES FOR ROLE :"app_owner_id" IN SCHEMA :"db_test_schema"
     GRANT EXECUTE ON FUNCTIONS TO :"app_user_id", :"app_admin_id";
+-- 一般ユーザーも登録できるよう INSERT を付ける (claude/135)
 ALTER DEFAULT PRIVILEGES FOR ROLE :"app_owner_id" IN SCHEMA :"db_test_schema"
-    GRANT SELECT, UPDATE, DELETE ON TABLES TO :"app_user_id";
+    GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO :"app_user_id";
 
 -- ============================================================
 --本番では削除（ここから）

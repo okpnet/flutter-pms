@@ -76,6 +76,57 @@ GraphQL(PostGraphile)には PocketBase が発行した短期の JWT(`SessionServ
 
 `tools/docker/maintenance`(nginx 1つ、FTP なし、既定ポート 18480)。アプリの `MAINTENANCE_URL` に `/health`(通常 200・メンテナンス中 503)を指定する。通知する情報ファイルは `/info/` を GET で読み、認証つき(Basic)の PUT/DELETE で書き換える。ID・パスワード・ポートは `.env` にまとめ、Git に入れない。詳細は [tools/docker/maintenance/README.md](tools/docker/maintenance/README.md)。
 
+## 受注・発注まわりの仕様(キャンセル・停止・返品・精算・支給・所有)
+
+DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DDL(`06_cteate_test.sql`)と、`issue/change_request.md`(定義書・設計の資料の対応と決定事項の全文)。初期化スクリプトの順は `05_init_test` → `06_cteate_test` → `07_visiter_functions` → `08_mrp` → `09_grant_test` → `10_mrp_dummy` → `11_barcode_dummy` → `12_cancel_supply_constraints` → `13_visiter_owner` → `14_app_admin_dummy` → `15_user_dummy`(変えない)。
+
+### 設計の共通ルール
+1.  状態・区分をコード値(smallint・文字列の定数)で持たない・判定しない。はい/いいえは boolean 列、利用者が増やせる分類はサロゲートキーのマスタにし、マスタにも boolean を持たせる。アプリ・ビューは boolean で判定する(マスタの `code` で分岐しない)。コード値の enum をモデルに作らない。
+1.  「キャンセル」「停止」などの表示用の文字は、ビューで1か所だけ定義する(アプリごとに解釈を持たない)。
+1.  記録(計画変更・支給・返品・精算)は追記のみ。取り扱いが変わったら1件追加し、元の行は書き換えない。
+1.  trans からマスタを参照するときは、履歴ID+ID の組で `history_mstr_*` を参照する。
+1.  棚ビジターの数量は、棚ビジターの行(+・−)と受払実績が持つ。中間テーブル(返品ビジター・支給ビジター)は数量を持たない。
+1.  ビューには `symbol` 列を含める。
+
+### キャンセル・停止・計画変更
+1.  受注明細・発注明細のキャンセルは数量の累計 `cancel_quantity`(0 ≤ cancel_quantity ≤ quantity。一部も全部も同じ列)。数量を書き換えない・生産計画を削除しない。「全部キャンセル済み」は列に持たず、ビューの `cancel_closed` で判定する。
+1.  停止は boolean `stop`(受注明細・発注明細・生産計画)。MRP は停止中の需要・生産計画を凍結する。延期は納期の変更として計画変更に残す。生産計画の打ち切りは `discontinue`(生産残 = 0。仕掛品は処置が必要)。完了まで続ける生産は受注明細のまま進め、途中の請求は受注明細精算(`trans_order_detail_settlement`。精算1件 = 請求書1行。値引きとは分ける)で持つ。
+1.  変更・処置の履歴は計画変更記録(`trans_plan_change`)。種別の列は持たず、どの列に値が入っているかで分かる(数量・日付の新旧、`old_stop`/`new_stop`、処置の boolean `discontinue`/`release`/`hold`/`scrap`/`deliver`、保管先コンテナ、精算、理由、MRP 提案)。対象は受注明細・発注明細・生産計画・引当予約・棚ビジター・出荷オーダー明細のどれか1つ。起点と処置は `parent_trans_plan_change_id` でつなぐ。MRP が反映した計画変更は `reflected_trans_mrp_run_id` でつなぐ。
+1.  キャンセル後の品物の処置: 在庫にする = `release`、押さえる = `hold` + コンテナ(`visiter_move(p_hold: true)`。仮止めなので MRP は使わない)、顧客へ引き渡す = `deliver` + 精算、廃棄 = `scrap`、材料に戻す = `release` + 材料品目で入庫し直す。押さえたままの品は未処置一覧に出し続ける。
+1.  新しいマスタ: `mstr_change_reason`(`customer_cause`/`supplier_cause`/`quality_cause`)、`mstr_return_kind`(`receive`)、`mstr_settlement_kind`(`delivery`)。
+
+### 返品
+売買の取り消しだけを扱う(`trans_return`・`trans_return_detail`・`trans_return_visiter`)。顧客からの返品は `receive = true`(明細は受注明細・出荷明細実績。入庫の+の行をつなぐ)、仕入先・外注先への返品は `receive = false`(明細は発注明細・受入実績。`visiter_issue` の−の行をつなぐ)。代品あり(`replacement`)は受注残・発注残に戻す。支給材の返却・戻りは返品ではなく支給で扱う。
+
+### 支給と所有
+1.  顧客支給は0円発注ではなく支給(`trans_supply`・`trans_supply_detail`・`trans_supply_visiter`)で受ける。支給予定は受注のときに登録する(充てる資材計画を指定)。ロットがつながっていなければ「予定」。取り決めが変わったら、その受注明細を指定して再MRP する。顧客支給の品目は発注を提案せず、足りなければ MRP は要判断の `SUPPLY_REQUEST`(支給依頼)を出す(供給区分6 = 顧客の支給予定)。
+1.  支給の値: `receive`(受け取り)、`counterpart_owns`(相手先の所有にする)、`company_owns`(自社の所有にする)。両方 true は不可。場面ごとの値は `issue/change_request.md` の 2-4。受け入れは仮止めで+の行を作り、検品後に解除する。支給品の異常は支給異常(`trans_complaint_supply`)に登録する。
+1.  発注先への無償支給は自社の所有のまま(元の評価額)。有償支給は販売(支給明細1件 = 請求書1行。`paid_supply`・`paid_by_switch`・`paid_amount`)。外注発注明細の `material_supply`/`paid_supply` は発注時の条件で、実際の受け渡しと切り替えは支給に記録する。外注先専用のコンテナは作らず、ユーザーが選んだコンテナへ引当して移す。
+1.  顧客支給で作った物は顧客の所有。返却不要(譲渡)なら `company_owns` の支給を付けて自社の所有にし、在庫として使える。製品が顧客の所有かどうかは受注明細の `customer_property` に明示する。
+1.  有効な所有者は `trans_visiter_owner`(ロット1件につき1行。行なし/所有者 NULL = 自社)に切り出し、13 のトリガーだけが書く。アプリは書かない(PostGraphile では create/update/delete を `@omit` にする。読み取り専用のモデルにする)。決め方は上から順に、①直接つながる支給のうち所有を変える最新、②分割元の所有者、③作業実績で作ったロットは最上位の受注明細が `customer_property = true` ならその顧客、④自社。`customer_property` や受注の顧客を後から変えたら `visiter_owner_rebuild()`(管理者だけ)で決め直す。
+1.  評価額: 顧客の所有物は評価しない、譲渡で自社の物になった材料は0円、購入品+支給品で作った品目は購入品+生産コスト(支給品は0円)、発注先へ無償で渡した材料は元の評価額、有償で渡した材料は発注先の物。
+1.  `info_provision` 系のマスタは「会社が顧客へ何を提供するか」(ISO 9001 4項)で、支給とは関係ない。受注1件に明細は複数登録できる。
+
+### ビュー(読み取りはビューの列で判定する)
+| ビュー | 内容 |
+|---|---|
+| `v_order_detail_balance` | 受注明細の残(数量 − キャンセル + 代品ありの返品 − 出荷)、`open_quantity`(停止中は0)、`cancel_closed`、精算額の合計、`customer_property` |
+| `v_purchase_detail_balance` | 発注明細の残、停止、`cancel_closed` |
+| `v_plan_change_unreflected` | MRP に未反映の計画変更 |
+| `v_supply_detail_balance` | 支給明細ごとの予定・つないだ数量・未受入(MRP の支給予定)・今の数量(発注先にある量)・`paid_supply`・`paid_by_switch`・`paid_amount` |
+| `v_external_property` | 社外の所有物の一覧(顧客・発注先。ISO 9001 8.5.3) |
+| `v_item_on_hand` | 社外の所有物を空き在庫に数えない |
+| `v_mrp_visiter_item`・`v_visiter_item`・`v_visiter_origin_check`・`v_complaint_target` ほか | 品目の経路に支給ビジター・返品ビジターを追加。異常の対象に支給異常を追加 |
+
+### MRP(`08_mrp.sql`)
+受注の需要は `v_order_detail_balance`、発注残は `v_purchase_detail_balance` を使う。全部キャンセルは需要なし、`stop = true` は凍結(従属需要も)。確定: 発注の取消は数量を書き換えず残りを `cancel_quantity` にし、生産の取消は着手済みを打ち切り・未着手を削除し、いずれも計画変更を記録(MRP 提案付き)して未反映の計画変更に `reflected_trans_mrp_run_id` を入れる。ペギングに `trans_mrp_pegging.trans_supply_detail_id` を持つ。補助関数は `mrp_root_order_detail`・`mrp_op_frozen`・`mrp_cancel_purchase_detail`(`@omit`)。
+
+### 権限
+13 の関数のオーナーは `APP_OWNER_ID`。`visiter_owner_refresh` は一般ユーザー・管理者、`visiter_owner_rebuild` は管理者だけが実行できる。一般ユーザー(`APP_USER_ID`)は `SELECT, INSERT, UPDATE, DELETE`(05・09)で、登録・`visiter_move`・`mrp_run`・`mrp_execute` が使える。管理者は ALL。ただし `trans_visiter_owner` は一般ユーザー・管理者とも読み取りだけ(13 で REVOKE)。
+
+### 未決・未作成
+`v_cancel_open_item`(未処置一覧)、キャンセル・停止・保管・返品・支給の操作をまとめる DB 関数(1トランザクションで計画変更と処置を登録)、`v_plan_change`(計画変更の表示用の文字)、受注金額のビュー(`v_sales_record`・`v_shipping_order_status` ほか)への精算額の追加、原価計算のビュー。
+
 ## バージョン管理
 
 依存・SDK バージョンはルート [pubspec.yaml](pubspec.yaml) の `melos > command > bootstrap` で集中管理する。上げるときはここだけ直して `melos bootstrap`(各パッケージの該当行は "Managed by Melos" コメント付きで上書きされる)。

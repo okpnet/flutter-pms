@@ -92,7 +92,9 @@ GRANT ALL ON ALL SEQUENCES IN SCHEMA :"db_test_schema" TO :"app_admin_id";
 GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA :"db_test_schema" TO :"app_user_id", :"app_admin_id";
 
 -- 一般ユーザー
-GRANT SELECT, UPDATE, DELETE ON ALL TABLES IN SCHEMA :"db_test_schema" TO :"app_user_id";
+-- 一般ユーザーも登録できるよう INSERT を付ける (claude/135)
+-- (棚ビジター所有者 trans_visiter_owner の書き込みは 13 で外す)
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA :"db_test_schema" TO :"app_user_id";
 
 -- デバッガー用の権限付与は不要
 -- （05 でオーナーロールのメンバーにしているため。本番での削除対象は 05 のみ）

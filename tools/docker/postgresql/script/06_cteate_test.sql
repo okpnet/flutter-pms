@@ -89,7 +89,282 @@ $BODY$
 LANGUAGE plpgsql;
 COMMENT ON FUNCTION tests.trg_gen_text_summary() IS 'text_valueからlead_text(導入文)とchar_count(文字数)を算出する';
 
---242.create tables
+--258.create tables
+create table tests.trans_visiter_owner (
+    trans_visiter_owner_id uuid default gen_random_uuid(),
+    trans_visiter_id uuid not null,
+    owner_stakeholder_history_id uuid default null,
+    owner_stakeholder_id uuid default null,
+    trans_supply_detail_id uuid default null,
+    trans_order_detail_id uuid default null,
+    effective_at timestamp default now(),
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.trans_complaint_supply (
+    trans_complaint_supply_id uuid default gen_random_uuid(),
+    trans_complaint_id uuid not null,
+    trans_supply_detail_id uuid not null,
+    quantity decimal(10,2) default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.trans_supply_visiter (
+    trans_supply_visiter_id uuid default gen_random_uuid(),
+    trans_supply_detail_id uuid not null,
+    trans_visiter_id uuid not null,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.trans_supply_detail (
+    trans_supply_detail_id uuid default gen_random_uuid(),
+    trans_supply_id uuid not null,
+    item_history_id uuid not null,
+    item_id uuid not null,
+    quantity decimal(10,2) not null,
+    unit_price decimal(10,2) default null,
+    scheduled_at timestamp default null,
+    trans_order_detail_id uuid default null,
+    trans_purchase_detail_id uuid default null,
+    trans_resource_plan_id uuid default null,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.trans_supply (
+    trans_supply_id uuid default gen_random_uuid(),
+    code varchar(255) default null,
+    supply_at timestamp default now(),
+    stakeholder_history_id uuid not null,
+    stakeholder_id uuid not null,
+    receive boolean default 'f',
+    counterpart_owns boolean default 'f',
+    company_owns boolean default 'f',
+    trans_order_id uuid default null,
+    trans_purchase_id uuid default null,
+    trans_plan_change_id uuid default null,
+    trans_complaint_id uuid default null,
+    reason varchar(1024) default null,
+    staff_history_id uuid not null,
+    staff_id uuid not null,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.trans_return_visiter (
+    trans_return_visiter_id uuid default gen_random_uuid(),
+    trans_return_detail_id uuid not null,
+    trans_visiter_id uuid not null,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.trans_return_detail (
+    trans_return_detail_id uuid default gen_random_uuid(),
+    trans_return_id uuid not null,
+    item_history_id uuid not null,
+    item_id uuid not null,
+    quantity decimal(10,2) not null,
+    replacement boolean default 'f',
+    trans_order_detail_id uuid default null,
+    trans_shipping_order_detail_record_id uuid default null,
+    trans_purchase_detail_id uuid default null,
+    trans_purchase_rec_id uuid default null,
+    origin_trans_visiter_id uuid default null,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.trans_return (
+    trans_return_id uuid default gen_random_uuid(),
+    code varchar(255) default null,
+    return_kind_history_id uuid not null,
+    return_kind_id uuid not null,
+    return_at timestamp default now(),
+    stakeholder_history_id uuid not null,
+    stakeholder_id uuid not null,
+    trans_order_id uuid default null,
+    trans_purchase_id uuid default null,
+    trans_plan_change_id uuid default null,
+    trans_complaint_id uuid default null,
+    reason varchar(1024) default null,
+    staff_history_id uuid not null,
+    staff_id uuid not null,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.trans_order_detail_settlement (
+    trans_order_detail_settlement_id uuid default gen_random_uuid(),
+    trans_order_detail_id uuid not null,
+    settlement_kind_history_id uuid not null,
+    settlement_kind_id uuid not null,
+    settle_at timestamp default now(),
+    quantity decimal(10,2) default null,
+    amount decimal(10,2) not null,
+    trans_plan_change_id uuid default null,
+    reason varchar(1024) default null,
+    staff_history_id uuid not null,
+    staff_id uuid not null,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.trans_plan_change (
+    trans_plan_change_id uuid default gen_random_uuid(),
+    parent_trans_plan_change_id uuid default null,
+    change_at timestamp default now(),
+    trans_order_detail_id uuid default null,
+    trans_purchase_detail_id uuid default null,
+    trans_operations_plan_id uuid default null,
+    trans_inventory_request_id uuid default null,
+    trans_visiter_id uuid default null,
+    trans_shipping_order_detail_id uuid default null,
+    old_quantity decimal(10,2) default null,
+    new_quantity decimal(10,2) default null,
+    cancel_quantity decimal(10,2) default 0,
+    old_date timestamp default null,
+    new_date timestamp default null,
+    old_stop boolean default null,
+    new_stop boolean default null,
+    discontinue boolean default 'f',
+    release boolean default 'f',
+    hold boolean default 'f',
+    scrap boolean default 'f',
+    deliver boolean default 'f',
+    trans_container_id uuid default null,
+    trans_order_detail_settlement_id uuid default null,
+    change_reason_history_id uuid default null,
+    change_reason_id uuid default null,
+    reason varchar(1024) default null,
+    stakeholder_history_id uuid default null,
+    stakeholder_id uuid default null,
+    staff_history_id uuid not null,
+    staff_id uuid not null,
+    trans_mrp_suggestion_id uuid default null,
+    reflected_trans_mrp_run_id uuid default null,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.history_mstr_settlement_kind (
+    history_id uuid default gen_random_uuid(),
+    mstr_settlement_kind_id uuid not null,
+    code varchar(255) not null,
+    names uuid not null,
+    delivery boolean default 'f',
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.mstr_settlement_kind (
+    mstr_settlement_kind_id uuid default gen_random_uuid(),
+    code varchar(255) not null,
+    names uuid not null,
+    delivery boolean default 'f',
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.history_mstr_return_kind (
+    history_id uuid default gen_random_uuid(),
+    mstr_return_kind_id uuid not null,
+    code varchar(255) not null,
+    names uuid not null,
+    receive boolean default 'f',
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.mstr_return_kind (
+    mstr_return_kind_id uuid default gen_random_uuid(),
+    code varchar(255) not null,
+    names uuid not null,
+    receive boolean default 'f',
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.history_mstr_change_reason (
+    history_id uuid default gen_random_uuid(),
+    mstr_change_reason_id uuid not null,
+    code varchar(255) not null,
+    names uuid not null,
+    customer_cause boolean default 'f',
+    supplier_cause boolean default 'f',
+    quality_cause boolean default 'f',
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.mstr_change_reason (
+    mstr_change_reason_id uuid default gen_random_uuid(),
+    code varchar(255) not null,
+    names uuid not null,
+    customer_cause boolean default 'f',
+    supplier_cause boolean default 'f',
+    quality_cause boolean default 'f',
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
 create table tests.history_info_department_access_path (
     history_id uuid default gen_random_uuid(),
     info_department_access_path_id uuid not null,
@@ -3101,8 +3376,10 @@ create table tests.trans_purchase_detail (
     period timestamp default null,
     item_history_id uuid not null,
     item_id uuid not null,
-    material_supply  boolean default 'f',
+    material_supply boolean default 'f',
     paid_supply boolean default 'f',
+    cancel_quantity decimal(10,2) default 0,
+    stop boolean default 'f',
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -3121,6 +3398,9 @@ create table tests.trans_order_detail (
     fixed_price decimal(10,2) default null,
     delivery_date timestamp default null,
     deadline timestamp default null,
+    cancel_quantity decimal(10,2) default 0,
+    stop boolean default 'f',
+    customer_property boolean default 'f',
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -3197,12 +3477,12 @@ create table tests.trans_work_plan (
     interval_plan interval default null,
     start_at timestamp default null,
     completion_at timestamp default null,
-    symbol varchar(16) default '',
     mstr_equipment_available_history_id uuid default null,
     mstr_equipment_available_id uuid default null,
     mstr_outsource_available_history_id uuid default null,
     mstr_outsource_available_id uuid default null,
     trans_purchase_detail_id uuid default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -3214,6 +3494,8 @@ create table tests.trans_operations_plan (
     trans_resource_plan_id uuid not null,
     deadline timestamp default null,
     quantity decimal(10,2) default 0,
+    stop boolean default 'f',
+    discontinue boolean default 'f',
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -3570,7 +3852,266 @@ create table tests.info_office (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
---242.add table comments
+--258.add table comments
+comment on table tests.trans_visiter_owner is '支給所有権';
+comment on column tests.trans_visiter_owner.trans_visiter_owner_id is '支給所有権ID';
+comment on column tests.trans_visiter_owner.trans_visiter_id is '棚ビジターID';
+comment on column tests.trans_visiter_owner.owner_stakeholder_history_id is '所有者履歴ID';
+comment on column tests.trans_visiter_owner.owner_stakeholder_id is '所有者ID';
+comment on column tests.trans_visiter_owner.trans_supply_detail_id is '支給詳細ID';
+comment on column tests.trans_visiter_owner.trans_order_detail_id is '受注明細ID';
+comment on column tests.trans_visiter_owner.effective_at is '適用日';
+comment on column tests.trans_visiter_owner.symbol is 'リニアシンボル';
+comment on column tests.trans_visiter_owner.remarks is '備考';
+comment on column tests.trans_visiter_owner.update_at is '更新日時';
+comment on column tests.trans_visiter_owner.update_user_id is '更新者ID';
+comment on column tests.trans_visiter_owner.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_visiter_owner.remove is '削除';
+comment on table tests.trans_complaint_supply is 'クレーム支給';
+comment on column tests.trans_complaint_supply.trans_complaint_supply_id is 'クレーム支給ID';
+comment on column tests.trans_complaint_supply.trans_complaint_id is '異常ID';
+comment on column tests.trans_complaint_supply.trans_supply_detail_id is '支給詳細ID';
+comment on column tests.trans_complaint_supply.quantity is 'クレーム支給数量';
+comment on column tests.trans_complaint_supply.symbol is 'リニアシンボル';
+comment on column tests.trans_complaint_supply.remarks is '備考';
+comment on column tests.trans_complaint_supply.update_at is '更新日時';
+comment on column tests.trans_complaint_supply.update_user_id is '更新者ID';
+comment on column tests.trans_complaint_supply.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_complaint_supply.remove is '削除';
+comment on table tests.trans_supply_visiter is '支給ビジター';
+comment on column tests.trans_supply_visiter.trans_supply_visiter_id is '支給ビジターID';
+comment on column tests.trans_supply_visiter.trans_supply_detail_id is '支給詳細ID';
+comment on column tests.trans_supply_visiter.trans_visiter_id is '棚ビジターID';
+comment on column tests.trans_supply_visiter.symbol is 'リニアシンボル';
+comment on column tests.trans_supply_visiter.remarks is '備考';
+comment on column tests.trans_supply_visiter.update_at is '更新日時';
+comment on column tests.trans_supply_visiter.update_user_id is '更新者ID';
+comment on column tests.trans_supply_visiter.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_supply_visiter.remove is '削除';
+comment on table tests.trans_supply_detail is '支給詳細';
+comment on column tests.trans_supply_detail.trans_supply_detail_id is '支給詳細ID';
+comment on column tests.trans_supply_detail.trans_supply_id is '支給ID';
+comment on column tests.trans_supply_detail.item_history_id is '品目履歴ID';
+comment on column tests.trans_supply_detail.item_id is '品目ID';
+comment on column tests.trans_supply_detail.quantity is '支給数量';
+comment on column tests.trans_supply_detail.unit_price is '有償単価';
+comment on column tests.trans_supply_detail.scheduled_at is '支給予定';
+comment on column tests.trans_supply_detail.trans_order_detail_id is '受注明細ID';
+comment on column tests.trans_supply_detail.trans_purchase_detail_id is '発注明細ID';
+comment on column tests.trans_supply_detail.trans_resource_plan_id is '資材計画ID';
+comment on column tests.trans_supply_detail.symbol is 'リニアシンボル';
+comment on column tests.trans_supply_detail.remarks is '備考';
+comment on column tests.trans_supply_detail.update_at is '更新日時';
+comment on column tests.trans_supply_detail.update_user_id is '更新者ID';
+comment on column tests.trans_supply_detail.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_supply_detail.remove is '削除';
+comment on table tests.trans_supply is '支給';
+comment on column tests.trans_supply.trans_supply_id is '支給ID';
+comment on column tests.trans_supply.code is '支給番号';
+comment on column tests.trans_supply.supply_at is '支給日';
+comment on column tests.trans_supply.stakeholder_history_id is '利害関係者履歴ID';
+comment on column tests.trans_supply.stakeholder_id is '利害関係者ID';
+comment on column tests.trans_supply.receive is '入庫';
+comment on column tests.trans_supply.counterpart_owns is '相手先所有';
+comment on column tests.trans_supply.company_owns is '自社所有';
+comment on column tests.trans_supply.trans_order_id is '受注ID';
+comment on column tests.trans_supply.trans_purchase_id is '発注ID';
+comment on column tests.trans_supply.trans_plan_change_id is '起因の計画変更ID';
+comment on column tests.trans_supply.trans_complaint_id is '起因の異常ID';
+comment on column tests.trans_supply.reason is '理由';
+comment on column tests.trans_supply.staff_history_id is '担当者履歴ID';
+comment on column tests.trans_supply.staff_id is '担当者ID';
+comment on column tests.trans_supply.symbol is 'リニアシンボル';
+comment on column tests.trans_supply.remarks is '備考';
+comment on column tests.trans_supply.update_at is '更新日時';
+comment on column tests.trans_supply.update_user_id is '更新者ID';
+comment on column tests.trans_supply.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_supply.remove is '削除';
+comment on table tests.trans_return_visiter is '返却ビジター';
+comment on column tests.trans_return_visiter.trans_return_visiter_id is '返却ビジターID';
+comment on column tests.trans_return_visiter.trans_return_detail_id is '返却詳細ID';
+comment on column tests.trans_return_visiter.trans_visiter_id is '棚ビジターID';
+comment on column tests.trans_return_visiter.symbol is 'リニアシンボル';
+comment on column tests.trans_return_visiter.remarks is '備考';
+comment on column tests.trans_return_visiter.update_at is '更新日時';
+comment on column tests.trans_return_visiter.update_user_id is '更新者ID';
+comment on column tests.trans_return_visiter.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_return_visiter.remove is '削除';
+comment on table tests.trans_return_detail is '返却詳細';
+comment on column tests.trans_return_detail.trans_return_detail_id is '返却詳細ID';
+comment on column tests.trans_return_detail.trans_return_id is '返却ID';
+comment on column tests.trans_return_detail.item_history_id is '品目履歴ID';
+comment on column tests.trans_return_detail.item_id is '品目ID';
+comment on column tests.trans_return_detail.quantity is '数量';
+comment on column tests.trans_return_detail.replacement is '代品あり';
+comment on column tests.trans_return_detail.trans_order_detail_id is '受注明細ID';
+comment on column tests.trans_return_detail.trans_shipping_order_detail_record_id is '出荷明細実績ID';
+comment on column tests.trans_return_detail.trans_purchase_detail_id is '発注明細ID';
+comment on column tests.trans_return_detail.trans_purchase_rec_id is '受入実績ID';
+comment on column tests.trans_return_detail.origin_trans_visiter_id is '元の棚ビジターID';
+comment on column tests.trans_return_detail.symbol is 'リニアシンボル';
+comment on column tests.trans_return_detail.remarks is '備考';
+comment on column tests.trans_return_detail.update_at is '更新日時';
+comment on column tests.trans_return_detail.update_user_id is '更新者ID';
+comment on column tests.trans_return_detail.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_return_detail.remove is '削除';
+comment on table tests.trans_return is '返却';
+comment on column tests.trans_return.trans_return_id is '返却ID';
+comment on column tests.trans_return.code is '返却コード';
+comment on column tests.trans_return.return_kind_history_id is '入出庫判定区分履歴ID';
+comment on column tests.trans_return.return_kind_id is '入出庫判定区分ID';
+comment on column tests.trans_return.return_at is '返却日';
+comment on column tests.trans_return.stakeholder_history_id is '利害関係者履歴ID';
+comment on column tests.trans_return.stakeholder_id is '利害関係者ID';
+comment on column tests.trans_return.trans_order_id is '受注ID';
+comment on column tests.trans_return.trans_purchase_id is '発注ID';
+comment on column tests.trans_return.trans_plan_change_id is '起因の計画変更ID';
+comment on column tests.trans_return.trans_complaint_id is '起因の異常ID';
+comment on column tests.trans_return.reason is '理由';
+comment on column tests.trans_return.staff_history_id is '担当者履歴ID';
+comment on column tests.trans_return.staff_id is '担当者ID';
+comment on column tests.trans_return.symbol is 'リニアシンボル';
+comment on column tests.trans_return.remarks is '備考';
+comment on column tests.trans_return.update_at is '更新日時';
+comment on column tests.trans_return.update_user_id is '更新者ID';
+comment on column tests.trans_return.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_return.remove is '削除';
+comment on table tests.trans_order_detail_settlement is '受注詳細決済';
+comment on column tests.trans_order_detail_settlement.trans_order_detail_settlement_id is '受注詳細決済ID';
+comment on column tests.trans_order_detail_settlement.trans_order_detail_id is '受注明細ID';
+comment on column tests.trans_order_detail_settlement.settlement_kind_history_id is '決済区分履歴ID';
+comment on column tests.trans_order_detail_settlement.settlement_kind_id is '決済区分ID';
+comment on column tests.trans_order_detail_settlement.settle_at is '決済日時';
+comment on column tests.trans_order_detail_settlement.quantity is '対象数量';
+comment on column tests.trans_order_detail_settlement.amount is '精算額';
+comment on column tests.trans_order_detail_settlement.trans_plan_change_id is '起因の計画変更ID';
+comment on column tests.trans_order_detail_settlement.reason is '理由';
+comment on column tests.trans_order_detail_settlement.staff_history_id is '担当者履歴ID';
+comment on column tests.trans_order_detail_settlement.staff_id is '担当者ID';
+comment on column tests.trans_order_detail_settlement.symbol is 'リニアシンボル';
+comment on column tests.trans_order_detail_settlement.remarks is '備考';
+comment on column tests.trans_order_detail_settlement.update_at is '更新日時';
+comment on column tests.trans_order_detail_settlement.update_user_id is '更新者ID';
+comment on column tests.trans_order_detail_settlement.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_order_detail_settlement.remove is '削除';
+comment on table tests.trans_plan_change is '計画変更';
+comment on column tests.trans_plan_change.trans_plan_change_id is '計画変更ID';
+comment on column tests.trans_plan_change.parent_trans_plan_change_id is '起点の計画変更ID';
+comment on column tests.trans_plan_change.change_at is '変更日時';
+comment on column tests.trans_plan_change.trans_order_detail_id is '受注明細ID';
+comment on column tests.trans_plan_change.trans_purchase_detail_id is '発注明細ID';
+comment on column tests.trans_plan_change.trans_operations_plan_id is '生産計画ID';
+comment on column tests.trans_plan_change.trans_inventory_request_id is '引当予約ID';
+comment on column tests.trans_plan_change.trans_visiter_id is '棚ビジターID';
+comment on column tests.trans_plan_change.trans_shipping_order_detail_id is '出荷オーダー明細ID';
+comment on column tests.trans_plan_change.old_quantity is '変更前数量';
+comment on column tests.trans_plan_change.new_quantity is '変更後数量';
+comment on column tests.trans_plan_change.cancel_quantity is 'キャンセル数量';
+comment on column tests.trans_plan_change.old_date is '変更前日時';
+comment on column tests.trans_plan_change.new_date is '変更後日時';
+comment on column tests.trans_plan_change.old_stop is '変更前停止';
+comment on column tests.trans_plan_change.new_stop is '変更後停止';
+comment on column tests.trans_plan_change.discontinue is '打ち切り';
+comment on column tests.trans_plan_change.release is '解除';
+comment on column tests.trans_plan_change.hold is '保管';
+comment on column tests.trans_plan_change.scrap is '廃棄';
+comment on column tests.trans_plan_change.deliver is '引き渡し';
+comment on column tests.trans_plan_change.trans_container_id is '保管先コンテナID';
+comment on column tests.trans_plan_change.trans_order_detail_settlement_id is '受注明細精算ID';
+comment on column tests.trans_plan_change.change_reason_history_id is '変更理由履歴ID';
+comment on column tests.trans_plan_change.change_reason_id is '変更理由ID';
+comment on column tests.trans_plan_change.reason is '理由';
+comment on column tests.trans_plan_change.stakeholder_history_id is '申し出た利害関係者履歴ID';
+comment on column tests.trans_plan_change.stakeholder_id is '申し出た利害関係者ID';
+comment on column tests.trans_plan_change.staff_history_id is '担当者履歴ID';
+comment on column tests.trans_plan_change.staff_id is '担当者ID';
+comment on column tests.trans_plan_change.trans_mrp_suggestion_id is 'MRP提案ID';
+comment on column tests.trans_plan_change.reflected_trans_mrp_run_id is '反映したMRP実行ID';
+comment on column tests.trans_plan_change.symbol is 'リニアシンボル';
+comment on column tests.trans_plan_change.remarks is '備考';
+comment on column tests.trans_plan_change.update_at is '更新日時';
+comment on column tests.trans_plan_change.update_user_id is '更新者ID';
+comment on column tests.trans_plan_change.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_plan_change.remove is '削除';
+comment on table tests.history_mstr_settlement_kind is '決済区分マスタ履歴';
+comment on column tests.history_mstr_settlement_kind.history_id is '履歴ID';
+comment on column tests.history_mstr_settlement_kind.mstr_settlement_kind_id is '決済区分ID';
+comment on column tests.history_mstr_settlement_kind.code is '決済区分コード';
+comment on column tests.history_mstr_settlement_kind.names is '決済区分名称';
+comment on column tests.history_mstr_settlement_kind.delivery is '品物引渡有効';
+comment on column tests.history_mstr_settlement_kind.revision is 'レビジョン';
+comment on column tests.history_mstr_settlement_kind.symbol is 'リニアシンボル';
+comment on column tests.history_mstr_settlement_kind.remarks is '備考';
+comment on column tests.history_mstr_settlement_kind.update_at is '更新日時';
+comment on column tests.history_mstr_settlement_kind.update_user_id is '更新者ID';
+comment on column tests.history_mstr_settlement_kind.update_user_history_id is '更新者履歴ID';
+comment on column tests.history_mstr_settlement_kind.remove is '削除';
+comment on table tests.mstr_settlement_kind is '決済区分マスタ';
+comment on column tests.mstr_settlement_kind.mstr_settlement_kind_id is '決済区分ID';
+comment on column tests.mstr_settlement_kind.code is '決済区分コード';
+comment on column tests.mstr_settlement_kind.names is '決済区分名称';
+comment on column tests.mstr_settlement_kind.delivery is '品物引渡有効';
+comment on column tests.mstr_settlement_kind.revision is 'レビジョン';
+comment on column tests.mstr_settlement_kind.symbol is 'リニアシンボル';
+comment on column tests.mstr_settlement_kind.remarks is '備考';
+comment on column tests.mstr_settlement_kind.update_at is '更新日時';
+comment on column tests.mstr_settlement_kind.update_user_id is '更新者ID';
+comment on column tests.mstr_settlement_kind.update_user_history_id is '更新者履歴ID';
+comment on column tests.mstr_settlement_kind.remove is '削除';
+comment on table tests.history_mstr_return_kind is '入出庫判定区分マスタ履歴';
+comment on column tests.history_mstr_return_kind.history_id is '履歴ID';
+comment on column tests.history_mstr_return_kind.mstr_return_kind_id is '入出庫判定区分ID';
+comment on column tests.history_mstr_return_kind.code is '入出庫判定区分コード';
+comment on column tests.history_mstr_return_kind.names is '入出庫判定区分名称';
+comment on column tests.history_mstr_return_kind.receive is '入庫';
+comment on column tests.history_mstr_return_kind.revision is 'レビジョン';
+comment on column tests.history_mstr_return_kind.symbol is 'リニアシンボル';
+comment on column tests.history_mstr_return_kind.remarks is '備考';
+comment on column tests.history_mstr_return_kind.update_at is '更新日時';
+comment on column tests.history_mstr_return_kind.update_user_id is '更新者ID';
+comment on column tests.history_mstr_return_kind.update_user_history_id is '更新者履歴ID';
+comment on column tests.history_mstr_return_kind.remove is '削除';
+comment on table tests.mstr_return_kind is '入出庫判定区分マスタ';
+comment on column tests.mstr_return_kind.mstr_return_kind_id is '入出庫判定区分ID';
+comment on column tests.mstr_return_kind.code is '入出庫判定区分コード';
+comment on column tests.mstr_return_kind.names is '入出庫判定区分名称';
+comment on column tests.mstr_return_kind.receive is '入庫';
+comment on column tests.mstr_return_kind.revision is 'レビジョン';
+comment on column tests.mstr_return_kind.symbol is 'リニアシンボル';
+comment on column tests.mstr_return_kind.remarks is '備考';
+comment on column tests.mstr_return_kind.update_at is '更新日時';
+comment on column tests.mstr_return_kind.update_user_id is '更新者ID';
+comment on column tests.mstr_return_kind.update_user_history_id is '更新者履歴ID';
+comment on column tests.mstr_return_kind.remove is '削除';
+comment on table tests.history_mstr_change_reason is '変更理由マスタ履歴';
+comment on column tests.history_mstr_change_reason.history_id is '履歴ID';
+comment on column tests.history_mstr_change_reason.mstr_change_reason_id is '変更理由ID';
+comment on column tests.history_mstr_change_reason.code is '変更理由コード';
+comment on column tests.history_mstr_change_reason.names is '変更理由名称';
+comment on column tests.history_mstr_change_reason.customer_cause is '顧客起因';
+comment on column tests.history_mstr_change_reason.supplier_cause is '仕入先・外注先起因';
+comment on column tests.history_mstr_change_reason.quality_cause is '品質起因';
+comment on column tests.history_mstr_change_reason.revision is 'レビジョン';
+comment on column tests.history_mstr_change_reason.symbol is 'リニアシンボル';
+comment on column tests.history_mstr_change_reason.remarks is '備考';
+comment on column tests.history_mstr_change_reason.update_at is '更新日時';
+comment on column tests.history_mstr_change_reason.update_user_id is '更新者ID';
+comment on column tests.history_mstr_change_reason.update_user_history_id is '更新者履歴ID';
+comment on column tests.history_mstr_change_reason.remove is '削除';
+comment on table tests.mstr_change_reason is '変更理由マスタ';
+comment on column tests.mstr_change_reason.mstr_change_reason_id is '変更理由ID';
+comment on column tests.mstr_change_reason.code is '変更理由コード';
+comment on column tests.mstr_change_reason.names is '変更理由名称';
+comment on column tests.mstr_change_reason.customer_cause is '顧客起因';
+comment on column tests.mstr_change_reason.supplier_cause is '仕入先・外注先起因';
+comment on column tests.mstr_change_reason.quality_cause is '品質起因';
+comment on column tests.mstr_change_reason.revision is 'レビジョン';
+comment on column tests.mstr_change_reason.symbol is 'リニアシンボル';
+comment on column tests.mstr_change_reason.remarks is '備考';
+comment on column tests.mstr_change_reason.update_at is '更新日時';
+comment on column tests.mstr_change_reason.update_user_id is '更新者ID';
+comment on column tests.mstr_change_reason.update_user_history_id is '更新者履歴ID';
+comment on column tests.mstr_change_reason.remove is '削除';
 comment on table tests.history_info_department_access_path is '部署アクセスパス履歴';
 comment on column tests.history_info_department_access_path.history_id is '履歴ID';
 comment on column tests.history_info_department_access_path.info_department_access_path_id is '部署アクセスパスID';
@@ -6369,8 +6910,10 @@ comment on column tests.trans_purchase_detail.fixed_price is '確定単価';
 comment on column tests.trans_purchase_detail.period is '納期';
 comment on column tests.trans_purchase_detail.item_history_id is '品目履歴ID';
 comment on column tests.trans_purchase_detail.item_id is '品目ID';
-comment on column tests.trans_purchase_detail.material_supply  is '資材支給区分';
+comment on column tests.trans_purchase_detail.material_supply is '資材支給区分';
 comment on column tests.trans_purchase_detail.paid_supply is '有償支給区分';
+comment on column tests.trans_purchase_detail.cancel_quantity is 'キャンセル数量';
+comment on column tests.trans_purchase_detail.stop is '停止';
 comment on column tests.trans_purchase_detail.symbol is 'リニアシンボル';
 comment on column tests.trans_purchase_detail.remarks is '備考';
 comment on column tests.trans_purchase_detail.update_at is '更新日時';
@@ -6388,6 +6931,9 @@ comment on column tests.trans_order_detail.price_adjustment is '価格調整';
 comment on column tests.trans_order_detail.fixed_price is '確定単価';
 comment on column tests.trans_order_detail.delivery_date is '個別納期';
 comment on column tests.trans_order_detail.deadline is '個別完了期限';
+comment on column tests.trans_order_detail.cancel_quantity is 'キャンセル数量';
+comment on column tests.trans_order_detail.stop is '停止';
+comment on column tests.trans_order_detail.customer_property is '製品顧客所有';
 comment on column tests.trans_order_detail.symbol is 'リニアシンボル';
 comment on column tests.trans_order_detail.remarks is '備考';
 comment on column tests.trans_order_detail.update_at is '更新日時';
@@ -6459,12 +7005,12 @@ comment on column tests.trans_work_plan.sequence is '工程順';
 comment on column tests.trans_work_plan.interval_plan is '予定作業時間';
 comment on column tests.trans_work_plan.start_at is '開始予定';
 comment on column tests.trans_work_plan.completion_at is '完了予定';
-comment on column tests.trans_work_plan.symbol is 'リニアシンボル';
 comment on column tests.trans_work_plan.mstr_equipment_available_history_id is '利用可能設備履歴ID';
 comment on column tests.trans_work_plan.mstr_equipment_available_id is '利用可能設備ID';
 comment on column tests.trans_work_plan.mstr_outsource_available_history_id is '履歴ID';
 comment on column tests.trans_work_plan.mstr_outsource_available_id is '利用可能外部ID';
 comment on column tests.trans_work_plan.trans_purchase_detail_id is '発注明細ID';
+comment on column tests.trans_work_plan.symbol is 'リニアシンボル';
 comment on column tests.trans_work_plan.remarks is '備考';
 comment on column tests.trans_work_plan.update_at is '更新日時';
 comment on column tests.trans_work_plan.update_user_id is '更新者ID';
@@ -6475,6 +7021,8 @@ comment on column tests.trans_operations_plan.trans_operations_plan_id is '生�
 comment on column tests.trans_operations_plan.trans_resource_plan_id is '資材計画ID';
 comment on column tests.trans_operations_plan.deadline is '完了期限';
 comment on column tests.trans_operations_plan.quantity is '生産数量';
+comment on column tests.trans_operations_plan.stop is '停止';
+comment on column tests.trans_operations_plan.discontinue is '打ち切り';
 comment on column tests.trans_operations_plan.symbol is 'リニアシンボル';
 comment on column tests.trans_operations_plan.remarks is '備考';
 comment on column tests.trans_operations_plan.update_at is '更新日時';
@@ -6809,7 +7357,105 @@ comment on column tests.info_office.update_at is '更新日時';
 comment on column tests.info_office.update_user_id is '更新者ID';
 comment on column tests.info_office.update_user_history_id is '更新者履歴ID';
 comment on column tests.info_office.remove is '削除';
---242.add table primary key and index
+--258.add table primary key and index
+create unique index trans_visiter_owner_PKI
+    on tests.trans_visiter_owner(trans_visiter_owner_id);
+alter table tests.trans_visiter_owner
+    add constraint trans_visiter_owner_PKC primary key (trans_visiter_owner_id);
+alter table tests.trans_visiter_owner
+     add constraint trans_visiter_owner_IX1 unique  (trans_visiter_id);
+alter table tests.trans_visiter_owner
+     add constraint trans_visiter_owner_IX2 unique  (symbol);
+create unique index trans_complaint_supply_PKI
+    on tests.trans_complaint_supply(trans_complaint_supply_id);
+alter table tests.trans_complaint_supply
+    add constraint trans_complaint_supply_PKC primary key (trans_complaint_supply_id);
+alter table tests.trans_complaint_supply
+     add constraint trans_complaint_supply_IX1 unique  (symbol);
+create unique index trans_supply_visiter_PKI
+    on tests.trans_supply_visiter(trans_supply_visiter_id);
+alter table tests.trans_supply_visiter
+    add constraint trans_supply_visiter_PKC primary key (trans_supply_visiter_id);
+alter table tests.trans_supply_visiter
+     add constraint trans_supply_visiter_IX1 unique  (symbol);
+create unique index trans_supply_detail_PKI
+    on tests.trans_supply_detail(trans_supply_detail_id);
+alter table tests.trans_supply_detail
+    add constraint trans_supply_detail_PKC primary key (trans_supply_detail_id);
+alter table tests.trans_supply_detail
+     add constraint trans_supply_detail_IX1 unique  (symbol);
+create unique index trans_supply_PKI
+    on tests.trans_supply(trans_supply_id);
+alter table tests.trans_supply
+    add constraint trans_supply_PKC primary key (trans_supply_id);
+alter table tests.trans_supply
+     add constraint trans_supply_IX1 unique  (symbol);
+create unique index trans_return_visiter_PKI
+    on tests.trans_return_visiter(trans_return_visiter_id);
+alter table tests.trans_return_visiter
+    add constraint trans_return_visiter_PKC primary key (trans_return_visiter_id);
+alter table tests.trans_return_visiter
+     add constraint trans_return_visiter_IX1 unique  (symbol);
+create unique index trans_return_detail_PKI
+    on tests.trans_return_detail(trans_return_detail_id);
+alter table tests.trans_return_detail
+    add constraint trans_return_detail_PKC primary key (trans_return_detail_id);
+alter table tests.trans_return_detail
+     add constraint trans_return_detail_IX1 unique  (symbol);
+create unique index trans_return_PKI
+    on tests.trans_return(trans_return_id);
+alter table tests.trans_return
+    add constraint trans_return_PKC primary key (trans_return_id);
+alter table tests.trans_return
+     add constraint trans_return_IX1 unique  (symbol);
+create unique index trans_order_detail_settlement_PKI
+    on tests.trans_order_detail_settlement(trans_order_detail_settlement_id);
+alter table tests.trans_order_detail_settlement
+    add constraint trans_order_detail_settlement_PKC primary key (trans_order_detail_settlement_id);
+alter table tests.trans_order_detail_settlement
+     add constraint trans_order_detail_settlement_IX1 unique  (symbol);
+create unique index trans_plan_change_PKI
+    on tests.trans_plan_change(trans_plan_change_id);
+alter table tests.trans_plan_change
+    add constraint trans_plan_change_PKC primary key (trans_plan_change_id);
+alter table tests.trans_plan_change
+     add constraint trans_plan_change_IX1 unique  (symbol);
+create unique index history_mstr_settlement_kind_PKI
+    on tests.history_mstr_settlement_kind(history_id,mstr_settlement_kind_id);
+alter table tests.history_mstr_settlement_kind
+    add constraint history_mstr_settlement_kind_PKC primary key (history_id,mstr_settlement_kind_id);
+alter table tests.history_mstr_settlement_kind
+     add constraint history_mstr_settlement_kind_IX1 unique  (mstr_settlement_kind_id,revision);
+create unique index mstr_settlement_kind_PKI
+    on tests.mstr_settlement_kind(mstr_settlement_kind_id);
+alter table tests.mstr_settlement_kind
+    add constraint mstr_settlement_kind_PKC primary key (mstr_settlement_kind_id);
+alter table tests.mstr_settlement_kind
+     add constraint mstr_settlement_kind_IX1 unique  (symbol);
+create unique index history_mstr_return_kind_PKI
+    on tests.history_mstr_return_kind(history_id,mstr_return_kind_id);
+alter table tests.history_mstr_return_kind
+    add constraint history_mstr_return_kind_PKC primary key (history_id,mstr_return_kind_id);
+alter table tests.history_mstr_return_kind
+     add constraint history_mstr_return_kind_IX1 unique  (mstr_return_kind_id,revision);
+create unique index mstr_return_kind_PKI
+    on tests.mstr_return_kind(mstr_return_kind_id);
+alter table tests.mstr_return_kind
+    add constraint mstr_return_kind_PKC primary key (mstr_return_kind_id);
+alter table tests.mstr_return_kind
+     add constraint mstr_return_kind_IX1 unique  (symbol);
+create unique index history_mstr_change_reason_PKI
+    on tests.history_mstr_change_reason(history_id,mstr_change_reason_id);
+alter table tests.history_mstr_change_reason
+    add constraint history_mstr_change_reason_PKC primary key (history_id,mstr_change_reason_id);
+alter table tests.history_mstr_change_reason
+     add constraint history_mstr_change_reason_IX1 unique  (mstr_change_reason_id,revision);
+create unique index mstr_change_reason_PKI
+    on tests.mstr_change_reason(mstr_change_reason_id);
+alter table tests.mstr_change_reason
+    add constraint mstr_change_reason_PKC primary key (mstr_change_reason_id);
+alter table tests.mstr_change_reason
+     add constraint mstr_change_reason_IX1 unique  (symbol);
 create unique index history_info_department_access_path_PKI
     on tests.history_info_department_access_path(history_id,info_department_access_path_id);
 alter table tests.history_info_department_access_path
@@ -8297,7 +8943,80 @@ alter table tests.info_office
     add constraint info_office_PKC primary key (info_office_id);
 alter table tests.info_office
      add constraint info_office_IX1 unique  (symbol);
---242.add table foreign key
+--258.add table foreign key
+alter table tests.trans_visiter_owner add constraint trans_visiter_owner_FK1 foreign key (trans_order_detail_id) references tests.trans_order_detail (trans_order_detail_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_visiter_owner add constraint trans_visiter_owner_FK2 foreign key (trans_supply_detail_id) references tests.trans_supply_detail (trans_supply_detail_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_visiter_owner add constraint trans_visiter_owner_FK3 foreign key (owner_stakeholder_history_id,owner_stakeholder_id) references tests.history_mstr_stakeholder (history_id,mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_visiter_owner add constraint trans_visiter_owner_FK4 foreign key (trans_visiter_id) references tests.trans_visiter (trans_visiter_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_visiter_owner add constraint trans_visiter_owner_FK5 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_supply add constraint trans_complaint_supply_FK1 foreign key (trans_supply_detail_id) references tests.trans_supply_detail (trans_supply_detail_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_supply add constraint trans_complaint_supply_FK2 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_supply add constraint trans_complaint_supply_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_supply_visiter add constraint trans_supply_visiter_FK1 foreign key (trans_visiter_id) references tests.trans_visiter (trans_visiter_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_supply_visiter add constraint trans_supply_visiter_FK2 foreign key (trans_supply_detail_id) references tests.trans_supply_detail (trans_supply_detail_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_supply_visiter add constraint trans_supply_visiter_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_supply_detail add constraint trans_supply_detail_FK1 foreign key (trans_resource_plan_id) references tests.trans_resource_plan (trans_resource_plan_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_supply_detail add constraint trans_supply_detail_FK2 foreign key (trans_purchase_detail_id) references tests.trans_purchase_detail (trans_purchase_detail_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_supply_detail add constraint trans_supply_detail_FK3 foreign key (trans_order_detail_id) references tests.trans_order_detail (trans_order_detail_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_supply_detail add constraint trans_supply_detail_FK4 foreign key (item_history_id,item_id) references tests.history_mstr_item (history_id,mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_supply_detail add constraint trans_supply_detail_FK5 foreign key (trans_supply_id) references tests.trans_supply (trans_supply_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_supply_detail add constraint trans_supply_detail_FK6 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_supply add constraint trans_supply_FK1 foreign key (staff_history_id,staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_supply add constraint trans_supply_FK2 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_supply add constraint trans_supply_FK3 foreign key (trans_plan_change_id) references tests.trans_plan_change (trans_plan_change_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_supply add constraint trans_supply_FK4 foreign key (trans_purchase_id) references tests.trans_purchase (trans_purchase_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_supply add constraint trans_supply_FK5 foreign key (trans_order_id) references tests.trans_order (trans_order_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_supply add constraint trans_supply_FK6 foreign key (stakeholder_history_id,stakeholder_id) references tests.history_mstr_stakeholder (history_id,mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_supply add constraint trans_supply_FK7 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return_visiter add constraint trans_return_visiter_FK1 foreign key (trans_visiter_id) references tests.trans_visiter (trans_visiter_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return_visiter add constraint trans_return_visiter_FK2 foreign key (trans_return_detail_id) references tests.trans_return_detail (trans_return_detail_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return_visiter add constraint trans_return_visiter_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return_detail add constraint trans_return_detail_FK1 foreign key (origin_trans_visiter_id) references tests.trans_visiter (trans_visiter_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return_detail add constraint trans_return_detail_FK2 foreign key (trans_purchase_rec_id) references tests.trans_purchase_rec (trans_purchase_rec_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return_detail add constraint trans_return_detail_FK3 foreign key (trans_purchase_detail_id) references tests.trans_purchase_detail (trans_purchase_detail_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return_detail add constraint trans_return_detail_FK4 foreign key (trans_shipping_order_detail_record_id) references tests.trans_shipping_order_detail_record (trans_shipping_order_detail_record_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return_detail add constraint trans_return_detail_FK5 foreign key (trans_order_detail_id) references tests.trans_order_detail (trans_order_detail_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return_detail add constraint trans_return_detail_FK6 foreign key (item_history_id,item_id) references tests.history_mstr_item (history_id,mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return_detail add constraint trans_return_detail_FK7 foreign key (trans_return_id) references tests.trans_return (trans_return_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return_detail add constraint trans_return_detail_FK8 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return add constraint trans_return_FK1 foreign key (staff_history_id,staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return add constraint trans_return_FK2 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return add constraint trans_return_FK3 foreign key (trans_plan_change_id) references tests.trans_plan_change (trans_plan_change_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return add constraint trans_return_FK4 foreign key (trans_purchase_id) references tests.trans_purchase (trans_purchase_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return add constraint trans_return_FK5 foreign key (trans_order_id) references tests.trans_order (trans_order_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return add constraint trans_return_FK6 foreign key (stakeholder_history_id,stakeholder_id) references tests.history_mstr_stakeholder (history_id,mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return add constraint trans_return_FK7 foreign key (return_kind_history_id,return_kind_id) references tests.history_mstr_return_kind (history_id,mstr_return_kind_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_return add constraint trans_return_FK8 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_order_detail_settlement add constraint trans_order_detail_settlement_FK1 foreign key (staff_history_id,staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_order_detail_settlement add constraint trans_order_detail_settlement_FK2 foreign key (trans_plan_change_id) references tests.trans_plan_change (trans_plan_change_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_order_detail_settlement add constraint trans_order_detail_settlement_FK3 foreign key (settlement_kind_history_id,settlement_kind_id) references tests.history_mstr_settlement_kind (history_id,mstr_settlement_kind_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_order_detail_settlement add constraint trans_order_detail_settlement_FK4 foreign key (trans_order_detail_id) references tests.trans_order_detail (trans_order_detail_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_order_detail_settlement add constraint trans_order_detail_settlement_FK5 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_plan_change add constraint trans_plan_change_FK1 foreign key (staff_history_id,staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_plan_change add constraint trans_plan_change_FK2 foreign key (stakeholder_history_id,stakeholder_id) references tests.history_mstr_stakeholder (history_id,mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_plan_change add constraint trans_plan_change_FK3 foreign key (change_reason_history_id,change_reason_id) references tests.history_mstr_change_reason (history_id,mstr_change_reason_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_plan_change add constraint trans_plan_change_FK4 foreign key (trans_order_detail_settlement_id) references tests.trans_order_detail_settlement (trans_order_detail_settlement_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_plan_change add constraint trans_plan_change_FK5 foreign key (trans_container_id) references tests.trans_container (trans_container_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_plan_change add constraint trans_plan_change_FK6 foreign key (trans_shipping_order_detail_id) references tests.trans_shipping_order_detail (trans_shipping_order_detail_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_plan_change add constraint trans_plan_change_FK7 foreign key (trans_visiter_id) references tests.trans_visiter (trans_visiter_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_plan_change add constraint trans_plan_change_FK8 foreign key (trans_inventory_request_id) references tests.trans_inventory_request (trans_inventory_request_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_plan_change add constraint trans_plan_change_FK9 foreign key (trans_operations_plan_id) references tests.trans_operations_plan (trans_operations_plan_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_plan_change add constraint trans_plan_change_FK10 foreign key (trans_purchase_detail_id) references tests.trans_purchase_detail (trans_purchase_detail_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_plan_change add constraint trans_plan_change_FK11 foreign key (trans_order_detail_id) references tests.trans_order_detail (trans_order_detail_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_plan_change add constraint trans_plan_change_FK12 foreign key (parent_trans_plan_change_id) references tests.trans_plan_change (trans_plan_change_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_plan_change add constraint trans_plan_change_FK13 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_settlement_kind add constraint history_mstr_settlement_kind_FK1 foreign key (mstr_settlement_kind_id) references tests.mstr_settlement_kind (mstr_settlement_kind_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_settlement_kind add constraint history_mstr_settlement_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_settlement_kind add constraint mstr_settlement_kind_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_settlement_kind add constraint mstr_settlement_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_return_kind add constraint history_mstr_return_kind_FK1 foreign key (mstr_return_kind_id) references tests.mstr_return_kind (mstr_return_kind_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_return_kind add constraint history_mstr_return_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_return_kind add constraint mstr_return_kind_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_return_kind add constraint mstr_return_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_change_reason add constraint history_mstr_change_reason_FK1 foreign key (mstr_change_reason_id) references tests.mstr_change_reason (mstr_change_reason_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_change_reason add constraint history_mstr_change_reason_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_change_reason add constraint mstr_change_reason_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_change_reason add constraint mstr_change_reason_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_department_access_path add constraint history_info_department_access_path_FK1 foreign key (info_department_access_path_id) references tests.info_department_access_path (info_department_access_path_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_department_access_path add constraint history_info_department_access_path_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_complaint_visiter add constraint trans_complaint_visiter_FK1 foreign key (release_staff_history_id,release_staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8981,7 +9700,612 @@ alter table tests.info_office add constraint info_office_FK1 foreign key (names)
 alter table tests.info_office add constraint info_office_FK2 foreign key (info_company_id) references tests.info_company (info_company_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK3 foreign key (info_address_id) references tests.info_address (info_address_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
---242.add table trigger
+--258.add table trigger
+-- trans_visiter_owner update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_visiter_owner() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_visiter_owner_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_visiter_owner BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_visiter_owner FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_visiter_owner();
+
+
+CREATE TRIGGER trg_04_symbol_trans_visiter_owner BEFORE INSERT ON tests.trans_visiter_owner FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_complaint_supply update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_supply() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_complaint_supply_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_complaint_supply BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_supply FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_complaint_supply();
+
+
+CREATE TRIGGER trg_04_symbol_trans_complaint_supply BEFORE INSERT ON tests.trans_complaint_supply FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_supply_visiter update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_supply_visiter() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_supply_visiter_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_supply_visiter BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_supply_visiter FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_supply_visiter();
+
+
+CREATE TRIGGER trg_04_symbol_trans_supply_visiter BEFORE INSERT ON tests.trans_supply_visiter FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_supply_detail update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_supply_detail() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_supply_detail_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_supply_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_supply_detail FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_supply_detail();
+
+
+CREATE TRIGGER trg_04_symbol_trans_supply_detail BEFORE INSERT ON tests.trans_supply_detail FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_supply update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_supply() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_supply_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_supply BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_supply FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_supply();
+
+
+CREATE TRIGGER trg_04_symbol_trans_supply BEFORE INSERT ON tests.trans_supply FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_return_visiter update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_return_visiter() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_return_visiter_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_return_visiter BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_return_visiter FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_return_visiter();
+
+
+CREATE TRIGGER trg_04_symbol_trans_return_visiter BEFORE INSERT ON tests.trans_return_visiter FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_return_detail update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_return_detail() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_return_detail_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_return_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_return_detail FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_return_detail();
+
+
+CREATE TRIGGER trg_04_symbol_trans_return_detail BEFORE INSERT ON tests.trans_return_detail FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_return update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_return() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_return_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_return BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_return FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_return();
+
+
+CREATE TRIGGER trg_04_symbol_trans_return BEFORE INSERT ON tests.trans_return FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_order_detail_settlement update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_order_detail_settlement() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_order_detail_settlement_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_order_detail_settlement BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_order_detail_settlement FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_order_detail_settlement();
+
+
+CREATE TRIGGER trg_04_symbol_trans_order_detail_settlement BEFORE INSERT ON tests.trans_order_detail_settlement FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_plan_change update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_plan_change() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_plan_change_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_plan_change BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_plan_change FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_plan_change();
+
+
+CREATE TRIGGER trg_04_symbol_trans_plan_change BEFORE INSERT ON tests.trans_plan_change FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- history_mstr_settlement_kind update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_settlement_kind() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.history_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_history_mstr_settlement_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_settlement_kind FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_history_mstr_settlement_kind();
+
+
+CREATE TRIGGER trg_04_symbol_history_mstr_settlement_kind BEFORE INSERT ON tests.history_mstr_settlement_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_settlement_kind update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_settlement_kind() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.mstr_settlement_kind_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_mstr_settlement_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_settlement_kind FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_mstr_settlement_kind();
+
+
+CREATE TRIGGER trg_04_symbol_mstr_settlement_kind BEFORE INSERT ON tests.mstr_settlement_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_settlement_kind history trigger
+CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_settlement_kind() RETURNS trigger AS
+$BODY$
+DECLARE
+    revisions int;
+BEGIN
+    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
+        SELECT Max(revision) INTO revisions FROM tests.history_mstr_settlement_kind WHERE mstr_settlement_kind_id=NEW.mstr_settlement_kind_id;
+        IF (revisions >= 0) THEN
+            IF (
+                NEW.mstr_settlement_kind_id,
+                NEW.code,
+                NEW.names,
+                NEW.delivery,
+                NEW.symbol,
+                NEW.remarks,
+                NEW.remove
+            ) IS NOT DISTINCT FROM (
+                OLD.mstr_settlement_kind_id,
+                OLD.code,
+                OLD.names,
+                OLD.delivery,
+                OLD.symbol,
+                OLD.remarks,
+                OLD.remove
+            )
+            THEN
+                RETURN NULL;
+            END IF;
+            NEW.revision := revisions + 1;
+        ELSE
+            NEW.revision := 1;
+        END IF;
+        INSERT INTO tests.history_mstr_settlement_kind (
+            mstr_settlement_kind_id,
+            code,
+            names,
+            delivery,
+            revision,
+            symbol,
+            remarks,
+            update_at,
+            update_user_id,
+            update_user_history_id,
+            remove
+        )
+        VALUES
+        (
+            NEW.mstr_settlement_kind_id,
+            NEW.code,
+            NEW.names,
+            NEW.delivery,
+            NEW.revision,
+            NEW.symbol,
+            NEW.remarks,
+            NEW.update_at,
+            NEW.update_user_id,
+            NEW.update_user_history_id,
+            NEW.remove
+        );
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_02_history_mstr_settlement_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_settlement_kind FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_02_history_mstr_settlement_kind();
+
+
+-- history_mstr_return_kind update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_return_kind() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.history_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_history_mstr_return_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_return_kind FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_history_mstr_return_kind();
+
+
+CREATE TRIGGER trg_04_symbol_history_mstr_return_kind BEFORE INSERT ON tests.history_mstr_return_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_return_kind update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_return_kind() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.mstr_return_kind_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_mstr_return_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_return_kind FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_mstr_return_kind();
+
+
+CREATE TRIGGER trg_04_symbol_mstr_return_kind BEFORE INSERT ON tests.mstr_return_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_return_kind history trigger
+CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_return_kind() RETURNS trigger AS
+$BODY$
+DECLARE
+    revisions int;
+BEGIN
+    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
+        SELECT Max(revision) INTO revisions FROM tests.history_mstr_return_kind WHERE mstr_return_kind_id=NEW.mstr_return_kind_id;
+        IF (revisions >= 0) THEN
+            IF (
+                NEW.mstr_return_kind_id,
+                NEW.code,
+                NEW.names,
+                NEW.receive,
+                NEW.symbol,
+                NEW.remarks,
+                NEW.remove
+            ) IS NOT DISTINCT FROM (
+                OLD.mstr_return_kind_id,
+                OLD.code,
+                OLD.names,
+                OLD.receive,
+                OLD.symbol,
+                OLD.remarks,
+                OLD.remove
+            )
+            THEN
+                RETURN NULL;
+            END IF;
+            NEW.revision := revisions + 1;
+        ELSE
+            NEW.revision := 1;
+        END IF;
+        INSERT INTO tests.history_mstr_return_kind (
+            mstr_return_kind_id,
+            code,
+            names,
+            receive,
+            revision,
+            symbol,
+            remarks,
+            update_at,
+            update_user_id,
+            update_user_history_id,
+            remove
+        )
+        VALUES
+        (
+            NEW.mstr_return_kind_id,
+            NEW.code,
+            NEW.names,
+            NEW.receive,
+            NEW.revision,
+            NEW.symbol,
+            NEW.remarks,
+            NEW.update_at,
+            NEW.update_user_id,
+            NEW.update_user_history_id,
+            NEW.remove
+        );
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_02_history_mstr_return_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_return_kind FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_02_history_mstr_return_kind();
+
+
+-- history_mstr_change_reason update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_change_reason() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.history_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_history_mstr_change_reason BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_change_reason FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_history_mstr_change_reason();
+
+
+CREATE TRIGGER trg_04_symbol_history_mstr_change_reason BEFORE INSERT ON tests.history_mstr_change_reason FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_change_reason update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_change_reason() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.mstr_change_reason_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_mstr_change_reason BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_change_reason FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_mstr_change_reason();
+
+
+CREATE TRIGGER trg_04_symbol_mstr_change_reason BEFORE INSERT ON tests.mstr_change_reason FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_change_reason history trigger
+CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_change_reason() RETURNS trigger AS
+$BODY$
+DECLARE
+    revisions int;
+BEGIN
+    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
+        SELECT Max(revision) INTO revisions FROM tests.history_mstr_change_reason WHERE mstr_change_reason_id=NEW.mstr_change_reason_id;
+        IF (revisions >= 0) THEN
+            IF (
+                NEW.mstr_change_reason_id,
+                NEW.code,
+                NEW.names,
+                NEW.customer_cause,
+                NEW.supplier_cause,
+                NEW.quality_cause,
+                NEW.symbol,
+                NEW.remarks,
+                NEW.remove
+            ) IS NOT DISTINCT FROM (
+                OLD.mstr_change_reason_id,
+                OLD.code,
+                OLD.names,
+                OLD.customer_cause,
+                OLD.supplier_cause,
+                OLD.quality_cause,
+                OLD.symbol,
+                OLD.remarks,
+                OLD.remove
+            )
+            THEN
+                RETURN NULL;
+            END IF;
+            NEW.revision := revisions + 1;
+        ELSE
+            NEW.revision := 1;
+        END IF;
+        INSERT INTO tests.history_mstr_change_reason (
+            mstr_change_reason_id,
+            code,
+            names,
+            customer_cause,
+            supplier_cause,
+            quality_cause,
+            revision,
+            symbol,
+            remarks,
+            update_at,
+            update_user_id,
+            update_user_history_id,
+            remove
+        )
+        VALUES
+        (
+            NEW.mstr_change_reason_id,
+            NEW.code,
+            NEW.names,
+            NEW.customer_cause,
+            NEW.supplier_cause,
+            NEW.quality_cause,
+            NEW.revision,
+            NEW.symbol,
+            NEW.remarks,
+            NEW.update_at,
+            NEW.update_user_id,
+            NEW.update_user_history_id,
+            NEW.remove
+        );
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_02_history_mstr_change_reason BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_change_reason FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_02_history_mstr_change_reason();
+
+
 -- history_info_department_access_path update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_department_access_path() RETURNS trigger AS
 $BODY$
@@ -21984,7 +23308,129 @@ LANGUAGE plpgsql VOLATILE;
 CREATE OR REPLACE TRIGGER trg_03_hierarchy_mstr_location_tree AFTER INSERT OR UPDATE OR DELETE ON tests.mstr_location_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_03_hierarchy_mstr_location_tree();
 
---158.create view
+--163.create view
+
+drop view if exists tests.v_plan_change_unreflected;
+create view  tests.v_plan_change_unreflected as
+-- MRP 未反映の計画変更  claude/131
+-- 受注明細・発注明細・生産計画の変更で、MRP の提案から作られたものでなく(trans_mrp_suggestion_id が NULL)、
+-- まだ反映した MRP 実行が無いもの(reflected_trans_mrp_run_id が NULL)。
+-- 生産計画の変更は、その生産計画の受注明細にも数える (受注明細一覧のバッジ用)
+SELECT
+    pc.trans_plan_change_id
+    , pc.symbol
+    , pc.change_at
+    , COALESCE(pc.trans_order_detail_id, op_od.trans_order_detail_id) AS trans_order_detail_id
+    , pc.trans_purchase_detail_id
+    , pc.trans_operations_plan_id
+    , pc.staff_id
+FROM tests.trans_plan_change AS pc
+LEFT JOIN LATERAL (
+    SELECT rp.trans_order_detail_id FROM tests.trans_operations_plan AS op
+    INNER JOIN tests.trans_resource_plan AS rp ON rp.trans_resource_plan_id = op.trans_resource_plan_id
+    WHERE op.trans_operations_plan_id = pc.trans_operations_plan_id
+) AS op_od ON TRUE
+WHERE pc.remove IS FALSE
+  AND pc.reflected_trans_mrp_run_id IS NULL
+  AND pc.trans_mrp_suggestion_id IS NULL
+  AND (pc.trans_order_detail_id IS NOT NULL OR pc.trans_purchase_detail_id IS NOT NULL OR pc.trans_operations_plan_id IS NOT NULL);
+
+-- Postgraphile additional comment.
+comment on view tests.v_plan_change_unreflected is E'@primaryKey trans_plan_change_id\n@unique symbol\n@foreignKey (trans_plan_change_id) references trans_plan_change (trans_plan_change_id)\n@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\n@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\n@foreignKey (trans_operations_plan_id) references trans_operations_plan (trans_operations_plan_id)\nMRP未反映の計画変更';
+
+drop view if exists tests.v_purchase_detail_balance;
+create view  tests.v_purchase_detail_balance as
+-- 発注明細の残 (MRP の供給の数え方)  claude/131
+-- remaining_quantity : 数量 − キャンセル数量 − 受入済み ＋ 代品ありの返品(仕入先・外注先への返品)
+-- open_quantity      : 停止中は 0
+-- is_outsource       : 外注加工 (生産計画明細から参照される発注明細)。品目の供給ではない
+-- 返品は入出庫判定区分マスタの receive = false (仕入先・外注先への返品) だけを数える
+SELECT
+    pd.trans_purchase_detail_id
+    , pd.symbol
+    , pd.trans_purchase_id
+    , pd.item_id
+    , pd.stop
+    , pd.material_supply
+    , pd.paid_supply
+    , EXISTS (SELECT 1 FROM tests.trans_work_plan AS wp
+              WHERE wp.trans_purchase_detail_id = pd.trans_purchase_detail_id AND wp.remove IS FALSE) AS is_outsource
+    , COALESCE(pd.quantity, 0) AS quantity
+    , pd.cancel_quantity
+    , COALESCE(rc.q, 0) AS received_quantity
+    , COALESCE(rt.q, 0) AS returned_quantity
+    , COALESCE(rt.q_rep, 0) AS replacement_quantity
+    , GREATEST(COALESCE(pd.quantity, 0) - pd.cancel_quantity - COALESCE(rc.q, 0) + COALESCE(rt.q_rep, 0), 0) AS remaining_quantity
+    , CASE WHEN pd.stop THEN 0
+           ELSE GREATEST(COALESCE(pd.quantity, 0) - pd.cancel_quantity - COALESCE(rc.q, 0) + COALESCE(rt.q_rep, 0), 0) END AS open_quantity
+    , (pd.cancel_quantity > 0
+       AND COALESCE(pd.quantity, 0) - pd.cancel_quantity - COALESCE(rc.q, 0) + COALESCE(rt.q_rep, 0) <= 0) AS cancel_closed
+FROM tests.trans_purchase_detail AS pd
+LEFT JOIN LATERAL (
+    SELECT SUM(r.quantity) AS q FROM tests.trans_purchase_rec AS r
+    WHERE r.trans_purchase_detail_id = pd.trans_purchase_detail_id AND r.remove IS FALSE
+) AS rc ON TRUE
+LEFT JOIN LATERAL (
+    SELECT SUM(d.quantity) AS q, SUM(d.quantity) FILTER (WHERE d.replacement) AS q_rep
+    FROM tests.trans_return_detail AS d
+    INNER JOIN tests.trans_return AS h ON h.trans_return_id = d.trans_return_id AND h.remove IS FALSE
+    INNER JOIN tests.mstr_return_kind AS k ON k.mstr_return_kind_id = h.return_kind_id AND k.receive IS FALSE
+    WHERE d.trans_purchase_detail_id = pd.trans_purchase_detail_id AND d.remove IS FALSE
+) AS rt ON TRUE
+WHERE pd.remove IS FALSE;
+
+-- Postgraphile additional comment.
+comment on view tests.v_purchase_detail_balance is E'@primaryKey trans_purchase_detail_id\n@unique symbol\n@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\n@foreignKey (trans_purchase_id) references trans_purchase (trans_purchase_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n発注明細の残';
+
+drop view if exists tests.v_order_detail_balance;
+create view  tests.v_order_detail_balance as
+-- 受注明細の残 (MRP の需要の数え方)  claude/131
+-- remaining_quantity : 数量 − キャンセル数量 − 出荷済み ＋ 代品ありの返品
+-- open_quantity      : 停止中は 0 (MRP は停止中の受注明細を凍結する)
+-- cancel_closed      : キャンセル数量 > 0 かつ 残 0 (全部キャンセル済み)
+-- settlement_amount  : 途中精算の合計 (受注金額に加える。精算1件 = 請求書1行)
+-- 返品は入出庫判定区分マスタの receive = true (顧客からの返品) だけを数える
+SELECT
+    od.trans_order_detail_id
+    , od.symbol
+    , od.trans_order_id
+    , od.item_id
+    , od.stop
+    , od.customer_property
+    , od.quantity
+    , od.cancel_quantity
+    , COALESCE(sh.q, 0) AS shipped_quantity
+    , COALESCE(rt.q, 0) AS returned_quantity
+    , COALESCE(rt.q_rep, 0) AS replacement_quantity
+    , GREATEST(od.quantity - od.cancel_quantity - COALESCE(sh.q, 0) + COALESCE(rt.q_rep, 0), 0) AS remaining_quantity
+    , CASE WHEN od.stop THEN 0
+           ELSE GREATEST(od.quantity - od.cancel_quantity - COALESCE(sh.q, 0) + COALESCE(rt.q_rep, 0), 0) END AS open_quantity
+    , (od.cancel_quantity > 0
+       AND od.quantity - od.cancel_quantity - COALESCE(sh.q, 0) + COALESCE(rt.q_rep, 0) <= 0) AS cancel_closed
+    , COALESCE(st.amount, 0) AS settlement_amount
+FROM tests.trans_order_detail AS od
+LEFT JOIN LATERAL (
+    SELECT SUM(r.shipping_quantity) AS q
+    FROM tests.trans_shipping_order_detail AS sd
+    INNER JOIN tests.trans_shipping_order_detail_record AS r
+        ON r.trans_shipping_order_detail_id = sd.trans_shipping_order_detail_id AND r.remove IS FALSE
+    WHERE sd.trans_order_detail_id = od.trans_order_detail_id AND sd.remove IS FALSE
+) AS sh ON TRUE
+LEFT JOIN LATERAL (
+    SELECT SUM(d.quantity) AS q, SUM(d.quantity) FILTER (WHERE d.replacement) AS q_rep
+    FROM tests.trans_return_detail AS d
+    INNER JOIN tests.trans_return AS h ON h.trans_return_id = d.trans_return_id AND h.remove IS FALSE
+    INNER JOIN tests.mstr_return_kind AS k ON k.mstr_return_kind_id = h.return_kind_id AND k.receive IS TRUE
+    WHERE d.trans_order_detail_id = od.trans_order_detail_id AND d.remove IS FALSE
+) AS rt ON TRUE
+LEFT JOIN LATERAL (
+    SELECT SUM(s.amount) AS amount FROM tests.trans_order_detail_settlement AS s
+    WHERE s.trans_order_detail_id = od.trans_order_detail_id AND s.remove IS FALSE
+) AS st ON TRUE
+WHERE od.remove IS FALSE;
+
+-- Postgraphile additional comment.
+comment on view tests.v_order_detail_balance is E'@primaryKey trans_order_detail_id\n@unique symbol\n@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\n@foreignKey (trans_order_id) references trans_order (trans_order_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n受注明細の残';
 
 drop view if exists tests.v_visiter_complaint_visiter_count;
 create view  tests.v_visiter_complaint_visiter_count as
@@ -22112,7 +23558,7 @@ comment on view tests.v_visiter_lot is E'@primaryKey trans_visiter_id\n@unique s
 drop view if exists tests.v_mrp_visiter_item;
 create view  tests.v_mrp_visiter_item as
 WITH og AS (
-    -- 品目は、自分または一番近い分割元の入庫のつなぎ(受入実績・作業実績)で決める
+    -- 品目は、自分または一番近い分割元の入庫のつなぎ(受入実績・作業実績・支給・返品)で決める
     SELECT lg.trans_visiter_id, lg.depth, pd.item_id, TRUE AS finished
     FROM tests.v_visiter_lineage AS lg
     INNER JOIN tests.trans_purchase_rec_visiter AS prv
@@ -22135,6 +23581,26 @@ WITH og AS (
     INNER JOIN tests.trans_work_plan AS wp ON wp.trans_work_plan_id = wr.trans_work_plan_id
     INNER JOIN tests.trans_operations_plan AS op ON op.trans_operations_plan_id = wp.trans_operations_plan_id
     INNER JOIN tests.trans_resource_plan AS rp ON rp.trans_resource_plan_id = op.trans_resource_plan_id
+    UNION ALL
+    -- 支給で入庫した在庫 (顧客支給材・発注先からの戻り)。入庫の行(分割元の無い + の行)だけ  claude/131
+    SELECT lg.trans_visiter_id, lg.depth, sd.item_id, TRUE
+    FROM tests.v_visiter_lineage AS lg
+    INNER JOIN tests.trans_supply_visiter AS sv
+        ON sv.trans_visiter_id = lg.ancestor_visiter_id AND sv.remove IS FALSE
+    INNER JOIN tests.trans_visiter AS av
+        ON av.trans_visiter_id = sv.trans_visiter_id AND av.quantity > 0 AND av.parent_trans_visiter_id IS NULL
+    INNER JOIN tests.trans_supply_detail AS sd
+        ON sd.trans_supply_detail_id = sv.trans_supply_detail_id AND sd.remove IS FALSE
+    UNION ALL
+    -- 返品で入庫した在庫 (顧客からの返品)。入庫の行だけ  claude/131
+    SELECT lg.trans_visiter_id, lg.depth, rd.item_id, TRUE
+    FROM tests.v_visiter_lineage AS lg
+    INNER JOIN tests.trans_return_visiter AS rv
+        ON rv.trans_visiter_id = lg.ancestor_visiter_id AND rv.remove IS FALSE
+    INNER JOIN tests.trans_visiter AS av
+        ON av.trans_visiter_id = rv.trans_visiter_id AND av.quantity > 0 AND av.parent_trans_visiter_id IS NULL
+    INNER JOIN tests.trans_return_detail AS rd
+        ON rd.trans_return_detail_id = rv.trans_return_detail_id AND rd.remove IS FALSE
 ), nearest AS (
     SELECT og.*, MIN(og.depth) OVER (PARTITION BY og.trans_visiter_id) AS min_depth
     FROM og
@@ -22187,11 +23653,16 @@ SELECT
     , i.code AS item_code
     , SUM(vi.quantity) AS on_hand_quantity
     , COALESCE(SUM(vi.quantity) FILTER (WHERE vi.held), 0) AS held_quantity
-    , COALESCE(SUM(vi.quantity) FILTER (WHERE NOT vi.held), 0) AS available_quantity
+    , COALESCE(SUM(vi.quantity) FILTER (WHERE NOT vi.held AND ow.trans_visiter_id IS NULL), 0) AS available_quantity
     , COUNT(*) FILTER (WHERE vi.quantity > 0)::integer AS visiter_count
     , COUNT(*) FILTER (WHERE vi.held AND vi.quantity > 0)::integer AS held_visiter_count
+    -- 社外(顧客・発注先)の所有物。現在庫には含むが、使える在庫(available_quantity)には数えない  claude/131
+    , COALESCE(SUM(vi.quantity) FILTER (WHERE ow.trans_visiter_id IS NOT NULL), 0) AS external_quantity
+    , COUNT(*) FILTER (WHERE ow.trans_visiter_id IS NOT NULL AND vi.quantity > 0)::integer AS external_visiter_count
 FROM tests.v_mrp_visiter_item AS vi
 INNER JOIN tests.mstr_item AS i ON i.mstr_item_id = vi.item_id
+LEFT JOIN tests.trans_visiter_owner AS ow
+    ON ow.trans_visiter_id = vi.trans_visiter_id AND ow.remove IS FALSE AND ow.owner_stakeholder_id IS NOT NULL
 WHERE vi.finished AND vi.item_count = 1 AND vi.item_id IS NOT NULL
 GROUP BY vi.item_id, i.symbol, i.code;
 
@@ -22334,18 +23805,25 @@ drop view if exists tests.v_complaint_target_visiter;
 create view  tests.v_complaint_target_visiter as
 WITH tgt AS (
     SELECT t.trans_complaint_id, 'purchase_rec'::varchar(16) AS target_kind, t.trans_complaint_purchase_rec_id AS target_link_id,
-           t.trans_purchase_rec_id, NULL::uuid AS trans_work_record_id, NULL::uuid AS target_visiter_id, t.quantity AS complaint_quantity
+           t.trans_purchase_rec_id, NULL::uuid AS trans_work_record_id, NULL::uuid AS target_visiter_id, t.quantity AS complaint_quantity,
+           NULL::uuid AS trans_supply_detail_id
     FROM tests.trans_complaint_purchase_rec AS t
     WHERE t.remove IS FALSE
     UNION ALL
     SELECT t.trans_complaint_id, 'work_record', t.trans_complaint_work_id,
-           NULL::uuid, t.trans_work_record_id, NULL::uuid, t.quantity
+           NULL::uuid, t.trans_work_record_id, NULL::uuid, t.quantity, NULL::uuid
     FROM tests.trans_complaint_work AS t
     WHERE t.remove IS FALSE
     UNION ALL
     SELECT t.trans_complaint_id, 'visiter', t.trans_complaint_visiter_id,
-           NULL::uuid, NULL::uuid, t.trans_visiter_id, t.quantity
+           NULL::uuid, NULL::uuid, t.trans_visiter_id, t.quantity, NULL::uuid
     FROM tests.trans_complaint_visiter AS t
+    WHERE t.remove IS FALSE
+    UNION ALL
+    -- 支給品の検品で見つかった異常  claude/131
+    SELECT t.trans_complaint_id, 'supply', t.trans_complaint_supply_id,
+           NULL::uuid, NULL::uuid, NULL::uuid, t.quantity, t.trans_supply_detail_id
+    FROM tests.trans_complaint_supply AS t
     WHERE t.remove IS FALSE
 ), src AS (
     -- 異常の対象から直接作られた在庫
@@ -22366,6 +23844,14 @@ WITH tgt AS (
     SELECT tg.target_link_id, tg.target_visiter_id
     FROM tgt AS tg
     WHERE tg.target_kind = 'visiter'
+    UNION
+    SELECT tg.target_link_id, sv.trans_visiter_id
+    FROM tgt AS tg
+    INNER JOIN tests.trans_supply_visiter AS sv
+        ON sv.trans_supply_detail_id = tg.trans_supply_detail_id AND sv.remove IS FALSE
+    INNER JOIN tests.trans_visiter AS v
+        ON v.trans_visiter_id = sv.trans_visiter_id AND v.quantity > 0
+    WHERE tg.target_kind = 'supply'
 ), dv AS (
     -- その在庫と、そこから分割・移動して作った在庫
     SELECT DISTINCT s.target_link_id, lg.trans_visiter_id
@@ -22380,6 +23866,7 @@ SELECT
     , tg.target_link_id
     , tg.trans_purchase_rec_id
     , tg.trans_work_record_id
+    , tg.trans_supply_detail_id
     , tg.complaint_quantity
     , iss.trans_visiter_id
     , iss.symbol AS visiter_symbol
@@ -22414,7 +23901,7 @@ LEFT JOIN LATERAL (
 WHERE dv.trans_visiter_id IS NULL OR iss.trans_visiter_id IS NOT NULL;
 
 -- Postgraphile additional comment.
-comment on view tests.v_complaint_target_visiter is E'@primaryKey complaint_target_visiter_key\n@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)\n@foreignKey (trans_work_record_id) references trans_work_record (trans_work_record_id)\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (trans_complaint_visiter_id) references trans_complaint_visiter (trans_complaint_visiter_id)\n異常の対象と棚ビジター';
+comment on view tests.v_complaint_target_visiter is E'@primaryKey complaint_target_visiter_key\n@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)\n@foreignKey (trans_supply_detail_id) references trans_supply_detail (trans_supply_detail_id)\n@foreignKey (trans_work_record_id) references trans_work_record (trans_work_record_id)\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (trans_complaint_visiter_id) references trans_complaint_visiter (trans_complaint_visiter_id)\n異常の対象と棚ビジター';
 
 drop view if exists tests.v_complaint_target;
 create view  tests.v_complaint_target as
@@ -22425,6 +23912,7 @@ SELECT
     , t.target_kind
     , t.trans_purchase_rec_id
     , t.trans_work_record_id
+    , t.trans_supply_detail_id
     , t.complaint_quantity
     , COUNT(t.trans_visiter_id)::integer AS visiter_count
     , COALESCE(SUM(t.visiter_quantity), 0) AS visiter_quantity
@@ -22434,10 +23922,10 @@ SELECT
     , COUNT(*) FILTER (WHERE t.trans_visiter_id IS NOT NULL AND NOT t.linked AND t.visiter_status = 'issuable')::integer AS missing_issuable_count
     , COUNT(*) FILTER (WHERE t.trans_visiter_id IS NOT NULL AND NOT t.linked AND t.visiter_status = 'empty')::integer AS missing_empty_count
 FROM tests.v_complaint_target_visiter AS t
-GROUP BY t.target_link_id, t.trans_complaint_id, t.complaint_symbol, t.target_kind, t.trans_purchase_rec_id, t.trans_work_record_id, t.complaint_quantity;
+GROUP BY t.target_link_id, t.trans_complaint_id, t.complaint_symbol, t.target_kind, t.trans_purchase_rec_id, t.trans_work_record_id, t.trans_supply_detail_id, t.complaint_quantity;
 
 -- Postgraphile additional comment.
-comment on view tests.v_complaint_target is E'@primaryKey target_link_id\n@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)\n@foreignKey (trans_work_record_id) references trans_work_record (trans_work_record_id)\n異常の対象';
+comment on view tests.v_complaint_target is E'@primaryKey target_link_id\n@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)\n@foreignKey (trans_supply_detail_id) references trans_supply_detail (trans_supply_detail_id)\n@foreignKey (trans_work_record_id) references trans_work_record (trans_work_record_id)\n異常の対象';
 
 drop view if exists tests.v_shelf_inventory_status;
 create view  tests.v_shelf_inventory_status as
@@ -23066,12 +24554,16 @@ SELECT
     , i.mstr_item_id
     , pr.mstr_item_provision_ids
     , COALESCE(od.delivery_date, o.delivery_date)::DATE AS delivery_date
-    , (COALESCE(sh.shipped_quantity, 0) >= od.quantity) AS is_shipped
+    , (COALESCE(sh.shipped_quantity, 0) >= od.quantity - od.cancel_quantity) AS is_shipped
     , COUNT(od.trans_order_detail_id) AS order_detail_count
-    , SUM(od.quantity) AS order_quantity
+    , SUM(od.quantity - od.cancel_quantity) AS order_quantity
+    , SUM(od.cancel_quantity) AS cancel_quantity
     , SUM(COALESCE(sh.shipped_quantity, 0)) AS shipped_quantity
-    , SUM(COALESCE(od.quantity, 0) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0)) AS order_amount
-    , ROUND(SUM((COALESCE(sh.shipped_quantity, 0)) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0) * COALESCE((COALESCE(sh.shipped_quantity, 0)) / NULLIF(od.quantity, 0), 0)), 2) AS shipped_amount
+    , SUM(COALESCE(od.quantity - od.cancel_quantity, 0) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0)) AS order_amount
+    , ROUND(SUM((COALESCE(sh.shipped_quantity, 0)) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0) * COALESCE((COALESCE(sh.shipped_quantity, 0)) / NULLIF(od.quantity - od.cancel_quantity, 0), 0)), 2) AS shipped_amount
+    , SUM(COALESCE(st.settlement_amount, 0)) AS settlement_amount
+    , SUM(COALESCE(od.quantity - od.cancel_quantity, 0) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0)
+          + COALESCE(st.settlement_amount, 0)) AS total_amount
 FROM
     tests.trans_order_detail AS od
     INNER JOIN tests.trans_order AS o
@@ -23115,6 +24607,16 @@ FROM
             AND sd.remove IS FALSE
     ) AS sh
         ON TRUE
+    LEFT JOIN LATERAL (
+        SELECT
+            SUM(s.amount) AS settlement_amount
+        FROM
+            tests.trans_order_detail_settlement AS s
+        WHERE
+            s.trans_order_detail_id = od.trans_order_detail_id
+            AND s.remove IS FALSE
+    ) AS st
+        ON TRUE
 WHERE
     od.remove IS FALSE
 GROUP BY
@@ -23123,7 +24625,7 @@ GROUP BY
     , i.mstr_item_id
     , pr.mstr_item_provision_ids
     , COALESCE(od.delivery_date, o.delivery_date)::DATE
-    , (COALESCE(sh.shipped_quantity, 0) >= od.quantity)
+    , (COALESCE(sh.shipped_quantity, 0) >= od.quantity - od.cancel_quantity)
 ;
 
 -- 2. 売り上げ実績
@@ -23136,6 +24638,8 @@ GROUP BY
 --             (connection-filter の anyEqualTo 等で絞り込む)
 -- 金額: 受注明細の 数量 ×(確定単価、無ければ単価) ＋ 価格調整(明細1行の金額)
 --       出荷済み金額は、価格調整を「出荷数量 ÷ 受注数量」で按分
+-- キャンセル(claude/131): 受注数量・金額・出荷済みの判定はキャンセル数量を除いた数量で行う(cancel_quantity は別に出す)
+-- 途中精算(claude/131): settlement_amount = 受注明細精算の合計、total_amount = order_amount + settlement_amount
 COMMENT ON VIEW tests.v_sales_record IS E'@foreignKey (customer_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (mstr_item_kind_id) references mstr_item_kind (mstr_item_kind_id)\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n売り上げ実績';
 
 drop view if exists tests.v_staff_count;
@@ -23230,11 +24734,11 @@ drop view if exists tests.v_visiter_item;
 create view  tests.v_visiter_item as
 -- 在庫(ロット)の品目 (issue 20261107_0009 B案)
 -- 分割・移動した在庫は、分割元をたどった最初の在庫(root_visiter_id)の
--- 受入実績(発注明細の品目)または作業実績(生産計画 → 資材計画の品目)で決める。
+-- 受入実績(発注明細の品目)・作業実績(生産計画 → 資材計画の品目)・支給・返品(明細の品目)で決める。
 SELECT
     l.trans_visiter_id
     , l.symbol
-    , COALESCE(pd.item_id, rp.item_id) AS mstr_item_id
+    , COALESCE(pd.item_id, rp.item_id, sp.item_id, rt.item_id) AS mstr_item_id
 FROM tests.v_visiter_lot AS l
 LEFT JOIN LATERAL (
     -- 受入実績(購入品)の品目
@@ -23261,7 +24765,25 @@ LEFT JOIN LATERAL (
         ON r.trans_resource_plan_id = op.trans_resource_plan_id
     WHERE wrv.trans_visiter_id = COALESCE(l.root_visiter_id, l.trans_visiter_id)
     LIMIT 1
-) AS rp ON TRUE;
+) AS rp ON TRUE
+LEFT JOIN LATERAL (
+    -- 支給で入庫した在庫(顧客支給材・発注先からの戻り)の品目  claude/131
+    SELECT d.item_id
+    FROM tests.trans_supply_visiter AS sv
+    INNER JOIN tests.trans_supply_detail AS d
+        ON d.trans_supply_detail_id = sv.trans_supply_detail_id AND d.remove IS FALSE
+    WHERE sv.trans_visiter_id = COALESCE(l.root_visiter_id, l.trans_visiter_id) AND sv.remove IS FALSE
+    LIMIT 1
+) AS sp ON TRUE
+LEFT JOIN LATERAL (
+    -- 返品で入庫した在庫(顧客からの返品)の品目  claude/131
+    SELECT d.item_id
+    FROM tests.trans_return_visiter AS rv
+    INNER JOIN tests.trans_return_detail AS d
+        ON d.trans_return_detail_id = rv.trans_return_detail_id AND d.remove IS FALSE
+    WHERE rv.trans_visiter_id = COALESCE(l.root_visiter_id, l.trans_visiter_id) AND rv.remove IS FALSE
+    LIMIT 1
+) AS rt ON TRUE;
 
 -- Postgraphile additional comment.
 comment on view tests.v_visiter_item is E'@primaryKey trans_visiter_id\n@unique symbol\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (mstr_item_id) references mstr_item (mstr_item_id)\n在庫(ロット)の品目';
@@ -23496,6 +25018,57 @@ GROUP BY
 -- Postgraphile additional comment.
 comment on view tests.v_company_staff_count is E'@foreignKey (info_company_id) references info_company (info_company_id)\n@unique info_company_id';
 
+drop view if exists tests.v_supply_detail_balance;
+create view  tests.v_supply_detail_balance as
+-- 支給明細の残  claude/131
+-- remaining_quantity : receive = true (受ける支給) は 予定 − 受け入れたロットの数量 (MRP の支給予定)
+--                      receive = false (渡す・返す・譲渡) は 予定 − つないだ数量
+-- current_quantity   : つないだロット(+ の行)の今の数量
+--                      受ける支給 → 自社にまだある顧客支給材 / 発注先へ渡した支給 → 発注先にまだある数量
+-- paid_supply        : 有償支給 (発注先の所有にする支給)。false は無償
+-- paid_by_switch     : 無償から切り替えた有償 (発注先の責任による再生産。起因の異常あり)
+-- paid_amount        : 有償支給の請求額 = 数量 × 単価 (支給明細1件 = 請求書1行)
+SELECT
+    sd.trans_supply_detail_id
+    , sd.symbol
+    , sd.trans_supply_id
+    , s.stakeholder_id
+    , s.receive
+    , s.counterpart_owns
+    , s.company_owns
+    , (s.counterpart_owns AND s.trans_purchase_id IS NOT NULL) AS paid_supply
+    , (s.counterpart_owns AND s.trans_purchase_id IS NOT NULL AND s.trans_complaint_id IS NOT NULL) AS paid_by_switch
+    , sd.unit_price
+    , CASE WHEN s.counterpart_owns AND s.trans_purchase_id IS NOT NULL
+           THEN ROUND(sd.quantity * COALESCE(sd.unit_price, 0), 2) END AS paid_amount
+    , sd.item_id
+    , sd.trans_order_detail_id
+    , sd.trans_purchase_detail_id
+    , sd.trans_resource_plan_id
+    , sd.scheduled_at
+    , sd.quantity
+    , COALESCE(x.lot_quantity, 0) AS linked_lot_quantity
+    , COALESCE(x.issue_quantity, 0) AS linked_issue_quantity
+    , GREATEST(sd.quantity - CASE WHEN s.receive THEN COALESCE(x.lot_quantity, 0)
+                                  ELSE COALESCE(x.lot_quantity, 0) + COALESCE(x.issue_quantity, 0) END, 0) AS remaining_quantity
+    , COALESCE(x.current_quantity, 0) AS current_quantity
+FROM tests.trans_supply_detail AS sd
+INNER JOIN tests.trans_supply AS s ON s.trans_supply_id = sd.trans_supply_id AND s.remove IS FALSE
+LEFT JOIN LATERAL (
+    SELECT
+        SUM(v.quantity) FILTER (WHERE v.quantity > 0 AND v.adjustment IS NOT TRUE) AS lot_quantity
+        , SUM(-v.quantity) FILTER (WHERE v.quantity < 0) AS issue_quantity
+        , SUM(l.quantity) AS current_quantity
+    FROM tests.trans_supply_visiter AS sv
+    INNER JOIN tests.trans_visiter AS v ON v.trans_visiter_id = sv.trans_visiter_id AND v.remove IS FALSE
+    LEFT JOIN tests.v_visiter_lot AS l ON l.trans_visiter_id = v.trans_visiter_id
+    WHERE sv.trans_supply_detail_id = sd.trans_supply_detail_id AND sv.remove IS FALSE
+) AS x ON TRUE
+WHERE sd.remove IS FALSE;
+
+-- Postgraphile additional comment.
+comment on view tests.v_supply_detail_balance is E'@primaryKey trans_supply_detail_id\n@unique symbol\n@foreignKey (trans_supply_detail_id) references trans_supply_detail (trans_supply_detail_id)\n@foreignKey (trans_supply_id) references trans_supply (trans_supply_id)\n@foreignKey (stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\n@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\n@foreignKey (trans_resource_plan_id) references trans_resource_plan (trans_resource_plan_id)\n支給明細の残';
+
 drop view if exists tests.v_access_path_staff_access_permission_count;
 create view  tests.v_access_path_staff_access_permission_count as
 SELECT
@@ -23512,6 +25085,32 @@ GROUP BY
 
 -- Postgraphile additional comment.
 comment on view tests.v_access_path_staff_access_permission_count is E'@foreignKey (info_access_path_id) references info_access_path (info_access_path_id)\n@unique info_access_path_id';
+
+drop view if exists tests.v_external_property;
+create view  tests.v_external_property as
+-- 社外の所有物 (顧客・発注先。ISO 9001 8.5.3 の所有物一覧)  claude/131
+-- 今の数量が残っている在庫(ロット)のうち、有効な所有者(trans_visiter_owner)が自社ではないもの
+SELECT
+    o.trans_visiter_id
+    , l.symbol
+    , o.owner_stakeholder_id
+    , o.owner_stakeholder_history_id
+    , vi.item_id
+    , l.trans_container_id
+    , l.mstr_location_id
+    , l.quantity
+    , l.release
+    , l.open_complaint_count
+    , o.trans_supply_detail_id
+    , o.trans_order_detail_id
+    , o.effective_at
+FROM tests.trans_visiter_owner AS o
+INNER JOIN tests.v_visiter_lot AS l ON l.trans_visiter_id = o.trans_visiter_id
+LEFT JOIN tests.v_mrp_visiter_item AS vi ON vi.trans_visiter_id = o.trans_visiter_id
+WHERE o.remove IS FALSE AND o.owner_stakeholder_id IS NOT NULL AND l.quantity > 0;
+
+-- Postgraphile additional comment.
+comment on view tests.v_external_property is E'@primaryKey trans_visiter_id\n@unique symbol\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (owner_stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\n@foreignKey (trans_supply_detail_id) references trans_supply_detail (trans_supply_detail_id)\n@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\n社外の所有物(顧客・発注先)';
 
 drop view if exists tests.v_access_path_department_access_path_count;
 create view  tests.v_access_path_department_access_path_count as
