@@ -1,0 +1,49 @@
+# order_detail_change_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #OrderDetailChangePageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OrderDetailChangePageCall(
+  $pOrderDetailId: UUID
+  $pNewQuantity: BigFloat
+  $pNewDeadline: Datetime
+  $pNewDeliveryDate: Datetime
+  $pChangeReasonId: UUID
+  $pReason: String
+  $pStakeholderId: UUID
+  $pStaffId: UUID
+  $pParentPlanChangeId: UUID
+  $pRemarks: String
+) {
+  orderDetailChange(
+    input: {
+      pOrderDetailId: $pOrderDetailId
+      pNewQuantity: $pNewQuantity
+      pNewDeadline: $pNewDeadline
+      pNewDeliveryDate: $pNewDeliveryDate
+      pChangeReasonId: $pChangeReasonId
+      pReason: $pReason
+      pStakeholderId: $pStakeholderId
+      pStaffId: $pStaffId
+      pParentPlanChangeId: $pParentPlanChangeId
+      pRemarks: $pRemarks
+    }
+  ) {
+    transPlanChange {
+      transPlanChangeId
+      changeAt
+      oldQuantity
+      newQuantity
+      cancelQuantity
+      oldStop
+      newStop
+      discontinue
+      release
+      hold
+      scrap
+      deliver
+      transContainerId
+      symbol
+    }
+  }
+}

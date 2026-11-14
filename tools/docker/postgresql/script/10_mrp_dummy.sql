@@ -2,7 +2,7 @@
 -- 10_mrp_dummy.sql
 -- MRPを実行する直前までのダミーデータ (マスタ・受注・非計上・在庫・発注残)
 --
--- ■ 実行順   06_cteate_test.sql → 08_mrp.sql → 本ファイル
+-- ■ 実行順   05 → 06_cteate_test.sql(MRP・棚ビジターの関数を含む) → 09_grant_test.sql → 本ファイル
 --   ・言語 ja / en・会社・担当者 (info_staff.code = 'ADMIN') は、既にあればそれを使い、無ければ作る
 --   ・アプリ (info_app.name = 'Product Manufacturing System') も、既にあればそれを使い、無ければ作る
 --   ・日付はすべて実行日 (current_date) からの相対値。いつ流しても同じ関係になる

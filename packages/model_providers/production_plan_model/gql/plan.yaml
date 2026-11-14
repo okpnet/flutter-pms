@@ -275,29 +275,48 @@ PurchaseRezPageEdit:
     - update_user_history_id
     - remove
 
+# ---- DB の関数(kind: function)。1回の呼び出し = 1トランザクション。本体の更新と計画変更の記録をまとめる ----
+# PostGraphile v4 は複数の mutation を巻き戻さないため、操作はクライアントの複数の mutation ではなく、この関数で行う。
+# 担当者は p_staff_id、省略時は JWT の staff_id。エラーは errcode で判定する(OPR00 担当者・マスタ / OPR01 対象 / OPR02 数量・引数 / OPR03 今の状態では不可、ほか VIS*)。
 
-# ---- 更新(停止・打ち切り。計画変更の登録と一緒に行う) ----
-
-# 生産計画の停止・再開(MRP は停止中を凍結する)
-OperationsPlanStopPageEdit:
-  kind: edit
-  from: trans_operations_plan
-  requiredWhere:
-    - trans_operations_plan_id
+# 生産計画の停止・再開。打ち切り済みは変えられない
+OperationsPlanSetStopPageCall:
+  kind: function
+  mutation: operationsPlanSetStop
+  returns: transPlanChange
   columns:
-    - trans_operations_plan_id
-    - stop
-    - update_user_id
-    - update_user_history_id
-
-# 生産計画の打ち切り(true にしたら戻さない。生産残 0。仕掛品は処置が必要)
-OperationsPlanDiscontinuePageEdit:
-  kind: edit
-  from: trans_operations_plan
-  requiredWhere:
-    - trans_operations_plan_id
-  columns:
-    - trans_operations_plan_id
+    - trans_plan_change_id
+    - change_at
+    - old_quantity
+    - new_quantity
+    - cancel_quantity
+    - old_stop
+    - new_stop
     - discontinue
-    - update_user_id
-    - update_user_history_id
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+    - symbol
+
+# 生産計画の打ち切り(戻さない)。仕掛品は処置が必要(LotReleasePageCall など)
+OperationsPlanDiscontinuePageCall:
+  kind: function
+  mutation: operationsPlanDiscontinue
+  returns: transPlanChange
+  columns:
+    - trans_plan_change_id
+    - change_at
+    - old_quantity
+    - new_quantity
+    - cancel_quantity
+    - old_stop
+    - new_stop
+    - discontinue
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+    - symbol

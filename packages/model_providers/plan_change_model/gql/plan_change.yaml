@@ -58,46 +58,6 @@ PlanChangeUnreflectedPage:
     - trans_operations_plan_id
     - staff_id
 
-# ---- 登録(kind: create。追記のみ) ----
-# 対象は6つの外部キーのうち**どれか1つだけ**。hold のときは trans_container_id が必須(DB の CHECK)。
-# 理由・相手・担当は履歴ID + ID の組で渡す。trans_mrp_suggestion_id・reflected_trans_mrp_run_id は MRP の関数が入れるため送らない。
-# 計画変更の登録
-PlanChangePageCreate:
-  kind: create
-  from: trans_plan_change
-  columns:
-    - trans_plan_change_id
-    - parent_trans_plan_change_id
-    - change_at
-    - trans_order_detail_id
-    - trans_purchase_detail_id
-    - trans_operations_plan_id
-    - trans_inventory_request_id
-    - trans_visiter_id
-    - trans_shipping_order_detail_id
-    - old_quantity
-    - new_quantity
-    - cancel_quantity
-    - old_date
-    - new_date
-    - old_stop
-    - new_stop
-    - discontinue
-    - release
-    - hold
-    - scrap
-    - deliver
-    - trans_container_id
-    - trans_order_detail_settlement_id
-    - change_reason_history_id
-    - change_reason_id
-    - reason
-    - stakeholder_history_id
-    - stakeholder_id
-    - staff_history_id
-    - staff_id
-    - remarks
-
 # 計画変更の取り消し(remove だけを書く。~PageRemove を生成する)
 PlanChangePageEdit:
   kind: edit

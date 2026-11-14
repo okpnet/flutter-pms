@@ -1,0 +1,45 @@
+# inventory_request_hold_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #InventoryRequestHoldPageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation InventoryRequestHoldPageCall(
+  $pInventoryRequestId: UUID
+  $pContainerId: UUID
+  $pChangeReasonId: UUID
+  $pReason: String
+  $pStaffId: UUID
+  $pParentPlanChangeId: UUID
+  $pRemarks: String
+  $pLocationId: UUID
+) {
+  inventoryRequestHold(
+    input: {
+      pInventoryRequestId: $pInventoryRequestId
+      pContainerId: $pContainerId
+      pChangeReasonId: $pChangeReasonId
+      pReason: $pReason
+      pStaffId: $pStaffId
+      pParentPlanChangeId: $pParentPlanChangeId
+      pRemarks: $pRemarks
+      pLocationId: $pLocationId
+    }
+  ) {
+    transPlanChange {
+      transPlanChangeId
+      changeAt
+      oldQuantity
+      newQuantity
+      cancelQuantity
+      oldStop
+      newStop
+      discontinue
+      release
+      hold
+      scrap
+      deliver
+      transContainerId
+      symbol
+    }
+  }
+}

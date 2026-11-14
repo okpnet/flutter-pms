@@ -12,6 +12,8 @@ scalar Cursor
 
 scalar Datetime
 
+scalar JSON
+
 scalar UUID
 
 enum TransReturnDetailsOrderBy {
@@ -143,6 +145,7 @@ type Mutation {
   updateTransReturnByTransReturnId(input: UpdateTransReturnByTransReturnIdInput!): UpdateTransReturnPayload
   updateTransReturnDetailByTransReturnDetailId(input: UpdateTransReturnDetailByTransReturnDetailIdInput!): UpdateTransReturnDetailPayload
   updateTransReturnVisiterByTransReturnVisiterId(input: UpdateTransReturnVisiterByTransReturnVisiterIdInput!): UpdateTransReturnVisiterPayload
+  returnRegister(input: ReturnRegisterInput!): ReturnRegisterPayload
 }
 
 type PageInfo {
@@ -154,6 +157,10 @@ type Query {
   allTransReturns(first: Int, offset: Int, orderBy: [TransReturnsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransReturnFilter): TransReturnsConnection
   allTransReturnDetails(first: Int, offset: Int, orderBy: [TransReturnDetailsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransReturnDetailFilter): TransReturnDetailsConnection
   allTransReturnVisiters(first: Int, offset: Int, orderBy: [TransReturnVisitersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransReturnVisiterFilter): TransReturnVisitersConnection
+}
+
+type ReturnRegisterPayload {
+  transReturn: TransReturn
 }
 
 type TransReturn {
@@ -287,6 +294,22 @@ input DatetimeFilter {
   lessThanOrEqualTo: Datetime
   greaterThan: Datetime
   greaterThanOrEqualTo: Datetime
+}
+
+input ReturnRegisterInput {
+  pReturnKindId: UUID
+  pStakeholderId: UUID
+  pDetails: JSON
+  pOrderId: UUID
+  pPurchaseId: UUID
+  pPlanChangeId: UUID
+  pComplaintId: UUID
+  pReason: String
+  pCode: String
+  pReturnAt: Datetime
+  pStaffId: UUID
+  pRemarks: String
+  pLocationId: UUID
 }
 
 input StringFilter {

@@ -6,7 +6,7 @@
 --   C. 異常      : 鋼板の在庫を隔離棚に分けて保留(release = false)にし、1件に未解除の異常を付ける
 --                  (数量は棚ビジターだけが持つ: 元の在庫に - の行、隔離棚に + の行。claude/117_*)
 --
--- ■ 実行順   06_cteate_test.sql → 08_mrp.sql → 10_mrp_dummy.sql → 本ファイル
+-- ■ 実行順   05 → 06_cteate_test.sql(MRP・棚ビジターの関数を含む) → 09_grant_test.sql → 10_mrp_dummy.sql → 本ファイル
 --   ・10_mrp_dummy.sql が作った品目・設備・工程・棚(RACK-A01)を使う。無ければ中止する
 --   ・日付は実行日(current_date)からの相対値
 --   ・点検の式(mstr_inspection_formula)の arg_class は仮の形式({"operator":"<=","value":n})。

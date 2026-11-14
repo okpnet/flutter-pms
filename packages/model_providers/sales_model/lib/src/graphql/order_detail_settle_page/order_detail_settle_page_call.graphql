@@ -1,0 +1,41 @@
+# order_detail_settle_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #OrderDetailSettlePageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OrderDetailSettlePageCall(
+  $pOrderDetailId: UUID
+  $pSettlementKindId: UUID
+  $pAmount: BigFloat
+  $pQuantity: BigFloat
+  $pSettleAt: Datetime
+  $pPlanChangeId: UUID
+  $pReason: String
+  $pStaffId: UUID
+  $pRemarks: String
+) {
+  orderDetailSettle(
+    input: {
+      pOrderDetailId: $pOrderDetailId
+      pSettlementKindId: $pSettlementKindId
+      pAmount: $pAmount
+      pQuantity: $pQuantity
+      pSettleAt: $pSettleAt
+      pPlanChangeId: $pPlanChangeId
+      pReason: $pReason
+      pStaffId: $pStaffId
+      pRemarks: $pRemarks
+    }
+  ) {
+    transOrderDetailSettlement {
+      transOrderDetailSettlementId
+      transOrderDetailId
+      settlementKindId
+      settleAt
+      quantity
+      amount
+      transPlanChangeId
+      symbol
+    }
+  }
+}

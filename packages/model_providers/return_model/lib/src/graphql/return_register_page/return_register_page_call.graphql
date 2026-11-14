@@ -1,0 +1,49 @@
+# return_register_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #ReturnRegisterPageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ReturnRegisterPageCall(
+  $pReturnKindId: UUID
+  $pStakeholderId: UUID
+  $pDetails: JSON
+  $pOrderId: UUID
+  $pPurchaseId: UUID
+  $pPlanChangeId: UUID
+  $pComplaintId: UUID
+  $pReason: String
+  $pCode: String
+  $pReturnAt: Datetime
+  $pStaffId: UUID
+  $pRemarks: String
+  $pLocationId: UUID
+) {
+  returnRegister(
+    input: {
+      pReturnKindId: $pReturnKindId
+      pStakeholderId: $pStakeholderId
+      pDetails: $pDetails
+      pOrderId: $pOrderId
+      pPurchaseId: $pPurchaseId
+      pPlanChangeId: $pPlanChangeId
+      pComplaintId: $pComplaintId
+      pReason: $pReason
+      pCode: $pCode
+      pReturnAt: $pReturnAt
+      pStaffId: $pStaffId
+      pRemarks: $pRemarks
+      pLocationId: $pLocationId
+    }
+  ) {
+    transReturn {
+      transReturnId
+      code
+      returnKindId
+      returnAt
+      stakeholderId
+      transOrderId
+      transPurchaseId
+      symbol
+    }
+  }
+}

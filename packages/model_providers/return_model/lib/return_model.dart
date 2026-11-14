@@ -12,6 +12,7 @@ export 'src/graphql/return_page/return_page_create.graphql.dart';
 export 'src/graphql/return_page/return_page_edit.graphql.dart';
 export 'src/graphql/return_page/return_page_read.graphql.dart';
 export 'src/graphql/return_page/return_page_remove.graphql.dart';
+export 'src/graphql/return_register_page/return_register_page_call.graphql.dart';
 export 'src/graphql/return_visiter_page/return_visiter_page_create.graphql.dart';
 export 'src/graphql/return_visiter_page/return_visiter_page_edit.graphql.dart';
 export 'src/graphql/return_visiter_page/return_visiter_page_read.graphql.dart';

@@ -797,6 +797,16 @@ type Mutation {
   mrpPurge(input: MrpPurgeInput!): MrpPurgePayload
   mrpRun(input: MrpRunInput!): MrpRunPayload
   mrpSetDecision(input: MrpSetDecisionInput!): MrpSetDecisionPayload
+  operationsPlanDiscontinue(input: OperationsPlanDiscontinueInput!): OperationsPlanDiscontinuePayload
+  operationsPlanSetStop(input: OperationsPlanSetStopInput!): OperationsPlanSetStopPayload
+}
+
+type OperationsPlanDiscontinuePayload {
+  transPlanChange: TransPlanChange
+}
+
+type OperationsPlanSetStopPayload {
+  transPlanChange: TransPlanChange
 }
 
 type PageInfo {
@@ -1046,6 +1056,23 @@ type TransOperationsPlansConnection {
 
 type TransOrderDetail {
   transOrderDetailId: UUID!
+  symbol: String
+}
+
+type TransPlanChange {
+  transPlanChangeId: UUID!
+  changeAt: Datetime
+  oldQuantity: BigFloat
+  newQuantity: BigFloat
+  cancelQuantity: BigFloat
+  oldStop: Boolean
+  newStop: Boolean
+  discontinue: Boolean
+  release: Boolean
+  hold: Boolean
+  scrap: Boolean
+  deliver: Boolean
+  transContainerId: UUID
   symbol: String
 }
 
@@ -2143,6 +2170,27 @@ input MstrTaskGroupFilter {
   not: MstrTaskGroupFilter
 }
 
+input OperationsPlanDiscontinueInput {
+  pOperationsPlanId: UUID
+  pChangeReasonId: UUID
+  pReason: String
+  pStakeholderId: UUID
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+}
+
+input OperationsPlanSetStopInput {
+  pOperationsPlanId: UUID
+  pStop: Boolean
+  pChangeReasonId: UUID
+  pReason: String
+  pStakeholderId: UUID
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+}
+
 input SharedAppellationFilter {
   sharedAppellationsId: UUIDFilter
   sharedDictionaryNameId: UUIDFilter
@@ -2596,6 +2644,7 @@ input TransOperationsPlanFilter {
   vOperationsPlanWorkPlanCountByTransOperationsPlanIdExists: Boolean
   vPlanChangeUnreflectedsByTransOperationsPlanIdExist: Boolean
   vWorkPlanDeliveryCompliancesByTransOperationsPlanIdExist: Boolean
+  vWorkPlanRegistrablesByTransOperationsPlanIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransOperationsPlanFilter!]
@@ -2651,6 +2700,7 @@ input TransOrderDetailFilter {
   vPlanChangeUnreflectedsByTransOrderDetailIdExist: Boolean
   vResourcePlanCoveragesByTransOrderDetailIdExist: Boolean
   vSupplyDetailBalancesByTransOrderDetailIdExist: Boolean
+  vWorkPlanRegistrablesByTransOrderDetailIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransOrderDetailFilter!]
   or: [TransOrderDetailFilter!]
@@ -2849,6 +2899,7 @@ input TransWorkPlanFilter {
   vWorkPlanDeliveryComplianceByTransWorkPlanIdExists: Boolean
   vWorkPlanProductRezCountByTransWorkPlanId: VWorkPlanProductRezCountFilter
   vWorkPlanProductRezCountByTransWorkPlanIdExists: Boolean
+  vWorkPlanRegistrableByTransWorkPlanIdExists: Boolean
   vWorkPlanWorkRecordCountByTransWorkPlanId: VWorkPlanWorkRecordCountFilter
   vWorkPlanWorkRecordCountByTransWorkPlanIdExists: Boolean
   transOperationsPlanByTransOperationsPlanId: TransOperationsPlanFilter

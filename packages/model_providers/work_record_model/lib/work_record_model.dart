@@ -40,10 +40,16 @@ export 'src/graphql/inventory_apply_page/inventory_apply_page_edit.graphql.dart'
 export 'src/graphql/inventory_apply_page/inventory_apply_page_read.graphql.dart';
 export 'src/graphql/inventory_apply_page/inventory_apply_page_remove.graphql.dart';
 export 'src/graphql/inventory_apply_page/inventory_apply_page_rfe.graphql.dart';
+export 'src/graphql/inventory_request_hold_page/inventory_request_hold_page_call.graphql.dart';
 export 'src/graphql/inventory_request_page/inventory_request_page_edit.graphql.dart';
 export 'src/graphql/inventory_request_page/inventory_request_page_read.graphql.dart';
 export 'src/graphql/inventory_request_page/inventory_request_page_remove.graphql.dart';
 export 'src/graphql/inventory_request_page/inventory_request_page_rfe.graphql.dart';
+export 'src/graphql/inventory_request_release_page/inventory_request_release_page_call.graphql.dart';
+export 'src/graphql/lot_deliver_page/lot_deliver_page_call.graphql.dart';
+export 'src/graphql/lot_hold_page/lot_hold_page_call.graphql.dart';
+export 'src/graphql/lot_release_page/lot_release_page_call.graphql.dart';
+export 'src/graphql/lot_scrap_page/lot_scrap_page_call.graphql.dart';
 export 'src/graphql/mrp_visiter_item_page/mrp_visiter_item_page_read.graphql.dart';
 export 'src/graphql/purchase_certification_page/purchase_certification_page_edit.graphql.dart';
 export 'src/graphql/purchase_certification_page/purchase_certification_page_read.graphql.dart';

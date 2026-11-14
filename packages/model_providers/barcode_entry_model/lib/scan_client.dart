@@ -180,10 +180,9 @@ class ScanClient {
       quantity: _int(plan?['quantity']),
       doneQuantity: done,
       started: records.isNotEmpty,
-      stopped: plan?['stop'] == true || (resource?['orderDetail'] as Map?)?['stop'] == true,
-      closed:
-          plan?['discontinue'] == true ||
-          ((resource?['orderDetail'] as Map?)?['balance'] as Map?)?['cancelClosed'] == true,
+      // 停止・終了の判定は DB のビュー(v_work_plan_registrable)。画面側で判定を持たない
+      stopped: (r['registrable'] as Map?)?['stopped'] == true,
+      closed: (r['registrable'] as Map?)?['closed'] == true,
     );
   }
 

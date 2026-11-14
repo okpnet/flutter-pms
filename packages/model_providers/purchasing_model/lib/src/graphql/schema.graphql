@@ -504,11 +504,26 @@ type Mutation {
   updateTransPurchaseRecByTransPurchaseRecId(input: UpdateTransPurchaseRecByTransPurchaseRecIdInput!): UpdateTransPurchaseRecPayload
   updateTransUnrecognizedByTransUnrecognizedId(input: UpdateTransUnrecognizedByTransUnrecognizedIdInput!): UpdateTransUnrecognizedPayload
   updateTransUnrecognizedDetailByTransUnrecognizedDetailId(input: UpdateTransUnrecognizedDetailByTransUnrecognizedDetailIdInput!): UpdateTransUnrecognizedDetailPayload
+  purchaseDetailCancel(input: PurchaseDetailCancelInput!): PurchaseDetailCancelPayload
+  purchaseDetailChange(input: PurchaseDetailChangeInput!): PurchaseDetailChangePayload
+  purchaseDetailSetStop(input: PurchaseDetailSetStopInput!): PurchaseDetailSetStopPayload
 }
 
 type PageInfo {
   hasNextPage: Boolean!
   endCursor: Cursor
+}
+
+type PurchaseDetailCancelPayload {
+  transPlanChange: TransPlanChange
+}
+
+type PurchaseDetailChangePayload {
+  transPlanChange: TransPlanChange
+}
+
+type PurchaseDetailSetStopPayload {
+  transPlanChange: TransPlanChange
 }
 
 type Query {
@@ -557,6 +572,23 @@ type TransComplaintPurchaseRec {
   transPurchaseRecId: UUID!
   quantity: BigFloat
   remarks: String
+}
+
+type TransPlanChange {
+  transPlanChangeId: UUID!
+  changeAt: Datetime
+  oldQuantity: BigFloat
+  newQuantity: BigFloat
+  cancelQuantity: BigFloat
+  oldStop: Boolean
+  newStop: Boolean
+  discontinue: Boolean
+  release: Boolean
+  hold: Boolean
+  scrap: Boolean
+  deliver: Boolean
+  transContainerId: UUID
+  symbol: String
 }
 
 type TransPurchase {
@@ -1451,6 +1483,40 @@ input MstrStakeholderPatch {
   sharedAppellationToNames: MstrStakeholderFk2Input
   infoAddressToInfoAddressId: MstrStakeholderFk3Input
   mstrShippingKindToMstrShippingKindId: MstrStakeholderFk1Input
+}
+
+input PurchaseDetailCancelInput {
+  pPurchaseDetailId: UUID
+  pQuantity: BigFloat
+  pChangeReasonId: UUID
+  pReason: String
+  pStakeholderId: UUID
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+}
+
+input PurchaseDetailChangeInput {
+  pPurchaseDetailId: UUID
+  pNewQuantity: BigFloat
+  pNewPeriod: Datetime
+  pChangeReasonId: UUID
+  pReason: String
+  pStakeholderId: UUID
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+}
+
+input PurchaseDetailSetStopInput {
+  pPurchaseDetailId: UUID
+  pStop: Boolean
+  pChangeReasonId: UUID
+  pReason: String
+  pStakeholderId: UUID
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
 }
 
 input SharedAppellationFilter {

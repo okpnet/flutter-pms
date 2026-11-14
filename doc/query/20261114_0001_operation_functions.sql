@@ -195,7 +195,7 @@ $$ LANGUAGE plpgsql VOLATILE;
 COMMENT ON FUNCTION tests.order_detail_set_stop(uuid, boolean, uuid, varchar, uuid, uuid, uuid, varchar) IS
     '受注明細の停止・再開。計画変更(旧・新の停止)を記録する(1トランザクション)。戻り値は計画変更';
 
--- 受注明細の納期・数量の変更(延期・前倒し・増減)。数量・完了期限・出荷納期のどれかは必須。数量はキャンセル数量以上。
+-- 受注明細の納期・数量の変更(延期・前倒し・増減)。数量・完了期限・出荷納期のどれかは必須。数量はキャンセル数量と出荷済みの合計以上。
 -- MRP は、受注明細の完了期限(deadline)→ 受注の完了期限 → 受注明細の出荷納期(delivery_date)→ 受注の出荷納期の順に見る。
 -- そのため、MRP に反映したい納期の変更は p_new_deadline(受注明細の完了期限)で行う(受注の完了期限があっても、明細の値が先に使われる)。
 -- p_new_delivery_date は出荷納期(表示・出荷予定用)だけを変える。計画変更の旧・新の日付は、p_new_deadline があればその有効な旧値と新値、
@@ -213,7 +213,7 @@ CREATE OR REPLACE FUNCTION tests.order_detail_change(
     p_remarks varchar DEFAULT NULL
 ) RETURNS tests.trans_plan_change AS $$
 DECLARE
-    v_st record; v_od tests.trans_order_detail; v_o tests.trans_order; v_old_effective timestamp;
+    v_st record; v_od tests.trans_order_detail; v_o tests.trans_order; v_old_effective timestamp; v_shipped numeric;
 BEGIN
     SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
     IF p_new_quantity IS NULL AND p_new_deadline IS NULL AND p_new_delivery_date IS NULL THEN
@@ -223,9 +223,14 @@ BEGIN
     IF NOT FOUND THEN
         RAISE EXCEPTION '受注明細が見つかりません (%)', p_order_detail_id USING ERRCODE = 'OPR01';
     END IF;
-    IF p_new_quantity IS NOT NULL AND (p_new_quantity <= 0 OR p_new_quantity < v_od.cancel_quantity) THEN
-        RAISE EXCEPTION '数量は 0 より大きく、キャンセル数量(%)以上にしてください: %', v_od.cancel_quantity, p_new_quantity
-            USING ERRCODE = 'OPR02';
+    IF p_new_quantity IS NOT NULL THEN
+        SELECT COALESCE(b.shipped_quantity, 0) INTO v_shipped FROM tests.v_order_detail_balance AS b
+        WHERE b.trans_order_detail_id = p_order_detail_id;
+        v_shipped := COALESCE(v_shipped, 0);
+        IF p_new_quantity <= 0 OR p_new_quantity < v_od.cancel_quantity + v_shipped THEN
+            RAISE EXCEPTION '数量は 0 より大きく、キャンセル数量(%)と出荷済み(%)の合計以上にしてください: %',
+                v_od.cancel_quantity, v_shipped, p_new_quantity USING ERRCODE = 'OPR02';
+        END IF;
     END IF;
     SELECT * INTO v_o FROM tests.trans_order WHERE trans_order_id = v_od.trans_order_id;
     v_old_effective := COALESCE(v_od.deadline, v_o.deadline, v_od.delivery_date, v_o.delivery_date);  -- MRP が今見ている期限
@@ -308,6 +313,9 @@ BEGIN
     IF p_stop IS NULL OR COALESCE(v_pd.stop, false) = p_stop THEN
         RAISE EXCEPTION '停止の状態が、すでに同じです (stop = %)', COALESCE(v_pd.stop, false) USING ERRCODE = 'OPR03';
     END IF;
+    IF p_stop AND EXISTS (SELECT 1 FROM tests.v_purchase_detail_balance AS b WHERE b.trans_purchase_detail_id = p_purchase_detail_id AND b.cancel_closed) THEN
+        RAISE EXCEPTION '全部キャンセル済みの発注明細は停止できません' USING ERRCODE = 'OPR03';
+    END IF;
     UPDATE tests.trans_purchase_detail
     SET stop = p_stop, update_user_id = v_st.staff_id, update_user_history_id = v_st.staff_history_id
     WHERE trans_purchase_detail_id = p_purchase_detail_id;
@@ -320,7 +328,7 @@ $$ LANGUAGE plpgsql VOLATILE;
 COMMENT ON FUNCTION tests.purchase_detail_set_stop(uuid, boolean, uuid, varchar, uuid, uuid, uuid, varchar) IS
     '発注明細の停止・再開。計画変更(旧・新の停止)を記録する(1トランザクション)。戻り値は計画変更';
 
--- 発注明細の納期(period)・数量の変更。数量はキャンセル数量以上
+-- 発注明細の納期(period)・数量の変更。数量はキャンセル数量と受入済みの合計以上
 CREATE OR REPLACE FUNCTION tests.purchase_detail_change(
     p_purchase_detail_id uuid,
     p_new_quantity numeric DEFAULT NULL,
@@ -333,7 +341,7 @@ CREATE OR REPLACE FUNCTION tests.purchase_detail_change(
     p_remarks varchar DEFAULT NULL
 ) RETURNS tests.trans_plan_change AS $$
 DECLARE
-    v_st record; v_pd tests.trans_purchase_detail;
+    v_st record; v_pd tests.trans_purchase_detail; v_received numeric;
 BEGIN
     SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
     IF p_new_quantity IS NULL AND p_new_period IS NULL THEN
@@ -343,9 +351,14 @@ BEGIN
     IF NOT FOUND THEN
         RAISE EXCEPTION '発注明細が見つかりません (%)', p_purchase_detail_id USING ERRCODE = 'OPR01';
     END IF;
-    IF p_new_quantity IS NOT NULL AND (p_new_quantity <= 0 OR p_new_quantity < v_pd.cancel_quantity) THEN
-        RAISE EXCEPTION '数量は 0 より大きく、キャンセル数量(%)以上にしてください: %', v_pd.cancel_quantity, p_new_quantity
-            USING ERRCODE = 'OPR02';
+    IF p_new_quantity IS NOT NULL THEN
+        SELECT COALESCE(b.received_quantity, 0) INTO v_received FROM tests.v_purchase_detail_balance AS b
+        WHERE b.trans_purchase_detail_id = p_purchase_detail_id;
+        v_received := COALESCE(v_received, 0);
+        IF p_new_quantity <= 0 OR p_new_quantity < v_pd.cancel_quantity + v_received THEN
+            RAISE EXCEPTION '数量は 0 より大きく、キャンセル数量(%)と受入済み(%)の合計以上にしてください: %',
+                v_pd.cancel_quantity, v_received, p_new_quantity USING ERRCODE = 'OPR02';
+        END IF;
     END IF;
     UPDATE tests.trans_purchase_detail
     SET quantity = COALESCE(p_new_quantity, quantity), period = COALESCE(p_new_period, period),
@@ -765,7 +778,10 @@ COMMENT ON FUNCTION tests.return_register(uuid, uuid, jsonb, uuid, uuid, uuid, u
 --     lot_id と container_id(渡す場面: 選んだコンテナへ移した + の行をつなぐ。仮止めにするなら hold = true)
 --     lot_id だけ(渡す場面で container_id が無い: ロットから quantity を払い出した - の行をつなぐ)
 --     ※「渡す場面」= receive = false で、返却不要(company_owns = true)でも、無償 → 有償の切り替え(p_complaint_id あり)でもない。
---       返却不要・切り替えで lot_id を渡すと、在庫は動かさず、そのロットをつなぐだけ(所有者の変更だけ)
+--       返却不要・切り替えで lot_id を渡すと、在庫は動かさず(所有者の変更だけ)、ロットをつなぐ。所有者はロット単位で変わるため、
+--       ロットの数量が quantity より多いときは、先に同じ棚の中でロットを分けて(visiter_move)、分けたロットをつなぐ。
+--       ロットの数量が quantity より少ないときは OPR02。「無償 → 有償の切り替え」は p_complaint_id(起因の異常)で判定するため、
+--       この場面では画面で異常の選択を必須にする
 --     visiter_ids(つなぐ既存の棚ビジター。顧客からの受け入れの + の行など)
 --   支給予定(ロットがつながっていない)は、visiter 系を渡さずに登録する。
 -- ---------------------------------------------------------------------
@@ -789,7 +805,7 @@ CREATE OR REPLACE FUNCTION tests.supply_register(
 ) RETURNS tests.trans_supply AS $$
 DECLARE
     v_st record; v_stake_hist uuid; v_sup tests.trans_supply; v_det tests.trans_supply_detail; d jsonb;
-    v_line tests.trans_visiter; v_vid text; v_moves boolean;
+    v_line tests.trans_visiter; v_vid text; v_moves boolean; v_lot_qty numeric; v_lot_container uuid;
 BEGIN
     SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
     -- 在庫を動かすのは、渡す・返す場面だけ(receive = false で、返却不要の譲渡でも、無償 → 有償の切り替えでもない)。
@@ -833,12 +849,25 @@ BEGIN
         RETURNING * INTO v_det;
 
         IF NOT v_moves AND (d->>'lot_id') IS NOT NULL THEN
-            -- 動かさない場面: 既存のロットをそのままつなぐ(所有者はトリガーが決める)
-            IF NOT EXISTS (SELECT 1 FROM tests.trans_visiter WHERE trans_visiter_id = (d->>'lot_id')::uuid AND remove IS FALSE) THEN
+            -- 動かさない場面(譲渡・切り替え): 所有者はロット単位で変わる(トリガーが決める)。
+            -- ロットの数量が支給の数量より多いときは、ロット全体が相手の物・自社の物になってしまうため、
+            -- 先に同じ棚の中でロットを分け(visiter_move。- の行と + の行)、分けた数量のロットをつなぐ。
+            SELECT l.quantity, l.trans_container_id INTO v_lot_qty, v_lot_container
+            FROM tests.v_visiter_lot AS l WHERE l.trans_visiter_id = (d->>'lot_id')::uuid;
+            IF NOT FOUND THEN
                 RAISE EXCEPTION '棚ビジター(ロット)が見つかりません (%)', d->>'lot_id' USING ERRCODE = 'OPR01';
             END IF;
+            IF v_lot_qty < (d->>'quantity')::numeric THEN
+                RAISE EXCEPTION 'ロットの数量(%)が、支給の数量(%)に足りません', v_lot_qty, d->>'quantity' USING ERRCODE = 'OPR02';
+            END IF;
+            IF v_lot_qty > (d->>'quantity')::numeric THEN
+                v_line := tests.visiter_move((d->>'lot_id')::uuid, v_lot_container, (d->>'quantity')::numeric, false,
+                    v_st.staff_id, p_location_id, NULL, p_remarks);
+            ELSE
+                SELECT * INTO v_line FROM tests.trans_visiter WHERE trans_visiter_id = (d->>'lot_id')::uuid;
+            END IF;
             INSERT INTO tests.trans_supply_visiter (trans_supply_detail_id, trans_visiter_id, update_user_id, update_user_history_id)
-            VALUES (v_det.trans_supply_detail_id, (d->>'lot_id')::uuid, v_st.staff_id, v_st.staff_history_id);
+            VALUES (v_det.trans_supply_detail_id, v_line.trans_visiter_id, v_st.staff_id, v_st.staff_history_id);
         ELSIF v_moves AND (d->>'lot_id') IS NOT NULL THEN
             IF (d->>'container_id') IS NOT NULL THEN
                 -- 選んだコンテナへ移した + の行(発注先へ渡す・発注先へ有償で渡す・無償 → 有償の切り替えなど)

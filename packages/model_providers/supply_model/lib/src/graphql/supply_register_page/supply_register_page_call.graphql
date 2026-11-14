@@ -1,0 +1,55 @@
+# supply_register_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #SupplyRegisterPageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation SupplyRegisterPageCall(
+  $pStakeholderId: UUID
+  $pReceive: Boolean
+  $pCounterpartOwns: Boolean
+  $pCompanyOwns: Boolean
+  $pDetails: JSON
+  $pOrderId: UUID
+  $pPurchaseId: UUID
+  $pPlanChangeId: UUID
+  $pComplaintId: UUID
+  $pReason: String
+  $pCode: String
+  $pSupplyAt: Datetime
+  $pStaffId: UUID
+  $pRemarks: String
+  $pLocationId: UUID
+) {
+  supplyRegister(
+    input: {
+      pStakeholderId: $pStakeholderId
+      pReceive: $pReceive
+      pCounterpartOwns: $pCounterpartOwns
+      pCompanyOwns: $pCompanyOwns
+      pDetails: $pDetails
+      pOrderId: $pOrderId
+      pPurchaseId: $pPurchaseId
+      pPlanChangeId: $pPlanChangeId
+      pComplaintId: $pComplaintId
+      pReason: $pReason
+      pCode: $pCode
+      pSupplyAt: $pSupplyAt
+      pStaffId: $pStaffId
+      pRemarks: $pRemarks
+      pLocationId: $pLocationId
+    }
+  ) {
+    transSupply {
+      transSupplyId
+      code
+      supplyAt
+      stakeholderId
+      receive
+      counterpartOwns
+      companyOwns
+      transOrderId
+      transPurchaseId
+      symbol
+    }
+  }
+}

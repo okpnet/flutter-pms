@@ -10,6 +10,7 @@ abstract class ScanWorkPlanPageFilterSpec {
     'transWorkPlanId': FlatFilterPath([], 'transWorkPlanId'),
     'symbol': FlatFilterPath([], 'symbol'),
     'sequence': FlatFilterPath([], 'sequence'),
+    'registrable||transWorkPlanId': FlatFilterPath([FilterStep('vWorkPlanRegistrableByTransWorkPlanId')], 'transWorkPlanId'),
     'mstrTaskId': FlatFilterPath([], 'mstrTaskId'),
     'task||mstrTaskId': FlatFilterPath([FilterStep('mstrTaskByMstrTaskId')], 'mstrTaskId'),
     'task||labels||sharedAppellationsId': FlatFilterPath([FilterStep('mstrTaskByMstrTaskId'), FilterStep('sharedAppellationByNames')], 'sharedAppellationsId'),
@@ -18,15 +19,9 @@ abstract class ScanWorkPlanPageFilterSpec {
     'transOperationsPlanId': FlatFilterPath([], 'transOperationsPlanId'),
     'operations_plan||transOperationsPlanId': FlatFilterPath([FilterStep('transOperationsPlanByTransOperationsPlanId')], 'transOperationsPlanId'),
     'operations_plan||quantity': FlatFilterPath([FilterStep('transOperationsPlanByTransOperationsPlanId')], 'quantity'),
-    'operations_plan||stop': FlatFilterPath([FilterStep('transOperationsPlanByTransOperationsPlanId')], 'stop'),
-    'operations_plan||discontinue': FlatFilterPath([FilterStep('transOperationsPlanByTransOperationsPlanId')], 'discontinue'),
     'operations_plan||transResourcePlanId': FlatFilterPath([FilterStep('transOperationsPlanByTransOperationsPlanId')], 'transResourcePlanId'),
     'operations_plan||resource_plan||transResourcePlanId': FlatFilterPath([FilterStep('transOperationsPlanByTransOperationsPlanId'), FilterStep('transResourcePlanByTransResourcePlanId')], 'transResourcePlanId'),
     'operations_plan||resource_plan||itemId': FlatFilterPath([FilterStep('transOperationsPlanByTransOperationsPlanId'), FilterStep('transResourcePlanByTransResourcePlanId')], 'itemId'),
     'operations_plan||resource_plan||itemHistoryId': FlatFilterPath([FilterStep('transOperationsPlanByTransOperationsPlanId'), FilterStep('transResourcePlanByTransResourcePlanId')], 'itemHistoryId'),
-    'operations_plan||resource_plan||transOrderDetailId': FlatFilterPath([FilterStep('transOperationsPlanByTransOperationsPlanId'), FilterStep('transResourcePlanByTransResourcePlanId')], 'transOrderDetailId'),
-    'operations_plan||resource_plan||order_detail||transOrderDetailId': FlatFilterPath([FilterStep('transOperationsPlanByTransOperationsPlanId'), FilterStep('transResourcePlanByTransResourcePlanId'), FilterStep('transOrderDetailByTransOrderDetailId')], 'transOrderDetailId'),
-    'operations_plan||resource_plan||order_detail||stop': FlatFilterPath([FilterStep('transOperationsPlanByTransOperationsPlanId'), FilterStep('transResourcePlanByTransResourcePlanId'), FilterStep('transOrderDetailByTransOrderDetailId')], 'stop'),
-    'operations_plan||resource_plan||order_detail||balance||transOrderDetailId': FlatFilterPath([FilterStep('transOperationsPlanByTransOperationsPlanId'), FilterStep('transResourcePlanByTransResourcePlanId'), FilterStep('transOrderDetailByTransOrderDetailId'), FilterStep('vOrderDetailBalanceByTransOrderDetailId')], 'transOrderDetailId'),
   });
 }

@@ -66,56 +66,7 @@ ReturnVisiterPage:
     - remarks
     - update_at
 
-# ---- 登録(kind: create。追記のみ) ----
-
-# 返品の伝票。顧客からは receive = true の返品区分、仕入先・外注先へは false の区分を選ぶ
-ReturnPageCreate:
-  kind: create
-  from: trans_return
-  columns:
-    - trans_return_id
-    - code
-    - return_kind_history_id
-    - return_kind_id
-    - return_at
-    - stakeholder_history_id
-    - stakeholder_id
-    - trans_order_id
-    - trans_purchase_id
-    - trans_plan_change_id
-    - trans_complaint_id
-    - reason
-    - staff_history_id
-    - staff_id
-    - remarks
-
-# 返品明細。受注側(trans_order_detail_id・trans_shipping_order_detail_record_id)と発注側(trans_purchase_detail_id・trans_purchase_rec_id)は混ぜない
-ReturnDetailPageCreate:
-  kind: create
-  from: trans_return_detail
-  columns:
-    - trans_return_detail_id
-    - trans_return_id
-    - item_history_id
-    - item_id
-    - quantity
-    - replacement
-    - trans_order_detail_id
-    - trans_shipping_order_detail_record_id
-    - trans_purchase_detail_id
-    - trans_purchase_rec_id
-    - origin_trans_visiter_id
-    - remarks
-
-# 返品とロット(棚ビジター)のつなぎ。数量は棚ビジターの行が持つ
-ReturnVisiterPageCreate:
-  kind: create
-  from: trans_return_visiter
-  columns:
-    - trans_return_visiter_id
-    - trans_return_detail_id
-    - trans_visiter_id
-    - remarks
+# ---- 取り消し(追記のみの表。remove だけを書く edit が ~PageRemove を生成する)。登録は、下の DB の関数で行う ----
 
 # 返品の取り消し(remove だけを書く。~PageRemove を生成する)
 ReturnPageEdit:
@@ -146,3 +97,23 @@ ReturnVisiterPageEdit:
   columns:
     - trans_return_visiter_id
     - remarks
+
+# ---- DB の関数(kind: function)。1回の呼び出し = 1トランザクション。本体の更新と計画変更の記録をまとめる ----
+# PostGraphile v4 は複数の mutation を巻き戻さないため、操作はクライアントの複数の mutation ではなく、この関数で行う。
+# 担当者は p_staff_id、省略時は JWT の staff_id。エラーは errcode で判定する(OPR00 担当者・マスタ / OPR01 対象 / OPR02 数量・引数 / OPR03 今の状態では不可、ほか VIS*)。
+# p_details は jsonb の配列(item_id・quantity・replacement・受注側または発注側の明細・lot_id・visiter_ids)。
+
+# 返品の登録(伝票・明細・ロットのつなぎ)。顧客からの返品は受注側、仕入先・外注先への返品は発注側。仕入先への返品はロットから払い出す
+ReturnRegisterPageCall:
+  kind: function
+  mutation: returnRegister
+  returns: transReturn
+  columns:
+    - trans_return_id
+    - code
+    - return_kind_id
+    - return_at
+    - stakeholder_id
+    - trans_order_id
+    - trans_purchase_id
+    - symbol

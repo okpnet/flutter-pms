@@ -39,3 +39,134 @@ ExternalPropertyPage:
     - trans_supply_detail_id
     - trans_order_detail_id
     - effective_at
+
+# ---- DB の関数(kind: function)。1回の呼び出し = 1トランザクション。本体の更新と計画変更の記録をまとめる ----
+# PostGraphile v4 は複数の mutation を巻き戻さないため、操作はクライアントの複数の mutation ではなく、この関数で行う。
+# 担当者は p_staff_id、省略時は JWT の staff_id。エラーは errcode で判定する(OPR00 担当者・マスタ / OPR01 対象 / OPR02 数量・引数 / OPR03 今の状態では不可、ほか VIS*)。
+# ロットを動かす関数は、棚に場所が無いと VIS05 になる。p_location_id で場所を渡す。
+
+# 引当予約の解除(予約を取り消す。在庫は動かさない)
+InventoryRequestReleasePageCall:
+  kind: function
+  mutation: inventoryRequestRelease
+  returns: transPlanChange
+  columns:
+    - trans_plan_change_id
+    - change_at
+    - old_quantity
+    - new_quantity
+    - cancel_quantity
+    - old_stop
+    - new_stop
+    - discontinue
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+    - symbol
+
+# 引当予約の保管。予約の在庫を選んだコンテナへ仮止めで移し、予約を移動先のロットに付け替える
+InventoryRequestHoldPageCall:
+  kind: function
+  mutation: inventoryRequestHold
+  returns: transPlanChange
+  columns:
+    - trans_plan_change_id
+    - change_at
+    - old_quantity
+    - new_quantity
+    - cancel_quantity
+    - old_stop
+    - new_stop
+    - discontinue
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+    - symbol
+
+# キャンセル後の品物を在庫にする(処置の記録。ロットは動かさない)
+LotReleasePageCall:
+  kind: function
+  mutation: lotRelease
+  returns: transPlanChange
+  columns:
+    - trans_plan_change_id
+    - change_at
+    - old_quantity
+    - new_quantity
+    - cancel_quantity
+    - old_stop
+    - new_stop
+    - discontinue
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+    - symbol
+
+# 品物を押さえる(保管)。選んだコンテナへ仮止めで移す。計画変更の対象は押さえた(移動先の)ロット
+LotHoldPageCall:
+  kind: function
+  mutation: lotHold
+  returns: transPlanChange
+  columns:
+    - trans_plan_change_id
+    - change_at
+    - old_quantity
+    - new_quantity
+    - cancel_quantity
+    - old_stop
+    - new_stop
+    - discontinue
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+    - symbol
+
+# 品物の廃棄。ロットから払い出す
+LotScrapPageCall:
+  kind: function
+  mutation: lotScrap
+  returns: transPlanChange
+  columns:
+    - trans_plan_change_id
+    - change_at
+    - old_quantity
+    - new_quantity
+    - cancel_quantity
+    - old_stop
+    - new_stop
+    - discontinue
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+    - symbol
+
+# 顧客への引き渡し。ロットから払い出す(精算がある場合は、先に OrderDetailSettlePageCall)
+LotDeliverPageCall:
+  kind: function
+  mutation: lotDeliver
+  returns: transPlanChange
+  columns:
+    - trans_plan_change_id
+    - change_at
+    - old_quantity
+    - new_quantity
+    - cancel_quantity
+    - old_stop
+    - new_stop
+    - discontinue
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+    - symbol

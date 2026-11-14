@@ -39,7 +39,7 @@ CREATE SCHEMA :"db_test_schema" AUTHORIZATION :"app_owner_id"; --テスト環境
 GRANT USAGE ON SCHEMA :"db_test_schema" TO :"app_user_id", :"app_admin_id";
 
 -- 今後 オーナーロールで作成されるオブジェクトへの既定権限
--- （06〜08 で作成済みのオブジェクトには 09 で付与する）
+-- （06 で作成済みのオブジェクトには 09 で付与する）
 ALTER DEFAULT PRIVILEGES FOR ROLE :"app_owner_id" IN SCHEMA :"db_test_schema"
     GRANT ALL ON TABLES TO :"app_admin_id";
 ALTER DEFAULT PRIVILEGES FOR ROLE :"app_owner_id" IN SCHEMA :"db_test_schema"

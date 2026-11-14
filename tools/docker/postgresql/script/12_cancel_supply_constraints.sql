@@ -4,7 +4,7 @@
 --   設計: claude/130_cancel_return_design_rev2.md / claude/131_supply_ownership_design.md / claude/132_er_review131.md
 --   06 (ER から出力) の後に流す。ER 図では表せないものだけをここに置く。
 --   制約名・索引名は ER の出力と重ならないよう _CK / _IX9x にしている。
---   計画変更 → MRP の外部キー (trans_plan_change_FK91 / FK92) は 08_mrp.sql に入れた。
+--   計画変更 → MRP の外部キー (trans_plan_change_FK91 / FK92) は 06_cteate_test.sql(MRP の関数と同じ出力)に入れた。
 -- ============================================================================
 
 -- ---- 06 の出力では既定値のある列に NOT NULL が付かないため、計算に使う列だけここで付ける ----

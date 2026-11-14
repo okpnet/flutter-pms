@@ -1,0 +1,41 @@
+# lot_release_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #LotReleasePageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation LotReleasePageCall(
+  $pVisiterId: UUID
+  $pChangeReasonId: UUID
+  $pReason: String
+  $pStaffId: UUID
+  $pParentPlanChangeId: UUID
+  $pRemarks: String
+) {
+  lotRelease(
+    input: {
+      pVisiterId: $pVisiterId
+      pChangeReasonId: $pChangeReasonId
+      pReason: $pReason
+      pStaffId: $pStaffId
+      pParentPlanChangeId: $pParentPlanChangeId
+      pRemarks: $pRemarks
+    }
+  ) {
+    transPlanChange {
+      transPlanChangeId
+      changeAt
+      oldQuantity
+      newQuantity
+      cancelQuantity
+      oldStop
+      newStop
+      discontinue
+      release
+      hold
+      scrap
+      deliver
+      transContainerId
+      symbol
+    }
+  }
+}

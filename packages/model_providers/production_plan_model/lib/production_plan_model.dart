@@ -34,12 +34,14 @@ export 'src/graphql/mrp_purchase_plan_page/mrp_purchase_plan_page_read.graphql.d
 export 'src/graphql/mrp_run_page/mrp_run_page_read.graphql.dart';
 export 'src/graphql/mrp_suggestion_page/mrp_suggestion_page_read.graphql.dart';
 export 'src/graphql/mrp_suggestion_task_page/mrp_suggestion_task_page_read.graphql.dart';
+export 'src/graphql/operations_plan_discontinue_page/operations_plan_discontinue_page_call.graphql.dart';
 export 'src/graphql/operations_plan_discontinue_page/operations_plan_discontinue_page_edit.graphql.dart';
 export 'src/graphql/operations_plan_discontinue_page/operations_plan_discontinue_page_remove.graphql.dart';
 export 'src/graphql/operations_plan_page/operations_plan_page_edit.graphql.dart';
 export 'src/graphql/operations_plan_page/operations_plan_page_read.graphql.dart';
 export 'src/graphql/operations_plan_page/operations_plan_page_remove.graphql.dart';
 export 'src/graphql/operations_plan_page/operations_plan_page_rfe.graphql.dart';
+export 'src/graphql/operations_plan_set_stop_page/operations_plan_set_stop_page_call.graphql.dart';
 export 'src/graphql/operations_plan_stop_page/operations_plan_stop_page_edit.graphql.dart';
 export 'src/graphql/operations_plan_stop_page/operations_plan_stop_page_remove.graphql.dart';
 export 'src/graphql/product_rez_page/product_rez_page_edit.graphql.dart';

@@ -15,6 +15,7 @@ export 'src/graphql/supply_page/supply_page_create.graphql.dart';
 export 'src/graphql/supply_page/supply_page_edit.graphql.dart';
 export 'src/graphql/supply_page/supply_page_read.graphql.dart';
 export 'src/graphql/supply_page/supply_page_remove.graphql.dart';
+export 'src/graphql/supply_register_page/supply_register_page_call.graphql.dart';
 export 'src/graphql/supply_visiter_page/supply_visiter_page_create.graphql.dart';
 export 'src/graphql/supply_visiter_page/supply_visiter_page_edit.graphql.dart';
 export 'src/graphql/supply_visiter_page/supply_visiter_page_read.graphql.dart';

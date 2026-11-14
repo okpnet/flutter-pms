@@ -12,6 +12,8 @@ scalar Cursor
 
 scalar Datetime
 
+scalar JSON
+
 scalar UUID
 
 enum TransSuppliesOrderBy {
@@ -191,6 +193,7 @@ type Mutation {
   updateTransSupplyByTransSupplyId(input: UpdateTransSupplyByTransSupplyIdInput!): UpdateTransSupplyPayload
   updateTransSupplyDetailByTransSupplyDetailId(input: UpdateTransSupplyDetailByTransSupplyDetailIdInput!): UpdateTransSupplyDetailPayload
   updateTransSupplyVisiterByTransSupplyVisiterId(input: UpdateTransSupplyVisiterByTransSupplyVisiterIdInput!): UpdateTransSupplyVisiterPayload
+  supplyRegister(input: SupplyRegisterInput!): SupplyRegisterPayload
 }
 
 type PageInfo {
@@ -203,6 +206,10 @@ type Query {
   allTransSupplyDetails(first: Int, offset: Int, orderBy: [TransSupplyDetailsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransSupplyDetailFilter): TransSupplyDetailsConnection
   allTransSupplyVisiters(first: Int, offset: Int, orderBy: [TransSupplyVisitersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransSupplyVisiterFilter): TransSupplyVisitersConnection
   allVSupplyDetailBalances(first: Int, offset: Int, orderBy: [VSupplyDetailBalancesOrderBy!] = [PRIMARY_KEY_ASC], filter: VSupplyDetailBalanceFilter): VSupplyDetailBalancesConnection
+}
+
+type SupplyRegisterPayload {
+  transSupply: TransSupply
 }
 
 type TransSuppliesConnection {
@@ -406,6 +413,24 @@ input StringFilter {
   lessThanOrEqualToInsensitive: String
   greaterThanInsensitive: String
   greaterThanOrEqualToInsensitive: String
+}
+
+input SupplyRegisterInput {
+  pStakeholderId: UUID
+  pReceive: Boolean
+  pCounterpartOwns: Boolean
+  pCompanyOwns: Boolean
+  pDetails: JSON
+  pOrderId: UUID
+  pPurchaseId: UUID
+  pPlanChangeId: UUID
+  pComplaintId: UUID
+  pReason: String
+  pCode: String
+  pSupplyAt: Datetime
+  pStaffId: UUID
+  pRemarks: String
+  pLocationId: UUID
 }
 
 input TransSupplyDetailFilter {

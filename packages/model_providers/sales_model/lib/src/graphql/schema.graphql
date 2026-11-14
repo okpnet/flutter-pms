@@ -499,6 +499,26 @@ type Mutation {
   updateTransShippingOrderByTransShippingOrderId(input: UpdateTransShippingOrderByTransShippingOrderIdInput!): UpdateTransShippingOrderPayload
   updateTransShippingOrderDetailByTransShippingOrderDetailId(input: UpdateTransShippingOrderDetailByTransShippingOrderDetailIdInput!): UpdateTransShippingOrderDetailPayload
   updateTransShippingOrderDetailRecordByTransShippingOrderDetailRecordId(input: UpdateTransShippingOrderDetailRecordByTransShippingOrderDetailRecordIdInput!): UpdateTransShippingOrderDetailRecordPayload
+  orderDetailCancel(input: OrderDetailCancelInput!): OrderDetailCancelPayload
+  orderDetailChange(input: OrderDetailChangeInput!): OrderDetailChangePayload
+  orderDetailSetStop(input: OrderDetailSetStopInput!): OrderDetailSetStopPayload
+  orderDetailSettle(input: OrderDetailSettleInput!): OrderDetailSettlePayload
+}
+
+type OrderDetailCancelPayload {
+  transPlanChange: TransPlanChange
+}
+
+type OrderDetailChangePayload {
+  transPlanChange: TransPlanChange
+}
+
+type OrderDetailSetStopPayload {
+  transPlanChange: TransPlanChange
+}
+
+type OrderDetailSettlePayload {
+  transOrderDetailSettlement: TransOrderDetailSettlement
 }
 
 type PageInfo {
@@ -634,6 +654,23 @@ type TransOrdersConnection {
   nodes: [TransOrder]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type TransPlanChange {
+  transPlanChangeId: UUID!
+  changeAt: Datetime
+  oldQuantity: BigFloat
+  newQuantity: BigFloat
+  cancelQuantity: BigFloat
+  oldStop: Boolean
+  newStop: Boolean
+  discontinue: Boolean
+  release: Boolean
+  hold: Boolean
+  scrap: Boolean
+  deliver: Boolean
+  transContainerId: UUID
+  symbol: String
 }
 
 type TransShippingOrder {
@@ -1456,6 +1493,53 @@ input MstrStakeholderPatch {
   mstrShippingKindToMstrShippingKindId: MstrStakeholderFk1Input
 }
 
+input OrderDetailCancelInput {
+  pOrderDetailId: UUID
+  pQuantity: BigFloat
+  pChangeReasonId: UUID
+  pReason: String
+  pStakeholderId: UUID
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+}
+
+input OrderDetailChangeInput {
+  pOrderDetailId: UUID
+  pNewQuantity: BigFloat
+  pNewDeadline: Datetime
+  pNewDeliveryDate: Datetime
+  pChangeReasonId: UUID
+  pReason: String
+  pStakeholderId: UUID
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+}
+
+input OrderDetailSetStopInput {
+  pOrderDetailId: UUID
+  pStop: Boolean
+  pChangeReasonId: UUID
+  pReason: String
+  pStakeholderId: UUID
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+}
+
+input OrderDetailSettleInput {
+  pOrderDetailId: UUID
+  pSettlementKindId: UUID
+  pAmount: BigFloat
+  pQuantity: BigFloat
+  pSettleAt: Datetime
+  pPlanChangeId: UUID
+  pReason: String
+  pStaffId: UUID
+  pRemarks: String
+}
+
 input SharedAppellationFilter {
   sharedAppellationsId: UUIDFilter
   sharedDictionaryNameId: UUIDFilter
@@ -1721,6 +1805,7 @@ input TransOrderDetailFilter {
   vPlanChangeUnreflectedsByTransOrderDetailIdExist: Boolean
   vResourcePlanCoveragesByTransOrderDetailIdExist: Boolean
   vSupplyDetailBalancesByTransOrderDetailIdExist: Boolean
+  vWorkPlanRegistrablesByTransOrderDetailIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransOrderDetailFilter!]

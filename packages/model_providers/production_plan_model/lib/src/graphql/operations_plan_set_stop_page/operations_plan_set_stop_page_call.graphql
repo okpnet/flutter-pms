@@ -1,0 +1,45 @@
+# operations_plan_set_stop_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #OperationsPlanSetStopPageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OperationsPlanSetStopPageCall(
+  $pOperationsPlanId: UUID
+  $pStop: Boolean
+  $pChangeReasonId: UUID
+  $pReason: String
+  $pStakeholderId: UUID
+  $pStaffId: UUID
+  $pParentPlanChangeId: UUID
+  $pRemarks: String
+) {
+  operationsPlanSetStop(
+    input: {
+      pOperationsPlanId: $pOperationsPlanId
+      pStop: $pStop
+      pChangeReasonId: $pChangeReasonId
+      pReason: $pReason
+      pStakeholderId: $pStakeholderId
+      pStaffId: $pStaffId
+      pParentPlanChangeId: $pParentPlanChangeId
+      pRemarks: $pRemarks
+    }
+  ) {
+    transPlanChange {
+      transPlanChangeId
+      changeAt
+      oldQuantity
+      newQuantity
+      cancelQuantity
+      oldStop
+      newStop
+      discontinue
+      release
+      hold
+      scrap
+      deliver
+      transContainerId
+      symbol
+    }
+  }
+}

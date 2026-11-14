@@ -778,15 +778,7 @@ type TransOperationsPlan {
   transOperationsPlanId: UUID!
   transResourcePlanId: UUID!
   quantity: BigFloat
-  stop: Boolean
-  discontinue: Boolean
   transResourcePlanByTransResourcePlanId: TransResourcePlan
-}
-
-type TransOrderDetail {
-  transOrderDetailId: UUID!
-  stop: Boolean
-  vOrderDetailBalanceByTransOrderDetailId: VOrderDetailBalance
 }
 
 type TransPurchaseDetail {
@@ -820,10 +812,8 @@ type TransPurchaseRecsConnection {
 
 type TransResourcePlan {
   transResourcePlanId: UUID!
-  transOrderDetailId: UUID
   itemHistoryId: UUID!
   itemId: UUID!
-  transOrderDetailByTransOrderDetailId: TransOrderDetail
 }
 
 type TransVisiter {
@@ -848,6 +838,7 @@ type TransWorkPlan {
   symbol: String
   transOperationsPlanByTransOperationsPlanId: TransOperationsPlan
   mstrTaskByMstrTaskId: MstrTask
+  vWorkPlanRegistrableByTransWorkPlanId: VWorkPlanRegistrable
 }
 
 type TransWorkPlansConnection {
@@ -871,8 +862,8 @@ type TransWorkRecordsConnection {
   totalCount: Int!
 }
 
-type VOrderDetailBalance {
-  transOrderDetailId: UUID!
+type VWorkPlanRegistrable {
+  transWorkPlanId: UUID!
 }
 
 input BigFloatFilter {
@@ -1874,56 +1865,12 @@ input TransOperationsPlanFilter {
   vOperationsPlanWorkPlanCountByTransOperationsPlanIdExists: Boolean
   vPlanChangeUnreflectedsByTransOperationsPlanIdExist: Boolean
   vWorkPlanDeliveryCompliancesByTransOperationsPlanIdExist: Boolean
+  vWorkPlanRegistrablesByTransOperationsPlanIdExist: Boolean
   transResourcePlanByTransResourcePlanId: TransResourcePlanFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransOperationsPlanFilter!]
   or: [TransOperationsPlanFilter!]
   not: TransOperationsPlanFilter
-}
-
-input TransOrderDetailFilter {
-  transOrderDetailId: UUIDFilter
-  transOrderId: UUIDFilter
-  itemHistoryId: UUIDFilter
-  itemId: UUIDFilter
-  quantity: BigFloatFilter
-  unitPrice: BigFloatFilter
-  priceAdjustment: BigFloatFilter
-  fixedPrice: BigFloatFilter
-  deliveryDate: DatetimeFilter
-  deadline: DatetimeFilter
-  cancelQuantity: BigFloatFilter
-  stop: BooleanFilter
-  customerProperty: BooleanFilter
-  symbol: StringFilter
-  remarks: StringFilter
-  updateAt: DatetimeFilter
-  updateUserId: UUIDFilter
-  updateUserHistoryId: UUIDFilter
-  remove: BooleanFilter
-  masterErrorCount: IntFilter
-  transResourcePlansByTransOrderDetailIdExist: Boolean
-  transOrderDetailSettlementsByTransOrderDetailIdExist: Boolean
-  transShippingOrderDetailsByTransOrderDetailIdExist: Boolean
-  transMrpSuggestionsByTransOrderDetailIdExist: Boolean
-  transPlanChangesByTransOrderDetailIdExist: Boolean
-  transSupplyDetailsByTransOrderDetailIdExist: Boolean
-  transVisiterOwnersByTransOrderDetailIdExist: Boolean
-  transReturnDetailsByTransOrderDetailIdExist: Boolean
-  transOrderDetailRisksByTransOrderDetailIdExist: Boolean
-  vExternalPropertiesByTransOrderDetailIdExist: Boolean
-  vMrpPendingSuggestionsByTransOrderDetailIdExist: Boolean
-  vOrderDetailBalanceByTransOrderDetailId: VOrderDetailBalanceFilter
-  vOrderDetailBalanceByTransOrderDetailIdExists: Boolean
-  vOrderDetailOrderDetailRiskCountByTransOrderDetailIdExists: Boolean
-  vOrderDetailShippingOrderDetailCountByTransOrderDetailIdExists: Boolean
-  vPlanChangeUnreflectedsByTransOrderDetailIdExist: Boolean
-  vResourcePlanCoveragesByTransOrderDetailIdExist: Boolean
-  vSupplyDetailBalancesByTransOrderDetailIdExist: Boolean
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
-  and: [TransOrderDetailFilter!]
-  or: [TransOrderDetailFilter!]
-  not: TransOrderDetailFilter
 }
 
 input TransPurchaseDetailFilter {
@@ -2023,7 +1970,6 @@ input TransResourcePlanFilter {
   vResourcePlanCoverageByTransResourcePlanIdExists: Boolean
   vSupplyDetailBalancesByTransResourcePlanIdExist: Boolean
   transOperationsPlanByParentTransOperationsPlanIdExists: Boolean
-  transOrderDetailByTransOrderDetailId: TransOrderDetailFilter
   transOrderDetailByTransOrderDetailIdExists: Boolean
   transUnrecognizedDetailByTransUnrecognizedDetailIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -2106,6 +2052,8 @@ input TransWorkPlanFilter {
   transWorkRecordsByTransWorkPlanIdExist: Boolean
   vWorkPlanDeliveryComplianceByTransWorkPlanIdExists: Boolean
   vWorkPlanProductRezCountByTransWorkPlanIdExists: Boolean
+  vWorkPlanRegistrableByTransWorkPlanId: VWorkPlanRegistrableFilter
+  vWorkPlanRegistrableByTransWorkPlanIdExists: Boolean
   vWorkPlanWorkRecordCountByTransWorkPlanIdExists: Boolean
   transOperationsPlanByTransOperationsPlanId: TransOperationsPlanFilter
   mstrTaskByMstrTaskId: MstrTaskFilter
@@ -2165,26 +2113,22 @@ input UUIDFilter {
   greaterThanOrEqualTo: UUID
 }
 
-input VOrderDetailBalanceFilter {
-  transOrderDetailId: UUIDFilter
+input VWorkPlanRegistrableFilter {
+  transWorkPlanId: UUIDFilter
   symbol: StringFilter
-  transOrderId: UUIDFilter
-  itemId: UUIDFilter
-  stop: BooleanFilter
-  customerProperty: BooleanFilter
-  quantity: BigFloatFilter
-  cancelQuantity: BigFloatFilter
-  shippedQuantity: BigFloatFilter
-  returnedQuantity: BigFloatFilter
-  replacementQuantity: BigFloatFilter
-  remainingQuantity: BigFloatFilter
-  openQuantity: BigFloatFilter
-  cancelClosed: BooleanFilter
-  settlementAmount: BigFloatFilter
+  transOperationsPlanId: UUIDFilter
+  transOrderDetailId: UUIDFilter
+  planStopped: BooleanFilter
+  planDiscontinued: BooleanFilter
+  orderStopped: BooleanFilter
+  orderCancelClosed: BooleanFilter
+  stopped: BooleanFilter
+  closed: BooleanFilter
+  registrable: BooleanFilter
+  transWorkPlanByTransWorkPlanIdExists: Boolean
+  transOperationsPlanByTransOperationsPlanIdExists: Boolean
   transOrderDetailByTransOrderDetailIdExists: Boolean
-  transOrderByTransOrderIdExists: Boolean
-  mstrItemByItemIdExists: Boolean
-  and: [VOrderDetailBalanceFilter!]
-  or: [VOrderDetailBalanceFilter!]
-  not: VOrderDetailBalanceFilter
+  and: [VWorkPlanRegistrableFilter!]
+  or: [VWorkPlanRegistrableFilter!]
+  not: VWorkPlanRegistrableFilter
 }

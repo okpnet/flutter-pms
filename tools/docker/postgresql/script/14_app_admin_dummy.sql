@@ -6,7 +6,7 @@
 -- tools/init/test_admin_init.bat が、担当者のコードを PocketBase のユーザーIDと同じ(大文字小文字を区別しない)
 -- ものから探して、PocketBase の app_user_id に設定する(無ければコード ADMIN)。
 --
--- ■ 実行順   05 → 06 → 07 → 08 → 09 → 10 → 11 → 12 → 13 → 本ファイル
+-- ■ 実行順   05 → 06 → 09 → 10 → 11 → 12 → 13 → 本ファイル
 --   ・10_mrp_dummy.sql は、担当者 ADMIN を作る。PocketBase の管理者のユーザーIDが admin なら、本ファイルは不要
 --   ・PocketBase の管理者のユーザーIDが admin 以外(例: administrator)のとき、同じコードの担当者を作る:
 --       psql -d test_avocado -v admin_code=ADMINISTRATOR -f 14_app_admin_dummy.sql

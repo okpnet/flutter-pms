@@ -1,0 +1,47 @@
+# purchase_detail_change_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #PurchaseDetailChangePageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation PurchaseDetailChangePageCall(
+  $pPurchaseDetailId: UUID
+  $pNewQuantity: BigFloat
+  $pNewPeriod: Datetime
+  $pChangeReasonId: UUID
+  $pReason: String
+  $pStakeholderId: UUID
+  $pStaffId: UUID
+  $pParentPlanChangeId: UUID
+  $pRemarks: String
+) {
+  purchaseDetailChange(
+    input: {
+      pPurchaseDetailId: $pPurchaseDetailId
+      pNewQuantity: $pNewQuantity
+      pNewPeriod: $pNewPeriod
+      pChangeReasonId: $pChangeReasonId
+      pReason: $pReason
+      pStakeholderId: $pStakeholderId
+      pStaffId: $pStaffId
+      pParentPlanChangeId: $pParentPlanChangeId
+      pRemarks: $pRemarks
+    }
+  ) {
+    transPlanChange {
+      transPlanChangeId
+      changeAt
+      oldQuantity
+      newQuantity
+      cancelQuantity
+      oldStop
+      newStop
+      discontinue
+      release
+      hold
+      scrap
+      deliver
+      transContainerId
+      symbol
+    }
+  }
+}

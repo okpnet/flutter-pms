@@ -23,28 +23,69 @@ PurchaseDetailBalancePage:
     - open_quantity
     - cancel_closed
 
-# ---- 更新(キャンセル・停止。計画変更の登録と一緒に行う。数量そのものは書き換えない) ----
+# ---- DB の関数(kind: function)。1回の呼び出し = 1トランザクション。本体の更新と計画変更の記録をまとめる ----
+# PostGraphile v4 は複数の mutation を巻き戻さないため、操作はクライアントの複数の mutation ではなく、この関数で行う。
+# 担当者は p_staff_id、省略時は JWT の staff_id。エラーは errcode で判定する(OPR00 担当者・マスタ / OPR01 対象 / OPR02 数量・引数 / OPR03 今の状態では不可、ほか VIS*)。
 
-# 発注明細のキャンセル数量(累計。0 ≤ cancel_quantity ≤ quantity)
-PurchaseDetailCancelPageEdit:
-  kind: edit
-  from: trans_purchase_detail
-  requiredWhere:
-    - trans_purchase_detail_id
+# 発注明細のキャンセル(一部・全部)。キャンセル数量を加算し、計画変更を記録する
+PurchaseDetailCancelPageCall:
+  kind: function
+  mutation: purchaseDetailCancel
+  returns: transPlanChange
   columns:
-    - trans_purchase_detail_id
+    - trans_plan_change_id
+    - change_at
+    - old_quantity
+    - new_quantity
     - cancel_quantity
-    - update_user_id
-    - update_user_history_id
+    - old_stop
+    - new_stop
+    - discontinue
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+    - symbol
 
-# 発注明細の停止・再開
-PurchaseDetailStopPageEdit:
-  kind: edit
-  from: trans_purchase_detail
-  requiredWhere:
-    - trans_purchase_detail_id
+# 発注明細の停止・再開。全部キャンセル済みは停止できない
+PurchaseDetailSetStopPageCall:
+  kind: function
+  mutation: purchaseDetailSetStop
+  returns: transPlanChange
   columns:
-    - trans_purchase_detail_id
-    - stop
-    - update_user_id
-    - update_user_history_id
+    - trans_plan_change_id
+    - change_at
+    - old_quantity
+    - new_quantity
+    - cancel_quantity
+    - old_stop
+    - new_stop
+    - discontinue
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+    - symbol
+
+# 発注明細の納期(p_new_period)・数量の変更。数量はキャンセル数量と受入済みの合計以上
+PurchaseDetailChangePageCall:
+  kind: function
+  mutation: purchaseDetailChange
+  returns: transPlanChange
+  columns:
+    - trans_plan_change_id
+    - change_at
+    - old_quantity
+    - new_quantity
+    - cancel_quantity
+    - old_stop
+    - new_stop
+    - discontinue
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+    - symbol

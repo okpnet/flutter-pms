@@ -5,7 +5,7 @@
 -- tools/init/test_user_init.bat が、管理者以外の担当者を PocketBase のユーザーに追加し、
 -- 担当者のID(info_staff_id、UUID)を app_user_id に入れる。username は担当者のコード(小文字)。
 --
--- ■ 実行順   05 → 06 → 07 → 08 → 09 → 10 → 11 → 12 → 13 → 14_app_admin_dummy.sql → 本ファイル
+-- ■ 実行順   05 → 06 → 09 → 10 → 11 → 12 → 13 → 14_app_admin_dummy.sql → 本ファイル
 --   ・TANAKA(田中 太郎)・SUZUKI(鈴木 一郎)・SATO(佐藤 花子)を作る
 --   ・既にあるコードの担当者は作らない(何度流しても同じ)。言語・会社は、無ければ作る
 --       psql -d test_avocado -f 15_user_dummy.sql

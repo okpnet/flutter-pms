@@ -1,0 +1,45 @@
+# order_detail_cancel_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #OrderDetailCancelPageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OrderDetailCancelPageCall(
+  $pOrderDetailId: UUID
+  $pQuantity: BigFloat
+  $pChangeReasonId: UUID
+  $pReason: String
+  $pStakeholderId: UUID
+  $pStaffId: UUID
+  $pParentPlanChangeId: UUID
+  $pRemarks: String
+) {
+  orderDetailCancel(
+    input: {
+      pOrderDetailId: $pOrderDetailId
+      pQuantity: $pQuantity
+      pChangeReasonId: $pChangeReasonId
+      pReason: $pReason
+      pStakeholderId: $pStakeholderId
+      pStaffId: $pStaffId
+      pParentPlanChangeId: $pParentPlanChangeId
+      pRemarks: $pRemarks
+    }
+  ) {
+    transPlanChange {
+      transPlanChangeId
+      changeAt
+      oldQuantity
+      newQuantity
+      cancelQuantity
+      oldStop
+      newStop
+      discontinue
+      release
+      hold
+      scrap
+      deliver
+      transContainerId
+      symbol
+    }
+  }
+}

@@ -570,6 +570,30 @@ type InfoDepartment {
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
 }
 
+type InventoryRequestHoldPayload {
+  transPlanChange: TransPlanChange
+}
+
+type InventoryRequestReleasePayload {
+  transPlanChange: TransPlanChange
+}
+
+type LotDeliverPayload {
+  transPlanChange: TransPlanChange
+}
+
+type LotHoldPayload {
+  transPlanChange: TransPlanChange
+}
+
+type LotReleasePayload {
+  transPlanChange: TransPlanChange
+}
+
+type LotScrapPayload {
+  transPlanChange: TransPlanChange
+}
+
 type MstrLocation {
   mstrLocationId: UUID!
   code: String
@@ -603,6 +627,12 @@ type Mutation {
   updateTransVisiterByTransVisiterId(input: UpdateTransVisiterByTransVisiterIdInput!): UpdateTransVisiterPayload
   updateTransWorkRecordByTransWorkRecordId(input: UpdateTransWorkRecordByTransWorkRecordIdInput!): UpdateTransWorkRecordPayload
   updateTransWorkRecordCertificateByTransWorkRecordCertificateId(input: UpdateTransWorkRecordCertificateByTransWorkRecordCertificateIdInput!): UpdateTransWorkRecordCertificatePayload
+  inventoryRequestHold(input: InventoryRequestHoldInput!): InventoryRequestHoldPayload
+  inventoryRequestRelease(input: InventoryRequestReleaseInput!): InventoryRequestReleasePayload
+  lotDeliver(input: LotDeliverInput!): LotDeliverPayload
+  lotHold(input: LotHoldInput!): LotHoldPayload
+  lotRelease(input: LotReleaseInput!): LotReleasePayload
+  lotScrap(input: LotScrapInput!): LotScrapPayload
   visiterAdjust(input: VisiterAdjustInput!): VisiterAdjustPayload
   visiterIssue(input: VisiterIssueInput!): VisiterIssuePayload
   visiterMove(input: VisiterMoveInput!): VisiterMovePayload
@@ -808,6 +838,23 @@ type TransLabelValue {
 
 type TransLabelValuesConnection {
   nodes: [TransLabelValue]!
+}
+
+type TransPlanChange {
+  transPlanChangeId: UUID!
+  changeAt: Datetime
+  oldQuantity: BigFloat
+  newQuantity: BigFloat
+  cancelQuantity: BigFloat
+  oldStop: Boolean
+  newStop: Boolean
+  discontinue: Boolean
+  release: Boolean
+  hold: Boolean
+  scrap: Boolean
+  deliver: Boolean
+  transContainerId: UUID
+  symbol: String
 }
 
 type TransPurchaseCertification {
@@ -1617,6 +1664,70 @@ input IntFilter {
   lessThanOrEqualTo: Int
   greaterThan: Int
   greaterThanOrEqualTo: Int
+}
+
+input InventoryRequestHoldInput {
+  pInventoryRequestId: UUID
+  pContainerId: UUID
+  pChangeReasonId: UUID
+  pReason: String
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+  pLocationId: UUID
+}
+
+input InventoryRequestReleaseInput {
+  pInventoryRequestId: UUID
+  pChangeReasonId: UUID
+  pReason: String
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+}
+
+input LotDeliverInput {
+  pVisiterId: UUID
+  pQuantity: BigFloat
+  pOrderDetailSettlementId: UUID
+  pChangeReasonId: UUID
+  pReason: String
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+  pLocationId: UUID
+}
+
+input LotHoldInput {
+  pVisiterId: UUID
+  pContainerId: UUID
+  pQuantity: BigFloat
+  pChangeReasonId: UUID
+  pReason: String
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+  pLocationId: UUID
+}
+
+input LotReleaseInput {
+  pVisiterId: UUID
+  pChangeReasonId: UUID
+  pReason: String
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+}
+
+input LotScrapInput {
+  pVisiterId: UUID
+  pQuantity: BigFloat
+  pChangeReasonId: UUID
+  pReason: String
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+  pLocationId: UUID
 }
 
 input MstrLocationFilter {
