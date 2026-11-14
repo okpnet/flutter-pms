@@ -29,9 +29,16 @@ dependencies:
   logger_provider:
     path: ../../infra/logger_provider
   slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  graphql: ^5.2.3
+  pms_graphql:
+    path: ../../infra/pms_graphql
+  shared_master_model:
+    path: ../../model_providers/shared_master_model
   uuid: ^4.6.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
 
 dev_dependencies:
+  data_test_harness:
+    path: ../../infra/data_test_harness
   theme_lib:
     path: ../../ui/theme_lib
   flutter_test:

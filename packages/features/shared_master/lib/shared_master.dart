@@ -2,4 +2,5 @@
 /// 他の機能が使う遷移先・命令の型は `shared_master_api.dart` を読み込む。
 library;
 
+export 'src/graphql/shared_master_repositories.dart' show sharedMasterRepositories;
 export 'src/shared_master_module.dart' show SharedMasterModule;
